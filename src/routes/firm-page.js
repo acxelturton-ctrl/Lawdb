@@ -42,6 +42,13 @@ async function feedPosts(env, slug) {
   }
 }
 
+// Every firm page gets a Follow button (next to Call / Website / Directions) and the small script that runs it.
+const withFollow = (res, slug) =>
+  new HTMLRewriter()
+    .on('div.li-actions', { element(el) { el.append(`<button class="li-btn li-ghost lw-fbtn" type="button" data-follow="${slug}">Follow</button>`, { html: true }); } })
+    .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })
+    .transform(res);
+
 export async function firmPage({ request, env, ctx }) {
   const url = new URL(request.url);
   const m = url.pathname.match(/^\/firms\/([a-z0-9][a-z0-9-]*?)\/?$/);
@@ -76,6 +83,7 @@ export async function firmPage({ request, env, ctx }) {
           .transform(res);
       }
     }
+    if (res.status === 200 && row && row.status === 'live') res = withFollow(res, m[1]);
     if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
     return res;
   }
@@ -90,14 +98,14 @@ export async function firmPage({ request, env, ctx }) {
     console.error('profile render failed', m[1], err);
     return env.ASSETS.fetch(request);
   }
-  const res = new Response(html, {
+  const res = withFollow(new Response(html, {
     headers: {
       'content-type': 'text/html; charset=utf-8',
       'cache-control': ttl > 0 ? `public, max-age=${ttl}` : 'no-cache',
       'x-content-type-options': 'nosniff',
       'x-lawdb-source': 'database',
     },
-  });
+  }), m[1]);
   if (ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
   return res;
 }

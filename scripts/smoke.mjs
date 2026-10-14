@@ -552,7 +552,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const labels = (h) => [...h.matchAll(/<a[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]);
   for (const f of ['index.html', 'firms/torkin-manes-llp.html', 'ontario/toronto/family-lawyers.html', 'ontario/immigration-lawyers.html', 'for-firms.html']) {
     const h = pageFile(f);
-    ok(isDeepStrictEqual(labels(navOf(h)), ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Request a Consultation']) && isDeepStrictEqual(labels(drawerOf(h)), ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Request a Consultation']), `${f}: the menu has three items and the consultation button`);
+    ok(isDeepStrictEqual(labels(navOf(h)), ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Request a Consultation']) && isDeepStrictEqual(labels(drawerOf(h)), ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Request a Consultation']), `${f}: the menu has three items, Sign in and the consultation button`);
     const firmsCol = (h.match(/<h4>For Law Firms<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
     ok(isDeepStrictEqual(labels(firmsCol), ['For Law Firms', 'List Your Firm (Free)', 'Get Featured', 'Manage Your Listing', 'Grow Your Practice']), `${f}: the footer's firms column has no repeats`);
     const clientsCol = (h.match(/<h4>For Clients<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
@@ -946,6 +946,66 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     }
     ok(searchDone && g.sitemapPuts.length === 4, 'the nightly run sent the sitemap and recorded success');
     google.close();
+  }
+
+  // following firms, saving stories, and the feed
+  {
+    const F = 'daniel-brown-law-llp';
+    cookie = '';
+    const anon = await call('GET', `/api/social/status?slugs=${F},torys-llp&posts=1`);
+    ok(anon.status === 200 && anon.data.signedIn === false && anon.data.follows[F].following === false && anon.data.follows[F].followers === 0, 'anyone can see follower counts; the status says nobody is signed in');
+    ok((await call('POST', '/api/account/follow', { slug: F })).status === 401 && (await call('GET', '/api/account/feed')).status === 401 && (await call('GET', '/api/account/following')).status === 401 && (await call('POST', '/api/account/saved', { postId: 1 })).status === 401, 'following, the feed and saving need sign-in');
+    as(adminJar);
+    await call('PATCH', `/api/admin/firms/${F}/feed`, { enabled: true });
+    as(o1.jar);
+    const f1 = await call('POST', '/api/account/follow', { slug: F });
+    ok(f1.status === 200 && f1.data.following === true && f1.data.followers === 1, 'a signed-in person can follow a firm');
+    ok((await call('POST', '/api/account/follow', { slug: F })).data.followers === 1, 'following twice counts once');
+    ok((await call('POST', '/api/account/follow', { slug: 'no-such-firm' })).status === 404 && (await call('POST', '/api/account/follow', { slug: '../x' })).status === 422 && (await call('POST', '/api/account/follow', {})).status === 422, 'unknown firms and odd names are refused');
+    as(o2.jar);
+    ok((await call('POST', '/api/account/follow', { slug: 'torys-llp' })).data.followers === 1 && (await call('POST', '/api/account/follow', { slug: F })).data.followers === 2, 'a second person follows too and the count goes up');
+    ok((await call('GET', '/api/account/following')).data.firms.map((f) => f.slug).sort().join() === `${F},torys-llp`.split(',').sort().join(), 'each person sees their own follows');
+    as(o1.jar);
+    ok(isDeepStrictEqual((await call('GET', '/api/account/following')).data.firms.map((f) => f.slug), [F]), 'and not other people\'s');
+    const st = await call('GET', `/api/social/status?slugs=${F},torys-llp`);
+    ok(st.data.signedIn && st.data.follows[F].following && st.data.follows[F].followers === 2 && st.data.follows['torys-llp'].following === false && st.data.follows['torys-llp'].followers === 1, 'the buttons know who follows what, and the totals');
+    const fd = await call('GET', '/api/account/feed');
+    ok(fd.status === 200 && fd.data.stories.length >= 3 && fd.data.stories.every((x) => x.firm.slug === F && new RegExp(`^/news/${F}/[a-z0-9-]+-\\d+$`).test(x.href)), 'the feed holds the followed firm\'s stories, each with its own page address');
+    const sid = fd.data.stories[0].id;
+    ok((await call('POST', '/api/account/saved', { postId: sid })).data.saved === true && (await call('POST', '/api/account/saved', { postId: sid })).status === 200, 'a story can be saved (saving twice is fine)');
+    ok((await call('GET', '/api/account/saved')).data.stories.some((x) => x.id === sid && x.saved) && (await call('GET', '/api/account/feed')).data.stories.find((x) => x.id === sid).saved === true && (await call('GET', `/api/social/status?posts=${sid}`)).data.saved[sid] === true, 'saved stories are listed and marked everywhere');
+    as(o2.jar);
+    ok((await call('GET', '/api/account/saved')).data.stories.length === 0, 'saved stories are private');
+    as(o1.jar);
+    ok((await call('POST', '/api/account/saved', { postId: 99999999 })).status === 404 && (await call('POST', '/api/account/saved', { postId: 'x' })).status === 422, 'unknown stories and odd input are refused');
+    ok((await call('DELETE', `/api/account/saved/${sid}`)).data.saved === false && (await call('GET', '/api/account/saved')).data.stories.length === 0, 'a saved story can be removed');
+    ok((await call('DELETE', `/api/account/follow/${F}`)).data.followers === 1 && (await call('GET', '/api/account/feed')).data.stories.length === 0, 'unfollowing lowers the count and empties the feed');
+    ok((await call('POST', '/api/account/follow', { slug: F }, { origin: 'https://evil.example' })).status === 403, 'follow actions from other sites are refused');
+    cookie = '';
+    const fp = (await getRaw('/firms/torys-llp')).text;
+    ok(fp.includes('data-follow="torys-llp"') && fp.includes('<script src="/follow.js" defer></script>'), 'a hand-built firm page carries the Follow button');
+    as(adminJar);
+    await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'dynamic' });
+    cookie = '';
+    const dp = await getRaw('/firms/achkar-law');
+    ok(dp.headers.get('x-lawdb-source') === 'database' && dp.text.includes('data-follow="achkar-law"') && dp.text.includes('/follow.js'), 'a database-built firm page carries it too');
+    as(adminJar);
+    await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' });
+    cookie = '';
+    const jsf = await getRaw('/follow.js');
+    ok(jsf.status === 200 && /javascript/.test(jsf.headers.get('content-type') || '') && !/eval\(|document\.write|innerHTML/.test(jsf.text), 'the Follow script is plain and never builds markup from data');
+    const nw = (await getRaw('/news')).text;
+    ok(nw.includes(`data-follow="${F}"`) && /data-save="\d+"/.test(nw) && nw.includes('/follow.js'), 'LawDB News cards carry Follow and Save');
+    const sp = (await getRaw(fd.data.stories[0].href)).text;
+    ok(sp.includes(`data-follow="${F}"`) && sp.includes(`data-save="${sid}"`), 'story pages carry Follow and Save');
+    // limits: a new person cannot follow endlessly
+    const robot = await signUp(`social-${run}@example.com`, `203.0.113.${1 + Math.floor(Math.random() * 250)}`);
+    as(adminJar);
+    const many = (await call('GET', '/api/admin/firms?limit=100')).data.firms.map((x) => x.slug).filter((x) => x !== F).slice(0, 62);
+    as(robot.jar);
+    let okCount = 0; let limited = 0;
+    for (const slug of many) { const r = await call('POST', '/api/account/follow', { slug }); if (r.status === 200) okCount++; else if (r.status === 429) limited++; }
+    ok(okCount === 60 && limited === many.length - 60, 'following is limited to 60 new firms an hour per person');
   }
 
   // put the shared test firm back as it was

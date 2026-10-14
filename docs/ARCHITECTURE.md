@@ -178,6 +178,15 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - The News page opens a story over the page: a `<dialog>` loads `<story address>?partial=1` (just the story, `X-Robots-Tag: noindex`) and pushes the story's own address into the browser history, so Back or Escape closes it and the link can be shared. Without JavaScript the cards are ordinary links to the story pages.
 - Up to 20 stories per firm are kept (was 6) so story pages live for weeks; a story that rotates off, or a firm whose cards are switched off, returns 404. `/sitemap-news.xml` lists every story; `robots.txt` announces it and the nightly Search Console run submits it.
 
+## Following, saving and the feed
+
+- Any signed-in person (the same passwordless accounts as firm owners) can **follow a firm** (its LawDB listing) and **save a story**. Tables `follows` and `saved_stories` (migration 0015, included in the nightly backup). Follows and saves are private; the only public number is how many people follow a firm.
+- API (`src/routes/social.js`): `GET /api/social/status?slugs=..&posts=..` (public; says who is looking, which of those firms they follow with totals, which stories they saved), `POST /api/account/follow {slug}`, `DELETE /api/account/follow/:slug`,
+  `GET /api/account/following`, `GET /api/account/feed` (latest 40 stories of followed firms), `GET|POST /api/account/saved`, `DELETE /api/account/saved/:id`. Limits: 500 follows, 500 saves, 60 new follows or saves per person per hour. Only live firms and stories of firms with cards switched on can be followed or saved.
+- Buttons: `/follow.js` turns any `data-follow="<slug>"` or `data-save="<story id>"` element into a Follow or Save button. Firm pages (hand-built and database-built) get a Follow button next to Call / Website / Directions injected at the edge (`withFollow` in `src/routes/firm-page.js`); LawDB News cards and story pages carry Follow and Save. Signed-out visitors are sent to `/account/` and the action is finished after they sign in (`localStorage.lawdb_pending`).
+- `/account/` has tabs Feed, Following, Saved, My firms. People who do not manage a firm land on Feed. The header menu has a "Sign in" link on every page.
+- Not built yet (ideas, in order): a weekly email of new stories from the firms you follow, lawyers' own posts on LawDB, follower lists with consent.
+
 ## Safeguards (hardening pass)
 
 - **Ownership signal:** the Approvals card compares the claimant's email domain with the firm's website

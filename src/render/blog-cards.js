@@ -44,6 +44,8 @@ export const BLOG_CSS = `<style>
 .lw-feed .lw-bc summary{font-size:14px;padding:6px 0}
 .lw-feed .lw-bc .lw-go{padding:11px 16px;font-size:14px;border-radius:8px}
 /* the lead story: picture and text side by side on a wide screen */
+.lw-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:4px}
+.lw-bc-head .lw-fbtn{margin-left:auto;flex:none}
 .lw-feed .lw-hero{grid-column:1/-1}
 .lw-feed .lw-hero h3{font-size:clamp(24px,2.4vw,38px);line-height:1.15}
 .lw-feed .lw-hero p{font-size:clamp(16px,1.2vw,18.5px)}
@@ -81,10 +83,10 @@ export function cardHtml(p, { byline = '', head = null, hero = false } = {}) {
     ? `<a class="lw-bc-img" href="${esc(here.href)}"${here.extra} tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="640" height="360" onerror="this.parentNode.remove()"></a>`
     : '';
   const top = head
-    ? `<div class="lw-bc-head"><span class="lw-av">${head.avatar}</span><span class="lw-who">${head.who}${date ? `<time>${esc(date)}</time>` : ''}</span></div>`
+    ? `<div class="lw-bc-head"><span class="lw-av">${head.avatar}</span><span class="lw-who">${head.who}${date ? `<time>${esc(date)}</time>` : ''}</span>${head.action || ''}</div>`
     : '';
   const action = p.storyHref
-    ? `<a class="lw-go" style="align-self:flex-start;margin-top:4px" href="${esc(p.storyHref)}" data-story>Read the story &rarr;</a>`
+    ? `<div class="lw-row"><a class="lw-go" href="${esc(p.storyHref)}" data-story>Read the story &rarr;</a>${p.id ? `<button class="lw-sbtn" type="button" data-save="${Number(p.id)}">Save</button>` : ''}</div>`
     : more
       ? `<details><summary>Read more</summary><p class="lw-more">${esc(p.excerpt)}</p><a class="lw-go" href="${esc(p.url)}" target="_blank" rel="noopener">Read the full article on ${esc(host)} &rarr;</a></details>`
       : `<a class="lw-go" style="align-self:flex-start;margin-top:4px" href="${esc(p.url)}" target="_blank" rel="noopener">Read on ${esc(host)} &rarr;</a>`;

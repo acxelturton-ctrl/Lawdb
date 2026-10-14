@@ -8,7 +8,11 @@ export const BLOG_CSS = `<style>
 .lw-blog h2{font-size:18px;margin:0 0 4px}
 .lw-blog .lw-blog-sub{margin:0 0 12px;color:#6b645a;font-size:13px}
 .lw-bc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
-.lw-bc{background:#fff;border:1px solid #e4ded3;border-radius:10px;padding:16px 16px 14px;display:flex;flex-direction:column;gap:6px}
+.lw-bc{background:#fff;border:1px solid #e4ded3;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.lw-bc-img{display:block;aspect-ratio:16/9;background:#f1ece2;overflow:hidden}
+.lw-bc-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .25s ease}
+.lw-bc:hover .lw-bc-img img{transform:scale(1.03)}
+.lw-bc-in{padding:14px 16px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
 .lw-bc time{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:#8f8a80;font-weight:600}
 .lw-bc h3{margin:0;font-size:15.5px;line-height:1.3}
 .lw-bc h3 a{color:inherit;text-decoration:none}.lw-bc h3 a:hover{text-decoration:underline}
@@ -41,12 +45,16 @@ export function cardHtml(p, { byline = '' } = {}) {
   try { host = new URL(p.url).hostname.replace(/^www\./, ''); } catch {}
   const more = p.excerpt && p.excerpt.length > 170;
   const date = fmtDate(p.publishedAt);
-  return `<article class="lw-bc">${byline}${date ? `<time>${esc(date)}</time>` : ''}<h3><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></h3>` +
+  // The picture is the one the firm chose for the article, loaded from their own site; if it cannot load the card just drops it.
+  const pic = p.image && safePostUrl(p.image)
+    ? `<a class="lw-bc-img" href="${esc(p.url)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="640" height="360" onerror="this.parentNode.remove()"></a>`
+    : '';
+  return `<article class="lw-bc">${pic}<div class="lw-bc-in">${byline}${date ? `<time>${esc(date)}</time>` : ''}<h3><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></h3>` +
     (p.excerpt ? `<p class="lw-teaser">${esc(teaser(p.excerpt))}</p>` : '') +
     (more
       ? `<details><summary>Read more</summary><p class="lw-more">${esc(p.excerpt)}</p><a class="lw-go" href="${esc(p.url)}" target="_blank" rel="noopener">Read the full article on ${esc(host)} &rarr;</a></details>`
       : `<a class="lw-go" style="align-self:flex-start;margin-top:4px" href="${esc(p.url)}" target="_blank" rel="noopener">Read on ${esc(host)} &rarr;</a>`) +
-    '</article>';
+    '</div></article>';
 }
 
 export const safePostUrl = (u) => /^https:\/\//.test(u) || /^http:\/\/127\.0\.0\.1/.test(u);

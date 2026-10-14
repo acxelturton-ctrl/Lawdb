@@ -6,7 +6,7 @@ import zlib from 'node:zlib';
 import { isDeepStrictEqual } from 'node:util';
 import { emailMatch } from '../src/routes/admin.js';
 import { checkOwnerText } from '../src/lib/content-rules.js';
-import { parseFeed, parseWpPosts, plain as feedPlain, checkFeedUrl } from '../src/lib/feeds.js';
+import { parseFeed, parseWpPosts, plain as feedPlain, checkFeedUrl, cleanImageUrl, wpPostsUrlWithImages } from '../src/lib/feeds.js';
 import http from 'node:http';
 
 const BASE = process.env.BASE || 'http://localhost:8799';
@@ -351,18 +351,18 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const longText = 'The roadside stop is only the beginning of a long process that affects licences insurance and records. '.repeat(12);
   let origin = '';
   const rss = () => `<?xml version="1.0"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>${origin}/</link>
-<item><title>Charged With Impaired Driving: What Happens Next</title><link>${origin}/blog/impaired</link><guid>g1</guid><pubDate>${days(1)}</pubDate><description><![CDATA[<p>${longText}</p><p>The post Charged With Impaired Driving appeared first on Some Firm.</p>]]></description></item>
-<item><title>Tom &amp; Jerry's Guide</title><link>${origin}/blog/guide</link><guid>g2</guid><pubDate>${days(2)}</pubDate><description>Short and sweet summary.</description></item>
+<item><title>Charged With Impaired Driving: What Happens Next</title><link>${origin}/blog/impaired</link><guid>g1</guid><pubDate>${days(1)}</pubDate><description><![CDATA[<p>${longText}</p><p>The post Charged With Impaired Driving appeared first on Some Firm.</p>]]></description><media:content url="${origin}/img/a.jpg" medium="image" xmlns:media="http://search.yahoo.com/mrss/"/></item>
+<item><title>Tom &amp; Jerry's Guide</title><link>${origin}/blog/guide</link><guid>g2</guid><pubDate>${days(2)}</pubDate><description><![CDATA[Short and sweet summary.<img src="${origin}/img/b.jpg" width="600" height="300">]]></description></item>
 <item><title>Elsewhere</title><link>https://evil.example/steal</link><guid>g3</guid><pubDate>${days(3)}</pubDate><description>Off-site link.</description></item>
-<item><title><![CDATA[<script>alert(1)</script>Scripted headline]]></title><link>${origin}/blog/script</link><guid>g4</guid><pubDate>${days(4)}</pubDate><description><![CDATA[Hello <img src=x onerror=alert(1)> world]]></description></item>
+<item><title><![CDATA[<script>alert(1)</script>Scripted headline]]></title><link>${origin}/blog/script</link><guid>g4</guid><pubDate>${days(4)}</pubDate><description><![CDATA[Hello <img src="javascript:alert(1)" onerror=alert(1)> <img src="data:image/png;base64,AAAA"> world]]></description></item>
 <item><title>Bad link</title><link>javascript:alert(1)</link><guid>g5</guid><pubDate>${days(5)}</pubDate><description>x</description></item>
-<item><title>Older one</title><link>${origin}/blog/older</link><guid>g6</guid><pubDate>${days(20)}</pubDate><content:encoded><![CDATA[<p>${longText.repeat(6)}</p>]]></content:encoded></item>
-<item><title>Oldest one</title><link>${origin}/blog/oldest</link><guid>g7</guid><pubDate>${days(40)}</pubDate><description>Oldest.</description></item></channel></rss>`;
+<item><title>Older one</title><link>${origin}/blog/older</link><guid>g6</guid><pubDate>${days(20)}</pubDate><content:encoded><![CDATA[<p>${longText.repeat(6)}</p><img src="${origin}/img/same.jpg">]]></content:encoded></item>
+<item><title>Oldest one</title><link>${origin}/blog/oldest</link><guid>g7</guid><pubDate>${days(40)}</pubDate><description><![CDATA[Oldest.<img src="${origin}/img/same.jpg">]]></description></item></channel></rss>`;
   let wpOn = false;
   let feedBroken = false;
   const wpJson = () => JSON.stringify([
-    { id: 901, date: new Date(Date.now() - 3600000).toISOString().slice(0, 19), link: `${origin}/2026/news-one/`, title: { rendered: 'WordPress &#8211; Post One &amp; Co' }, excerpt: { rendered: '<p>First WordPress excerpt about wills &hellip; and more text that goes on for a while so that it is long enough to expand into a longer preview on the card when somebody taps read more, which is what we want.</p>\n' } },
-    { id: 902, date: new Date(Date.now() - 86400000).toISOString().slice(0, 19), link: `${origin}/2026/news-two/`, title: { rendered: 'Post Two' }, excerpt: { rendered: '' } },
+    { id: 901, date: new Date(Date.now() - 3600000).toISOString().slice(0, 19), link: `${origin}/2026/news-one/`, title: { rendered: 'WordPress &#8211; Post One &amp; Co' }, _embedded: { 'wp:featuredmedia': [{ source_url: `${origin}/img/wp-full.jpg`, media_details: { width: 1600, sizes: { medium_large: { source_url: `${origin}/img/wp-768.jpg` } } } }] }, excerpt: { rendered: '<p>First WordPress excerpt about wills &hellip; and more text that goes on for a while so that it is long enough to expand into a longer preview on the card when somebody taps read more, which is what we want.</p>\n' } },
+    { id: 902, date: new Date(Date.now() - 86400000).toISOString().slice(0, 19), link: `${origin}/2026/news-two/`, title: { rendered: 'Post Two' }, jetpack_featured_media_url: `${origin}/img/jp.jpg`, excerpt: { rendered: '' } },
     { id: 903, date: new Date(Date.now() - 2 * 86400000).toISOString().slice(0, 19), link: 'https://evil.example/x', title: { rendered: 'Off-site' }, excerpt: { rendered: 'no' } },
   ]);
   const fixtureServer = http.createServer((req, res) => {
@@ -391,6 +391,12 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(ap.length === 1 && ap[0].url === 'https://www.firm.ca/blog/a' && ap[0].excerpt === 'An atom summary', 'Atom feeds work too');
   const wpParsed = parseWpPosts(JSON.parse(wpJson()), { feedUrl: origin + '/wp-json/wp/v2/posts', siteUrl: origin, allowLocal: true });
   ok(wpParsed.length === 2 && !wpParsed.some((x) => /evil/.test(x.url)), 'WordPress posts: only the firm\'s own links are kept');
+  ok(wpParsed[0].image === origin + '/img/wp-768.jpg' && wpParsed[1].image === origin + '/img/jp.jpg', 'WordPress posts: the featured picture is found (a good size first)');
+  ok(parsed.find((x) => x.guid === 'g1').image === origin + '/img/a.jpg' && parsed.find((x) => x.guid === 'g2').image === origin + '/img/b.jpg', 'feeds: pictures come from media tags or the post\'s own first picture');
+  ok(parsed.find((x) => x.guid === 'g4').image === null && parsed.find((x) => x.guid === 'g6').image === null && parsed.find((x) => x.guid === 'g7').image === null, 'script/data addresses and a picture repeated on several posts (a stand-in) are left out');
+  ok(cleanImageUrl('http://firm.ca/a.jpg', 'https://firm.ca/') === 'https://firm.ca/a.jpg' && cleanImageUrl('/wp-content/a.png?x=1', 'https://firm.ca/blog/') === 'https://firm.ca/wp-content/a.png?x=1' && cleanImageUrl('//cdn.firm.ca/a.webp', 'https://firm.ca/') === 'https://cdn.firm.ca/a.webp', 'picture addresses are tidied: https, relative and protocol-relative forms work');
+  ok(['javascript:alert(1)', 'data:image/png;base64,AAAA', 'https://127.0.0.1/a.jpg', 'https://10.0.0.1/a.jpg', 'https://user:pw@firm.ca/a.jpg', 'https://firm.ca/a.svg', 'https://firm.ca/pixel.png', 'https://firm.ca:8443/a.jpg', '', null].every((u) => cleanImageUrl(u, 'https://firm.ca/') === null), 'unsafe or useless picture addresses are refused');
+  ok(wpPostsUrlWithImages('https://firm.ca/wp-json/wp/v2/posts?per_page=6&_fields=id,date,link,title,excerpt').includes('_embed=wp%3Afeaturedmedia'), 'WordPress is asked for featured pictures');
   ok(wpParsed[0].title === 'WordPress \u2013 Post One & Co' && !/[<>]/.test(wpParsed[0].excerpt) && /wills/.test(wpParsed[0].excerpt), 'WordPress posts: headlines and excerpts are clean text');
   ok(parseWpPosts([{ id: 1, date: '2022-01-05T16:07:11', link: 'https://weaversimmons.com/a/', title: { rendered: 'T' } }], { feedUrl: 'https://www.weaversimmons.com/wp-json/wp/v2/posts', siteUrl: 'http://www.weaversimmons.com/' }).length === 1, 'a site with and without www is the same site');
   ok(parseWpPosts({ not: 'an array' }, { feedUrl: 'https://a.ca/x', siteUrl: 'https://a.ca' }).length === 0, 'a reply that is not a post list yields nothing');
@@ -409,6 +415,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(cardCount === 3 && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="from-firm"') && featPage.indexOf('class="lw-blog"') < featPage.indexOf('class="fine"'), 'three cards sit between "From the Firm" and the fine print');
   ok(featPage.includes('Charged With Impaired Driving') && featPage.includes('Tom &amp; Jerry&#x27;s Guide') && !featPage.includes('evil.example') && !featPage.includes('<script>alert') && !featPage.includes('onerror=alert'), 'card text is escaped and off-site links never appear');
   ok(featPage.includes(`href="${origin}/blog/impaired"`) && featPage.includes('<details><summary>Read more</summary>') && featPage.includes('Read the full article on 127.0.0.1'), 'each card expands and links to the full article on the firm\'s site');
+  ok(featPage.includes(`<img src="${origin}/img/a.jpg"`) && featPage.includes('class="lw-bc-img"') && /referrerpolicy="no-referrer"/.test(featPage) && /loading="lazy"/.test(featPage) && !featPage.includes('javascript:alert') && !featPage.includes('data:image'), 'cards show the article picture (lazy, no referrer) and never an unsafe address');
   ok(!(await getRaw('/firms/torkin-manes-llp')).text.includes('class="lw-blog"'), 'other firms are not affected');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: false })).status === 200 && !(await getRaw('/firms/' + featSlug)).text.includes('class="lw-blog"'), 'switching a firm\'s cards off removes them');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: true })).status === 200 && (await getRaw('/firms/' + featSlug)).text.includes('class="lw-blog"'), 'and back on');
@@ -466,6 +473,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(!news.text.includes('Back to results'), 'the News page header has no stray "Back to results" link');
   ok(/Daniel Brown Law LLP<\/a><span class="lw-ft">Featured<\/span>/.test(news.text) && !/Achkar Law<\/a><span class="lw-ft">/.test(news.text), 'only Featured firms carry the Featured badge');
   ok(news.text.includes('<details><summary>Read more</summary>') && news.text.includes(`href="${origin}/blog/impaired"`) && !news.text.includes('evil.example') && !news.text.includes('<script>alert') && !news.text.includes('onerror=alert'), 'cards expand, link to the firm\'s own site, and nothing unsafe gets in');
+  ok(news.text.includes(`<img src="${origin}/img/a.jpg"`) && news.text.includes('aspect-ratio:16/9'), 'LawDB News cards carry the article pictures');
   ok(news.text.includes('/legal-news.html?firm=achkar-law') && news.text.includes('aria-current="true">All firms'), 'there are filters by firm');
   const only = await getRaw('/legal-news.html?firm=achkar-law');
   ok((only.text.match(/<article class="lw-bc">/g) || []).length === 5 && !only.text.includes('Daniel Brown Law LLP</a><span'), 'a firm filter shows only that firm\'s cards');

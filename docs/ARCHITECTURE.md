@@ -117,6 +117,11 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
   20 uploads per person per hour, owner descriptions pass the content rules. Pictures are served with `nosniff` and a sandboxing CSP.
 - Admins can manage any firm's pictures; owners only their own. Every add/remove is in the activity log. The backup includes the `firm_images` rows; the files are in the bucket.
 
+- **Card pictures** (migration 0011, `firm_posts.image_url`): the picture the firm chose for each article. WordPress: the featured image (`_embed=wp:featuredmedia`, a medium-large size first, `jetpack_featured_media_url` as a backup;
+  sites that refuse `_embed` are read the plain way). RSS/Atom: `media:content`, `media:thumbnail`, an image `enclosure`, else the first picture inside the item. Only the **address** is stored, never the file; it is loaded by the
+  visitor's browser from the firm's own site (lazy, no referrer, 16:9 crop, dropped if it fails to load). Addresses must be public https (http is upgraded), no logins, no SVG/GIF, no tracking pixels; a picture repeated on several
+  posts of one blog (a stand-in or logo) is ignored.
+
 ## LawDB News and the menu
 
 - **LawDB News** (`/legal-news.html`, rendered by `src/routes/news-page.js` + `src/render/news-page.js`) is the page of member firms' blog cards: firm name (Featured badge), date, headline, a short preview that expands,

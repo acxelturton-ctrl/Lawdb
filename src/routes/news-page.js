@@ -15,7 +15,7 @@ export const getSetting = async (env, key, fallback = '') => {
 async function loadPosts(env) {
   const featuredOnly = (await getSetting(env, 'news_featured_only', '0')) === '1';
   const { results } = await env.DB.prepare(
-    `SELECT p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, p.title, p.url, p.published_at AS publishedAt, p.excerpt
+    `SELECT p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image
      FROM firm_posts p JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live'
      ${featuredOnly ? 'WHERE f.featured = 1' : ''}
      ORDER BY p.published_at DESC, p.id DESC LIMIT 60`

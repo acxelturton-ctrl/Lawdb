@@ -20,7 +20,7 @@ Canadian lawyer directory. Static pages served by Cloudflare, plus a Worker API 
 - `GET /api/blog?province=ON`
 - `POST /api/leads` (JSON or form-encoded: `name`, `email` required; `phone`, `message`, `form`, `page` optional; any extra fields are kept)
 - `POST /api/stripe/webhook` (Stripe only; signature-checked)
-- `POST /api/auth/request-link`, `POST /api/auth/verify`, `POST /api/auth/logout`, `GET /api/auth/me`
+- `GET /api/auth/{providers,google/start,google/callback,linkedin/start,linkedin/callback}`, `PATCH /api/account/profile`, `POST /api/auth/request-link`, `POST /api/auth/verify`, `POST /api/auth/logout`, `GET /api/auth/me`
 - `GET /api/admin/{stats,leads,firms,firms/:slug,audit}`, `POST /api/admin/firms` (create a firm), `GET /api/admin/{members,users}`, `PATCH /api/admin/{leads/:id,firms/:slug,members/:id,users/:id}`, `POST /api/admin/{audit/:id/revert,backup}`, `GET /api/admin/payments`, `POST /api/admin/payments/:id/{assign,dismiss}`, `GET|PATCH /api/admin/news`, `GET /api/admin/search`, `POST /api/admin/search/{run,inspect}`, `GET|PATCH /api/admin/firms/:slug/feed`, `POST /api/admin/firms/:slug/feed/refresh`, `GET|POST|DELETE /api/admin/firms/:slug/images[/:id]` (admins only)
 - `GET /api/social/status`, `GET /api/account/{following,feed,saved}`, `POST /api/account/{follow,saved}`, `DELETE /api/account/{follow,saved}/:id`, `GET /api/account/{me,search,firms/:slug,firms/:slug/leads}`, `POST /api/account/{claims,firms}`, `PATCH /api/account/{firms/:slug,leads/:id}`, `GET /api/account/firms/:slug/plan`, `GET|PATCH /api/account/firms/:slug/feed`, `POST /api/account/firms/:slug/feed/refresh`, `GET|POST|DELETE /api/account/firms/:slug/images[/:id]` (signed-in firm owners; firm routes need an approved membership)
 

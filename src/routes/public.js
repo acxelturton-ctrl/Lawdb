@@ -1,5 +1,7 @@
 import { json, cached, clampInt, HttpError, isEmail } from '../lib/http.js';
-import { mailInBackground, leadEmail } from '../lib/email.js';
+import { mailInBackground, leadEmail, reportEmail } from '../lib/email.js';
+import { sha256Hex } from '../lib/crypto.js';
+import { adminEmails } from '../lib/auth.js';
 
 export async function listFirms({ url, env }) {
   const p = url.searchParams;
@@ -40,6 +42,7 @@ export async function listBlog({ url, env }) {
 
 const LIMITS = { name: 200, phone: 50, message: 5000, page: 300, field: 2000, fields: 40 };
 const MAX_LEAD_EMAILS_PER_FIRM_HOUR = 20;
+const MAX_LEADS_PER_IP_HOUR = 15;
 const RESERVED = new Set(['access_key', 'botcheck', 'name', 'email', 'phone', 'message', 'form', 'page']);
 
 export async function createLead({ request, env, url, exec }) {
@@ -73,7 +76,11 @@ export async function createLead({ request, env, url, exec }) {
     if (typeof v === 'string') extra[k.slice(0, 60)] = v.slice(0, LIMITS.field);
   }
 
-  // Basic throttle: max 5 submissions per email per 10 minutes.
+  // Throttles: 5 submissions per email per 10 minutes, and 15 per requester address per hour
+  // (a stored one-way hash, wiped after 7 days). A bot cycling fake emails still hits the second limit.
+  const ipHash = await sha256Hex('ip:' + (request.headers.get('cf-connecting-ip') || 'local'));
+  const fromIp = await env.DB.prepare("SELECT COUNT(*) AS n FROM leads WHERE ip_hash = ? AND created_at > datetime('now','-1 hour')").bind(ipHash).first();
+  if (fromIp && fromIp.n >= MAX_LEADS_PER_IP_HOUR) throw new HttpError(429, 'Too many submissions, please try again later');
   const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM leads WHERE email = ? AND created_at > datetime('now','-10 minutes')")
     .bind(email)
     .first();
@@ -83,9 +90,16 @@ export async function createLead({ request, env, url, exec }) {
   const firmSlug = str(input.firm, 100);
   const firm = firmSlug ? await env.DB.prepare("SELECT slug, name FROM firms WHERE slug = ? AND status = 'live'").bind(firmSlug).first() : null;
 
-  await env.DB.prepare('INSERT INTO leads (form,name,email,phone,message,payload,page,firm_slug) VALUES (?,?,?,?,?,?,?,?)')
-    .bind(form, name, email, phone || null, message || null, JSON.stringify(extra), page || null, firm ? firm.slug : null)
+  await env.DB.prepare('INSERT INTO leads (form,name,email,phone,message,payload,page,firm_slug,ip_hash) VALUES (?,?,?,?,?,?,?,?,?)')
+    .bind(form, name, email, phone || null, message || null, JSON.stringify(extra), page || null, firm ? firm.slug : null, ipHash)
     .run();
+
+  // A report about a listing goes to the admin, never to the firm it is about.
+  if (form === 'report-listing') {
+    const to = [...adminEmails(env)];
+    if (to.length) mailInBackground(env, exec, { to, ...reportEmail(env.SITE_ORIGIN || url.origin, { slug: extra.reportedFirm, reason: extra.reason, name, email, message }) });
+    return json({ ok: true }, 201);
+  }
 
   // Tell the firm's approved owners right away. Capped per firm per hour so a flood of fake
   // enquiries cannot turn into a flood of email (every enquiry is still saved and shown in the dashboard).

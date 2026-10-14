@@ -49,6 +49,8 @@ export async function search({ request, env, url }) {
 }
 
 function contactFrom(body) {
+  // Everyone who manages a firm confirms they are authorised and accept the firm terms; the time is recorded.
+  if (body.acceptTerms !== true) throw new HttpError(422, 'Please confirm that you are authorised to manage this firm and accept the Terms for firms.');
   return {
     contactName: str(body.contactName, 2, 100),
     jobTitle: 'jobTitle' in body ? str(body.jobTitle, 0, 100) : '',
@@ -73,7 +75,7 @@ export async function claim({ request, env, url, exec }) {
     throw new HttpError(409, existing.status === 'approved' ? 'You already manage this firm.' : existing.status === 'pending' ? 'Your request is already waiting for approval.' : 'Your earlier request was declined. Contact info@lawdb.ca if that was a mistake.');
   }
   await assertRoomForRequest(env, user);
-  await env.DB.prepare('INSERT INTO firm_members (user_id, firm_slug, contact_name, job_title, message) VALUES (?,?,?,?,?)')
+  await env.DB.prepare("INSERT INTO firm_members (user_id, firm_slug, contact_name, job_title, message, terms_accepted_at) VALUES (?,?,?,?,?,datetime('now'))")
     .bind(user.id, firm.slug, contact.contactName, contact.jobTitle || null, contact.message || null).run();
   await audit(env, user, 'member.claim', 'firm', firm.slug, { contactName: contact.contactName });
   notifyAdmins(env, exec, env.SITE_ORIGIN || url.origin, { email: user.email, ...contact, firmName: firm.name, city: firm.city, isNew: false });
@@ -92,11 +94,11 @@ export async function createListing({ request, env, url, exec }) {
     .bind(String(body.name || '').trim(), String(body.city || '').trim()).first();
   if (dupe) return reply({ error: 'This firm is already listed. Search for it and claim it instead.', slug: dupe.slug }, 409);
 
-  const probe = await prepareNewFirm(env, body, {}); // validates everything first
+  const probe = await prepareNewFirm(env, body, { checkText: true }); // validates everything first
   const coords = await geocode(env, { address: probe.firm.address, city: probe.firm.city, province: probe.firm.province });
   const built = coords ? { ...probe, firm: { ...probe.firm, lat: coords.lat, lng: coords.lng } } : probe;
   await insertFirm(env, built, { status: 'pending', createdBy: user.id });
-  await env.DB.prepare('INSERT INTO firm_members (user_id, firm_slug, contact_name, job_title, message) VALUES (?,?,?,?,?)')
+  await env.DB.prepare("INSERT INTO firm_members (user_id, firm_slug, contact_name, job_title, message, terms_accepted_at) VALUES (?,?,?,?,?,datetime('now'))")
     .bind(user.id, built.firm.slug, contact.contactName, contact.jobTitle || null, contact.message || null).run();
   await audit(env, user, 'member.create_listing', 'firm', built.firm.slug, { name: built.firm.name, city: built.firm.city });
   notifyAdmins(env, exec, env.SITE_ORIGIN || url.origin, { email: user.email, ...contact, firmName: built.firm.name, city: built.firm.city, isNew: true });

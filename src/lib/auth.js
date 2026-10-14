@@ -45,12 +45,15 @@ export async function destroySession(env, request) {
 export async function getUser(env, request) {
   const token = readCookie(request, cookieName(request));
   if (!token || !/^[0-9a-f]{64}$/.test(token)) return null;
-  return env.DB.prepare(
+  const user = await env.DB.prepare(
     `SELECT u.id, u.email, u.role FROM sessions s JOIN users u ON u.id = s.user_id
      WHERE s.token_hash = ? AND s.expires_at > datetime('now') AND u.disabled = 0`
   )
     .bind(await sha256Hex(token))
     .first();
+  // ADMIN_EMAILS is the single source of truth: an address taken off the list stops being an admin at once.
+  if (user && user.role === 'admin' && !adminEmails(env).has(user.email.toLowerCase())) user.role = 'member';
+  return user;
 }
 
 export async function requireAdmin(env, request) {

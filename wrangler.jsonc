@@ -15,6 +15,7 @@
       "/firms_data.json", "/blog_data.json", "/firms_hours.json",
       "/find-lawyers",
       "/firms/*",
+      "/report-listing",
       "/alberta/", "/manitoba/",
       "/ontario/*/", "/quebec/*/", "/british-columbia/*/", "/alberta/*/", "/manitoba/*/"
     ]
@@ -26,6 +27,11 @@
     "MAIL_FROM_EMAIL": "info@lawdb.ca",
     "MAIL_FROM_NAME": "LawDB"
   },
+  // Nightly at 07:17 UTC: housekeeping (retention rules) and a backup of every table into the KV store below.
+  "triggers": { "crons": ["17 7 * * *"] },
+  "kv_namespaces": [
+    { "binding": "BACKUPS", "id": "d2894d66a6b349b0b5af16b94f096575" }
+  ],
   "d1_databases": [
     {
       "binding": "DB",

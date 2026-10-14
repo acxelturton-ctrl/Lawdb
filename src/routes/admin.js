@@ -1,5 +1,6 @@
 import { json, readJson, clampInt, NO_STORE, HttpError } from '../lib/http.js';
 import { requireAdmin } from '../lib/auth.js';
+import { runBackup } from '../lib/backup.js';
 import { audit } from '../lib/audit.js';
 import { mailInBackground, decisionEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES } from '../lib/firm-edit.js';
@@ -12,12 +13,15 @@ export const LEAD_STATUSES = ['new', 'contacted', 'closed', 'spam'];
 
 export async function stats({ request, env }) {
   await requireAdmin(env, request);
-  const [firms, posts, leads, week, pending] = await env.DB.batch([
+  const [firms, posts, leads, week, pending, mailFail, backup, reports] = await env.DB.batch([
     env.DB.prepare("SELECT COUNT(*) AS n, SUM(featured) AS featured FROM firms WHERE status = 'live'"),
     env.DB.prepare('SELECT COUNT(*) AS n FROM blog_posts'),
     env.DB.prepare('SELECT status, COUNT(*) AS n FROM leads GROUP BY status'),
     env.DB.prepare("SELECT COUNT(*) AS n FROM leads WHERE created_at > datetime('now','-7 days')"),
     env.DB.prepare("SELECT COUNT(*) AS n FROM firm_members WHERE status = 'pending'"),
+    env.DB.prepare("SELECT COUNT(*) AS n, MAX(at) AS last FROM audit_log WHERE action IN ('mail.failed','login.email_failed') AND at > datetime('now','-1 day')"),
+    env.DB.prepare("SELECT MAX(at) AS last FROM audit_log WHERE action = 'backup.ok'"),
+    env.DB.prepare("SELECT COUNT(*) AS n FROM leads WHERE form = 'report-listing' AND status = 'new'"),
   ]);
   const byStatus = Object.fromEntries(LEAD_STATUSES.map((s) => [s, 0]));
   for (const r of leads.results) byStatus[r.status] = r.n;
@@ -28,6 +32,9 @@ export async function stats({ request, env }) {
     leads: byStatus,
     leadsLast7Days: week.results[0].n,
     pendingApprovals: pending.results[0].n,
+    mailFailures24h: mailFail.results[0].n,
+    lastBackupAt: backup.results[0].last,
+    openReports: reports.results[0].n,
   });
 }
 
@@ -116,6 +123,18 @@ export async function createFirm({ request, env }) {
 
 
 // ---------------------------------------------------------------- owner approvals
+// Does the claimant's email address belong to the firm's own website? A work address on the firm's domain is
+// the strongest cheap signal that the person really is the firm. 'free' = Gmail and similar (proves nothing).
+const FREE_MAIL = new Set(['gmail.com', 'googlemail.com', 'yahoo.com', 'yahoo.ca', 'hotmail.com', 'hotmail.ca', 'outlook.com', 'live.com', 'live.ca', 'msn.com', 'icloud.com', 'me.com', 'aol.com', 'proton.me', 'protonmail.com', 'rogers.com', 'bell.net', 'sympatico.ca', 'shaw.ca', 'telus.net', 'videotron.ca', 'cogeco.ca']);
+export function emailMatch(email, website) {
+  const domain = String(email).split('@')[1]?.toLowerCase();
+  if (!domain) return 'mismatch';
+  if (FREE_MAIL.has(domain)) return 'free';
+  let host;
+  try { host = new URL(website).hostname.toLowerCase().replace(/^www\./, ''); } catch { return 'nosite'; }
+  return domain === host || domain.endsWith('.' + host) || host.endsWith('.' + domain) ? 'match' : 'mismatch';
+}
+
 // A person asked to manage a firm (claim) or to list a new one. Nothing they request takes effect until approved here.
 export async function listMembers({ request, env, url }) {
   await requireAdmin(env, request);
@@ -132,7 +151,7 @@ export async function listMembers({ request, env, url }) {
   return reply({
     members: results.map(({ data, createdBy, lat, lng, featured, ...r }) => {
       const firm = JSON.parse(data);
-      return { ...r, featured: !!featured, isNewListing: r.firmStatus === 'pending' && createdBy != null, hasCoordinates: lat != null && lng != null, firm: { address: firm.address, phone: firm.phone, website: firm.website, tags: firm.tags } };
+      return { ...r, emailMatch: emailMatch(r.email, firm.website), featured: !!featured, isNewListing: r.firmStatus === 'pending' && createdBy != null, hasCoordinates: lat != null && lng != null, firm: { address: firm.address, phone: firm.phone, website: firm.website, tags: firm.tags } };
     }),
   });
 }
@@ -171,4 +190,64 @@ export async function decideMember({ request, env, url, params, exec }) {
   await audit(env, admin, body.status === 'approved' ? 'member.approve' : 'member.reject', 'firm', m.slug, detail);
   if (m.status === 'pending' || body.status === 'approved') mailInBackground(env, exec, { to: m.email, ...decisionEmail(env.SITE_ORIGIN || url.origin, { firmName: m.name, approved: body.status === 'approved' }) });
   return reply({ ok: true });
+}
+
+
+// ---------------------------------------------------------------- undo an edit
+// Restores the values an edit replaced (taken from the activity log). Featured and page style are never touched.
+export async function revertEdit({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  const id = Number.parseInt(params.id, 10);
+  const entry = await env.DB.prepare("SELECT entity_id, detail FROM audit_log WHERE id = ? AND action = 'firm.update'").bind(id).first();
+  if (!entry) throw new HttpError(404, 'Edit not found');
+  const body = {};
+  for (const [k, v] of Object.entries(JSON.parse(entry.detail || '{}'))) {
+    if (k === 'featured' || k === 'pageMode') continue;
+    if (k === 'hours') body.hours = v.from ?? null;
+    else if (k === 'tags' || k === 'caseTypes') body[k] = v.from ?? [];
+    else body[k] = v.from ?? '';
+  }
+  if (!Object.keys(body).length) throw new HttpError(422, 'There is nothing to undo in this entry');
+  const { changed } = await applyFirmEdit(env, admin, entry.entity_id, body, { admin: true });
+  await audit(env, admin, 'firm.revert', 'firm', entry.entity_id, { undoes: id, restored: Object.keys(body) });
+  return reply({ ok: true, changed });
+}
+
+// ---------------------------------------------------------------- people (owner accounts)
+export async function listUsers({ request, env, url }) {
+  await requireAdmin(env, request);
+  const q = (url.searchParams.get('q') || '').trim();
+  const like = `%${q.replace(/[\\%_]/g, '\\$&')}%`;
+  const { results } = await env.DB.prepare(
+    `SELECT u.id, u.email, u.disabled, u.created_at AS createdAt, u.last_login_at AS lastLoginAt,
+            (SELECT COUNT(*) FROM firm_members m WHERE m.user_id = u.id AND m.status = 'approved') AS firms
+     FROM users u WHERE u.role = 'member' AND (? = '' OR u.email LIKE ? ESCAPE '\\') ORDER BY u.id DESC LIMIT 50`
+  ).bind(q, like).all();
+  return reply({ users: results.map((r) => ({ ...r, disabled: !!r.disabled })) });
+}
+
+// Disabling signs the person out everywhere at once and blocks every later sign-in.
+export async function setUserDisabled({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 200);
+  if (typeof body.disabled !== 'boolean') throw new HttpError(422, 'disabled must be true or false');
+  const user = await env.DB.prepare("SELECT id, email FROM users WHERE id = ? AND role = 'member'").bind(Number.parseInt(params.id, 10)).first();
+  if (!user) throw new HttpError(404, 'Person not found');
+  await env.DB.batch([
+    env.DB.prepare('UPDATE users SET disabled = ? WHERE id = ?').bind(body.disabled ? 1 : 0, user.id),
+    ...(body.disabled ? [env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(user.id)] : []),
+  ]);
+  await audit(env, admin, body.disabled ? 'user.disable' : 'user.enable', 'user', user.id, { email: user.email });
+  return reply({ ok: true });
+}
+
+export async function backupNow({ request, env }) {
+  const admin = await requireAdmin(env, request);
+  try {
+    const r = await runBackup(env, admin);
+    return reply({ ok: true, ...r });
+  } catch (err) {
+    console.error('backup failed', err);
+    throw new HttpError(500, 'Backup failed: ' + String(err.message || err).slice(0, 200));
+  }
 }

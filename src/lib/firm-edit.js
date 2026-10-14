@@ -3,6 +3,7 @@
 
 import { HttpError } from './http.js';
 import { audit } from './audit.js';
+import { checkOwnerText } from './content-rules.js';
 import { PROVINCES } from '../render/firm-page.js';
 
 export function str(v, min, max) {
@@ -64,6 +65,8 @@ export function normalizeHours(h) {
 }
 
 // ---------------------------------------------------------------- edit
+const OWNER_TEXT_FIELDS = { name: 'Firm name', blurb: 'Short description', tags: 'Practice areas' };
+
 // `admin` may also change the featured flag and the page style; owners may not.
 export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   const keys = Object.keys(body);
@@ -82,6 +85,7 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   let aboutText = row.about;
   if ('about' in body) {
     const next = str(body.about, 0, 2000) || null;
+    if (next !== (row.about || null) && !admin) checkOwnerText('About the firm', next);
     if (next !== (row.about || null)) { changes.about = { from: row.about || null, to: next }; aboutText = next; }
   }
   if (admin && 'pageMode' in body) {
@@ -97,6 +101,7 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   for (const k of keys.filter((k) => fieldKeys.includes(k))) {
     const next = FIRM_FIELDS[k](body[k]);
     if (JSON.stringify(firm[k]) !== JSON.stringify(next)) {
+      if (!admin && OWNER_TEXT_FIELDS[k]) checkOwnerText(OWNER_TEXT_FIELDS[k], next);
       changes[k] = { from: firm[k] ?? null, to: next };
       firm[k] = next;
     }
@@ -124,7 +129,7 @@ const initialsOf = (name) => {
 
 // Validates a new listing and builds the full firm record. Coordinates are checked when given;
 // `coords` supplies a fallback (e.g. from address lookup) and `requireCoords` makes them mandatory.
-export async function prepareNewFirm(env, body, { requireCoords, coords } = {}) {
+export async function prepareNewFirm(env, body, { requireCoords, coords, checkText } = {}) {
   const name = str(body.name, 2, 200);
   const city = str(body.city, 2, 80);
   const province = typeof body.province === 'string' ? body.province.toUpperCase() : '';
@@ -167,6 +172,11 @@ export async function prepareNewFirm(env, body, { requireCoords, coords } = {}) 
 
   const hours = 'hours' in body ? normalizeHours(body.hours) : null;
   const about = 'about' in body ? str(body.about, 0, 2000) || null : null;
+  if (checkText) {
+    checkOwnerText('Firm name', name);
+    checkOwnerText('Practice areas', firm.tags);
+    if (about) checkOwnerText('About the firm', about);
+  }
   return { firm, hours, about };
 }
 

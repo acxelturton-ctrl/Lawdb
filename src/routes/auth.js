@@ -87,6 +87,9 @@ export async function verify({ request, env }) {
   } else if (isAdmin && user.role !== 'admin') {
     await env.DB.prepare("UPDATE users SET role = 'admin' WHERE id = ?").bind(user.id).run();
     user.role = 'admin';
+  } else if (!isAdmin && user.role === 'admin') {
+    await env.DB.prepare("UPDATE users SET role = 'member' WHERE id = ?").bind(user.id).run(); // taken off ADMIN_EMAILS
+    user.role = 'member';
   }
   await env.DB.prepare("UPDATE users SET last_login_at = datetime('now') WHERE id = ?").bind(user.id).run();
 
@@ -100,6 +103,16 @@ export async function logout({ request, env }) {
   const cookie = await destroySession(env, request);
   if (user) await audit(env, user, 'logout', 'user', user.id);
   return json({ ok: true }, 200, { ...NO_STORE, 'set-cookie': cookie });
+}
+
+// "Sign out everywhere": ends every session this person has, on every device.
+export async function logoutAll({ request, env }) {
+  const user = await getUser(env, request);
+  if (user) {
+    await env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(user.id).run();
+    await audit(env, user, 'logout.all', 'user', user.id);
+  }
+  return json({ ok: true }, 200, { ...NO_STORE, 'set-cookie': await destroySession(env, request) });
 }
 
 export async function me({ request, env }) {

@@ -40,7 +40,8 @@ function shell(active, content) {
     h('header', { class: 'top' }, h('div', { class: 'wrap' },
       h('a', { class: 'brand', href: '/account/' }, h('img', { src: '/images/logo-icon.png', alt: '' }), 'LawDB'),
       h('div', { class: 'who' }, user.email, h('br'),
-        h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.replace('/account/'); } }, 'Sign out')))),
+        h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.replace('/account/'); } }, 'Sign out'), ' · ',
+        h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); location.replace('/account/'); } }, 'Sign out everywhere')))),
     h('div', { class: 'wrap' },
       h('nav', { class: 'tabs', 'aria-label': 'Sections' }, tabs.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label))),
       content));
@@ -96,7 +97,13 @@ function viewFind() {
       jobTitle: h('input', { type: 'text', maxlength: 100, placeholder: 'e.g. Partner, Office manager' }),
       message: h('textarea', { maxlength: 1000, placeholder: 'Anything that helps us confirm it is you (optional)' }),
     };
-    return { f, el: [field('Your name', f.contactName), field('Your role at the firm', f.jobTitle), field('Note for our team', f.message)], get: () => ({ contactName: f.contactName.value, jobTitle: f.jobTitle.value, message: f.message.value }) };
+    const terms = h('input', { type: 'checkbox', required: true, id: 'terms' });
+    return {
+      f,
+      el: [field('Your name', f.contactName), field('Your role at the firm', f.jobTitle), field('Note for our team', f.message),
+        h('label', { class: 'check small', for: 'terms' }, terms, h('span', null, 'I am authorised to act for this firm and I accept the ', h('a', { href: '/terms.html#firm-terms', target: '_blank', rel: 'noopener' }, 'Terms for firms'), '.'))],
+      get: () => ({ contactName: f.contactName.value, jobTitle: f.jobTitle.value, message: f.message.value, acceptTerms: terms.checked }),
+    };
   }
 
   function claimForm(firm) {
@@ -112,7 +119,7 @@ function viewFind() {
         location.hash = '#firms';
       } catch (err) { out.replaceChildren(note('msg-err', err.message)); go.disabled = false; }
     } },
-      h('h2', null, firm.name), h('p', { class: 'muted' }, `${firm.city}, ${firm.province}. We will email you when your request is approved.`),
+      h('h2', null, firm.name), h('p', { class: 'muted' }, `${firm.city}, ${firm.province}. We will email you when your request is approved. Signed in with your work email (the same address as the firm's website)? That helps us approve you faster.`),
       c.el, h('div', { class: 'row' }, go, h('button', { type: 'button', onclick: () => panel.replaceChildren() }, 'Cancel')), out));
     panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }

@@ -91,6 +91,28 @@ const tag = (block, name) => {
 const baseHost = (h) => h.toLowerCase().replace(/^www\./, '');
 const sameSite = (host, allowed) => allowed.some((a) => host === a || host.endsWith('.' + a));
 
+// A card picture is only ever an address. It must be a public https image (http is upgraded), no logins, no SVG, no tracking pixels or emoji.
+export function cleanImageUrl(raw, base, { allowLocal = false } = {}) {
+  if (!raw || typeof raw !== 'string') return null;
+  try {
+    const u = new URL(decode(raw.trim()), base);
+    if (!allowLocal && u.protocol === 'http:') u.protocol = 'https:';
+    checkFeedUrl(u.toString(), { allowLocal });
+    u.hash = '';
+    const s = u.toString();
+    if (s.length > 500 || /\.(svg|gif|ico)(\?|$)/i.test(u.pathname) || /(pixel|spacer|gravatar|emoji|feedburner|doubleclick|\/ads?\/|1x1|blank\.)/i.test(s)) return null;
+    return s;
+  } catch { return null; }
+}
+
+// If the same picture heads several posts it is the blog's stand-in image or logo, not an article picture: leave it out.
+function dropRepeatedImages(posts) {
+  const count = new Map();
+  for (const p of posts) if (p.image) count.set(p.image, (count.get(p.image) || 0) + 1);
+  for (const p of posts) if (p.image && count.get(p.image) > 1) p.image = null;
+  return posts;
+}
+
 // Returns up to FEED_LIMITS.posts newest items, only those linking to an allowed host.
 export function parseFeed(xml, { feedUrl, siteUrl, allowLocal = false }) {
   const allowed = [];
@@ -124,15 +146,59 @@ export function parseFeed(xml, { feedUrl, siteUrl, allowLocal = false }) {
     const d = new Date(when);
     if (when && !Number.isNaN(d.getTime()) && d.getTime() < Date.now() + 86400000 && d.getFullYear() > 1999) published = d.toISOString().slice(0, 19).replace('T', ' ');
     if (!title) continue;
-    posts.push({ guid: guid.slice(0, 300), title, url, publishedAt: published, excerpt });
+    posts.push({ guid: guid.slice(0, 300), title, url, publishedAt: published, excerpt, image: rssImage(block, feedUrl, allowLocal) });
   }
   posts.sort((a, b) => String(b.publishedAt || '').localeCompare(String(a.publishedAt || '')));
-  return posts.slice(0, FEED_LIMITS.posts);
+  return dropRepeatedImages(posts.slice(0, FEED_LIMITS.posts));
+}
+
+// The picture an RSS/Atom item offers: media:content / media:thumbnail / an image enclosure, else the first picture inside the item's own text.
+function rssImage(block, feedUrl, allowLocal) {
+  const attr = (tagRe, re) => { const m = new RegExp(`<${tagRe}\\b[^>]*>`, 'gi'); for (const t of block.matchAll(m)) { const a = re.exec(t[0]); if (a) return a[1]; } return ''; };
+  const cands = [];
+  for (const t of block.matchAll(/<media:content\b[^>]*>/gi)) if (!/medium=["'](?!image)/i.test(t[0]) && !/type=["'](?!image)/i.test(t[0])) { const u = /\burl=["']([^"']+)["']/i.exec(t[0]); if (u) cands.push(u[1]); }
+  cands.push(attr('media:thumbnail', /\burl=["']([^"']+)["']/i));
+  for (const t of block.matchAll(/<enclosure\b[^>]*>/gi)) if (/type=["']image\//i.test(t[0])) { const u = /\burl=["']([^"']+)["']/i.exec(t[0]); if (u) cands.push(u[1]); }
+  cands.push(attr('itunes:image', /\bhref=["']([^"']+)["']/i));
+  const inner = tag(block, 'content:encoded') || tag(block, 'description') || tag(block, 'content') || tag(block, 'summary');
+  const html = /^\s*<!\[CDATA\[/.test(inner) ? inner : decode(inner);
+  for (const m of html.matchAll(/<img\b[^>]*>/gi)) {
+    const w = /\bwidth=["']?(\d+)/i.exec(m[0]);
+    if (w && Number(w[1]) < 200) continue; // icons and emoji
+    const src = /\bsrc=["']([^"']+)["']/i.exec(m[0]);
+    if (src) cands.push(src[1]);
+  }
+  for (const c of cands) { const ok = cleanImageUrl(c, feedUrl, { allowLocal }); if (ok) return ok; }
+  return null;
 }
 
 // WordPress sites publish their posts at /wp-json/wp/v2/posts. Same rules as for feeds: short plain text, own-site links only.
 export const wpPostsUrl = (origin) => `${origin}/wp-json/wp/v2/posts?per_page=${FEED_LIMITS.posts}&_fields=id,date,link,title,excerpt`;
 export const isWpUrl = (u) => /\/wp-json\/wp\/v2\/posts/i.test(u);
+// The same list, also asking for each post's featured picture (_embed). Sites that refuse this are read the plain way.
+export function wpPostsUrlWithImages(feedUrl) {
+  const u = new URL(feedUrl);
+  u.searchParams.set('_embed', 'wp:featuredmedia');
+  u.searchParams.set('_fields', 'id,date,link,title,excerpt,jetpack_featured_media_url,_embedded');
+  return u.toString();
+}
+
+// The featured picture of a WordPress post: a medium-large size when there is one, else the full file.
+function wpImage(p, feedUrl, allowLocal) {
+  const media = Array.isArray(p?._embedded?.['wp:featuredmedia']) ? p._embedded['wp:featuredmedia'][0] : null;
+  const cands = [];
+  if (media && typeof media === 'object' && !media.code) {
+    const sizes = media.media_details?.sizes || {};
+    const w = Number(media.media_details?.width) || 0;
+    if (!w || w >= 300) {
+      for (const k of ['medium_large', 'large', 'full']) if (sizes[k]?.source_url) cands.push(sizes[k].source_url);
+      if (media.source_url) cands.push(media.source_url);
+    }
+  }
+  if (typeof p?.jetpack_featured_media_url === 'string') cands.push(p.jetpack_featured_media_url);
+  for (const c of cands) { const ok = cleanImageUrl(c, feedUrl, { allowLocal }); if (ok) return ok; }
+  return null;
+}
 
 export function parseWpPosts(json, { feedUrl, siteUrl, allowLocal = false }) {
   if (!Array.isArray(json)) return [];
@@ -154,10 +220,10 @@ export function parseWpPosts(json, { feedUrl, siteUrl, allowLocal = false }) {
     const excerpt = cut(plain(String(p.excerpt?.rendered ?? '')).replace(/\s*\[(?:…|&hellip;|\.\.\.)\]\s*$/, '...').replace(/\s*The post .{1,300} appeared first on .{1,200}$/i, '').trim(), FEED_LIMITS.excerpt);
     const d = new Date(String(p.date || ''));
     const published = p.date && !Number.isNaN(d.getTime()) && d.getTime() < Date.now() + 86400000 && d.getFullYear() > 1999 ? d.toISOString().slice(0, 19).replace('T', ' ') : null;
-    posts.push({ guid: `wp:${p.id ?? url}`.slice(0, 300), title, url, publishedAt: published, excerpt });
+    posts.push({ guid: `wp:${p.id ?? url}`.slice(0, 300), title, url, publishedAt: published, excerpt, image: wpImage(p, feedUrl, allowLocal) });
   }
   posts.sort((a, b) => String(b.publishedAt || '').localeCompare(String(a.publishedAt || '')));
-  return posts.slice(0, FEED_LIMITS.posts);
+  return dropRepeatedImages(posts.slice(0, FEED_LIMITS.posts));
 }
 
 // ---------------------------------------------------------------- finding and refreshing
@@ -223,7 +289,14 @@ export async function refreshFirmFeed(env, slug, { discover = true } = {}) {
     }
     const wp = kind === 'wp' || isWpUrl(feedUrl);
     kind = wp ? 'wp' : 'rss';
-    const { url, text } = await safeGet(env, feedUrl, { maxBytes: FEED_LIMITS.bytes, accept: wp ? 'application/json' : 'application/rss+xml,application/atom+xml,application/xml,text/xml,*/*' });
+    const accept = wp ? 'application/json' : 'application/rss+xml,application/atom+xml,application/xml,text/xml,*/*';
+    let got;
+    if (wp) {
+      // Ask for the pictures too; if the site refuses that, read the plain list (cards then have no picture).
+      try { got = await safeGet(env, wpPostsUrlWithImages(feedUrl), { maxBytes: FEED_LIMITS.bytes * 2, accept }); JSON.parse(got.text); } catch { got = null; }
+    }
+    if (!got) got = await safeGet(env, feedUrl, { maxBytes: FEED_LIMITS.bytes, accept });
+    const { url, text } = got;
     let posts;
     if (wp) {
       let json;
@@ -238,9 +311,9 @@ export async function refreshFirmFeed(env, slug, { discover = true } = {}) {
     await env.DB.batch([
       ...(sourceChanged ? [env.DB.prepare('DELETE FROM firm_posts WHERE firm_slug = ?').bind(slug)] : []),
       ...posts.map((p) => env.DB.prepare(
-        `INSERT INTO firm_posts (firm_slug, guid, title, url, published_at, excerpt) VALUES (?,?,?,?,?,?)
-         ON CONFLICT (firm_slug, guid) DO UPDATE SET title = excluded.title, url = excluded.url, published_at = excluded.published_at, excerpt = excluded.excerpt, fetched_at = datetime('now')`
-      ).bind(slug, p.guid, p.title, p.url, p.publishedAt, p.excerpt)),
+        `INSERT INTO firm_posts (firm_slug, guid, title, url, published_at, excerpt, image_url) VALUES (?,?,?,?,?,?,?)
+         ON CONFLICT (firm_slug, guid) DO UPDATE SET title = excluded.title, url = excluded.url, published_at = excluded.published_at, excerpt = excluded.excerpt, image_url = excluded.image_url, fetched_at = datetime('now')`
+      ).bind(slug, p.guid, p.title, p.url, p.publishedAt, p.excerpt, p.image || null)),
       // Keep only the newest few.
       env.DB.prepare(`DELETE FROM firm_posts WHERE firm_slug = ? AND id NOT IN (SELECT id FROM firm_posts WHERE firm_slug = ? ORDER BY published_at DESC, id DESC LIMIT ${FEED_LIMITS.posts})`).bind(slug, slug),
     ]);

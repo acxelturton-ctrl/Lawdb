@@ -126,7 +126,11 @@
 .lw-blog h2{font-size:18px;margin:0 0 4px}
 .lw-blog .lw-blog-sub{margin:0 0 12px;color:#6b645a;font-size:13px}
 .lw-bc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
-.lw-bc{background:#fff;border:1px solid #e4ded3;border-radius:10px;padding:16px 16px 14px;display:flex;flex-direction:column;gap:6px}
+.lw-bc{background:#fff;border:1px solid #e4ded3;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.lw-bc-img{display:block;aspect-ratio:16/9;background:#f1ece2;overflow:hidden}
+.lw-bc-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .25s ease}
+.lw-bc:hover .lw-bc-img img{transform:scale(1.03)}
+.lw-bc-in{padding:14px 16px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
 .lw-bc time{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:#8f8a80;font-weight:600}
 .lw-bc h3{margin:0;font-size:15.5px;line-height:1.3}
 .lw-bc h3 a{color:inherit;text-decoration:none}.lw-bc h3 a:hover{text-decoration:underline}

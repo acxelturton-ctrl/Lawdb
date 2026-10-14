@@ -105,6 +105,11 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
   before the fine print). Pages work unchanged if the lookup fails.
 - Who gets them: Featured firms automatically (nightly cron `refreshAllFeeds`), any other firm when its owner or the admin switches them on. Owners and admins can switch cards off,
   enter the feed address, and check now (owners at most every 5 minutes) from the Blog cards panel. Local development never contacts real websites; it only re-reads feeds entered by hand.
+- **Card pictures** (migration 0011, `firm_posts.image_url`): the picture the firm chose for each article. WordPress: the featured image (`_embed=wp:featuredmedia`, a medium-large size first, `jetpack_featured_media_url` as a backup;
+  sites that refuse `_embed` are read the plain way). RSS/Atom: `media:content`, `media:thumbnail`, an image `enclosure`, else the first picture inside the item. Only the **address** is stored, never the file; it is loaded by the
+  visitor's browser from the firm's own site (lazy, no referrer, 16:9 crop, dropped if it fails to load). Addresses must be public https (http is upgraded), no logins, no SVG/GIF, no tracking pixels; a picture repeated on several
+  posts of one blog (a stand-in or logo) is ignored.
+
 ## Firm pictures
 
 - Files live in the private R2 bucket `lawdb-images` (binding `IMAGES`, key `img/<id>`); the `firm_images` table (migration 0007) decides what is shown.

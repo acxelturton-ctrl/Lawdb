@@ -31,7 +31,7 @@ async function nearbyFirms(env, f) {
 async function feedPosts(env, slug) {
   try {
     const { results } = await env.DB.prepare(
-      `SELECT p.title, p.url, p.published_at AS publishedAt, p.excerpt FROM firm_posts p JOIN firm_feeds f ON f.firm_slug = p.firm_slug
+      `SELECT p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image FROM firm_posts p JOIN firm_feeds f ON f.firm_slug = p.firm_slug
        WHERE p.firm_slug = ? AND f.enabled = 1 ORDER BY p.published_at DESC, p.id DESC LIMIT 3`
     ).bind(slug).all();
     return results;

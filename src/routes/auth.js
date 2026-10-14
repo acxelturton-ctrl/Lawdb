@@ -34,7 +34,13 @@ export async function requestLink({ request, env, url, exec }) {
   exec(
     sendLoginEmail(env, email, link).catch((err) => {
       console.error('login email failed', err);
-      return audit(env, null, 'login.email_failed', 'email', email, { error: String(err.message || err).slice(0, 300) });
+      // Names only, never values: lets us see whether a secret is absent, misnamed, or empty.
+      const keyLen = typeof env.BREVO_API_KEY === 'string' ? env.BREVO_API_KEY.length : null;
+      return audit(env, null, 'login.email_failed', 'email', email, {
+        error: String(err.message || err).slice(0, 300),
+        brevoKeyLength: keyLen,
+        settingNames: Object.keys(env).sort(),
+      });
     })
   );
   return json({ ok: true }, 200, NO_STORE);

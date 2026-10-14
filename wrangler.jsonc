@@ -1,8 +1,19 @@
 {
-  // LawDB.ca static site. The Worker name here must match the Cloudflare project name exactly.
+  // LawDB.ca: static site + Worker API + D1 database.
+  // The Worker name here must match the Cloudflare project name exactly.
   "name": "lawdb",
+  "main": "src/worker.js",
   "compatibility_date": "2026-10-01",
   "assets": {
-    "directory": "."
-  }
+    "directory": ".",
+    // Static files are served directly (free, fast). Only /api/* runs the Worker.
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "lawdb"
+      // "database_id" is added automatically by `wrangler deploy` (or paste the id from the Cloudflare dashboard).
+    }
+  ]
 }

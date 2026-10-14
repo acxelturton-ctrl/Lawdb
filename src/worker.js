@@ -7,12 +7,20 @@ import { json, HttpError, assertSameOrigin } from './lib/http.js';
 import * as pub from './routes/public.js';
 import * as auth from './routes/auth.js';
 import * as admin from './routes/admin.js';
+import * as dyn from './routes/dynamic.js';
 
 const route = (method, pattern, handler) => ({
   method,
   handler,
   regex: new RegExp('^' + pattern.replace(/:(\w+)/g, '(?<$1>[^/]+)') + '$'),
 });
+
+// Static files that are now served from the database (the static copies are the fallback).
+const DATA_FILES = {
+  '/firms_data.json': dyn.firmsJson,
+  '/blog_data.json': dyn.blogJson,
+  '/firms_hours.json': dyn.hoursJson,
+};
 
 const ROUTES = [
   route('GET', '/api/health', () => json({ ok: true, time: new Date().toISOString() })),
@@ -41,7 +49,12 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname.replace(/\/+$/, '') || '/';
     try {
-      if (!path.startsWith('/api/')) return new Response('Not found', { status: 404 });
+      if (!path.startsWith('/api/')) {
+        // Only GET/HEAD reach here for site content; everything else is passed to the static files.
+        if (request.method !== 'GET' && request.method !== 'HEAD') return env.ASSETS.fetch(request);
+        const handler = DATA_FILES[path] || dyn.page;
+        return await handler({ request, env, ctx });
+      }
       const method = request.method === 'HEAD' ? 'GET' : request.method;
       if (method !== 'GET') assertSameOrigin(request);
 

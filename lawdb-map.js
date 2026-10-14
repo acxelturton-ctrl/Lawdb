@@ -91,8 +91,8 @@
 
   /* ------------------------------------------------------------ icons */
   var IC = {
-    search: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
-    x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+    search: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b645b" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+    x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b645b" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     call: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
     dir: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>',
     web: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>',
@@ -100,7 +100,7 @@
     chev: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
     back: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
     tick: '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>',
-    loc: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
+    loc: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b645b" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
     redo: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>'
   };
 
@@ -387,9 +387,9 @@
 
   /* ------------------------------------------------------------ basemap theme */
   var P = {
-    land: '#dfdacd', water: '#9dbfd0', park: '#b9cfa8', wood: '#aec6a0', grass: '#c4d6b4', resid: '#d8d3c5',
-    road: '#efebe1', casing: '#c4bead', major: '#eedba5', motor: '#e6b85c', motorCasing: '#c79a45',
-    building: '#d0c9ba', buildingLine: '#bfb8a8', halo: 'rgba(232,228,218,.92)', text: '#3a3631', textSoft: '#6a645a', water_txt: '#4f7a92'
+    land: '#ece6d8', water: '#cbbd96', park: '#d6d3b6', wood: '#cdc9ab', grass: '#dcd9c1', resid: '#e4ddcd',
+    road: '#fffdf8', casing: '#cfc7b3', major: '#f4e4b6', motor: '#e2b45c', motorCasing: '#9a6f1c',
+    building: '#ddd5c3', buildingLine: '#c9c0ac', halo: 'rgba(244,241,234,.93)', text: '#2b2723', textSoft: '#6b645b', water_txt: '#6f5115'
   };
   window.__gmPalette = P;
   applyMapTheme = function(){
@@ -419,7 +419,7 @@
           if(/rail|transit|ferry|aerialway|cablecar/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
           if(/^boundary/.test(id)){
             if(/boundary_3|disputed/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
-            map.setPaintProperty(id, 'line-color', '#9d9686'); return;
+            map.setPaintProperty(id, 'line-color', '#b3aa96'); return;
           }
           if(/waterway/.test(id)){ map.setPaintProperty(id, 'line-color', P.water); return; }
           if(/highway|road|bridge|tunnel|link|motorway|trunk|primary|secondary|tertiary|minor|service|path|pier/.test(id)){
@@ -436,14 +436,14 @@
         if(ty === 'fill'){
           if(id === 'water' || /^water/.test(id)) map.setPaintProperty(id, 'fill-color', P.water);
           else if(/^park/.test(id) || /landcover_(wood|forest)/.test(id)) map.setPaintProperty(id, 'fill-color', /wood|forest/.test(id) ? P.wood : P.park);
-          else if(/landcover_(ice|glacier)/.test(id)) map.setPaintProperty(id, 'fill-color', '#e8eaeb');
-          else if(/landcover_(sand|beach)/.test(id)) map.setPaintProperty(id, 'fill-color', '#e2d8bd');
-          else if(/landcover_wetland/.test(id)) map.setPaintProperty(id, 'fill-color', '#b9cfae');
+          else if(/landcover_(ice|glacier)/.test(id)) map.setPaintProperty(id, 'fill-color', '#ece8dd');
+          else if(/landcover_(sand|beach)/.test(id)) map.setPaintProperty(id, 'fill-color', '#e8dec3');
+          else if(/landcover_wetland/.test(id)) map.setPaintProperty(id, 'fill-color', '#d6d2b8');
           else if(/landcover/.test(id)) map.setPaintProperty(id, 'fill-color', P.grass);
           else if(/landuse_residential/.test(id)) map.setPaintProperty(id, 'fill-color', P.resid);
-          else if(/landuse_cemetery/.test(id)) map.setPaintProperty(id, 'fill-color', '#b9cfa8');
-          else if(/landuse_hospital/.test(id)) map.setPaintProperty(id, 'fill-color', '#e0cfc6');
-          else if(/landuse_school/.test(id)) map.setPaintProperty(id, 'fill-color', '#dcd2b8');
+          else if(/landuse_cemetery/.test(id)) map.setPaintProperty(id, 'fill-color', '#d6d3b6');
+          else if(/landuse_hospital/.test(id)) map.setPaintProperty(id, 'fill-color', '#e6d9cc');
+          else if(/landuse_school/.test(id)) map.setPaintProperty(id, 'fill-color', '#e3d9c0');
           else if(id === 'building'){
             map.setPaintProperty(id, 'fill-color', P.building); map.setPaintProperty(id, 'fill-outline-color', P.buildingLine);
             map.setPaintProperty(id, 'fill-opacity', ['interpolate', ['linear'], ['zoom'], 14, 0, 15.5, 1]);
@@ -467,7 +467,7 @@
       x.beginPath(); x.arc(17, 16.5, 8.2, 0, Math.PI * 2); x.fillStyle = '#ffffff'; x.fill();
       x.beginPath(); x.moveTo(12.6, 16.8); x.lineTo(15.8, 20); x.lineTo(21.6, 13); x.lineWidth = 2.4; x.lineCap = 'round'; x.lineJoin = 'round'; x.strokeStyle = '#9a6f1c'; x.stroke();
     } else {
-      x.beginPath(); x.arc(17, 16.5, 5.2, 0, Math.PI * 2); x.fillStyle = '#7f1d17'; x.fill();
+      x.beginPath(); x.arc(17, 16.5, 5.2, 0, Math.PI * 2); x.fillStyle = '#d9a441'; x.fill();
     }
     return { width: W * 2, height: H * 2, data: x.getImageData(0, 0, W * 2, H * 2).data };
   }
@@ -489,7 +489,7 @@
     return FONTS;
   }
   function textField(feat){
-    var F2 = pickFonts(), nm = { 'font-scale': 1, 'text-color': feat ? '#7a5512' : '#202124' }, sb = { 'font-scale': 0.88, 'text-color': '#5f6368' };
+    var F2 = pickFonts(), nm = { 'font-scale': 1, 'text-color': feat ? '#7a5512' : '#2b2723' }, sb = { 'font-scale': 0.88, 'text-color': '#6b645b' };
     if(F2.bold) nm['text-font'] = ['literal', F2.bold];
     if(F2.reg) sb['text-font'] = ['literal', F2.reg];
     return ['format', ['get', 'name'], nm, '\n', {}, ['get', 'sub'], sb];
@@ -501,7 +501,7 @@
     };
     var font = F2.reg || F2.any; if(font) lay['text-font'] = font;
     var def = { id: id, type: 'symbol', source: source, layout: lay,
-      paint: { 'text-color': '#202124', 'text-halo-color': 'rgba(232,228,218,.95)', 'text-halo-width': 1.8,
+      paint: { 'text-color': '#2b2723', 'text-halo-color': 'rgba(244,241,234,.95)', 'text-halo-width': 1.8,
         'text-opacity': feat ? 1 : ['interpolate', ['linear'], ['zoom'], 10.5, 0, 11.5, 1] } };
     if(filter) def.filter = filter;
     try { map.addLayer(def); } catch(e){}
@@ -514,7 +514,7 @@
     map.addSource('firms-feat', { type: 'geojson', data: empty });
     map.addSource('firm-sel', { type: 'geojson', data: empty });
     map.addSource('me', { type: 'geojson', data: empty });
-    var IM = { 'gm-pin': ['#ea4335', '#b3261e', 1, false], 'gm-pin-gold': ['#d9a441', '#8a5f12', 1, true], 'gm-pin-sel': ['#ea4335', '#b3261e', 1.35, false], 'gm-pin-sel-gold': ['#d9a441', '#8a5f12', 1.35, true] };
+    var IM = { 'gm-pin': ['#2b2723', '#14110f', 1, false], 'gm-pin-gold': ['#d9a441', '#8a5f12', 1, true], 'gm-pin-sel': ['#2b2723', '#14110f', 1.35, false], 'gm-pin-sel-gold': ['#d9a441', '#8a5f12', 1.35, true] };
     Object.keys(IM).forEach(function(k){ if(!map.hasImage(k)) map.addImage(k, pinImage(IM[k][0], IM[k][1], IM[k][2], IM[k][3]), { pixelRatio: 2 }); });
     var font = pickFonts(), tf = font.bold || font.any;
     var size = ['interpolate', ['linear'], ['zoom'], 8, 0.55, 13, 0.8];
@@ -537,8 +537,8 @@
     map.addLayer({ id: 'firm-pin-sel', type: 'symbol', source: 'firm-sel',
       layout: { 'icon-image': ['case', ['==', ['get', 'featured'], 1], 'gm-pin-sel-gold', 'gm-pin-sel'], 'icon-size': 0.82, 'icon-anchor': 'bottom', 'icon-allow-overlap': true } });
 
-    map.addLayer({ id: 'me-halo', type: 'circle', source: 'me', paint: { 'circle-radius': 20, 'circle-color': '#4285f4', 'circle-opacity': 0.18 } });
-    map.addLayer({ id: 'me-dot', type: 'circle', source: 'me', paint: { 'circle-radius': 7.5, 'circle-color': '#4285f4', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2.5 } });
+    map.addLayer({ id: 'me-halo', type: 'circle', source: 'me', paint: { 'circle-radius': 20, 'circle-color': '#9a6f1c', 'circle-opacity': 0.2 } });
+    map.addLayer({ id: 'me-dot', type: 'circle', source: 'me', paint: { 'circle-radius': 7.5, 'circle-color': '#9a6f1c', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2.5 } });
 
     var tapLayers = ['firm-pin', 'firm-label', 'firm-feat-pin', 'firm-feat-label', 'firm-pin-sel'];
     function pick(e){
@@ -710,10 +710,10 @@
     return items.slice(0, 9);
   }
   var SUGICO = {
-    search: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
-    pin: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
-    near: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
-    firm: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg>'
+    search: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b645b" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+    pin: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b645b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+    near: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9a6f1c" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
+    firm: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b645b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg>'
   };
   var sugItems = [], sugIdx = -1;
   function drawSug(){

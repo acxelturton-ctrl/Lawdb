@@ -52,9 +52,10 @@ export async function newsPage({ request, env, ctx }) {
         posts = await loadPosts(env);
       } else ctx.waitUntil(work);
     }
-    const firms = [...new Map(posts.map((p) => [p.firmSlug, { slug: p.firmSlug, name: p.firmName }])).values()].sort((a, b) => a.name.localeCompare(b.name));
+    const firms = [...new Map(posts.map((p) => [p.firmSlug, { slug: p.firmSlug, name: p.firmName, logo: p.logo }])).values()].sort((a, b) => a.name.localeCompare(b.name));
+    const stats = { firms: firms.length, articles: limitWithoutPicture(posts).length, latest: posts[0]?.publishedAt || null };
     const shown = limitWithoutPicture(selected ? posts.filter((p) => p.firmSlug === selected) : posts);
-    const res = new Response(renderNewsPage({ posts: shown, firms, selected: firms.some((f) => f.slug === selected) ? selected : '' }), {
+    const res = new Response(renderNewsPage({ posts: shown, firms, stats, selected: firms.some((f) => f.slug === selected) ? selected : '' }), {
       headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': ttl > 0 && posts.length ? `public, max-age=${ttl}` : 'no-cache', 'x-content-type-options': 'nosniff', 'x-lawdb-source': 'database' },
     });
     if (ttl > 0 && posts.length) ctx.waitUntil(caches.default.put(key, res.clone()));

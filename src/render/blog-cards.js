@@ -43,6 +43,16 @@ export const BLOG_CSS = `<style>
 .lw-feed .lw-bc p{font-size:15.5px;line-height:1.6}
 .lw-feed .lw-bc summary{font-size:14px;padding:6px 0}
 .lw-feed .lw-bc .lw-go{padding:11px 16px;font-size:14px;border-radius:8px}
+/* the lead story: picture and text side by side on a wide screen */
+.lw-feed .lw-hero{grid-column:1/-1}
+.lw-feed .lw-hero h3{font-size:clamp(24px,2.4vw,38px);line-height:1.15}
+.lw-feed .lw-hero p{font-size:clamp(16px,1.2vw,18.5px)}
+@media(min-width:900px){
+  .lw-feed .lw-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);grid-template-rows:auto 1fr}
+  .lw-feed .lw-hero .lw-bc-img{grid-column:1;grid-row:1/3;aspect-ratio:auto;height:100%;min-height:420px}
+  .lw-feed .lw-hero .lw-bc-head{grid-column:2;grid-row:1;padding:22px 28px 0}
+  .lw-feed .lw-hero .lw-bc-in{grid-column:2;grid-row:2;justify-content:center;padding:10px 28px 28px;gap:14px}
+}
 </style>`;
 
 const fmtDate = (d) => {
@@ -58,10 +68,10 @@ const teaser = (s, max = 170) => {
 
 // One card. `byline` (optional) names the firm, for compact lists. `head` (optional) is the post header of the News feed:
 // { avatar: html, who: html } shown above the picture together with the date, and the card is laid out larger.
-export function cardHtml(p, { byline = '', head = null } = {}) {
+export function cardHtml(p, { byline = '', head = null, hero = false } = {}) {
   let host = '';
   try { host = new URL(p.url).hostname.replace(/^www\./, ''); } catch {}
-  const max = head ? 260 : 170;
+  const max = hero ? 380 : head ? 260 : 170;
   const more = p.excerpt && p.excerpt.length > max;
   const date = fmtDate(p.publishedAt);
   // The picture is the one the firm chose for the article, loaded from their own site; if it cannot load the card just drops it.
@@ -71,7 +81,7 @@ export function cardHtml(p, { byline = '', head = null } = {}) {
   const top = head
     ? `<div class="lw-bc-head"><span class="lw-av">${head.avatar}</span><span class="lw-who">${head.who}${date ? `<time>${esc(date)}</time>` : ''}</span></div>`
     : '';
-  return `<article class="lw-bc">${top}${pic}<div class="lw-bc-in">${head ? '' : byline}${!head && date ? `<time>${esc(date)}</time>` : ''}<h3><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></h3>` +
+  return `<article class="lw-bc${hero ? ' lw-hero' : ''}">${top}${pic}<div class="lw-bc-in">${head ? '' : byline}${!head && date ? `<time>${esc(date)}</time>` : ''}<h3><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></h3>` +
     (p.excerpt ? `<p class="lw-teaser">${esc(teaser(p.excerpt, max))}</p>` : '') +
     (more
       ? `<details><summary>Read more</summary><p class="lw-more">${esc(p.excerpt)}</p><a class="lw-go" href="${esc(p.url)}" target="_blank" rel="noopener">Read the full article on ${esc(host)} &rarr;</a></details>`

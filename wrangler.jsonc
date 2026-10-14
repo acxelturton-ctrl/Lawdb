@@ -32,7 +32,7 @@
     "STRIPE_PAYMENT_LINK": "https://buy.stripe.com/4gM7sN2X7d8naOFe0dfbq01"
   },
   // Nightly at 07:17 UTC: housekeeping (retention rules) and a backup of every table into the KV store below.
-  "triggers": { "crons": ["17 7 * * *"] },
+  "triggers": { "crons": ["17 7 * * *", "37 7 * * *"] },
   "kv_namespaces": [
     { "binding": "BACKUPS", "id": "d2894d66a6b349b0b5af16b94f096575" }
   ],

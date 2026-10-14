@@ -544,6 +544,30 @@ document.getElementById('signupForm').addEventListener('submit', function(e){
     'Additional details: ' + (fd.get('message') || 'None')
   ].join('\n'));
 
+  // Also keep a copy in our own database. Best effort: the email below stays the source of truth for the visitor.
+  try {
+    fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+      body: JSON.stringify({
+        form: 'list-your-firm',
+        name: fd.get('contactName'),
+        email: fd.get('email'),
+        phone: fd.get('phone') || '',
+        message: fd.get('message'),
+        firmName: fd.get('firmName'),
+        city: fd.get('city'),
+        province: fd.get('province'),
+        website: fd.get('website') || '',
+        practices: practices,
+        plan: planValue,
+        segment: SEGMENT === 'solo' ? 'Solo lawyer' : 'Law firm',
+        page: location.pathname
+      })
+    }).catch(function(){});
+  } catch(_) {}
+
   sending = true;
   submitBtn.disabled = true;
   submitBtn.textContent = 'Submitting...';

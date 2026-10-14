@@ -177,6 +177,14 @@
     .desktop-nav .nav-cta:hover{ color:#ffffff; background:#9a6f1c; }
     .hamburger-btn{ display:none; }
   }
+
+  .hub-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:6px 0 34px; }
+  .hub-card{ display:flex; flex-direction:column; gap:6px; background:#fff; border:1px solid #e4ded3; border-radius:12px; padding:18px; text-decoration:none; color:#2b2723; }
+  .hub-card b{ font-family:'Source Serif 4',serif; font-size:18px; }
+  .hub-card span{ font-size:13.5px; line-height:1.55; color:#5c554c; flex:1; }
+  .hub-card em{ font-style:normal; font-weight:700; font-size:13px; color:#9a6f1c; }
+  .hub-card.feat{ background:#fbf3e3; border-color:#edd9ae; }
+  .hub-card:hover{ border-color:#b8863b; }
 </style>
 <link rel="stylesheet" href="desktop.css">
 <link rel="stylesheet" href="site.css">
@@ -186,7 +194,7 @@
 <header class="site-header">
   <a class="mark" href="./index.html"><img src="images/logo-icon.png" alt="LawDB"><span class="wordmark"><span class="name"><span class="law">Law</span><span class="db">DB</span><sup style="font-size:.4em;font-weight:600;margin-left:1px;vertical-align:super;line-height:0;">&trade;</sup></span><span class="tagline">Canada&#39;s Legal Directory</span></span></a>
   <div class="header-right">
-    <nav class="desktop-nav" aria-label="Primary"><a href="./find-lawyers.html">Find Your Lawyer</a><a href="./legal-news.html">LawDB News</a><a href="./for-firms.html">For Law Firms</a><a href="./list-your-firm.html">Add Your Firm</a><a class="nav-cta" href="./book-a-call.html">Request a Consultation</a></nav>
+    <nav class="desktop-nav" aria-label="Primary"><a href="./find-lawyers.html">Find Your Lawyer</a><a href="./legal-news.html">LawDB News</a><a href="./for-firms.html">For Law Firms</a><a class="nav-cta" href="./book-a-call.html">Request a Consultation</a></nav>
     <button class="hamburger-btn" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -196,8 +204,6 @@
   <a href="./find-lawyers.html">Find Your Lawyer</a>
   <a href="./legal-news.html">LawDB News</a>
   <a href="./for-firms.html">For Law Firms</a>
-  <a href="./list-your-firm.html">Add Your Firm</a>
-  <a href="./contact.html">Contact Us</a>
   <a class="menu-cta" href="./book-a-call.html">Request a Consultation</a>
 </nav>
 <script>
@@ -234,6 +240,15 @@
 </section>
 
 <div class="wrap">
+
+  <h2>Everything for law firms, in one place</h2>
+  <p class="lede">Choose where you are: getting listed, getting Featured, running your listing, or growing your practice.</p>
+  <div class="hub-grid">
+    <a class="hub-card" href="./list-your-firm.html"><b>List your firm</b><span>Free. Your own profile page, map pin and place in search by case type and city.</span><em>Add your firm &rarr;</em></a>
+    <a class="hub-card feat" href="./list-your-firm.html?plan=featured"><b>Get Featured</b><span>$199 / month. Priority placement, a gold marker, and your blog on LawDB News.</span><em>See Featured &rarr;</em></a>
+    <a class="hub-card" href="/account/"><b>Manage your listing</b><span>Sign in to edit your details, add photos, read your enquiries and manage billing.</span><em>Sign in or create an account &rarr;</em></a>
+    <a class="hub-card" href="./grow-your-practice.html"><b>Grow your practice</b><span>Plain-language marketing guides written for Canadian lawyers.</span><em>Read the guides &rarr;</em></a>
+  </div>
 
   <h2>Why list with us</h2>
   <p class="lede">We are a young directory and we would rather tell you exactly what a listing does and
@@ -309,6 +324,7 @@
         <li>Expanded profile with a cover image, full description, practice-area tags and firm insights</li>
         <li>One-tap Call, Website and Directions buttons, plus a consultation request form</li>
         <li>Gold tick and Featured badge wherever your firm appears</li>
+        <li>Your blog on LawDB News: your latest articles as short preview cards that link to your own website</li>
       </ul>
       <a class="plan-btn paid" href="./list-your-firm.html?plan=featured">Get Featured</a>
     </div>
@@ -398,19 +414,22 @@
       <h4>For Clients</h4>
       <ul>
         <li><a href="./find-lawyers.html">Find Your Lawyer</a></li>
-        <li><a href="./index.html">Browse by Case Type</a></li>
+        <li><a href="./index.html#cases">Browse by Case Type</a></li>
         <li><a href="./legal-news.html">LawDB News</a></li>
+        <li><a href="./court-decisions.html">Court Decisions Explained</a></li>
         <li><a href="./blog.html">Blog</a></li>
         <li><a href="./how-it-works.html">How LawDB Works</a></li>
+        <li><a href="./book-a-call.html">Request a Consultation</a></li>
       </ul>
     </div>
     <div>
       <h4>For Law Firms</h4>
       <ul>
-        <li><a href="./for-firms.html">Why List With Us</a></li>
+        <li><a href="./for-firms.html">For Law Firms</a></li>
         <li><a href="./list-your-firm.html">List Your Firm (Free)</a></li>
-        <li><a href="list-your-firm.html?plan=featured">Get Featured</a></li>
-        <li><a href="./book-a-call.html">Request a Consultation</a></li>
+        <li><a href="./list-your-firm.html?plan=featured">Get Featured</a></li>
+        <li><a href="/account/">Manage Your Listing</a></li>
+        <li><a href="./grow-your-practice.html">Grow Your Practice</a></li>
       </ul>
     </div>
     <div>

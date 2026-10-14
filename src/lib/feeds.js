@@ -1,4 +1,4 @@
-// Reads a firm's public blog feed (RSS or Atom) and keeps its latest few posts as small cards:
+// Reads a firm's public blog (RSS/Atom feed, or the public post list of a WordPress site) and keeps its latest few posts as small cards:
 // headline, date, a short plain-text excerpt, and a link to the article on the firm's own website.
 //
 // Rules that keep this safe and fair to the firms:
@@ -130,9 +130,50 @@ export function parseFeed(xml, { feedUrl, siteUrl, allowLocal = false }) {
   return posts.slice(0, FEED_LIMITS.posts);
 }
 
+// WordPress sites publish their posts at /wp-json/wp/v2/posts. Same rules as for feeds: short plain text, own-site links only.
+export const wpPostsUrl = (origin) => `${origin}/wp-json/wp/v2/posts?per_page=${FEED_LIMITS.posts}&_fields=id,date,link,title,excerpt`;
+export const isWpUrl = (u) => /\/wp-json\/wp\/v2\/posts/i.test(u);
+
+export function parseWpPosts(json, { feedUrl, siteUrl, allowLocal = false }) {
+  if (!Array.isArray(json)) return [];
+  const allowed = [];
+  for (const u of [feedUrl, siteUrl]) { try { allowed.push(baseHost(new URL(u).hostname)); } catch {} }
+  const posts = [];
+  for (const p of json.slice(0, 25)) {
+    if (!p || typeof p !== 'object') continue;
+    const title = cut(plain(String(p.title?.rendered ?? '')), FEED_LIMITS.title);
+    let url;
+    try {
+      const u = new URL(String(p.link || ''), feedUrl);
+      const okProto = u.protocol === 'https:' || (allowLocal && u.protocol === 'http:' && u.hostname === '127.0.0.1');
+      if (!okProto || !sameSite(baseHost(u.hostname), allowed)) continue;
+      u.hash = '';
+      url = u.toString();
+    } catch { continue; }
+    if (!title) continue;
+    const excerpt = cut(plain(String(p.excerpt?.rendered ?? '')).replace(/\s*\[(?:…|&hellip;|\.\.\.)\]\s*$/, '...').replace(/\s*The post .{1,300} appeared first on .{1,200}$/i, '').trim(), FEED_LIMITS.excerpt);
+    const d = new Date(String(p.date || ''));
+    const published = p.date && !Number.isNaN(d.getTime()) && d.getTime() < Date.now() + 86400000 && d.getFullYear() > 1999 ? d.toISOString().slice(0, 19).replace('T', ' ') : null;
+    posts.push({ guid: `wp:${p.id ?? url}`.slice(0, 300), title, url, publishedAt: published, excerpt });
+  }
+  posts.sort((a, b) => String(b.publishedAt || '').localeCompare(String(a.publishedAt || '')));
+  return posts.slice(0, FEED_LIMITS.posts);
+}
+
 // ---------------------------------------------------------------- finding and refreshing
 export async function discoverFeed(env, siteUrl) {
+  const allowLocal = env.DEV_ECHO_LINK === '1';
   const home = await safeGet(env, siteUrl, { maxBytes: FEED_LIMITS.pageBytes, accept: 'text/html,*/*' }).catch(() => null);
+  const origin = new URL(home ? home.url : siteUrl).origin;
+
+  // 1. WordPress: one small request that returns headlines, dates and the site's own excerpts.
+  try {
+    const wp = wpPostsUrl(origin);
+    const { url, text } = await safeGet(env, wp, { maxBytes: FEED_LIMITS.bytes, accept: 'application/json' });
+    if (parseWpPosts(JSON.parse(text), { feedUrl: url, siteUrl, allowLocal }).length) return { url: wp, kind: 'wp' };
+  } catch { /* not WordPress, or no public post list */ }
+
+  // 2. An RSS/Atom feed announced on the home page, then the usual addresses.
   const candidates = [];
   if (home) {
     for (const m of home.text.matchAll(/<link\b[^>]*>/gi)) {
@@ -143,21 +184,20 @@ export async function discoverFeed(env, siteUrl) {
       }
     }
   }
-  const origin = new URL(home ? home.url : siteUrl).origin;
   for (const p of COMMON_PATHS) candidates.push(origin + p);
   let tried = 0;
   for (const c of [...new Set(candidates)]) {
-    if (tried++ >= 6) break; // stays well inside the platform's limit on outgoing requests
+    if (tried++ >= 5) break; // stays well inside the platform's limit on outgoing requests
     try {
       const { url, text } = await safeGet(env, c, { maxBytes: FEED_LIMITS.bytes, accept: 'application/rss+xml,application/atom+xml,application/xml,text/xml,*/*' });
-      if (/<(rss|feed|rdf:RDF)\b/i.test(text.slice(0, 2000)) && parseFeed(text, { feedUrl: url, siteUrl, allowLocal: env.DEV_ECHO_LINK === '1' }).length) return url;
+      if (/<(rss|feed|rdf:RDF)\b/i.test(text.slice(0, 2000)) && parseFeed(text, { feedUrl: url, siteUrl, allowLocal }).length) return { url, kind: 'rss' };
     } catch { /* try the next one */ }
   }
   return null;
 }
 
 export async function getFeedInfo(env, slug) {
-  const row = await env.DB.prepare('SELECT feed_url AS feedUrl, source, enabled, status, last_checked_at AS lastCheckedAt, last_error AS lastError FROM firm_feeds WHERE firm_slug = ?').bind(slug).first();
+  const row = await env.DB.prepare('SELECT feed_url AS feedUrl, source, kind, enabled, status, last_checked_at AS lastCheckedAt, last_error AS lastError FROM firm_feeds WHERE firm_slug = ?').bind(slug).first();
   const { results } = await env.DB.prepare('SELECT title, url, published_at AS publishedAt FROM firm_posts WHERE firm_slug = ? ORDER BY published_at DESC, id DESC').bind(slug).all();
   return { feed: row ? { ...row, enabled: !!row.enabled } : null, posts: results };
 }
@@ -167,22 +207,36 @@ export async function refreshFirmFeed(env, slug, { discover = true } = {}) {
   const firm = await env.DB.prepare('SELECT data FROM firms WHERE slug = ?').bind(slug).first();
   if (!firm) throw new Error('Firm not found');
   const website = JSON.parse(firm.data).website || '';
+  const allowLocal = env.DEV_ECHO_LINK === '1';
   await env.DB.prepare('INSERT OR IGNORE INTO firm_feeds (firm_slug) VALUES (?)').bind(slug).run();
-  const row = await env.DB.prepare('SELECT feed_url, source FROM firm_feeds WHERE firm_slug = ?').bind(slug).first();
+  const row = await env.DB.prepare('SELECT feed_url, kind FROM firm_feeds WHERE firm_slug = ?').bind(slug).first();
   let feedUrl = row.feed_url;
+  let kind = row.kind;
   const set = (status, error, url = feedUrl) =>
-    env.DB.prepare("UPDATE firm_feeds SET status = ?, last_error = ?, feed_url = ?, last_checked_at = datetime('now') WHERE firm_slug = ?").bind(status, error ? String(error).slice(0, 200) : null, url, slug).run();
+    env.DB.prepare("UPDATE firm_feeds SET status = ?, last_error = ?, feed_url = ?, kind = ?, last_checked_at = datetime('now') WHERE firm_slug = ?").bind(status, error ? String(error).slice(0, 200) : null, url, kind, slug).run();
   try {
     if (!feedUrl) {
       if (!website || !discover) { await set('none', website ? null : 'The firm has no website on file.'); return { status: 'none', posts: 0 }; }
-      feedUrl = await discoverFeed(env, website);
-      if (!feedUrl) { await set('none', 'No blog feed was found on the website.', null); return { status: 'none', posts: 0 }; }
+      const found = await discoverFeed(env, website);
+      if (!found) { await set('none', 'No blog was found on the website.', null); return { status: 'none', posts: 0 }; }
+      feedUrl = found.url; kind = found.kind;
     }
-    const { url, text } = await safeGet(env, feedUrl, { maxBytes: FEED_LIMITS.bytes, accept: 'application/rss+xml,application/atom+xml,application/xml,text/xml,*/*' });
-    if (!/<(rss|feed|rdf:RDF)\b/i.test(text.slice(0, 2000))) throw new Error('That address is not an RSS or Atom feed.');
-    const posts = parseFeed(text, { feedUrl: url, siteUrl: website || url, allowLocal: env.DEV_ECHO_LINK === '1' });
-    if (!posts.length) throw new Error('The feed has no posts that link to the firm\'s own website.');
+    const wp = kind === 'wp' || isWpUrl(feedUrl);
+    kind = wp ? 'wp' : 'rss';
+    const { url, text } = await safeGet(env, feedUrl, { maxBytes: FEED_LIMITS.bytes, accept: wp ? 'application/json' : 'application/rss+xml,application/atom+xml,application/xml,text/xml,*/*' });
+    let posts;
+    if (wp) {
+      let json;
+      try { json = JSON.parse(text); } catch { throw new Error('That address did not return a WordPress post list.'); }
+      posts = parseWpPosts(json, { feedUrl: url, siteUrl: website || url, allowLocal });
+    } else {
+      if (!/<(rss|feed|rdf:RDF)\b/i.test(text.slice(0, 2000))) throw new Error('That address is not an RSS or Atom feed.');
+      posts = parseFeed(text, { feedUrl: url, siteUrl: website || url, allowLocal });
+    }
+    if (!posts.length) throw new Error('No posts were found that link to the firm\'s own website.');
+    const sourceChanged = row.feed_url !== feedUrl || row.kind !== kind; // a different address or type: the old posts could repeat the same articles
     await env.DB.batch([
+      ...(sourceChanged ? [env.DB.prepare('DELETE FROM firm_posts WHERE firm_slug = ?').bind(slug)] : []),
       ...posts.map((p) => env.DB.prepare(
         `INSERT INTO firm_posts (firm_slug, guid, title, url, published_at, excerpt) VALUES (?,?,?,?,?,?)
          ON CONFLICT (firm_slug, guid) DO UPDATE SET title = excluded.title, url = excluded.url, published_at = excluded.published_at, excerpt = excluded.excerpt, fetched_at = datetime('now')`
@@ -190,12 +244,25 @@ export async function refreshFirmFeed(env, slug, { discover = true } = {}) {
       // Keep only the newest few.
       env.DB.prepare(`DELETE FROM firm_posts WHERE firm_slug = ? AND id NOT IN (SELECT id FROM firm_posts WHERE firm_slug = ? ORDER BY published_at DESC, id DESC LIMIT ${FEED_LIMITS.posts})`).bind(slug, slug),
     ]);
-    await set('ok', null, url);
+    await set('ok', null, feedUrl);
     return { status: 'ok', posts: posts.length };
   } catch (err) {
     await set('error', err.message);
     return { status: 'error', error: err.message, posts: 0 };
   }
+}
+
+// Used by the News page: reads blogs that have never been read, or not for half a day. Never more than a few per visit.
+export async function dueFeeds(env, limit = 3) {
+  const dev = env.DEV_ECHO_LINK === '1';
+  const { results } = await env.DB.prepare(
+    `SELECT f.firm_slug AS slug FROM firm_feeds f JOIN firms m ON m.slug = f.firm_slug
+     WHERE f.enabled = 1 AND m.status = 'live' ${dev ? "AND f.source = 'manual'" : ''} AND (
+       (f.status != 'none' AND (f.last_checked_at IS NULL OR f.last_checked_at < datetime('now', '-12 hours')))
+       OR (f.status = 'none' AND f.last_checked_at < datetime('now', '-7 days')))
+     ORDER BY f.last_checked_at LIMIT ?`
+  ).bind(limit).all();
+  return results.map((r) => r.slug);
 }
 
 // Nightly: Featured firms get cards automatically (unless switched off); every enabled feed is refreshed.
@@ -243,8 +310,9 @@ export async function updateFeedSettings(env, actor, slug, body, exec) {
   const sets = [];
   const args = [];
   if ('enabled' in body) { sets.push('enabled = ?'); args.push(body.enabled ? 1 : 0); }
-  if ('feedUrl' in body) { sets.push('feed_url = ?', "source = ?", "status = 'pending'", 'last_error = NULL', 'last_checked_at = NULL'); args.push(url, url ? 'manual' : 'auto'); }
+  if ('feedUrl' in body) { sets.push('feed_url = ?', 'source = ?', 'kind = ?', "status = 'pending'", 'last_error = NULL', 'last_checked_at = NULL'); args.push(url, url ? 'manual' : 'auto', url && isWpUrl(url) ? 'wp' : 'rss'); }
   await env.DB.prepare(`UPDATE firm_feeds SET ${sets.join(', ')} WHERE firm_slug = ?`).bind(...args, slug).run();
+  if ('feedUrl' in body) await env.DB.prepare('DELETE FROM firm_posts WHERE firm_slug = ?').bind(slug).run(); // a new address starts fresh
   await audit(env, actor, 'feed.update', 'firm', slug, body);
   // Read it now when we know where it is; otherwise find it in the background (that takes a few requests).
   const row = await env.DB.prepare('SELECT feed_url, enabled FROM firm_feeds WHERE firm_slug = ?').bind(slug).first();

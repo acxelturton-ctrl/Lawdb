@@ -117,6 +117,19 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
   20 uploads per person per hour, owner descriptions pass the content rules. Pictures are served with `nosniff` and a sandboxing CSP.
 - Admins can manage any firm's pictures; owners only their own. Every add/remove is in the activity log. The backup includes the `firm_images` rows; the files are in the bucket.
 
+## LawDB News and the menu
+
+- **LawDB News** (`/legal-news.html`, rendered by `src/routes/news-page.js` + `src/render/news-page.js`) is the page of member firms' blog cards: firm name (Featured badge), date, headline, a short preview that expands,
+  and a link to the full article on the firm's own website. Filter by firm with `?firm=<slug>`. A static copy (`legal-news.html`, built by `scripts/build-news-fallback.mjs`, checked by `npm run check`) is served if the database is down.
+- **Which blogs:** every firm with blog cards switched on (`firm_feeds.enabled`). Featured firms are added automatically each night; the admin **News** tab adds or removes any firm and has the switch
+  `news_featured_only` (`site_settings`) to limit the page to Featured members only. The page fills itself: when someone visits, blogs never read (or not for 12 hours) are read in the background, a few per visit;
+  the nightly job also refreshes them.
+- **Sources** (`src/lib/feeds.js`): a WordPress site's public post list (`/wp-json/wp/v2/posts`, tried first: headline, date and the site's own excerpt in one request) or an RSS/Atom feed. Switching a firm's blog address clears its old posts, so the same article can never appear twice.
+  Blogs checked by hand are seeded by migration 0010 (Barbarian Law, Weaver Simmons, Nelligan, Daniel Brown; Blottman is found automatically).
+- **Court decisions explained** (the 12 LawDB-written articles under `/legal-news/`) moved to `/court-decisions.html` and are linked from the footer and each article's breadcrumb.
+- **Menu:** three items (Find Your Lawyer, LawDB News, For Law Firms) plus the consultation button, on every page. `/for-firms.html` is the single hub for firms (list free, Featured, manage listing, grow your practice).
+  The footer's columns follow the same structure with no repeated destinations.
+
 ## Safeguards (hardening pass)
 
 - **Ownership signal:** the Approvals card compares the claimant's email domain with the firm's website

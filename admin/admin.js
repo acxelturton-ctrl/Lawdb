@@ -180,7 +180,7 @@ async function viewFirms() {
       field('Name', f.name), field('Description', f.blurb), field('Phone', f.phone), field('Website', f.website),
       field('Address', f.address), field('Tags (comma separated)', f.tags),
       h('label', { class: 'check' }, f.featured, 'Featured firm'),
-      h('p', { class: 'muted' }, 'Saved to the database right away. Rating, reviews and map position come from Google and are not editable here.'),
+      h('p', { class: 'muted' }, 'Saved right away and live on the directory pages within about a minute. Rating, reviews and map position come from Google and are not editable here.'),
       h('div', { class: 'row' }, save, h('button', { type: 'button', onclick: () => editor.replaceChildren() }, 'Close')), out);
     editor.replaceChildren(form);
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -189,7 +189,7 @@ async function viewFirms() {
   search.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(find, 250); });
   await find();
   return h('div', null, h('h1', null, 'Firms'), search, h('div', { class: 'card' }, h('p', { class: 'muted' },
-    'Edits are saved to the database. Public pages will read from the database in an upcoming release; until then the live listing pages still show the old text.')),
+    'Edits are saved to the database and appear on the Find Lawyers page, the city and province directory pages, search suggestions and the map within about a minute. Individual firm profile pages are pre-built and do not change yet.')),
     editor, results);
 }
 

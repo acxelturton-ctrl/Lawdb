@@ -27,7 +27,7 @@ jobs:
           WRANGLER_SEND_METRICS: "false"
           CI: "true"
         run: |
-          printf 'ADMIN_EMAILS=smoke-admin@example.com\nDEV_ECHO_LINK=1\n' > .dev.vars
+          printf 'ADMIN_EMAILS=smoke-admin@example.com\nDEV_ECHO_LINK=1\nPUBLIC_CACHE_TTL=0\n' > .dev.vars
           # IMPORTANT: keep the log OUTSIDE the repo. The dev server watches the repo folder (the
           # website lives at its root), so a log file inside it would trigger endless reloads.
           LOG="${RUNNER_TEMP:-/tmp}/dev-server.log"

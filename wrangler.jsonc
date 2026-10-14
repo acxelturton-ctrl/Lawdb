@@ -6,8 +6,17 @@
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": ".",
-    // Static files are served directly (free, fast). Only /api/* runs the Worker.
-    "run_worker_first": ["/api/*"]
+    "binding": "ASSETS",
+    // Static files are served directly (free, fast). The Worker only runs for the API, the three data
+    // files, and the pages that embed the firm list (find-lawyers, the province/city hubs): for those it
+    // swaps in the live database list, falling back to the static file if the database is unavailable.
+    "run_worker_first": [
+      "/api/*",
+      "/firms_data.json", "/blog_data.json", "/firms_hours.json",
+      "/find-lawyers",
+      "/alberta/", "/manitoba/",
+      "/ontario/*/", "/quebec/*/", "/british-columbia/*/", "/alberta/*/", "/manitoba/*/"
+    ]
   },
   // Non-secret settings. Secrets (BREVO_API_KEY, ADMIN_EMAILS) are set in the Cloudflare dashboard:
   // Workers & Pages -> lawdb -> Settings -> Variables and Secrets.

@@ -33,6 +33,29 @@ visitor / admin / (soon) firm owner
 | Migrations in `migrations/`, applied automatically on deploy | Schema changes are reviewed in PRs and cannot drift between environments. |
 | CI runs migrations, seed and an end-to-end smoke test | Auth and security rules are regression-tested on every change. |
 
+## How public pages read the database
+
+The site was built with the firm list baked into the pages. Rather than rewrite 65 pages, the Worker swaps the
+live list in on the way out (`src/routes/dynamic.js`):
+
+- `/firms_data.json`, `/blog_data.json`, `/firms_hours.json` are served from D1 (used by search suggestions,
+  the map's opening hours and the blog lists).
+- `/find-lawyers`, the province hubs (`/alberta/`, `/manitoba/`) and every city hub (`/<province>/<city>/`) carry the
+  whole firm list in an inline `<script>`. The Worker replaces that one line with the database's list.
+- Responses are cached at the edge for 60 seconds (`PUBLIC_CACHE_TTL`, seconds; 0 disables), so a busy site reads the
+  database about once a minute per location, not once per visitor.
+- **Safety net:** if the database cannot be read, or a page does not contain exactly one inline list, the original
+  static file is served unchanged. The pre-built JSON files and pages stay in the repo as that fallback and as the seed.
+- `run_worker_first` in `wrangler.jsonc` lists the paths that reach the Worker; everything else is served as free static files.
+- CI proves the database output equals the static files byte-for-byte (as data), preserves order, and that an admin edit
+  appears on the public pages.
+
+Not yet dynamic: the 370 firm profile pages (`/firms/<slug>`) and the per-practice-area pages are pre-built HTML.
+Making them live needs either rendering them from templates in the Worker or regenerating them on edit.
+
+Capacity note: the Worker now handles these page views. On the free Workers plan that is 100,000 requests a day; the
+Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages remain free and unlimited.
+
 ## Setup that lives outside the repo (Cloudflare dashboard)
 
 Workers & Pages -> lawdb -> Settings -> Variables and Secrets:
@@ -44,8 +67,8 @@ Local development: copy the values from `.dev.vars` in the README (never committ
 
 ## Roadmap
 
-1. Admin area (this release): sign-in, leads inbox, firm editing, activity log.
-2. Public pages read firms and blog from the API instead of the JSON files.
+1. Admin area: sign-in, leads inbox, firm editing, activity log. (done)
+2. Public directory pages and data files rendered from the database. (done, see below; firm profile pages still static)
 3. Firm accounts: owner invites / "claim this listing", admin approval, `firm_members` table.
 4. Firm dashboard: own leads (lead -> firm routing), edit own profile.
 5. Featured billing (Stripe webhooks flip `featured`).

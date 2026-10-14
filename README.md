@@ -9,7 +9,7 @@ Canadian lawyer directory. Static pages served by Cloudflare, plus a Worker API 
 | Website | `*.html`, `site.css`, `images/`, city/province folders | Served directly by Cloudflare (fast, free). |
 | API | `src/worker.js` | Runs only for `/api/*` requests. |
 | Database | Cloudflare D1, schema in `migrations/` | Stores firms, blog posts and form leads. |
-| Seed data | `firms_data.json`, `firms_hours.json`, `blog_data.json` | Source for the initial database contents (`scripts/build-seed.mjs`). |
+| Seed data | `firms_data.json`, `firms_hours.json`, `blog_data.json` | Initial database contents (`scripts/build-seed.mjs`) and the fallback if the database is down. At runtime the Worker serves these from the database. |
 
 ### API
 

@@ -11,6 +11,7 @@ import * as account from './routes/account.js';
 import * as dyn from './routes/dynamic.js';
 import { firmPage } from './routes/firm-page.js';
 import { reportPage } from './routes/report-page.js';
+import { serveImage } from './routes/images.js';
 import { nightly } from './lib/backup.js';
 
 const route = (method, pattern, handler) => ({
@@ -63,6 +64,9 @@ const ROUTES = [
   route('GET', '/api/admin/firms/:slug/feed', admin.feedGet),
   route('PATCH', '/api/admin/firms/:slug/feed', admin.feedUpdate),
   route('POST', '/api/admin/firms/:slug/feed/refresh', admin.feedRefresh),
+  route('GET', '/api/admin/firms/:slug/images', admin.imagesList),
+  route('POST', '/api/admin/firms/:slug/images', admin.imagesAdd),
+  route('DELETE', '/api/admin/firms/:slug/images/:id', admin.imagesRemove),
   route('GET', '/api/admin/users', admin.listUsers),
   route('PATCH', '/api/admin/users/:id', admin.setUserDisabled),
   route('POST', '/api/admin/backup', admin.backupNow),
@@ -77,6 +81,9 @@ const ROUTES = [
   route('GET', '/api/account/firms/:slug/feed', account.feedGet),
   route('PATCH', '/api/account/firms/:slug/feed', account.feedUpdate),
   route('POST', '/api/account/firms/:slug/feed/refresh', account.feedRefresh),
+  route('GET', '/api/account/firms/:slug/images', account.imagesList),
+  route('POST', '/api/account/firms/:slug/images', account.imagesAdd),
+  route('DELETE', '/api/account/firms/:slug/images/:id', account.imagesRemove),
   route('PATCH', '/api/account/leads/:id', account.updateLead),
 ];
 
@@ -93,7 +100,7 @@ export default {
       if (!path.startsWith('/api/')) {
         // Only GET/HEAD reach here for site content; everything else is passed to the static files.
         if (request.method !== 'GET' && request.method !== 'HEAD') return env.ASSETS.fetch(request);
-        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path.startsWith('/firms/') ? firmPage : dyn.page);
+        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path.startsWith('/img/') ? serveImage : path.startsWith('/firms/') ? firmPage : dyn.page);
         return await handler({ request, env, ctx });
       }
       const method = request.method === 'HEAD' ? 'GET' : request.method;

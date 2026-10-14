@@ -108,8 +108,13 @@ function description(f) {
     : `${lead}. Practice areas, address, phone and directions on LawDB.`;
 }
 
-export function renderFirmPage({ firm: f, hours, posts = [], nearby = [], origin = 'https://lawdb.ca' }) {
+const PHOTO_CSS = '<style>.photos{margin:22px 0}.photos h2{font-size:18px;margin:0 0 10px}.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.photo-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block;background:#eee}</style>';
+const IMG_ID = /^[0-9a-f]{24}$/;
+
+export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], origin = 'https://lawdb.ca' }) {
   const prov = PROVINCES[f.province] || f.province;
+  const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
+  const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-default.jpg`;
   const url = `${origin}/firms/${f.slug}`;
   const desc = description(f);
   const about = typeof f.about === 'string' ? f.about.trim() : '';
@@ -130,6 +135,7 @@ export function renderFirmPage({ firm: f, hours, posts = [], nearby = [], origin
     ...(num(f.lat) && num(f.lng) ? { geo: { '@type': 'GeoCoordinates', latitude: f.lat, longitude: f.lng } } : {}),
     ...(rated ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: f.rating, reviewCount: f.count } } : {}),
     url,
+    ...(customCover ? { image: ogImage } : {}),
     ...(website ? { sameAs: [website] } : {}),
   };
 
@@ -150,6 +156,8 @@ export function renderFirmPage({ firm: f, hours, posts = [], nearby = [], origin
     `        ${f.address ? `<p class="li-meta">${esc(f.address)}</p>` : ''}${planLine}\n        ${actions}\n      </div>\n    </section>`;
 
   const aboutHtml = about ? `\n    <div class="article">${esc(about).replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>')}</div>` : '';
+  const photoTags = images.filter((i) => IMG_ID.test(i.id)).map((i) => `<img src="/img/${i.id}" alt="${esc(i.alt || `${f.name} photo`)}" loading="lazy" width="320" height="240">`);
+  const photosHtml = photoTags.length ? `\n    <div class="photos"><h2>Photos</h2><div class="photo-grid">${photoTags.join('')}</div></div>` : '';
   const tags = (f.tags || []).filter(Boolean);
   const services = tags.length ? `\n    <div class="services">\n      <h2>Practice areas</h2>\n      <ul>${tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>\n    </div>` : '';
   const hoursHtml = hoursCard(hours, f.province);
@@ -176,13 +184,13 @@ export function renderFirmPage({ firm: f, hours, posts = [], nearby = [], origin
     `<link rel="canonical" href="${esc(url)}">`,
     `<meta property="og:url" content="${esc(url)}">`,
     '<meta property="og:site_name" content="LawDB.ca">\n<meta property="og:locale" content="en_CA">',
-    `<meta property="og:image" content="${origin}/images/og-default.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">`,
+    `<meta property="og:image" content="${ogImage}">${customCover ? '' : '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'}`,
     `<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
-    `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${origin}/images/og-default.jpg">`,
+    `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
-    C.STYLE + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
+    C.STYLE + PHOTO_CSS + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm">\n  ' + C.HEADER,
-    '  <div class="wrap">\n    ' + card + aboutHtml + services + renderBlogCards({ firmName: f.name, posts }) + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap">\n    ' + card + aboutHtml + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     '    ' + fill(C.LEAD_SLIM, toks),
     carousel(f, nearby),
     '\n\n    ' + leadScript,

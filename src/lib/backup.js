@@ -17,6 +17,7 @@ const TABLES = {
   firm_members: 'SELECT * FROM firm_members ORDER BY id',
   firm_feeds: 'SELECT * FROM firm_feeds ORDER BY firm_slug',
   users: 'SELECT id, email, role, disabled, created_at, last_login_at FROM users ORDER BY id', // never tokens or sessions
+  firm_images: 'SELECT * FROM firm_images ORDER BY created_at, id', // the files themselves are in the lawdb-images bucket
   leads: 'SELECT * FROM leads ORDER BY id',
   audit_log: 'SELECT * FROM audit_log ORDER BY id',
 };

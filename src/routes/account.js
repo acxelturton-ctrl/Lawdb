@@ -10,6 +10,7 @@ import { mailInBackground, newClaimEmail } from '../lib/email.js';
 import { adminEmails } from '../lib/auth.js';
 import { LEAD_STATUSES } from './admin.js';
 import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
+import { addImage, removeImage, listImages } from '../lib/images.js';
 
 const reply = (body, status = 200) => json(body, status, NO_STORE);
 
@@ -167,4 +168,24 @@ export async function feedRefresh({ request, env, params, exec }) {
   await requireOwner(env, user, params.slug);
   const result = await checkFeedNow(env, user, params.slug, { admin: false }, exec);
   return reply({ ok: true, result, ...(await getFeedInfo(env, params.slug)) });
+}
+
+// ---------------------------------------------------------------- pictures
+export async function imagesList({ request, env, params }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  return reply({ images: await listImages(env, params.slug) });
+}
+
+export async function imagesAdd({ request, env, params }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  return reply({ ok: true, image: await addImage(env, user, params.slug, request, { admin: false }) }, 201);
+}
+
+export async function imagesRemove({ request, env, params }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  await removeImage(env, user, params.slug, params.id);
+  return reply({ ok: true });
 }

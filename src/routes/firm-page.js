@@ -86,7 +86,8 @@ export async function firmPage({ request, env, ctx }) {
   try {
     const firm = { ...JSON.parse(row.data), about: row.about || '' };
     const hours = row.hours ? JSON.parse(row.hours) : null;
-    html = renderFirmPage({ firm, hours, posts: await feedPosts(env, m[1]), nearby: await nearbyFirms(env, firm), origin: env.SITE_ORIGIN || url.origin });
+    const photos = (await env.DB.prepare("SELECT id, alt FROM firm_images WHERE firm_slug = ? AND kind = 'photo' ORDER BY created_at, id").bind(m[1]).all()).results;
+    html = renderFirmPage({ firm, hours, images: photos, posts: await feedPosts(env, m[1]), nearby: await nearbyFirms(env, firm), origin: env.SITE_ORIGIN || url.origin });
   } catch (err) {
     console.error('profile render failed', m[1], err);
     return env.ASSETS.fetch(request);

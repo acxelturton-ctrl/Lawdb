@@ -2,6 +2,7 @@ import { json, readJson, clampInt, NO_STORE, HttpError } from '../lib/http.js';
 import { requireAdmin } from '../lib/auth.js';
 import { runBackup } from '../lib/backup.js';
 import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
+import { addImage, removeImage, listImages } from '../lib/images.js';
 import { audit } from '../lib/audit.js';
 import { mailInBackground, decisionEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES } from '../lib/firm-edit.js';
@@ -270,4 +271,21 @@ export async function feedRefresh({ request, env, params, exec }) {
   const admin = await requireAdmin(env, request);
   const result = await checkFeedNow(env, admin, params.slug, { admin: true }, exec);
   return reply({ ok: true, result, ...(await getFeedInfo(env, params.slug)) });
+}
+
+// ---------------------------------------------------------------- pictures (any firm)
+export async function imagesList({ request, env, params }) {
+  await requireAdmin(env, request);
+  return reply({ images: await listImages(env, params.slug) });
+}
+
+export async function imagesAdd({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  return reply({ ok: true, image: await addImage(env, admin, params.slug, request, { admin: true }) }, 201);
+}
+
+export async function imagesRemove({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  await removeImage(env, admin, params.slug, params.id);
+  return reply({ ok: true });
 }

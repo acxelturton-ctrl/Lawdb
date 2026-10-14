@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "check": "for f in src/*.js src/lib/*.js src/routes/*.js src/render/*.js scripts/*.mjs; do node --check $f || exit 1; done && node scripts/extract-firm-template.mjs --check && node scripts/build-news-fallback.mjs --check && wrangler deploy --dry-run --outdir .wrangler/dry-run",
+    "check": "for f in src/*.js src/lib/*.js src/routes/*.js src/render/*.js scripts/*.mjs admin/*.js account/*.js; do node --check $f || exit 1; done && node scripts/extract-firm-template.mjs --check && node scripts/build-news-fallback.mjs --check && wrangler deploy --dry-run --outdir .wrangler/dry-run",
     "db:seed:build": "node scripts/build-seed.mjs",
     "db:migrate:local": "wrangler d1 migrations apply DB --local",
     "db:seed:local": "npm run db:seed:build && wrangler d1 execute DB --local --file=db/seed.sql",

@@ -375,6 +375,7 @@ async function viewPayments() {
     h('div', { class: 'card' }, data.active.length ? data.active.map(row) : h('p', { class: 'muted' }, 'No paid Featured listings yet. They appear here as soon as a firm pays.')),
     data.ended.length > 0 && h('h2', null, 'Recently ended'),
     data.ended.length > 0 && h('div', { class: 'card' }, data.ended.map(row)));
+}
 
 // ---------------------------------------------------------------- news
 // LawDB News shows blog cards from firms that have them switched on. Here you choose which firms, and whether the page is

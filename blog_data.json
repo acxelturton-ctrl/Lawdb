@@ -105,7 +105,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#1c2a3a 0%,#3d5a73 100%)",
   "banner_label": "Practice Growth",
-  "path": "grow-your-practice/how-lawyers-get-more-clients-2026.html"
+  "path": "grow-your-practice/how-lawyers-get-more-clients-2026"
  },
  {
   "slug": "lawyer-lead-generation-guide",
@@ -117,7 +117,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#2f4858 0%,#33658a 100%)",
   "banner_label": "Lead Generation",
-  "path": "grow-your-practice/lawyer-lead-generation-guide.html"
+  "path": "grow-your-practice/lawyer-lead-generation-guide"
  },
  {
   "slug": "best-legal-directories-canada",
@@ -129,7 +129,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#334756 0%,#4c7a91 100%)",
   "banner_label": "Directories",
-  "path": "grow-your-practice/best-legal-directories-canada.html"
+  "path": "grow-your-practice/best-legal-directories-canada"
  },
  {
   "slug": "seo-for-lawyers-beginners-guide",
@@ -141,7 +141,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#2b3746 0%,#59748f 100%)",
   "banner_label": "SEO",
-  "path": "grow-your-practice/seo-for-lawyers-beginners-guide.html"
+  "path": "grow-your-practice/seo-for-lawyers-beginners-guide"
  },
  {
   "slug": "google-business-profile-for-law-firms",
@@ -153,7 +153,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#334756 0%,#4c7a91 100%)",
   "banner_label": "Local SEO",
-  "path": "grow-your-practice/google-business-profile-for-law-firms.html"
+  "path": "grow-your-practice/google-business-profile-for-law-firms"
  },
  {
   "slug": "lawyer-online-reviews-guide",
@@ -165,7 +165,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#4a3b52 0%,#7d5a75 100%)",
   "banner_label": "Reputation",
-  "path": "grow-your-practice/lawyer-online-reviews-guide.html"
+  "path": "grow-your-practice/lawyer-online-reviews-guide"
  },
  {
   "slug": "solo-lawyer-marketing-guide",
@@ -177,7 +177,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#3d405b 0%,#5f6caf 100%)",
   "banner_label": "Solo Practice",
-  "path": "grow-your-practice/solo-lawyer-marketing-guide.html"
+  "path": "grow-your-practice/solo-lawyer-marketing-guide"
  },
  {
   "slug": "referral-network-for-lawyers",
@@ -189,7 +189,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#2f4858 0%,#5c8ca6 100%)",
   "banner_label": "Referrals",
-  "path": "grow-your-practice/referral-network-for-lawyers.html"
+  "path": "grow-your-practice/referral-network-for-lawyers"
  },
  {
   "slug": "how-personal-injury-lawyers-get-more-clients",
@@ -201,7 +201,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#4a3b52 0%,#7d5a75 100%)",
   "banner_label": "Personal Injury",
-  "path": "grow-your-practice/how-personal-injury-lawyers-get-more-clients.html"
+  "path": "grow-your-practice/how-personal-injury-lawyers-get-more-clients"
  },
  {
   "slug": "how-family-lawyers-get-more-clients",
@@ -213,7 +213,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#3b3a4e 0%,#63617e 100%)",
   "banner_label": "Family Law",
-  "path": "grow-your-practice/how-family-lawyers-get-more-clients.html"
+  "path": "grow-your-practice/how-family-lawyers-get-more-clients"
  },
  {
   "slug": "how-immigration-lawyers-get-more-clients",
@@ -225,7 +225,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#334756 0%,#4c7a91 100%)",
   "banner_label": "Immigration",
-  "path": "grow-your-practice/how-immigration-lawyers-get-more-clients.html"
+  "path": "grow-your-practice/how-immigration-lawyers-get-more-clients"
  },
  {
   "slug": "how-criminal-defence-lawyers-get-more-clients",
@@ -237,7 +237,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#1c2a3a 0%,#4d5c6d 100%)",
   "banner_label": "Criminal Defence",
-  "path": "grow-your-practice/how-criminal-defence-lawyers-get-more-clients.html"
+  "path": "grow-your-practice/how-criminal-defence-lawyers-get-more-clients"
  },
  {
   "slug": "law-firm-google-ads-guide",
@@ -249,7 +249,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#8a5f22 0%,#b8863f 100%)",
   "banner_label": "Paid Advertising",
-  "path": "grow-your-practice/law-firm-google-ads-guide.html"
+  "path": "grow-your-practice/law-firm-google-ads-guide"
  },
  {
   "slug": "law-firm-website-mistakes",
@@ -261,7 +261,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#4d5c6d 0%,#8a94a1 100%)",
   "banner_label": "Website",
-  "path": "grow-your-practice/law-firm-website-mistakes.html"
+  "path": "grow-your-practice/law-firm-website-mistakes"
  },
  {
   "slug": "quebec-bc-ontario-lawyer-marketing-differences",
@@ -273,7 +273,7 @@
   "hero_banner": "firms",
   "banner_css": "linear-gradient(135deg,#1c2a3a 0%,#4d5c6d 100%)",
   "banner_label": "Provincial Rules",
-  "path": "grow-your-practice/quebec-bc-ontario-lawyer-marketing-differences.html"
+  "path": "grow-your-practice/quebec-bc-ontario-lawyer-marketing-differences"
  },
  {
   "slug": "freezing-assets-alberta-mareva-injunction",

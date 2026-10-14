@@ -102,7 +102,7 @@ function viewFind() {
     return {
       f,
       el: [field('Your name', f.contactName), field('Your role at the firm', f.jobTitle), field('Note for our team', f.message),
-        h('label', { class: 'check small', for: 'terms' }, terms, h('span', null, 'I am authorised to act for this firm and I accept the ', h('a', { href: '/terms.html#firm-terms', target: '_blank', rel: 'noopener' }, 'Terms for firms'), '.'))],
+        h('label', { class: 'check small', for: 'terms' }, terms, h('span', null, 'I am authorised to act for this firm and I accept the ', h('a', { href: '/terms#firm-terms', target: '_blank', rel: 'noopener' }, 'Terms for firms'), '.'))],
       get: () => ({ contactName: f.contactName.value, jobTitle: f.jobTitle.value, message: f.message.value, acceptTerms: terms.checked }),
     };
   }

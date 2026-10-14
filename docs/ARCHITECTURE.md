@@ -135,8 +135,8 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 
 ## LawDB News and the menu
 
-- **LawDB News** (`/legal-news.html`, rendered by `src/routes/news-page.js` + `src/render/news-page.js`) is the page of member firms' blog cards: firm name (Featured badge), date, headline, a short preview that expands,
-  and a link to the full article on the firm's own website. Filter by firm with `?firm=<slug>`. A static copy (`legal-news.html`, built by `scripts/build-news-fallback.mjs`, checked by `npm run check`) is served if the database is down.
+- **LawDB News** (`/news`, rendered by `src/routes/news-page.js` + `src/render/news-page.js`) is the page of member firms' blog cards: firm name (Featured badge), date, headline, a short preview that expands,
+  and a link to the full article on the firm's own website. Filter by firm with `?firm=<slug>`. A static copy (`news.html`, built by `scripts/build-news-fallback.mjs`, checked by `npm run check`) is served if the database is down.
 - **Edge to edge:** a dark masthead (title, a short welcome, real counts of firms and articles and the latest story date), "how it works" in three steps, the strip of firms writing here, filter chips, then the feed filling the full screen width (cards from 380px, the lead story, the newest post with a picture, as one wide card). The counts and the firm strip are computed from the database, never invented.
 - **A picture feed:** the page is laid out like a social feed (`.lw-feed`): one large card at a time on a phone (post header with the firm's logo or initial, Featured badge and date; a big 4:3 picture; headline; longer preview), two columns on a wide screen.
   Every post with a picture is shown, but at most 3 posts without one (the newest) so it never becomes a wall of text (`limitWithoutPicture` in `src/routes/news-page.js`).
@@ -145,7 +145,7 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
   the nightly job also refreshes them.
 - **Sources** (`src/lib/feeds.js`): a WordPress site's public post list (`/wp-json/wp/v2/posts`, tried first: headline, date and the site's own excerpt in one request) or an RSS/Atom feed. Switching a firm's blog address clears its old posts, so the same article can never appear twice.
   Blogs checked by hand are seeded by migration 0010 (Barbarian Law, Weaver Simmons, Nelligan, Daniel Brown; Blottman is found automatically).
-- **Court decisions explained** (the 12 LawDB-written articles under `/legal-news/`) moved to `/court-decisions.html` and are linked from the footer and each article's breadcrumb.
+- **Court decisions explained** (the 12 LawDB-written articles, now under `/court-decisions/`) are listed on `/court-decisions` and are linked from the footer and each article's breadcrumb.
 - **Menu:** three items (Find Your Lawyer, LawDB News, For Law Firms) plus the consultation button, on every page. `/for-firms.html` is the single hub for firms (list free, Featured, manage listing, grow your practice).
   The footer's columns follow the same structure with no repeated destinations.
 
@@ -159,13 +159,22 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - Not possible by API: "Request indexing" for ordinary pages (Google's Indexing API is for jobs/livestreams only). Setup: `docs/SEARCH_CONSOLE_SETUP.md`.
 - Tests run against a fake Google on port 8798 (`scripts/gen-test-gsc.mjs` adds a throw-away key to `.dev.vars`); `GSC_API_BASE`/`GSC_TOKEN_URL` are only honoured in local development (`DEV_ECHO_LINK=1`).
 
+## URLs: one clean address per page
+
+- No ".html" anywhere. Every page has exactly one address: `/list-your-firm`, `/firms/<slug>`, `/ontario/toronto/` (hubs keep their trailing slash), `/ontario/family-lawyers`, `/news`, `/court-decisions/<case>`.
+  The canonical tag, `og:url`, the sitemap and every internal link use that address; `npm run check` runs `scripts/check-links.mjs`, which fails the build if a page links to an old-style address, a link is broken, or a canonical/sitemap entry disagrees with the page's own address.
+- Province-wide practice-area pages are `/<province>/<practice>-lawyers` for every province (they used to be `/services/bc-family`, `/services/qc-family`, `/services/family`, which only covered three provinces and did not say where). LawDB News moved from `/legal-news.html` to `/news`; the court-decision articles from `/legal-news/<case>` to `/court-decisions/<case>`.
+- Old addresses answer with a permanent **301** redirect (`src/lib/redirects.js`, applied in the Worker before anything else; `wrangler.jsonc` sends every `*.html` request to the Worker first). The platform's own `.html` redirect is a temporary 307 and was previously what visitors and search engines got.
+- Firm slugs (`/firms/<name>`) were already lowercase, hyphenated and descriptive (a city is added only to tell same-named firms apart) and are unchanged.
+- Adding a page: save it as `some-page.html`, link to `/some-page`, canonical `https://lawdb.ca/some-page`, add it to `sitemap.xml`, run `npm run check`.
+
 ## Safeguards (hardening pass)
 
 - **Ownership signal:** the Approvals card compares the claimant's email domain with the firm's website
   (`emailMatch` in `src/routes/admin.js`): match / personal email / mismatch / no website. It informs the decision; it never approves on its own.
 - **Owner text rules** (`src/lib/content-rules.js`, owners only, only for text being changed): no HTML, no links, no regulated advertising
   claims ("best", "#1", "top-rated", "guaranteed", "specialist"). Everyone who claims or adds a firm must accept the firm terms
-  (`terms.html#firm-terms`); the time is stored in `firm_members.terms_accepted_at`.
+  (`/terms#firm-terms`); the time is stored in `firm_members.terms_accepted_at`.
 - **Reports:** every profile page links to `/report-listing?firm=<slug>`. Reports are leads with form `report-listing`; they are never shown
   or emailed to the firm. The admin is emailed. **Undo:** the Activity tab can restore the values an edit replaced (`POST /api/admin/audit/:id/revert`).
 - **People:** the People tab disables/enables owner accounts (disabling ends all their sessions). "Sign out everywhere" is available to everyone.

@@ -1,4 +1,4 @@
-// GET /legal-news and /legal-news.html: LawDB News, built from the database. Falls back to the static page if the database is unavailable.
+// GET /news: LawDB News, built from the database. Falls back to the static page if the database is unavailable.
 import { renderNewsPage } from '../render/news-page.js';
 import { dueFeeds, refreshFirmFeed } from '../lib/feeds.js';
 
@@ -35,7 +35,7 @@ export async function newsPage({ request, env, ctx }) {
   const url = new URL(request.url);
   const selected = (url.searchParams.get('firm') || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
   const ttl = ttlOf(env);
-  const key = new Request(`${url.origin}/legal-news.html?firm=${selected}`, { method: 'GET' });
+  const key = new Request(`${url.origin}/news?firm=${selected}`, { method: 'GET' });
   if (ttl > 0) {
     const hit = await caches.default.match(key);
     if (hit) return hit;

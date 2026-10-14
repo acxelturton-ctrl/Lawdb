@@ -63,11 +63,11 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
   const shown = posts.filter((p) => safePostUrl(p.url));
   const st = stats || { firms: firms.length, articles: shown.length, latest: shown[0]?.publishedAt || null };
   const chips = firms.length > 1
-    ? `<nav class="news-chips" aria-label="Filter by firm"><a href="/legal-news.html"${selected ? '' : ' aria-current="true"'}>All firms</a>${firms.map((f) =>
-        `<a href="/legal-news.html?firm=${esc(f.slug)}"${selected === f.slug ? ' aria-current="true"' : ''}>${esc(f.name)}</a>`).join('')}</nav>`
+    ? `<nav class="news-chips" aria-label="Filter by firm"><a href="/news"${selected ? '' : ' aria-current="true"'}>All firms</a>${firms.map((f) =>
+        `<a href="/news?firm=${esc(f.slug)}"${selected === f.slug ? ' aria-current="true"' : ''}>${esc(f.name)}</a>`).join('')}</nav>`
     : '';
   const people = firms.length
-    ? `<div class="news-people"><h2>The firms writing here</h2>${firms.map((f) => `<a href="/legal-news.html?firm=${esc(f.slug)}"><span class="lw-av">${avatarOf(f.logo, f.name)}</span>${esc(f.name)}</a>`).join('')}</div>`
+    ? `<div class="news-people"><h2>The firms writing here</h2>${firms.map((f) => `<a href="/news?firm=${esc(f.slug)}"><span class="lw-av">${avatarOf(f.logo, f.name)}</span>${esc(f.name)}</a>`).join('')}</div>`
     : '';
   const headOf = (p) => ({
     avatar: avatarOf(p.logo, p.firmName),
@@ -94,8 +94,8 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n' + C.FAVICONS + '\n<meta name="viewport" content="width=device-width, initial-scale=1.0">',
     '<title>LawDB News | Articles from Featured Law Firms | LawDB.ca</title>',
     `<meta name="description" content="${esc(desc)}">`,
-    '<link rel="canonical" href="https://lawdb.ca/legal-news.html">',
-    '<meta property="og:title" content="LawDB News"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/legal-news.html">' + `<meta property="og:description" content="${esc(desc)}">`,
+    '<link rel="canonical" href="https://lawdb.ca/news">',
+    '<meta property="og:title" content="LawDB News"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/news">' + `<meta property="og:description" content="${esc(desc)}">`,
     C.STYLE + BLOG_CSS + CSS + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n</head>',
     '<body>\n  ' + C.HEADER.replace(/<a[^>]*>Back to results<\/a>/, ''),
     '  <header class="news-band"><p class="news-eyebrow">Straight from the firms</p><h1>LawDB News</h1><p class="news-lede">What Canada\'s law firms are writing, all in one place.</p>' +
@@ -106,7 +106,7 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
     '    ' + chips,
     '    ' + body,
     '  </main>',
-    '  <div class="news-cta"><div><b>Run a law firm?</b><span>Featured members\' blogs appear on this page, with their logo and a link back to their site.</span></div><a href="/for-firms.html">See how Featured works &rarr;</a></div>',
+    '  <div class="news-cta"><div><b>Run a law firm?</b><span>Featured members\' blogs appear on this page, with their logo and a link back to their site.</span></div><a href="/for-firms">See how Featured works &rarr;</a></div>',
     '  <p class="news-foot">Headlines and short excerpts come from each firm\'s public blog. The articles belong to the firms that wrote them, and the full text is on their websites. LawDB is an independent directory and does not endorse any article or firm.</p>',
     '  ' + C.FOOTER,
     '<script src="/site.js" defer></script>',

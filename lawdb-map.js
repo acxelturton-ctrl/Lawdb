@@ -120,7 +120,7 @@
   function itemHtml(f, detail){
     var oi = openInfo(f), dist = userPos ? ' · ' + fmtKm(km(userPos.lat, userPos.lng, f.lat, f.lng)) : '';
     var pct = Math.max(0, Math.min(100, (f.rating || 0) / 5 * 100));
-    var prof = ROOT + 'firms/' + f.slug + '.html';
+    var prof = ROOT + 'firms/' + f.slug;
     return '<article class="gm-item' + (f.featured ? ' is-feat' : '') + (sel && sel.slug === f.slug && !detail ? ' is-sel' : '') + '" data-slug="' + esc(f.slug) + '" tabindex="0">' +
       '<div class="gm-i-main">' +
         (f.featured ? '<span class="gm-i-badge"><i>' + IC.tick + '</i>Featured</span>' : '') +
@@ -764,7 +764,7 @@
       return;
     }
     if(t.prov){
-      if(!IS_FIND){ location.href = ROOT + 'find-lawyers.html?province=' + t.prov + (kase ? '&case=' + encodeURIComponent(kase) : ''); return; }
+      if(!IS_FIND){ location.href = ROOT + 'find-lawyers?province=' + t.prov + (kase ? '&case=' + encodeURIComponent(kase) : ''); return; }
       selectedCase = kase; selectedProvince = t.prov; selectedRegion = null; selectedCityName = null; showResults(true);
       return;
     }

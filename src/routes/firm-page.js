@@ -43,11 +43,8 @@ async function feedPosts(env, slug) {
 
 export async function firmPage({ request, env, ctx }) {
   const url = new URL(request.url);
-  const m = url.pathname.match(/^\/firms\/([a-z0-9][a-z0-9-]*?)(\.html)?\/?$/);
+  const m = url.pathname.match(/^\/firms\/([a-z0-9][a-z0-9-]*?)\/?$/);
   if (!m) return env.ASSETS.fetch(request);
-
-  // The old .html address keeps redirecting to the clean one, exactly as before.
-  if (m[2]) return Response.redirect(`${url.origin}/firms/${m[1]}${url.search}`, 307);
 
   const ttl = ttlOf(env);
   const key = new Request(url.origin + url.pathname, { method: 'GET' });

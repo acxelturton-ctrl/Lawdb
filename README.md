@@ -6,7 +6,7 @@ Canadian lawyer directory. Static pages served by Cloudflare, plus a Worker API 
 
 | Piece | Where | What it does |
 |---|---|---|
-| Website | `*.html`, `site.css`, `images/`, city/province folders | Served directly by Cloudflare (fast, free). |
+| Website | `*.html` files (served at clean addresses without `.html`), `site.css`, `images/`, city/province folders | Served directly by Cloudflare (fast, free). |
 | API | `src/worker.js` | Runs only for `/api/*` requests. |
 | Database | Cloudflare D1, schema in `migrations/` | Stores firms, blog posts and form leads. |
 | Pictures | Cloudflare R2 bucket `lawdb-images` | Firm logos, covers and photos, served at `/img/<id>`. |

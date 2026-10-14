@@ -11,7 +11,7 @@
 import { audit } from './audit.js';
 
 const SCOPE = 'https://www.googleapis.com/auth/webmasters';
-export const GSC_LIMITS = { batch: 40, keyPages: ['/', '/find-lawyers', '/legal-news.html', '/for-firms.html'], timeoutMs: 15000 };
+export const GSC_LIMITS = { batch: 40, keyPages: ['/', '/find-lawyers', '/news', '/for-firms'], timeoutMs: 15000 };
 
 const dev = (env) => env.DEV_ECHO_LINK === '1';
 const apiBase = (env) => (dev(env) && env.GSC_API_BASE) || 'https://www.googleapis.com';

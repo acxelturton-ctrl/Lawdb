@@ -289,3 +289,27 @@ export async function imagesRemove({ request, env, params }) {
   await removeImage(env, admin, params.slug, params.id);
   return reply({ ok: true });
 }
+
+
+// ---------------------------------------------------------------- LawDB News (which blogs appear, and for whom)
+export async function newsGet({ request, env }) {
+  await requireAdmin(env, request);
+  const [{ results }, setting] = await Promise.all([
+    env.DB.prepare(
+      `SELECT ff.firm_slug AS slug, json_extract(f.data, '$.name') AS name, f.city, f.province, f.featured, ff.enabled, ff.status, ff.kind, ff.feed_url AS feedUrl,
+              ff.last_checked_at AS lastCheckedAt, ff.last_error AS lastError, (SELECT COUNT(*) FROM firm_posts p WHERE p.firm_slug = ff.firm_slug) AS posts
+       FROM firm_feeds ff JOIN firms f ON f.slug = ff.firm_slug ORDER BY f.featured DESC, name`
+    ).all(),
+    env.DB.prepare("SELECT value FROM site_settings WHERE key = 'news_featured_only'").first(),
+  ]);
+  return reply({ featuredOnly: setting?.value === '1', firms: results.map((r) => ({ ...r, featured: !!r.featured, enabled: !!r.enabled })) });
+}
+
+export async function newsSettings({ request, env }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 200);
+  if (typeof body.featuredOnly !== 'boolean') throw new HttpError(422, 'featuredOnly must be true or false');
+  await env.DB.prepare("INSERT INTO site_settings (key, value) VALUES ('news_featured_only', ?) ON CONFLICT (key) DO UPDATE SET value = excluded.value").bind(body.featuredOnly ? '1' : '0').run();
+  await audit(env, admin, 'news.setting', 'site', 'news_featured_only', { featuredOnly: body.featuredOnly });
+  return reply({ ok: true, featuredOnly: body.featuredOnly });
+}

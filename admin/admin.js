@@ -32,7 +32,7 @@ function renderLogin() {
 
 // ---------------------------------------------------------------- shell
 let pendingCount = 0;
-const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['people', 'People'], ['activity', 'Activity']];
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['news', 'News'], ['people', 'People'], ['activity', 'Activity']];
 
 function shell(user, active, content) {
   return h('div', null,
@@ -307,6 +307,74 @@ async function viewApprovals() {
     h('div', { class: 'card' }, decided.length ? decided.map(decidedRow) : h('p', { class: 'muted' }, 'None yet.')));
 }
 
+// ---------------------------------------------------------------- news
+// LawDB News shows blog cards from firms that have them switched on. Here you choose which firms, and whether the page is
+// for every firm with a blog or only for Featured members.
+async function viewNews() {
+  const data = await api('GET', '/api/admin/news');
+  const out = h('div');
+  const reload = () => render(me);
+
+  const only = h('input', { type: 'checkbox', checked: data.featuredOnly, id: 'news-only' });
+  only.addEventListener('change', async () => {
+    try { await api('PATCH', '/api/admin/news', { featuredOnly: only.checked }); out.replaceChildren(note('msg-ok', only.checked ? 'The page now shows Featured members only.' : 'The page now shows every firm with its blog switched on.')); }
+    catch (err) { out.replaceChildren(note('msg-err', err.message)); only.checked = !only.checked; }
+  });
+
+  const statusText = (f) => {
+    if (!f.enabled) return 'Switched off';
+    if (f.status === 'ok') return `Working: ${f.posts} post${f.posts === 1 ? '' : 's'}${f.lastCheckedAt ? ', checked ' + when(f.lastCheckedAt) : ''}`;
+    if (f.status === 'none') return 'No blog found yet. We keep looking; or paste the blog address in the firm\'s editor.';
+    if (f.status === 'error') return 'Problem: ' + (f.lastError || 'could not read it') + (f.posts ? ' (earlier posts kept)' : '');
+    return 'Looking for the blog...';
+  };
+
+  const row = (f) => {
+    const msg = h('span');
+    const check = h('button', { type: 'button' }, 'Check now');
+    check.addEventListener('click', async () => {
+      check.disabled = true; msg.replaceChildren(note('msg-ok', 'Checking...'));
+      try { await api('POST', `/api/admin/firms/${encodeURIComponent(f.slug)}/feed/refresh`); reload(); } catch (err) { msg.replaceChildren(note('msg-err', err.message)); check.disabled = false; }
+    });
+    const toggle = h('button', { type: 'button' }, f.enabled ? 'Remove from News' : 'Add to News');
+    toggle.addEventListener('click', async () => {
+      toggle.disabled = true;
+      try { await api('PATCH', `/api/admin/firms/${encodeURIComponent(f.slug)}/feed`, { enabled: !f.enabled }); reload(); } catch (err) { msg.replaceChildren(note('msg-err', err.message)); toggle.disabled = false; }
+    });
+    return h('div', { class: 'audit' },
+      h('div', null, h('b', null, f.name), ' ', f.featured && h('span', { class: 'badge featured' }, 'Featured'), ' ', h('span', { class: 'muted' }, `${f.city}, ${f.province}`)),
+      h('div', { class: 'muted' }, statusText(f)),
+      h('div', { class: 'row' }, check, toggle, h('a', { href: `/legal-news.html?firm=${f.slug}`, target: '_blank', rel: 'noopener' }, 'See on News')), msg);
+  };
+
+  const search = h('input', { type: 'search', placeholder: 'Add a firm: search by name or city', 'aria-label': 'Search firms to add' });
+  const results = h('div');
+  let timer;
+  search.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      const q = search.value.trim();
+      if (q.length < 2) return results.replaceChildren();
+      try {
+        const { firms } = await api('GET', '/api/admin/firms?limit=8&q=' + encodeURIComponent(q));
+        results.replaceChildren(...firms.map((f) => h('button', { class: 'firm-row', type: 'button', onclick: async () => {
+          try { await api('PATCH', `/api/admin/firms/${encodeURIComponent(f.slug)}/feed`, { enabled: true }); out.replaceChildren(note('msg-ok', `${f.name} was added. We are looking for its blog now; refresh in a minute.`)); results.replaceChildren(); search.value = ''; }
+          catch (err) { out.replaceChildren(note('msg-err', err.message)); }
+        } }, h('span', null, f.name, h('small', null, `${f.city}, ${f.province}`)), f.featured && h('span', { class: 'badge featured' }, 'Featured'))));
+      } catch (err) { results.replaceChildren(note('msg-err', err.message)); }
+    }, 250);
+  });
+
+  return h('div', null, h('h1', null, 'News'),
+    h('div', { class: 'card' },
+      h('p', { class: 'muted' }, 'LawDB News shows blog cards: a headline, a short preview and a link to the full article on the firm\'s own website. Featured firms are added automatically; you can add any other firm too.'),
+      h('label', { class: 'check', for: 'news-only' }, only, 'Show Featured members only'),
+      h('p', { class: 'muted' }, 'Tick this when you want the page limited to Featured members. Until then it shows every firm below that is switched on.'),
+      h('div', { class: 'row' }, h('a', { href: '/legal-news.html', target: '_blank', rel: 'noopener' }, 'Open LawDB News')), out),
+    h('div', { class: 'card' }, search, results),
+    h('div', { class: 'card' }, data.firms.length ? data.firms.map(row) : h('p', { class: 'muted' }, 'No firms have blog cards yet.')));
+}
+
 // ---------------------------------------------------------------- people
 async function viewPeople() {
   const list = h('div');
@@ -362,7 +430,7 @@ async function viewActivity() {
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, people: viewPeople, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, news: viewNews, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
 async function render(user) {

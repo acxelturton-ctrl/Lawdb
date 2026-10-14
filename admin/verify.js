@@ -29,7 +29,7 @@ go.addEventListener('click', async () => {
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Sign-in failed.');
-    location.replace('/admin/');
+    location.replace(data.user && data.user.role === 'admin' ? '/admin/' : '/account/');
   } catch (e) {
     fail(e.message);
   }

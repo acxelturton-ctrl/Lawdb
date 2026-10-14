@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /account/
 Disallow: /api/
 
 Sitemap: https://lawdb.ca/sitemap.xml

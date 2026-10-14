@@ -1,12 +1,13 @@
 // LawDB Worker. Static pages are served by Cloudflare directly; only /api/* reaches this code.
 //
-// src/lib/      shared helpers (http, crypto, auth, email, audit)
-// src/routes/   public.js (no login), auth.js (sign in/out), admin.js (admins only)
+// src/lib/      shared helpers (http, crypto, auth, email, audit, firm-edit)
+// src/routes/   public.js (no login), auth.js (sign in/out), account.js (firm owners), admin.js (admins only)
 
 import { json, HttpError, assertSameOrigin } from './lib/http.js';
 import * as pub from './routes/public.js';
 import * as auth from './routes/auth.js';
 import * as admin from './routes/admin.js';
+import * as account from './routes/account.js';
 import * as dyn from './routes/dynamic.js';
 import { firmPage } from './routes/firm-page.js';
 
@@ -43,7 +44,18 @@ const ROUTES = [
   route('GET', '/api/admin/firms/:slug', admin.getFirm),
   route('POST', '/api/admin/firms', admin.createFirm),
   route('PATCH', '/api/admin/firms/:slug', admin.updateFirm),
+  route('GET', '/api/admin/members', admin.listMembers),
+  route('PATCH', '/api/admin/members/:id', admin.decideMember),
   route('GET', '/api/admin/audit', admin.listAudit),
+
+  route('GET', '/api/account/me', account.me),
+  route('GET', '/api/account/search', account.search),
+  route('POST', '/api/account/claims', account.claim),
+  route('POST', '/api/account/firms', account.createListing),
+  route('GET', '/api/account/firms/:slug', account.getFirm),
+  route('PATCH', '/api/account/firms/:slug', account.updateFirm),
+  route('GET', '/api/account/firms/:slug/leads', account.listLeads),
+  route('PATCH', '/api/account/leads/:id', account.updateLead),
 ];
 
 export default {

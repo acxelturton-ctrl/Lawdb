@@ -13,7 +13,7 @@ const cacheSeconds = (env) => {
 
 // Raw JSON strings straight from D1 (the `data` column already holds JSON), joined without a parse/stringify round trip.
 async function firmsBody(env) {
-  const { results } = await env.DB.prepare('SELECT data FROM firms ORDER BY rowid').all();
+  const { results } = await env.DB.prepare("SELECT data FROM firms WHERE status = 'live' ORDER BY rowid").all();
   return '[' + results.map((r) => r.data).join(',') + ']';
 }
 
@@ -23,7 +23,7 @@ async function blogBody(env) {
 }
 
 async function hoursBody(env) {
-  const { results } = await env.DB.prepare('SELECT slug, hours FROM firms WHERE hours IS NOT NULL ORDER BY rowid').all();
+  const { results } = await env.DB.prepare("SELECT slug, hours FROM firms WHERE hours IS NOT NULL AND status = 'live' ORDER BY rowid").all();
   return '{' + results.map((r) => JSON.stringify(r.slug) + ':' + r.hours).join(',') + '}';
 }
 

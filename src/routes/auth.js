@@ -5,6 +5,8 @@ import { sendLoginEmail } from '../lib/email.js';
 import { audit } from '../lib/audit.js';
 
 const MAX_LINKS_PER_15_MIN = 3;
+const MAX_SIGNUPS_PER_IP_HOUR = 6;
+const MAX_SIGNUPS_PER_DAY = 150; // Brevo's free plan sends 300 emails a day; keep room for sign-ins and notices
 
 // Always answers { ok: true } so the response never reveals which emails are registered.
 export async function requestLink({ request, env, url, exec }) {
@@ -12,10 +14,24 @@ export async function requestLink({ request, env, url, exec }) {
   const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
   if (!isEmail(email)) throw new HttpError(422, 'A valid email is required');
 
-  // Only known users (or configured admins) get a link. Strangers cannot trigger emails from our domain.
+  // Known users (and configured admins) get a link.
   const known = adminEmails(env).has(email) || (await env.DB.prepare('SELECT 1 FROM users WHERE email = ? AND disabled = 0').bind(email).first());
+  // Firm owners may create an account from the same form (signup: true). Strangers can then
+  // trigger emails from our domain, so brand-new addresses are limited per requester and per day.
+  const signup = body.signup === true;
+  if (!known && !signup) return json({ ok: true }, 200, NO_STORE);
+  const ipHash = await sha256Hex('ip:' + (request.headers.get('cf-connecting-ip') || 'local'));
+  if (!known) {
+    const [byIp, today] = await Promise.all([
+      env.DB.prepare("SELECT COUNT(*) AS n FROM login_tokens WHERE signup = 1 AND ip_hash = ? AND created_at > datetime('now','-1 hour')").bind(ipHash).first(),
+      env.DB.prepare("SELECT COUNT(*) AS n FROM login_tokens WHERE signup = 1 AND created_at > datetime('now','-1 day')").first(),
+    ]);
+    if (byIp.n >= MAX_SIGNUPS_PER_IP_HOUR || today.n >= MAX_SIGNUPS_PER_DAY) {
+      await audit(env, null, 'signup.throttled', 'email', email, { fromThisAddressLastHour: byIp.n, allLastDay: today.n });
+      return json({ ok: true }, 200, NO_STORE);
+    }
+  }
   const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM login_tokens WHERE email = ? AND created_at > datetime('now','-15 minutes')").bind(email).first();
-  if (!known) return json({ ok: true }, 200, NO_STORE);
   if (recent.n >= MAX_LINKS_PER_15_MIN) {
     // Same response as success (no leak), but leave a trace so a silent limit is never a mystery.
     await audit(env, null, 'login.throttled', 'email', email, { linksInLast15Min: recent.n });
@@ -23,8 +39,8 @@ export async function requestLink({ request, env, url, exec }) {
   }
 
   const token = randomToken();
-  await env.DB.prepare("INSERT INTO login_tokens (token_hash, email, expires_at) VALUES (?, ?, datetime('now','+15 minutes'))")
-    .bind(await sha256Hex(token), email)
+  await env.DB.prepare("INSERT INTO login_tokens (token_hash, email, expires_at, signup, ip_hash) VALUES (?, ?, datetime('now','+15 minutes'), ?, ?)")
+    .bind(await sha256Hex(token), email, signup ? 1 : 0, ipHash)
     .run();
 
   // The token rides in the URL fragment: it is never sent to servers, logs or referrers.
@@ -54,7 +70,7 @@ export async function verify({ request, env }) {
 
   // Atomic single use: only one request can flip used_at from NULL.
   const row = await env.DB.prepare(
-    "UPDATE login_tokens SET used_at = datetime('now') WHERE token_hash = ? AND used_at IS NULL AND expires_at > datetime('now') RETURNING email"
+    "UPDATE login_tokens SET used_at = datetime('now') WHERE token_hash = ? AND used_at IS NULL AND expires_at > datetime('now') RETURNING email, signup"
   )
     .bind(await sha256Hex(token))
     .first();
@@ -63,11 +79,11 @@ export async function verify({ request, env }) {
   const email = row.email.toLowerCase();
   const isAdmin = adminEmails(env).has(email);
   let user = await env.DB.prepare('SELECT id, email, role, disabled FROM users WHERE email = ?').bind(email).first();
-  if (!user && !isAdmin) throw new HttpError(400, 'This sign-in link is invalid or has expired.');
+  if (!user && !isAdmin && !row.signup) throw new HttpError(400, 'This sign-in link is invalid or has expired.');
   if (user?.disabled) throw new HttpError(403, 'This account is disabled.');
 
   if (!user) {
-    user = await env.DB.prepare("INSERT INTO users (email, role) VALUES (?, 'admin') RETURNING id, email, role").bind(email).first();
+    user = await env.DB.prepare("INSERT INTO users (email, role) VALUES (?, ?) RETURNING id, email, role").bind(email, isAdmin ? 'admin' : 'member').first();
   } else if (isAdmin && user.role !== 'admin') {
     await env.DB.prepare("UPDATE users SET role = 'admin' WHERE id = ?").bind(user.id).run();
     user.role = 'admin';

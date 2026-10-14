@@ -179,7 +179,7 @@ export const isWpUrl = (u) => /\/wp-json\/wp\/v2\/posts/i.test(u);
 export function wpPostsUrlWithImages(feedUrl) {
   const u = new URL(feedUrl);
   u.searchParams.set('_embed', 'wp:featuredmedia');
-  u.searchParams.set('_fields', 'id,date,link,title,excerpt,jetpack_featured_media_url,_embedded');
+  u.searchParams.set('_fields', 'id,date,link,title,excerpt,featured_media,jetpack_featured_media_url,yoast_head_json.og_image,_embedded');
   return u.toString();
 }
 
@@ -196,6 +196,8 @@ function wpImage(p, feedUrl, allowLocal) {
     }
   }
   if (typeof p?.jetpack_featured_media_url === 'string') cands.push(p.jetpack_featured_media_url);
+  const og = Array.isArray(p?.yoast_head_json?.og_image) ? p.yoast_head_json.og_image[0] : null; // the picture the SEO plugin names for sharing
+  if (og && typeof og.url === 'string' && !(Number(og.width) && Number(og.width) < 300)) cands.push(og.url);
   for (const c of cands) { const ok = cleanImageUrl(c, feedUrl, { allowLocal }); if (ok) return ok; }
   return null;
 }
@@ -220,10 +222,33 @@ export function parseWpPosts(json, { feedUrl, siteUrl, allowLocal = false }) {
     const excerpt = cut(plain(String(p.excerpt?.rendered ?? '')).replace(/\s*\[(?:…|&hellip;|\.\.\.)\]\s*$/, '...').replace(/\s*The post .{1,300} appeared first on .{1,200}$/i, '').trim(), FEED_LIMITS.excerpt);
     const d = new Date(String(p.date || ''));
     const published = p.date && !Number.isNaN(d.getTime()) && d.getTime() < Date.now() + 86400000 && d.getFullYear() > 1999 ? d.toISOString().slice(0, 19).replace('T', ' ') : null;
-    posts.push({ guid: `wp:${p.id ?? url}`.slice(0, 300), title, url, publishedAt: published, excerpt, image: wpImage(p, feedUrl, allowLocal) });
+    posts.push({ guid: `wp:${p.id ?? url}`.slice(0, 300), title, url, publishedAt: published, excerpt, image: wpImage(p, feedUrl, allowLocal), mediaId: Number(p.featured_media) > 0 ? Number(p.featured_media) : 0 });
   }
   posts.sort((a, b) => String(b.publishedAt || '').localeCompare(String(a.publishedAt || '')));
   return dropRepeatedImages(posts.slice(0, FEED_LIMITS.posts));
+}
+
+// Some WordPress sites hide the embedded picture but still list their media: ask for the featured pictures of the posts that have none, in one request.
+export async function fillWpMedia(env, posts, feedUrl, { allowLocal = false } = {}) {
+  const need = posts.filter((p) => !p.image && p.mediaId);
+  if (!need.length) return posts;
+  try {
+    const origin = new URL(feedUrl).origin;
+    const q = `${origin}/wp-json/wp/v2/media?include=${[...new Set(need.map((p) => p.mediaId))].slice(0, 12).join(',')}&per_page=12&_fields=id,source_url,media_details.width,media_details.sizes.medium_large.source_url,media_details.sizes.large.source_url`;
+    const { url, text } = await safeGet(env, q, { maxBytes: FEED_LIMITS.pageBytes, accept: 'application/json' });
+    const byId = new Map();
+    for (const m of JSON.parse(text)) {
+      if (!m || typeof m !== 'object') continue;
+      const w = Number(m.media_details?.width) || 0;
+      if (w && w < 300) continue;
+      for (const c of [m.media_details?.sizes?.medium_large?.source_url, m.media_details?.sizes?.large?.source_url, m.source_url]) {
+        const ok = cleanImageUrl(c, url, { allowLocal });
+        if (ok) { byId.set(m.id, ok); break; }
+      }
+    }
+    for (const p of need) p.image = byId.get(p.mediaId) || null;
+    return dropRepeatedImages(posts);
+  } catch { return posts; } // pictures are a nicety: never fail the blog over them
 }
 
 // ---------------------------------------------------------------- finding and refreshing
@@ -301,7 +326,7 @@ export async function refreshFirmFeed(env, slug, { discover = true } = {}) {
     if (wp) {
       let json;
       try { json = JSON.parse(text); } catch { throw new Error('That address did not return a WordPress post list.'); }
-      posts = parseWpPosts(json, { feedUrl: url, siteUrl: website || url, allowLocal });
+      posts = await fillWpMedia(env, parseWpPosts(json, { feedUrl: url, siteUrl: website || url, allowLocal }), url, { allowLocal });
     } else {
       if (!/<(rss|feed|rdf:RDF)\b/i.test(text.slice(0, 2000))) throw new Error('That address is not an RSS or Atom feed.');
       posts = parseFeed(text, { feedUrl: url, siteUrl: website || url, allowLocal });
@@ -328,6 +353,10 @@ export async function refreshFirmFeed(env, slug, { discover = true } = {}) {
 // Used by the News page: reads blogs that have never been read, or not for half a day. Never more than a few per visit.
 export async function dueFeeds(env, limit = 3) {
   const dev = env.DEV_ECHO_LINK === '1';
+  // Featured firms are on the page without waiting for the nightly job: give them a feed row so their blog is looked for on this visit.
+  if (!dev) await env.DB.prepare(
+    "INSERT OR IGNORE INTO firm_feeds (firm_slug) SELECT slug FROM firms WHERE featured = 1 AND status = 'live' AND json_extract(data, '$.website') IS NOT NULL AND json_extract(data, '$.website') != ''"
+  ).run();
   const { results } = await env.DB.prepare(
     `SELECT f.firm_slug AS slug FROM firm_feeds f JOIN firms m ON m.slug = f.firm_slug
      WHERE f.enabled = 1 AND m.status = 'live' ${dev ? "AND f.source = 'manual'" : ''} AND (

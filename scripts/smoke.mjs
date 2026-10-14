@@ -7,7 +7,7 @@ import zlib from 'node:zlib';
 import { isDeepStrictEqual } from 'node:util';
 import { emailMatch } from '../src/routes/admin.js';
 import { checkOwnerText } from '../src/lib/content-rules.js';
-import { parseFeed, parseWpPosts, plain as feedPlain, checkFeedUrl, cleanImageUrl, wpPostsUrlWithImages } from '../src/lib/feeds.js';
+import { parseFeed, parseWpPosts, fillWpMedia, plain as feedPlain, checkFeedUrl, cleanImageUrl, wpPostsUrlWithImages } from '../src/lib/feeds.js';
 import http from 'node:http';
 import { createHmac } from 'node:crypto';
 
@@ -366,9 +366,12 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     { id: 901, date: new Date(Date.now() - 3600000).toISOString().slice(0, 19), link: `${origin}/2026/news-one/`, title: { rendered: 'WordPress &#8211; Post One &amp; Co' }, _embedded: { 'wp:featuredmedia': [{ source_url: `${origin}/img/wp-full.jpg`, media_details: { width: 1600, sizes: { medium_large: { source_url: `${origin}/img/wp-768.jpg` } } } }] }, excerpt: { rendered: '<p>First WordPress excerpt about wills &hellip; and more text that goes on for a while so that it is long enough to expand into a longer preview on the card when somebody taps read more, which is what we want.</p>\n' } },
     { id: 902, date: new Date(Date.now() - 86400000).toISOString().slice(0, 19), link: `${origin}/2026/news-two/`, title: { rendered: 'Post Two' }, jetpack_featured_media_url: `${origin}/img/jp.jpg`, excerpt: { rendered: '' } },
     { id: 903, date: new Date(Date.now() - 2 * 86400000).toISOString().slice(0, 19), link: 'https://evil.example/x', title: { rendered: 'Off-site' }, excerpt: { rendered: 'no' } },
+    { id: 904, date: new Date(Date.now() - 3 * 86400000).toISOString().slice(0, 19), link: `${origin}/2026/news-media/`, title: { rendered: 'Media Only' }, featured_media: 555, excerpt: { rendered: 'x' } },
+    { id: 905, date: new Date(Date.now() - 4 * 86400000).toISOString().slice(0, 19), link: `${origin}/2026/news-yoast/`, title: { rendered: 'Yoast Picture' }, featured_media: 0, yoast_head_json: { og_image: [{ url: `${origin}/img/yoast.jpg`, width: 1600 }] }, excerpt: { rendered: 'y' } },
   ]);
   const fixtureServer = http.createServer((req, res) => {
     const send = (code, type, body) => { res.writeHead(code, { 'content-type': type }); res.end(body); };
+    if (req.url.startsWith('/wp-json/wp/v2/media')) return wpOn ? send(200, 'application/json', JSON.stringify([{ id: 555, source_url: `${origin}/img/m555.jpg`, media_details: { width: 1200, sizes: { medium_large: { source_url: `${origin}/img/m555-768.jpg` } } } }])) : send(404, 'application/json', '{}');
     if (req.url.startsWith('/wp-json/wp/v2/posts')) return wpOn ? send(200, 'application/json', wpJson()) : send(404, 'application/json', '{"code":"rest_no_route"}');
     if (req.url === '/feed.xml') return feedBroken ? send(500, 'text/plain', 'broken') : send(200, 'application/rss+xml', rss());
     if (req.url === '/site') return send(200, 'text/html', `<html><head><link rel="alternate" type="application/rss+xml" href="/feed.xml"></head><body>Firm</body></html>`);
@@ -392,8 +395,13 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const ap = parseFeed(atom, { feedUrl: 'https://firm.ca/atom.xml', siteUrl: 'https://firm.ca' });
   ok(ap.length === 1 && ap[0].url === 'https://www.firm.ca/blog/a' && ap[0].excerpt === 'An atom summary', 'Atom feeds work too');
   const wpParsed = parseWpPosts(JSON.parse(wpJson()), { feedUrl: origin + '/wp-json/wp/v2/posts', siteUrl: origin, allowLocal: true });
-  ok(wpParsed.length === 2 && !wpParsed.some((x) => /evil/.test(x.url)), 'WordPress posts: only the firm\'s own links are kept');
+  ok(wpParsed.length === 4 && !wpParsed.some((x) => /evil/.test(x.url)), 'WordPress posts: only the firm\'s own links are kept');
   ok(wpParsed[0].image === origin + '/img/wp-768.jpg' && wpParsed[1].image === origin + '/img/jp.jpg', 'WordPress posts: the featured picture is found (a good size first)');
+  ok(wpParsed.find((x) => x.mediaId === 555) && wpParsed.find((x) => x.mediaId === 555).image === null && wpParsed.find((x) => x.guid === 'wp:905').image === origin + '/img/yoast.jpg', 'WordPress posts: the SEO plugin\'s share picture is used; a post with only a media id is remembered');
+  wpOn = true;
+  const filled = await fillWpMedia({ DEV_ECHO_LINK: '1' }, wpParsed.map((x) => ({ ...x })), origin + '/wp-json/wp/v2/posts', { allowLocal: true });
+  wpOn = false;
+  ok(filled.find((x) => x.mediaId === 555).image === origin + '/img/m555-768.jpg', 'a hidden featured picture is found through the media list');
   ok(parsed.find((x) => x.guid === 'g1').image === origin + '/img/a.jpg' && parsed.find((x) => x.guid === 'g2').image === origin + '/img/b.jpg', 'feeds: pictures come from media tags or the post\'s own first picture');
   ok(parsed.find((x) => x.guid === 'g4').image === null && parsed.find((x) => x.guid === 'g6').image === null && parsed.find((x) => x.guid === 'g7').image === null, 'script/data addresses and a picture repeated on several posts (a stand-in) are left out');
   ok(cleanImageUrl('http://firm.ca/a.jpg', 'https://firm.ca/') === 'https://firm.ca/a.jpg' && cleanImageUrl('/wp-content/a.png?x=1', 'https://firm.ca/blog/') === 'https://firm.ca/wp-content/a.png?x=1' && cleanImageUrl('//cdn.firm.ca/a.webp', 'https://firm.ca/') === 'https://cdn.firm.ca/a.webp', 'picture addresses are tidied: https, relative and protocol-relative forms work');

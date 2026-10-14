@@ -30,7 +30,13 @@ export async function requestLink({ request, env, url, exec }) {
   if (env.DEV_ECHO_LINK === '1') return json({ ok: true, dev_link: link }, 200, NO_STORE);
 
   // Send in the background so response timing does not reveal whether the email exists.
-  exec(sendLoginEmail(env, email, link).catch((err) => console.error('login email failed', err)));
+  // A failure is written to the audit log (shown on the Activity tab) so it is never silent.
+  exec(
+    sendLoginEmail(env, email, link).catch((err) => {
+      console.error('login email failed', err);
+      return audit(env, null, 'login.email_failed', 'email', email, { error: String(err.message || err).slice(0, 300) });
+    })
+  );
   return json({ ok: true }, 200, NO_STORE);
 }
 

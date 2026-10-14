@@ -1,10 +1,9 @@
-import { HttpError } from './http.js';
-
 const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
 // Transactional email through Brevo (sender info@lawdb.ca is verified there).
 export async function sendLoginEmail(env, to, link) {
-  if (!env.BREVO_API_KEY) throw new HttpError(500, 'Email is not configured');
+  const apiKey = (env.BREVO_API_KEY || '').trim(); // tolerate a stray space or newline from pasting
+  if (!apiKey) throw new Error('BREVO_API_KEY secret is missing or empty');
   const text = `Use this link to sign in to LawDB. It works once and expires in 15 minutes.\n\n${link}\n\nIf you did not ask for this, you can ignore this email.`;
   const html =
     `<p>Use this button to sign in to LawDB. The link works once and expires in 15 minutes.</p>` +
@@ -12,7 +11,7 @@ export async function sendLoginEmail(env, to, link) {
     `<p style="color:#666;font-size:13px">If you did not ask for this, you can ignore this email.</p>`;
   const res = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
-    headers: { 'api-key': env.BREVO_API_KEY, 'content-type': 'application/json', accept: 'application/json' },
+    headers: { 'api-key': apiKey, 'content-type': 'application/json', accept: 'application/json' },
     body: JSON.stringify({
       sender: { name: env.MAIL_FROM_NAME || 'LawDB', email: env.MAIL_FROM_EMAIL || 'info@lawdb.ca' },
       to: [{ email: to }],
@@ -21,5 +20,13 @@ export async function sendLoginEmail(env, to, link) {
       textContent: text,
     }),
   });
-  if (!res.ok) throw new Error(`Brevo responded ${res.status}`);
+  if (!res.ok) {
+    // Brevo explains itself, e.g. {"code":"unauthorized","message":"Key not found"}. Never includes our key.
+    let why = '';
+    try {
+      const body = await res.json();
+      why = body.message || body.code || '';
+    } catch {}
+    throw new Error(`Brevo ${res.status}: ${String(why).slice(0, 200)}`);
+  }
 }

@@ -4,16 +4,29 @@ import * as C from './firm-chunks.generated.js';
 import { esc, safeUrl } from './firm-page.js';
 import { BLOG_CSS, cardHtml, safePostUrl } from './blog-cards.js';
 
+
+// The masthead artwork, "The Press": a slowly turning gold seal with the scales of justice, and up to four of the page's own latest
+// stories drifting up the right side like a newsroom. Pure SVG and CSS (no pictures to load), decorative (hidden from screen readers),
+// and still for visitors who ask their device for less motion.
+const SEAL = `<svg class="news-seal" viewBox="0 0 300 300" aria-hidden="true" focusable="false"><defs><path id="nwCirc" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0"/></defs><circle cx="150" cy="150" r="140" fill="none" stroke="#e0b252" stroke-width="2"/><circle cx="150" cy="150" r="96" fill="none" stroke="#e0b252" stroke-width="1.2" stroke-dasharray="3 5"/><text><textPath href="#nwCirc">LAWDB NEWS &#183; CANADA'S LEGAL DIRECTORY &#183; STRAIGHT FROM THE FIRMS &#183; </textPath></text></svg>` +
+  `<div class="news-sealmid" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><g fill="none" stroke="#9a6f1c" stroke-width="3" stroke-linecap="round"><path d="M32 10v40M20 50h24M14 20h36"/><path d="M14 20l-7 16a8 6 0 0 0 14 0zM50 20l-7 16a8 6 0 0 0 14 0z"/></g></svg></div>`;
+const cutText = (t, n) => (t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, '') + '\u2026' : t);
+function pressArt(posts) {
+  const cards = posts.filter((p) => p.title).slice(0, 4).map((p, i) =>
+    `<div class="news-card k${i + 1}"><small>${esc(p.firmName)}</small><b>${esc(cutText(p.title, 62))}</b></div>`).join('');
+  return SEAL + (cards ? `<div class="news-drift" aria-hidden="true">${cards}</div>` : '');
+}
+
 const CSS = `<style>
 /* LawDB News runs edge to edge: a dark masthead, "how it works", then the feed filling the whole screen. */
-.news-band{background:var(--dark,#1f1c19);color:#fff;padding:clamp(34px,6vw,92px) clamp(18px,4vw,72px) clamp(30px,4.5vw,64px)}
-.news-eyebrow{font-size:clamp(12px,1vw,14px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brass,#d9a441);margin:0 0 12px}
-.news-band h1{font-size:clamp(42px,7vw,104px);line-height:1;margin:0 0 clamp(12px,1.6vw,22px);color:#fff;letter-spacing:-.01em}
-.news-lede{font-family:'Source Serif 4',serif;font-size:clamp(21px,2.6vw,38px);line-height:1.25;color:var(--brass,#d9a441);margin:0 0 clamp(14px,1.8vw,24px);max-width:26em;text-wrap:balance}
-.news-band .news-intro{font-size:clamp(16px,1.35vw,20px);line-height:1.65;color:#d8d2c6;max-width:46em;margin:0}
-.news-stats{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,64px);margin:clamp(22px,3vw,44px) 0 0;padding-top:clamp(18px,2.4vw,32px);border-top:1px solid #38332e}
-.news-stats div{min-width:0}.news-stats b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(34px,4.2vw,64px);line-height:1;color:#fff}
-.news-stats span{font-size:clamp(12.5px,1vw,15px);color:#aca59c;letter-spacing:.04em}
+.news-band{background:#fbf6ea;background-image:radial-gradient(#e9dfc6 1px,transparent 1.2px);background-size:22px 22px;color:#2b2723;padding:clamp(34px,6vw,92px) clamp(18px,4vw,72px) clamp(30px,4.5vw,64px)}
+.news-eyebrow{font-size:clamp(12px,1vw,14px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9a6f1c;margin:0 0 12px}
+.news-band h1{font-size:clamp(42px,7vw,104px);line-height:1;margin:0 0 clamp(12px,1.6vw,22px);color:#2b2723;letter-spacing:-.01em}.news-band h1 .u{background:linear-gradient(#f2c25b,#f2c25b) no-repeat 0 92%/0 .2em;animation:nwUnder 6s ease-in-out infinite}
+.news-lede{font-family:'Source Serif 4',serif;font-size:clamp(21px,2.6vw,38px);line-height:1.25;color:#2b2723;margin:0 0 clamp(14px,1.8vw,24px);max-width:26em;text-wrap:balance}
+.news-band .news-intro{font-size:clamp(16px,1.35vw,20px);line-height:1.65;color:#4a453d;max-width:40em;margin:0}
+.news-stats{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,64px);margin:clamp(22px,3vw,44px) 0 0;padding-top:clamp(18px,2.4vw,32px);border-top:1px solid #e6dcc3}
+.news-stats div{min-width:0}.news-stats b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(34px,4.2vw,64px);line-height:1;color:#2b2723}
+.news-stats span{font-size:clamp(12.5px,1vw,15px);color:#7a7266;letter-spacing:.04em}
 .news-main{padding:clamp(20px,3vw,52px) clamp(16px,4vw,72px) clamp(10px,2vw,30px)}
 .news-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(14px,2vw,30px);margin:0 0 clamp(22px,3vw,44px)}
 .news-step{background:#fff;border:1px solid #e4ded3;border-radius:14px;padding:clamp(18px,2vw,30px)}
@@ -45,6 +58,27 @@ const CSS = `<style>
 .news-cta span{font-size:clamp(15px,1.2vw,18px);color:#4a453d}
 .news-cta a{background:#2b2723;color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:14px 24px;font-size:clamp(15px,1.15vw,17px)}
 .news-foot{padding:clamp(16px,2vw,28px) clamp(16px,4vw,72px) clamp(26px,3vw,44px);font-size:13px;color:#8f8a80;line-height:1.6;max-width:70em;margin:0}
+
+/* masthead artwork */
+.news-band{position:relative;overflow:hidden;isolation:isolate}
+.news-band>*:not(.news-seal):not(.news-sealmid):not(.news-drift){position:relative;z-index:3}
+.news-seal,.news-sealmid{position:absolute;right:clamp(10px,6vw,110px);top:50%;width:clamp(200px,27vw,340px);aspect-ratio:1;z-index:1;pointer-events:none}
+.news-seal{transform:translateY(-50%);animation:nwSpin 40s linear infinite}
+.news-seal text{font:700 13.2px 'Inter',sans-serif;letter-spacing:.2em;fill:#9a6f1c}
+.news-sealmid{display:flex;align-items:center;justify-content:center;transform:translateY(-50%);animation:nwBreath 5s ease-in-out infinite}
+.news-sealmid svg{width:46%;height:auto}
+.news-drift{position:absolute;inset:0;z-index:2;pointer-events:none}
+.news-card{position:absolute;width:clamp(170px,15vw,230px);padding:12px 14px;background:#fff;border:1px solid #e6dcc3;border-radius:12px;box-shadow:0 10px 26px rgba(90,60,10,.14);line-height:1.35;opacity:0;animation:nwRise linear infinite}
+.news-card small{display:block;color:#9a6f1c;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:10.5px;margin-bottom:4px}
+.news-card b{display:block;font:600 clamp(13.5px,1vw,15.5px)/1.25 'Source Serif 4',serif;color:#2b2723}
+.news-card.k1{left:50%;--r:-3deg;animation-duration:19s}.news-card.k2{left:62%;--r:2deg;animation-duration:23s;animation-delay:-8s}.news-card.k3{left:74%;--r:-2deg;animation-duration:21s;animation-delay:-14s}.news-card.k4{left:86%;--r:3deg;animation-duration:26s;animation-delay:-4s}
+@keyframes nwSpin{to{transform:translateY(-50%) rotate(360deg)}}
+@keyframes nwBreath{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.05)}}
+@keyframes nwRise{0%{transform:translateY(120%) rotate(var(--r));opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateY(-140%) rotate(var(--r));opacity:0}}
+@keyframes nwUnder{0%,15%{background-size:0 .2em}45%,85%{background-size:100% .2em}100%{background-size:0 .2em}}
+@media(max-width:1099px){.news-drift{display:none}.news-seal,.news-sealmid{opacity:.45}}
+@media(max-width:700px){.news-seal,.news-sealmid{opacity:.3;right:-70px}}
+@media(prefers-reduced-motion:reduce){.news-seal,.news-sealmid,.news-card,.news-band h1 .u{animation:none!important}.news-sealmid,.news-seal{transform:translateY(-50%)}.news-card{opacity:1}.news-band h1 .u{background-size:100% .2em}}
 </style>`;
 
 const initial = (n) => esc((n || '?').trim().charAt(0).toUpperCase());
@@ -98,7 +132,7 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
     '<meta property="og:title" content="LawDB News"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/news">' + `<meta property="og:description" content="${esc(desc)}">`,
     C.STYLE + BLOG_CSS + CSS + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n</head>',
     '<body>\n  ' + C.HEADER.replace(/<a[^>]*>Back to results<\/a>/, ''),
-    '  <header class="news-band"><p class="news-eyebrow">Straight from the firms</p><h1>LawDB News</h1><p class="news-lede">What Canada\'s law firms are writing, all in one place.</p>' +
+    '  <header class="news-band">' + pressArt(shown) + '<p class="news-eyebrow">Straight from the firms</p><h1><span class="u">LawDB News</span></h1><p class="news-lede">What Canada\'s law firms are writing, all in one place.</p>' +
     '<p class="news-intro">Every article on this page was written by a lawyer or firm you will find in the LawDB directory. We gather their latest work here so you can see how the people behind the listings think, explain and help, before you ever pick up the phone.</p>' + stats3 + '</header>',
     '  <main class="news-main">',
     '    ' + steps,

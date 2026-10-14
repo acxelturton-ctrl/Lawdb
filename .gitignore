@@ -2,3 +2,5 @@ node_modules/
 .wrangler/
 *.zip
 .DS_Store
+.dev.vars
+db/seed.sql

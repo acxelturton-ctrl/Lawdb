@@ -118,7 +118,9 @@ const getJson = async (env, key) => { try { return JSON.parse((await getSetting(
 export async function submitSitemap(env) {
   const site = await findSite(env);
   const sm = sitemapUrl(env);
-  await gsc(env, 'PUT', `${apiBase(env)}/webmasters/v3/sites/${encodeURIComponent(site)}/sitemaps/${encodeURIComponent(sm)}`);
+  const put = (u) => gsc(env, 'PUT', `${apiBase(env)}/webmasters/v3/sites/${encodeURIComponent(site)}/sitemaps/${encodeURIComponent(u)}`);
+  await put(sm);
+  try { await put(`${origin(env)}/sitemap-news.xml`); } catch { /* the story sitemap is a bonus: never fail the main one over it */ }
   const at = stamp(Date.now());
   let status = null;
   try {

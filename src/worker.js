@@ -17,6 +17,7 @@ import { newsPage } from './routes/news-page.js';
 import { nightly } from './lib/backup.js';
 import { searchNightly } from './lib/gsc.js';
 import { legacyRedirect } from './lib/redirects.js';
+import { storyPage, storySitemap } from './routes/story-page.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -118,7 +119,7 @@ export default {
         if (request.method !== 'GET' && request.method !== 'HEAD') return env.ASSETS.fetch(request);
         const moved = legacyRedirect(url); // old addresses go to the clean one, permanently
         if (moved) return moved;
-        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path === '/news' ? newsPage : path.startsWith('/img/') ? serveImage : path.startsWith('/firms/') ? firmPage : dyn.page);
+        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path === '/news' ? newsPage : path === '/sitemap-news.xml' ? storySitemap : path.startsWith('/news/') ? storyPage : path.startsWith('/img/') ? serveImage : path.startsWith('/firms/') ? firmPage : dyn.page);
         return await handler({ request, env, ctx });
       }
       const method = request.method === 'HEAD' ? 'GET' : request.method;

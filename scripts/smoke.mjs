@@ -896,7 +896,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const run1 = await call('POST', '/api/admin/search/run', { part: 'all' });
     ok(run1.status === 200 && run1.data.ok === true && run1.data.inspect.checked === 40 && run1.data.inspect.failed === 0, 'a run sends the sitemap and checks 40 pages');
     ok(g.jwtOk === true && g.tokens === 1, 'the sign-in request to Google is a correctly signed token request');
-    ok(g.sitemapPuts.length === 1 && g.sitemapPuts[0][0] === 'sc-domain:lawdb.ca' && g.sitemapPuts[0][1] === 'https://lawdb.ca/sitemap.xml', 'the sitemap is submitted for the right property (found automatically)');
+    ok(g.sitemapPuts.length === 2 && g.sitemapPuts[1][1] === 'https://lawdb.ca/sitemap-news.xml' && g.sitemapPuts[0][0] === 'sc-domain:lawdb.ca' && g.sitemapPuts[0][1] === 'https://lawdb.ca/sitemap.xml', 'the sitemap is submitted for the right property (found automatically)');
     ok(g.auth.every((a) => a === 'Bearer tok-123') && g.inspected.every((b) => b.siteUrl === 'sc-domain:lawdb.ca' && /^https:\/\/lawdb\.ca\//.test(b.inspectionUrl)), 'every call carries the token and names lawdb.ca pages');
     const first = g.inspected.map((b) => b.inspectionUrl);
     ok(['/', '/find-lawyers', '/news', '/for-firms'].every((p) => first.includes('https://lawdb.ca' + p)) && new Set(first).size === 40, 'the key pages are always checked, with no repeats');
@@ -906,7 +906,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const run2 = await call('POST', '/api/admin/search/run', { part: 'inspect' });
     const second = g.inspected.map((b) => b.inspectionUrl).filter((u) => !['/', '/find-lawyers', '/news', '/for-firms'].includes(new URL(u).pathname));
     ok(run2.data.ok && second.length === 36 && !second.some((u) => first.includes(u)), 'the next run moves on to different pages');
-    ok(run2.data.summary.pagesChecked === 76 && g.sitemapPuts.length === 1, 'pages build up over runs; an inspect-only run does not resend the sitemap');
+    ok(run2.data.summary.pagesChecked === 76 && g.sitemapPuts.length === 2, 'pages build up over runs; an inspect-only run does not resend the sitemap');
     ok((await call('POST', '/api/admin/search/run', { part: 'nonsense' })).status === 422, 'an unknown part is refused');
 
     const one = await call('POST', '/api/admin/search/inspect', { url: '/find-lawyers' });
@@ -930,7 +930,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
       searchDone = (await call('GET', '/api/admin/audit?limit=10')).data.entries.some((e) => e.action === 'search.ok');
       if (!searchDone) await new Promise((r) => setTimeout(r, 500));
     }
-    ok(searchDone && g.sitemapPuts.length === 2, 'the nightly run sent the sitemap and recorded success');
+    ok(searchDone && g.sitemapPuts.length === 4, 'the nightly run sent the sitemap and recorded success');
     google.close();
   }
 

@@ -75,18 +75,21 @@ export function cardHtml(p, { byline = '', head = null, hero = false } = {}) {
   const more = p.excerpt && p.excerpt.length > max;
   const date = fmtDate(p.publishedAt);
   // The picture is the one the firm chose for the article, loaded from their own site; if it cannot load the card just drops it.
+  // With a story page (`storyHref`) the card opens LawDB's own expanded view of the story; the firm's full article is one more tap away.
+  const here = p.storyHref ? { href: p.storyHref, extra: ' data-story' } : { href: p.url, extra: ' target="_blank" rel="noopener"' };
   const pic = p.image && safePostUrl(p.image)
-    ? `<a class="lw-bc-img" href="${esc(p.url)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="640" height="360" onerror="this.parentNode.remove()"></a>`
+    ? `<a class="lw-bc-img" href="${esc(here.href)}"${here.extra} tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="640" height="360" onerror="this.parentNode.remove()"></a>`
     : '';
   const top = head
     ? `<div class="lw-bc-head"><span class="lw-av">${head.avatar}</span><span class="lw-who">${head.who}${date ? `<time>${esc(date)}</time>` : ''}</span></div>`
     : '';
-  return `<article class="lw-bc${hero ? ' lw-hero' : ''}">${top}${pic}<div class="lw-bc-in">${head ? '' : byline}${!head && date ? `<time>${esc(date)}</time>` : ''}<h3><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></h3>` +
-    (p.excerpt ? `<p class="lw-teaser">${esc(teaser(p.excerpt, max))}</p>` : '') +
-    (more
+  const action = p.storyHref
+    ? `<a class="lw-go" style="align-self:flex-start;margin-top:4px" href="${esc(p.storyHref)}" data-story>Read the story &rarr;</a>`
+    : more
       ? `<details><summary>Read more</summary><p class="lw-more">${esc(p.excerpt)}</p><a class="lw-go" href="${esc(p.url)}" target="_blank" rel="noopener">Read the full article on ${esc(host)} &rarr;</a></details>`
-      : `<a class="lw-go" style="align-self:flex-start;margin-top:4px" href="${esc(p.url)}" target="_blank" rel="noopener">Read on ${esc(host)} &rarr;</a>`) +
-    '</div></article>';
+      : `<a class="lw-go" style="align-self:flex-start;margin-top:4px" href="${esc(p.url)}" target="_blank" rel="noopener">Read on ${esc(host)} &rarr;</a>`;
+  return `<article class="lw-bc${hero ? ' lw-hero' : ''}">${top}${pic}<div class="lw-bc-in">${head ? '' : byline}${!head && date ? `<time>${esc(date)}</time>` : ''}<h3><a href="${esc(here.href)}"${here.extra}>${esc(p.title)}</a></h3>` +
+    (p.excerpt ? `<p class="lw-teaser">${esc(teaser(p.excerpt, max))}</p>` : '') + action + '</div></article>';
 }
 
 export const safePostUrl = (u) => /^https:\/\//.test(u) || /^http:\/\/127\.0\.0\.1/.test(u);

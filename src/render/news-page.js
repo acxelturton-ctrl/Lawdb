@@ -4,6 +4,42 @@ import * as C from './firm-chunks.generated.js';
 import { esc, safeUrl } from './firm-page.js';
 import { BLOG_CSS, cardHtml, safePostUrl } from './blog-cards.js';
 
+
+// A line-art courthouse and city skyline for the masthead: pure SVG and CSS (no pictures to load). Windows light up one by one,
+// the scales of justice sway, clouds drift. It sits behind the title, fades out toward the text, and stands still for visitors
+// who ask their device for less motion.
+const ART = (() => {
+  const brass = '#d9a441';
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+  // [x, width, height] of the buildings behind the courthouse, left to right
+  const blocks = [[20, 70, 150], [100, 56, 210], [166, 80, 120], [256, 64, 250], [330, 50, 170], [560, 60, 190], [630, 74, 280], [714, 54, 160], [778, 70, 230], [854, 40, 130]];
+  let g = '';
+  for (const [x, w, h] of blocks) {
+    const top = 400 - h;
+    g += `<rect x="${x}" y="${top}" width="${w}" height="${h}" fill="#26221e" stroke="${brass}" stroke-opacity=".35" stroke-width="1.2"/>`;
+    for (let wy = top + 14; wy < 388; wy += 22) for (let wx = x + 9; wx < x + w - 10; wx += 15) {
+      if (rnd() < 0.62) g += `<rect class="w" x="${wx}" y="${wy}" width="7" height="10" fill="${brass}" style="animation-delay:${(rnd() * 9).toFixed(1)}s;animation-duration:${(5 + rnd() * 6).toFixed(1)}s"/>`;
+    }
+  }
+  // the courthouse: steps, columns, pediment
+  let court = `<rect x="392" y="388" width="164" height="12" fill="#26221e" stroke="${brass}" stroke-opacity=".5"/><rect x="402" y="378" width="144" height="10" fill="#26221e" stroke="${brass}" stroke-opacity=".5"/>`;
+  court += `<rect x="410" y="268" width="128" height="110" fill="#2b2723" stroke="${brass}" stroke-opacity=".55" stroke-width="1.4"/>`;
+  for (let i = 0; i < 6; i++) court += `<rect x="${418 + i * 22}" y="276" width="9" height="96" rx="2" fill="${brass}" fill-opacity=".38"/>`;
+  court += `<polygon points="398,268 474,214 550,268" fill="#2b2723" stroke="${brass}" stroke-opacity=".7" stroke-width="1.6"/><rect x="404" y="262" width="140" height="8" fill="${brass}" fill-opacity=".45"/>`;
+  court += `<circle cx="474" cy="246" r="8" fill="none" stroke="${brass}" stroke-opacity=".7" stroke-width="1.4"/>`;
+  // scales of justice, swaying
+  const scales = `<g class="scales" transform="translate(474 188)"><line x1="0" y1="26" x2="0" y2="-4" stroke="${brass}" stroke-width="2"/><circle cx="0" cy="-8" r="3.5" fill="${brass}"/>` +
+    `<g class="beam"><line x1="-30" y1="0" x2="30" y2="0" stroke="${brass}" stroke-width="2.2" stroke-linecap="round"/>` +
+    `<g><line x1="-30" y1="0" x2="-38" y2="20" stroke="${brass}" stroke-width="1"/><line x1="-30" y1="0" x2="-22" y2="20" stroke="${brass}" stroke-width="1"/><path d="M-40 20 h20 a10 7 0 0 1 -20 0z" fill="${brass}"/></g>` +
+    `<g><line x1="30" y1="0" x2="22" y2="20" stroke="${brass}" stroke-width="1"/><line x1="30" y1="0" x2="38" y2="20" stroke="${brass}" stroke-width="1"/><path d="M20 20 h20 a10 7 0 0 1 -20 0z" fill="${brass}"/></g></g></g>`;
+  let stars = '';
+  for (let i = 0; i < 26; i++) stars += `<circle class="st" cx="${(rnd() * 880 + 10).toFixed(0)}" cy="${(rnd() * 200 + 10).toFixed(0)}" r="${(rnd() * 1.4 + .6).toFixed(1)}" fill="#fff" style="animation-delay:${(rnd() * 7).toFixed(1)}s"/>`;
+  return `<svg class="news-art" viewBox="0 0 900 420" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">` +
+    `<g class="cloud c1"><ellipse cx="180" cy="90" rx="90" ry="14" fill="#fff" fill-opacity=".05"/></g><g class="cloud c2"><ellipse cx="700" cy="60" rx="120" ry="16" fill="#fff" fill-opacity=".05"/></g>` +
+    stars + g + court + scales + `<rect x="0" y="400" width="900" height="2" fill="${brass}" fill-opacity=".5"/></svg>`;
+})();
+
 const CSS = `<style>
 /* LawDB News runs edge to edge: a dark masthead, "how it works", then the feed filling the whole screen. */
 .news-band{background:var(--dark,#1f1c19);color:#fff;padding:clamp(34px,6vw,92px) clamp(18px,4vw,72px) clamp(30px,4.5vw,64px)}
@@ -45,6 +81,20 @@ const CSS = `<style>
 .news-cta span{font-size:clamp(15px,1.2vw,18px);color:#4a453d}
 .news-cta a{background:#2b2723;color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:14px 24px;font-size:clamp(15px,1.15vw,17px)}
 .news-foot{padding:clamp(16px,2vw,28px) clamp(16px,4vw,72px) clamp(26px,3vw,44px);font-size:13px;color:#8f8a80;line-height:1.6;max-width:70em;margin:0}
+
+/* masthead artwork */
+.news-band{position:relative;overflow:hidden;isolation:isolate}
+.news-band>*:not(.news-art){position:relative;z-index:1}
+.news-art{position:absolute;right:0;bottom:0;height:100%;width:min(78%,1100px);z-index:0;pointer-events:none;opacity:.55;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 38%);mask-image:linear-gradient(to right,transparent 0,#000 38%)}
+@media(max-width:700px){.news-art{width:140%;opacity:.28;-webkit-mask-image:linear-gradient(to top,#000 20%,transparent 85%);mask-image:linear-gradient(to top,#000 20%,transparent 85%)}}
+.news-art .w{opacity:.12;animation:nwTwinkle 7s ease-in-out infinite}
+.news-art .st{opacity:.2;animation:nwTwinkle 5s ease-in-out infinite}
+.news-art .beam{transform-box:fill-box;transform-origin:50% 0;animation:nwSway 6s ease-in-out infinite}
+.news-art .cloud{animation:nwDrift 60s linear infinite alternate}.news-art .c2{animation-duration:80s;animation-direction:alternate-reverse}
+@keyframes nwTwinkle{0%,100%{opacity:.1}50%{opacity:.85}}
+@keyframes nwSway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes nwDrift{from{transform:translateX(-40px)}to{transform:translateX(60px)}}
+@media(prefers-reduced-motion:reduce){.news-art *{animation:none!important}.news-art .w{opacity:.45}.news-art .st{opacity:.4}}
 </style>`;
 
 const initial = (n) => esc((n || '?').trim().charAt(0).toUpperCase());
@@ -98,7 +148,7 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
     '<meta property="og:title" content="LawDB News"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/news">' + `<meta property="og:description" content="${esc(desc)}">`,
     C.STYLE + BLOG_CSS + CSS + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n</head>',
     '<body>\n  ' + C.HEADER.replace(/<a[^>]*>Back to results<\/a>/, ''),
-    '  <header class="news-band"><p class="news-eyebrow">Straight from the firms</p><h1>LawDB News</h1><p class="news-lede">What Canada\'s law firms are writing, all in one place.</p>' +
+    '  <header class="news-band">' + ART + '<p class="news-eyebrow">Straight from the firms</p><h1>LawDB News</h1><p class="news-lede">What Canada\'s law firms are writing, all in one place.</p>' +
     '<p class="news-intro">Every article on this page was written by a lawyer or firm you will find in the LawDB directory. We gather their latest work here so you can see how the people behind the listings think, explain and help, before you ever pick up the phone.</p>' + stats3 + '</header>',
     '  <main class="news-main">',
     '    ' + steps,

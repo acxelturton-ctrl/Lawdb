@@ -12,8 +12,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "lawdb"
-      // "database_id" is added automatically by `wrangler deploy` (or paste the id from the Cloudflare dashboard).
+      "database_name": "lawdb",
+      "database_id": "87085627-1c4b-40f3-b48c-d75e23089c18"
     }
   ]
 }

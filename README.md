@@ -30,14 +30,19 @@ npm run dev                # http://localhost:8787
 
 ## Deploying
 
-Pushing to `master` deploys through Cloudflare (Workers Builds). First-time database setup, once:
+Pushing to `master` deploys through Cloudflare (Workers Builds). In the Cloudflare dashboard
+(Workers & Pages -> lawdb -> Settings -> Builds) the **Deploy command** is:
 
-```bash
-npx wrangler login
-npx wrangler d1 create lawdb          # copy the database_id into wrangler.jsonc
-npm run db:migrate:remote
-npm run db:seed:remote
 ```
+npm run deploy:ci
+```
+
+That applies any new database migrations, adds any new firms/blog posts from the JSON files
+(existing rows are never overwritten), then deploys. The D1 database is called `lawdb`
+(its id is in `wrangler.jsonc`).
+
+To deliberately overwrite database rows from the JSON files: `npm run db:seed:update:remote`
+(needs `npx wrangler login` locally).
 
 Reading submitted leads: `npx wrangler d1 execute DB --remote --command "SELECT * FROM leads ORDER BY id DESC LIMIT 20"`
 

@@ -11,7 +11,9 @@
     "db:migrate:local": "wrangler d1 migrations apply DB --local",
     "db:seed:local": "npm run db:seed:build && wrangler d1 execute DB --local --file=db/seed.sql",
     "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
-    "db:seed:remote": "npm run db:seed:build && wrangler d1 execute DB --remote --file=db/seed.sql"
+    "db:seed:remote": "npm run db:seed:build && wrangler d1 execute DB --remote --file=db/seed.sql",
+    "deploy:ci": "wrangler d1 migrations apply DB --remote && npm run db:seed:remote && wrangler deploy",
+    "db:seed:update:remote": "node scripts/build-seed.mjs --update && wrangler d1 execute DB --remote --file=db/seed.sql"
   },
   "devDependencies": {
     "wrangler": "^4.45.0"

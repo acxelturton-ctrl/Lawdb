@@ -8,6 +8,7 @@ import { emailMatch } from '../src/routes/admin.js';
 import { checkOwnerText } from '../src/lib/content-rules.js';
 import { parseFeed, parseWpPosts, plain as feedPlain, checkFeedUrl, cleanImageUrl, wpPostsUrlWithImages } from '../src/lib/feeds.js';
 import http from 'node:http';
+import { createHmac } from 'node:crypto';
 
 const BASE = process.env.BASE || 'http://localhost:8799';
 const ADMIN = process.env.SMOKE_ADMIN || 'smoke-admin@example.com';
@@ -584,6 +585,129 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('GET', '/api/admin/firms/achkar-law/images')).data.images.length === 0, 'the admin cleared the test pictures');
   ok((await call('GET', '/api/firms/achkar-law')).data.heroImage === origFirm.heroImage || (origFirm.heroImage === undefined && (await call('GET', '/api/firms/achkar-law')).data.heroImage === undefined), 'removing the cover restores the firm\'s original');
   as(o1.jar);
+
+  // Stripe: a signed payment makes a verified owner's firm Featured; the end of the subscription reverses it
+  const WHSEC = process.env.SMOKE_STRIPE_SECRET || 'whsec_smoke_test_secret';
+  const evId = () => 'evt_' + Math.random().toString(36).slice(2, 12);
+  const mkEvent = (type, object, id = evId()) => ({ id, object: 'event', type, data: { object } });
+  const stripePost = async (event, { secret = WHSEC, t = Math.floor(Date.now() / 1000), header, body = JSON.stringify(event) } = {}) => {
+    const sig = createHmac('sha256', secret).update(`${t}.${body}`).digest('hex');
+    const res = await fetch(BASE + '/api/stripe/webhook', { method: 'POST', headers: { 'content-type': 'application/json', 'cf-connecting-ip': RUN_IP, ...(header === null ? {} : { 'stripe-signature': header ?? `t=${t},v1=${sig}` }) }, body });
+    let data = null; try { data = await res.json(); } catch {}
+    return { status: res.status, data };
+  };
+  const checkout = (sub, { slug, email, mode = 'subscription', paid = 'paid', amount = 19900 } = {}) => mkEvent('checkout.session.completed', {
+    id: 'cs_' + sub, mode, payment_status: paid, subscription: mode === 'subscription' ? sub : null, customer: 'cus_' + sub, amount_total: amount, currency: 'cad',
+    client_reference_id: slug, customer_details: { email },
+  });
+  const subEvent = (type, sub, status, extra = {}) => mkEvent(type, { id: sub, customer: 'cus_' + sub, status, currency: 'cad', current_period_end: Math.floor(Date.now() / 1000) + 25 * 86400, cancel_at_period_end: false, items: { data: [{ price: { unit_amount: 19900 }, quantity: 1 }] }, ...extra });
+  const firmFeatured = async (slug) => (await call('GET', '/api/firms/' + slug)).data.featured;
+  const planOf = async (jar, slug) => { as(jar); return call('GET', `/api/account/firms/${slug}/plan`); };
+  const ownerEmail1 = `owner1-${run}@example.com`;
+  const auditSubjects = async () => { as(adminJar); return (await call('GET', '/api/admin/audit?limit=200')).data.entries.filter((e) => e.action === 'mail.dev').map((e) => e.detail?.subject); };
+
+  // the door is locked: only Stripe's signature gets in
+  cookie = '';
+  const goodEv = checkout('sub_x_' + run, { slug: 'achkar-law', email: ownerEmail1 });
+  ok((await stripePost(goodEv, { header: null })).status === 400, 'a payment notice without a signature is refused');
+  ok((await stripePost(goodEv, { secret: 'whsec_wrong' })).status === 400, 'a payment notice signed with the wrong secret is refused');
+  ok((await stripePost(goodEv, { t: Math.floor(Date.now() / 1000) - 1000 })).status === 400, 'an old signed notice (replay) is refused');
+  ok((await stripePost(goodEv, { body: JSON.stringify(goodEv) + ' ' , header: `t=${Math.floor(Date.now() / 1000)},v1=${'0'.repeat(64)}` })).status === 400, 'a tampered notice is refused');
+  ok((await stripePost(null, { body: 'not json' })).status === 400, 'a signed notice that is not JSON is refused');
+  ok(!(await firmFeatured('achkar-law')), 'nothing became Featured from refused notices');
+
+  // the owner's plan card
+  as(o1.jar);
+  const plan0 = (await call('GET', '/api/account/firms/achkar-law/plan')).data;
+  const upUrl = new URL(plan0.upgradeUrl);
+  ok(plan0.featured === false && plan0.price === '$199 / month' && upUrl.origin === 'https://buy.stripe.com' && upUrl.searchParams.get('client_reference_id') === 'achkar-law' && upUrl.searchParams.get('prefilled_email') === ownerEmail1 && plan0.portalUrl === null, 'a Basic firm\'s owner gets an upgrade link with the firm and email attached');
+  as(o2.jar);
+  ok((await call('GET', '/api/account/firms/achkar-law/plan')).status === 403, 'another owner cannot see this plan');
+  cookie = '';
+  ok((await call('GET', '/api/account/firms/achkar-law/plan')).status === 401, 'the plan needs sign-in');
+
+  // a verified owner pays: Featured at once
+  cookie = '';
+  const subA = 'sub_a_' + run;
+  const payA = checkout(subA, { slug: 'achkar-law', email: ownerEmail1.toUpperCase() });
+  ok((await stripePost(payA)).status === 200 && await firmFeatured('achkar-law') === true, 'a verified owner\'s payment makes the firm Featured (email match ignores capitals)');
+  ok((await stripePost(payA)).data.duplicate === true, 'the same notice delivered twice is applied once');
+  ok(JSON.parse((await getRaw('/firms_data.json')).text).find((f) => f.slug === 'achkar-law').featured === true, 'the directory shows it as Featured');
+  const planA = (await planOf(o1.jar, 'achkar-law')).data;
+  ok(planA.featured && planA.subscription.status === 'active' && planA.upgradeUrl === null && /^https:\/\/billing\.stripe\.com/.test(planA.portalUrl), 'the owner now sees Featured and a manage-billing link');
+  ok((await auditSubjects()).includes('Achkar Law is now Featured on LawDB'), 'the owner is emailed that they are Featured');
+  cookie = '';
+  ok((await stripePost(subEvent('customer.subscription.updated', subA, 'active', { cancel_at_period_end: true }))).status === 200, 'a renewal/cancel-at-period-end notice is accepted');
+  const planB = (await planOf(o1.jar, 'achkar-law')).data;
+  ok(planB.featured && planB.subscription.cancelAtPeriodEnd === true && !!planB.subscription.periodEnd, 'the plan card shows it will not renew, and until when');
+  cookie = '';
+  ok((await stripePost(subEvent('customer.subscription.updated', subA, 'past_due'))).status === 200 && await firmFeatured('achkar-law') === true, 'a failed card payment keeps the firm Featured while Stripe retries');
+  ok((await planOf(o1.jar, 'achkar-law')).data.subscription.status === 'past_due', 'and the owner is told');
+  ok((await auditSubjects()).includes('Payment problem for Achkar Law'), 'the owner and admin are emailed about the payment problem');
+  cookie = '';
+  ok((await stripePost(subEvent('customer.subscription.updated', subA, 'active'))).status === 200, 'the card works again');
+  ok((await stripePost(subEvent('customer.subscription.deleted', subA, 'canceled'))).status === 200 && await firmFeatured('achkar-law') === false, 'when the subscription ends the firm goes back to Basic');
+  ok((await planOf(o1.jar, 'achkar-law')).data.upgradeUrl !== null, 'and the owner can upgrade again');
+  ok((await auditSubjects()).includes('Achkar Law: Featured listing ended'), 'the owner is emailed that it ended');
+
+  // a payment we cannot match to an owner changes nothing and waits for the admin
+  cookie = '';
+  const subB = 'sub_b_' + run;
+  ok((await stripePost(checkout(subB, { slug: 'achkar-law', email: `stranger-${run}@example.com` }))).status === 200 && await firmFeatured('achkar-law') === false, 'a payment from someone who is not the firm\'s owner changes nothing');
+  as(adminJar);
+  const pay1 = (await call('GET', '/api/admin/payments')).data;
+  const waiting = pay1.needsReview.find((r) => r.id === subB);
+  ok(waiting && waiting.slug === 'achkar-law' && waiting.payerEmail === `stranger-${run}@example.com` && waiting.owners.includes(ownerEmail1), 'the admin sees it with the payer and the firm\'s real owners');
+  ok((await call('GET', '/api/admin/stats')).data.paymentsToReview >= 1, 'the overview counts payments to review');
+  ok((await auditSubjects()).includes('A Featured payment needs your review'), 'the admin is emailed about it');
+  ok((await call('POST', `/api/admin/payments/${subB}/assign`, { slug: 'no-such-firm' })).status === 422, 'assigning to an unknown firm is refused');
+  ok((await call('POST', `/api/admin/payments/${subB}/assign`, { slug: 'achkar-law' })).status === 200 && await firmFeatured('achkar-law') === true, 'the admin approves it and the firm becomes Featured');
+  ok((await call('POST', `/api/admin/payments/${subB}/assign`, { slug: 'achkar-law' })).status === 409, 'a payment cannot be assigned twice');
+  const pay2 = (await call('GET', '/api/admin/payments')).data;
+  ok(pay2.active.some((r) => r.id === subB) && pay2.totals.activeCount >= 1 && pay2.totals.monthlyCents >= 19900, 'the admin sees the subscription and the monthly total');
+  cookie = '';
+  await stripePost(subEvent('customer.subscription.deleted', subB, 'canceled'));
+  ok(await firmFeatured('achkar-law') === false, 'cancelling it takes Featured away again');
+
+  // a payment with no firm named, an out-of-order notice, and ones we ignore
+  cookie = '';
+  const subC = 'sub_c_' + run;
+  await stripePost(checkout(subC, { slug: undefined, email: `nofirm-${run}@example.com` }));
+  as(adminJar);
+  ok((await call('GET', '/api/admin/payments')).data.needsReview.some((r) => r.id === subC && r.slug === null), 'a payment with no firm named waits for the admin');
+  ok((await call('POST', `/api/admin/payments/${subC}/dismiss`)).status === 200 && (await call('POST', `/api/admin/payments/${subC}/dismiss`)).status === 409, 'the admin can dismiss it, once');
+  cookie = '';
+  const subD = 'sub_d_' + run;
+  await stripePost(subEvent('customer.subscription.updated', subD, 'active')); // arrives before the checkout notice
+  ok(await firmFeatured('achkar-law') === false, 'a subscription notice alone never makes anyone Featured');
+  await stripePost(checkout(subD, { slug: 'achkar-law', email: ownerEmail1 }));
+  ok(await firmFeatured('achkar-law') === true, 'notices arriving out of order still end up right');
+  await stripePost(subEvent('customer.subscription.deleted', subD, 'canceled'));
+  ok(await firmFeatured('achkar-law') === false, 'and cancelling works');
+  const before = (await planOf(adminJar, 'achkar-law')).status; // admin is not an owner: 403 by design
+  ok(before === 403, 'an admin who is not the firm\'s owner has no owner plan card');
+  cookie = '';
+  ok((await stripePost(checkout('sub_e_' + run, { slug: 'achkar-law', email: ownerEmail1, mode: 'payment' }))).status === 200 && await firmFeatured('achkar-law') === false, 'a one-off (non-subscription) payment is ignored');
+  ok((await stripePost(checkout('sub_f_' + run, { slug: 'achkar-law', email: ownerEmail1, paid: 'unpaid' }))).status === 200 && await firmFeatured('achkar-law') === false, 'an unpaid checkout is ignored');
+  ok((await stripePost(checkout('sub_g_' + run, { slug: '../../etc', email: ownerEmail1 }))).status === 200, 'a hostile firm name in a payment is harmless');
+  ok((await stripePost(mkEvent('charge.refunded', { id: 'ch_1' }))).status === 200, 'events we do not use are acknowledged and ignored');
+
+  // a firm that was already Featured by hand stays Featured when a subscription ends
+  const manual = 'daniel-brown-law-llp';
+  ok(await firmFeatured(manual) === true, 'the hand-featured firm starts Featured');
+  const subH = 'sub_h_' + run;
+  await stripePost(checkout(subH, { slug: undefined, email: `pays-${run}@example.com` }));
+  as(adminJar);
+  await call('POST', `/api/admin/payments/${subH}/assign`, { slug: manual });
+  cookie = '';
+  await stripePost(subEvent('customer.subscription.deleted', subH, 'canceled'));
+  ok(await firmFeatured(manual) === true, 'a firm Featured by hand before it paid is never un-featured by a cancellation');
+  as(adminJar);
+  ok((await call('GET', '/api/admin/payments')).data.ended.some((r) => r.id === subH), 'the ended subscription is listed');
+  as(o1.jar);
+  ok((await call('GET', '/api/admin/payments')).status === 403, 'owners cannot see payments');
+  cookie = '';
+  ok((await call('GET', '/api/admin/payments')).status === 401, 'payments need sign-in');
 
   // removing access takes effect immediately
   as(adminJar);

@@ -27,7 +27,9 @@
   "vars": {
     "SITE_ORIGIN": "https://lawdb.ca",
     "MAIL_FROM_EMAIL": "info@lawdb.ca",
-    "MAIL_FROM_NAME": "LawDB"
+    "MAIL_FROM_NAME": "LawDB",
+    // The Featured plan (CAD $199/month). Owners reach it from their dashboard with their firm and email attached.
+    "STRIPE_PAYMENT_LINK": "https://buy.stripe.com/4gM7sN2X7d8naOFe0dfbq01"
   },
   // Nightly at 07:17 UTC: housekeeping (retention rules) and a backup of every table into the KV store below.
   "triggers": { "crons": ["17 7 * * *"] },

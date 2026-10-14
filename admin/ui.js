@@ -202,3 +202,34 @@ export function feedPanel(base) {
   call('GET', base).then(draw).catch((err) => root.replaceChildren(note('msg-err', err.message)));
   return root;
 }
+
+// ---------------------------------------------------------------- plan and billing (owner)
+// Shows Basic or Featured, and the right button: upgrade (opens the Stripe checkout with the firm and email attached)
+// or manage billing (Stripe's own page, where the card can be changed or the subscription cancelled).
+export function planPanel(base) {
+  const root = h('div', { class: 'card planp' });
+  const fmt = (d) => (d ? new Date(d.replace(' ', 'T') + 'Z').toLocaleDateString([], { dateStyle: 'long' }) : '');
+
+  function draw(p) {
+    const featured = p.featured;
+    const sub = p.subscription;
+    let line;
+    if (featured && sub) {
+      line = sub.status === 'past_due' ? 'Featured. The last payment did not go through. Please update your card on the billing page.'
+        : sub.cancelAtPeriodEnd ? `Featured until ${fmt(sub.periodEnd)}. It will not renew.`
+        : `Featured${sub.periodEnd ? '. Renews on ' + fmt(sub.periodEnd) : ''}.`;
+    } else if (featured) line = 'Featured. Managed by LawDB.';
+    else line = 'Basic (free).';
+    root.replaceChildren(h('div', null,
+      h('div', { class: 'row spread' }, h('h2', null, 'Your plan'), h('span', { class: 'badge' + (featured ? ' featured' : '') }, featured ? 'Featured' : 'Basic')),
+      h('p', null, line),
+      !featured && h('div', null,
+        h('p', { class: 'muted' }, `Featured is ${p.price}. You get priority placement at the top of results, a highlighted marker, and your latest blog posts shown on your page.`),
+        p.upgradeUrl ? h('a', { href: p.upgradeUrl, target: '_blank', rel: 'noopener' }, h('button', { class: 'primary', type: 'button' }, 'Upgrade to Featured')) : h('p', { class: 'muted' }, 'Upgrading is not available right now.'),
+        p.upgradeUrl && h('p', { class: 'muted' }, 'Checkout opens on Stripe. Your listing becomes Featured automatically once the payment goes through. Please pay with the same email address you sign in with, so the payment can be matched to your firm.')),
+      p.portalUrl && h('div', { class: 'row' }, h('a', { href: p.portalUrl, target: '_blank', rel: 'noopener' }, h('button', { type: 'button' }, 'Manage billing')))));
+  }
+
+  fetch(base, { credentials: 'same-origin' }).then((r) => r.json().then((d) => (r.ok ? draw(d) : Promise.reject(new Error(d.error || 'Could not load your plan'))))).catch((err) => root.replaceChildren(note('msg-err', err.message)));
+  return root;
+}

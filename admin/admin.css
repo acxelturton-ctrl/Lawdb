@@ -96,3 +96,6 @@ textarea.tall { min-height: 150px; }
 .thumbs img { width: 120px; height: 90px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); display: block; }
 .thumbs button { width: 100%; margin-top: 4px; padding: 6px 8px; font-size: 13px; }
 .pics input[type=file] { max-width: 100%; }
+
+.planp h2 { margin: 0; font-size: 18px; }
+.pay-money { font-weight: 700; }

@@ -105,3 +105,39 @@ export function reportEmail(origin, { slug, reason, name, email, message }) {
     html: `<p>A visitor reported a listing.</p><table cellpadding="4">${lines.map(([k, v]) => `<tr><td style="color:#666;vertical-align:top">${esc(k)}</td><td>${esc(v).replace(/\n/g, '<br>')}</td></tr>`).join('')}</table>${button(link, 'Open the admin')}`,
   };
 }
+
+export function featuredOnEmail(origin, { firmName }) {
+  const link = `${origin}/account/`;
+  return {
+    subject: `${firmName} is now Featured on LawDB`,
+    text: `Thank you. Your payment went through and ${firmName} is now a Featured listing: priority placement, a highlighted marker and blog cards from your website.\n\nManage your listing: ${link}`,
+    html: `<p>Thank you. Your payment went through and <b>${esc(firmName)}</b> is now a <b>Featured</b> listing: priority placement, a highlighted marker and blog cards from your website.</p>${button(link, 'Open my dashboard')}`,
+  };
+}
+
+export function featuredOffEmail(origin, { firmName }) {
+  const link = `${origin}/account/`;
+  return {
+    subject: `${firmName}: Featured listing ended`,
+    text: `The Featured subscription for ${firmName} has ended, so the listing is back to Basic. You can upgrade again any time from your dashboard: ${link}`,
+    html: `<p>The Featured subscription for <b>${esc(firmName)}</b> has ended, so the listing is back to Basic. You can upgrade again any time.</p>${button(link, 'Open my dashboard')}`,
+  };
+}
+
+export function paymentReviewEmail(origin, { email, firmName }) {
+  const link = `${origin}/admin/#payments`;
+  return {
+    subject: 'A Featured payment needs your review',
+    text: `${email} paid for Featured (${firmName}), but we could not match the payment to an approved owner of that firm. Nothing was changed.\n\nReview it: ${link}`,
+    html: `<p><b>${esc(email)}</b> paid for Featured (${esc(firmName)}), but we could not match the payment to an approved owner of that firm. Nothing was changed.</p>${button(link, 'Review the payment')}`,
+  };
+}
+
+export function paymentFailedEmail(origin, { firmName }) {
+  const link = `${origin}/account/`;
+  return {
+    subject: `Payment problem for ${firmName}`,
+    text: `The latest Featured payment for ${firmName} did not go through. Stripe will try the card again. To update the card, open the billing page from your dashboard: ${link}`,
+    html: `<p>The latest Featured payment for <b>${esc(firmName)}</b> did not go through. Stripe will try the card again. To update the card, open the billing page from your dashboard.</p>${button(link, 'Open my dashboard')}`,
+  };
+}

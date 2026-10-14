@@ -13,6 +13,7 @@ const call = async (method, path, body, extraHeaders = {}) => {
   const res = await fetch(BASE + path, {
     method,
     redirect: 'manual',
+    signal: AbortSignal.timeout(15000), // never hang forever on a dead server
     headers: { ...(body ? { 'content-type': 'application/json' } : {}), ...(cookie ? { cookie } : {}), ...extraHeaders },
     body: body ? JSON.stringify(body) : undefined,
   });

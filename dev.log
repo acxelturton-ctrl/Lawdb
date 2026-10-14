@@ -107,3 +107,1288 @@ Error: Request was cancelled.
     at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
     at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
     at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.
+⎔ Local server updated and ready
+⎔ Reloading local server...
+[wrangler:warn] Unable to fetch the `Request.cf` object! Falling back to a default placeholder...
+Error: Request was cancelled.
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at makeAppropriateNetworkError (/home/user/Lawdb/node_modules/undici/lib/web/fetch/response.js:488:38)
+    at httpNetworkFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1971:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async httpNetworkOrCacheFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1600:29)
+    at async httpFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:1142:33)
+    at async mainFetch (/home/user/Lawdb/node_modules/undici/lib/web/fetch/index.js:596:20)
+[wrangler:info] ✨ Parsed 1 valid header rule.

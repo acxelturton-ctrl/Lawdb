@@ -29,5 +29,5 @@ jobs:
           nohup npx wrangler dev --ip 127.0.0.1 --port 8799 > dev.log 2>&1 < /dev/null &
           SERVER=$!
           trap 'kill $SERVER 2>/dev/null || true; pkill -f workerd 2>/dev/null || true' EXIT
-          for i in $(seq 1 40); do curl -sf http://127.0.0.1:8799/api/health && break; sleep 2; done
+          for i in $(seq 1 40); do curl -sf --max-time 5 http://127.0.0.1:8799/api/health && break; sleep 2; done
           BASE=http://127.0.0.1:8799 node scripts/smoke.mjs || { echo "--- dev server log ---"; cat dev.log; exit 1; }

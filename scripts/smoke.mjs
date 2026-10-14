@@ -1113,6 +1113,69 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     provider.close();
   }
 
+  // member ratings
+  {
+    const R = 'torys-llp';
+    const ip = () => `203.0.113.${1 + Math.floor(Math.random() * 250)}`;
+    cookie = '';
+    const r0 = await call('GET', `/api/firms/${R}/ratings`);
+    ok(r0.status === 200 && r0.data.count === 0 && r0.data.average === null && r0.data.signedIn === false && r0.data.canRate === false && r0.data.comments.length === 0, 'anyone can read a firm\'s member ratings (none yet)');
+    ok((await call('GET', '/api/firms/no-such-firm/ratings')).status === 404 && (await call('POST', '/api/account/ratings', { slug: R, stars: 5 })).status === 401, 'unknown firms are 404 and rating needs sign-in');
+    as(o1.jar);
+    ok((await call('GET', `/api/firms/${R}/ratings`)).data.canRate === true && (await call('GET', '/api/firms/achkar-law/ratings')).data.manages === true, 'the page knows who may rate, and that owners may not rate their own firm');
+    ok((await call('POST', '/api/account/ratings', { slug: 'achkar-law', stars: 5 })).status === 403, 'an owner cannot rate their own firm');
+    for (const bad of [0, 6, 'x', 2.5, null]) if ((await call('POST', '/api/account/ratings', { slug: R, stars: bad })).status !== 422) ok(false, `stars ${bad} should be refused`);
+    ok((await call('POST', '/api/account/ratings', { slug: R, stars: 4, comment: 'too short' })).status === 422 && (await call('POST', '/api/account/ratings', { slug: R, stars: 4, comment: 'Great, see https://example.com for more' })).status === 422 && (await call('POST', '/api/account/ratings', { slug: R, stars: 4, comment: 'Email me at someone@example.com please' })).status === 422 && (await call('POST', '/api/account/ratings', { slug: R, stars: 4, comment: 'Call 416 555 1212 for a great deal' })).status === 422 && (await call('POST', '/api/account/ratings', { slug: R, stars: 4, comment: '<b>very</b> good lawyers indeed' })).status === 422, 'odd stars and comments with links, emails, phone numbers or markup are refused');
+    const a1 = await call('POST', '/api/account/ratings', { slug: R, stars: 4, comment: 'Clear advice and quick replies from the team.' });
+    ok(a1.status === 200 && a1.data.count === 1 && a1.data.mine.stars === 4 && a1.data.mine.commentStatus === 'pending' && a1.data.comments.length === 0, 'a rating counts at once; the comment waits for approval and is not public yet');
+    ok((await call('POST', '/api/account/ratings', { slug: R, stars: 5 })).data.count === 1, 'rating again replaces the first rating');
+    ok((await call('GET', `/api/firms/${R}/ratings`)).data.mine.commentStatus === 'pending', 'changing only the stars keeps the comment as it was');
+    as(o2.jar);
+    await call('POST', '/api/account/ratings', { slug: R, stars: 3, comment: 'Fine service but the wait was long.' });
+    const third = await signUp(`rater3-${run}@example.com`, ip());
+    as(third.jar);
+    const a3 = await call('POST', '/api/account/ratings', { slug: R, stars: 5 });
+    ok(a3.data.count === 3 && a3.data.average === 4.3 && a3.data.distribution[5] === 2 && a3.data.distribution[3] === 1, 'the average and the spread are worked out from every live rating');
+    cookie = '';
+    const pub = (await call('GET', `/api/firms/${R}/ratings`)).data;
+    ok(pub.count === 3 && pub.comments.length === 0 && !JSON.stringify(pub).includes('@example.com'), 'the public sees totals only, with no comment and no names or emails');
+    as(adminJar);
+    const rv = (await call('GET', '/api/admin/reviews')).data;
+    const c1 = rv.pending.find((x) => x.email === `owner1-${run}@example.com`); const c2 = rv.pending.find((x) => x.comment.startsWith('Fine service'));
+    ok(rv.pending.length >= 2 && c1 && c2 && c1.firm && c1.stars === 5, 'the admin sees the comments waiting for review');
+    ok((await call('PATCH', `/api/admin/reviews/${c1.userId}/${R}`, { action: 'approve' })).status === 200 && (await call('PATCH', `/api/admin/reviews/${c2.userId}/${R}`, { action: 'reject' })).status === 200, 'the admin approves one comment and rejects another');
+    ok((await call('PATCH', `/api/admin/reviews/${c1.userId}/${R}`, { action: 'explode' })).status === 422 && (await call('PATCH', `/api/admin/reviews/${c1.userId}/no-such`, { action: 'hide' })).status === 404, 'bad admin actions are refused');
+    cookie = '';
+    const pub2 = (await call('GET', `/api/firms/${R}/ratings`)).data;
+    ok(pub2.comments.length === 1 && pub2.comments[0].comment.startsWith('Clear advice') && !('email' in pub2.comments[0]), 'only the approved comment is public, without a name');
+    as(adminJar);
+    await call('PATCH', `/api/admin/reviews/${c2.userId}/${R}`, { action: 'hide' });
+    ok((await call('GET', `/api/firms/${R}/ratings`)).data.count === 2, 'a hidden rating stops counting');
+    await call('PATCH', `/api/admin/reviews/${c2.userId}/${R}`, { action: 'show' });
+    ok((await call('GET', `/api/firms/${R}/ratings`)).data.count === 3, 'and counts again when shown');
+    ok((await call('PATCH', `/api/admin/reviews/${c1.userId}/${R}`, { action: 'approve' })).status === 200, 'approving again is harmless');
+    as(o1.jar);
+    ok((await call('POST', '/api/account/ratings', { slug: R, stars: 5, comment: 'Updated: still clear advice, and fast.' })).data.mine.commentStatus === 'pending' && (await call('GET', `/api/firms/${R}/ratings`)).data.comments.length === 0, 'editing a comment sends it for review again');
+    ok((await call('GET', '/api/account/ratings')).data.ratings.map((x) => x.slug).join() === R, 'a person sees their own ratings');
+    as(o2.jar);
+    ok((await call('GET', '/api/account/ratings')).data.ratings.length === 1, 'and only their own');
+    ok((await call('POST', '/api/account/ratings', { slug: R, stars: 1 }, { origin: 'https://evil.example' })).status === 403, 'ratings from other sites are refused');
+    ok((await call('DELETE', `/api/account/ratings/${R}`)).status === 200 && (await call('GET', `/api/firms/${R}/ratings`)).data.count === 2 && (await call('DELETE', `/api/account/ratings/${R}`)).status === 200, 'a person can remove their rating');
+    as(o1.jar);
+    ok((await call('GET', '/api/admin/reviews')).status === 403, 'owners cannot open the reviews list');
+    // a daily limit
+    const rater = await signUp(`rater4-${run}@example.com`, ip());
+    as(adminJar);
+    const many = (await call('GET', '/api/admin/firms?limit=100')).data.firms.map((x) => x.slug).filter((x) => x !== 'achkar-law').slice(0, 12);
+    as(rater.jar);
+    let rated = 0; let limited = 0;
+    for (const slug of many) { const r = await call('POST', '/api/account/ratings', { slug, stars: 4 }); if (r.status === 200) rated++; else if (r.status === 429) limited++; }
+    ok(rated === 10 && limited === many.length - 10, 'a person can rate 10 new firms a day');
+    cookie = '';
+    const rp = (await getRaw(`/firms/${R}`)).text;
+    ok(rp.includes(`data-rate="${R}"`) && rp.includes('id="rate"') && rp.includes('/follow.js'), 'firm pages carry the member-ratings box');
+  }
+
   // put the shared test firm back as it was
   as(adminJar);
   await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static', phone: origFirm.phone || '', about: origFirm.about || '' });

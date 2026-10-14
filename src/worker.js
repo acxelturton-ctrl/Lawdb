@@ -19,6 +19,7 @@ import { searchNightly } from './lib/gsc.js';
 import { legacyRedirect } from './lib/redirects.js';
 import { storyPage, storySitemap } from './routes/story-page.js';
 import * as social from './routes/social.js';
+import * as ratings from './routes/ratings.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -103,6 +104,12 @@ const ROUTES = [
   route('DELETE', '/api/account/firms/:slug/images/:id', account.imagesRemove),
   route('PATCH', '/api/account/leads/:id', account.updateLead),
   route('PATCH', '/api/account/profile', account.updateProfile),
+  route('GET', '/api/firms/:slug/ratings', ratings.list),
+  route('POST', '/api/account/ratings', ratings.rate),
+  route('GET', '/api/account/ratings', ratings.mine),
+  route('DELETE', '/api/account/ratings/:slug', ratings.remove),
+  route('GET', '/api/admin/reviews', ratings.adminList),
+  route('PATCH', '/api/admin/reviews/:userId/:slug', ratings.adminDecide),
   route('GET', '/api/auth/providers', auth.providers),
   route('GET', '/api/auth/google/start', auth.oauthStart('google')),
   route('GET', '/api/auth/google/callback', auth.oauthCallback('google')),

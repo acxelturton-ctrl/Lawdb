@@ -33,7 +33,7 @@ function renderLogin() {
 // ---------------------------------------------------------------- shell
 let pendingCount = 0;
 let paymentCount = 0;
-const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['news', 'News'], ['search', 'Search'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['news', 'News'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
 
 function shell(user, active, content) {
   return h('div', null,
@@ -384,6 +384,29 @@ async function viewSearch() {
         : h('p', { class: 'muted' }, 'Nothing to list yet.')));
 }
 
+// ---------------------------------------------------------------- reviews (member ratings)
+// Stars show straight away; a comment is shown only after you approve it. You can hide any rating at any time.
+async function viewReviews() {
+  const data = await api('GET', '/api/admin/reviews');
+  const out = h('div');
+  const reload = () => render(me);
+  const act = (r, action, label) => {
+    const b = h('button', { type: 'button' }, label);
+    b.addEventListener('click', async () => { b.disabled = true; try { await api('PATCH', `/api/admin/reviews/${r.userId}/${encodeURIComponent(r.slug)}`, { action }); reload(); } catch (err) { out.replaceChildren(note('msg-err', err.message)); b.disabled = false; } });
+    return b;
+  };
+  const stars = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);
+  const row = (r, pending) => h('div', { class: 'audit' },
+    h('div', null, h('b', null, r.firm), ' ', h('span', { class: 'muted' }, `${stars(r.stars)} · ${r.email} · ${when(r.at)}${r.status === 'hidden' ? ' · HIDDEN' : ''}${!pending && r.comment ? ' · comment ' + r.commentStatus : ''}`)),
+    r.comment && h('div', null, r.comment),
+    h('div', { class: 'row' }, pending ? [act(r, 'approve', 'Approve comment'), act(r, 'reject', 'Reject comment')] : [], r.status === 'hidden' ? act(r, 'show', 'Show rating') : act(r, 'hide', 'Hide rating'), h('a', { href: `/firms/${r.slug}`, target: '_blank', rel: 'noopener' }, 'Open firm')));
+  return h('div', null, h('h1', null, 'Reviews'), out,
+    h('h2', null, `Comments waiting for you (${data.pending.length})`),
+    h('div', { class: 'card' }, data.pending.length ? data.pending.map((r) => row(r, true)) : h('p', { class: 'muted' }, 'Nothing waiting.')),
+    h('h2', null, 'Latest ratings'),
+    h('div', { class: 'card' }, data.recent.length ? data.recent.map((r) => row(r, false)) : h('p', { class: 'muted' }, 'No ratings yet.')));
+}
+
 // ---------------------------------------------------------------- payments
 // Featured subscriptions paid through Stripe. A payment from a verified owner turns Featured on by itself; anything the
 // site could not match to an owner waits here for you.
@@ -572,7 +595,7 @@ async function viewActivity() {
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, news: viewNews, search: viewSearch, payments: viewPayments, people: viewPeople, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, news: viewNews, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
 async function render(user) {

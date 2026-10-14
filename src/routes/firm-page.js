@@ -42,10 +42,11 @@ async function feedPosts(env, slug) {
   }
 }
 
-// Every firm page gets a Follow button (next to Call / Website / Directions) and the small script that runs it.
+// Every firm page gets a Follow button (next to Call / Website / Directions), the member-ratings box under the profile card, and the small script that runs them.
 const withFollow = (res, slug) =>
   new HTMLRewriter()
     .on('div.li-actions', { element(el) { el.append(`<button class="li-btn li-ghost lw-fbtn" type="button" data-follow="${slug}">Follow</button>`, { html: true }); } })
+    .on('section.li-card', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>`, { html: true }); } })
     .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })
     .transform(res);
 

@@ -69,6 +69,72 @@
       .then(function () { b.disabled = false; });
   }, true);
 
-  window.lawdbSocial = { init: init };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(document); }); else init(document);
+
+  // ---- member ratings: <div data-rate="<firm slug>"> becomes the rating box
+  var rcss = '.lw-rate{max-width:640px;margin:18px auto;padding:16px 18px;background:#fff;border:1px solid #e4ded3;border-radius:12px;font:15px/1.5 Inter,system-ui,sans-serif;color:#2b2723}' +
+    '.lw-rate h2{font:700 17px "Source Serif 4",Georgia,serif;margin:0 0 6px}.lw-rate .lw-avg{font-size:26px;font-weight:700;color:#9a6f1c}.lw-rate .lw-sub{color:#6b645b;font-size:14px}' +
+    '.lw-rate .lw-row2{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:6px 0}.lw-rate button{font:600 14px Inter,system-ui,sans-serif;border:1px solid #2b2723;background:transparent;color:#2b2723;border-radius:8px;padding:9px 16px;cursor:pointer}' +
+    '.lw-rate button.go{background:#2b2723;color:#fff}.lw-rate button[disabled]{opacity:.6}.lw-stars button{border:0;background:none;font-size:30px;line-height:1;padding:2px 4px;color:#cfc8b8;cursor:pointer}.lw-stars button.on{color:#d9a441}' +
+    '.lw-rate textarea{width:100%;min-height:80px;border:1px solid #cfc8b8;border-radius:8px;padding:10px;font:15px Inter,system-ui,sans-serif;margin:8px 0}.lw-rate .lw-note{font-size:12.5px;color:#8f8a80}' +
+    '.lw-rate .lw-cm{border-top:1px solid #eee7d6;padding:10px 0 0;margin-top:10px}.lw-rate .lw-cm b{color:#d9a441}.lw-rate .lw-err{color:#a8402f;font-size:14px}';
+  var rs = document.createElement('style'); rs.textContent = rcss; document.head.appendChild(rs);
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function stars(n) { return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n); }
+  function renderRating(box, slug, d) {
+    box.textContent = '';
+    box.appendChild(el('h2', null, 'LawDB member ratings'));
+    var top = el('div', 'lw-row2');
+    if (d.count >= 3) { top.appendChild(el('span', 'lw-avg', '★ ' + d.average.toFixed(1))); top.appendChild(el('span', 'lw-sub', 'from ' + d.count + ' LawDB member ratings')); }
+    else top.appendChild(el('span', 'lw-sub', d.count ? d.count + ' rating' + (d.count === 1 ? '' : 's') + ' so far. The average shows from 3 ratings.' : 'No ratings yet. Be the first.'));
+    box.appendChild(top);
+    var act = el('div', 'lw-row2');
+    if (!d.signedIn) {
+      var si = el('button', 'go', 'Sign in to rate'); si.type = 'button';
+      si.onclick = function () { try { localStorage.setItem('lawdb_pending', JSON.stringify({ type: 'back', url: location.pathname + '#rate' })); } catch (e) {} location.href = '/account/'; };
+      act.appendChild(si);
+    } else if (d.manages) {
+      act.appendChild(el('span', 'lw-note', 'You manage this firm, so you cannot rate it.'));
+    } else {
+      if (d.mine) act.appendChild(el('span', 'lw-sub', 'Your rating: ' + stars(d.mine.stars) + (d.mine.commentStatus === 'pending' ? ' (your comment is waiting for review)' : '')));
+      var b = el('button', d.mine ? '' : 'go', d.mine ? 'Change my rating' : 'Rate this firm'); b.type = 'button';
+      b.onclick = function () { form(box, slug, d); };
+      act.appendChild(b);
+    }
+    box.appendChild(act);
+    (d.comments || []).forEach(function (c) { var w = el('div', 'lw-cm'); w.appendChild(el('b', null, stars(c.stars))); w.appendChild(el('div', null, c.comment)); w.appendChild(el('div', 'lw-note', 'A LawDB member')); box.appendChild(w); });
+    box.appendChild(el('p', 'lw-note', 'Ratings are the opinions of signed-in LawDB members. Comments are reviewed before they appear. They are separate from the public Google ratings shown above.'));
+  }
+  function form(box, slug, d) {
+    var pick = (d.mine && d.mine.stars) || 0;
+    box.textContent = '';
+    box.appendChild(el('h2', null, 'Rate this firm'));
+    var row = el('div', 'lw-stars'); var btns = [];
+    for (var i = 1; i <= 5; i++) (function (n) { var b = el('button', null, '★'); b.type = 'button'; b.setAttribute('aria-label', n + ' star' + (n > 1 ? 's' : '')); b.onclick = function () { pick = n; paint2(); }; btns.push(b); row.appendChild(b); })(i);
+    function paint2() { btns.forEach(function (b, k) { b.className = k < pick ? 'on' : ''; }); }
+    paint2(); box.appendChild(row);
+    var ta = el('textarea'); ta.maxLength = 600; ta.placeholder = 'Optional: a few words about your experience (no links or contact details)'; ta.value = (d.mine && d.mine.comment) || ''; box.appendChild(ta);
+    var err = el('div', 'lw-err'); box.appendChild(err);
+    var act = el('div', 'lw-row2'); var ok = el('button', 'go', 'Submit'); ok.type = 'button'; var no = el('button', null, 'Cancel'); no.type = 'button';
+    ok.onclick = function () {
+      if (!pick) { err.textContent = 'Choose 1 to 5 stars.'; return; }
+      ok.disabled = true; err.textContent = '';
+      call('POST', '/api/account/ratings', { slug: slug, stars: pick, comment: ta.value }).then(function (j) { d.mine = j.mine; d.count = j.count; d.average = j.average; d.comments = j.comments; renderRating(box, slug, d); }, function (e) { err.textContent = e.message; ok.disabled = false; });
+    };
+    no.onclick = function () { renderRating(box, slug, d); };
+    act.appendChild(ok); act.appendChild(no); box.appendChild(act);
+    box.appendChild(el('p', 'lw-note', 'Rate only firms you have dealt with. Please do not include private or confidential details.'));
+  }
+  function initRatings(root) {
+    all(root, '[data-rate]').forEach(function (box) {
+      var slug = box.getAttribute('data-rate');
+      fetch('/api/firms/' + encodeURIComponent(slug) + '/ratings', { credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (d) {
+        state.signedIn = !!d.signedIn; renderRating(box, slug, d);
+        if (location.hash === '#rate' && d.canRate && !d.mine) { box.scrollIntoView(); form(box, slug, d); }
+      }).catch(function () {});
+    });
+  }
+
+  window.lawdbSocial = { init: init, initRatings: initRatings };
+  function boot() { init(document); initRatings(document); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

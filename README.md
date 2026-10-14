@@ -18,15 +18,27 @@ Canadian lawyer directory. Static pages served by Cloudflare, plus a Worker API 
 - `GET /api/firms/:slug` (includes opening hours)
 - `GET /api/blog?province=ON`
 - `POST /api/leads` (JSON or form-encoded: `name`, `email` required; `phone`, `message`, `form`, `page` optional; any extra fields are kept)
+- `POST /api/auth/request-link`, `POST /api/auth/verify`, `POST /api/auth/logout`, `GET /api/auth/me`
+- `GET /api/admin/{stats,leads,firms,firms/:slug,audit}`, `PATCH /api/admin/{leads/:id,firms/:slug}` (admins only)
 
 ## Local development
 
 ```bash
 npm install
+printf 'ADMIN_EMAILS=you@example.com\nDEV_ECHO_LINK=1\n' > .dev.vars   # local only, never committed
 npm run db:migrate:local   # create tables in a local test database
 npm run db:seed:local      # load firms + blog posts
 npm run dev                # http://localhost:8787
+npm run smoke              # end-to-end test (needs ADMIN_EMAILS=smoke-admin@example.com in .dev.vars, BASE=http://localhost:8787)
 ```
+
+With `DEV_ECHO_LINK=1` the sign-in API returns the link in its response instead of emailing it,
+so you can sign in at `/admin/` without email set up. Never set it in production.
+
+## Admin area
+
+`/admin/` (sign-in by emailed one-time link): leads inbox with status tracking, firm editing,
+activity log. Setup and design decisions are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Deploying
 

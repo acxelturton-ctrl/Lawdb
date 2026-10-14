@@ -15,7 +15,12 @@ export async function requestLink({ request, env, url, exec }) {
   // Only known users (or configured admins) get a link. Strangers cannot trigger emails from our domain.
   const known = adminEmails(env).has(email) || (await env.DB.prepare('SELECT 1 FROM users WHERE email = ? AND disabled = 0').bind(email).first());
   const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM login_tokens WHERE email = ? AND created_at > datetime('now','-15 minutes')").bind(email).first();
-  if (!known || recent.n >= MAX_LINKS_PER_15_MIN) return json({ ok: true }, 200, NO_STORE);
+  if (!known) return json({ ok: true }, 200, NO_STORE);
+  if (recent.n >= MAX_LINKS_PER_15_MIN) {
+    // Same response as success (no leak), but leave a trace so a silent limit is never a mystery.
+    await audit(env, null, 'login.throttled', 'email', email, { linksInLast15Min: recent.n });
+    return json({ ok: true }, 200, NO_STORE);
+  }
 
   const token = randomToken();
   await env.DB.prepare("INSERT INTO login_tokens (token_hash, email, expires_at) VALUES (?, ?, datetime('now','+15 minutes'))")

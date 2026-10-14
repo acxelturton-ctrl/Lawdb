@@ -211,11 +211,11 @@ export async function refreshAllFeeds(env) {
      WHERE f.enabled = 1 AND m.status = 'live' ${dev ? "AND f.source = 'manual'" : ''} AND (
        (f.feed_url IS NOT NULL AND (f.last_checked_at IS NULL OR f.last_checked_at < datetime('now', '-20 hours')))
        OR (f.feed_url IS NULL AND (f.last_checked_at IS NULL OR f.last_checked_at < datetime('now', '-7 days'))))
-     ORDER BY f.last_checked_at LIMIT 20`
+     ORDER BY f.last_checked_at LIMIT 14`
   ).all();
   const out = { checked: 0, ok: 0, failed: 0, discoveries: 0 };
   for (const r of results) {
-    if (!r.feed_url && out.discoveries >= 3) continue; // discovery costs several requests; a few per night
+    if (!r.feed_url && out.discoveries >= 4) continue; // discovery costs several requests; a few per night keeps us inside the platform limit (50 outgoing requests per run)
     if (!r.feed_url) out.discoveries++;
     const res = await refreshFirmFeed(env, r.slug);
     out.checked++;

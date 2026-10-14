@@ -19,8 +19,8 @@ Canadian lawyer directory. Static pages served by Cloudflare, plus a Worker API 
 - `GET /api/blog?province=ON`
 - `POST /api/leads` (JSON or form-encoded: `name`, `email` required; `phone`, `message`, `form`, `page` optional; any extra fields are kept)
 - `POST /api/auth/request-link`, `POST /api/auth/verify`, `POST /api/auth/logout`, `GET /api/auth/me`
-- `GET /api/admin/{stats,leads,firms,firms/:slug,audit}`, `POST /api/admin/firms` (create a firm), `GET /api/admin/{members,users}`, `PATCH /api/admin/{leads/:id,firms/:slug,members/:id,users/:id}`, `POST /api/admin/{audit/:id/revert,backup}` (admins only)
-- `GET /api/account/{me,search,firms/:slug,firms/:slug/leads}`, `POST /api/account/{claims,firms}`, `PATCH /api/account/{firms/:slug,leads/:id}` (signed-in firm owners; firm routes need an approved membership)
+- `GET /api/admin/{stats,leads,firms,firms/:slug,audit}`, `POST /api/admin/firms` (create a firm), `GET /api/admin/{members,users}`, `PATCH /api/admin/{leads/:id,firms/:slug,members/:id,users/:id}`, `POST /api/admin/{audit/:id/revert,backup}`, `GET|PATCH /api/admin/firms/:slug/feed`, `POST /api/admin/firms/:slug/feed/refresh` (admins only)
+- `GET /api/account/{me,search,firms/:slug,firms/:slug/leads}`, `POST /api/account/{claims,firms}`, `PATCH /api/account/{firms/:slug,leads/:id}`, `GET|PATCH /api/account/firms/:slug/feed`, `POST /api/account/firms/:slug/feed/refresh` (signed-in firm owners; firm routes need an approved membership)
 
 ## Local development
 

@@ -7,6 +7,7 @@
 // Housekeeping: removes expired sign-in records and applies the data-retention promises in the privacy policy.
 
 import { audit } from './audit.js';
+import { refreshAllFeeds } from './feeds.js';
 
 export const RETENTION = { leadMonths: 12, ipHashDays: 7, auditMonths: 24, backupDays: 30 };
 
@@ -14,6 +15,7 @@ const TABLES = {
   firms: 'SELECT * FROM firms ORDER BY rowid',
   blog_posts: 'SELECT * FROM blog_posts ORDER BY rowid',
   firm_members: 'SELECT * FROM firm_members ORDER BY id',
+  firm_feeds: 'SELECT * FROM firm_feeds ORDER BY firm_slug',
   users: 'SELECT id, email, role, disabled, created_at, last_login_at FROM users ORDER BY id', // never tokens or sessions
   leads: 'SELECT * FROM leads ORDER BY id',
   audit_log: 'SELECT * FROM audit_log ORDER BY id',
@@ -71,5 +73,6 @@ export async function housekeeping(env) {
 
 export async function nightly(env) {
   try { await housekeeping(env); } catch (err) { console.error('housekeeping failed', err); await audit(env, null, 'housekeeping.failed', 'system', 'nightly', { error: String(err.message || err).slice(0, 300) }); }
+  try { await refreshAllFeeds(env); } catch (err) { console.error('feed refresh failed', err); await audit(env, null, 'feeds.failed', 'system', 'nightly', { error: String(err.message || err).slice(0, 300) }); }
   try { await runBackup(env, null); } catch (err) { console.error('backup failed', err); await audit(env, null, 'backup.failed', 'backup', 'nightly', { error: String(err.message || err).slice(0, 300) }); }
 }

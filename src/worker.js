@@ -60,6 +60,9 @@ const ROUTES = [
   route('PATCH', '/api/admin/members/:id', admin.decideMember),
   route('GET', '/api/admin/audit', admin.listAudit),
   route('POST', '/api/admin/audit/:id/revert', admin.revertEdit),
+  route('GET', '/api/admin/firms/:slug/feed', admin.feedGet),
+  route('PATCH', '/api/admin/firms/:slug/feed', admin.feedUpdate),
+  route('POST', '/api/admin/firms/:slug/feed/refresh', admin.feedRefresh),
   route('GET', '/api/admin/users', admin.listUsers),
   route('PATCH', '/api/admin/users/:id', admin.setUserDisabled),
   route('POST', '/api/admin/backup', admin.backupNow),
@@ -71,6 +74,9 @@ const ROUTES = [
   route('GET', '/api/account/firms/:slug', account.getFirm),
   route('PATCH', '/api/account/firms/:slug', account.updateFirm),
   route('GET', '/api/account/firms/:slug/leads', account.listLeads),
+  route('GET', '/api/account/firms/:slug/feed', account.feedGet),
+  route('PATCH', '/api/account/firms/:slug/feed', account.feedUpdate),
+  route('POST', '/api/account/firms/:slug/feed/refresh', account.feedRefresh),
   route('PATCH', '/api/account/leads/:id', account.updateLead),
 ];
 

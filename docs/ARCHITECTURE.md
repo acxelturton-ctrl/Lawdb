@@ -93,6 +93,19 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - Shared code: `src/lib/firm-edit.js` (validation, create, edit), `src/lib/email.js` (all mail), `admin/ui.js` (UI helpers).
 - Local development sends no mail; each message is recorded in the audit log as `mail.dev` instead.
 
+## Blog cards ("Latest from the firm")
+
+- Source: the firm's public RSS/Atom feed, found automatically from its website (`<link rel="alternate">`, then common paths like `/feed`) or entered by hand.
+  Stored in `firm_feeds` (settings, status) and `firm_posts` (migration 0008): at most the 6 newest posts, each with a headline, date, a plain-text excerpt of at most 600
+  characters and a link. Full articles are never stored or shown; if a feed only publishes full text, just the opening words are kept.
+- Safety (`src/lib/feeds.js`): https only, no IP addresses or internal names, no logins or odd ports, every redirect re-checked, 8 s timeout, 1.5 MB cap; all markup is stripped;
+  a post is kept only if its link points at the firm's own website (or the feed's host), so a feed cannot push links elsewhere.
+- Display (`src/render/blog-cards.js`): up to 3 cards (headline, date, a short teaser that expands to the longer excerpt with a native `<details>` control, and a link to the article on
+  the firm's site). Database-built pages include them in the template; hand-built pages get them injected at the edge with `HTMLRewriter` (after the "From the Firm" block, or
+  before the fine print). Pages work unchanged if the lookup fails.
+- Who gets them: Featured firms automatically (nightly cron `refreshAllFeeds`), any other firm when its owner or the admin switches them on. Owners and admins can switch cards off,
+  enter the feed address, and check now (owners at most every 5 minutes) from the Blog cards panel. Local development never contacts real websites; it only re-reads feeds entered by hand.
+
 ## Safeguards (hardening pass)
 
 - **Ownership signal:** the Approvals card compares the claimant's email domain with the firm's website

@@ -86,3 +86,6 @@ textarea.tall { min-height: 150px; }
 .quote { border-left: 3px solid var(--gold); padding-left: 10px; color: var(--muted, #555); white-space: pre-wrap; }
 .hrow input[type=time]::-webkit-calendar-picker-indicator { display: none; }
 @media (max-width: 480px) { .hrow { grid-template-columns: 76px 22px minmax(0, 1fr) minmax(0, 1fr); } .hrow span { font-size: 14px; } }
+
+.feedp h2 { margin: 0 0 4px; font-size: 18px; }
+.feed-posts { margin: 6px 0 4px; padding-left: 18px; font-size: 14px; color: var(--muted); }

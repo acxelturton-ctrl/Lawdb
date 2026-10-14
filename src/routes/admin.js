@@ -1,6 +1,7 @@
 import { json, readJson, clampInt, NO_STORE, HttpError } from '../lib/http.js';
 import { requireAdmin } from '../lib/auth.js';
 import { runBackup } from '../lib/backup.js';
+import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
 import { audit } from '../lib/audit.js';
 import { mailInBackground, decisionEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES } from '../lib/firm-edit.js';
@@ -250,4 +251,23 @@ export async function backupNow({ request, env }) {
     console.error('backup failed', err);
     throw new HttpError(500, 'Backup failed: ' + String(err.message || err).slice(0, 200));
   }
+}
+
+
+// ---------------------------------------------------------------- blog cards (any firm)
+export async function feedGet({ request, env, params }) {
+  await requireAdmin(env, request);
+  return reply(await getFeedInfo(env, params.slug));
+}
+
+export async function feedUpdate({ request, env, params, exec }) {
+  const admin = await requireAdmin(env, request);
+  await updateFeedSettings(env, admin, params.slug, await readJson(request, 1000), exec);
+  return reply({ ok: true, ...(await getFeedInfo(env, params.slug)) });
+}
+
+export async function feedRefresh({ request, env, params, exec }) {
+  const admin = await requireAdmin(env, request);
+  const result = await checkFeedNow(env, admin, params.slug, { admin: true }, exec);
+  return reply({ ok: true, result, ...(await getFeedInfo(env, params.slug)) });
 }

@@ -1,6 +1,7 @@
 // /firms/<slug>: serves the hand-built static page, or renders the page from the database for firms in
 // 'dynamic' mode. Every success is cached at the edge for PUBLIC_CACHE_TTL seconds (default 60), so the
 // database is read about once a minute per page, not once per visitor.
+import { renderBlogCards } from '../render/blog-cards.js';
 import { renderFirmPage } from '../render/firm-page.js';
 
 const ttlOf = (env) => {
@@ -24,6 +25,20 @@ async function nearbyFirms(env, f) {
     take((await env.DB.prepare(`SELECT ${cols} FROM firms WHERE status = 'live' AND region = ? AND slug != ? ${order} LIMIT 10`).bind(f.region, f.slug).all()).results);
   }
   return out;
+}
+
+// The firm's latest blog posts (for the cards), only when its feed is switched on.
+async function feedPosts(env, slug) {
+  try {
+    const { results } = await env.DB.prepare(
+      `SELECT p.title, p.url, p.published_at AS publishedAt, p.excerpt FROM firm_posts p JOIN firm_feeds f ON f.firm_slug = p.firm_slug
+       WHERE p.firm_slug = ? AND f.enabled = 1 ORDER BY p.published_at DESC, p.id DESC LIMIT 3`
+    ).bind(slug).all();
+    return results;
+  } catch (err) {
+    console.error('blog cards lookup failed', slug, err);
+    return []; // the page always works without the cards
+  }
 }
 
 export async function firmPage({ request, env, ctx }) {
@@ -50,7 +65,19 @@ export async function firmPage({ request, env, ctx }) {
   }
 
   if (!row || row.status !== 'live' || row.page_mode !== 'dynamic') {
-    const res = await env.ASSETS.fetch(request); // the original page (or a 404 for an unknown firm)
+    let res = await env.ASSETS.fetch(request); // the original page (or a 404 for an unknown firm)
+    if (res.status === 200 && row && row.status === 'live') {
+      // Hand-built pages get the blog cards slipped in: after their "From the Firm" block, or before the fine print.
+      const posts = await feedPosts(env, m[1]);
+      if (posts.length) {
+        const cards = renderBlogCards({ firmName: JSON.parse(row.data).name, posts });
+        let placed = false;
+        res = new HTMLRewriter()
+          .on('div.from-firm', { element(el) { placed = true; el.after(cards, { html: true }); } })
+          .on('div.fine', { element(el) { if (!placed) { placed = true; el.before(cards, { html: true }); } } })
+          .transform(res);
+      }
+    }
     if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
     return res;
   }
@@ -59,7 +86,7 @@ export async function firmPage({ request, env, ctx }) {
   try {
     const firm = { ...JSON.parse(row.data), about: row.about || '' };
     const hours = row.hours ? JSON.parse(row.hours) : null;
-    html = renderFirmPage({ firm, hours, nearby: await nearbyFirms(env, firm), origin: env.SITE_ORIGIN || url.origin });
+    html = renderFirmPage({ firm, hours, posts: await feedPosts(env, m[1]), nearby: await nearbyFirms(env, firm), origin: env.SITE_ORIGIN || url.origin });
   } catch (err) {
     console.error('profile render failed', m[1], err);
     return env.ASSETS.fetch(request);

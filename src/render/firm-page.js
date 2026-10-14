@@ -1,6 +1,7 @@
 // Renders a firm profile page from a database record. Built from the same chunks as the hand-built pages
 // (see scripts/extract-firm-template.mjs), so a rendered page looks like the originals.
 import * as C from './firm-chunks.generated.js';
+import { renderBlogCards } from './blog-cards.js';
 
 export const PROVINCES = { ON: 'Ontario', QC: 'Quebec', BC: 'British Columbia', AB: 'Alberta', MB: 'Manitoba' };
 const TZ = { ON: 'America/Toronto', QC: 'America/Toronto', BC: 'America/Vancouver', AB: 'America/Edmonton', MB: 'America/Winnipeg' };
@@ -107,7 +108,7 @@ function description(f) {
     : `${lead}. Practice areas, address, phone and directions on LawDB.`;
 }
 
-export function renderFirmPage({ firm: f, hours, nearby = [], origin = 'https://lawdb.ca' }) {
+export function renderFirmPage({ firm: f, hours, posts = [], nearby = [], origin = 'https://lawdb.ca' }) {
   const prov = PROVINCES[f.province] || f.province;
   const url = `${origin}/firms/${f.slug}`;
   const desc = description(f);
@@ -181,7 +182,7 @@ export function renderFirmPage({ firm: f, hours, nearby = [], origin = 'https://
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
     C.STYLE + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm">\n  ' + C.HEADER,
-    '  <div class="wrap">\n    ' + card + aboutHtml + services + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap">\n    ' + card + aboutHtml + services + renderBlogCards({ firmName: f.name, posts }) + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     '    ' + fill(C.LEAD_SLIM, toks),
     carousel(f, nearby),
     '\n\n    ' + leadScript,

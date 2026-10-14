@@ -213,6 +213,8 @@ document.getElementById('ctForm').addEventListener('submit',function(e){
   err.style.display='none';
   if(!f.message.value.trim()||!f.name.value.trim()||!/^\S+@\S+\.\S+$/.test(f.email.value)){err.textContent='Please fill in your message, name and a valid email.';err.style.display='block';return;}
   b.disabled=true;b.textContent='Sending...';
+  // Also keep a copy in our own database. Best effort: the email below stays the source of truth for the visitor.
+  try{fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},keepalive:true,body:JSON.stringify({form:'contact',name:f.name.value,email:f.email.value,message:f.message.value,botcheck:f.botcheck.checked?'1':'',page:location.pathname})}).catch(function(){});}catch(_){}
   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)})
   .then(function(r){return r.json()}).then(function(d){
     if(!d.success)throw 0;

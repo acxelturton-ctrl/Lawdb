@@ -13,6 +13,7 @@ import * as dyn from './routes/dynamic.js';
 import { firmPage } from './routes/firm-page.js';
 import { reportPage } from './routes/report-page.js';
 import { serveImage } from './routes/images.js';
+import { newsPage } from './routes/news-page.js';
 import { nightly } from './lib/backup.js';
 
 const route = (method, pattern, handler) => ({
@@ -67,6 +68,8 @@ const ROUTES = [
   route('GET', '/api/admin/payments', admin.paymentsList),
   route('POST', '/api/admin/payments/:id/assign', admin.paymentsAssign),
   route('POST', '/api/admin/payments/:id/dismiss', admin.paymentsDismiss),
+  route('GET', '/api/admin/news', admin.newsGet),
+  route('PATCH', '/api/admin/news', admin.newsSettings),
   route('GET', '/api/admin/firms/:slug/feed', admin.feedGet),
   route('PATCH', '/api/admin/firms/:slug/feed', admin.feedUpdate),
   route('POST', '/api/admin/firms/:slug/feed/refresh', admin.feedRefresh),
@@ -107,7 +110,7 @@ export default {
       if (!path.startsWith('/api/')) {
         // Only GET/HEAD reach here for site content; everything else is passed to the static files.
         if (request.method !== 'GET' && request.method !== 'HEAD') return env.ASSETS.fetch(request);
-        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path.startsWith('/img/') ? serveImage : path.startsWith('/firms/') ? firmPage : dyn.page);
+        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path === '/legal-news' || path === '/legal-news.html' ? newsPage : path.startsWith('/img/') ? serveImage : path.startsWith('/firms/') ? firmPage : dyn.page);
         return await handler({ request, env, ctx });
       }
       const method = request.method === 'HEAD' ? 'GET' : request.method;

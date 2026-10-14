@@ -26,7 +26,7 @@ export function renderReportPage({ slug = '', firmName = '' }) {
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n' + C.FAVICONS + '\n<meta name="viewport" content="width=device-width, initial-scale=1.0">',
     `<title>${label} | LawDB</title>\n<meta name="robots" content="noindex, nofollow">`,
     C.STYLE + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n<style>' + css + '</style>\n</head>',
-    '<body>\n  ' + C.HEADER,
+    '<body>\n  ' + C.HEADER.replace(/<a[^>]*>Back to results<\/a>/, ''),
     '  <div class="wrap">\n    <div class="rp">',
     `      <h1>${label}</h1>`,
     '      <p>Tell us what is wrong and we will look into it. We may contact you at the email you give. We do not share your details with the firm.</p>',

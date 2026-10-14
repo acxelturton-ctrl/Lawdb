@@ -6,7 +6,7 @@ import zlib from 'node:zlib';
 import { isDeepStrictEqual } from 'node:util';
 import { emailMatch } from '../src/routes/admin.js';
 import { checkOwnerText } from '../src/lib/content-rules.js';
-import { parseFeed, plain as feedPlain, checkFeedUrl } from '../src/lib/feeds.js';
+import { parseFeed, parseWpPosts, plain as feedPlain, checkFeedUrl } from '../src/lib/feeds.js';
 import http from 'node:http';
 import { createHmac } from 'node:crypto';
 
@@ -359,9 +359,17 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 <item><title>Bad link</title><link>javascript:alert(1)</link><guid>g5</guid><pubDate>${days(5)}</pubDate><description>x</description></item>
 <item><title>Older one</title><link>${origin}/blog/older</link><guid>g6</guid><pubDate>${days(20)}</pubDate><content:encoded><![CDATA[<p>${longText.repeat(6)}</p>]]></content:encoded></item>
 <item><title>Oldest one</title><link>${origin}/blog/oldest</link><guid>g7</guid><pubDate>${days(40)}</pubDate><description>Oldest.</description></item></channel></rss>`;
+  let wpOn = false;
+  let feedBroken = false;
+  const wpJson = () => JSON.stringify([
+    { id: 901, date: new Date(Date.now() - 3600000).toISOString().slice(0, 19), link: `${origin}/2026/news-one/`, title: { rendered: 'WordPress &#8211; Post One &amp; Co' }, excerpt: { rendered: '<p>First WordPress excerpt about wills &hellip; and more text that goes on for a while so that it is long enough to expand into a longer preview on the card when somebody taps read more, which is what we want.</p>\n' } },
+    { id: 902, date: new Date(Date.now() - 86400000).toISOString().slice(0, 19), link: `${origin}/2026/news-two/`, title: { rendered: 'Post Two' }, excerpt: { rendered: '' } },
+    { id: 903, date: new Date(Date.now() - 2 * 86400000).toISOString().slice(0, 19), link: 'https://evil.example/x', title: { rendered: 'Off-site' }, excerpt: { rendered: 'no' } },
+  ]);
   const fixtureServer = http.createServer((req, res) => {
     const send = (code, type, body) => { res.writeHead(code, { 'content-type': type }); res.end(body); };
-    if (req.url === '/feed.xml') return send(200, 'application/rss+xml', rss());
+    if (req.url.startsWith('/wp-json/wp/v2/posts')) return wpOn ? send(200, 'application/json', wpJson()) : send(404, 'application/json', '{"code":"rest_no_route"}');
+    if (req.url === '/feed.xml') return feedBroken ? send(500, 'text/plain', 'broken') : send(200, 'application/rss+xml', rss());
     if (req.url === '/site') return send(200, 'text/html', `<html><head><link rel="alternate" type="application/rss+xml" href="/feed.xml"></head><body>Firm</body></html>`);
     if (req.url === '/boom') return send(500, 'text/plain', 'broken');
     if (req.url === '/html') return send(200, 'text/html', '<html><body>not a feed</body></html>');
@@ -382,6 +390,11 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const atom = `<feed xmlns="http://www.w3.org/2005/Atom"><entry><title>Atom post</title><link rel="alternate" href="https://www.firm.ca/blog/a"/><id>urn:1</id><updated>2026-09-01T10:00:00Z</updated><summary>An atom summary</summary></entry></feed>`;
   const ap = parseFeed(atom, { feedUrl: 'https://firm.ca/atom.xml', siteUrl: 'https://firm.ca' });
   ok(ap.length === 1 && ap[0].url === 'https://www.firm.ca/blog/a' && ap[0].excerpt === 'An atom summary', 'Atom feeds work too');
+  const wpParsed = parseWpPosts(JSON.parse(wpJson()), { feedUrl: origin + '/wp-json/wp/v2/posts', siteUrl: origin, allowLocal: true });
+  ok(wpParsed.length === 2 && !wpParsed.some((x) => /evil/.test(x.url)), 'WordPress posts: only the firm\'s own links are kept');
+  ok(wpParsed[0].title === 'WordPress \u2013 Post One & Co' && !/[<>]/.test(wpParsed[0].excerpt) && /wills/.test(wpParsed[0].excerpt), 'WordPress posts: headlines and excerpts are clean text');
+  ok(parseWpPosts([{ id: 1, date: '2022-01-05T16:07:11', link: 'https://weaversimmons.com/a/', title: { rendered: 'T' } }], { feedUrl: 'https://www.weaversimmons.com/wp-json/wp/v2/posts', siteUrl: 'http://www.weaversimmons.com/' }).length === 1, 'a site with and without www is the same site');
+  ok(parseWpPosts({ not: 'an array' }, { feedUrl: 'https://a.ca/x', siteUrl: 'https://a.ca' }).length === 0, 'a reply that is not a post list yields nothing');
   ok(['Hi &amp; bye', 'Hi & bye'].includes(feedPlain('<![CDATA[<b>Hi</b> &amp; bye]]>')), 'text extraction is tidy');
   const bad = (u) => { try { checkFeedUrl(u); return false; } catch { return true; } };
   ok(bad('http://firm.ca/feed') && bad('https://127.0.0.1/feed') && bad('https://10.0.0.5/feed') && bad('https://localhost/feed') && bad('https://intranet/feed') && bad('https://printer.local/feed') && bad('https://a.ca:8443/feed') && bad('https://user:pw@a.ca/feed') && bad('ftp://a.ca/feed') && bad('not a url'), 'unsafe feed addresses are refused');
@@ -402,8 +415,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: true })).status === 200 && (await getRaw('/firms/' + featSlug)).text.includes('class="lw-blog"'), 'and back on');
 
   // bad feeds
-  const brokenFeed = await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: origin + '/boom' });
-  ok(brokenFeed.data.feed.status === 'error' && brokenFeed.data.posts.length === 5, 'a broken feed is reported and the earlier posts are kept');
+  feedBroken = true; // the same feed starts failing, as a real site sometimes does
+  const brokenFeed = await call('POST', `/api/admin/firms/${featSlug}/feed/refresh`);
+  feedBroken = false;
+  ok(brokenFeed.data.result.status === 'error' && brokenFeed.data.feed.status === 'error' && brokenFeed.data.posts.length === 5, 'a broken feed is reported and the earlier posts are kept');
   ok((await getRaw('/firms/' + featSlug)).text.includes('class="lw-blog"'), 'the page keeps showing the earlier cards');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: origin + '/html' })).data.feed.status === 'error', 'a page that is not a feed is reported');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: 'https://10.0.0.1/feed' })).status === 422 && (await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: 'http://example.com/feed' })).status === 422, 'unsafe addresses are refused when saving');
@@ -415,7 +430,13 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   await call('PATCH', '/api/admin/firms/achkar-law/feed', { feedUrl: '' });
   let found = null;
   for (let i = 0; i < 20 && !found; i++) { const f = (await call('GET', '/api/admin/firms/achkar-law/feed')).data; if (f.feed && f.feed.status === 'ok') found = f; else await new Promise((r) => setTimeout(r, 500)); }
-  ok(found && found.feed.feedUrl === origin + '/feed.xml' && found.feed.source === 'auto', 'the feed is found automatically from the firm\'s website');
+  ok(found && found.feed.feedUrl === origin + '/feed.xml' && found.feed.source === 'auto' && found.feed.kind === 'rss', 'an RSS feed is found automatically from the firm\'s website');
+  wpOn = true;
+  await call('PATCH', '/api/admin/firms/achkar-law/feed', { feedUrl: '' });
+  let foundWp = null;
+  for (let i = 0; i < 20 && !foundWp; i++) { const f = (await call('GET', '/api/admin/firms/achkar-law/feed')).data; if (f.feed && f.feed.status === 'ok' && f.feed.kind === 'wp') foundWp = f; else await new Promise((r) => setTimeout(r, 500)); }
+  ok(foundWp && /\/wp-json\/wp\/v2\/posts/.test(foundWp.feed.feedUrl) && foundWp.posts.some((x) => x.title.includes('Post One')), 'a WordPress blog is found automatically and read');
+  wpOn = false;
   await call('PATCH', '/api/admin/firms/achkar-law', { website: origFirm.website || '' });
 
   // owners control their own firm's cards, and only theirs
@@ -423,7 +444,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('GET', '/api/account/firms/achkar-law/feed')).status === 403 && (await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 403, 'another owner cannot touch this firm\'s cards');
   as(o1.jar);
   ok((await getRaw('/firms/achkar-law')).text.includes('class="lw-blog"'), 'database-built pages show the cards too');
-  ok((await call('GET', '/api/account/firms/achkar-law/feed')).data.posts.length === 5, 'the owner sees their feed status');
+  ok((await call('GET', '/api/account/firms/achkar-law/feed')).data.posts.length >= 2, 'the owner sees their feed status');
   ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 200 && !(await getRaw('/firms/achkar-law')).text.includes('class="lw-blog"'), 'an owner switches their cards off');
   ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: true })).status === 200, 'and on again');
   ok((await call('POST', '/api/account/firms/achkar-law/feed/refresh')).status === 429, 'an owner cannot re-check within minutes of the last check');
@@ -434,6 +455,62 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   // leave the shared test firms as they were
   as(adminJar);
   for (const slug of ['achkar-law', featSlug]) await call('PATCH', `/api/admin/firms/${slug}/feed`, { enabled: false });
+  // LawDB News: the page of firms' blog cards
+  as(adminJar);
+  await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: true, feedUrl: origin + '/feed.xml' });
+  await call('PATCH', '/api/admin/firms/achkar-law/feed', { enabled: true, feedUrl: origin + '/feed.xml' });
+  cookie = '';
+  const news = await getRaw('/legal-news.html');
+  ok(news.status === 200 && news.headers.get('x-lawdb-source') === 'database' && /<h1>LawDB News<\/h1>/.test(news.text), 'LawDB News is built from the database');
+  const nCards = (news.text.match(/<article class="lw-bc">/g) || []).length;
+  ok(nCards === 10 && news.text.includes('Daniel Brown Law LLP') && news.text.includes('Achkar Law'), 'it shows cards from every firm that has its blog switched on');
+  ok(!news.text.includes('Back to results'), 'the News page header has no stray "Back to results" link');
+  ok(/Daniel Brown Law LLP<\/a><span class="lw-ft">Featured<\/span>/.test(news.text) && !/Achkar Law<\/a><span class="lw-ft">/.test(news.text), 'only Featured firms carry the Featured badge');
+  ok(news.text.includes('<details><summary>Read more</summary>') && news.text.includes(`href="${origin}/blog/impaired"`) && !news.text.includes('evil.example') && !news.text.includes('<script>alert') && !news.text.includes('onerror=alert'), 'cards expand, link to the firm\'s own site, and nothing unsafe gets in');
+  ok(news.text.includes('/legal-news.html?firm=achkar-law') && news.text.includes('aria-current="true">All firms'), 'there are filters by firm');
+  const only = await getRaw('/legal-news.html?firm=achkar-law');
+  ok((only.text.match(/<article class="lw-bc">/g) || []).length === 5 && !only.text.includes('Daniel Brown Law LLP</a><span'), 'a firm filter shows only that firm\'s cards');
+  as(adminJar);
+  const nAdmin = await call('GET', '/api/admin/news');
+  ok(nAdmin.status === 200 && nAdmin.data.featuredOnly === false && nAdmin.data.firms.some((f) => f.slug === featSlug && f.featured && f.enabled && f.status === 'ok' && f.posts === 5), 'the admin sees which firms are on the page, and their status');
+  ok((await call('PATCH', '/api/admin/news', { featuredOnly: true })).status === 200, 'the admin limits the page to Featured members');
+  cookie = '';
+  const fOnly = (await getRaw('/legal-news.html')).text;
+  ok(fOnly.includes('Daniel Brown Law LLP') && !fOnly.includes('>Achkar Law<'), 'then only Featured firms\' blogs appear');
+  as(adminJar);
+  ok((await call('PATCH', '/api/admin/news', { featuredOnly: 'yes' })).status === 422, 'the setting must be true or false');
+  await call('PATCH', '/api/admin/news', { featuredOnly: false });
+  as(o1.jar);
+  ok((await call('PATCH', '/api/admin/news', { featuredOnly: true })).status === 403 && (await call('GET', '/api/admin/news')).status === 403, 'owners cannot change the News settings');
+  cookie = '';
+  ok((await call('GET', '/api/admin/news')).status === 401, 'News settings need sign-in');
+  as(adminJar);
+  for (const slug of ['achkar-law', featSlug]) await call('PATCH', `/api/admin/firms/${slug}/feed`, { enabled: false });
+  cookie = '';
+  const emptyNews = await getRaw('/legal-news.html');
+  ok(emptyNews.status === 200 && emptyNews.text.includes('LawDB News is filling up'), 'with no blogs connected the page says it is filling up');
+
+  // the court-decision explainers have their own page now
+  const cd = await getRaw('/court-decisions');
+  ok(cd.status === 200 && /<h1>Court Decisions Explained<\/h1>/.test(cd.text) && (cd.text.match(/href="legal-news\/[^"]+\.html"/g) || []).length === 12, 'the 12 court-decision articles are listed on their own page');
+  ok(readFileSync(new URL('../legal-news/scc-corbett-prior-convictions-2026.html', import.meta.url), 'utf8').includes('<a href="../court-decisions.html">Court Decisions</a>'), 'each article\'s breadcrumb leads back to that page');
+
+  // menus: three items, one hub for firms, no duplicates
+  const pageFile = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
+  const navOf = (h) => (h.match(/<nav class="desktop-nav"[^>]*>(.*?)<\/nav>/s) || [])[1] || '';
+  const drawerOf = (h) => (h.match(/<nav class="menu-drawer"[^>]*>(.*?)<\/nav>/s) || [])[1] || '';
+  const labels = (h) => [...h.matchAll(/<a[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]);
+  for (const f of ['index.html', 'firms/torkin-manes-llp.html', 'ontario/toronto/family-lawyers.html', 'services/immigration.html', 'for-firms.html']) {
+    const h = pageFile(f);
+    ok(isDeepStrictEqual(labels(navOf(h)), ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Request a Consultation']) && isDeepStrictEqual(labels(drawerOf(h)), ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Request a Consultation']), `${f}: the menu has three items and the consultation button`);
+    const firmsCol = (h.match(/<h4>For Law Firms<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
+    ok(isDeepStrictEqual(labels(firmsCol), ['For Law Firms', 'List Your Firm (Free)', 'Get Featured', 'Manage Your Listing', 'Grow Your Practice']), `${f}: the footer's firms column has no repeats`);
+    const clientsCol = (h.match(/<h4>For Clients<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
+    ok(isDeepStrictEqual(labels(clientsCol), ['Find Your Lawyer', 'Browse by Case Type', 'LawDB News', 'Court Decisions Explained', 'Blog', 'How LawDB Works', 'Request a Consultation']), `${f}: the footer's clients column is complete`);
+  }
+  const hub = pageFile('for-firms.html');
+  ok(['list-your-firm.html"', 'list-your-firm.html?plan=featured"', '/account/"', 'grow-your-practice.html"'].every((l) => hub.slice(hub.indexOf('class="hub-grid"'), hub.indexOf('class="hub-grid"') + 2200).includes(l)), 'For Law Firms is the hub: list, Featured, manage, grow');
+  ok(!/Advertise With Us|>Add Your Firm<\/a><a class="nav-cta"/.test(pageFile('index.html')), 'the old menu wording is gone');
   fixtureServer.close();
   // pictures: owners add a logo, cover and photos; everything is checked; admins can do it for any firm
   const base = '/api/account/firms/achkar-law/images';

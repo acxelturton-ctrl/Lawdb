@@ -3,7 +3,7 @@
 
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
 
-const CSS = `<style>
+export const BLOG_CSS = `<style>
 .lw-blog{margin:26px 0}
 .lw-blog h2{font-size:18px;margin:0 0 4px}
 .lw-blog .lw-blog-sub{margin:0 0 12px;color:#6b645a;font-size:13px}
@@ -35,22 +35,26 @@ const teaser = (s) => {
   return t.slice(0, Math.max(t.lastIndexOf(' '), 130)).replace(/[\s,;:.\-]+$/, '') + '...';
 };
 
+// One card. `byline` (optional) names the firm, for the News page where cards from many firms sit together.
+export function cardHtml(p, { byline = '' } = {}) {
+  let host = '';
+  try { host = new URL(p.url).hostname.replace(/^www\./, ''); } catch {}
+  const more = p.excerpt && p.excerpt.length > 170;
+  const date = fmtDate(p.publishedAt);
+  return `<article class="lw-bc">${byline}${date ? `<time>${esc(date)}</time>` : ''}<h3><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></h3>` +
+    (p.excerpt ? `<p class="lw-teaser">${esc(teaser(p.excerpt))}</p>` : '') +
+    (more
+      ? `<details><summary>Read more</summary><p class="lw-more">${esc(p.excerpt)}</p><a class="lw-go" href="${esc(p.url)}" target="_blank" rel="noopener">Read the full article on ${esc(host)} &rarr;</a></details>`
+      : `<a class="lw-go" style="align-self:flex-start;margin-top:4px" href="${esc(p.url)}" target="_blank" rel="noopener">Read on ${esc(host)} &rarr;</a>`) +
+    '</article>';
+}
+
+export const safePostUrl = (u) => /^https:\/\//.test(u) || /^http:\/\/127\.0\.0\.1/.test(u);
+
 export function renderBlogCards({ firmName, posts }) {
-  const shown = (posts || []).slice(0, 3).filter((p) => /^https:\/\//.test(p.url) || /^http:\/\/127\.0\.0\.1/.test(p.url));
+  const shown = (posts || []).slice(0, 3).filter((p) => safePostUrl(p.url));
   if (!shown.length) return '';
-  const cards = shown.map((p) => {
-    let host = '';
-    try { host = new URL(p.url).hostname.replace(/^www\./, ''); } catch {}
-    const more = p.excerpt && p.excerpt.length > 170;
-    const date = fmtDate(p.publishedAt);
-    return `<article class="lw-bc">${date ? `<time>${esc(date)}</time>` : ''}<h3><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></h3>` +
-      (p.excerpt ? `<p class="lw-teaser">${esc(teaser(p.excerpt))}</p>` : '') +
-      (more
-        ? `<details><summary>Read more</summary><p class="lw-more">${esc(p.excerpt)}</p><a class="lw-go" href="${esc(p.url)}" target="_blank" rel="noopener">Read the full article on ${esc(host)} &rarr;</a></details>`
-        : `<a class="lw-go" style="align-self:flex-start;margin-top:4px" href="${esc(p.url)}" target="_blank" rel="noopener">Read on ${esc(host)} &rarr;</a>`) +
-      '</article>';
-  }).join('');
-  return `${CSS}<section class="lw-blog" aria-label="Latest from ${esc(firmName)}"><h2>Latest from ${esc(firmName)}</h2>` +
-    `<p class="lw-blog-sub">Recent articles from the firm's own blog.</p><div class="lw-bc-grid">${cards}</div>` +
-    `<p class="lw-note">Headlines and short excerpts come from the firm's public blog feed. The articles belong to ${esc(firmName)}; the full text is on their website.</p></section>`;
+  return `${BLOG_CSS}<section class="lw-blog" aria-label="Latest from ${esc(firmName)}"><h2>Latest from ${esc(firmName)}</h2>` +
+    `<p class="lw-blog-sub">Recent articles from the firm's own blog.</p><div class="lw-bc-grid">${shown.map((p) => cardHtml(p)).join('')}</div>` +
+    `<p class="lw-note">Headlines and short excerpts come from the firm's public blog. The articles belong to ${esc(firmName)}; the full text is on their website.</p></section>`;
 }

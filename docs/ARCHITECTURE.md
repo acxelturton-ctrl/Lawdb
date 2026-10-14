@@ -93,6 +93,26 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - Shared code: `src/lib/firm-edit.js` (validation, create, edit), `src/lib/email.js` (all mail), `admin/ui.js` (UI helpers).
 - Local development sends no mail; each message is recorded in the audit log as `mail.dev` instead.
 
+## Safeguards (hardening pass)
+
+- **Ownership signal:** the Approvals card compares the claimant's email domain with the firm's website
+  (`emailMatch` in `src/routes/admin.js`): match / personal email / mismatch / no website. It informs the decision; it never approves on its own.
+- **Owner text rules** (`src/lib/content-rules.js`, owners only, only for text being changed): no HTML, no links, no regulated advertising
+  claims ("best", "#1", "top-rated", "guaranteed", "specialist"). Everyone who claims or adds a firm must accept the firm terms
+  (`terms.html#firm-terms`); the time is stored in `firm_members.terms_accepted_at`.
+- **Reports:** every profile page links to `/report-listing?firm=<slug>`. Reports are leads with form `report-listing`; they are never shown
+  or emailed to the firm. The admin is emailed. **Undo:** the Activity tab can restore the values an edit replaced (`POST /api/admin/audit/:id/revert`).
+- **People:** the People tab disables/enables owner accounts (disabling ends all their sessions). "Sign out everywhere" is available to everyone.
+  `ADMIN_EMAILS` is authoritative on every request: removing an address demotes that admin immediately.
+- **Abuse limits:** 15 enquiries per requester address per hour (hash kept 7 days), 20 enquiry emails per firm per hour, sign-up limits (see above).
+- **Backups and housekeeping:** a Cloudflare cron (`07:17 UTC`, `wrangler.jsonc`) runs `src/lib/backup.js`: it applies the retention rules, then copies every table into the
+  `lawdb-backups` KV namespace (binding `BACKUPS`, each key expires after 35 days). "Back up now" is on the Overview tab; a stale backup or failed
+  emails show as warnings there. D1 also keeps 30 days of point-in-time history (restore with `wrangler d1 time-travel restore`).
+  **Retention (stated in the privacy policy):** enquiry personal details removed after 12 months (firm, date and status kept), abuse hashes 7 days,
+  activity log 24 months, backups 35 days.
+- **Health:** `GET /api/health` answers 503 if the database cannot be read; point an uptime monitor at it.
+- Local test of the nightly job: `wrangler dev --test-scheduled`, then request `/__scheduled`.
+
 ## Setup that lives outside the repo (Cloudflare dashboard)
 
 Workers & Pages -> lawdb -> Settings -> Variables and Secrets:
@@ -108,7 +128,9 @@ Local development: copy the values from `.dev.vars` in the README (never committ
 2. Public directory pages and data files rendered from the database. (done)
    2b. Firm profile pages rendered from the database, with an `about` text and a create-firm form. (done)
 3. Firm accounts: sign-up, claim/create a listing, admin approval, `firm_members` table. (done)
-4. Firm dashboard: edit own profile, own enquiries, lead emails. (done; picture uploads next, via Cloudflare R2)
+4. Firm dashboard: edit own profile, own enquiries, lead emails. (done)
+4b. Hardening: ownership signal, content rules, reports and undo, people controls, backups, retention. (done)
+4c. Picture uploads (needs Cloudflare R2 enabled on the account first).
 5. Featured billing (Stripe webhooks flip `featured`).
 
 ## Known limits

@@ -32,7 +32,7 @@ jobs:
           # website lives at its root), so a log file inside it would trigger endless reloads.
           LOG="${RUNNER_TEMP:-/tmp}/dev-server.log"
           # Run the dev server fully detached and always stop it, so the step can finish.
-          nohup npx wrangler dev --ip 127.0.0.1 --port 8799 > "$LOG" 2>&1 < /dev/null &
+          nohup npx wrangler dev --test-scheduled --ip 127.0.0.1 --port 8799 > "$LOG" 2>&1 < /dev/null &
           SERVER=$!
           trap 'kill $SERVER 2>/dev/null || true; pkill -f workerd 2>/dev/null || true' EXIT
           READY=0

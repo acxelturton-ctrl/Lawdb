@@ -10,6 +10,8 @@ import * as admin from './routes/admin.js';
 import * as account from './routes/account.js';
 import * as dyn from './routes/dynamic.js';
 import { firmPage } from './routes/firm-page.js';
+import { reportPage } from './routes/report-page.js';
+import { nightly } from './lib/backup.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -25,7 +27,16 @@ const DATA_FILES = {
 };
 
 const ROUTES = [
-  route('GET', '/api/health', () => json({ ok: true, time: new Date().toISOString() })),
+  // Answers 503 when the database cannot be read, so an uptime monitor pointed here sees real outages.
+  route('GET', '/api/health', async ({ env }) => {
+    try {
+      await env.DB.prepare('SELECT 1').first();
+      return json({ ok: true, db: true, time: new Date().toISOString() }, 200, { 'cache-control': 'no-store' });
+    } catch (err) {
+      console.error('health check: database unreachable', err);
+      return json({ ok: false, db: false }, 503, { 'cache-control': 'no-store' });
+    }
+  }),
 
   route('GET', '/api/firms', pub.listFirms),
   route('GET', '/api/firms/:slug', pub.getFirm),
@@ -35,6 +46,7 @@ const ROUTES = [
   route('POST', '/api/auth/request-link', auth.requestLink),
   route('POST', '/api/auth/verify', auth.verify),
   route('POST', '/api/auth/logout', auth.logout),
+  route('POST', '/api/auth/logout-all', auth.logoutAll),
   route('GET', '/api/auth/me', auth.me),
 
   route('GET', '/api/admin/stats', admin.stats),
@@ -47,6 +59,10 @@ const ROUTES = [
   route('GET', '/api/admin/members', admin.listMembers),
   route('PATCH', '/api/admin/members/:id', admin.decideMember),
   route('GET', '/api/admin/audit', admin.listAudit),
+  route('POST', '/api/admin/audit/:id/revert', admin.revertEdit),
+  route('GET', '/api/admin/users', admin.listUsers),
+  route('PATCH', '/api/admin/users/:id', admin.setUserDisabled),
+  route('POST', '/api/admin/backup', admin.backupNow),
 
   route('GET', '/api/account/me', account.me),
   route('GET', '/api/account/search', account.search),
@@ -59,6 +75,11 @@ const ROUTES = [
 ];
 
 export default {
+  // Cloudflare cron trigger (nightly): housekeeping and backup.
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(nightly(env));
+  },
+
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname.replace(/\/+$/, '') || '/';
@@ -66,7 +87,7 @@ export default {
       if (!path.startsWith('/api/')) {
         // Only GET/HEAD reach here for site content; everything else is passed to the static files.
         if (request.method !== 'GET' && request.method !== 'HEAD') return env.ASSETS.fetch(request);
-        const handler = DATA_FILES[path] || (path.startsWith('/firms/') ? firmPage : dyn.page);
+        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path.startsWith('/firms/') ? firmPage : dyn.page);
         return await handler({ request, env, ctx });
       }
       const method = request.method === 'HEAD' ? 'GET' : request.method;

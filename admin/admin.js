@@ -32,14 +32,15 @@ function renderLogin() {
 
 // ---------------------------------------------------------------- shell
 let pendingCount = 0;
-const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['activity', 'Activity']];
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['people', 'People'], ['activity', 'Activity']];
 
 function shell(user, active, content) {
   return h('div', null,
     h('header', { class: 'top' }, h('div', { class: 'wrap' },
       h('a', { class: 'brand', href: '/admin/' }, h('img', { src: '/images/logo-icon.png', alt: '' }), 'LawDB Admin'),
       h('div', { class: 'who' }, user.email, h('br'),
-        h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.reload(); } }, 'Sign out')))),
+        h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.reload(); } }, 'Sign out'), ' · ',
+        h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); location.reload(); } }, 'Sign out everywhere')))),
     h('div', { class: 'wrap' },
       h('nav', { class: 'tabs', 'aria-label': 'Sections' }, TABS.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'approvals' && pendingCount > 0 && h('span', { class: 'count' }, pendingCount)))),
       content));
@@ -50,10 +51,24 @@ async function viewOverview() {
   const s = await api('GET', '/api/admin/stats');
   pendingCount = s.pendingApprovals;
   const stat = (n, label) => h('div', { class: 'card stat' }, h('b', null, n), h('span', null, label));
+  const backupOut = h('div');
+  const stale = !s.lastBackupAt || Date.now() - new Date(s.lastBackupAt.replace(' ', 'T') + 'Z').getTime() > 36 * 3600 * 1000;
+  const backupBtn = h('button', { type: 'button', onclick: async () => {
+    backupBtn.disabled = true;
+    try { const r = await api('POST', '/api/admin/backup'); backupOut.replaceChildren(note('msg-ok', `Backed up (${Math.round(r.bytes / 1024)} KB). Reload to see the time.`)); }
+    catch (err) { backupOut.replaceChildren(note('msg-err', err.message)); }
+    backupBtn.disabled = false;
+  } }, 'Back up now');
   return h('div', null, h('h1', null, 'Overview'),
+    s.mailFailures24h > 0 && note('msg-err', `${s.mailFailures24h} email${s.mailFailures24h === 1 ? '' : 's'} failed to send in the last 24 hours. Owners may not be getting sign-in links. Check the Activity tab and your Brevo account.`),
+    s.openReports > 0 && h('div', { class: 'msg-err' }, `${s.openReports} listing report${s.openReports === 1 ? '' : 's'} waiting. `, h('a', { href: '#leads' }, 'Open Leads')),
+    stale && note('msg-err', 'No backup in the last day and a half. Press "Back up now" and check the Activity tab.'),
     h('div', { class: 'grid' },
       stat(s.leads.new, 'New leads'), stat(s.leadsLast7Days, 'Leads, last 7 days'),
       stat(s.pendingApprovals, 'Waiting for your approval'), stat(s.firms, 'Firms listed'), stat(s.featured, 'Featured firms'), stat(s.blogPosts, 'Blog posts')),
+    h('div', { class: 'card' }, h('b', null, 'Backups'),
+      h('p', { class: 'muted' }, s.lastBackupAt ? 'Last backup: ' + when(s.lastBackupAt) + '. A copy is made every night and kept for 35 days.' : 'No backup has run yet.'),
+      h('div', { class: 'row' }, backupBtn), backupOut),
     h('div', { class: 'card' }, h('b', null, 'Leads by status'),
       h('p', { class: 'muted' }, `New ${s.leads.new} · Contacted ${s.leads.contacted} · Closed ${s.leads.closed} · Spam ${s.leads.spam}`)));
 }
@@ -222,6 +237,13 @@ async function viewFirms() {
 
 // ---------------------------------------------------------------- approvals
 // One tap decides who may manage a firm. Nothing an owner asks for takes effect before this.
+const matchNote = (m) => ({
+  match: m.isNewListing ? note('msg-ok', 'Their email is on the website domain they entered. They typed that website themselves, so it proves little for a new listing.') : note('msg-ok', 'Likely genuine: their email address is on the firm\'s own website domain.'),
+  free: note('muted', 'Personal email (Gmail or similar). It cannot confirm the person works at the firm. Consider calling the firm\'s listed number.'),
+  mismatch: note('msg-err', 'Warning: their email is NOT on the firm\'s website domain. Verify before approving, for example by calling the firm\'s listed number.'),
+  nosite: note('muted', 'The firm has no website on file, so the email cannot be checked.'),
+})[m.emailMatch];
+
 async function viewApprovals() {
   const [{ members: pending }, { members: decided }] = await Promise.all([
     api('GET', '/api/admin/members'), api('GET', '/api/admin/members?decided=1'),
@@ -257,6 +279,7 @@ async function viewApprovals() {
       h('div', { class: 'row spread' }, h('b', null, m.firmName), m.isNewListing ? h('span', { class: 'badge featured' }, 'New listing') : h('span', { class: 'badge' }, 'Claim')),
       h('p', { class: 'muted' }, `${m.city}, ${m.province}${m.firm.address ? ' · ' + m.firm.address : ''}`),
       h('p', null, h('b', null, m.contactName), m.jobTitle ? ` (${m.jobTitle})` : '', ' · ', m.email, h('br'), h('span', { class: 'muted' }, 'Asked ' + when(m.requestedAt))),
+      matchNote(m),
       m.message && h('p', { class: 'quote' }, m.message),
       m.otherOwners && h('p', { class: 'msg-err' }, 'This firm already has an approved owner: ' + m.otherOwners),
       m.isNewListing && h('p', { class: 'muted' }, 'Not public yet. It goes live when you approve.'),
@@ -284,18 +307,62 @@ async function viewApprovals() {
     h('div', { class: 'card' }, decided.length ? decided.map(decidedRow) : h('p', { class: 'muted' }, 'None yet.')));
 }
 
+// ---------------------------------------------------------------- people
+async function viewPeople() {
+  const list = h('div');
+  const search = h('input', { type: 'search', placeholder: 'Search by email', 'aria-label': 'Search people' });
+  let timer;
+  async function load() {
+    try {
+      const { users } = await api('GET', '/api/admin/users?q=' + encodeURIComponent(search.value.trim()));
+      list.replaceChildren(...(users.length ? users.map((u) => {
+        const out = h('span');
+        const btn = h('button', { type: 'button' }, u.disabled ? 'Enable' : 'Disable');
+        btn.addEventListener('click', async () => {
+          btn.disabled = true;
+          try { await api('PATCH', '/api/admin/users/' + u.id, { disabled: !u.disabled }); load(); }
+          catch (err) { out.replaceChildren(note('msg-err', err.message)); btn.disabled = false; }
+        });
+        return h('div', { class: 'audit' },
+          h('div', null, h('b', null, u.email), ' ', u.disabled && h('span', { class: 'badge new' }, 'Disabled')),
+          h('div', { class: 'muted' }, `${u.firms} firm${u.firms === 1 ? '' : 's'} managed · joined ${when(u.createdAt)}${u.lastLoginAt ? ' · last sign-in ' + when(u.lastLoginAt) : ''}`),
+          h('div', { class: 'row' }, btn, out));
+      }) : [h('p', { class: 'muted' }, 'No one matches.')]));
+    } catch (err) { list.replaceChildren(note('msg-err', err.message)); }
+  }
+  search.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(load, 250); });
+  await load();
+  return h('div', null, h('h1', null, 'People'),
+    h('div', { class: 'card' }, h('p', { class: 'muted' }, 'Firm owners with an account. Disabling someone signs them out everywhere and blocks them from signing in again. Their past edits stay until you undo them in Activity.'), search, list));
+}
+
 // ---------------------------------------------------------------- activity
+// Restores what an edit replaced. Featured and page style are never undone from here.
+function undoButton(e) {
+  if (e.action !== 'firm.update' || !e.detail || !Object.keys(e.detail).some((k) => k !== 'featured' && k !== 'pageMode')) return null;
+  const out = h('span');
+  const btn = h('button', { type: 'button' }, 'Undo this edit');
+  btn.addEventListener('click', async () => {
+    if (!confirm('Put back the values this edit replaced? Later changes to the same fields will be overwritten.')) return;
+    btn.disabled = true;
+    try { await api('POST', `/api/admin/audit/${e.id}/revert`); out.replaceChildren(note('msg-ok', 'Undone.')); }
+    catch (err) { out.replaceChildren(note('msg-err', err.message)); btn.disabled = false; }
+  });
+  return h('div', { class: 'row' }, btn, out);
+}
+
 async function viewActivity() {
   const { entries } = await api('GET', '/api/admin/audit?limit=100');
   return h('div', null, h('h1', null, 'Activity'), h('div', { class: 'card' },
     entries.length ? entries.map((e) => h('div', { class: 'audit' },
       h('div', null, h('code', null, e.action), ' ', e.entity ? `${e.entity} ${e.entity_id}` : ''),
       h('div', { class: 'muted' }, `${e.actor_email || 'system'} · ${when(e.at)}`),
-      e.detail && h('div', { class: 'muted' }, JSON.stringify(e.detail)))) : h('p', { class: 'muted' }, 'Nothing yet.')));
+      e.detail && h('div', { class: 'muted' }, JSON.stringify(e.detail)),
+      undoButton(e))) : h('p', { class: 'muted' }, 'Nothing yet.')));
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
 async function render(user) {

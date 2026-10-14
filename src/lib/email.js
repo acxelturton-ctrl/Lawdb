@@ -94,3 +94,14 @@ export function leadEmail(origin, firmName, lead) {
       .join('')}</table>${button(link, 'Open my enquiries')}`,
   };
 }
+
+export function reportEmail(origin, { slug, reason, name, email, message }) {
+  const link = `${origin}/admin/#leads`;
+  const firm = slug ? `${origin}/firms/${slug}` : '(no firm given)';
+  const lines = [['Listing', firm], ['Reason', reason], ['From', `${name} <${email}>`], ['Details', message]].filter(([, v]) => v);
+  return {
+    subject: `Listing reported${slug ? ': ' + slug : ''}`,
+    text: `A visitor reported a listing.\n\n${lines.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\nReview it in the admin: ${link}`,
+    html: `<p>A visitor reported a listing.</p><table cellpadding="4">${lines.map(([k, v]) => `<tr><td style="color:#666;vertical-align:top">${esc(k)}</td><td>${esc(v).replace(/\n/g, '<br>')}</td></tr>`).join('')}</table>${button(link, 'Open the admin')}`,
+  };
+}

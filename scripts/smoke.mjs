@@ -3,6 +3,8 @@
 //   BASE=http://localhost:8799 npm run smoke
 import { readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
+import { emailMatch } from '../src/routes/admin.js';
+import { checkOwnerText } from '../src/lib/content-rules.js';
 
 const BASE = process.env.BASE || 'http://localhost:8799';
 const ADMIN = process.env.SMOKE_ADMIN || 'smoke-admin@example.com';
@@ -12,12 +14,14 @@ const ok = (cond, label) => {
   if (!cond) failed++;
 };
 let cookie = '';
+// Every request comes from a made-up address per run, so rate limits never interfere between reruns.
+const RUN_IP = `192.0.2.${1 + Math.floor(Math.random() * 250)}`;
 const call = async (method, path, body, extraHeaders = {}) => {
   const res = await fetch(BASE + path, {
     method,
     redirect: 'manual',
     signal: AbortSignal.timeout(15000), // never hang forever on a dead server
-    headers: { ...(body ? { 'content-type': 'application/json' } : {}), ...(cookie ? { cookie } : {}), ...extraHeaders },
+    headers: { 'cf-connecting-ip': RUN_IP, ...(body ? { 'content-type': 'application/json' } : {}), ...(cookie ? { cookie } : {}), ...extraHeaders },
     body: body ? JSON.stringify(body) : undefined,
   });
   const set = res.headers.get('set-cookie');
@@ -38,7 +42,8 @@ const inlineFirms = (html) => {
 };
 
 // --- public API still works
-ok((await call('GET', '/api/health')).status === 200, 'health');
+const health = await call('GET', '/api/health');
+ok(health.status === 200 && health.data.db === true, 'health check reads the database');
 const firms = await call('GET', '/api/firms?limit=3');
 ok(firms.status === 200 && firms.data.length === 3, 'public firms list');
 ok((await call('GET', '/api/firms/does-not-exist')).status === 404, 'unknown firm is 404');
@@ -210,11 +215,12 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('GET', '/api/account/me')).data.memberships.length === 0, 'a new owner manages no firms');
 
   // claim a firm
-  ok((await call('POST', '/api/account/claims', { slug: 'achkar-law' })).status === 422, 'a claim needs a contact name');
-  ok((await call('POST', '/api/account/claims', { slug: 'no-such-firm', contactName: 'Pat Owner' })).status === 404, 'claiming an unknown firm is refused');
-  const claim = await call('POST', '/api/account/claims', { slug: 'achkar-law', contactName: 'Pat Owner', jobTitle: 'Partner', message: 'I run this firm' });
+  ok((await call('POST', '/api/account/claims', { slug: 'achkar-law', acceptTerms: true })).status === 422, 'a claim needs a contact name');
+  ok((await call('POST', '/api/account/claims', { slug: 'achkar-law', contactName: 'Pat Owner' })).status === 422, 'a claim needs the firm terms accepted');
+  ok((await call('POST', '/api/account/claims', { slug: 'no-such-firm', contactName: 'Pat Owner', acceptTerms: true })).status === 404, 'claiming an unknown firm is refused');
+  const claim = await call('POST', '/api/account/claims', { slug: 'achkar-law', contactName: 'Pat Owner', jobTitle: 'Partner', message: 'I run this firm', acceptTerms: true });
   ok(claim.status === 201 && claim.data.status === 'pending', 'owner asks to manage a firm');
-  ok((await call('POST', '/api/account/claims', { slug: 'achkar-law', contactName: 'Pat Owner' })).status === 409, 'the same request twice is refused');
+  ok((await call('POST', '/api/account/claims', { slug: 'achkar-law', contactName: 'Pat Owner', acceptTerms: true })).status === 409, 'the same request twice is refused');
   ok((await call('GET', '/api/account/firms/achkar-law')).status === 403, 'a pending owner cannot open the firm yet');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'sneaky' })).status === 403, 'a pending owner cannot edit yet');
   ok((await call('GET', '/api/account/firms/achkar-law/leads')).status === 403, 'a pending owner cannot see its enquiries');
@@ -224,6 +230,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const pend = (await call('GET', '/api/admin/members')).data.members;
   const pc = pend.find((m) => m.email === `owner1-${run}@example.com`);
   ok(pc && pc.firmName === 'Achkar Law' && pc.contactName === 'Pat Owner' && !pc.isNewListing, 'admin sees the claim with the claimant\'s details');
+  ok(['mismatch', 'nosite'].includes(pc.emailMatch), 'a claimant whose email is not on the firm\'s domain is flagged for the admin');
   ok((await call('GET', '/api/admin/stats')).data.pendingApprovals >= 1, 'the overview counts pending approvals');
   const audit1 = (await call('GET', '/api/admin/audit?limit=200')).data.entries;
   ok(audit1.some((e) => e.action === 'mail.dev' && e.detail?.subject === 'Approval needed: Achkar Law'), 'the admin is emailed when a claim arrives');
@@ -242,10 +249,14 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', '/api/account/firms/achkar-law', { featured: true })).status === 422, 'an owner cannot make themselves featured');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { pageMode: 'static' })).status === 422, 'an owner cannot change the page style');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { rating: 5 })).status === 422, 'an owner cannot change the rating');
-  const edit = await call('PATCH', '/api/account/firms/achkar-law', { about: 'Owner wrote this <script>alert(1)</script> text', phone: '613-555-0100' });
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'Hello <script>alert(1)</script>' })).status === 422, 'an owner cannot enter HTML');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'See www.spam-site.com for deals' })).status === 422, 'an owner cannot put links in the description');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'We are the best lawyers in Ontario' })).status === 422, 'an owner cannot make prohibited advertising claims');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { blurb: 'Guaranteed results' })).status === 422, 'the short description is checked too');
+  const edit = await call('PATCH', '/api/account/firms/achkar-law', { about: 'Owner wrote this & that "quoted" text', phone: '613-555-0100' });
   ok(edit.status === 200 && edit.data.changed.includes('about'), 'an owner edits their own firm');
   const opage = await getRaw('/firms/achkar-law');
-  ok(opage.text.includes('Owner wrote this &lt;script&gt;') && !opage.text.includes('Owner wrote this <script>') && opage.text.includes('613-555-0100'), 'the owner\'s text is on the page and escaped');
+  ok(opage.text.includes('Owner wrote this &amp; that &quot;quoted&quot; text') && opage.text.includes('613-555-0100'), 'the owner\'s text is on the page and escaped');
   const featuredBefore = (await call('GET', '/api/firms/achkar-law')).data.featured;
   ok(featuredBefore === false, 'the firm is still not featured');
 
@@ -275,8 +286,11 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 
   // a firm that is not listed yet stays hidden until approved
   as(o2.jar);
-  const hostile = `Birchwood <b>Legal</b> ${run}`;
-  const newBody = { name: hostile, city: 'Ottawa', province: 'ON', address: '1 Main St', phone: '613-555-0199', tags: ['Family Law'], caseTypes: ['family'], about: 'We help families.', hours: { 2: [['09:00', '17:00']] }, contactName: 'Sam Founder', lat: 10, lng: 10 };
+  const hostile = `Birchwood & "Legal" ${run}`;
+  const newBody = { name: hostile, city: 'Ottawa', province: 'ON', address: '1 Main St', phone: '613-555-0199', tags: ['Family Law'], caseTypes: ['family'], about: 'We help families.', hours: { 2: [['09:00', '17:00']] }, contactName: 'Sam Founder', acceptTerms: true, lat: 10, lng: 10 };
+  ok((await call('POST', '/api/account/firms', { ...newBody, name: `Birchwood <b>Legal</b> ${run}` })).status === 422, 'HTML in a new firm\'s name is refused');
+  ok((await call('POST', '/api/account/firms', { ...newBody, name: `Best Lawyers Ever ${run}` })).status === 422, 'a prohibited claim in a new firm\'s name is refused');
+  ok((await call('POST', '/api/account/firms', { ...newBody, acceptTerms: false })).status === 422, 'a new firm needs the terms accepted');
   const made = await call('POST', '/api/account/firms', newBody);
   ok(made.status === 201 && made.data.status === 'pending', 'an owner submits a new firm for approval');
   const nslug = made.data.slug;
@@ -300,7 +314,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', `/api/admin/members/${nm.id}`, { status: 'approved', lat: 0, lng: 0 })).status === 422, 'coordinates outside Canada are refused');
   ok((await call('PATCH', `/api/admin/members/${nm.id}`, { status: 'approved', lat: 45.42, lng: -75.69 })).status === 200, 'admin approves and publishes the new listing');
   const live = await getRaw('/firms/' + nslug);
-  ok(live.status === 200 && live.headers.get('x-lawdb-source') === 'database' && live.text.includes('Birchwood &lt;b&gt;Legal&lt;/b&gt;') && !live.text.includes('<b>Legal</b>'), 'the approved firm has a public page, name escaped');
+  ok(live.status === 200 && live.headers.get('x-lawdb-source') === 'database' && live.text.includes('Birchwood &amp; &quot;Legal&quot;'), 'the approved firm has a public page, name escaped');
   ok((await call('GET', '/api/firms/' + nslug)).data.lat === 45.42, 'the approved firm is in the public API with its map position');
   ok(inlineFirms((await getRaw('/find-lawyers')).text).some((f) => f.slug === nslug), 'the approved firm appears on the Find Lawyers page');
   cookie = '';
@@ -321,6 +335,97 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('GET', '/api/account/firms/achkar-law/leads')).status === 403, 'a removed owner no longer receives enquiries');
   cookie = '';
   ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'x' }, { origin: 'https://evil.example' })).status === 403, 'cross-origin owner write refused');
+
+  // an admin can undo an owner's edit from the activity log
+  as(adminJar);
+  const edits = (await call('GET', '/api/admin/audit?limit=200')).data.entries.filter((e) => e.action === 'firm.update' && e.entity_id === 'achkar-law' && e.actor_email === `owner1-${run}@example.com` && e.detail?.about);
+  ok(edits.length >= 1, 'the owner\'s edit is in the activity log');
+  const target = edits[edits.length - 1];
+  const undone = await call('POST', `/api/admin/audit/${target.id}/revert`);
+  ok(undone.status === 200 && undone.data.changed.includes('about'), 'the admin undoes the owner\'s edit');
+  ok((await call('GET', '/api/admin/firms/achkar-law')).data.firm.about === (target.detail.about.from || ''), 'the earlier text is back');
+  ok((await call('POST', '/api/admin/audit/999999/revert')).status === 404, 'undoing an unknown entry is refused');
+
+  // ownership signal for the admin
+  ok(emailMatch('lawyer@torkinmanes.com', 'https://www.torkinmanes.com') === 'match', 'email on the firm\'s domain is a match');
+  ok(emailMatch('lawyer@mail.torkinmanes.com', 'https://torkinmanes.com/x') === 'match', 'a subdomain of the firm\'s domain is a match');
+  ok(emailMatch('someone@gmail.com', 'https://torkinmanes.com') === 'free', 'a free email address proves nothing');
+  ok(emailMatch('rival@otherfirm.ca', 'https://torkinmanes.com') === 'mismatch', 'an email on another domain is flagged');
+  ok(emailMatch('a@firm.ca', '') === 'nosite', 'no website on file cannot be checked');
+
+  // content rules (unit): normal wording passes, risky wording does not
+  const blocked = (t) => { try { checkOwnerText('Text', t); return false; } catch { return true; } };
+  ok(!blocked('We practise family law and help Ottawa families.') && !blocked('The best of care for every client.'), 'ordinary wording is allowed');
+  ok(blocked('#1 firm') && blocked('Top-rated lawyers') && blocked('Our specialist team') && blocked('visit smith.law today') && blocked('<a href="x">x</a>'), 'risky wording is blocked');
+
+  // reporting a listing
+  cookie = '';
+  const rp = await getRaw('/report-listing?firm=achkar-law');
+  ok(rp.status === 200 && rp.text.includes('Report: Achkar Law') && rp.text.includes('value="achkar-law"'), 'the report page names the firm');
+  ok(rp.text.indexOf('id="rp-out"') > rp.text.indexOf('</form>'), 'the report page\'s thank-you message is outside the form it hides');
+  ok((await getRaw('/report-listing?firm=nope')).text.includes('Report a listing'), 'the report page works for an unknown firm');
+  ok((await getRaw('/firms/achkar-law')).text.includes('/report-listing?firm=achkar-law'), 'profile pages link to the report page');
+  const rep = await call('POST', '/api/leads', { name: 'Reporter', email: `reporter-${run}@example.com`, form: 'report-listing', reportedFirm: 'achkar-law', reason: 'inaccurate', message: 'The phone number is wrong' });
+  ok(rep.status === 201, 'a visitor reports a listing');
+  as(adminJar);
+  const repLeads = (await call('GET', '/api/admin/leads?limit=50')).data.leads;
+  ok(repLeads.some((l) => l.form === 'report-listing' && l.payload.reportedFirm === 'achkar-law'), 'the report reaches the admin as a lead');
+  ok((await call('GET', '/api/admin/audit?limit=200')).data.entries.some((e) => e.action === 'mail.dev' && /^Listing reported/.test(e.detail?.subject || '')), 'the admin is emailed about a report');
+  ok((await call('GET', '/api/admin/stats')).data.openReports >= 1, 'the overview counts open reports');
+  as(o1.jar);
+  ok(!(await call('GET', '/api/account/firms/achkar-law/leads')).data?.leads?.some((l) => l.email === `reporter-${run}@example.com`), 'a report is never shown to the firm it is about');
+
+  // enquiry flood limit per requester address (the 16th within an hour is refused)
+  cookie = '';
+  const floodIp = { 'cf-connecting-ip': `198.18.0.${1 + Math.floor(Math.random() * 250)}` };
+  const codes = [];
+  for (let i = 0; i < 16; i++) codes.push((await call('POST', '/api/leads', { name: 'Bot', email: `bot${i}-${run}@example.com`, message: 'hello' }, floodIp)).status);
+  ok(codes.slice(0, 15).every((c) => c === 201) && codes[15] === 429, 'a requester address is limited to 15 enquiries an hour');
+
+  // sign out everywhere, and disabling a person
+  const o3email = `owner3-${run}@example.com`;
+  const s1 = await signUp(o3email), s2 = await signUp(o3email);
+  ok(s1 && s2 && s1.jar !== s2.jar, 'the same person can be signed in on two devices');
+  as(s1.jar);
+  ok((await call('GET', '/api/account/me')).status === 200, 'the first device is signed in');
+  ok((await call('POST', '/api/auth/logout-all')).status === 200, 'sign out everywhere');
+  as(s1.jar);
+  ok((await call('GET', '/api/account/me')).status === 401, 'the first device is signed out');
+  as(s2.jar);
+  ok((await call('GET', '/api/account/me')).status === 401, 'the second device is signed out too');
+  const o4email = `owner4-${run}@example.com`;
+  const d1 = await signUp(o4email);
+  as(adminJar);
+  const person = (await call('GET', `/api/admin/users?q=${encodeURIComponent(o4email)}`)).data.users[0];
+  ok(person && person.email === o4email && person.disabled === false, 'the admin finds the person');
+  ok((await call('PATCH', `/api/admin/users/${person.id}`, { disabled: true })).status === 200, 'the admin disables the person');
+  as(d1.jar);
+  ok((await call('GET', '/api/account/me')).status === 401, 'a disabled person is signed out at once');
+  ok((await signUp(o4email)) === null, 'a disabled person cannot sign in again');
+  as(adminJar);
+  ok((await call('PATCH', `/api/admin/users/${person.id}`, { disabled: false })).status === 200, 'the admin can enable them again');
+  ok((await call('PATCH', '/api/admin/users/1', { disabled: 'yes' })).status === 422, 'disable needs true or false');
+  ok((await signUp(o4email)) !== null, 'an enabled person signs in again');
+  as(o1.jar);
+  ok((await call('GET', '/api/admin/users')).status === 403, 'owners cannot list people');
+  ok((await call('POST', '/api/admin/backup')).status === 403, 'owners cannot run backups');
+
+  // backups and nightly housekeeping
+  as(adminJar);
+  const bk = await call('POST', '/api/admin/backup');
+  ok(bk.status === 200 && bk.data.rows.firms >= 370 && bk.data.rows.users >= 1, 'the admin can back up now');
+  ok(!!(await call('GET', '/api/admin/stats')).data.lastBackupAt, 'the overview shows when the last backup ran');
+  cookie = '';
+  const cron = await fetch(BASE + '/__scheduled?cron=17+7+*+*+*', { signal: AbortSignal.timeout(30000) });
+  ok(cron.status === 200, 'the nightly job can be triggered');
+  as(adminJar);
+  let nightlyDone = false;
+  for (let i = 0; i < 20 && !nightlyDone; i++) {
+    const acts = (await call('GET', '/api/admin/audit?limit=30')).data.entries.map((e) => e.action);
+    nightlyDone = acts.includes('housekeeping.ok') && acts.includes('backup.ok');
+    if (!nightlyDone) await new Promise((r) => setTimeout(r, 500));
+  }
+  ok(nightlyDone, 'the nightly job ran housekeeping and a backup without errors');
 
   // put the shared test firm back as it was
   as(adminJar);

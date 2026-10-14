@@ -74,6 +74,25 @@ The per-practice-area pages are still pre-built HTML.
 Capacity note: the Worker now handles these page views. On the free Workers plan that is 100,000 requests a day; the
 Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages remain free and unlimited.
 
+## Firm owners (Phase B)
+
+- **Sign-up:** `/account/` is the owner area. The same one-time email link signs in or creates a plain `member` account
+  (`signup: true` on `/api/auth/request-link`). Brand-new addresses are limited to 6 links per requester per hour and
+  150 per day (Brevo's free plan sends 300 emails a day); a limit hit is logged as `signup.throttled`.
+- **Nothing happens without approval:** `firm_members` holds one row per (person, firm) with status `pending`,
+  `approved` or `rejected`. Owners ask to manage an existing firm (`POST /api/account/claims`) or submit a new one
+  (`POST /api/account/firms`, stored with `firms.status = 'pending'` and hidden from every public query until approved).
+  The admin approves or rejects on the Approvals tab; approving a new listing needs a map position (looked up from the
+  address with OpenStreetMap when possible, otherwise entered by the admin). Approval can also switch a hand-built page
+  to the database page so the owner's edits show on it.
+- **What owners can do:** edit their own firm (same fields as admin except `featured`, page style and rating) and read/update
+  the enquiries for it. Access is checked on every request against an approved membership of that exact firm.
+- **Lead routing:** a form on a firm's profile page sends `firm=<slug>`; the lead is stored with `leads.firm_slug`, shown in
+  the owner's dashboard immediately and emailed to the firm's approved owners (max 20 emails per firm per hour).
+  The admin is emailed when a request needs approval, and the requester when it is decided.
+- Shared code: `src/lib/firm-edit.js` (validation, create, edit), `src/lib/email.js` (all mail), `admin/ui.js` (UI helpers).
+- Local development sends no mail; each message is recorded in the audit log as `mail.dev` instead.
+
 ## Setup that lives outside the repo (Cloudflare dashboard)
 
 Workers & Pages -> lawdb -> Settings -> Variables and Secrets:
@@ -88,8 +107,8 @@ Local development: copy the values from `.dev.vars` in the README (never committ
 1. Admin area: sign-in, leads inbox, firm editing, activity log. (done)
 2. Public directory pages and data files rendered from the database. (done)
    2b. Firm profile pages rendered from the database, with an `about` text and a create-firm form. (done)
-3. Firm accounts: owner invites / "claim this listing", admin approval, `firm_members` table.
-4. Firm dashboard: own leads (lead -> firm routing), edit own profile.
+3. Firm accounts: sign-up, claim/create a listing, admin approval, `firm_members` table. (done)
+4. Firm dashboard: edit own profile, own enquiries, lead emails. (done; picture uploads next, via Cloudflare R2)
 5. Featured billing (Stripe webhooks flip `featured`).
 
 ## Known limits

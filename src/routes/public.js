@@ -1,8 +1,9 @@
 import { json, cached, clampInt, HttpError, isEmail } from '../lib/http.js';
+import { mailInBackground, leadEmail } from '../lib/email.js';
 
 export async function listFirms({ url, env }) {
   const p = url.searchParams;
-  const where = [];
+  const where = ["status = 'live'"];
   const args = [];
   if (p.get('province')) { where.push('province = ?'); args.push(p.get('province').toUpperCase()); }
   if (p.get('city')) { where.push('city = ? COLLATE NOCASE'); args.push(p.get('city')); }
@@ -23,7 +24,7 @@ export async function listFirms({ url, env }) {
 }
 
 export async function getFirm({ params, env }) {
-  const row = await env.DB.prepare('SELECT data, hours, about FROM firms WHERE slug = ?').bind(params.slug).first();
+  const row = await env.DB.prepare("SELECT data, hours, about FROM firms WHERE slug = ? AND status = 'live'").bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
   return cached({ ...JSON.parse(row.data), about: row.about || '', hours: row.hours ? JSON.parse(row.hours) : null });
 }
@@ -38,9 +39,10 @@ export async function listBlog({ url, env }) {
 }
 
 const LIMITS = { name: 200, phone: 50, message: 5000, page: 300, field: 2000, fields: 40 };
+const MAX_LEAD_EMAILS_PER_FIRM_HOUR = 20;
 const RESERVED = new Set(['access_key', 'botcheck', 'name', 'email', 'phone', 'message', 'form', 'page']);
 
-export async function createLead({ request, env }) {
+export async function createLead({ request, env, url, exec }) {
   let input;
   try {
     const type = request.headers.get('content-type') || '';
@@ -77,9 +79,25 @@ export async function createLead({ request, env }) {
     .first();
   if (recent && recent.n >= 5) throw new HttpError(429, 'Too many submissions, please try again later');
 
-  await env.DB.prepare('INSERT INTO leads (form,name,email,phone,message,payload,page) VALUES (?,?,?,?,?,?,?)')
-    .bind(form, name, email, phone || null, message || null, JSON.stringify(extra), page || null)
+  // A form on a firm's own profile page names that firm: route the enquiry to it.
+  const firmSlug = str(input.firm, 100);
+  const firm = firmSlug ? await env.DB.prepare("SELECT slug, name FROM firms WHERE slug = ? AND status = 'live'").bind(firmSlug).first() : null;
+
+  await env.DB.prepare('INSERT INTO leads (form,name,email,phone,message,payload,page,firm_slug) VALUES (?,?,?,?,?,?,?,?)')
+    .bind(form, name, email, phone || null, message || null, JSON.stringify(extra), page || null, firm ? firm.slug : null)
     .run();
+
+  // Tell the firm's approved owners right away. Capped per firm per hour so a flood of fake
+  // enquiries cannot turn into a flood of email (every enquiry is still saved and shown in the dashboard).
+  if (firm) {
+    const [owners, sent] = await Promise.all([
+      env.DB.prepare("SELECT u.email FROM firm_members m JOIN users u ON u.id = m.user_id WHERE m.firm_slug = ? AND m.status = 'approved' AND u.disabled = 0").bind(firm.slug).all(),
+      env.DB.prepare("SELECT COUNT(*) AS n FROM leads WHERE firm_slug = ? AND created_at > datetime('now','-1 hour')").bind(firm.slug).first(),
+    ]);
+    if (owners.results.length && sent.n <= MAX_LEAD_EMAILS_PER_FIRM_HOUR) {
+      mailInBackground(env, exec, { to: owners.results.map((o) => o.email), ...leadEmail(env.SITE_ORIGIN || url.origin, firm.name, { name, email, phone, message }) });
+    }
+  }
 
   return json({ ok: true }, 201);
 }

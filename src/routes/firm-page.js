@@ -19,9 +19,9 @@ async function nearbyFirms(env, f) {
     }
   };
   const order = 'ORDER BY featured DESC, rating DESC, review_count DESC, name';
-  take((await env.DB.prepare(`SELECT ${cols} FROM firms WHERE city = ? AND province = ? AND slug != ? ${order} LIMIT 10`).bind(f.city, f.province, f.slug).all()).results);
+  take((await env.DB.prepare(`SELECT ${cols} FROM firms WHERE status = 'live' AND city = ? AND province = ? AND slug != ? ${order} LIMIT 10`).bind(f.city, f.province, f.slug).all()).results);
   if (out.length < 6 && f.region) {
-    take((await env.DB.prepare(`SELECT ${cols} FROM firms WHERE region = ? AND slug != ? ${order} LIMIT 10`).bind(f.region, f.slug).all()).results);
+    take((await env.DB.prepare(`SELECT ${cols} FROM firms WHERE status = 'live' AND region = ? AND slug != ? ${order} LIMIT 10`).bind(f.region, f.slug).all()).results);
   }
   return out;
 }
@@ -43,13 +43,13 @@ export async function firmPage({ request, env, ctx }) {
 
   let row = null;
   try {
-    row = await env.DB.prepare('SELECT data, hours, page_mode, about FROM firms WHERE slug = ?').bind(m[1]).first();
+    row = await env.DB.prepare('SELECT data, hours, page_mode, about, status FROM firms WHERE slug = ?').bind(m[1]).first();
   } catch (err) {
     console.error('firm lookup failed, serving static page', m[1], err);
     return env.ASSETS.fetch(request);
   }
 
-  if (!row || row.page_mode !== 'dynamic') {
+  if (!row || row.status !== 'live' || row.page_mode !== 'dynamic') {
     const res = await env.ASSETS.fetch(request); // the original page (or a 404 for an unknown firm)
     if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
     return res;

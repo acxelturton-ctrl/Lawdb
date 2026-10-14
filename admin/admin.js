@@ -2,42 +2,11 @@
 // SECURITY: visitor-submitted text (leads) is only ever inserted with textContent / text nodes,
 // never innerHTML, so hostile messages cannot run code in an admin's browser.
 
+import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, CASE_LABELS, PROVINCES } from './ui.js';
+
 const app = document.getElementById('app');
 
-function h(tag, props, ...kids) {
-  const el = document.createElement(tag);
-  for (const [k, v] of Object.entries(props || {})) {
-    if (v === false || v == null) continue;
-    if (k === 'class') el.className = v;
-    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
-    else el.setAttribute(k, v === true ? '' : v);
-  }
-  for (const kid of kids.flat(Infinity)) {
-    if (kid == null || kid === false) continue;
-    el.append(kid.nodeType ? kid : document.createTextNode(String(kid)));
-  }
-  return el;
-}
-
-async function api(method, path, body) {
-  const res = await fetch(path, {
-    method,
-    headers: body ? { 'content-type': 'application/json' } : {},
-    body: body ? JSON.stringify(body) : undefined,
-    credentials: 'same-origin',
-  });
-  const data = await res.json().catch(() => null);
-  if (!res.ok) {
-    const err = new Error((data && data.error) || `Request failed (${res.status})`);
-    err.status = res.status;
-    throw err;
-  }
-  return data;
-}
-
-const when = (utc) => new Date(utc.replace(' ', 'T') + 'Z').toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
 const mount = (...nodes) => app.replaceChildren(...nodes);
-const note = (cls, text) => h('p', { class: cls, role: cls === 'msg-err' ? 'alert' : 'status' }, text);
 
 // ---------------------------------------------------------------- sign in
 function renderLogin() {
@@ -62,7 +31,8 @@ function renderLogin() {
 }
 
 // ---------------------------------------------------------------- shell
-const TABS = [['overview', 'Overview'], ['leads', 'Leads'], ['firms', 'Firms'], ['activity', 'Activity']];
+let pendingCount = 0;
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['activity', 'Activity']];
 
 function shell(user, active, content) {
   return h('div', null,
@@ -71,18 +41,19 @@ function shell(user, active, content) {
       h('div', { class: 'who' }, user.email, h('br'),
         h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.reload(); } }, 'Sign out')))),
     h('div', { class: 'wrap' },
-      h('nav', { class: 'tabs', 'aria-label': 'Sections' }, TABS.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label))),
+      h('nav', { class: 'tabs', 'aria-label': 'Sections' }, TABS.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'approvals' && pendingCount > 0 && h('span', { class: 'count' }, pendingCount)))),
       content));
 }
 
 // ---------------------------------------------------------------- overview
 async function viewOverview() {
   const s = await api('GET', '/api/admin/stats');
+  pendingCount = s.pendingApprovals;
   const stat = (n, label) => h('div', { class: 'card stat' }, h('b', null, n), h('span', null, label));
   return h('div', null, h('h1', null, 'Overview'),
     h('div', { class: 'grid' },
       stat(s.leads.new, 'New leads'), stat(s.leadsLast7Days, 'Leads, last 7 days'),
-      stat(s.firms, 'Firms listed'), stat(s.featured, 'Featured firms'), stat(s.blogPosts, 'Blog posts')),
+      stat(s.pendingApprovals, 'Waiting for your approval'), stat(s.firms, 'Firms listed'), stat(s.featured, 'Featured firms'), stat(s.blogPosts, 'Blog posts')),
     h('div', { class: 'card' }, h('b', null, 'Leads by status'),
       h('p', { class: 'muted' }, `New ${s.leads.new} · Contacted ${s.leads.contacted} · Closed ${s.leads.closed} · Spam ${s.leads.spam}`)));
 }
@@ -135,53 +106,6 @@ async function viewLeads() {
 }
 
 // ---------------------------------------------------------------- firms
-const CASE_LABELS = {
-  traffic: 'Traffic Ticket', criminal: 'Criminal Charges', family: 'Family Law / Divorce', injury: 'Personal Injury / Accident',
-  realestate: 'Buying or Selling a Home', wills: 'Wills, Estates & Power of Attorney', business: 'Business / Corporate',
-  employment: 'Employment Dispute', immigration: 'Immigration', litigation: 'Civil Lawsuit / Litigation',
-};
-const DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const PROVINCES = { ON: 'Ontario', QC: 'Quebec', BC: 'British Columbia', AB: 'Alberta', MB: 'Manitoba' };
-
-// Opening hours editor. Days that already have split hours (two ranges) are kept as they are.
-function hoursEditor(hours) {
-  let dirty = false;
-  const rows = DAY_NAMES.map((name, i) => {
-    const ivs = (hours && hours[String(i + 1)]) || [];
-    const multi = ivs.length > 1;
-    const open = h('input', { type: 'checkbox', checked: ivs.length > 0, 'aria-label': `${name} open`, disabled: multi });
-    const from = h('input', { type: 'time', value: ivs[0] ? ivs[0][0] : '09:00', 'aria-label': `${name} opens` });
-    const to = h('input', { type: 'time', value: ivs[0] ? ivs[0][1] : '17:00', 'aria-label': `${name} closes` });
-    const mark = () => { dirty = true; };
-    [open, from, to].forEach((el) => el.addEventListener('change', mark));
-    return { name, ivs, multi, open, from, to, el: h('div', { class: 'hrow' }, h('span', null, name), open, multi ? h('span', { class: 'muted hwide' }, 'Split hours kept as they are') : [from, to]) };
-  });
-  return {
-    el: h('div', { class: 'hours-edit' }, rows.map((r) => r.el)),
-    isDirty: () => dirty,
-    anyOpen: () => rows.some((r) => r.multi || r.open.checked),
-    get() {
-      const out = {};
-      rows.forEach((r, i) => {
-        if (r.multi) out[String(i + 1)] = r.ivs;
-        else if (r.open.checked) out[String(i + 1)] = [[r.from.value, r.to.value]];
-      });
-      return out;
-    },
-  };
-}
-
-function categoryChecks(selected) {
-  const boxes = Object.entries(CASE_LABELS).map(([id, label]) => {
-    const input = h('input', { type: 'checkbox', value: id, checked: (selected || []).includes(id) });
-    return { id, input, el: h('label', { class: 'check small' }, input, label) };
-  });
-  return { el: h('div', { class: 'checks' }, boxes.map((b) => b.el)), get: () => boxes.filter((b) => b.input.checked).map((b) => b.id) };
-}
-
-const splitTags = (v) => v.split(',').map((t) => t.trim()).filter(Boolean);
-const field = (label, el, hint) => [h('label', null, label), el, hint && h('p', { class: 'muted' }, hint)];
-
 async function viewFirms() {
   const results = h('div');
   const editor = h('div');
@@ -192,7 +116,7 @@ async function viewFirms() {
     try {
       const { firms } = await api('GET', '/api/admin/firms?limit=25&q=' + encodeURIComponent(search.value.trim()));
       results.replaceChildren(...(firms.length ? firms.map((f) => h('button', { class: 'firm-row', type: 'button', onclick: () => edit(f.slug) },
-        h('span', null, f.name, h('small', null, `${f.city}, ${f.province}`)), f.featured && h('span', { class: 'badge featured' }, 'Featured'))) : [h('p', { class: 'muted' }, 'No firms match.')]));
+        h('span', null, f.name, h('small', null, `${f.city}, ${f.province}`)), f.featured && h('span', { class: 'badge featured' }, 'Featured'), f.status === 'pending' && h('span', { class: 'badge new' }, 'Awaiting approval'))) : [h('p', { class: 'muted' }, 'No firms match.')]));
     } catch (err) { results.replaceChildren(note('msg-err', err.message)); }
   }
 
@@ -296,6 +220,70 @@ async function viewFirms() {
     editor, results);
 }
 
+// ---------------------------------------------------------------- approvals
+// One tap decides who may manage a firm. Nothing an owner asks for takes effect before this.
+async function viewApprovals() {
+  const [{ members: pending }, { members: decided }] = await Promise.all([
+    api('GET', '/api/admin/members'), api('GET', '/api/admin/members?decided=1'),
+  ]);
+  pendingCount = pending.length;
+  async function decide(m, status, extra, out, buttons) {
+    buttons.forEach((b) => { b.disabled = true; });
+    try {
+      await api('PATCH', '/api/admin/members/' + m.id, { status, ...extra });
+      render(me);
+    } catch (err) {
+      out.replaceChildren(note('msg-err', err.message));
+      buttons.forEach((b) => { b.disabled = false; });
+    }
+  }
+
+  function card(m) {
+    const out = h('div');
+    const lat = h('input', { type: 'number', step: 'any', placeholder: 'Latitude, e.g. 45.42', 'aria-label': 'Latitude' });
+    const lng = h('input', { type: 'number', step: 'any', placeholder: 'Longitude, e.g. -75.69', 'aria-label': 'Longitude' });
+    const needsCoords = m.isNewListing && !m.hasCoordinates;
+    const switchPage = h('input', { type: 'checkbox', checked: !m.featured });
+    const approve = h('button', { class: 'primary', type: 'button' }, m.isNewListing ? 'Approve and publish' : 'Approve');
+    const reject = h('button', { type: 'button' }, 'Reject');
+    const buttons = [approve, reject];
+    approve.addEventListener('click', () => decide(m, 'approved', {
+      ...(needsCoords ? { lat: lat.value === '' ? null : Number(lat.value), lng: lng.value === '' ? null : Number(lng.value) } : {}),
+      ...(m.pageMode === 'static' ? { switchPage: switchPage.checked } : {}),
+    }, out, buttons));
+    reject.addEventListener('click', () => decide(m, 'rejected', {}, out, buttons));
+    const mapQuery = encodeURIComponent([m.firmName, m.firm.address, m.city, m.province].filter(Boolean).join(' '));
+    return h('div', { class: 'card' },
+      h('div', { class: 'row spread' }, h('b', null, m.firmName), m.isNewListing ? h('span', { class: 'badge featured' }, 'New listing') : h('span', { class: 'badge' }, 'Claim')),
+      h('p', { class: 'muted' }, `${m.city}, ${m.province}${m.firm.address ? ' · ' + m.firm.address : ''}`),
+      h('p', null, h('b', null, m.contactName), m.jobTitle ? ` (${m.jobTitle})` : '', ' · ', m.email, h('br'), h('span', { class: 'muted' }, 'Asked ' + when(m.requestedAt))),
+      m.message && h('p', { class: 'quote' }, m.message),
+      m.otherOwners && h('p', { class: 'msg-err' }, 'This firm already has an approved owner: ' + m.otherOwners),
+      m.isNewListing && h('p', { class: 'muted' }, 'Not public yet. It goes live when you approve.'),
+      needsCoords && h('div', null,
+        h('p', { class: 'muted' }, 'The address could not be placed on the map automatically. Find it on the map, then enter its position:'),
+        h('a', { href: `https://www.google.com/maps/search/${mapQuery}`, target: '_blank', rel: 'noopener' }, 'Find on Google Maps'),
+        h('div', { class: 'row' }, lat, lng)),
+      m.pageMode === 'static' && h('label', { class: 'check small' }, switchPage,
+        m.featured ? 'Show this owner\'s edits on the firm\'s page (replaces its custom Featured layout)' : 'Show this owner\'s edits on the firm\'s page'),
+      h('div', { class: 'row' }, approve, reject, h('a', { href: `/firms/${m.slug}`, target: '_blank', rel: 'noopener' }, 'View page')), out);
+  }
+
+  function decidedRow(m) {
+    const out = h('div');
+    const btn = m.status === 'approved' ? h('button', { type: 'button' }, 'Remove access') : h('button', { type: 'button' }, 'Approve instead');
+    btn.addEventListener('click', () => decide(m, m.status === 'approved' ? 'rejected' : 'approved', {}, out, [btn]));
+    return h('div', { class: 'audit' },
+      h('div', null, h('b', null, m.firmName), ` · ${m.email} · `, h('span', { class: m.status === 'approved' ? 'msg-ok' : 'muted' }, m.status === 'approved' ? 'Owner' : 'Rejected')),
+      h('div', { class: 'muted' }, m.decidedAt ? when(m.decidedAt) : ''), h('div', { class: 'row' }, btn), out);
+  }
+
+  return h('div', null, h('h1', null, 'Approvals'),
+    pending.length ? pending.map(card) : h('div', { class: 'card' }, h('p', { class: 'muted' }, 'Nothing waiting. New requests from firm owners appear here, and you get an email.')),
+    h('h2', null, 'Recent decisions'),
+    h('div', { class: 'card' }, decided.length ? decided.map(decidedRow) : h('p', { class: 'muted' }, 'None yet.')));
+}
+
 // ---------------------------------------------------------------- activity
 async function viewActivity() {
   const { entries } = await api('GET', '/api/admin/audit?limit=100');
@@ -307,13 +295,16 @@ async function viewActivity() {
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, leads: viewLeads, firms: viewFirms, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, activity: viewActivity };
 
+let me; // the signed-in admin, for re-rendering after an action
 async function render(user) {
+  me = user;
   const id = VIEWS[location.hash.slice(1)] ? location.hash.slice(1) : 'overview';
   mount(shell(user, id, h('p', { class: 'muted' }, 'Loading…')));
   try {
-    mount(shell(user, id, await VIEWS[id]()));
+    const [view] = await Promise.all([VIEWS[id](), id === 'overview' || id === 'approvals' ? null : api('GET', '/api/admin/stats').then((st) => { pendingCount = st.pendingApprovals; }).catch(() => {})]);
+    mount(shell(user, id, view));
   } catch (err) {
     if (err.status === 401) return boot();
     mount(shell(user, id, note('msg-err', err.message)));
@@ -321,12 +312,12 @@ async function render(user) {
 }
 
 async function boot() {
-  let me;
-  try { me = await api('GET', '/api/auth/me'); } catch (err) { return mount(h('div', { class: 'wrap' }, note('msg-err', err.message))); }
-  if (!me.user) return renderLogin();
-  if (me.user.role !== 'admin') return mount(h('div', { class: 'wrap' }, h('div', { class: 'center card' }, h('h1', null, 'No access'), h('p', null, 'This area is for LawDB administrators.'))));
-  window.addEventListener('hashchange', () => render(me.user));
-  render(me.user);
+  let who;
+  try { who = await api('GET', '/api/auth/me'); } catch (err) { return mount(h('div', { class: 'wrap' }, note('msg-err', err.message))); }
+  if (!who.user) return renderLogin();
+  if (who.user.role !== 'admin') return location.replace('/account/'); // firm owners have their own area
+  window.addEventListener('hashchange', () => render(who.user));
+  render(who.user);
 }
 
 boot();

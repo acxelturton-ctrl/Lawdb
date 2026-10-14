@@ -59,3 +59,9 @@ export async function requireAdmin(env, request) {
   if (user.role !== 'admin') throw new HttpError(403, 'Admins only');
   return user;
 }
+
+export async function requireUser(env, request) {
+  const user = await getUser(env, request);
+  if (!user) throw new HttpError(401, 'Sign in required');
+  return user;
+}

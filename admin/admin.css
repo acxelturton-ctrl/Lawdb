@@ -33,7 +33,7 @@ h1 { font-size: 22px; margin: 8px 0 16px; }
 .stat span { color: var(--muted); font-size: 13px; }
 
 label { display: block; font-weight: 600; font-size: 14px; margin: 12px 0 4px; }
-input[type=text], input[type=email], input[type=search], select, textarea {
+input[type=text], input[type=email], input[type=search], input[type=number], select, textarea {
   width: 100%; padding: 10px 12px; font: inherit; color: var(--ink); background: var(--bg);
   border: 1px solid var(--line); border-radius: 8px;
 }
@@ -76,7 +76,13 @@ button:disabled { opacity: .55; cursor: default; }
 .check.small { font-weight: 500; font-size: 14px; margin-top: 4px; }
 textarea.tall { min-height: 150px; }
 .hours-edit { margin: 6px 0 4px; }
-.hrow { display: grid; grid-template-columns: 96px 28px 1fr 1fr; gap: 8px; align-items: center; margin: 6px 0; }
+.hrow { display: grid; grid-template-columns: 82px 24px minmax(0, 1fr) minmax(0, 1fr); gap: 6px; align-items: center; margin: 6px 0; }
+.hrow > * { min-width: 0; }
 .hrow input[type=checkbox] { width: 20px; height: 20px; }
-.hrow input[type=time] { width: 100%; padding: 8px 8px; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; }
+.hrow input[type=time] { width: 100%; min-width: 0; padding: 8px 6px; font: inherit; font-size: 14px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; }
 .hrow .hwide { grid-column: 3 / span 2; font-size: 13px; }
+
+.tabs .count { display: inline-block; margin-left: 6px; min-width: 18px; padding: 0 6px; border-radius: 999px; background: #a1261c; color: #fff; font-size: 12px; font-weight: 700; text-align: center; }
+.quote { border-left: 3px solid var(--gold); padding-left: 10px; color: var(--muted, #555); white-space: pre-wrap; }
+.hrow input[type=time]::-webkit-calendar-picker-indicator { display: none; }
+@media (max-width: 480px) { .hrow { grid-template-columns: 76px 22px minmax(0, 1fr) minmax(0, 1fr); } .hrow span { font-size: 14px; } }

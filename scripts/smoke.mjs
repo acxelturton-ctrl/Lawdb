@@ -1,7 +1,8 @@
 // End-to-end smoke test against a running dev server (npm run dev) seeded with data.
 // Needs .dev.vars containing:  ADMIN_EMAILS=smoke-admin@example.com  and  DEV_ECHO_LINK=1
 //   BASE=http://localhost:8799 npm run smoke
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
+import { createPublicKey, createVerify } from 'node:crypto';
 import zlib from 'node:zlib';
 import { isDeepStrictEqual } from 'node:util';
 import { emailMatch } from '../src/routes/admin.js';
@@ -810,6 +811,101 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     if (!nightlyDone) await new Promise((r) => setTimeout(r, 500));
   }
   ok(nightlyDone, 'the nightly job ran housekeeping and a backup without errors');
+
+  // Google Search Console: the site submits the sitemap and asks Google about pages (against a fake Google on this computer)
+  const devVars = existsSync('.dev.vars') ? readFileSync('.dev.vars', 'utf8') : '';
+  const pubB64 = /GSC_TEST_PUBLIC_KEY_B64=(\S+)/.exec(devVars)?.[1];
+  if (!pubB64) console.log('SKIP  Search Console checks (run node scripts/gen-test-gsc.mjs first)');
+  else {
+    const pub = createPublicKey(Buffer.from(pubB64, 'base64').toString());
+    const g = { tokens: 0, jwtOk: null, sitemapPuts: [], inspected: [], mode: 'ok', auth: [] };
+    const json = (res, code, body) => { res.writeHead(code, { 'content-type': 'application/json' }); res.end(JSON.stringify(body)); };
+    const google = http.createServer((req, res) => {
+      let raw = '';
+      req.on('data', (c) => (raw += c));
+      req.on('end', () => {
+        if (req.url === '/token') {
+          const jwt = new URLSearchParams(raw).get('assertion') || '';
+          const [h64, c64, sig] = jwt.split('.');
+          try {
+            const head = JSON.parse(Buffer.from(h64, 'base64url')); const claims = JSON.parse(Buffer.from(c64, 'base64url'));
+            const v = createVerify('RSA-SHA256'); v.update(`${h64}.${c64}`);
+            g.jwtOk = head.alg === 'RS256' && claims.iss === 'lawdb-search@smoke-test.iam.gserviceaccount.com' && claims.scope === 'https://www.googleapis.com/auth/webmasters' && claims.aud === 'http://127.0.0.1:8798/token' && claims.exp - claims.iat === 3600 && v.verify(pub, Buffer.from(sig, 'base64url')) && new URLSearchParams(raw).get('grant_type') === 'urn:ietf:params:oauth:grant-type:jwt-bearer';
+          } catch { g.jwtOk = false; }
+          if (!g.jwtOk) return json(res, 400, { error: 'invalid_grant' });
+          g.tokens++;
+          return json(res, 200, { access_token: 'tok-123', expires_in: 3600 });
+        }
+        g.auth.push(req.headers.authorization);
+        if (req.headers.authorization !== 'Bearer tok-123') return json(res, 401, { error: { message: 'no token' } });
+        if (req.method === 'GET' && req.url === '/webmasters/v3/sites') return json(res, 200, { siteEntry: [{ siteUrl: 'https://other.example/', permissionLevel: 'siteOwner' }, { siteUrl: 'sc-domain:lawdb.ca', permissionLevel: 'siteOwner' }] });
+        const sm = /^\/webmasters\/v3\/sites\/([^/]+)\/sitemaps\/([^/]+)$/.exec(req.url);
+        if (sm && req.method === 'PUT') { g.sitemapPuts.push([decodeURIComponent(sm[1]), decodeURIComponent(sm[2])]); res.writeHead(204); return res.end(); }
+        if (sm && req.method === 'GET') return json(res, 200, { lastSubmitted: '2026-10-14T07:37:00Z', lastDownloaded: '2026-10-14T07:38:00Z', isPending: false, errors: '0', warnings: '2', contents: [{ type: 'web', submitted: '610', indexed: '0' }] });
+        if (req.method === 'POST' && req.url === '/v1/urlInspection/index:inspect') {
+          const body = JSON.parse(raw);
+          g.inspected.push(body);
+          if (g.mode === 'forbidden') return json(res, 403, { error: { message: 'User does not have sufficient permission' } });
+          const u = body.inspectionUrl;
+          const result = /find-lawyers/.test(u) ? { verdict: 'PASS', coverageState: 'Submitted and indexed', indexingState: 'INDEXING_ALLOWED', lastCrawlTime: '2026-10-10T12:00:00Z', googleCanonical: u }
+            : /achkar/.test(u) ? { verdict: 'NEUTRAL', coverageState: 'Crawled - currently not indexed' }
+            : { verdict: 'NEUTRAL', coverageState: 'Discovered - currently not indexed' };
+          return json(res, 200, { inspectionResult: { indexStatusResult: result } });
+        }
+        json(res, 404, { error: { message: 'nope' } });
+      });
+    });
+    await new Promise((r, rej) => { google.once('error', rej); google.listen(8798, '127.0.0.1', r); });
+
+    cookie = '';
+    ok((await call('GET', '/api/admin/search')).status === 401 && (await call('POST', '/api/admin/search/run', {})).status === 401, 'Search Console tools need an admin sign-in');
+    as(o1.jar);
+    ok((await call('GET', '/api/admin/search')).status === 403 && (await call('POST', '/api/admin/search/run', {})).status === 403 && (await call('POST', '/api/admin/search/inspect', { url: '/' })).status === 403, 'owners cannot use the Search Console tools');
+    as(adminJar);
+    const before = (await call('GET', '/api/admin/search')).data;
+    ok(before.connected === true && before.clientEmail === 'lawdb-search@smoke-test.iam.gserviceaccount.com' && before.pagesChecked === 0 && before.sitemapPages > 500, 'the admin sees that Google is connected and how many pages the sitemap lists');
+    ok(!JSON.stringify(before).includes('PRIVATE KEY'), 'the key never appears in an API reply');
+
+    const run1 = await call('POST', '/api/admin/search/run', { part: 'all' });
+    ok(run1.status === 200 && run1.data.ok === true && run1.data.inspect.checked === 40 && run1.data.inspect.failed === 0, 'a run sends the sitemap and checks 40 pages');
+    ok(g.jwtOk === true && g.tokens === 1, 'the sign-in request to Google is a correctly signed token request');
+    ok(g.sitemapPuts.length === 1 && g.sitemapPuts[0][0] === 'sc-domain:lawdb.ca' && g.sitemapPuts[0][1] === 'https://lawdb.ca/sitemap.xml', 'the sitemap is submitted for the right property (found automatically)');
+    ok(g.auth.every((a) => a === 'Bearer tok-123') && g.inspected.every((b) => b.siteUrl === 'sc-domain:lawdb.ca' && /^https:\/\/lawdb\.ca\//.test(b.inspectionUrl)), 'every call carries the token and names lawdb.ca pages');
+    const first = g.inspected.map((b) => b.inspectionUrl);
+    ok(['/', '/find-lawyers', '/legal-news.html', '/for-firms.html'].every((p) => first.includes('https://lawdb.ca' + p)) && new Set(first).size === 40, 'the key pages are always checked, with no repeats');
+    const sum1 = run1.data.summary;
+    ok(sum1.pagesChecked === 40 && sum1.onGoogle === 1 && sum1.states.some((s) => s.state === 'Submitted and indexed' && s.n === 1) && sum1.notOnGoogle === 39 && sum1.problems.length === 25 && /^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$/.test(sum1.sitemap.at) && /^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$/.test(sum1.sitemap.lastDownloaded) && sum1.sitemap.warnings === 2 && sum1.sitemap.submitted === 610, 'the answers are stored and summarised: what is on Google, what is not, and the sitemap status');
+    g.inspected.length = 0;
+    const run2 = await call('POST', '/api/admin/search/run', { part: 'inspect' });
+    const second = g.inspected.map((b) => b.inspectionUrl).filter((u) => !['/', '/find-lawyers', '/legal-news.html', '/for-firms.html'].includes(new URL(u).pathname));
+    ok(run2.data.ok && second.length === 36 && !second.some((u) => first.includes(u)), 'the next run moves on to different pages');
+    ok(run2.data.summary.pagesChecked === 76 && g.sitemapPuts.length === 1, 'pages build up over runs; an inspect-only run does not resend the sitemap');
+    ok((await call('POST', '/api/admin/search/run', { part: 'nonsense' })).status === 422, 'an unknown part is refused');
+
+    const one = await call('POST', '/api/admin/search/inspect', { url: '/find-lawyers' });
+    ok(one.status === 200 && one.data.page.verdict === 'PASS' && one.data.page.url === 'https://lawdb.ca/find-lawyers' && one.data.page.lastCrawlAt === '2026-10-10 12:00:00', 'one page can be checked on its own');
+    ok((await call('POST', '/api/admin/search/inspect', { url: 'https://evil.example/x' })).status === 422 && (await call('POST', '/api/admin/search/inspect', { url: 'javascript:alert(1)' })).status === 422, 'only lawdb.ca pages can be checked');
+
+    // Google refuses (the service account was not added in Search Console): one clear message, and it stops at once
+    g.mode = 'forbidden'; g.inspected.length = 0;
+    const bad = await call('POST', '/api/admin/search/run', { part: 'inspect' });
+    ok(bad.status === 200 && bad.data.ok === false && /403/.test(bad.data.error) && /added as a user/.test(bad.data.error) && g.inspected.length === 1, 'a refusal is explained and the run stops after the first page');
+    ok((await call('GET', '/api/admin/search')).data.lastRun.ok === false, 'the admin screen shows the last run failed');
+    g.mode = 'ok';
+
+    // the nightly Search Console cron
+    cookie = '';
+    const cron2 = await fetch(BASE + '/__scheduled?cron=37+7+*+*+*', { signal: AbortSignal.timeout(60000) });
+    ok(cron2.status === 200, 'the Search Console cron can be triggered');
+    as(adminJar);
+    let searchDone = false;
+    for (let i = 0; i < 40 && !searchDone; i++) {
+      searchDone = (await call('GET', '/api/admin/audit?limit=10')).data.entries.some((e) => e.action === 'search.ok');
+      if (!searchDone) await new Promise((r) => setTimeout(r, 500));
+    }
+    ok(searchDone && g.sitemapPuts.length === 2, 'the nightly run sent the sitemap and recorded success');
+    google.close();
+  }
 
   // put the shared test firm back as it was
   as(adminJar);

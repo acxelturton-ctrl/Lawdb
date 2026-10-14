@@ -5,6 +5,7 @@ import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
 import { listPayments, assignPayment, dismissPayment } from '../lib/stripe.js';
 import { addImage, removeImage, listImages } from '../lib/images.js';
 import { audit } from '../lib/audit.js';
+import { searchSummary, runSearchConsole, inspectUrl, gscKey } from '../lib/gsc.js';
 import { mailInBackground, decisionEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES } from '../lib/firm-edit.js';
 
@@ -339,4 +340,34 @@ export async function newsSettings({ request, env }) {
   await env.DB.prepare("INSERT INTO site_settings (key, value) VALUES ('news_featured_only', ?) ON CONFLICT (key) DO UPDATE SET value = excluded.value").bind(body.featuredOnly ? '1' : '0').run();
   await audit(env, admin, 'news.setting', 'site', 'news_featured_only', { featuredOnly: body.featuredOnly });
   return reply({ ok: true, featuredOnly: body.featuredOnly });
+}
+
+// ---------------------------------------------------------------- Google Search Console (sitemap and page checks)
+export async function searchGet({ request, env }) {
+  await requireAdmin(env, request);
+  return reply(await searchSummary(env));
+}
+
+export async function searchRun({ request, env }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 200);
+  const part = body.part ?? 'all';
+  if (!['all', 'sitemap', 'inspect'].includes(part)) throw new HttpError(422, 'part must be all, sitemap or inspect');
+  const r = await runSearchConsole(env, { parts: part === 'all' ? ['sitemap', 'inspect'] : [part], actor: admin });
+  return reply({ ...r, summary: await searchSummary(env) });
+}
+
+export async function searchInspect({ request, env }) {
+  await requireAdmin(env, request);
+  const body = await readJson(request, 600);
+  const site = new URL(env.SITE_ORIGIN || 'https://lawdb.ca').origin;
+  let u;
+  try { u = new URL(String(body.url || '').trim(), site + '/'); } catch { throw new HttpError(422, 'That is not a web address.'); }
+  if (u.origin !== site) throw new HttpError(422, `Only pages on ${site} can be checked.`);
+  if (!gscKey(env)) throw new HttpError(409, 'Google Search Console is not connected yet.');
+  try {
+    return reply({ page: await inspectUrl(env, u.toString()) });
+  } catch (err) {
+    throw new HttpError(502, String(err.message || err).slice(0, 300));
+  }
 }

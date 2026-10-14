@@ -15,6 +15,7 @@ import { reportPage } from './routes/report-page.js';
 import { serveImage } from './routes/images.js';
 import { newsPage } from './routes/news-page.js';
 import { nightly } from './lib/backup.js';
+import { searchNightly } from './lib/gsc.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -68,6 +69,9 @@ const ROUTES = [
   route('GET', '/api/admin/payments', admin.paymentsList),
   route('POST', '/api/admin/payments/:id/assign', admin.paymentsAssign),
   route('POST', '/api/admin/payments/:id/dismiss', admin.paymentsDismiss),
+  route('GET', '/api/admin/search', admin.searchGet),
+  route('POST', '/api/admin/search/run', admin.searchRun),
+  route('POST', '/api/admin/search/inspect', admin.searchInspect),
   route('GET', '/api/admin/news', admin.newsGet),
   route('PATCH', '/api/admin/news', admin.newsSettings),
   route('GET', '/api/admin/firms/:slug/feed', admin.feedGet),
@@ -98,9 +102,10 @@ const ROUTES = [
 ];
 
 export default {
-  // Cloudflare cron trigger (nightly): housekeeping and backup.
+  // Cloudflare cron triggers: 07:17 UTC housekeeping, blogs and backup; 07:37 UTC Google Search Console (sitemap and page checks).
+  // They are separate runs so each stays within the platform's limit on outgoing requests.
   async scheduled(event, env, ctx) {
-    ctx.waitUntil(nightly(env));
+    ctx.waitUntil(event.cron === '37 7 * * *' ? searchNightly(env).catch((err) => console.error('search console run failed', err)) : nightly(env));
   },
 
   async fetch(request, env, ctx) {

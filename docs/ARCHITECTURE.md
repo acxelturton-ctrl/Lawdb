@@ -146,6 +146,16 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - **Menu:** three items (Find Your Lawyer, LawDB News, For Law Firms) plus the consultation button, on every page. `/for-firms.html` is the single hub for firms (list free, Featured, manage listing, grow your practice).
   The footer's columns follow the same structure with no repeated destinations.
 
+## Google Search Console (Search tab)
+
+- `src/lib/gsc.js` signs a short-lived token request with a Google **service account** key (secret `GSC_SERVICE_ACCOUNT_JSON`, RS256 via Web Crypto), then calls the Search Console API: list properties (picks `sc-domain:lawdb.ca`, else the https URL-prefix ones; `GSC_SITE` overrides),
+  `sitemaps.submit` + status, and **URL Inspection** (`index:inspect`). No key = every call is skipped and the Search tab shows the setup steps.
+- A second cron, `37 7 * * *`, runs `searchNightly`: sends the sitemap and inspects 40 pages (4 key pages plus the next 36 of our own sitemap, round and round via `site_settings.gsc_cursor`). It is its own cron run so it stays inside the platform's limit on outgoing requests.
+  Results are kept in `search_pages` (migration 0012); the latest sitemap status and run outcome are in `site_settings` (`gsc_sitemap`, `gsc_last_run`). Stops at the first 401/403/429.
+- Admin: `GET /api/admin/search`, `POST /api/admin/search/run {part: all|sitemap|inspect}`, `POST /api/admin/search/inspect {url}` (lawdb.ca pages only). Admin tab **Search**. The key is never returned by any API.
+- Not possible by API: "Request indexing" for ordinary pages (Google's Indexing API is for jobs/livestreams only). Setup: `docs/SEARCH_CONSOLE_SETUP.md`.
+- Tests run against a fake Google on port 8798 (`scripts/gen-test-gsc.mjs` adds a throw-away key to `.dev.vars`); `GSC_API_BASE`/`GSC_TOKEN_URL` are only honoured in local development (`DEV_ECHO_LINK=1`).
+
 ## Safeguards (hardening pass)
 
 - **Ownership signal:** the Approvals card compares the claimant's email domain with the firm's website

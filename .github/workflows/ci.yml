@@ -28,6 +28,7 @@ jobs:
           CI: "true"
         run: |
           printf 'ADMIN_EMAILS=smoke-admin@example.com\nDEV_ECHO_LINK=1\nPUBLIC_CACHE_TTL=0\nSTRIPE_WEBHOOK_SECRET=whsec_smoke_test_secret\nSTRIPE_PORTAL_URL=https://billing.stripe.com/p/login/smoke\n' > .dev.vars
+          node scripts/gen-test-gsc.mjs
           # IMPORTANT: keep the log OUTSIDE the repo. The dev server watches the repo folder (the
           # website lives at its root), so a log file inside it would trigger endless reloads.
           LOG="${RUNNER_TEMP:-/tmp}/dev-server.log"

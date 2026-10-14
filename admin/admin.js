@@ -33,7 +33,7 @@ function renderLogin() {
 // ---------------------------------------------------------------- shell
 let pendingCount = 0;
 let paymentCount = 0;
-const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['news', 'News'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['news', 'News'], ['search', 'Search'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
 
 function shell(user, active, content) {
   return h('div', null,
@@ -312,6 +312,78 @@ async function viewApprovals() {
     h('div', { class: 'card' }, decided.length ? decided.map(decidedRow) : h('p', { class: 'muted' }, 'None yet.')));
 }
 
+// ---------------------------------------------------------------- search (Google Search Console)
+// The site talks to Google Search Console by itself: it submits the sitemap and asks Google, a batch of pages at a time, which pages are on Google and why not.
+// Requesting indexing for a single page is the one thing Google does not allow software to do.
+async function viewSearch() {
+  const data = await api('GET', '/api/admin/search');
+  const out = h('div');
+  const reload = () => render(me);
+  const stamp = (v) => (v ? when(v) : 'never');
+
+  if (!data.connected) {
+    return h('div', null, h('h1', null, 'Search'),
+      h('div', { class: 'card' },
+        h('p', null, h('b', null, 'Not connected to Google Search Console yet.')),
+        h('p', { class: 'muted' }, 'Once connected, this site submits the sitemap to Google every night and checks, a batch of pages at a time, which pages are on Google and why not. About ten minutes of setup, once:'),
+        h('ol', null,
+          h('li', null, 'In Google Cloud (console.cloud.google.com) make a project, turn on the "Google Search Console API", create a service account and download its key (a .json file).'),
+          h('li', null, 'In Search Console: Settings, Users and permissions, Add user. Paste the service account\'s email and give it Full permission (Owner if Google lets you).'),
+          h('li', null, 'In Cloudflare: Workers & Pages, lawdb, Settings, Variables and Secrets. Add a secret named GSC_SERVICE_ACCOUNT_JSON and paste the whole contents of the .json file. Never paste the key anywhere else.'),
+          h('li', null, 'Come back here and press Check connection.')),
+        h('div', { class: 'row' }, h('button', { type: 'button', onclick: reload }, 'Check connection'))));
+  }
+
+  const busy = (btn, text) => { btn.disabled = true; out.replaceChildren(note('msg-ok', text)); };
+  const run = (part, label) => {
+    const b = h('button', { type: 'button' }, label);
+    b.addEventListener('click', async () => {
+      busy(b, part === 'sitemap' ? 'Sending the sitemap to Google...' : 'Asking Google about the next pages. This takes a minute...');
+      try {
+        const r = await api('POST', '/api/admin/search/run', { part });
+        if (!r.ok) { out.replaceChildren(note('msg-err', r.error || 'Google reported a problem.')); b.disabled = false; return; }
+        reload();
+      } catch (err) { out.replaceChildren(note('msg-err', err.message)); b.disabled = false; }
+    });
+    return b;
+  };
+
+  const urlBox = h('input', { type: 'text', placeholder: 'Check one page, e.g. /find-lawyers', 'aria-label': 'Page address to check' });
+  const one = h('div');
+  const checkOne = h('button', { type: 'button' }, 'Ask Google');
+  checkOne.addEventListener('click', async () => {
+    if (!urlBox.value.trim()) return;
+    checkOne.disabled = true; one.replaceChildren(note('msg-ok', 'Asking Google...'));
+    try {
+      const { page } = await api('POST', '/api/admin/search/inspect', { url: urlBox.value });
+      one.replaceChildren(note(page.verdict === 'PASS' ? 'msg-ok' : 'msg-err', `${page.url}: ${page.coverageState || 'no answer'}${page.lastCrawlAt ? ', last crawled ' + when(page.lastCrawlAt) : ''}`));
+    } catch (err) { one.replaceChildren(note('msg-err', err.message)); }
+    checkOne.disabled = false;
+  });
+
+  const sm = data.sitemap;
+  const smLine = sm
+    ? `Sitemap sent ${stamp(sm.at)}${sm.lastDownloaded ? '; Google read it ' + stamp(sm.lastDownloaded) : ''}${sm.submitted ? `; ${sm.submitted} pages listed` : ''}${sm.errors ? `; ${sm.errors} errors` : ''}${sm.warnings ? `; ${sm.warnings} warnings` : ''}.`
+    : 'The sitemap has not been sent yet.';
+  const last = data.lastRun;
+
+  return h('div', null, h('h1', null, 'Search'),
+    h('div', { class: 'card' },
+      h('p', null, h('span', { class: 'badge' }, 'Connected'), ' ', h('span', { class: 'muted' }, `as ${data.clientEmail}${data.site ? ', property ' + data.site : ''}`)),
+      h('p', null, smLine),
+      last && h('p', { class: last.ok ? 'muted' : 'msg-err' }, `Last run ${stamp(last.at)}: ${last.ok ? 'worked' + (last.checked != null ? `, ${last.checked} pages checked` : '') : last.error}`),
+      h('p', null, h('b', null, `${data.onGoogle} of ${data.pagesChecked} checked pages are on Google`), ` (${data.sitemapPages} pages are in our sitemap). Every night the next 40 pages are checked, round and round, so the whole site is covered in about two weeks.`),
+      h('div', { class: 'row' }, run('sitemap', 'Send sitemap now'), run('inspect', 'Check the next 40 pages')), out),
+    h('div', { class: 'card' }, h('h2', null, 'Check one page'), h('div', { class: 'row' }, urlBox, checkOne), one),
+    h('div', { class: 'card' }, h('h2', null, 'What Google says'),
+      data.states.length ? h('ul', null, ...data.states.map((s) => h('li', null, `${s.state}: ${s.n}`))) : h('p', { class: 'muted' }, 'No pages checked yet. Press "Check the next 40 pages".')),
+    h('div', { class: 'card' }, h('h2', null, 'Pages that are not on Google yet'),
+      h('p', { class: 'muted' }, `${data.notOnGoogle} checked pages are not on Google yet${data.problems.length < data.notOnGoogle ? ` (the ${data.problems.length} most recently checked are shown)` : ''}. To ask Google to look at one sooner, open it in Search Console\'s URL Inspection box and press Request indexing. Google does not allow that step to be automated.`),
+      data.problems.length
+        ? h('div', null, ...data.problems.map((p) => h('div', { class: 'audit' }, h('div', null, h('a', { href: p.url, target: '_blank', rel: 'noopener' }, p.url)), h('div', { class: 'muted' }, p.error ? 'Could not be checked: ' + p.error : `${p.state || 'Unknown'}${p.lastCrawlAt ? ', last crawled ' + when(p.lastCrawlAt) : ', not crawled yet'}`))))
+        : h('p', { class: 'muted' }, 'Nothing to list yet.')));
+}
+
 // ---------------------------------------------------------------- payments
 // Featured subscriptions paid through Stripe. A payment from a verified owner turns Featured on by itself; anything the
 // site could not match to an owner waits here for you.
@@ -375,6 +447,7 @@ async function viewPayments() {
     h('div', { class: 'card' }, data.active.length ? data.active.map(row) : h('p', { class: 'muted' }, 'No paid Featured listings yet. They appear here as soon as a firm pays.')),
     data.ended.length > 0 && h('h2', null, 'Recently ended'),
     data.ended.length > 0 && h('div', { class: 'card' }, data.ended.map(row)));
+}
 
 // ---------------------------------------------------------------- news
 // LawDB News shows blog cards from firms that have them switched on. Here you choose which firms, and whether the page is
@@ -499,7 +572,7 @@ async function viewActivity() {
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, news: viewNews, payments: viewPayments, people: viewPeople, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, news: viewNews, search: viewSearch, payments: viewPayments, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
 async function render(user) {

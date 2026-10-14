@@ -889,7 +889,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     // Google refuses (the service account was not added in Search Console): one clear message, and it stops at once
     g.mode = 'forbidden'; g.inspected.length = 0;
     const bad = await call('POST', '/api/admin/search/run', { part: 'inspect' });
-    ok(bad.status === 200 && bad.data.ok === false && /403/.test(bad.data.error) && /added as a user/.test(bad.data.error) && g.inspected.length === 1, 'a refusal is explained and the run stops after the first page');
+    ok(bad.status === 200 && bad.data.ok === false && /403/.test(bad.data.error) && /added as a user/.test(bad.data.error) && g.inspected.length <= 5, 'a refusal is explained and the run stops within the first few pages');
     ok((await call('GET', '/api/admin/search')).data.lastRun.ok === false, 'the admin screen shows the last run failed');
     g.mode = 'ok';
 

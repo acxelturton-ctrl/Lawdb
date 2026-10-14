@@ -173,15 +173,22 @@ export async function inspectBatch(env, { limit = GSC_LIMITS.batch } = {}) {
   let done = 0;
   let failed = 0;
   let stopped = null;
-  for (const url of queue) {
-    try { await inspectUrl(env, url, site); done++; } catch (err) {
-      failed++;
-      await env.DB.prepare(
-        `INSERT INTO search_pages (url, error, checked_at) VALUES (?,?,datetime('now')) ON CONFLICT (url) DO UPDATE SET error = excluded.error, checked_at = datetime('now')`
-      ).bind(url, String(err.message).slice(0, 200)).run().catch(() => {});
-      if (err.status === 401 || err.status === 403 || err.status === 429) { stopped = err.message; break; }
+  // Google takes a few seconds per page, so five at a time: 40 pages in under a minute (a browser gives up on a request after about 100 seconds).
+  let i = 0;
+  const worker = async () => {
+    while (!stopped && i < queue.length) {
+      const url = queue[i++];
+      try { await inspectUrl(env, url, site); done++; } catch (err) {
+        failed++;
+        await env.DB.prepare(
+          `INSERT INTO search_pages (url, error, checked_at) VALUES (?,?,datetime('now')) ON CONFLICT (url) DO UPDATE SET error = excluded.error, checked_at = datetime('now')`
+        ).bind(url, String(err.message).slice(0, 200)).run().catch(() => {});
+        if (err.status === 401 || err.status === 403 || err.status === 429) stopped = err.message; // the others stop at their next page
+      }
     }
-  }
+  };
+  await accessToken(env); // one sign-in before the five start, so they do not each ask Google for a token
+  await Promise.all(Array.from({ length: 5 }, worker));
   await setSetting(env, 'gsc_cursor', String(rest.length ? (cursor + next.length) % rest.length : 0));
   return { checked: done, failed, stopped, totalInSitemap: all.length };
 }

@@ -2,6 +2,7 @@ import { json, readJson, clampInt, NO_STORE, HttpError } from '../lib/http.js';
 import { requireAdmin } from '../lib/auth.js';
 import { runBackup } from '../lib/backup.js';
 import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
+import { listPayments, assignPayment, dismissPayment } from '../lib/stripe.js';
 import { addImage, removeImage, listImages } from '../lib/images.js';
 import { audit } from '../lib/audit.js';
 import { mailInBackground, decisionEmail } from '../lib/email.js';
@@ -15,7 +16,7 @@ export const LEAD_STATUSES = ['new', 'contacted', 'closed', 'spam'];
 
 export async function stats({ request, env }) {
   await requireAdmin(env, request);
-  const [firms, posts, leads, week, pending, mailFail, backup, reports] = await env.DB.batch([
+  const [firms, posts, leads, week, pending, mailFail, backup, reports, payReview, payLive] = await env.DB.batch([
     env.DB.prepare("SELECT COUNT(*) AS n, SUM(featured) AS featured FROM firms WHERE status = 'live'"),
     env.DB.prepare('SELECT COUNT(*) AS n FROM blog_posts'),
     env.DB.prepare('SELECT status, COUNT(*) AS n FROM leads GROUP BY status'),
@@ -24,6 +25,8 @@ export async function stats({ request, env }) {
     env.DB.prepare("SELECT COUNT(*) AS n, MAX(at) AS last FROM audit_log WHERE action IN ('mail.failed','login.email_failed') AND at > datetime('now','-1 day')"),
     env.DB.prepare("SELECT MAX(at) AS last FROM audit_log WHERE action = 'backup.ok'"),
     env.DB.prepare("SELECT COUNT(*) AS n FROM leads WHERE form = 'report-listing' AND status = 'new'"),
+    env.DB.prepare("SELECT COUNT(*) AS n FROM firm_subscriptions WHERE status = 'needs_review'"),
+    env.DB.prepare("SELECT COUNT(*) AS n, COALESCE(SUM(amount_cents), 0) AS cents FROM firm_subscriptions WHERE status IN ('active','past_due')"),
   ]);
   const byStatus = Object.fromEntries(LEAD_STATUSES.map((s) => [s, 0]));
   for (const r of leads.results) byStatus[r.status] = r.n;
@@ -37,6 +40,9 @@ export async function stats({ request, env }) {
     mailFailures24h: mailFail.results[0].n,
     lastBackupAt: backup.results[0].last,
     openReports: reports.results[0].n,
+    paymentsToReview: payReview.results[0].n,
+    featuredSubscriptions: payLive.results[0].n,
+    featuredMonthlyCents: payLive.results[0].cents,
   });
 }
 
@@ -290,6 +296,27 @@ export async function imagesRemove({ request, env, params }) {
   return reply({ ok: true });
 }
 
+
+// ---------------------------------------------------------------- Featured payments
+export async function paymentsList({ request, env }) {
+  await requireAdmin(env, request);
+  return reply(await listPayments(env));
+}
+
+export async function paymentsAssign({ request, env, params, url, exec }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 500);
+  const r = await assignPayment(env, admin, params.id, body.slug, exec, env.SITE_ORIGIN || url.origin);
+  if (r.error) throw new HttpError(r.status, r.error);
+  return reply({ ok: true });
+}
+
+export async function paymentsDismiss({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  const r = await dismissPayment(env, admin, params.id);
+  if (r.error) throw new HttpError(r.status, r.error);
+  return reply({ ok: true });
+}
 
 // ---------------------------------------------------------------- LawDB News (which blogs appear, and for whom)
 export async function newsGet({ request, env }) {

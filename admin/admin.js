@@ -32,7 +32,8 @@ function renderLogin() {
 
 // ---------------------------------------------------------------- shell
 let pendingCount = 0;
-const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['news', 'News'], ['people', 'People'], ['activity', 'Activity']];
+let paymentCount = 0;
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['news', 'News'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
 
 function shell(user, active, content) {
   return h('div', null,
@@ -42,7 +43,7 @@ function shell(user, active, content) {
         h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.reload(); } }, 'Sign out'), ' · ',
         h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); location.reload(); } }, 'Sign out everywhere')))),
     h('div', { class: 'wrap' },
-      h('nav', { class: 'tabs', 'aria-label': 'Sections' }, TABS.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'approvals' && pendingCount > 0 && h('span', { class: 'count' }, pendingCount)))),
+      h('nav', { class: 'tabs', 'aria-label': 'Sections' }, TABS.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'approvals' && pendingCount > 0 && h('span', { class: 'count' }, pendingCount), id === 'payments' && paymentCount > 0 && h('span', { class: 'count' }, paymentCount)))),
       content));
 }
 
@@ -50,6 +51,7 @@ function shell(user, active, content) {
 async function viewOverview() {
   const s = await api('GET', '/api/admin/stats');
   pendingCount = s.pendingApprovals;
+  paymentCount = s.paymentsToReview;
   const stat = (n, label) => h('div', { class: 'card stat' }, h('b', null, n), h('span', null, label));
   const backupOut = h('div');
   const stale = !s.lastBackupAt || Date.now() - new Date(s.lastBackupAt.replace(' ', 'T') + 'Z').getTime() > 36 * 3600 * 1000;
@@ -61,11 +63,12 @@ async function viewOverview() {
   } }, 'Back up now');
   return h('div', null, h('h1', null, 'Overview'),
     s.mailFailures24h > 0 && note('msg-err', `${s.mailFailures24h} email${s.mailFailures24h === 1 ? '' : 's'} failed to send in the last 24 hours. Owners may not be getting sign-in links. Check the Activity tab and your Brevo account.`),
+    s.paymentsToReview > 0 && h('div', { class: 'msg-err' }, `${s.paymentsToReview} Featured payment${s.paymentsToReview === 1 ? '' : 's'} need${s.paymentsToReview === 1 ? 's' : ''} your review. `, h('a', { href: '#payments' }, 'Open Payments')),
     s.openReports > 0 && h('div', { class: 'msg-err' }, `${s.openReports} listing report${s.openReports === 1 ? '' : 's'} waiting. `, h('a', { href: '#leads' }, 'Open Leads')),
     stale && note('msg-err', 'No backup in the last day and a half. Press "Back up now" and check the Activity tab.'),
     h('div', { class: 'grid' },
       stat(s.leads.new, 'New leads'), stat(s.leadsLast7Days, 'Leads, last 7 days'),
-      stat(s.pendingApprovals, 'Waiting for your approval'), stat(s.firms, 'Firms listed'), stat(s.featured, 'Featured firms'), stat(s.blogPosts, 'Blog posts')),
+      stat(s.pendingApprovals, 'Waiting for your approval'), stat(s.featuredSubscriptions, 'Featured subscriptions'), stat(money(s.featuredMonthlyCents), 'Featured, per month'), stat(s.firms, 'Firms listed'), stat(s.featured, 'Featured firms'), stat(s.blogPosts, 'Blog posts')),
     h('div', { class: 'card' }, h('b', null, 'Backups'),
       h('p', { class: 'muted' }, s.lastBackupAt ? 'Last backup: ' + when(s.lastBackupAt) + '. A copy is made every night and kept for 35 days.' : 'No backup has run yet.'),
       h('div', { class: 'row' }, backupBtn), backupOut),
@@ -237,6 +240,8 @@ async function viewFirms() {
 
 // ---------------------------------------------------------------- approvals
 // One tap decides who may manage a firm. Nothing an owner asks for takes effect before this.
+const money = (cents) => '$' + ((cents || 0) / 100).toLocaleString('en-CA', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+
 const matchNote = (m) => ({
   match: m.isNewListing ? note('msg-ok', 'Their email is on the website domain they entered. They typed that website themselves, so it proves little for a new listing.') : note('msg-ok', 'Likely genuine: their email address is on the firm\'s own website domain.'),
   free: note('muted', 'Personal email (Gmail or similar). It cannot confirm the person works at the firm. Consider calling the firm\'s listed number.'),
@@ -306,6 +311,70 @@ async function viewApprovals() {
     h('h2', null, 'Recent decisions'),
     h('div', { class: 'card' }, decided.length ? decided.map(decidedRow) : h('p', { class: 'muted' }, 'None yet.')));
 }
+
+// ---------------------------------------------------------------- payments
+// Featured subscriptions paid through Stripe. A payment from a verified owner turns Featured on by itself; anything the
+// site could not match to an owner waits here for you.
+async function viewPayments() {
+  const data = await api('GET', '/api/admin/payments');
+  paymentCount = data.needsReview.length;
+  const dollars = (r) => (r.amountCents == null ? '' : money(r.amountCents) + (r.currency ? ' ' + r.currency.toUpperCase() : ''));
+
+  function reviewCard(r) {
+    const out = h('div');
+    const pick = { slug: r.slug || '' };
+    const search = h('input', { type: 'search', placeholder: 'Search for the firm to feature', 'aria-label': 'Search firms' });
+    const results = h('div');
+    let timer;
+    const choose = h('p', { class: 'muted' }, r.slug ? `Payer named: ${r.firmName}` : 'No firm was named in this payment.');
+    const assign = h('button', { class: 'primary', type: 'button' }, r.slug ? `Feature ${r.firmName}` : 'Feature the chosen firm');
+    assign.disabled = !pick.slug;
+    assign.addEventListener('click', async () => {
+      assign.disabled = true;
+      try { await api('POST', `/api/admin/payments/${encodeURIComponent(r.id)}/assign`, { slug: pick.slug }); render(me); }
+      catch (err) { out.replaceChildren(note('msg-err', err.message)); assign.disabled = false; }
+    });
+    const dismiss = h('button', { type: 'button' }, 'Dismiss');
+    dismiss.addEventListener('click', async () => {
+      if (!confirm('Dismiss this payment? Nobody will be made Featured.')) return;
+      try { await api('POST', `/api/admin/payments/${encodeURIComponent(r.id)}/dismiss`); render(me); } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
+    });
+    search.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(async () => {
+        const q = search.value.trim();
+        if (q.length < 2) return results.replaceChildren();
+        try {
+          const { firms } = await api('GET', '/api/admin/firms?limit=8&q=' + encodeURIComponent(q));
+          results.replaceChildren(...firms.map((f) => h('button', { class: 'firm-row', type: 'button', onclick: () => { pick.slug = f.slug; assign.disabled = false; assign.textContent = `Feature ${f.name}`; choose.textContent = `Chosen: ${f.name}, ${f.city}`; results.replaceChildren(); } }, h('span', null, f.name, h('small', null, `${f.city}, ${f.province}`)))));
+        } catch (err) { results.replaceChildren(note('msg-err', err.message)); }
+      }, 250);
+    });
+    return h('div', { class: 'card' },
+      h('div', { class: 'row spread' }, h('b', null, r.payerEmail || '(no email)'), h('span', { class: 'badge new' }, 'Needs review')),
+      h('p', { class: 'muted' }, `${dollars(r)} a month · paid ${when(r.createdAt)}`),
+      choose,
+      r.owners && r.owners.length > 0 && h('p', { class: 'muted' }, 'Approved owners of that firm: ' + r.owners.join(', ')),
+      r.slug && note('msg-err', 'The payer\'s email is not an approved owner of this firm, so nothing was changed automatically.'),
+      !r.slug && h('div', null, search, results),
+      h('div', { class: 'row' }, assign, dismiss), out);
+  }
+
+  const row = (r) => h('div', { class: 'audit' },
+    h('div', null, h('b', null, r.firmName || '(no firm)'), ' · ', r.payerEmail || '', ' · ', h('span', { class: 'pay-money' }, dollars(r)),
+      r.status === 'past_due' && h('span', { class: 'badge new' }, ' Payment problem')),
+    h('div', { class: 'muted' }, r.status === 'canceled' ? `Ended ${when(r.updatedAt)}` : `Since ${when(r.createdAt)}${r.periodEnd ? ' · renews ' + when(r.periodEnd) : ''}${r.cancelAtPeriodEnd ? ' · will not renew' : ''}`));
+
+  return h('div', null, h('h1', null, 'Payments'),
+    h('div', { class: 'grid' },
+      h('div', { class: 'card stat' }, h('b', null, data.totals.activeCount), h('span', null, 'Featured subscriptions')),
+      h('div', { class: 'card stat' }, h('b', null, money(data.totals.monthlyCents)), h('span', null, 'Featured, per month'))),
+    data.needsReview.length > 0 && h('h2', null, 'Needs your review'),
+    data.needsReview.map(reviewCard),
+    h('h2', null, 'Active'),
+    h('div', { class: 'card' }, data.active.length ? data.active.map(row) : h('p', { class: 'muted' }, 'No paid Featured listings yet. They appear here as soon as a firm pays.')),
+    data.ended.length > 0 && h('h2', null, 'Recently ended'),
+    data.ended.length > 0 && h('div', { class: 'card' }, data.ended.map(row)));
 
 // ---------------------------------------------------------------- news
 // LawDB News shows blog cards from firms that have them switched on. Here you choose which firms, and whether the page is
@@ -430,7 +499,7 @@ async function viewActivity() {
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, news: viewNews, people: viewPeople, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, news: viewNews, payments: viewPayments, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
 async function render(user) {
@@ -438,7 +507,7 @@ async function render(user) {
   const id = VIEWS[location.hash.slice(1)] ? location.hash.slice(1) : 'overview';
   mount(shell(user, id, h('p', { class: 'muted' }, 'Loading…')));
   try {
-    const [view] = await Promise.all([VIEWS[id](), id === 'overview' || id === 'approvals' ? null : api('GET', '/api/admin/stats').then((st) => { pendingCount = st.pendingApprovals; }).catch(() => {})]);
+    const [view] = await Promise.all([VIEWS[id](), id === 'overview' || id === 'approvals' || id === 'payments' ? null : api('GET', '/api/admin/stats').then((st) => { pendingCount = st.pendingApprovals; paymentCount = st.paymentsToReview; }).catch(() => {})]);
     mount(shell(user, id, view));
   } catch (err) {
     if (err.status === 401) return boot();

@@ -384,7 +384,7 @@
     <p id="successText">Thanks for submitting your firm. We review every request before a profile goes live, and we will email you to confirm.</p>
     <div id="successCheckout" style="display:none;">
       <a class="submit-btn checkout-btn" id="checkoutLink" href="https://buy.stripe.com/4gM7sN2X7d8naOFe0dfbq01" target="_blank" rel="noopener">Continue to secure checkout &rarr;</a>
-      <p class="note" id="checkoutNote">Checkout opens on Stripe in a new tab. Your listing is not Featured until payment is confirmed. If the page does not open, email <a href="mailto:info@lawdb.ca">info@lawdb.ca</a> and we will send you the link.</p>
+      <p class="note" id="checkoutNote">Checkout opens on Stripe in a new tab. Your listing is not Featured until payment is confirmed. Already have a LawDB account? <a href="/account/">Upgrade from your dashboard</a> and it switches on automatically. If the page does not open, email <a href="mailto:info@lawdb.ca">info@lawdb.ca</a> and we will send you the link.</p>
     </div>
   </div>
 
@@ -470,14 +470,14 @@
 
 <script>
 // One source of truth for plan, price and checkout destination.
-// ?type=solo selects the solo-practitioner plan; anything else is the firm plan.
+// ?type=solo only changes the wording for solo practitioners; there is one Featured plan ($199/month) for everyone.
 // ?plan=featured pre-selects Featured (used by the "Get Featured" buttons across the site).
 const QS = new URLSearchParams(window.location.search);
 const SEGMENT = (QS.get('type') === 'solo') ? 'solo' : 'firm';
 const PLANS = {
-  firm: { price: '$199 / month', amount: '$199', label: 'Featured ($199/month)', stripe: 'https://buy.stripe.com/4gM7sN2X7d8naOFe0dfbq01' },
-  solo: { price: '$99 / month',  amount: '$99',  label: 'Featured ($99/month)',  stripe: 'https://buy.stripe.com/fZubJ3dBL3xNf4V6xLfbq02' }
+  firm: { price: '$199 / month', amount: '$199', label: 'Featured ($199/month)', stripe: 'https://buy.stripe.com/4gM7sN2X7d8naOFe0dfbq01' }
 };
+PLANS.solo = PLANS.firm; // one Featured plan for everyone: $199/month
 const PLAN = PLANS[SEGMENT];
 const STRIPE_URL = PLAN.stripe;
 let selectedPlan = 'basic';   // 'basic' | 'featured' - the only thing the submit handler trusts

@@ -9,6 +9,7 @@ import { geocode } from '../lib/geocode.js';
 import { mailInBackground, newClaimEmail } from '../lib/email.js';
 import { adminEmails } from '../lib/auth.js';
 import { LEAD_STATUSES } from './admin.js';
+import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
 import { addImage, removeImage, listImages } from '../lib/images.js';
 
 const reply = (body, status = 200) => json(body, status, NO_STORE);
@@ -147,6 +148,27 @@ export async function updateLead({ request, env, params }) {
   return reply({ ok: true });
 }
 
+
+// ---------------------------------------------------------------- blog cards (own firm)
+export async function feedGet({ request, env, params }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  return reply(await getFeedInfo(env, params.slug));
+}
+
+export async function feedUpdate({ request, env, params, exec }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  await updateFeedSettings(env, user, params.slug, await readJson(request, 1000), exec);
+  return reply({ ok: true, ...(await getFeedInfo(env, params.slug)) });
+}
+
+export async function feedRefresh({ request, env, params, exec }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  const result = await checkFeedNow(env, user, params.slug, { admin: false }, exec);
+  return reply({ ok: true, result, ...(await getFeedInfo(env, params.slug)) });
+}
 
 // ---------------------------------------------------------------- pictures
 export async function imagesList({ request, env, params }) {

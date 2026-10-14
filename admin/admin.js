@@ -2,7 +2,7 @@
 // SECURITY: visitor-submitted text (leads) is only ever inserted with textContent / text nodes,
 // never innerHTML, so hostile messages cannot run code in an admin's browser.
 
-import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, CASE_LABELS, PROVINCES } from './ui.js';
+import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, feedPanel, CASE_LABELS, PROVINCES } from './ui.js';
 
 const app = document.getElementById('app');
 
@@ -178,7 +178,7 @@ async function viewFirms() {
       field('Profile page style', f.pageMode, 'The original pages are hand-built and keep their own wording. The new style is built from the database, so it shows everything you enter here.'),
       h('p', { class: 'muted' }, 'Saved right away; public pages update within about a minute. Rating, reviews and map position come from Google and are not editable here.'),
       h('div', { class: 'row' }, save, h('button', { type: 'button', onclick: () => editor.replaceChildren() }, 'Close')), out);
-    editor.replaceChildren(form, picturesPanel(`/api/admin/firms/${encodeURIComponent(slug)}/images`));
+    editor.replaceChildren(form, picturesPanel(`/api/admin/firms/${encodeURIComponent(slug)}/images`), feedPanel(`/api/admin/firms/${encodeURIComponent(slug)}/feed`));
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 

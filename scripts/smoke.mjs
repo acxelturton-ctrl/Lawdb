@@ -2,6 +2,7 @@
 // Needs .dev.vars containing:  ADMIN_EMAILS=smoke-admin@example.com  and  DEV_ECHO_LINK=1
 //   BASE=http://localhost:8799 npm run smoke
 import { readFileSync } from 'node:fs';
+import zlib from 'node:zlib';
 import { isDeepStrictEqual } from 'node:util';
 import { emailMatch } from '../src/routes/admin.js';
 import { checkOwnerText } from '../src/lib/content-rules.js';
@@ -29,6 +30,24 @@ const call = async (method, path, body, extraHeaders = {}) => {
   let data = null;
   try { data = await res.json(); } catch {}
   return { status: res.status, data, headers: res.headers };
+};
+
+// --- tiny image builders for the picture tests (real PNG; JPEG/WebP carry valid headers with the stated size)
+const crcTable = Array.from({ length: 256 }, (_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; return c >>> 0; });
+const crc32 = (buf) => { let c = 0xffffffff; for (const b of buf) c = crcTable[(c ^ b) & 255] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; };
+const pngChunk = (type, data) => { const len = Buffer.alloc(4); len.writeUInt32BE(data.length); const body = Buffer.concat([Buffer.from(type), data]); const crc = Buffer.alloc(4); crc.writeUInt32BE(crc32(body)); return Buffer.concat([len, body, crc]); };
+const makePng = (w, h, shade = 200) => {
+  const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = 2;
+  const row = Buffer.concat([Buffer.from([0]), Buffer.alloc(w * 3, shade)]);
+  const raw = Buffer.concat(Array.from({ length: Math.min(h, 400) }, () => row)); // enough rows to be a real file; header states the size
+  return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), pngChunk('IHDR', ihdr), pngChunk('IDAT', zlib.deflateSync(raw)), pngChunk('IEND', Buffer.alloc(0))]);
+};
+const makeJpeg = (w, h) => Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0, 16, 0x4a, 0x46, 0x49, 0x46, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0xff, 0xc0, 0, 17, 8, h >> 8, h & 255, w >> 8, w & 255, 3, 1, 0x22, 0, 2, 0x11, 1, 3, 0x11, 1, 0xff, 0xd9]);
+const makeWebp = (w, h) => { const b = Buffer.alloc(40); b.write('RIFF', 0); b.writeUInt32LE(32, 4); b.write('WEBP', 8); b.write('VP8X', 12); b.writeUInt32LE(10, 16); b.writeUIntLE(w - 1, 24, 3); b.writeUIntLE(h - 1, 27, 3); return b; };
+const rawCall = async (method, path, bytes, type, extraHeaders = {}) => {
+  const res = await fetch(BASE + path, { method, redirect: 'manual', signal: AbortSignal.timeout(20000), headers: { 'cf-connecting-ip': RUN_IP, ...(type ? { 'content-type': type } : {}), ...(cookie ? { cookie } : {}), ...extraHeaders }, body: bytes });
+  let data = null; try { data = await res.json(); } catch {}
+  return { status: res.status, data };
 };
 const tokenFrom = (link) => link.split('#token=')[1];
 const staticFile = (f) => JSON.parse(readFileSync(new URL('../' + f, import.meta.url), 'utf8'));
@@ -325,6 +344,72 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   cookie = '';
   ok(isDeepStrictEqual((await call('GET', '/api/firms/' + nslug)).data.hours, { 1: [['08:00', '16:30']] }), 'owner hours reach the public data');
 
+  // pictures: owners add a logo, cover and photos; everything is checked; admins can do it for any firm
+  const base = '/api/account/firms/achkar-law/images';
+  cookie = '';
+  ok((await rawCall('POST', base + '?kind=logo', makePng(100, 100), 'image/png')).status === 401, 'uploading a picture needs sign-in');
+  as(o2.jar);
+  ok((await rawCall('POST', base + '?kind=logo', makePng(100, 100), 'image/png')).status === 403, 'another owner cannot upload pictures for this firm');
+  as(o1.jar);
+  const logo1 = await rawCall('POST', base + '?kind=logo', makePng(100, 100, 120), 'image/png');
+  ok(logo1.status === 201 && /^\/img\/[0-9a-f]{24}$/.test(logo1.data.image.url), 'an owner uploads a logo');
+  const got = await fetch(BASE + logo1.data.image.url);
+  ok(got.status === 200 && got.headers.get('content-type') === 'image/png' && got.headers.get('x-content-type-options') === 'nosniff' && /sandbox/.test(got.headers.get('content-security-policy') || ''), 'the picture is served with safe headers');
+  ok(Buffer.from(await got.arrayBuffer()).equals(makePng(100, 100, 120)), 'the picture comes back byte for byte');
+  const afterLogo = (await call('GET', '/api/firms/achkar-law')).data;
+  ok(afterLogo.type === 'logo' && afterLogo.src === `img/${logo1.data.image.id}`, 'the logo is in the firm\'s public record');
+  ok((await getRaw('/firms/achkar-law')).text.includes(`img/${logo1.data.image.id}`), 'the logo is on the firm\'s page');
+  const logo2 = await rawCall('POST', base + '?kind=logo', makePng(120, 120, 80), 'image/png');
+  ok(logo2.status === 201 && (await fetch(BASE + logo1.data.image.url)).status === 404, 'a new logo replaces the old one');
+  ok((await call('GET', '/api/firms/achkar-law')).data.src === `img/${logo2.data.image.id}`, 'the public record points at the new logo');
+  ok((await call('DELETE', `${base}/${logo2.data.image.id}`)).status === 200, 'the owner removes the logo');
+  const reverted = (await call('GET', '/api/firms/achkar-law')).data;
+  ok((reverted.src ?? null) === (origFirm.src ?? null) && reverted.type === origFirm.type, 'removing the logo restores what the firm had before');
+  ok((await fetch(BASE + logo2.data.image.url)).status === 404, 'a removed picture is no longer served');
+
+  // checks on what is uploaded
+  const badUpload = async (bytes, type, kind = 'photo') => (await rawCall('POST', `${base}?kind=${kind}`, bytes, type)).status;
+  ok((await badUpload(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>'.padEnd(60)), 'image/svg+xml')) === 415, 'SVG pictures are refused');
+  ok((await badUpload(Buffer.from('GIF89a'.padEnd(64)), 'image/gif')) === 415, 'GIF is refused');
+  ok((await badUpload(Buffer.from('this is just text, not a picture at all'), 'image/png')) === 415, 'a file claiming to be a PNG is checked by its content');
+  ok((await badUpload(makePng(20, 20), 'image/png')) === 422, 'tiny pictures are refused');
+  ok((await badUpload(makePng(9000, 9000), 'image/png')) === 422, 'enormous dimensions are refused');
+  ok((await badUpload(Buffer.concat([makePng(100, 100), Buffer.alloc(3.2 * 1024 * 1024)]), 'image/png')) === 413, 'files over 3 MB are refused');
+  ok((await rawCall('POST', `${base}?kind=banner`, makePng(100, 100), 'image/png')).status === 422, 'an unknown picture kind is refused');
+  ok((await rawCall('POST', `${base}?kind=photo&alt=${encodeURIComponent('Visit www.spam-site.com')}`, makePng(100, 100), 'image/png')).status === 422, 'a link in a picture description is refused for owners');
+  ok((await rawCall('POST', base + '?kind=logo', makePng(100, 100), 'image/png', { origin: 'https://evil.example' })).status === 403, 'cross-origin uploads are refused');
+  ok((await fetch(BASE + '/img/not-an-id')).status === 404 && (await fetch(BASE + '/img/' + '0'.repeat(24))).status === 404, 'unknown pictures are 404');
+
+  // cover and photos
+  const cover = await rawCall('POST', base + '?kind=cover', makeJpeg(1200, 400), 'image/jpeg');
+  ok(cover.status === 201, 'an owner uploads a cover picture (JPEG)');
+  const coverPage = (await getRaw('/firms/achkar-law')).text;
+  ok(coverPage.includes(`img/${cover.data.image.id}`) && coverPage.includes(`og:image" content="https://lawdb.ca/img/${cover.data.image.id}"`), 'the cover shows on the page and in its share preview');
+  const photoIds = [];
+  for (let i = 0; i < 6; i++) { const r = await rawCall('POST', `${base}?kind=photo&alt=${encodeURIComponent('Our office ' + i)}`, i % 2 ? makeWebp(800, 600) : makePng(200 + i, 150), i % 2 ? 'image/webp' : 'image/png'); if (r.status === 201) photoIds.push(r.data.image.id); }
+  ok(photoIds.length === 6, 'an owner uploads six photos (PNG and WebP)');
+  ok((await badUpload(makePng(100, 100), 'image/png')) === 409, 'a seventh photo is refused');
+  const photoPage = (await getRaw('/firms/achkar-law')).text;
+  ok(photoIds.every((id) => photoPage.includes(`/img/${id}`)) && photoPage.includes('alt="Our office 3"') && photoPage.includes('class="photo-grid"'), 'the photos show on the page with their descriptions');
+  ok((await call('GET', base)).data.images.length === 7, 'the owner sees all their pictures');
+  as(o2.jar);
+  ok((await call('DELETE', `${base}/${photoIds[0]}`)).status === 403, 'another owner cannot remove these pictures');
+  as(o1.jar);
+  ok((await call('DELETE', `${base}/${photoIds[0]}`)).status === 200, 'the owner removes a photo');
+  ok((await call('DELETE', `${base}/${photoIds[0]}`)).status === 404, 'removing it again is a 404');
+
+  // an admin can manage any firm's pictures
+  as(adminJar);
+  const adminLogo = await rawCall('POST', '/api/admin/firms/torkin-manes-llp/images?kind=logo', makePng(100, 100, 50), 'image/png');
+  ok(adminLogo.status === 201, 'an admin uploads a logo for any firm');
+  ok((await call('GET', '/api/admin/firms/torkin-manes-llp/images')).data.images.length === 1, 'the admin lists a firm\'s pictures');
+  ok((await call('DELETE', `/api/admin/firms/torkin-manes-llp/images/${adminLogo.data.image.id}`)).status === 200, 'the admin removes it');
+  ok((await call('GET', '/api/admin/audit?limit=100')).data.entries.some((e) => e.action === 'image.add') , 'pictures are recorded in the activity log');
+  for (const img of (await call('GET', '/api/admin/firms/achkar-law/images')).data.images) await call('DELETE', `/api/admin/firms/achkar-law/images/${img.id}`);
+  ok((await call('GET', '/api/admin/firms/achkar-law/images')).data.images.length === 0, 'the admin cleared the test pictures');
+  ok((await call('GET', '/api/firms/achkar-law')).data.heroImage === origFirm.heroImage || (origFirm.heroImage === undefined && (await call('GET', '/api/firms/achkar-law')).data.heroImage === undefined), 'removing the cover restores the firm\'s original');
+  as(o1.jar);
+
   // removing access takes effect immediately
   as(adminJar);
   const owner1Row = (await call('GET', '/api/admin/members?decided=1')).data.members.find((m) => m.email === `owner1-${run}@example.com`);
@@ -413,7 +498,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   // backups and nightly housekeeping
   as(adminJar);
   const bk = await call('POST', '/api/admin/backup');
-  ok(bk.status === 200 && bk.data.rows.firms >= 370 && bk.data.rows.users >= 1, 'the admin can back up now');
+  ok(bk.status === 200 && bk.data.rows.firms >= 370 && bk.data.rows.users >= 1 && 'firm_images' in bk.data.rows, 'the admin can back up now (picture records included)');
   ok(!!(await call('GET', '/api/admin/stats')).data.lastBackupAt, 'the overview shows when the last backup ran');
   cookie = '';
   const cron = await fetch(BASE + '/__scheduled?cron=17+7+*+*+*', { signal: AbortSignal.timeout(30000) });

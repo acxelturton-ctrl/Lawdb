@@ -9,6 +9,7 @@ Canadian lawyer directory. Static pages served by Cloudflare, plus a Worker API 
 | Website | `*.html`, `site.css`, `images/`, city/province folders | Served directly by Cloudflare (fast, free). |
 | API | `src/worker.js` | Runs only for `/api/*` requests. |
 | Database | Cloudflare D1, schema in `migrations/` | Stores firms, blog posts and form leads. |
+| Pictures | Cloudflare R2 bucket `lawdb-images` | Firm logos, covers and photos, served at `/img/<id>`. |
 | Seed data | `firms_data.json`, `firms_hours.json`, `blog_data.json` | Initial database contents (`scripts/build-seed.mjs`) and the fallback if the database is down. At runtime the Worker serves these from the database. |
 
 ### API
@@ -19,8 +20,8 @@ Canadian lawyer directory. Static pages served by Cloudflare, plus a Worker API 
 - `GET /api/blog?province=ON`
 - `POST /api/leads` (JSON or form-encoded: `name`, `email` required; `phone`, `message`, `form`, `page` optional; any extra fields are kept)
 - `POST /api/auth/request-link`, `POST /api/auth/verify`, `POST /api/auth/logout`, `GET /api/auth/me`
-- `GET /api/admin/{stats,leads,firms,firms/:slug,audit}`, `POST /api/admin/firms` (create a firm), `GET /api/admin/{members,users}`, `PATCH /api/admin/{leads/:id,firms/:slug,members/:id,users/:id}`, `POST /api/admin/{audit/:id/revert,backup}` (admins only)
-- `GET /api/account/{me,search,firms/:slug,firms/:slug/leads}`, `POST /api/account/{claims,firms}`, `PATCH /api/account/{firms/:slug,leads/:id}` (signed-in firm owners; firm routes need an approved membership)
+- `GET /api/admin/{stats,leads,firms,firms/:slug,audit}`, `POST /api/admin/firms` (create a firm), `GET /api/admin/{members,users}`, `PATCH /api/admin/{leads/:id,firms/:slug,members/:id,users/:id}`, `POST /api/admin/{audit/:id/revert,backup}`, `GET|POST|DELETE /api/admin/firms/:slug/images[/:id]` (admins only)
+- `GET /api/account/{me,search,firms/:slug,firms/:slug/leads}`, `POST /api/account/{claims,firms}`, `PATCH /api/account/{firms/:slug,leads/:id}`, `GET|POST|DELETE /api/account/firms/:slug/images[/:id]` (signed-in firm owners; firm routes need an approved membership)
 
 ## Local development
 

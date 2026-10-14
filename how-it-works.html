@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="./images/favicon-192.png"><link rel="icon" href="./favicon.ico" sizes="any"><link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How LawDB Works | LawDB.ca</title>
+<meta name="description" content="How LawDB sources listing data, what Featured placement does and doesn't change, and how search result order is decided.">
+<link rel="canonical" href="https://lawdb.ca/how-it-works.html">
+<meta property="og:title" content="How LawDB Works | LawDB.ca">
+<meta property="og:description" content="How LawDB sources listing data, what Featured placement does and doesn&#x27;t change, and how search result order is decided.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lawdb.ca/how-it-works.html">
+<meta property="og:site_name" content="LawDB.ca">
+<meta property="og:locale" content="en_CA">
+<meta property="og:image" content="https://lawdb.ca/images/og-default.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How LawDB Works | LawDB.ca">
+<meta name="twitter:description" content="How LawDB sources listing data, what Featured placement does and doesn&#x27;t change, and how search result order is decided.">
+<meta name="twitter:image" content="https://lawdb.ca/images/og-default.jpg">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "name": "How LawDB Works | LawDB.ca",
+ "url": "https://lawdb.ca/how-it-works.html",
+ "description": "How LawDB sources listing data, what Featured placement does and doesn't change, and how search result order is decided.",
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "LawDB.ca",
+  "url": "https://lawdb.ca/"
+ }
+}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap');
+  :root{
+    --ink:#2b2723; --ink-soft:#6b645b; --brass:#d9a441; --brass-deep:#9a6f1c;
+    --red:#d9a441; --red-deep:#9a6f1c; --red-tint:#fbf3e3; --red-border:#edd9ae;
+    --cream:#f4f1ea; --card:#ffffff; --line:#dcd8cb; --dark:#1f1c19; --dark-2:#26221e; --green:#1f6f6b;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:'Inter',sans-serif; color:var(--ink); background:var(--cream);}
+  a{color:inherit;}
+  .site-header{ height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:var(--dark,#1b1815); color:#fff; position:sticky; top:0; z-index:500; }
+  .site-header .mark{ font-family:'Source Serif 4',serif; font-size:19px; font-weight:700; text-decoration:none; color:#fff; display:flex; align-items:center; gap:8px; }
+  .brand-icon{ flex-shrink:0; display:block; }
+  .site-header .header-right{ display:flex; align-items:center; gap:12px; }
+  .site-header .back-link{ font-size:12px; color:#aca59c; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link:hover{ color:#fff; }
+  .hamburger-btn{ background:none; border:none; cursor:pointer; padding:6px; display:flex; flex-direction:column; gap:4px; }
+  .hamburger-btn span{ display:block; width:22px; height:2px; background:#fff; border-radius:2px; }
+  .menu-overlay{ position:fixed; inset:0; background:rgba(6,8,11,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
+  .menu-overlay.open{ opacity:1; pointer-events:auto; }
+  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#1f1c19; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
+  .menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(0,0,0,0.35); }
+  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#aca59c; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
+  .menu-drawer a{ color:#efece6; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #38332e; }
+  .menu-drawer a:hover{ color:var(--brass,#c99749); }
+  .menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#e0342f); color:#fff; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
+  .wrap{ max-width:720px; margin:0 auto; padding:36px 20px 80px; }
+  @media (min-width:900px){ .wrap{ max-width:780px; padding-top:48px; } }
+  .crumb{ font-size:12.5px; color:var(--ink-soft); margin-bottom:18px; }
+  .crumb a{ text-decoration:none; color:var(--ink-soft); }
+  .crumb a:hover{ color:var(--brass-deep); }
+  .post-meta{ font-size:12.5px; color:var(--ink-soft); margin-bottom:10px; }
+  .post-meta .city-pill{ display:inline-block; background:#eef0f2; color:var(--ink); padding:2px 10px; border-radius:20px; font-weight:600; font-size:11.5px; margin-right:8px; }
+  h1{ font-family:'Source Serif 4',serif; font-size:30px; line-height:1.28; margin:0 0 18px; }
+  .hero-banner{ width:100%; height:200px; border-radius:8px; margin-bottom:26px; display:flex; align-items:flex-end; padding:26px; color:#fff; }
+  .hero-banner span{ font-family:'Source Serif 4',serif; font-size:20px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.25); }
+  .post-body{ font-size:16px; line-height:1.8; color:#3b3631; }
+  .post-body h2{ font-family:'Source Serif 4',serif; font-size:21px; color:var(--ink); margin:32px 0 12px; }
+  .post-body p{ margin:0 0 18px; }
+  .post-body a{ color:var(--brass-deep); font-weight:600; text-decoration:none; }
+  .post-body a:hover{ text-decoration:underline; }
+  .post-cta{ background:var(--card); border:1px solid var(--line); border-left:3px solid var(--brass); border-radius:6px; padding:18px 20px; margin:34px 0 10px; }
+  .post-cta h3{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 8px; }
+  .post-cta p{ margin:0 0 8px; font-size:14px; color:var(--ink-soft); }
+  .post-cta a{ color:var(--brass-deep); font-weight:600; text-decoration:none; }
+  .post-cta a:hover{ text-decoration:underline; }
+  .related{ margin:28px 0 10px; padding:18px 20px; background:#eef0f2; border-radius:6px; }
+  .related h3{ font-family:'Source Serif 4',serif; font-size:15px; margin:0 0 10px; }
+  .related ul{ margin:0; padding-left:18px; }
+  .related li{ margin-bottom:6px; font-size:14px; }
+  .related a{ color:var(--ink); font-weight:600; text-decoration:none; }
+  .related a:hover{ color:var(--brass-deep); text-decoration:underline; }
+  .fine{ font-size:11.5px; color:#8f8a80; margin-top:30px; line-height:1.6; }
+  .site-footer{ background:var(--dark,#1b1815); color:#8f8a80; padding:48px 20px 24px; }
+  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2e2a26; }
+  @media (max-width:760px){ .site-footer .foot-grid{ grid-template-columns:1fr 1fr; } }
+  .site-footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:19px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .site-footer .fblurb{ font-size:13px; line-height:1.7; max-width:280px; }
+  .site-footer h4{ color:#c7cfda; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px; font-weight:700; }
+  .site-footer ul{ list-style:none; margin:0; padding:0; }
+  .site-footer li{ margin-bottom:10px; }
+  .site-footer a{ color:#8f8a80; text-decoration:none; font-size:13.5px; }
+  .site-footer a:hover{ color:#fff; }
+  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#6b645b; }
+
+  .wrap3{ max-width:760px; margin:0 auto; padding:40px 20px 80px; }
+  h1.pp{ font-family:'Source Serif 4',serif; font-size:30px; margin:0 0 6px; }
+  .pp-updated{ font-size:12.5px; color:var(--ink-soft); margin:0 0 32px; }
+  .pp-body h2{ font-family:'Source Serif 4',serif; font-size:19px; margin:32px 0 10px; color:var(--ink); }
+  .pp-body h3{ font-family:'Source Serif 4',serif; font-size:16px; margin:22px 0 8px; color:var(--ink); }
+  .pp-body p{ font-size:14.5px; line-height:1.75; color:#3b3631; margin:0 0 14px; }
+  .pp-body ul{ font-size:14.5px; line-height:1.75; color:#3b3631; margin:0 0 14px; padding-left:20px; }
+  .pp-body li{ margin-bottom:6px; }
+  .pp-body a{ color:var(--brass-deep); font-weight:600; text-decoration:none; }
+  .pp-body a:hover{ text-decoration:underline; }
+  .pp-callout{ background:#f4f1ea; border:1px solid var(--line); border-left:3px solid var(--brass); border-radius:6px; padding:16px 20px; margin:20px 0; font-size:14px; color:#3b3631; }
+  .pp-table{ width:100%; border-collapse:collapse; margin:14px 0 22px; font-size:13.5px; }
+  .pp-table th{ text-align:left; padding:10px 12px; background:#f4f1ea; border-bottom:2px solid var(--line); font-family:'Source Serif 4',serif; font-size:14px; }
+  .pp-table td{ padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+</style>
+<link rel="stylesheet" href="desktop.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="lwa.css">
+</head>
+<body class="pg-doc">
+<header class="site-header lw-light">
+  <a class="mark" href="./index.html"><img src="./images/logo-icon.png" alt="LawDB"><span class="wordmark"><span class="name"><span class="law">Law</span><span class="db">DB</span><sup style="font-size:.4em;font-weight:600;margin-left:1px;vertical-align:super;line-height:0;">&trade;</sup></span><span class="tagline">Canada&#39;s Legal Directory</span></span></a>
+  <div class="header-right">
+    <a class="back-link" href="javascript:history.back()">Back</a>
+    <button class="hamburger-btn" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="menu-drawer" id="menuDrawer">
+  <button class="menu-close" id="menuClose" aria-label="Close menu">&times;</button>
+  <a href="./find-lawyers.html">Find Your Lawyer</a>
+  <a href="./legal-news.html">Legal News</a>
+  <a href="./for-firms.html">Advertise With Us</a>
+  <a href="./list-your-firm.html">Add Your Firm</a>
+  <a href="./contact.html">Contact Us</a>
+  <a class="menu-cta" href="./book-a-call.html">Request a Consultation</a>
+</nav>
+<script>
+(function(){
+  var toggle = document.getElementById('menuToggle');
+  var closeBtn = document.getElementById('menuClose');
+  var overlay = document.getElementById('menuOverlay');
+  var drawer = document.getElementById('menuDrawer');
+  function openMenu(){ overlay.classList.add('open'); drawer.classList.add('open'); }
+  function shutMenu(){ overlay.classList.remove('open'); drawer.classList.remove('open'); }
+  if(toggle) toggle.addEventListener('click', openMenu);
+  if(closeBtn) closeBtn.addEventListener('click', shutMenu);
+  if(overlay) overlay.addEventListener('click', shutMenu);
+})();
+</script>
+
+
+<div class="wrap3">
+  <h1 class="pp">How LawDB Works</h1>
+  <p class="pp-updated">Last updated: September 13, 2026</p>
+
+  <div class="pp-body">
+    <p>This page explains, plainly, where our listing data comes from, how firms end up on LawDB, what "Featured" actually changes, and how a firm's position in search results is decided. If anything here is unclear or you think a listing is wrong, see "Report an issue" at the bottom.</p>
+
+    <h2>Where the data comes from</h2>
+    <p>Every firm on LawDB - Basic or Featured - starts from the same source: Google's public business listings (name, address, phone number, star rating, and review count). We don't ask a firm to submit its own rating, and a firm can't pay to change what its rating shows. If a firm's Google rating is 3.8 stars, that's what appears here, whether it lists for free or pays for Featured.</p>
+    <p>Practice-area tags (which kinds of cases a firm handles) are assigned by us based on public information about the firm, to make the directory searchable by case type. Ratings, review counts, and tags reflect a snapshot at the time a page was generated and may have changed since - if you need current numbers, "Read Google Reviews" on any listing links to the live source.</p>
+
+    <h2>Basic vs. Featured: what actually changes</h2>
+    <p>Every firm that operates and has a public track record can appear on LawDB at no cost - we don't require payment to be listed. Featured is a paid upgrade. Here's exactly what it does and doesn't do:</p>
+    <table class="pp-table">
+      <tr><th></th><th>Basic (free)</th><th>Featured (paid)</th></tr>
+      <tr><td>Appears in search results</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>Google rating &amp; review count shown</td><td>Real, unedited</td><td>Real, unedited - identical rule</td></tr>
+      <tr><td>Position in results</td><td>Sorted by rating within relevant matches</td><td>Shown first, labeled "Featured Partner"</td></tr>
+      <tr><td>Profile page detail</td><td>Standard listing</td><td>Cover image, full description, practice-area tags, consultation request form</td></tr>
+      <tr><td>Can buy a higher rating or fake reviews</td><td>No</td><td>No - not offered at any price</td></tr>
+    </table>
+    <p>In other words: Featured buys visibility and a fuller profile, not a better rating. A Featured firm with 3.9 stars still shows 3.9 stars, sitting above a Basic firm with 4.9 stars in that top section - which is exactly why it's labeled "Featured Partner" rather than left unmarked. We think that label is what makes the rest of the page trustworthy.</p>
+
+
+<div class="lwa-sec">
+<h2 class="lwa-h">What a Featured listing adds</h2>
+<p class="lwa-lede">A plain look at the difference between a Basic and a Featured profile.</p>
+<section class="lwa lwa--feat" data-steps='[{"t":"Your profile","p":"Start with a basic listing: your name, city and practice area."},{"t":"A cover image","p":"Featured adds a cover image so your profile looks like your firm."},{"t":"Description and badge","p":"Tell clients who you are in your own words, and carry a gold tick and Featured badge."},{"t":"A link to your site","p":"Your profile links through to your firm website, so interested clients can go straight to you."}]'>
+<div class="lwa-stage" data-s="1" role="img" aria-label="Animation showing what a Featured LawDB profile includes">
+ <div class="lwa-p"><div class="lwa-cover"></div><div class="lwa-bdy"><div class="lwa-lg">Y</div><div class="lwa-nm">Your Firm LLP<span class="lwa-tick"><svg viewBox="0 0 12 12"><path d="M2.5 6.4 5 8.8 9.6 3.4" fill="none" stroke="#2b2723" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="lwa-ds">Toronto · Personal injury</div>
+  <p class="lwa-desc">Serving injured people across the GTA. Free consultations, and no fee unless we win.</p><div class="lwa-lnk">Visit yourfirm.ca &rarr;</div></div></div>
+ <div class="lwa-co lwa-co1">Cover image<small>Your firm's look</small></div>
+ <div class="lwa-co lwa-co2">Full description<small>In your own words</small></div>
+ <div class="lwa-co lwa-co3">Featured badge<small>Gold tick on your profile</small></div>
+ <div class="lwa-co lwa-co4">Link to your website<small>Straight to your firm</small></div>
+ <div class="lwa-ill">Illustration</div>
+</div>
+<div class="lwa-cap" aria-live="polite"><h3></h3><p></p></div><div class="lwa-ctl"><div class="lwa-steps"></div><button class="lwa-pp" type="button">Pause</button></div>
+</section>
+</div>
+    <h2>How search result order is decided</h2>
+    <p>When you search or filter by city and case type:</p>
+    <ul>
+      <li>Featured firms matching your filters appear first, always labeled as Featured.</li>
+      <li>Everyone else is sorted by: firms in your selected city first, then firms matching your selected case type first, then by Google star rating, highest to lowest.</li>
+    </ul>
+    <p>Nothing else influences this order - not how long a firm has been listed, not how much they've spent, not anything we editorialize. Two Basic firms with the same rating and same match to your filters will simply appear in the order our data returns them.</p>
+
+    <h2>What we don't do</h2>
+    <ul>
+      <li>We don't accept payment to remove, hide, or suppress a competitor's listing.</li>
+      <li>We don't alter, round up, or supplement a firm's Google rating.</li>
+      <li>We don't write or solicit reviews on behalf of any firm.</li>
+      <li>We don't sell a listing's position within the non-Featured results - that's rating-driven, not for sale at any tier.</li>
+    </ul>
+
+    <h2>Consultation requests</h2>
+    <p>Some firm pages have a "Request a Consultation" form. Messages sent through it are reviewed by LawDB and then shared with the firm the inquiry concerns, so they can respond to you directly. See our <a href="./privacy-policy.html">Privacy Policy</a> for the full detail on how that information is handled.</p>
+
+    <h2>Report an issue</h2>
+    <p>If a listing has incorrect information, belongs to a firm that's closed, or you believe shouldn't be on LawDB, contact us at <a href="mailto:privacy@lawdb.ca">privacy@lawdb.ca</a> and we'll look into it.</p>
+
+    <div class="pp-callout">This page describes our current practices and may be updated as LawDB grows. It isn't a legal or advertising-standards opinion - just a plain explanation of how the site works.</div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="foot-grid">
+    <div>
+      <span class="fmark"><img class="brand-icon" src="./images/logo-icon.png" alt="LawDB" style="height:26px;width:auto;display:block;">LawDB.ca<sup style="font-size:.4em;font-weight:600;margin-left:1px;vertical-align:super;line-height:0;">&trade;</sup></span>
+      <p class="fblurb">Canada's law firm directory. Find a real, reviewed law firm near you by the kind of case you have. Ontario, Quebec, British Columbia, Alberta, and Manitoba are live now, with more provinces coming soon.</p>
+    </div>
+    <div>
+      <h4>For Clients</h4>
+      <ul>
+        <li><a href="./find-lawyers.html">Find Your Lawyer</a></li>
+        <li><a href="./index.html">Browse by Case Type</a></li>
+        <li><a href="./blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>For Law Firms</h4>
+      <ul>
+        <li><a href="./for-firms.html">Why List With Us</a></li>
+        <li><a href="./list-your-firm.html">List Your Firm (Free)</a></li>
+        <li><a href="list-your-firm.html?plan=featured">Get Featured</a></li>
+        <li><a href="./grow-your-practice.html">Grow Your Practice</a></li>
+        <li><a href="./book-a-call.html">Book a Call</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>LawDB</h4>
+      <ul><li><a href="./index.html">Home</a></li><li><a href="./contact.html">Contact Us</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="refund-policy.html">Refund Policy</a></li><li><a href="privacy-policy.html">Privacy Policy</a></li></ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    &copy; 2026 LawDB.ca. Listing data sourced from Google's public business listings. LawDB is an independent directory and is not affiliated with, endorsed by, or representing any listed firm.
+  </div>
+</footer>
+
+<script src="site.js" defer></script>
+<script src="lwa.js" defer></script>
+</body>
+</html>

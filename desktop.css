@@ -1,0 +1,120 @@
+/* LawDB desktop / laptop layout — loads on every page, only acts at >=1100px */
+@media (min-width:1100px){
+  .site-header{ padding:0 max(32px, calc((100vw - 1280px)/2)); }
+  .site-footer{ padding-left:32px; padding-right:32px; }
+  .site-footer .foot-grid, .site-footer .foot-bottom{ max-width:1280px; }
+
+  /* ---------- HOME ---------- */
+  body.pg-home section{ max-width:1280px; padding:72px 32px; }
+  body.pg-home .case-grid{ gap:16px; }
+  body.pg-home .news-list{ max-width:none; display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  body.pg-home .blog-grid{ gap:24px; }
+  body.pg-home .compare{ max-width:1000px; gap:28px; }
+  body.pg-home .cta-band{ max-width:1280px; }
+  body.pg-home .about-top{ gap:72px; }
+
+  /* ---------- FIRM PAGES: content + sticky consultation sidebar ---------- */
+  body.pg-firm .site-header{ padding:0 max(40px,calc((100vw - 1600px)/2 + 40px)); }
+  body.pg-firm .wrap{ max-width:1600px; padding:32px 40px 80px;
+    display:grid; grid-template-columns:minmax(0,1fr) 380px; column-gap:44px; align-items:start; }
+  body.pg-firm .wrap > *{ grid-column:1; min-width:0; }
+  body.pg-firm .wrap > .fine{ grid-column:1 / -1; }
+  body.pg-firm .wrap > div:has(> form[id^="leadForm"]),
+body.pg-firm .wrap > .lead-slim{
+    grid-column:2; grid-row:1 / span 40; position:sticky; top:84px; align-self:start; margin:0; }
+  body.pg-firm .firm-head h1{ font-size:34px; }
+  body.pg-firm .article{ font-size:16px; padding:28px 32px; }
+  body.pg-firm .badge-strip{ max-width:none; }
+  body.pg-firm .tab-bar{ justify-content:flex-start; }
+  body.pg-firm .rank-panel{ max-width:none; }
+  body.pg-firm .pa-grid{ grid-template-columns:repeat(3,1fr); }
+  body.pg-firm .nearby{ display:block; }
+  body.pg-firm .sticky-cta{ display:none !important; }
+  body.pg-firm .firm-hero{ min-height:340px; }
+
+  /* ---------- SERVICE PAGES ---------- */
+  body.pg-service .wrap{ max-width:1180px; padding:44px 32px 80px; }
+  body.pg-service h1{ font-size:40px; max-width:900px; }
+  body.pg-service .hero-img, body.pg-service .hero-banner{ height:340px; }
+  body.pg-service .intro{ columns:2; column-gap:48px; }
+  body.pg-service .intro p{ font-size:16px; break-inside:avoid-column; }
+  body.pg-service .cta-box{ max-width:none; }
+  body.pg-service .featured-cards{ grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; }
+  body.pg-service .flist{ display:grid; grid-template-columns:1fr 1fr; }
+  body.pg-service .flist > *{ min-width:0; }
+
+  /* ---------- CITY / FIND-A-LAWYER ---------- */
+  body.pg-results .wizard{ max-width:1000px; padding:56px 32px 72px; }
+  body.pg-results .wizard h1, body.pg-results .wizard h2{ font-size:36px; }
+  body.pg-results .case-grid{ grid-template-columns:repeat(4,1fr); gap:14px; }
+  body.pg-results .city-search{ max-width:640px; margin-left:auto; margin-right:auto; }
+  body.pg-results .results-wrap{ max-width:1360px; padding:28px 32px 72px; }
+  body.pg-results .results-header{ padding-left:max(32px, calc((100vw - 1296px)/2)); padding-right:max(32px, calc((100vw - 1296px)/2)); }
+  body.pg-results .content-stack{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:32px; align-items:start; }
+  body.pg-results .list-col{ order:1; }
+  body.pg-results .map-col{ order:2; position:sticky; top:84px; margin:0; }
+  body.pg-results .map-card{ height:calc(100vh - 170px) !important; min-height:480px; }
+  body.pg-results .featured-strip .featured-cards, body.pg-results #featuredCards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+  body.pg-results .city-hero h1{ font-size:40px; }
+
+  /* ---------- BLOG / NEWS INDEX ---------- */
+  body.pg-blogidx .wrap{ max-width:1240px; padding:56px 32px 96px; }
+  body.pg-blogidx .wrap h1{ font-size:42px; }
+  body.pg-blogidx .grid{ grid-template-columns:repeat(3,1fr); gap:28px; }
+  body.pg-news .wrap{ max-width:1100px; padding:56px 32px 96px; }
+  body.pg-news .wrap h1{ font-size:42px; }
+  body.pg-news .news-list{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+
+  /* ---------- ARTICLES (blog / news / grow-your-practice) ---------- */
+  body.pg-article .wrap{ max-width:1180px; padding:48px 32px 96px;
+    display:grid; grid-template-columns:minmax(0,1fr) 320px; column-gap:56px; align-items:start; }
+  body.pg-article .wrap > *{ grid-column:1; min-width:0; }
+  body.pg-article .wrap > .fine, body.pg-article .wrap > .more, body.pg-article .wrap > .related{ grid-column:1 / -1; }
+  body.pg-article .wrap h1{ font-size:42px; line-height:1.18; }
+  body.pg-article .post-body{ font-size:17px; line-height:1.8; }
+  body.pg-article .post-body p, body.pg-article .post-body li{ font-size:17px; line-height:1.8; }
+  body.pg-article .hero-banner, body.pg-article .hero-img{ height:320px; }
+  body.pg-article .wrap > .post-cta:first-of-type{ grid-column:2; grid-row:3 / span 8; position:sticky; top:96px; align-self:start; }
+
+  /* ---------- FOR FIRMS ---------- */
+  body.pg-forfirms .hero{ padding:96px 32px; }
+  body.pg-forfirms .hero h1{ font-size:48px; max-width:900px; margin-left:auto; margin-right:auto; }
+  body.pg-forfirms .stats-strip .inner{ max-width:1240px; }
+  body.pg-forfirms .wrap{ max-width:1240px; padding:72px 32px 96px; }
+  body.pg-forfirms .why-grid{ grid-template-columns:repeat(3,1fr); gap:20px; }
+  body.pg-forfirms .plans{ grid-template-columns:1fr 1fr; max-width:980px; margin-left:auto; margin-right:auto; gap:24px; }
+
+  /* ---------- LIST YOUR FIRM ---------- */
+  body.pg-list .wrap{ max-width:1180px; padding:56px 32px 96px;
+    display:grid; grid-template-columns:minmax(0,1fr) 520px; column-gap:56px; align-items:start; }
+  body.pg-list .wrap > *{ grid-column:1; min-width:0; }
+  body.pg-list .wrap > #signupForm, body.pg-list .wrap > .success-box{ grid-column:2; grid-row:1 / span 6; }
+  body.pg-list .wrap > .faq-section{ grid-column:1 / -1; }
+  body.pg-list .plans{ grid-template-columns:1fr; }
+
+  /* ---------- HOW IT WORKS / PRIVACY / DOC PAGES ---------- */
+  body.pg-doc .wrap, body.pg-doc .wrap2, body.pg-doc .wrap3{ max-width:1000px; padding:56px 32px 96px; }
+  body.pg-doc h1{ font-size:42px; }
+  body.pg-doc .pp-body, body.pg-doc .pp-body p, body.pg-doc .pp-body li{ font-size:16.5px; line-height:1.8; }
+  body.pg-doc .grid2{ grid-template-columns:repeat(3,1fr) !important; gap:24px; }
+  body.pg-doc.pg-hub .wrap2{ max-width:1240px; }
+  body.pg-book .wrap{ max-width:1100px; padding:56px 32px 96px; }
+}
+@media (min-width:1700px){
+  body.pg-firm .site-header{ padding:0 max(40px,calc((100vw - 1800px)/2 + 40px)); }
+  body.pg-firm .wrap{ max-width:1800px; grid-template-columns:minmax(0,1fr) 420px; }
+  body.pg-results .results-wrap{ max-width:1560px; }
+  body.pg-blogidx .wrap{ max-width:1400px; }
+  body.pg-blogidx .grid{ grid-template-columns:repeat(4,1fr); }
+  body.pg-service .wrap{ max-width:1320px; }
+  body.pg-forfirms .wrap, body.pg-forfirms .stats-strip .inner{ max-width:1380px; }
+  .site-header{ padding:0 max(32px, calc((100vw - 1440px)/2)); }
+  .site-footer .foot-grid, .site-footer .foot-bottom{ max-width:1440px; }
+}
+
+/* Featured firms with the slim contact card: single column, card sits at the bottom */
+@media (min-width:1100px){
+  body.pg-firm .wrap:has(> .lead-slim){ display:block; max-width:1440px; }
+  body.pg-firm .wrap > .lead-slim{ position:static; grid-column:auto; grid-row:auto; margin:0 0 24px; }
+  body.pg-firm .wrap > .lead-slim .ls-head{ max-width:none; }
+}

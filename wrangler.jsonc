@@ -1,0 +1,8 @@
+{
+  // LawDB.ca static site. The Worker name here must match the Cloudflare project name exactly.
+  "name": "lawdb",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "."
+  }
+}

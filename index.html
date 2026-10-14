@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="./images/favicon-192.png"><link rel="icon" href="./favicon.ico" sizes="any"><link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LawDB.ca | Find the Right Lawyer Near You</title>
+<meta name="description" content="LawDB is a Canada-wide law firm database. Tell us what your case is about and where you are, and we'll show you nearby lawyers with real Google ratings.">
+<link rel="canonical" href="https://lawdb.ca/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lawdb.ca/">
+<meta property="og:site_name" content="LawDB.ca">
+<meta property="og:locale" content="en_CA">
+<meta property="og:image" content="https://lawdb.ca/images/og-default.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LawDB.ca | Find the Right Lawyer Near You">
+<meta name="twitter:description" content="LawDB is a Canada-wide law firm database. Tell us what your case is about and where you are, and we&#x27;ll show you nearby lawyers with real Google ratings.">
+<meta name="twitter:image" content="https://lawdb.ca/images/og-default.jpg">
+<script type="application/ld+json">
+[
+ {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "LawDB.ca",
+  "url": "https://lawdb.ca/",
+  "logo": "https://lawdb.ca/images/logo-icon.png",
+  "description": "Canada's independent law firm directory, with real Google ratings for law firms across Ontario, Quebec, British Columbia, Alberta and Manitoba."
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "LawDB.ca",
+  "url": "https://lawdb.ca/"
+ }
+]
+</script>
+<meta property="og:title" content="LawDB.ca | Find the Right Lawyer Near You">
+<meta property="og:description" content="Tell us what your case is about and where you are, and we'll show you nearby lawyers with real Google ratings.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,800&family=Inter:wght@400;500;600;700&display=swap');
+  :root{
+    --ink:#2b2723; --ink-soft:#6b645b; --brass:#d9a441; --brass-deep:#9a6f1c;
+    --red:#d9a441; --red-deep:#9a6f1c; --red-tint:#fbf3e3; --red-border:#edd9ae;
+    --cream:#f4f1ea; --card:#ffffff; --line:#dcd8cb; --dark:#1f1c19; --dark-2:#26221e; --green:#1f6f6b;
+  }
+  .fc-more-btn{ font:inherit; font-weight:600; font-size:14px; cursor:pointer; background:#fff; color:var(--ink);
+    border:1px solid var(--line); border-radius:8px; padding:11px 22px; }
+  .fc-more-btn:hover{ border-color:var(--brass); color:var(--brass-deep); }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:'Inter',sans-serif; color:var(--ink); background:var(--cream);}
+  a{color:inherit;}
+
+  
+  .site-header{ height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#f4f1ea; border-bottom:1px solid #dcd8cb; color:#2b2723; position:sticky; top:0; z-index:500; }
+  .site-header .mark{ text-decoration:none; display:flex; align-items:center; gap:10px; }
+  .site-header .mark img{ height:34px; width:auto; display:block; }
+  .site-header .mark .wordmark{ display:flex; flex-direction:column; line-height:1; }
+  .site-header .mark .wordmark .name{ font-family:'Inter',sans-serif; font-size:19px; font-weight:800; letter-spacing:-0.01em; color:#2b2723; }
+  .site-header .mark .wordmark .name .db{ color:#d9a441; }
+  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#9a6f1c; margin-top:2px; }
+  .brand-icon{ flex-shrink:0; display:block; }
+  .site-header .header-right{ display:flex; align-items:center; gap:12px; }
+  .site-header .back-link{ font-size:12px; color:#7a756b; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link:hover{ color:#2b2723; }
+  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#1c1204; background:var(--brass,#c99749); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
+  .add-firm-btn:hover{ filter:brightness(1.08); }
+  .hamburger-btn{ background:none; border:none; cursor:pointer; padding:6px; display:flex; flex-direction:column; gap:4px; }
+  .hamburger-btn span{ display:block; width:22px; height:2px; background:#2b2723; border-radius:2px; }
+  .menu-overlay{ position:fixed; inset:0; background:rgba(6,8,11,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
+  .menu-overlay.open{ opacity:1; pointer-events:auto; }
+  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#1f1c19; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
+  .menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(0,0,0,0.35); }
+  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#aca59c; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
+  .menu-drawer a{ color:#efece6; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #38332e; }
+  .menu-drawer a:hover{ color:var(--brass,#c99749); }
+  .menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#e0342f); color:#fff; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
+
+  
+  .site-footer{ background:var(--dark,#1b1815); color:#8f8a80; padding:48px 20px 24px; }
+  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2e2a26; }
+  @media (max-width:760px){ .site-footer .foot-grid{ grid-template-columns:1fr 1fr; } }
+  .site-footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:19px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .site-footer .fblurb{ font-size:13px; line-height:1.7; max-width:280px; }
+  .site-footer h4{ color:#c7cfda; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px; font-weight:700; }
+  .site-footer ul{ list-style:none; margin:0; padding:0; }
+  .site-footer li{ margin-bottom:10px; }
+  .site-footer a{ color:#8f8a80; text-decoration:none; font-size:13.5px; }
+  .site-footer a:hover{ color:#fff; }
+  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#c99749); color:#1c1204; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
+  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#6b645b; }
+
+  .prov-tabs{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:20px; }
+  .prov-tab{ padding:9px 20px; border-radius:22px; border:1.5px solid var(--line); background:#fff;
+    font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; color:var(--ink); cursor:pointer; }
+  .prov-tab.active{ border-color:var(--red); background:var(--red-tint,#fdecea); color:var(--red-deep,#b91c1c); }
+
+  .hero{ text-align:center; padding:56px 20px 60px; background:#ffffff; }
+  .hero h1{ font-family:'Source Serif 4',serif; font-size:32px; margin:0 0 24px; line-height:1.28;
+    color:#1f1c19; max-width:620px; margin-left:auto; margin-right:auto; min-height:1.3em; transition:opacity .5s ease; }
+  .hero-panel{ max-width:420px; margin:0 auto; background:#fff; border:1px solid #dcebea; border-radius:14px;
+    padding:20px 18px; text-align:left; }
+  .hero-map{ position:relative; border:1px solid #1f1c19; border-radius:8px; overflow:hidden; height:230px; }
+  .hero-map img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-map svg{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .hero-card{ background:#fff; border:1.5px solid #1f1c19; border-radius:10px; margin-top:14px;
+    padding:10px 14px 14px; opacity:0; transition:opacity .5s ease; }
+  .hero-card p{ font-size:11px; font-weight:600; color:var(--ink-soft); margin:0 0 6px; }
+  .hero-card-row{ display:flex; justify-content:space-between; align-items:center; font-size:13px;
+    text-decoration:none; padding:2px 0; }
+  .hero-card-row .name{ color:#1f1c19; font-weight:600; }
+  .hero-card-row .stars{ color:#fbbc04; white-space:nowrap; margin-left:10px; }
+  .hero-card-row .stars .city{ color:var(--ink-soft); font-weight:400; }
+  .hero-search-row{ position:relative; margin-top:16px; }
+  .hero-search-row .row{ display:flex; gap:8px; }
+  .hero-search-input{ flex:1; background:#f3f8f7; border:1px solid #dcebea; border-radius:6px;
+    padding:11px 14px; font-size:14px; color:#1f1c19; font-family:'Inter',sans-serif; }
+  .hero-search-input:focus{ outline:none; border-color:#1f1c19; }
+  .hero-search-go{ background:#1f1c19; color:#fff; border-radius:6px; width:42px; display:flex;
+    align-items:center; justify-content:center; font-weight:700; flex-shrink:0; text-decoration:none; }
+  .hero-suggest{ display:none; position:absolute; top:calc(100% + 4px); left:0; right:50px; background:#fff;
+    border:1px solid #dcebea; border-radius:6px; box-shadow:0 4px 12px rgba(31,28,25,.12); overflow:hidden;
+    z-index:5; text-align:left; }
+  .hero-suggest-item{ display:flex; justify-content:space-between; align-items:center; padding:9px 14px;
+    font-size:13.5px; color:#1f1c19; text-decoration:none; border-bottom:1px solid #f0f2f5; }
+  .hero-suggest-item:last-child{ border-bottom:none; }
+  .hero-suggest-item .name{ font-weight:600; }
+  .hero-suggest-item .meta{ color:#fbbc04; white-space:nowrap; margin-left:10px; font-size:12px; }
+  .hero-suggest-item .meta .city{ color:var(--ink-soft); font-weight:400; margin-left:2px; }
+  .hero-suggest-item:hover{ background:#f3f8f7; }
+  @media (min-width:900px){
+    .hero-panel{ max-width:640px; padding:26px 26px; }
+    .hero-map{ height:360px; }
+    .hero-search-input{ font-size:15.5px; padding:13px 16px; }
+    .hero-search-go{ width:48px; }
+  }
+  .hero-sub{ display:none; }
+  .hero-points{ display:none; }
+  @media (min-width:1040px){
+    .hero{ text-align:left; padding:64px 20px 72px; }
+    .hero-inner{ max-width:1080px; margin:0 auto; display:flex; align-items:center; gap:56px; }
+    .hero-copy{ text-align:left; flex:1; min-width:0; }
+    .hero h1{ margin:0 0 18px; max-width:480px; margin-left:0; margin-right:0; font-size:38px; }
+    .hero-sub{ display:block; font-size:16px; line-height:1.6; color:var(--ink-soft,#6b645b);
+      max-width:440px; margin:0 0 22px; }
+    .hero-points{ display:block; margin:0; padding:0; list-style:none; }
+    .hero-points li{ position:relative; padding-left:24px; margin-bottom:11px;
+      font-size:14.5px; color:#1f1c19; font-weight:600; }
+    .hero-points li::before{ content:'\2713'; position:absolute; left:0; color:#d9a441; font-weight:700; }
+    .hero-panel{ margin:0; width:460px; flex-shrink:0; }
+  }
+  .hero-pin{ transform-box:fill-box; transform-origin:50% 100%; animation:heroPop .45s ease backwards; }
+  .hero-ring{ transform-box:fill-box; transform-origin:center; animation:heroPulse 1.8s ease-out infinite; }
+  @keyframes heroPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.2);opacity:1}100%{transform:scale(1);opacity:1}}
+  @keyframes heroPulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(2.4);opacity:0}100%{transform:scale(2.4);opacity:0}}
+  @media (prefers-reduced-motion: reduce){
+    .hero h1{transition:none!important}
+    .hero-pin{animation:none!important;opacity:1!important;transform:none!important}
+    .hero-ring{display:none!important}
+  }
+
+  section{ padding:56px 20px; max-width:1080px; margin:0 auto; }
+  .section-head{ text-align:center; margin-bottom:34px; }
+  .section-head h2{ font-family:'Source Serif 4',serif; font-size:28px; margin:0 0 8px; }
+  .section-head p{ color:var(--ink-soft); font-size:14.5px; margin:0; }
+
+  .article-section{ max-width:1080px; }
+  .article-grid{ display:grid; grid-template-columns:1fr 320px; gap:36px; align-items:start; }
+  @media (max-width:760px){ .article-grid{ grid-template-columns:1fr; } }
+  .article-section h2{ font-family:'Source Serif 4',serif; font-size:26px; margin:0 0 18px; }
+  .article-section p{ font-size:15px; line-height:1.8; color:#3b3631; margin:0 0 16px; }
+  .article-img{ width:100%; height:320px; object-fit:cover; border-radius:8px; border:1px solid var(--line); }
+  @media (max-width:760px){ .article-img{ height:200px; order:-1; } }
+
+  .case-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  @media (max-width:820px){ .case-grid{ grid-template-columns:repeat(2,1fr); } }
+  .case-tile{
+    background:var(--card); border:1px solid var(--line); border-radius:6px; padding:18px 14px;
+    text-align:center; text-decoration:none; color:var(--ink); transition:border-color 0.15s; cursor:pointer;
+  }
+  .case-tile:hover{ border-color:var(--brass); }
+  .case-label{ font-size:13px; font-weight:600; line-height:1.3; }
+  .case-tile.selected{ border-color:var(--brass); box-shadow:0 0 0 1.5px var(--brass) inset; }
+  .back-link{ background:none; border:none; color:var(--brass-deep); font-size:12.5px; font-weight:700; cursor:pointer; padding:0; margin-bottom:14px; }
+  .back-link:hover{ text-decoration:underline; }
+
+  .firm-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  @media (max-width:820px){ .firm-grid{ grid-template-columns:repeat(2,1fr); } }
+  .blog-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media (max-width:820px){ .blog-grid{ grid-template-columns:1fr; } }
+
+  .news-list{ max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
+  .news-item{ display:flex; gap:14px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; text-decoration:none; color:inherit; }
+  .news-item:hover{ border-color:var(--brass); }
+  .news-text{ flex:1; min-width:0; }
+  .news-firm{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .news-firm img, .news-firm .avatar-mono{ width:26px; height:26px; border-radius:6px; object-fit:contain; background:#fff; flex-shrink:0; }
+  .news-firm .avatar-mono{ display:flex; align-items:center; justify-content:center; font-family:'Source Serif 4',serif; font-weight:700; font-size:11px; color:#fff; }
+  .news-firm-name{ font-size:12.5px; font-weight:700; color:var(--ink); }
+  .news-firm-city{ font-size:11.5px; color:var(--ink-soft); }
+  .news-title{ font-family:'Source Serif 4',serif; font-size:16px; line-height:1.3; margin:0 0 4px; color:var(--ink); }
+  .news-teaser{ font-size:13px; color:var(--ink-soft); line-height:1.6; margin:0; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+  .news-thumb{ width:84px; height:84px; border-radius:8px; object-fit:cover; flex-shrink:0; }
+  @media (max-width:480px){ .news-thumb{ width:64px; height:64px; } }
+  .blog-card{ background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; text-decoration:none; color:inherit; display:block; }
+  .blog-card img{ width:100%; height:150px; object-fit:cover; display:block; }
+  .blog-card-banner{ width:100%; height:150px; display:flex; align-items:flex-end; padding:16px; color:#fff; }
+  .blog-card-banner span{ font-family:'Source Serif 4',serif; font-size:14.5px; font-weight:600;
+    text-shadow:0 1px 3px rgba(0,0,0,0.25); }
+  .trust-note{ max-width:720px; margin:0 auto 26px; text-align:center; font-size:13.5px;
+    line-height:1.75; color:var(--ink-soft); }
+  .trust-strip{ background:#26221e; color:#fff; padding:20px; }
+  .trust-strip .inner{ max-width:900px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr);
+    gap:12px; text-align:center; }
+  @media (max-width:620px){ .trust-strip .inner{ grid-template-columns:1fr 1fr; gap:18px; } }
+  .trust-strip .num{ font-family:'Source Serif 4',serif; font-size:26px; font-weight:700;
+    color:var(--brass); display:block; line-height:1.1; }
+  .trust-strip .lbl{ font-size:11px; text-transform:uppercase; letter-spacing:0.07em;
+    color:#a7a097; margin-top:4px; display:block; }
+  .blog-card-body{ padding:14px 16px 18px; }
+  .blog-card .city-pill{ display:inline-block; background:var(--cream); color:var(--ink); padding:2px 10px;
+    border-radius:20px; font-weight:600; font-size:10.5px; margin-bottom:8px; }
+  .blog-card h3{ font-family:'Source Serif 4',serif; font-size:15.5px; margin:0 0 6px; line-height:1.35; }
+  .blog-card p{ font-size:12.5px; color:var(--ink-soft); margin:0; line-height:1.55; }
+  .firm-card{
+    position:relative; border:1.5px solid var(--red-border); background:#fff;
+    border-radius:6px; padding:18px 16px; text-decoration:none; color:var(--ink);
+    box-shadow:0 2px 10px rgba(224,52,47,0.08);
+  }
+  .firm-card .ribbon{
+    display:inline-flex; align-items:center; gap:6px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
+    color:#4a3208; background:linear-gradient(135deg,#f3d99a,#c99749 55%,#a8762f); padding:3px 11px 3px 3px; border-radius:20px; margin-bottom:10px;
+  }
+  .firm-card .ribbon .r-tick{ width:16px; height:16px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .firm-card .ribbon .r-tick svg{ width:9px; height:9px; }
+  .fc-name{ font-weight:700; font-size:14px; line-height:1.3; margin-bottom:4px; }
+  .fc-city{ font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
+  .fc-rate{ font-size:13px; color:var(--red-deep); font-weight:700; }
+  .fc-count{ color:var(--ink-soft); font-weight:400; }
+  .fc-top{ display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; }
+  .fc-top .fc-name{ margin-bottom:2px; }
+  .avatar{ border-radius:8px; object-fit:cover; flex-shrink:0; display:block; }
+  .avatar-mono{ display:flex; align-items:center; justify-content:center; font-family:Georgia,'Times New Roman',serif; font-weight:700; color:#fff; flex-shrink:0; }
+
+  .compare{ display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:820px; margin:0 auto; }
+  @media (max-width:680px){ .compare{ grid-template-columns:1fr; } }
+  .compare-card{ background:var(--card); border:1.5px solid var(--line); border-radius:8px; padding:26px 24px; }
+  .compare-card.is-featured{ border-color:var(--brass); box-shadow:0 6px 24px rgba(184,134,63,0.18); position:relative; }
+  .compare-card.is-featured::before{
+    content:"Recommended"; position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+    background:linear-gradient(135deg,#f3d99a,#c99749 55%,#a8762f); color:#4a3208; font-size:10.5px; font-weight:700; text-transform:uppercase;
+    letter-spacing:0.05em; padding:4px 12px; border-radius:20px;
+  }
+  .compare-card h3{ font-family:'Source Serif 4',serif; font-size:19px; margin:4px 0 2px; }
+  .compare-card .cprice{ font-size:13.5px; color:var(--ink-soft); margin-bottom:16px; }
+  .compare-card.is-featured .cprice{ color:var(--brass-deep); font-weight:700; }
+  .compare-card ul{ margin:0 0 18px; padding-left:18px; font-size:13.5px; line-height:1.9; color:#3b3631; }
+  .compare-card .cta-link{ display:block; text-align:center; padding:11px; border-radius:4px; font-weight:700; font-size:13.5px; text-decoration:none; }
+  .compare-card.is-featured .cta-link{ background:linear-gradient(135deg,#f3d99a,#c99749 55%,#a8762f); color:#4a3208; }
+  .compare-card:not(.is-featured) .cta-link{ background:#eef0f2; color:var(--ink); }
+
+  .cta-band{
+    background:var(--ink); color:#fff; border-radius:6px; padding:44px 30px; text-align:center;
+    max-width:1080px; margin:0 auto 60px;
+  }
+  .cta-band h2{ font-family:'Source Serif 4',serif; font-size:26px; margin:0 0 8px; }
+  .cta-band .price{ color:var(--brass); font-weight:700; font-size:15px; margin-bottom:16px; }
+  .cta-band p{ color:#c7cfda; max-width:480px; margin:0 auto 22px; font-size:14px; line-height:1.6; }
+  .cta-band a{
+    display:inline-block; background:var(--brass); color:#1c1204; font-weight:700; padding:12px 24px;
+    border-radius:4px; text-decoration:none; font-size:14px;
+  }
+
+
+  .desktop-nav{ display:none; }
+  @media (min-width:900px){
+    .site-header{ height:84px; }
+    .site-header .mark img{ height:46px; }
+    .site-header .mark .wordmark .name{ font-size:22px; }
+    .site-header .mark .wordmark .tagline{ font-size:8.5px; }
+    .desktop-nav{ display:flex; align-items:center; }
+    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#2b2723; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
+    .desktop-nav a:hover{ color:#9a6f1c; }
+    .desktop-nav .nav-cta{ background:#d9a441; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
+    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#9a6f1c; }
+    .hamburger-btn{ display:none; }
+  }
+
+  /* ---- about LawDB ---- */
+  .about{ max-width:1180px; padding-top:64px; padding-bottom:40px; }
+  .about-top{ display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:center; }
+  .about-eyebrow{ font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--brass-deep); margin-bottom:10px; }
+  .about h2{ font-family:'Source Serif 4',serif; font-size:34px; line-height:1.2; margin:0 0 16px; }
+  .about-lead{ font-size:16.5px; line-height:1.75; color:var(--ink-soft); margin:0 0 18px; }
+  .about-checks{ list-style:none; margin:0 0 24px; padding:0; }
+  .about-checks li{ position:relative; padding-left:28px; margin-bottom:10px; font-size:15px; line-height:1.55; }
+  .about-checks li::before{ content:''; position:absolute; left:0; top:3px; width:18px; height:18px; border-radius:50%; background:var(--brass) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E") center/11px no-repeat; }
+  .about-btns{ display:flex; gap:12px; flex-wrap:wrap; }
+  .about-btn{ display:inline-block; padding:13px 22px; border-radius:6px; font-weight:700; font-size:14.5px; text-decoration:none; }
+  .about-btn.primary{ background:var(--ink); color:#fff; }
+  .about-btn.ghost{ border:1.5px solid var(--ink); color:var(--ink); }
+  .about-photo{ position:relative; }
+  .about-photo img.about-img{ width:100%; height:430px; object-fit:cover; border-radius:16px; display:block; box-shadow:0 18px 40px rgba(43,39,35,.18); }
+  .about-stat{ position:absolute; left:-22px; bottom:28px; background:var(--card); border-radius:12px; padding:14px 18px; box-shadow:0 10px 28px rgba(43,39,35,.2); display:flex; gap:18px; }
+  .about-stat b{ display:block; font-family:'Source Serif 4',serif; font-size:24px; color:var(--brass-deep); line-height:1.1; }
+  .about-stat span{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); }
+  .about-pillars{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:52px; }
+  .pillar{ background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .pillar img.about-img{ width:100%; height:170px; object-fit:cover; display:block; }
+  .pillar div{ padding:18px 20px 22px; }
+  .pillar h3{ font-family:'Source Serif 4',serif; font-size:19px; margin:0 0 8px; }
+  .pillar p{ font-size:14px; line-height:1.65; color:var(--ink-soft); margin:0; }
+  .about-steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:44px; padding:28px 30px; background:var(--dark); border-radius:16px; color:#fff; }
+  .about-steps h3{ grid-column:1/-1; font-family:'Source Serif 4',serif; font-size:22px; margin:0; }
+  .astep{ display:flex; gap:14px; }
+  .astep .n{ flex:0 0 36px; height:36px; border-radius:50%; background:var(--brass); color:#2d1f05; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .astep b{ display:block; font-size:15px; margin-bottom:4px; }
+  .astep span{ font-size:13.5px; line-height:1.6; color:#cbc4bb; }
+  .about-fine{ font-size:12px; color:#8f8a80; line-height:1.6; margin:18px 4px 0; max-width:820px; }
+  @media (max-width:900px){
+    .about-top{ grid-template-columns:1fr; gap:28px; } .about h2{ font-size:28px; }
+    .about-photo img.about-img{ height:280px; } .about-stat{ left:12px; bottom:-18px; }
+    .about-pillars,.about-steps{ grid-template-columns:1fr; } .about-steps{ padding:22px 20px; }
+  }
+
+  .lawdb-banner{ max-width:1280px; margin:0 auto; padding:56px 20px 64px; }
+  .lawdb-banner img{ display:block; width:100%; height:auto; border-radius:14px; box-shadow:0 10px 30px rgba(31,28,25,.18); }
+  @media (min-width:1100px){ .lawdb-banner{ padding:72px 32px 88px; } }
+  @media (max-width:600px){ .lawdb-banner{ padding:36px 12px 44px; } .lawdb-banner img{ border-radius:10px; } }
+
+  /* ---- hero v2 (matches approved mock) ---- */
+  .hero2{ overflow:hidden; background:radial-gradient(1200px 500px at 85% -10%, #f3ecd8 0%, rgba(243,236,216,0) 60%), #faf7f0; text-align:left; padding:36px 20px 40px; }
+  .hero2 .hero-inner{ display:flex; flex-direction:column; gap:30px; max-width:1280px; margin:0 auto; align-items:stretch; }
+  .hero2 .hero-copy{ flex:none; }
+  .hero2 h1{ font-family:'Source Serif 4',serif; font-weight:700; font-size:40px; line-height:1.08; letter-spacing:-0.02em; color:#2b2723; margin:0 0 14px; max-width:none; }
+  .hero2 .hero-sub{ display:block; font-size:17px; line-height:1.55; color:#605950; max-width:520px; margin:0 0 24px; }
+  .hero2 .hero-search-row{ margin:0 0 28px; max-width:620px; }
+  .hero2 .hero-search-row .row{ position:relative; display:flex; align-items:center; background:#fff; border:1px solid #e3ddcb; border-radius:14px; padding:6px; box-shadow:0 2px 10px rgba(43,39,35,.06); gap:0; }
+  .hero2 .hs-icon{ width:22px; height:22px; color:#2b2723; margin:0 6px 0 14px; flex-shrink:0; }
+  .hero2 .hero-search-input{ flex:1; min-width:0; border:none; background:transparent; font-size:16px; padding:14px 8px; color:#2b2723; }
+  .hero2 .hero-search-input:focus{ outline:none; }
+  .hero2 .hero-search-go{ width:56px; height:48px; border-radius:10px; background:#2b2723; color:#fff; font-size:24px; display:flex; align-items:center; justify-content:center; text-decoration:none; }
+  .hero2 .hero-suggest{ right:0; top:calc(100% + 6px); }
+  .hero2 .hero-stats{ display:grid; grid-template-columns:1fr 1fr; gap:18px 12px; }
+  .hero2 .hs{ display:flex; align-items:center; gap:12px; }
+  .hero2 .hs-ico{ width:34px; height:34px; color:#b98a2c; flex-shrink:0; }
+  .hero2 .hs-ico svg{ width:100%; height:100%; display:block; }
+  .hero2 .hs b{ display:block; font-family:'Source Serif 4',serif; font-size:27px; line-height:1; color:#b98a2c; font-weight:700; }
+  .hero2 .hs i{ white-space:nowrap; display:block; font-style:normal; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#706960; margin-top:4px; }
+  .hero2 .hero-panel{ position:relative; width:auto; max-width:none; margin:0; padding:0; background:none; border:none; border-radius:0; }
+  .hero2 .hero-map-wrap{ position:relative; padding:0; }
+  .hero2 .hero-map{ height:300px; border:none; border-radius:18px; overflow:hidden; position:relative; }
+  .hero2 .hero-tag{ position:relative; margin:-34px 12px 0 auto; width:calc(100% - 24px); max-width:420px; background:#efe6d0; border-radius:16px; padding:14px 18px; display:flex; align-items:center; gap:14px; box-shadow:0 6px 18px rgba(43,39,35,.12); }
+  .hero2 .hero-tag img{ height:40px; width:auto; }
+  .hero2 .hero-tag strong{ display:block; font-family:'Source Serif 4',serif; font-size:17px; color:#2b2723; line-height:1.25; }
+  .hero2 .hero-tag span{ display:block; font-size:11px; letter-spacing:.2em; color:#6d6a60; margin-top:4px; }
+  @media (min-width:1040px){
+    .hero2{ padding:56px 32px 64px; }
+    .hero2 .hero-inner{ display:grid; grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr); gap:56px; align-items:center; max-width:1280px; }
+    .hero2 h1{ font-size:clamp(46px,4.6vw,68px); max-width:11em; }
+    .hero2 .hero-sub{ font-size:clamp(18px,1.5vw,22px); max-width:30em; }
+    .hero2 .hero-stats{ grid-template-columns:repeat(4,auto); gap:0; max-width:640px; }
+    .hero2 .hs{ padding:0 22px; border-left:1px solid #e3ddcb; }
+    .hero2 .hs:first-child{ padding-left:0; border-left:none; }
+    .hero2 .hero-panel{ width:auto; }
+    .hero2 .hero-map-wrap::before{ content:""; position:absolute; inset:-14px -40px -14px -14px; background:#f1e9d3; opacity:.7; clip-path:polygon(17% 0,100% 0,100% 100%,17% 100%,0 50%); border-radius:30px; }
+    .hero2 .hero-map{ height:clamp(380px,34vw,520px); border-radius:0; clip-path:polygon(16% 0,100% 0,100% 100%,16% 100%,0 50%); }
+    .hero2 .hero-tag{ position:absolute; right:-32px; bottom:-28px; margin:0; width:78%; max-width:none; border-radius:18px 0 0 18px; padding:18px 36px 18px 28px; }
+    .hero2 .hero-tag img{ height:56px; }
+    .hero2 .hero-tag strong{ font-size:clamp(18px,1.7vw,24px); }
+  }
+</style>
+<link rel="stylesheet" href="desktop.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="lawdb-search.css?v=1">
+<link rel="stylesheet" href="lwa.css">
+<style id="home3">
+  .hero3{ background:radial-gradient(900px 380px at 50% -20%, #f3ecd8 0%, rgba(243,236,216,0) 70%), #faf7f0; padding:56px 20px 40px; text-align:center; border-bottom:1px solid var(--line); }
+  .h3-inner{ max-width:760px; margin:0 auto; }
+  .hero3 h1{ font-family:'Source Serif 4',serif; font-weight:700; font-size:clamp(36px,6vw,56px); line-height:1.08; margin:0 0 14px; color:var(--ink); }
+  .h3-sub{ font-size:17px; color:var(--ink-soft); line-height:1.5; margin:0 auto 26px; max-width:560px; }
+  .h3-search{ position:relative; text-align:left; }
+  .h3-label{ display:block; font-family:'Source Serif 4',serif; font-weight:700; font-size:16px; margin:0 0 8px 6px; }
+  .h3-row{ display:flex; gap:8px; }
+  .h3-row input{ flex:1; min-width:0; padding:17px 22px; border:2px solid var(--ink); border-radius:999px; font:500 17px 'Inter',sans-serif; background:#fff; color:var(--ink); }
+  .h3-row input::placeholder{ color:#8a8277; }
+  .h3-row input:focus{ outline:none; border-color:var(--brass); box-shadow:0 0 0 4px rgba(217,164,65,.28); }
+  .h3-row button{ background:var(--ink); color:#fff; border:none; border-radius:999px; font:700 15px 'Inter',sans-serif; padding:0 30px; cursor:pointer; }
+  .h3-row button:hover{ background:#000; }
+  .hero3 .hero-suggest{ left:0; right:0; top:calc(100% + 6px); border-radius:16px; text-align:left; z-index:40; }
+  .h3-formula{ display:flex; justify-content:center; align-items:center; gap:10px; margin:16px 0 0; font-size:13.5px; color:var(--ink-soft); }
+  .h3-formula span{ display:inline-flex; align-items:center; background:#fff; border:1px solid var(--line); border-radius:999px; padding:5px 12px 5px 6px; color:var(--ink); font-weight:500; }
+  .h3-formula b{ display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--ink); color:#fff; font-size:11px; margin-right:6px; }
+  .h3-formula i{ font-style:normal; }
+  .h3-try{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; align-items:center; margin:14px 0 0; font-size:13px; color:var(--ink-soft); }
+  .h3-try a{ background:#fff; border:1px solid var(--line); border-radius:999px; padding:7px 13px; color:var(--ink); text-decoration:none; }
+  .h3-try a:hover{ border-color:var(--ink); }
+  .h3-stats{ display:flex; justify-content:center; gap:34px; margin:34px 0 0; flex-wrap:wrap; }
+  .h3-stats b{ display:block; font-family:'Source Serif 4',serif; font-size:28px; color:var(--brass-deep); line-height:1; }
+  .h3-stats span{ font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); }
+  .citybrowse .cb-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:18px; }
+  .cb-col{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 16px 10px; }
+  .cb-col h3{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 8px; }
+  .cb-col ul{ list-style:none; margin:0; padding:0; }
+  .cb-col a{ display:flex; justify-content:space-between; gap:8px; padding:7px 0; border-top:1px solid #efeadd; color:var(--ink); text-decoration:none; font-size:14.5px; }
+  .cb-col a:hover{ color:var(--brass-deep); }
+  .cb-col a span{ color:#9a9285; font-size:12.5px; }
+  .why3-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .why3-card{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:22px; }
+  .why3-n{ display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%; background:var(--brass); color:var(--ink); font-weight:700; font-size:14px; margin-bottom:12px; }
+  .why3-card h3{ font-family:'Source Serif 4',serif; font-size:19px; margin:0 0 8px; }
+  .why3-card p{ margin:0; color:var(--ink-soft); font-size:14.5px; line-height:1.55; }
+  .why3-steps{ background:var(--dark); color:#f4f1ea; border-radius:16px; padding:26px 28px; margin-top:22px; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .why3-steps h3{ grid-column:1/-1; font-family:'Source Serif 4',serif; font-size:21px; margin:0; color:#fff; }
+  .why3-steps > div{ display:flex; gap:12px; align-items:flex-start; }
+  .why3-steps .n{ flex:none; display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%; background:var(--brass); color:var(--ink); font-weight:700; font-size:14px; }
+  .why3-steps b{ display:block; font-size:15px; margin-bottom:3px; }
+  .why3-steps span:not(.n){ font-size:13.5px; color:#b9b2a4; line-height:1.5; }
+  .firms-divider{ max-width:1080px; margin:20px auto 0; padding:0 20px; display:flex; align-items:center; gap:14px; color:var(--brass-deep); font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  .firms-divider::before,.firms-divider::after{ content:''; flex:1; height:1px; background:var(--line); }
+.hero.hero3{ text-align:center; padding:64px 20px 48px; background:radial-gradient(ellipse 55% 75% at 50% 48%, rgba(250,247,240,.95) 0%, rgba(250,247,240,.84) 58%, rgba(250,247,240,.38) 100%), url('images/hero-map-canada.jpg') center 70%/cover no-repeat, #faf7f0; }
+  .hero.hero3 h1{ max-width:none; margin:0 0 14px; text-align:center; font-size:clamp(36px,6vw,56px); }
+  .hero.hero3 .h3-sub{ text-align:center; }
+  #cases{ padding-bottom:10px; }
+  .hero3 ~ section{ padding-top:34px; padding-bottom:34px; }
+  .hero3 ~ section .section-head{ margin-bottom:24px; }
+  @media(max-width:860px){ .citybrowse .cb-grid{ grid-template-columns:repeat(2,1fr); } .why3-grid,.why3-steps{ grid-template-columns:1fr; } }
+  @media(max-width:520px){ .h3-row{ flex-direction:column; } .h3-row button{ padding:16px; } .h3-stats{ gap:20px; } .citybrowse .cb-grid{ grid-template-columns:1fr; } .hero3{ padding:40px 16px 32px; } }
+</style>
+</head>
+<body class="pg-home">
+
+<header class="site-header">
+  <a class="mark" href="./index.html"><img src="images/logo-icon.png" alt="LawDB"><span class="wordmark"><span class="name"><span class="law">Law</span><span class="db">DB</span><sup style="font-size:.4em;font-weight:600;margin-left:1px;vertical-align:super;line-height:0;">&trade;</sup></span><span class="tagline">Canada&#39;s Legal Directory</span></span></a>
+  <div class="header-right">
+    <nav class="desktop-nav" aria-label="Primary"><a href="./find-lawyers.html">Find Your Lawyer</a><a href="./legal-news.html">Legal News</a><a href="./for-firms.html">Advertise With Us</a><a href="./list-your-firm.html">Add Your Firm</a><a class="nav-cta" href="./book-a-call.html">Request a Consultation</a></nav>
+    <button class="hamburger-btn" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="menu-drawer" id="menuDrawer">
+  <button class="menu-close" id="menuClose" aria-label="Close menu">&times;</button>
+  <a href="./find-lawyers.html">Find Your Lawyer</a>
+  <a href="./legal-news.html">Legal News</a>
+  <a href="./for-firms.html">Advertise With Us</a>
+  <a href="./list-your-firm.html">Add Your Firm</a>
+  <a href="./contact.html">Contact Us</a>
+  <a class="menu-cta" href="./book-a-call.html">Request a Consultation</a>
+</nav>
+<script>
+(function(){
+  var toggle = document.getElementById('menuToggle');
+  var closeBtn = document.getElementById('menuClose');
+  var overlay = document.getElementById('menuOverlay');
+  var drawer = document.getElementById('menuDrawer');
+  function openMenu(){ overlay.classList.add('open'); drawer.classList.add('open'); }
+  function shutMenu(){ overlay.classList.remove('open'); drawer.classList.remove('open'); }
+  if(toggle) toggle.addEventListener('click', openMenu);
+  if(closeBtn) closeBtn.addEventListener('click', shutMenu);
+  if(overlay) overlay.addEventListener('click', shutMenu);
+})();
+</script>
+
+
+
+<div class="hero hero3">
+ <div class="h3-inner">
+  <h1>Find your lawyer</h1>
+  <p class="h3-sub">Type the kind of lawyer you need and your city. We show real firms with their public Google ratings.</p>
+  <form id="heroForm" class="h3-search" action="find-lawyers.html" method="get" role="search" autocomplete="off">
+    <label class="h3-label" for="heroInput">What kind of lawyer, and where?</label>
+    <div class="h3-row">
+      <div class="ls-wrap"><div class="ls-field"><svg class="ls-mag" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="heroInput" class="ls-in" name="q" type="text" placeholder="e.g. personal injury lawyer in Toronto" enterkeyhint="search" autocomplete="off"><button type="button" class="ls-x" aria-label="Clear search" tabindex="-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div id="heroSuggest" class="ls-sug"></div></div>
+      <button type="submit">Search</button>
+    </div>
+  </form>
+  <div class="h3-formula"><span><b>1</b> Kind of lawyer</span><i>+</i><span><b>2</b> City</span></div>
+  <div class="h3-try"><span>Try:</span>
+    <a href="find-lawyers.html?q=family+lawyer+in+Ottawa">family lawyer in Ottawa</a>
+    <a href="find-lawyers.html?q=immigration+lawyer+in+Vancouver">immigration lawyer in Vancouver</a>
+    <a href="find-lawyers.html?q=real+estate+lawyer+in+Toronto">real estate lawyer in Toronto</a>
+    <a href="find-lawyers.html?q=business+lawyer+in+Calgary">business lawyer in Calgary</a>
+  </div>
+  <div class="h3-stats"><div><b>370</b><span>law firms</span></div><div><b>62</b><span>cities</span></div><div><b>5</b><span>provinces</span></div><div><b>10</b><span>practice areas</span></div></div>
+ </div>
+</div>
+<script src="suggest.js?v=2"></script>
+<script>LawdbSuggest(document.getElementById('heroInput'),document.getElementById('heroSuggest'),{root:''});</script>
+
+
+
+<style>
+.feat-swipe .lc{ flex:0 0 86%; max-width:340px; }
+@media (min-width:700px){ .feat-swipe .lc{ flex:0 0 360px; max-width:360px; } }
+.feat-swipe .lc-cover{ height:176px; }
+.feat-swipe .lc-cover.brand{ padding:26px 34px; }
+.feat-swipe .lc-logo{ top:144px; width:60px; height:60px; }
+.feat-swipe .lc-body{ padding:40px 20px 20px; gap:8px; }
+.feat-swipe .lc-cover.brand + .lc-body{ padding-top:20px; }
+.feat-swipe .lc-body h3{ font-size:18px; }
+.feat-swipe .lc-rate{ font-size:14px; }
+.feat-swipe .lc-serves{ font-size:13px; font-weight:600; color:#9a6f1c; }
+.feat-swipe .lc-addr{ font-size:13px; }
+.feat-swipe .lc-phone{ font-size:13px; color:#4a443d; font-variant-numeric:tabular-nums; }
+.feat-swipe .lc-tags span{ font-size:12px; padding:4px 10px; }
+.feat-swipe .lc-btns a{ min-height:42px; font-size:14px; }
+.feat-swipe .lw-car-head{ justify-content:flex-end; margin-bottom:10px; }
+.feat-swipe .lw-track{ gap:18px; scroll-padding-left:2px; }
+</style>
+<section class="feat-swipe">
+  <div class="section-head">
+    <h2>Featured Partners</h2>
+    <p>Highlighted partner placements, always labelled. Every firm shows the same public Google rating data. Swipe to browse.</p>
+  </div>
+  <div class="lw-car" aria-label="Featured firms"><div class="lw-car-head"><div class="lw-car-nav"><button type="button" class="lw-prev" aria-label="Previous">&#8249;</button><button type="button" class="lw-next" aria-label="Next">&#8250;</button></div></div><div class="lw-track" tabindex="0"><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover brand"><img src="images/logos/daniel-brown-law-llp.jpg" alt="Daniel Brown Law LLP logo" loading="lazy"></div><div class="lc-body"><h3><a href="firms/daniel-brown-law-llp.html">Daniel Brown Law LLP</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 156 Google reviews</i></span><div class="lc-serves">Serving Toronto, Ontario</div><div class="lc-addr">103 Church St #400, Toronto, ON M5C 2G3</div><div class="lc-phone">(416) 297-7200</div><div class="lc-tags"><span>Criminal Defence</span><span>Appeals</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14162977200">Call</a><a class="lc-view" href="firms/daniel-brown-law-llp.html">View profile</a></div></div></article><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover brand"><img src="images/logos/nelligan-law.png" alt="Nelligan Law logo" loading="lazy"></div><div class="lc-body"><h3><a href="firms/nelligan-law.html">Nelligan Law</a></h3><span class="lc-rate"><b>&#9733; 4.7</b> <i>from 260 Google reviews</i></span><div class="lc-serves">Serving Ottawa, Ontario</div><div class="lc-addr">50 O&#x27;Connor St #300, Ottawa, ON K1P 6L2</div><div class="lc-phone">(613) 238-8080</div><div class="lc-tags"><span>Employment</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16132388080">Call</a><a class="lc-view" href="firms/nelligan-law.html">View profile</a></div></div></article><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover gen"><span>Brampton</span></div><span class="lc-logo mono">GU</span><div class="lc-body"><h3><a href="firms/gupta-law-firm.html">Gupta Law Firm</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 213 Google reviews</i></span><div class="lc-serves">Serving Brampton, Ontario</div><div class="lc-addr">2250 Bovaird Dr E #314, Brampton, ON L6R 0W3</div><div class="lc-phone">(416) 999-6665</div><div class="lc-tags"><span>Personal Injury</span><span>Civil Litigation</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14169996665">Call</a><a class="lc-view" href="firms/gupta-law-firm.html">View profile</a></div></div></article><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover brand"><img src="images/logos/amlea-avocats.png" alt="Amlea Avocats logo" loading="lazy"></div><div class="lc-body"><h3><a href="firms/amlea-avocats.html">Amlea Avocats</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 338 Google reviews</i></span><div class="lc-serves">Serving Montreal, Quebec</div><div class="lc-addr">500 Place d&#x27;Armes Ste 1800, Montreal, QC H2Y 2W2</div><div class="lc-phone">(514) 317-2887</div><div class="lc-tags"><span>Business Law</span><span>Corporate</span></div><div class="lc-btns"><a class="lc-call" href="tel:+15143172887">Call</a><a class="lc-view" href="firms/amlea-avocats.html">View profile</a></div></div></article><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover brand"><img src="images/logos/gagan-nahal-criminal-lawyer.png" alt="Gagan Nahal Criminal Lawyer logo" loading="lazy"></div><div class="lc-body"><h3><a href="firms/gagan-nahal-criminal-lawyer.html">Gagan Nahal Criminal Lawyer</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 257 Google reviews</i></span><div class="lc-serves">Serving Surrey, British Columbia</div><div class="lc-addr">6625 152A St #202, Surrey, BC V3S 3L4</div><div class="lc-phone">(604) 527-4769</div><div class="lc-tags"><span>Criminal Defence</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16045274769">Call</a><a class="lc-view" href="firms/gagan-nahal-criminal-lawyer.html">View profile</a></div></div></article><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover brand"><img src="images/logos/blottman-legal-services.png" alt="Blottman Legal Services logo" loading="lazy"></div><div class="lc-body"><h3><a href="firms/blottman-legal-services.html">Blottman Legal Services</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 102 Google reviews</i></span><div class="lc-serves">Serving Cookstown, Ontario</div><div class="lc-addr">29 Queen St Unit 2, Cookstown, ON</div><div class="lc-phone">(647) 794-7750</div><div class="lc-tags"><span>Traffic Tickets</span><span>Driving Under Suspension</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16477947750">Call</a><a class="lc-view" href="firms/blottman-legal-services.html">View profile</a></div></div></article><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover brand"><img src="images/logos/barbarian-law.jpg" alt="Barbarian Law logo" loading="lazy"></div><div class="lc-body"><h3><a href="firms/barbarian-law.html">Barbarian Law</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 166 Google reviews</i></span><div class="lc-serves">Serving Aurora, Ontario</div><div class="lc-addr">14981 Yonge Street (Upstairs), Aurora, ON L4G 1M5</div><div class="lc-phone">(905) 727-4466</div><div class="lc-tags"><span>Real Estate Closings</span><span>Corporate &amp; Wills</span></div><div class="lc-btns"><a class="lc-call" href="tel:+19057274466">Call</a><a class="lc-view" href="firms/barbarian-law.html">View profile</a></div></div></article></div></div>
+</section>
+<script>
+(function(){
+  var root=document.querySelector('.feat-swipe .lw-track'); if(!root) return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var paused=false,visible=true,timer=null,resume=null;
+  function step(){
+    if(paused||!visible) return;
+    var card=root.querySelector('.lc'); if(!card) return;
+    var w=card.getBoundingClientRect().width+18;
+    if(root.scrollLeft+root.clientWidth>=root.scrollWidth-6){ root.scrollTo({left:0,behavior:'smooth'}); }
+    else{ root.scrollBy({left:w,behavior:'smooth'}); }
+  }
+  function start(){ if(!timer) timer=setInterval(step,2500); }
+  function hold(){ paused=true; clearTimeout(resume); }
+  function release(ms){ clearTimeout(resume); resume=setTimeout(function(){ paused=false; },ms||2500); }
+  root.addEventListener('mouseenter',hold); root.addEventListener('mouseleave',function(){ release(800); });
+  root.addEventListener('touchstart',hold,{passive:true}); root.addEventListener('touchend',function(){ release(3500); },{passive:true});
+  root.addEventListener('focusin',hold); root.addEventListener('focusout',function(){ release(800); });
+  var nav=document.querySelector('.feat-swipe .lw-car-nav');
+  if(nav) nav.addEventListener('click',function(){ hold(); release(4000); });
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(e){ visible=e[0].isIntersecting; },{threshold:0.2}).observe(root); }
+  start();
+})();
+</script>
+
+<style>
+section.citystrip{ padding:8px 20px 40px; }
+.cs-head{ display:flex; align-items:baseline; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:26px; text-align:center; }
+.cs-head h2{ font-family:'Source Serif 4',serif; font-size:32px; margin:0; }
+.cs-head span{ font-size:16px; color:var(--ink-soft); } .cs-head a{ color:var(--brass-deep); font-weight:600; text-decoration:none; } .cs-head a:hover{ text-decoration:underline; }
+.cs-chips{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; max-width:1100px; margin:0 auto; }
+.cc{ display:inline-flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:15px 26px; font:600 17px Inter,sans-serif; color:var(--ink); text-decoration:none; transition:background .15s,border-color .15s,transform .15s; }
+.cc span{ font-weight:500; font-size:12px; color:#9a9285; }
+@media (hover:hover){ .cc:hover{ background:#fbf3e3; border-color:#d9a441; transform:translateY(-1px); } }
+section.feat-swipe{ padding-top:36px !important; padding-bottom:0 !important; }
+.feat-swipe .lw-track{ padding-bottom:4px; }
+section.citystrip{ padding:28px 20px 36px !important; }
+.cs-prov{ text-align:center; font-size:15px; color:var(--ink-soft); margin:22px 0 0; } .cs-prov a{ color:var(--brass-deep); font-weight:600; text-decoration:none; } .cs-prov a:hover{ text-decoration:underline; }
+section#cases{ padding-bottom:36px; }
+</style>
+<section class="citystrip" id="cities">
+  <div class="cs-head"><h2>Browse by city</h2><span>or <a href="find-lawyers.html">search any city</a></span></div>
+  <div class="cs-chips"><a class="cc" href="ontario/toronto/">Toronto<span>45</span></a><a class="cc" href="manitoba/winnipeg/">Winnipeg<span>41</span></a><a class="cc" href="alberta/calgary/">Calgary<span>18</span></a><a class="cc" href="quebec/montreal/">Montreal<span>14</span></a><a class="cc" href="british-columbia/vancouver/">Vancouver<span>13</span></a><a class="cc" href="ontario/ottawa/">Ottawa<span>10</span></a><a class="cc" href="quebec/quebec-city/">Quebec City<span>9</span></a><a class="cc" href="ontario/mississauga/">Mississauga<span>8</span></a><a class="cc" href="alberta/edmonton/">Edmonton<span>8</span></a><a class="cc" href="quebec/gatineau/">Gatineau<span>7</span></a><a class="cc" href="ontario/hamilton/">Hamilton<span>6</span></a><a class="cc" href="ontario/brampton/">Brampton<span>6</span></a></div>
+<p class="cs-prov">Browse by province: <a href="ontario/">Ontario</a> &middot; <a href="quebec/">Quebec</a> &middot; <a href="british-columbia/">British Columbia</a> &middot; <a href="alberta/">Alberta</a> &middot; <a href="manitoba/">Manitoba</a></p>
+</section>
+
+<!-- ABOUT-LAWDB -->
+<section class="about" id="about">
+  <div class="about-top">
+    <div>
+      <div class="about-eyebrow">About LawDB</div>
+      <h2>Canada&rsquo;s independent law firm directory</h2>
+      <p class="about-lead">LawDB helps people find a real, reviewed law firm near them, by the kind of case they have. We list 370 firms across 62 cities in Ontario, Quebec, British Columbia, Alberta and Manitoba, and show every firm&rsquo;s real Google rating and review count so you can compare them yourself.</p>
+      <ul class="about-checks">
+        <li>Ratings and review counts come straight from each firm&rsquo;s public Google Business profile</li>
+        <li>Browse by 10 practice areas, with plain-language guides on what to ask before you call</li>
+        <li>Free to search, with no account needed</li>
+      </ul>
+      <div class="about-btns"><a class="about-btn primary" href="find-lawyers.html">Find Your Lawyer</a><a class="about-btn ghost" href="how-it-works.html">How LawDB works</a></div>
+    </div>
+    <div class="about-photo">
+      <img class="about-img" src="images/about-signature.jpg" alt="A professional signing a document on a phone using a digital checklist" loading="lazy">
+      <div class="about-stat"><div><b>370</b><span>Firms</span></div><div><b>62</b><span>Cities</span></div><div><b>5</b><span>Provinces</span></div></div>
+    </div>
+  </div>
+  <div class="about-pillars">
+    <div class="pillar"><img class="about-img" src="images/business-meeting.jpg" alt="Lawyers meeting in a boardroom" loading="lazy"><div><h3>Compare on real ratings</h3><p>Every listing is shown with the same underlying Google rating data, so firms are compared on what clients actually said, not on who has the biggest ad.</p></div></div>
+    <div class="pillar"><img class="about-img" src="images/criminal-consultation.jpg" alt="A lawyer reviewing a case with a client" loading="lazy"><div><h3>Find the right kind of lawyer</h3><p>Traffic tickets to wills, real estate to litigation: pick your case type and we match you with firms that handle it in your area.</p></div></div>
+    <div class="pillar"><img class="about-img" src="images/about-lady-justice.jpg" alt="Statue of Lady Justice holding the scales in front of a courthouse" loading="lazy"><div><h3>Clearly labelled Featured firms</h3><p>Firms can pay to be highlighted. Featured placements are always marked, and every firm, Featured or not, shows the same rating data.</p></div></div>
+  </div>
+  <div class="about-steps">
+    <h3>How it works</h3>
+    <div class="astep"><span class="n">1</span><div><b>Choose your case type</b><span>Tell us what you need help with and where you are.</span></div></div>
+    <div class="astep"><span class="n">2</span><div><b>Compare firms near you</b><span>See real Google ratings, reviews and services side by side.</span></div></div>
+    <div class="astep"><span class="n">3</span><div><b>Call or send a message</b><span>Contact a firm directly, or use Request a Consultation and we&rsquo;ll pass your inquiry on.</span></div></div>
+  </div>
+  <p class="about-fine">LawDB is an independent directory. We are not a law firm, we do not give legal advice, and we are not affiliated with the firms we list. Ratings are a snapshot of public Google data and may have changed.</p>
+</section>
+
+
+<div class="firms-divider" id="for-firms"><span>For law firms</span></div>
+<div class="cta-band">
+  <h2>Are you a lawyer or law firm?</h2>
+  <div class="price">Featured placement from $199 per month, cancel anytime</div>
+  <p>Register your firm on LawDB in a few minutes. Get a highlighted marker, top placement in your area's results, and an expanded profile page in front of everyone searching Ontario, Quebec, British Columbia, Alberta, and Manitoba for a lawyer.</p>
+  <a href="list-your-firm.html">List Your Firm</a>
+</div>
+
+
+<div class="lwa-sec">
+<h2 class="lwa-h">How a Featured listing gets found</h2>
+<p class="lwa-lede">As a client types what they need and where, LawDB suggests matching firms. Here is where a Featured firm lands.</p>
+<section class="lwa lwa--search" data-steps='[{"t":"A client searches","p":"Someone who needs a lawyer types what they need and where they are, or taps a practice area and a city."},{"t":"LawDB suggests matching firms","p":"As they type, a dropdown lists the firms that match. A free listing is included, ranked by its Google rating."},{"t":"Featured goes first","p":"A Featured firm is listed above standard ones for your practice area and city, with a gold Featured badge. It also gets a gold pin on the map and a spot in the Featured Partners strip."},{"t":"They contact you","p":"The first firm people see is the first firm they call or visit."}]'>
+<div class="lwa-stage" data-s="1" role="img" aria-label="Illustration: a client types a search, LawDB suggests matching firms, and a Featured firm is listed first">
+ <div class="lwa-page">
+  <div class="lwa-q"><span class="lwa-typed">personal injury lawyer in Toronto</span><span class="lwa-cur"></span></div>
+  <div class="lwa-cnt">4 firms in Toronto</div>
+  <div class="lwa-list">
+   <div class="lwa-row lwa-r1"><div class="lwa-av">H</div><div class="lwa-info"><div class="lwa-nm">Harlow &amp; Reid LLP</div><div class="lwa-ds">Toronto · Personal injury</div></div></div>
+   <div class="lwa-row lwa-r2"><div class="lwa-av">M</div><div class="lwa-info"><div class="lwa-nm">Mercer Law Office</div><div class="lwa-ds">Toronto · Personal injury</div></div></div>
+   <div class="lwa-row lwa-r3"><div class="lwa-av">B</div><div class="lwa-info"><div class="lwa-nm">Bayview Legal</div><div class="lwa-ds">Toronto · Personal injury</div></div></div>
+   <div class="lwa-row lwa-you"><div class="lwa-av">Y</div><div class="lwa-info"><div class="lwa-nm">Your Firm LLP<span class="lwa-tick"><svg viewBox="0 0 12 12"><path d="M2.5 6.4 5 8.8 9.6 3.4" fill="none" stroke="#2b2723" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="lwa-ds">Toronto · Personal injury</div></div><span class="lwa-feat">Featured</span><div class="lwa-btns"><span class="lwa-pill p">Call</span><span class="lwa-pill">Website</span></div></div>
+  </div>
+ </div>
+ <div class="lwa-note">New enquiry for Your Firm LLP</div><div class="lwa-ill">Illustration</div>
+</div>
+<div class="lwa-cap" aria-live="polite"><h3></h3><p></p></div><div class="lwa-ctl"><div class="lwa-steps"></div><button class="lwa-pp" type="button">Pause</button></div>
+</section>
+</div>
+<section>
+  <div class="section-head">
+    <h2>Basic vs Featured</h2>
+    <p>Every firm in our database gets a listing. Featured is how you get found first.</p>
+  </div>
+  <p class="trust-note">Our listings are built from public business records, not paid submissions
+  &mdash; a firm appears here because it operates and has a track record, not because it bought a spot.
+  Featured firms get a highlighted marker and priority placement, but every firm is shown with the same
+  underlying rating data so you can compare them yourself.</p>
+  <div class="compare">
+    <div class="compare-card">
+      <h3>Basic</h3>
+      <div class="cprice">Free, always</div>
+      <ul>
+        <li>Standard marker on the map</li>
+        <li>Profile page with services listed</li>
+        <li>Included in case-type search results</li>
+        <li>Shown below Featured firms in every list</li>
+      </ul>
+      <a class="cta-link" href="list-your-firm.html">List for free</a>
+    </div>
+    <div class="compare-card is-featured">
+      <h3>Featured</h3>
+      <div class="cprice">$199 / month</div>
+      <ul>
+        <li>Placed above Basic firms in every search and case-type match for your city</li>
+        <li>Listed first in the live search dropdown, with a gold Featured badge, as people type their case and city</li>
+        <li>Gold highlighted map pin, visible at every zoom level</li>
+        <li>A big card in the auto-sliding Featured Partners showcase on the homepage</li>
+        <li>Expanded profile with a cover image, full description, practice-area tags and firm insights</li>
+        <li>One-tap Call, Website and Directions buttons, plus a consultation request form</li>
+        <li>Gold tick and Featured badge wherever your firm appears</li>
+      </ul>
+      <a class="cta-link" href="list-your-firm.html?plan=featured">Get Featured</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>LawDB News</h2>
+    <p>Recent updates and articles from firms on LawDB.</p>
+  </div>
+  <div class="news-list" id="newsFeed"></div>
+</section>
+<script>
+(function(){
+  var NEWS = [
+    { slug:'daniel-brown-law-llp', name:'Daniel Brown Law LLP', city:'Toronto, ON',
+      logo:'images/logos/daniel-brown-law-llp.jpg',
+      title:'Charged With Impaired Driving in Ontario: What Happens Next',
+      teaser:'An impaired driving charge starts affecting your life long before your trial date \u2014 your licence, your insurance, and your record are all in play from day one.',
+      thumb:'images/daniel-brown-impaired-driving.jpg' },
+    { slug:'weaver-simmons-llp', name:'Weaver Simmons LLP', city:'Sudbury, ON',
+      logo:'images/logos/weaver-simmons-llp.jpg',
+      title:'Multiple Wills: Why Some Ontario Estates Use More Than One',
+      teaser:'Ontario charges estate administration tax on the value of assets passing through probate. Using more than one will can keep certain assets out of that calculation.',
+      thumb:'images/weaver-simmons-wills.jpg' },
+    { slug:'oatley-vigmond-personal-injury-lawyers-llp', name:'Oatley Vigmond Personal Injury Lawyers LLP', city:'Barrie, ON',
+      logo:'images/logos/oatley-vigmond-personal-injury-lawyers-llp.jpg',
+      title:'11 Oatley Vigmond Lawyers Recognized in the 2027 Best Lawyers in Canada',
+      teaser:'Best Lawyers in Canada selects lawyers through a peer-review process. Eleven Oatley Vigmond lawyers appear in the 2027 edition.',
+      thumb:'images/oatley-vigmond-building.jpg' },
+    { slug:'nelligan-law', name:'Nelligan Law', city:'Ottawa, ON',
+      logo:'images/logos/nelligan-law.png',
+      title:'Do I Need a Family Lawyer in Ottawa?',
+      teaser:'Not every family law matter needs a lawyer running it end to end \u2014 but some decisions are very hard to undo later.',
+      thumb:'images/nelligan-reception.png' },
+    { slug:'stikeman-elliott-llp', name:'Stikeman Elliott LLP', city:'Toronto, ON',
+      logo:'images/logos/stikeman-elliott-llp.jpg',
+      title:'Stikeman Elliott Lawyers Named to the 2026 Benchmark Litigation 40 & Under List',
+      teaser:'Benchmark Litigation\u2019s 40 & Under list recognises leading disputes lawyers in the earlier part of their careers.',
+      thumb:'images/stikeman-toronto-skyline.jpg' },
+    { slug:'barbarian-law', name:'Barbarian Law', city:'Aurora, ON',
+      logo:'images/logos/barbarian-law.jpg',
+      title:'What Your Real Estate Lawyer Actually Does on Closing (and What It Costs)',
+      teaser:'Between an accepted offer and moving day, most buyers hire a lawyer and never quite learn what happens next.',
+      thumb:'images/barbarian-law-closing-photo.jpg' }
+  ];
+  function shuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
+  }
+  var picks = shuffle(NEWS).slice(0,3);
+  var feed = document.getElementById('newsFeed');
+  feed.innerHTML = picks.map(function(n){
+    return '<a class="news-item" href="firms/'+n.slug+'.html">'
+      + '<div class="news-text">'
+      + '<div class="news-firm"><img src="'+n.logo+'" alt="'+n.name+' logo">'
+      + '<div><div class="news-firm-name">'+n.name+'</div><div class="news-firm-city">'+n.city+'</div></div></div>'
+      + '<h3 class="news-title">'+n.title+'</h3>'
+      + '<p class="news-teaser">'+n.teaser+'</p>'
+      + '</div>'
+      + '<img class="news-thumb" src="'+n.thumb+'" alt="">'
+      + '</a>';
+  }).join('');
+})();
+</script>
+
+<section>
+  <div class="section-head">
+    <h2>Legal Guides by City</h2>
+    <p>The rules, courts, and filing processes that actually change from one city to the next.</p>
+  </div>
+  <div class="blog-grid" id="blogGrid"></div>
+  <div style="text-align:center; margin-top:22px;"><a class="cta-link" href="blog.html">See all articles</a></div>
+</section>
+
+<div class="lawdb-banner"><a href="find-lawyers.html"><img src="images/lawdb-banner-sm.jpg" srcset="images/lawdb-banner-sm.jpg 971w, images/lawdb-banner.jpg 1942w" sizes="(min-width:1300px) 1240px, 100vw" width="1942" height="809" alt="LawDB - find a lawyer with real reviews and a professional approach" loading="lazy"></a></div>
+
+<footer class="site-footer">
+  <div class="foot-grid">
+    <div>
+      <span class="fmark"><img src="./images/logo-icon.png" alt="LawDB" style="height:26px;width:auto;display:block;">LawDB.ca<sup style="font-size:.4em;font-weight:600;margin-left:1px;vertical-align:super;line-height:0;">&trade;</sup></span>
+      <p class="fblurb">Canada's law firm directory. Find a real, reviewed law firm near you by the kind of case you have. Ontario, Quebec, British Columbia, Alberta, and Manitoba are live now, with more provinces coming soon.</p><div style="display:flex;align-items:center;gap:14px;margin-top:12px;"><img src="images/badge-quality-legal-info.jpg" alt="Quality Legal Information" style="height:38px;width:auto;border-radius:4px;"><img src="images/badge-directory-trust.jpg" alt="Legal Directory You Can Trust" style="height:32px;width:auto;border-radius:4px;"></div>
+    </div>
+    <div>
+      <h4>For Clients</h4>
+      <ul>
+        <li><a href="./find-lawyers.html">Find Your Lawyer</a></li>
+        <li><a href="./index.html#cases">Browse by Case Type</a></li>
+        <li><a href="./legal-news.html">Legal News</a></li>
+        <li><a href="./blog.html">Blog</a></li>
+        <li><a href="./how-it-works.html">How LawDB Works</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>For Law Firms</h4>
+      <ul>
+        <li><a href="./for-firms.html">Why List With Us</a></li>
+        <li><a href="./list-your-firm.html">List Your Firm (Free)</a></li>
+        <li><a href="list-your-firm.html?plan=featured">Get Featured</a></li>
+        <li><a href="./book-a-call.html">Request a Consultation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>LawDB</h4>
+      <ul>
+        <li><a href="./index.html">Home</a></li><li><a href="./contact.html">Contact Us</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="refund-policy.html">Refund Policy</a></li><li><a href="privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    &copy; 2026 LawDB.ca. Listing data sourced from Google's public business listings. LawDB is an independent directory and is not affiliated with, endorsed by, or representing any listed firm. Ratings, review counts, and practice-area tags reflect a snapshot at the time each page was generated and may have changed since.
+  </div>
+</footer>
+
+<script>
+(function() {
+  fetch('blog_data.json').then(function(r) { return r.json(); }).then(function(posts) {
+    posts = posts.filter(function(p) { return p.audience !== 'firms'; });
+    for (var i = posts.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = posts[i]; posts[i] = posts[j]; posts[j] = tmp;
+    }
+    var picks = posts.slice(0, 3);
+    var grid = document.getElementById('blogGrid');
+    grid.innerHTML = picks.map(function(p) {
+      var hero = p.hero_image
+        ? '<img src="' + p.hero_image + '" alt="' + p.hero_alt + '">'
+        : '<div class="blog-card-banner" style="background:' + p.banner_css + ';"><span>'
+          + p.city + ' · ' + p.banner_label + '</span></div>';
+      return '<a class="blog-card" href="blog/' + p.slug + '.html">'
+        + hero
+        + '<div class="blog-card-body"><span class="city-pill">' + p.city + ', ' + p.province + '</span>'
+        + '<h3>' + p.title + '</h3><p>' + p.excerpt + '</p></div></a>';
+    }).join('');
+  });
+})();
+</script>
+
+<script src="site.js" defer></script>
+<script src="lwa.js" defer></script>
+</body>
+</html>

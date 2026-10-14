@@ -104,6 +104,7 @@ const ROUTES = [
   route('DELETE', '/api/account/firms/:slug/images/:id', account.imagesRemove),
   route('PATCH', '/api/account/leads/:id', account.updateLead),
   route('PATCH', '/api/account/profile', account.updateProfile),
+  route('GET', '/api/cities', account.cities),
   route('GET', '/api/firms/:slug/ratings', ratings.list),
   route('POST', '/api/account/ratings', ratings.rate),
   route('GET', '/api/account/ratings', ratings.mine),

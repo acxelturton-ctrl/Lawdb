@@ -105,3 +105,19 @@ textarea.tall { min-height: 150px; }
 .provider:hover{border-color:#9a6f1c}.provider img{display:block}
 .or{display:flex;align-items:center;gap:12px;color:#8f8a80;font-size:13px;margin:16px 0}
 .or::before,.or::after{content:'';flex:1;height:1px;background:#e4ded3}
+
+/* welcome steps */
+.wiz{min-height:100vh;display:flex;flex-direction:column;padding:18px 16px 28px;max-width:520px;margin:0 auto}
+.wiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.wiz-skip{font-size:14px;color:#6b645b}
+.wiz-card{position:relative;padding:26px 22px 24px}
+.wiz-h{font-family:'Source Serif 4',Georgia,serif;font-size:26px;line-height:1.2;text-align:center;margin:6px 0 8px}
+.center-text{text-align:center;margin:0 0 12px}
+.wiz-card label{display:block;margin:14px 0 6px}.wiz-card input[type=text]{width:100%}
+.wiz-back{display:block;margin:-8px 0 0 -8px;background:none;border:0;font-size:24px;cursor:pointer;color:#2b2723;padding:4px 10px}
+.wiz-go{width:100%;margin-top:22px;padding:14px;font-size:16px}.wiz-go[disabled]{background:#d9d3c3;color:#fff;cursor:not-allowed}
+.wiz-list{display:flex;flex-direction:column;border:1px solid #e4ded3;border-radius:8px;margin-top:6px;overflow:hidden}.wiz-list:empty{display:none}
+.wiz-list button{text-align:left;padding:12px 14px;background:#fff;border:0;border-bottom:1px solid #eee7d6;font-size:15px;cursor:pointer}.wiz-list button:last-child{border-bottom:0}.wiz-list button:hover{background:#fbf3e3}
+.wiz-opts{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.wiz-opt{display:flex;flex-direction:column;gap:2px;text-align:center;padding:14px 12px;background:#fff;border:1.5px solid #e4ded3;border-radius:10px;cursor:pointer;font-size:15px;color:#2b2723}
+.wiz-opt span{font-size:13px;color:#6b645b;font-weight:400}.wiz-opt[aria-pressed="true"]{border-color:#b8863b;background:#fbf3e3}
+.wiz-bar{display:flex;gap:8px;justify-content:center;margin-top:24px}.wiz-bar i{display:block;width:44px;height:5px;border-radius:3px;background:#e4ded3}.wiz-bar i.on{background:#2b2723}

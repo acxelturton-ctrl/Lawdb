@@ -1065,6 +1065,16 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     // profile
     ok((await call('PATCH', '/api/account/profile', { name: 'Olivia O.', kind: 'lawyer' })).data.profile.kind === 'lawyer' && (await call('GET', '/api/account/me')).data.user.name === 'Olivia O.', 'a profile (name and who you are) can be saved');
     ok((await call('PATCH', '/api/account/profile', { kind: 'wizard' })).status === 422 && (await call('PATCH', '/api/account/profile', { name: '<b>x</b>' })).status === 422 && (await call('PATCH', '/api/account/profile', {})).status === 422, 'odd profile input is refused');
+    // the welcome steps (name, location, most recent job, what brings you here)
+    const cs = await call('GET', '/api/cities');
+    ok(cs.status === 200 && cs.data.cities.length > 5 && cs.data.cities.every((c) => c.city && c.province && c.firms > 0), 'the welcome steps can suggest the cities LawDB lists (no sign-in needed)');
+    ok((await call('GET', '/api/account/me')).data.user.onboarded === false, 'a brand-new member has not finished the welcome steps');
+    const city0 = cs.data.cities[0];
+    const done = await call('PATCH', '/api/account/profile', { name: 'Olivia Oauth', city: city0.city, province: city0.province, jobTitle: 'Associate Lawyer', employer: 'Test LLP', goal: 'clients', complete: true });
+    const prof = (await call('GET', '/api/account/me')).data.user;
+    ok(done.status === 200 && prof.onboarded === true && prof.city === city0.city && prof.province === city0.province && prof.jobTitle === 'Associate Lawyer' && prof.employer === 'Test LLP' && prof.goal === 'clients' && prof.kind === 'lawyer', 'finishing the welcome steps saves everything and marks the member as set up');
+    ok((await call('PATCH', '/api/account/profile', { goal: 'rich' })).status === 422 && (await call('PATCH', '/api/account/profile', { province: 'ZZ' })).status === 422 && (await call('PATCH', '/api/account/profile', { jobTitle: '<script>' })).status === 422, 'odd answers in the welcome steps are refused');
+    ok((await call('PATCH', '/api/account/profile', { jobTitle: '', employer: '' })).status === 200 && (await call('GET', '/api/account/me')).data.user.onboarded === true, 'optional answers can be cleared and the member stays set up');
     cookie = '';
     ok((await call('PATCH', '/api/account/profile', { name: 'x' })).status === 401, 'the profile needs sign-in');
     // refusals

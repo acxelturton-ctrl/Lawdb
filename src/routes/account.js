@@ -34,30 +34,57 @@ export async function me({ request, env }) {
     `SELECT m.id, m.firm_slug AS slug, m.status, m.created_at AS requestedAt, f.name, f.city, f.province, f.status AS firmStatus, f.page_mode AS pageMode, f.featured AS featured
      FROM firm_members m JOIN firms f ON f.slug = m.firm_slug WHERE m.user_id = ? ORDER BY m.id DESC`
   ).bind(user.id).all();
-  const prof = await env.DB.prepare('SELECT name, kind FROM users WHERE id = ?').bind(user.id).first();
-  return reply({ user: { email: user.email, role: user.role, name: prof?.name || '', kind: prof?.kind || '' }, memberships: results.map((m) => ({ ...m, featured: !!m.featured })) });
+  const prof = await profileOf(env, user.id);
+  return reply({ user: { email: user.email, role: user.role, ...prof }, memberships: results.map((m) => ({ ...m, featured: !!m.featured })) });
 }
 
-// Your profile: a name and who you are. Shown to nobody else for now; it personalises your dashboard and emails.
+// Your profile: shown to nobody else for now; it personalises your dashboard and emails.
 export const KINDS = ['lawyer', 'staff', 'public', 'other'];
+export const GOALS = ['find', 'clients', 'staff', 'follow', 'study', 'other'];
+const PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
+const KIND_OF_GOAL = { find: 'public', clients: 'lawyer', staff: 'staff', follow: 'lawyer', study: 'other', other: 'other' };
+const profileOf = async (env, id) => {
+  const p = await env.DB.prepare('SELECT name, kind, city, province, job_title AS jobTitle, employer, goal, onboarded_at FROM users WHERE id = ?').bind(id).first();
+  return { name: p?.name || '', kind: p?.kind || '', city: p?.city || '', province: p?.province || '', jobTitle: p?.jobTitle || '', employer: p?.employer || '', goal: p?.goal || '', onboarded: !!p?.onboarded_at };
+};
+const plain = (v, label, max) => {
+  const t = typeof v === 'string' ? v.replace(/\s+/g, ' ').trim() : '';
+  if (t.length > max || /[<>]/.test(t)) throw new HttpError(422, `${label}: use up to ${max} characters, without < or >.`);
+  return t || null;
+};
 export async function updateProfile({ request, env }) {
   const user = await requireUser(env, request);
-  const body = await readJson(request, 1000);
+  const body = await readJson(request, 2000);
   const sets = [];
   const args = [];
-  if ('name' in body) {
-    const name = typeof body.name === 'string' ? body.name.trim() : '';
-    if (name.length > 80 || /[<>]/.test(name)) throw new HttpError(422, 'Use a name up to 80 characters, without < or >.');
-    sets.push('name = ?'); args.push(name || null);
+  const put = (col, val) => { sets.push(`${col} = ?`); args.push(val); };
+  if ('name' in body) put('name', plain(body.name, 'Name', 80));
+  if ('city' in body) put('city', plain(body.city, 'Location', 80));
+  if ('province' in body) {
+    if (body.province !== '' && !PROVINCES.includes(body.province)) throw new HttpError(422, 'Choose a province or territory from the list.');
+    put('province', body.province || null);
+  }
+  if ('jobTitle' in body) put('job_title', plain(body.jobTitle, 'Job title', 80));
+  if ('employer' in body) put('employer', plain(body.employer, 'Law firm or employer', 100));
+  if ('goal' in body) {
+    if (body.goal !== '' && !GOALS.includes(body.goal)) throw new HttpError(422, 'Choose one of the options.');
+    put('goal', body.goal || null);
+    if (body.goal && !('kind' in body)) put('kind', KIND_OF_GOAL[body.goal]);
   }
   if ('kind' in body) {
     if (body.kind !== '' && !KINDS.includes(body.kind)) throw new HttpError(422, 'Choose one of the options.');
-    sets.push('kind = ?'); args.push(body.kind || null);
+    put('kind', body.kind || null);
   }
-  if (!sets.length) throw new HttpError(422, 'Send a name and/or who you are.');
+  if (body.complete === true) sets.push("onboarded_at = COALESCE(onboarded_at, datetime('now'))");
+  if (!sets.length) throw new HttpError(422, 'Send something to save.');
   await env.DB.prepare(`UPDATE users SET ${sets.join(', ')} WHERE id = ?`).bind(...args, user.id).run();
-  const prof = await env.DB.prepare('SELECT name, kind FROM users WHERE id = ?').bind(user.id).first();
-  return reply({ ok: true, profile: { name: prof.name || '', kind: prof.kind || '' } });
+  return reply({ ok: true, profile: await profileOf(env, user.id) });
+}
+
+// Places people can pick in the welcome steps: the cities LawDB lists, with how many firms each has.
+export async function cities({ env }) {
+  const { results } = await env.DB.prepare("SELECT city, province, COUNT(*) AS firms FROM firms WHERE status = 'live' GROUP BY city, province ORDER BY firms DESC, city").all();
+  return json({ cities: results }, 200, { 'cache-control': 'public, max-age=3600' });
 }
 
 // Find a listing to claim. Only live listings, and only the fields a stranger needs to recognise their firm.

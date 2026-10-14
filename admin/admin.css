@@ -86,3 +86,11 @@ textarea.tall { min-height: 150px; }
 .quote { border-left: 3px solid var(--gold); padding-left: 10px; color: var(--muted, #555); white-space: pre-wrap; }
 .hrow input[type=time]::-webkit-calendar-picker-indicator { display: none; }
 @media (max-width: 480px) { .hrow { grid-template-columns: 76px 22px minmax(0, 1fr) minmax(0, 1fr); } .hrow span { font-size: 14px; } }
+
+.pics h2 { margin: 0 0 4px; font-size: 18px; }
+.pics-sec { margin: 18px 0; padding-top: 14px; border-top: 1px solid var(--line); }
+.thumbs { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0; }
+.thumbs figure { margin: 0; width: 120px; }
+.thumbs img { width: 120px; height: 90px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); display: block; }
+.thumbs button { width: 100%; margin-top: 4px; padding: 6px 8px; font-size: 13px; }
+.pics input[type=file] { max-width: 100%; }

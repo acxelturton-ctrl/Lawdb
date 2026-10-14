@@ -93,6 +93,18 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - Shared code: `src/lib/firm-edit.js` (validation, create, edit), `src/lib/email.js` (all mail), `admin/ui.js` (UI helpers).
 - Local development sends no mail; each message is recorded in the audit log as `mail.dev` instead.
 
+## Firm pictures
+
+- Files live in the private R2 bucket `lawdb-images` (binding `IMAGES`, key `img/<id>`); the `firm_images` table (migration 0007) decides what is shown.
+  The public address is `/img/<id>` (Worker route, cached 1 day in browsers). Only pictures still listed in the table, for live firms, are served; removal
+  deletes the row and the file and clears the edge cache.
+- Kinds: `logo` (one), `cover` (one), `photo` (up to 6). A new logo/cover replaces the old one. The logo and cover are written into the firm's public record
+  using the fields the hand-built pages already use (`type: 'logo'`, `src: 'img/<id>'`, `heroImage`), so directory cards, the map, hubs and search show them; the
+  original file names are remembered (`origSrc`, `origHero`) and restored when the picture is removed. Photos appear in a gallery on database-built pages.
+- Upload safety (`src/lib/images.js`): the format is read from the file's own bytes (JPEG, PNG, WebP only, never SVG), 3 MB maximum, 64-8000 pixels per side,
+  20 uploads per person per hour, owner descriptions pass the content rules. Pictures are served with `nosniff` and a sandboxing CSP.
+- Admins can manage any firm's pictures; owners only their own. Every add/remove is in the activity log. The backup includes the `firm_images` rows; the files are in the bucket.
+
 ## Safeguards (hardening pass)
 
 - **Ownership signal:** the Approvals card compares the claimant's email domain with the firm's website
@@ -130,7 +142,7 @@ Local development: copy the values from `.dev.vars` in the README (never committ
 3. Firm accounts: sign-up, claim/create a listing, admin approval, `firm_members` table. (done)
 4. Firm dashboard: edit own profile, own enquiries, lead emails. (done)
 4b. Hardening: ownership signal, content rules, reports and undo, people controls, backups, retention. (done)
-4c. Picture uploads (needs Cloudflare R2 enabled on the account first).
+4c. Picture uploads: logo, cover, photos (R2). (done)
 5. Featured billing (Stripe webhooks flip `featured`).
 
 ## Known limits

@@ -1,7 +1,7 @@
 // LawDB firm-owner dashboard. No framework, no build step.
 // SECURITY: everything shown here (including enquiries typed by the public) is inserted as text nodes only.
 
-import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, PROVINCES } from '/admin/ui.js';
+import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, PROVINCES } from '/admin/ui.js';
 
 const app = document.getElementById('app');
 const mount = (...nodes) => app.replaceChildren(...nodes);
@@ -216,7 +216,8 @@ async function viewEdit(slug) {
       h('label', null, 'Categories'), cats.el,
       h('label', null, 'Opening hours'), hrs.el,
       h('p', { class: 'muted' }, 'Your rating and review count come from Google and update on their own.'),
-      h('div', { class: 'row' }, save), out));
+      h('div', { class: 'row' }, save), out),
+    picturesPanel(`/api/account/firms/${encodeURIComponent(slug)}/images`));
 }
 
 // ---------------------------------------------------------------- enquiries

@@ -83,3 +83,72 @@ export function categoryChecks(selected) {
 export const splitTags = (v) => v.split(',').map((t) => t.trim()).filter(Boolean);
 export const field = (label, el, hint) => [h('label', null, label), el, hint && h('p', { class: 'muted' }, hint)];
 
+
+// ---------------------------------------------------------------- pictures
+// Logo, cover and photos for one firm. `base` is the images endpoint (owner or admin). Each upload or removal
+// is saved straight away; it does not wait for the profile form's Save button.
+export function picturesPanel(base) {
+  const root = h('div', { class: 'card pics' });
+  const out = h('div');
+  const MAX = 3 * 1024 * 1024;
+
+  async function send(method, url, file) {
+    const res = await fetch(url, {
+      method,
+      headers: file ? { 'content-type': file.type || 'application/octet-stream' } : {},
+      body: file,
+      credentials: 'same-origin',
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw new Error((data && data.error) || `Request failed (${res.status})`);
+    return data;
+  }
+
+  async function upload(kind, file, alt) {
+    if (!file) return;
+    if (file.size > MAX) return out.replaceChildren(note('msg-err', 'That picture is over 3 MB. Please choose a smaller one.'));
+    out.replaceChildren(note('msg-ok', 'Uploading…'));
+    try {
+      await send('POST', `${base}?kind=${kind}${alt ? '&alt=' + encodeURIComponent(alt) : ''}`, file);
+      out.replaceChildren(note('msg-ok', 'Saved. It appears on the site within about a minute.'));
+      await load();
+    } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
+  }
+
+  async function remove(img) {
+    if (!confirm('Remove this picture?')) return;
+    try { await send('DELETE', `${base}/${img.id}`); out.replaceChildren(note('msg-ok', 'Removed.')); await load(); }
+    catch (err) { out.replaceChildren(note('msg-err', err.message)); }
+  }
+
+  function section(title, kind, imgs, hint, multi) {
+    const input = h('input', { type: 'file', accept: 'image/jpeg,image/png,image/webp', 'aria-label': `Choose ${title.toLowerCase()}` });
+    const alt = multi ? h('input', { type: 'text', maxlength: 120, placeholder: 'Short description (optional)', 'aria-label': 'Picture description' }) : null;
+    const go = h('button', { type: 'button' }, imgs.length && !multi ? 'Replace' : 'Upload');
+    go.addEventListener('click', () => upload(kind, input.files[0], alt ? alt.value.trim() : ''));
+    return h('div', { class: 'pics-sec' },
+      h('b', null, title), h('p', { class: 'muted' }, hint),
+      h('div', { class: 'thumbs' }, imgs.map((img) => h('figure', null,
+        h('img', { src: img.url, alt: img.alt || title, loading: 'lazy' }),
+        h('button', { type: 'button', onclick: () => remove(img) }, 'Remove')))),
+      h('div', { class: 'row' }, input, alt, go));
+  }
+
+  function draw(images) {
+    const by = (k) => images.filter((i) => i.kind === k);
+    root.replaceChildren(
+      h('h2', null, 'Pictures'),
+      h('p', { class: 'muted' }, 'JPEG, PNG or WebP, up to 3 MB each. Only upload pictures you own or have permission to use, and do not show clients without their consent.'),
+      section('Logo', 'logo', by('logo'), 'Shown on your listing and page. A square picture works best.', false),
+      section('Cover picture', 'cover', by('cover'), 'The wide picture at the top of your page.', false),
+      section('Photos', 'photo', by('photo'), 'Up to 6 photos, shown on your page.', true),
+      out);
+  }
+
+  async function load() {
+    try { draw((await api('GET', base)).images); }
+    catch (err) { root.replaceChildren(note('msg-err', err.message)); }
+  }
+  load();
+  return root;
+}

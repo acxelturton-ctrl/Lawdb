@@ -23,9 +23,9 @@ export async function listFirms({ url, env }) {
 }
 
 export async function getFirm({ params, env }) {
-  const row = await env.DB.prepare('SELECT data, hours FROM firms WHERE slug = ?').bind(params.slug).first();
+  const row = await env.DB.prepare('SELECT data, hours, about FROM firms WHERE slug = ?').bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
-  return cached({ ...JSON.parse(row.data), hours: row.hours ? JSON.parse(row.hours) : null });
+  return cached({ ...JSON.parse(row.data), about: row.about || '', hours: row.hours ? JSON.parse(row.hours) : null });
 }
 
 export async function listBlog({ url, env }) {

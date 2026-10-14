@@ -135,6 +135,53 @@ async function viewLeads() {
 }
 
 // ---------------------------------------------------------------- firms
+const CASE_LABELS = {
+  traffic: 'Traffic Ticket', criminal: 'Criminal Charges', family: 'Family Law / Divorce', injury: 'Personal Injury / Accident',
+  realestate: 'Buying or Selling a Home', wills: 'Wills, Estates & Power of Attorney', business: 'Business / Corporate',
+  employment: 'Employment Dispute', immigration: 'Immigration', litigation: 'Civil Lawsuit / Litigation',
+};
+const DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const PROVINCES = { ON: 'Ontario', QC: 'Quebec', BC: 'British Columbia', AB: 'Alberta', MB: 'Manitoba' };
+
+// Opening hours editor. Days that already have split hours (two ranges) are kept as they are.
+function hoursEditor(hours) {
+  let dirty = false;
+  const rows = DAY_NAMES.map((name, i) => {
+    const ivs = (hours && hours[String(i + 1)]) || [];
+    const multi = ivs.length > 1;
+    const open = h('input', { type: 'checkbox', checked: ivs.length > 0, 'aria-label': `${name} open`, disabled: multi });
+    const from = h('input', { type: 'time', value: ivs[0] ? ivs[0][0] : '09:00', 'aria-label': `${name} opens` });
+    const to = h('input', { type: 'time', value: ivs[0] ? ivs[0][1] : '17:00', 'aria-label': `${name} closes` });
+    const mark = () => { dirty = true; };
+    [open, from, to].forEach((el) => el.addEventListener('change', mark));
+    return { name, ivs, multi, open, from, to, el: h('div', { class: 'hrow' }, h('span', null, name), open, multi ? h('span', { class: 'muted hwide' }, 'Split hours kept as they are') : [from, to]) };
+  });
+  return {
+    el: h('div', { class: 'hours-edit' }, rows.map((r) => r.el)),
+    isDirty: () => dirty,
+    anyOpen: () => rows.some((r) => r.multi || r.open.checked),
+    get() {
+      const out = {};
+      rows.forEach((r, i) => {
+        if (r.multi) out[String(i + 1)] = r.ivs;
+        else if (r.open.checked) out[String(i + 1)] = [[r.from.value, r.to.value]];
+      });
+      return out;
+    },
+  };
+}
+
+function categoryChecks(selected) {
+  const boxes = Object.entries(CASE_LABELS).map(([id, label]) => {
+    const input = h('input', { type: 'checkbox', value: id, checked: (selected || []).includes(id) });
+    return { id, input, el: h('label', { class: 'check small' }, input, label) };
+  });
+  return { el: h('div', { class: 'checks' }, boxes.map((b) => b.el)), get: () => boxes.filter((b) => b.input.checked).map((b) => b.id) };
+}
+
+const splitTags = (v) => v.split(',').map((t) => t.trim()).filter(Boolean);
+const field = (label, el, hint) => [h('label', null, label), el, hint && h('p', { class: 'muted' }, hint)];
+
 async function viewFirms() {
   const results = h('div');
   const editor = h('div');
@@ -150,46 +197,102 @@ async function viewFirms() {
   }
 
   async function edit(slug) {
-    const { firm } = await api('GET', '/api/admin/firms/' + encodeURIComponent(slug));
+    const { firm, hours, pageMode } = await api('GET', '/api/admin/firms/' + encodeURIComponent(slug));
     const out = h('div');
     const f = {
       name: h('input', { type: 'text', value: firm.name, maxlength: 200 }),
       blurb: h('textarea', { maxlength: 500 }, firm.blurb || ''),
+      about: h('textarea', { class: 'tall', maxlength: 2000 }, firm.about || ''),
       phone: h('input', { type: 'text', value: firm.phone || '', maxlength: 30 }),
       website: h('input', { type: 'text', value: firm.website || '', maxlength: 300 }),
       address: h('input', { type: 'text', value: firm.address || '', maxlength: 300 }),
       tags: h('input', { type: 'text', value: (firm.tags || []).join(', ') }),
       featured: h('input', { type: 'checkbox', checked: !!firm.featured }),
+      pageMode: h('select', null, [['static', 'Original hand-built page'], ['dynamic', 'New page, built from the database']].map(([v, l]) => h('option', { value: v, selected: v === pageMode }, l))),
     };
-    const field = (label, el) => [h('label', null, label), el];
+    const cats = categoryChecks(firm.caseTypes);
+    const hrs = hoursEditor(hours);
     const save = h('button', { class: 'primary', type: 'submit' }, 'Save changes');
     const form = h('form', { class: 'card', onsubmit: async (e) => {
       e.preventDefault();
       save.disabled = true;
       try {
-        const res = await api('PATCH', '/api/admin/firms/' + encodeURIComponent(slug), {
-          name: f.name.value, blurb: f.blurb.value, phone: f.phone.value, website: f.website.value, address: f.address.value,
-          tags: f.tags.value.split(',').map((t) => t.trim()).filter(Boolean), featured: f.featured.checked,
-        });
+        const payload = {
+          name: f.name.value, blurb: f.blurb.value, about: f.about.value, phone: f.phone.value, website: f.website.value, address: f.address.value,
+          tags: splitTags(f.tags.value), caseTypes: cats.get(), featured: f.featured.checked, pageMode: f.pageMode.value,
+        };
+        if (hrs.isDirty()) payload.hours = hrs.anyOpen() ? hrs.get() : null;
+        const res = await api('PATCH', '/api/admin/firms/' + encodeURIComponent(slug), payload);
         out.replaceChildren(note('msg-ok', res.changed.length ? `Saved: ${res.changed.join(', ')}.` : 'No changes to save.'));
         find();
       } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
       save.disabled = false;
     } },
-      h('div', { class: 'row spread' }, h('h2', null, firm.name), h('a', { href: `/firms/${slug}.html`, target: '_blank', rel: 'noopener' }, 'View public page')),
-      field('Name', f.name), field('Description', f.blurb), field('Phone', f.phone), field('Website', f.website),
-      field('Address', f.address), field('Tags (comma separated)', f.tags),
+      h('div', { class: 'row spread' }, h('h2', null, firm.name), h('a', { href: `/firms/${slug}`, target: '_blank', rel: 'noopener' }, 'View public page')),
+      field('Name', f.name), field('Short description (shown in lists)', f.blurb),
+      field('About the firm (shown on the profile page)', f.about, 'Plain text. A blank line starts a new paragraph.'),
+      field('Phone', f.phone), field('Website', f.website), field('Address', f.address),
+      field('Practice areas (comma separated)', f.tags),
+      h('label', null, 'Categories'), cats.el,
+      h('label', null, 'Opening hours'), hrs.el,
       h('label', { class: 'check' }, f.featured, 'Featured firm'),
-      h('p', { class: 'muted' }, 'Saved right away and live on the directory pages within about a minute. Rating, reviews and map position come from Google and are not editable here.'),
+      field('Profile page style', f.pageMode, 'The original pages are hand-built and keep their own wording. The new style is built from the database, so it shows everything you enter here.'),
+      h('p', { class: 'muted' }, 'Saved right away; public pages update within about a minute. Rating, reviews and map position come from Google and are not editable here.'),
       h('div', { class: 'row' }, save, h('button', { type: 'button', onclick: () => editor.replaceChildren() }, 'Close')), out);
+    editor.replaceChildren(form);
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function addFirm() {
+    const out = h('div');
+    const f = {
+      name: h('input', { type: 'text', required: true, maxlength: 200 }),
+      city: h('input', { type: 'text', required: true, maxlength: 80 }),
+      province: h('select', null, Object.entries(PROVINCES).map(([c, n]) => h('option', { value: c }, n))),
+      address: h('input', { type: 'text', maxlength: 300 }),
+      phone: h('input', { type: 'text', maxlength: 30 }),
+      website: h('input', { type: 'text', maxlength: 300, placeholder: 'https://' }),
+      tags: h('input', { type: 'text', placeholder: 'Divorce, Child Custody' }),
+      about: h('textarea', { class: 'tall', maxlength: 2000 }),
+      lat: h('input', { type: 'text', inputmode: 'decimal', placeholder: '43.6505' }),
+      lng: h('input', { type: 'text', inputmode: 'decimal', placeholder: '-79.3857' }),
+    };
+    const cats = categoryChecks([]);
+    const hrs = hoursEditor(null);
+    const go = h('button', { class: 'primary', type: 'submit' }, 'Create firm');
+    const form = h('form', { class: 'card', onsubmit: async (e) => {
+      e.preventDefault();
+      go.disabled = true;
+      try {
+        const payload = {
+          name: f.name.value, city: f.city.value, province: f.province.value, address: f.address.value, phone: f.phone.value,
+          website: f.website.value, tags: splitTags(f.tags.value), caseTypes: cats.get(), about: f.about.value,
+          lat: Number(f.lat.value), lng: Number(f.lng.value),
+        };
+        if (hrs.anyOpen()) payload.hours = hrs.get();
+        const res = await api('POST', '/api/admin/firms', payload);
+        out.replaceChildren(h('p', { class: 'msg-ok', role: 'status' }, 'Created. ', h('a', { href: res.url, target: '_blank', rel: 'noopener' }, 'View the new page')));
+        find();
+      } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
+      go.disabled = false;
+    } },
+      h('h2', null, 'Add a firm'),
+      field('Firm name', f.name), field('City', f.city), field('Province', f.province), field('Address', f.address),
+      field('Phone', f.phone), field('Website', f.website), field('Practice areas (comma separated)', f.tags),
+      h('label', null, 'Categories'), cats.el,
+      field('About the firm', f.about),
+      field('Latitude', f.lat, 'Needed for the map. In Google Maps, press and hold the spot, then copy the two numbers.'), field('Longitude', f.lng),
+      h('label', null, 'Opening hours (optional)'), hrs.el,
+      h('div', { class: 'row' }, go, h('button', { type: 'button', onclick: () => editor.replaceChildren() }, 'Cancel')), out);
     editor.replaceChildren(form);
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   search.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(find, 250); });
   await find();
-  return h('div', null, h('h1', null, 'Firms'), search, h('div', { class: 'card' }, h('p', { class: 'muted' },
-    'Edits are saved to the database and appear on the Find Lawyers page, the city and province directory pages, search suggestions and the map within about a minute. Individual firm profile pages are pre-built and do not change yet.')),
+  return h('div', null, h('div', { class: 'row spread' }, h('h1', null, 'Firms'), h('button', { class: 'primary', type: 'button', onclick: addFirm }, 'Add a firm')), search,
+    h('div', { class: 'card' }, h('p', { class: 'muted' },
+      'Edits are saved to the database and appear on the Find Lawyers page, the directory pages, search and the map within about a minute. A firm\'s profile page changes too once its style is set to "New page, built from the database"; original hand-built pages stay as they are until you switch them.')),
     editor, results);
 }
 

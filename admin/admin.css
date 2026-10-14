@@ -70,3 +70,13 @@ button:disabled { opacity: .55; cursor: default; }
 .audit code { background: var(--bg); padding: 1px 6px; border-radius: 4px; overflow-wrap: anywhere; }
 
 .center { max-width: 420px; margin: 64px auto; }
+
+.checks { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; margin: 6px 0 4px; }
+@media (max-width: 480px) { .checks { grid-template-columns: 1fr; } }
+.check.small { font-weight: 500; font-size: 14px; margin-top: 4px; }
+textarea.tall { min-height: 150px; }
+.hours-edit { margin: 6px 0 4px; }
+.hrow { display: grid; grid-template-columns: 96px 28px 1fr 1fr; gap: 8px; align-items: center; margin: 6px 0; }
+.hrow input[type=checkbox] { width: 20px; height: 20px; }
+.hrow input[type=time] { width: 100%; padding: 8px 8px; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; }
+.hrow .hwide { grid-column: 3 / span 2; font-size: 13px; }

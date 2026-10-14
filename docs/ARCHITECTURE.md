@@ -50,8 +50,26 @@ live list in on the way out (`src/routes/dynamic.js`):
 - CI proves the database output equals the static files byte-for-byte (as data), preserves order, and that an admin edit
   appears on the public pages.
 
-Not yet dynamic: the 370 firm profile pages (`/firms/<slug>`) and the per-practice-area pages are pre-built HTML.
-Making them live needs either rendering them from templates in the Worker or regenerating them on edit.
+## Firm profile pages (`/firms/<slug>`)
+
+Each firm has a `page_mode` column:
+
+- `static` (default for all 370 original firms): the hand-built HTML page is served unchanged, so nothing looks different
+  until a firm is switched.
+- `dynamic` (default for firms created in the admin area): the Worker renders the page from the database
+  (`src/routes/firm-page.js` + `src/render/firm-page.js`). The page skeleton (header, cover, services, hours card, guide,
+  carousel, lead form, footer) is extracted verbatim from the existing pages by `scripts/extract-firm-template.mjs` into
+  `src/render/firm-chunks.generated.js`; `npm run check` fails if that file drifts from the source pages.
+
+Writing for a firm page lives in the `about` column (kept out of the `data` JSON so the public firm list stays small).
+`migrations/0004_import_about.sql` and the seed fill it from the existing pages. Firms are created with
+`POST /api/admin/firms` (admin form "Add a firm") and can be switched either way from the edit form. Profile pages are
+cached 60 seconds like the other public pages, and fall back to the static file if the database cannot be read.
+`/firms/*` therefore always passes through the Worker.
+
+The 7 Featured firms' richer tabbed layout is not reproduced by the dynamic template; keep those on `static` for now.
+
+The per-practice-area pages are still pre-built HTML.
 
 Capacity note: the Worker now handles these page views. On the free Workers plan that is 100,000 requests a day; the
 Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages remain free and unlimited.
@@ -68,7 +86,8 @@ Local development: copy the values from `.dev.vars` in the README (never committ
 ## Roadmap
 
 1. Admin area: sign-in, leads inbox, firm editing, activity log. (done)
-2. Public directory pages and data files rendered from the database. (done, see below; firm profile pages still static)
+2. Public directory pages and data files rendered from the database. (done)
+   2b. Firm profile pages rendered from the database, with an `about` text and a create-firm form. (done)
 3. Firm accounts: owner invites / "claim this listing", admin approval, `firm_members` table.
 4. Firm dashboard: own leads (lead -> firm routing), edit own profile.
 5. Featured billing (Stripe webhooks flip `featured`).

@@ -67,6 +67,7 @@ for (const p of ['/api/admin/stats', '/api/admin/leads', '/api/admin/firms', '/a
   ok((await call('GET', p)).status === 401, `anonymous blocked: ${p}`);
 }
 ok((await call('PATCH', '/api/admin/firms/x', { featured: true })).status === 401, 'anonymous cannot edit');
+ok((await call('POST', '/api/admin/firms', { name: 'x', city: 'x', province: 'ON', lat: 43, lng: -79 })).status === 401, 'anonymous cannot create a firm');
 ok((await call('GET', '/api/auth/me')).data.user === null, 'me is null when signed out');
 
 // --- sign-in links
@@ -128,6 +129,60 @@ const log = await call('GET', '/api/admin/audit?limit=20');
 const actions = log.data.entries.map((e) => e.action);
 ok(['login', 'lead.status', 'firm.update'].every((a) => actions.includes(a)), 'audit log recorded login, lead and firm changes');
 ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged');
+
+// --- profile pages rendered from the database
+{
+  const hostile = `Smoke <script>alert(1)</script> & Associates ${Date.now()}`;
+  const body = {
+    name: hostile, city: 'Toronto', province: 'ON', address: '1 Smoke St, Toronto, ON M5V 1A1', phone: '+14165550100',
+    website: 'https://example.com', lat: 43.65, lng: -79.38, tags: ['Corporate Law', 'Mergers'], caseTypes: ['business'],
+    about: 'About <b>us</b>\n\nSecond paragraph', hours: { 1: [['08:30', '17:00']], 2: [['08:30', '12:00'], ['13:00', '17:00']] },
+  };
+  ok((await call('POST', '/api/admin/firms', { ...body, province: 'ZZ' })).status === 422, 'create: bad province refused');
+  ok((await call('POST', '/api/admin/firms', { ...body, lat: undefined })).status === 422, 'create: missing coordinates refused');
+  ok((await call('POST', '/api/admin/firms', { ...body, caseTypes: ['nonsense'] })).status === 422, 'create: unknown category refused');
+  ok((await call('POST', '/api/admin/firms', { ...body, hours: { 1: [['17:00', '08:00']] } })).status === 422, 'create: backwards hours refused');
+  const made = await call('POST', '/api/admin/firms', body);
+  ok(made.status === 201, 'create: firm created');
+  const slug2 = made.data.slug;
+  ok(/^[a-z0-9-]+$/.test(slug2), `create: safe address (${slug2.slice(0, 40)}...)`);
+
+  const pg = await getRaw('/firms/' + slug2);
+  ok(pg.status === 200 && pg.headers.get('x-lawdb-source') === 'database', 'new firm has a page rendered from the database');
+  ok(!pg.text.includes('<script>alert(1)</script>') && pg.text.includes('Smoke &lt;script&gt;alert(1)&lt;/script&gt; &amp; Associates'), 'firm name is escaped in the page');
+  ok(!pg.text.includes('About <b>us</b>') && pg.text.includes('About &lt;b&gt;us&lt;/b&gt;') && pg.text.includes('<br><br>Second paragraph'), 'about text is escaped and keeps paragraphs');
+  const ld = pg.text.match(/<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/);
+  let ldOk = false;
+  try { const j = JSON.parse(ld[1]); ldOk = j['@type'] === 'LegalService' && j.name === hostile && !j.aggregateRating; } catch {}
+  ok(ldOk, 'structured data is valid JSON and has no made-up rating');
+  ok(pg.text.includes('8:30 am – 5 pm') && pg.text.includes('8:30 am – 12 pm, 1 pm – 5 pm') && /Saturday<\/span><span class="ht closed">Closed/.test(pg.text), 'opening hours card is rendered');
+  ok(!JSON.stringify(JSON.parse((await getRaw('/firms_data.json')).text)).includes('Second paragraph'), 'about text stays out of the public firm list');
+  ok(pg.text.includes('class="guide"') && pg.text.includes('class="lw-car"') && pg.text.includes('id="leadForm-' + slug2 + '"'), 'guidance, nearby firms and contact form are present');
+  ok(!/from \d+ Google reviews/.test(pg.text), 'no review line for a firm without Google data');
+  const redir = await getRaw(`/firms/${slug2}.html`);
+  ok(redir.status === 307 && redir.headers.get('location').endsWith('/firms/' + slug2), '.html address redirects to the clean address');
+  ok((await getRaw('/firms/no-such-firm-xyz')).status === 404, 'unknown firm is a 404');
+
+  const list = JSON.parse((await getRaw('/firms_data.json')).text);
+  ok(list.some((f) => f.slug === slug2 && f.rating === 0), 'new firm appears in the directory data');
+  ok(inlineFirms((await getRaw('/find-lawyers')).text).some((f) => f.slug === slug2), 'new firm appears on the Find Lawyers page');
+
+  // existing firms keep their original hand-built page until switched
+  const orig = await getRaw('/firms/achkar-law');
+  ok(orig.status === 200 && !orig.headers.get('x-lawdb-source') && orig.text.includes('Achkar Law'), 'existing firm still serves its original page');
+  ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'dynamic' })).status === 200, 'switch an existing firm to the database page');
+  const sw = await getRaw('/firms/achkar-law');
+  ok(sw.headers.get('x-lawdb-source') === 'database' && sw.text.includes('Achkar Law') && sw.text.includes('is an employment law firm that acts for both employees and employers'), 'switched firm now renders from the database and keeps its written description');
+  ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' })).status === 200, 'switch it back');
+  ok(!(await getRaw('/firms/achkar-law')).headers.get('x-lawdb-source'), 'firm is back on its original page');
+  ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'weird' })).status === 422, 'invalid page style refused');
+
+  // owner-style edits show on the rendered page
+  const patch = await call('PATCH', `/api/admin/firms/${slug2}`, { about: 'Updated about text', tags: ['Tax'], hours: null });
+  ok(patch.status === 200, 'edit about, practice areas and clear hours');
+  const pg2 = await getRaw('/firms/' + slug2);
+  ok(pg2.text.includes('Updated about text') && pg2.text.includes('<li>Tax</li>') && !pg2.text.includes('class="hours-card"'), 'edits and cleared hours show on the page');
+}
 
 // --- cross-site requests are refused even with a valid session cookie
 ok((await call('PATCH', `/api/admin/leads/${mine.id}`, { status: 'new' }, { origin: 'https://evil.example' })).status === 403, 'cross-origin write refused');

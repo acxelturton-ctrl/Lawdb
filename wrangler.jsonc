@@ -14,6 +14,7 @@
       "/api/*",
       "/firms_data.json", "/blog_data.json", "/firms_hours.json",
       "/find-lawyers",
+      "/firms/*",
       "/alberta/", "/manitoba/",
       "/ontario/*/", "/quebec/*/", "/british-columbia/*/", "/alberta/*/", "/manitoba/*/"
     ]

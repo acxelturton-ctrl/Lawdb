@@ -8,6 +8,7 @@ import * as pub from './routes/public.js';
 import * as auth from './routes/auth.js';
 import * as admin from './routes/admin.js';
 import * as dyn from './routes/dynamic.js';
+import { firmPage } from './routes/firm-page.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -40,6 +41,7 @@ const ROUTES = [
   route('PATCH', '/api/admin/leads/:id', admin.updateLead),
   route('GET', '/api/admin/firms', admin.listFirms),
   route('GET', '/api/admin/firms/:slug', admin.getFirm),
+  route('POST', '/api/admin/firms', admin.createFirm),
   route('PATCH', '/api/admin/firms/:slug', admin.updateFirm),
   route('GET', '/api/admin/audit', admin.listAudit),
 ];
@@ -52,7 +54,7 @@ export default {
       if (!path.startsWith('/api/')) {
         // Only GET/HEAD reach here for site content; everything else is passed to the static files.
         if (request.method !== 'GET' && request.method !== 'HEAD') return env.ASSETS.fetch(request);
-        const handler = DATA_FILES[path] || dyn.page;
+        const handler = DATA_FILES[path] || (path.startsWith('/firms/') ? firmPage : dyn.page);
         return await handler({ request, env, ctx });
       }
       const method = request.method === 'HEAD' ? 'GET' : request.method;

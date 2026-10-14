@@ -5,51 +5,28 @@ import { esc, safeUrl } from './firm-page.js';
 import { BLOG_CSS, cardHtml, safePostUrl } from './blog-cards.js';
 
 
-// A line-art courthouse and city skyline for the masthead: pure SVG and CSS (no pictures to load). Windows light up one by one,
-// the scales of justice sway, clouds drift. It sits behind the title, fades out toward the text, and stands still for visitors
-// who ask their device for less motion.
-const ART = (() => {
-  const brass = '#d9a441';
-  let seed = 7;
-  const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
-  // [x, width, height] of the buildings behind the courthouse, left to right
-  const blocks = [[20, 70, 150], [100, 56, 210], [166, 80, 120], [256, 64, 250], [330, 50, 170], [560, 60, 190], [630, 74, 280], [714, 54, 160], [778, 70, 230], [854, 40, 130]];
-  let g = '';
-  for (const [x, w, h] of blocks) {
-    const top = 400 - h;
-    g += `<rect x="${x}" y="${top}" width="${w}" height="${h}" fill="#26221e" stroke="${brass}" stroke-opacity=".35" stroke-width="1.2"/>`;
-    for (let wy = top + 14; wy < 388; wy += 22) for (let wx = x + 9; wx < x + w - 10; wx += 15) {
-      if (rnd() < 0.62) g += `<rect class="w" x="${wx}" y="${wy}" width="7" height="10" fill="${brass}" style="animation-delay:${(rnd() * 9).toFixed(1)}s;animation-duration:${(5 + rnd() * 6).toFixed(1)}s"/>`;
-    }
-  }
-  // the courthouse: steps, columns, pediment
-  let court = `<rect x="392" y="388" width="164" height="12" fill="#26221e" stroke="${brass}" stroke-opacity=".5"/><rect x="402" y="378" width="144" height="10" fill="#26221e" stroke="${brass}" stroke-opacity=".5"/>`;
-  court += `<rect x="410" y="268" width="128" height="110" fill="#2b2723" stroke="${brass}" stroke-opacity=".55" stroke-width="1.4"/>`;
-  for (let i = 0; i < 6; i++) court += `<rect x="${418 + i * 22}" y="276" width="9" height="96" rx="2" fill="${brass}" fill-opacity=".38"/>`;
-  court += `<polygon points="398,268 474,214 550,268" fill="#2b2723" stroke="${brass}" stroke-opacity=".7" stroke-width="1.6"/><rect x="404" y="262" width="140" height="8" fill="${brass}" fill-opacity=".45"/>`;
-  court += `<circle cx="474" cy="246" r="8" fill="none" stroke="${brass}" stroke-opacity=".7" stroke-width="1.4"/>`;
-  // scales of justice, swaying
-  const scales = `<g class="scales" transform="translate(474 188)"><line x1="0" y1="26" x2="0" y2="-4" stroke="${brass}" stroke-width="2"/><circle cx="0" cy="-8" r="3.5" fill="${brass}"/>` +
-    `<g class="beam"><line x1="-30" y1="0" x2="30" y2="0" stroke="${brass}" stroke-width="2.2" stroke-linecap="round"/>` +
-    `<g><line x1="-30" y1="0" x2="-38" y2="20" stroke="${brass}" stroke-width="1"/><line x1="-30" y1="0" x2="-22" y2="20" stroke="${brass}" stroke-width="1"/><path d="M-40 20 h20 a10 7 0 0 1 -20 0z" fill="${brass}"/></g>` +
-    `<g><line x1="30" y1="0" x2="22" y2="20" stroke="${brass}" stroke-width="1"/><line x1="30" y1="0" x2="38" y2="20" stroke="${brass}" stroke-width="1"/><path d="M20 20 h20 a10 7 0 0 1 -20 0z" fill="${brass}"/></g></g></g>`;
-  let stars = '';
-  for (let i = 0; i < 26; i++) stars += `<circle class="st" cx="${(rnd() * 880 + 10).toFixed(0)}" cy="${(rnd() * 200 + 10).toFixed(0)}" r="${(rnd() * 1.4 + .6).toFixed(1)}" fill="#fff" style="animation-delay:${(rnd() * 7).toFixed(1)}s"/>`;
-  return `<svg class="news-art" viewBox="0 0 900 420" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">` +
-    `<g class="cloud c1"><ellipse cx="180" cy="90" rx="90" ry="14" fill="#fff" fill-opacity=".05"/></g><g class="cloud c2"><ellipse cx="700" cy="60" rx="120" ry="16" fill="#fff" fill-opacity=".05"/></g>` +
-    stars + g + court + scales + `<rect x="0" y="400" width="900" height="2" fill="${brass}" fill-opacity=".5"/></svg>`;
-})();
+// The masthead artwork, "The Press": a slowly turning gold seal with the scales of justice, and up to four of the page's own latest
+// stories drifting up the right side like a newsroom. Pure SVG and CSS (no pictures to load), decorative (hidden from screen readers),
+// and still for visitors who ask their device for less motion.
+const SEAL = `<svg class="news-seal" viewBox="0 0 300 300" aria-hidden="true" focusable="false"><defs><path id="nwCirc" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0"/></defs><circle cx="150" cy="150" r="140" fill="none" stroke="#e0b252" stroke-width="2"/><circle cx="150" cy="150" r="96" fill="none" stroke="#e0b252" stroke-width="1.2" stroke-dasharray="3 5"/><text><textPath href="#nwCirc">LAWDB NEWS &#183; CANADA'S LEGAL DIRECTORY &#183; STRAIGHT FROM THE FIRMS &#183; </textPath></text></svg>` +
+  `<div class="news-sealmid" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><g fill="none" stroke="#9a6f1c" stroke-width="3" stroke-linecap="round"><path d="M32 10v40M20 50h24M14 20h36"/><path d="M14 20l-7 16a8 6 0 0 0 14 0zM50 20l-7 16a8 6 0 0 0 14 0z"/></g></svg></div>`;
+const cutText = (t, n) => (t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, '') + '\u2026' : t);
+function pressArt(posts) {
+  const cards = posts.filter((p) => p.title).slice(0, 4).map((p, i) =>
+    `<div class="news-card k${i + 1}"><small>${esc(p.firmName)}</small><b>${esc(cutText(p.title, 62))}</b></div>`).join('');
+  return SEAL + (cards ? `<div class="news-drift" aria-hidden="true">${cards}</div>` : '');
+}
 
 const CSS = `<style>
 /* LawDB News runs edge to edge: a dark masthead, "how it works", then the feed filling the whole screen. */
-.news-band{background:var(--dark,#1f1c19);color:#fff;padding:clamp(34px,6vw,92px) clamp(18px,4vw,72px) clamp(30px,4.5vw,64px)}
-.news-eyebrow{font-size:clamp(12px,1vw,14px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brass,#d9a441);margin:0 0 12px}
-.news-band h1{font-size:clamp(42px,7vw,104px);line-height:1;margin:0 0 clamp(12px,1.6vw,22px);color:#fff;letter-spacing:-.01em}
-.news-lede{font-family:'Source Serif 4',serif;font-size:clamp(21px,2.6vw,38px);line-height:1.25;color:var(--brass,#d9a441);margin:0 0 clamp(14px,1.8vw,24px);max-width:26em;text-wrap:balance}
-.news-band .news-intro{font-size:clamp(16px,1.35vw,20px);line-height:1.65;color:#d8d2c6;max-width:46em;margin:0}
-.news-stats{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,64px);margin:clamp(22px,3vw,44px) 0 0;padding-top:clamp(18px,2.4vw,32px);border-top:1px solid #38332e}
-.news-stats div{min-width:0}.news-stats b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(34px,4.2vw,64px);line-height:1;color:#fff}
-.news-stats span{font-size:clamp(12.5px,1vw,15px);color:#aca59c;letter-spacing:.04em}
+.news-band{background:#fbf6ea;background-image:radial-gradient(#e9dfc6 1px,transparent 1.2px);background-size:22px 22px;color:#2b2723;padding:clamp(34px,6vw,92px) clamp(18px,4vw,72px) clamp(30px,4.5vw,64px)}
+.news-eyebrow{font-size:clamp(12px,1vw,14px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9a6f1c;margin:0 0 12px}
+.news-band h1{font-size:clamp(42px,7vw,104px);line-height:1;margin:0 0 clamp(12px,1.6vw,22px);color:#2b2723;letter-spacing:-.01em}.news-band h1 .u{background:linear-gradient(#f2c25b,#f2c25b) no-repeat 0 92%/0 .2em;animation:nwUnder 6s ease-in-out infinite}
+.news-lede{font-family:'Source Serif 4',serif;font-size:clamp(21px,2.6vw,38px);line-height:1.25;color:#2b2723;margin:0 0 clamp(14px,1.8vw,24px);max-width:26em;text-wrap:balance}
+.news-band .news-intro{font-size:clamp(16px,1.35vw,20px);line-height:1.65;color:#4a453d;max-width:40em;margin:0}
+.news-stats{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,64px);margin:clamp(22px,3vw,44px) 0 0;padding-top:clamp(18px,2.4vw,32px);border-top:1px solid #e6dcc3}
+.news-stats div{min-width:0}.news-stats b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(34px,4.2vw,64px);line-height:1;color:#2b2723}
+.news-stats span{font-size:clamp(12.5px,1vw,15px);color:#7a7266;letter-spacing:.04em}
 .news-main{padding:clamp(20px,3vw,52px) clamp(16px,4vw,72px) clamp(10px,2vw,30px)}
 .news-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(14px,2vw,30px);margin:0 0 clamp(22px,3vw,44px)}
 .news-step{background:#fff;border:1px solid #e4ded3;border-radius:14px;padding:clamp(18px,2vw,30px)}
@@ -84,17 +61,24 @@ const CSS = `<style>
 
 /* masthead artwork */
 .news-band{position:relative;overflow:hidden;isolation:isolate}
-.news-band>*:not(.news-art){position:relative;z-index:1}
-.news-art{position:absolute;right:0;bottom:0;height:100%;width:min(78%,1100px);z-index:0;pointer-events:none;opacity:.55;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 38%);mask-image:linear-gradient(to right,transparent 0,#000 38%)}
-@media(max-width:700px){.news-art{width:140%;opacity:.28;-webkit-mask-image:linear-gradient(to top,#000 20%,transparent 85%);mask-image:linear-gradient(to top,#000 20%,transparent 85%)}}
-.news-art .w{opacity:.12;animation:nwTwinkle 7s ease-in-out infinite}
-.news-art .st{opacity:.2;animation:nwTwinkle 5s ease-in-out infinite}
-.news-art .beam{transform-box:fill-box;transform-origin:50% 0;animation:nwSway 6s ease-in-out infinite}
-.news-art .cloud{animation:nwDrift 60s linear infinite alternate}.news-art .c2{animation-duration:80s;animation-direction:alternate-reverse}
-@keyframes nwTwinkle{0%,100%{opacity:.1}50%{opacity:.85}}
-@keyframes nwSway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-@keyframes nwDrift{from{transform:translateX(-40px)}to{transform:translateX(60px)}}
-@media(prefers-reduced-motion:reduce){.news-art *{animation:none!important}.news-art .w{opacity:.45}.news-art .st{opacity:.4}}
+.news-band>*:not(.news-seal):not(.news-sealmid):not(.news-drift){position:relative;z-index:3}
+.news-seal,.news-sealmid{position:absolute;right:clamp(10px,6vw,110px);top:50%;width:clamp(200px,27vw,340px);aspect-ratio:1;z-index:1;pointer-events:none}
+.news-seal{transform:translateY(-50%);animation:nwSpin 40s linear infinite}
+.news-seal text{font:700 13.2px 'Inter',sans-serif;letter-spacing:.2em;fill:#9a6f1c}
+.news-sealmid{display:flex;align-items:center;justify-content:center;transform:translateY(-50%);animation:nwBreath 5s ease-in-out infinite}
+.news-sealmid svg{width:46%;height:auto}
+.news-drift{position:absolute;inset:0;z-index:2;pointer-events:none}
+.news-card{position:absolute;width:clamp(170px,15vw,230px);padding:12px 14px;background:#fff;border:1px solid #e6dcc3;border-radius:12px;box-shadow:0 10px 26px rgba(90,60,10,.14);line-height:1.35;opacity:0;animation:nwRise linear infinite}
+.news-card small{display:block;color:#9a6f1c;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:10.5px;margin-bottom:4px}
+.news-card b{display:block;font:600 clamp(13.5px,1vw,15.5px)/1.25 'Source Serif 4',serif;color:#2b2723}
+.news-card.k1{left:50%;--r:-3deg;animation-duration:19s}.news-card.k2{left:62%;--r:2deg;animation-duration:23s;animation-delay:-8s}.news-card.k3{left:74%;--r:-2deg;animation-duration:21s;animation-delay:-14s}.news-card.k4{left:86%;--r:3deg;animation-duration:26s;animation-delay:-4s}
+@keyframes nwSpin{to{transform:translateY(-50%) rotate(360deg)}}
+@keyframes nwBreath{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.05)}}
+@keyframes nwRise{0%{transform:translateY(120%) rotate(var(--r));opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateY(-140%) rotate(var(--r));opacity:0}}
+@keyframes nwUnder{0%,15%{background-size:0 .2em}45%,85%{background-size:100% .2em}100%{background-size:0 .2em}}
+@media(max-width:1099px){.news-drift{display:none}.news-seal,.news-sealmid{opacity:.45}}
+@media(max-width:700px){.news-seal,.news-sealmid{opacity:.3;right:-70px}}
+@media(prefers-reduced-motion:reduce){.news-seal,.news-sealmid,.news-card,.news-band h1 .u{animation:none!important}.news-sealmid,.news-seal{transform:translateY(-50%)}.news-card{opacity:1}.news-band h1 .u{background-size:100% .2em}}
 </style>`;
 
 const initial = (n) => esc((n || '?').trim().charAt(0).toUpperCase());
@@ -148,7 +132,7 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
     '<meta property="og:title" content="LawDB News"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/news">' + `<meta property="og:description" content="${esc(desc)}">`,
     C.STYLE + BLOG_CSS + CSS + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n</head>',
     '<body>\n  ' + C.HEADER.replace(/<a[^>]*>Back to results<\/a>/, ''),
-    '  <header class="news-band">' + ART + '<p class="news-eyebrow">Straight from the firms</p><h1>LawDB News</h1><p class="news-lede">What Canada\'s law firms are writing, all in one place.</p>' +
+    '  <header class="news-band">' + pressArt(shown) + '<p class="news-eyebrow">Straight from the firms</p><h1><span class="u">LawDB News</span></h1><p class="news-lede">What Canada\'s law firms are writing, all in one place.</p>' +
     '<p class="news-intro">Every article on this page was written by a lawyer or firm you will find in the LawDB directory. We gather their latest work here so you can see how the people behind the listings think, explain and help, before you ever pick up the phone.</p>' + stats3 + '</header>',
     '  <main class="news-main">',
     '    ' + steps,

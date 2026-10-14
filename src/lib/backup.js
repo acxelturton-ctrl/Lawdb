@@ -15,6 +15,7 @@ const TABLES = {
   firms: 'SELECT * FROM firms ORDER BY rowid',
   blog_posts: 'SELECT * FROM blog_posts ORDER BY rowid',
   firm_members: 'SELECT * FROM firm_members ORDER BY id',
+  firm_subscriptions: 'SELECT * FROM firm_subscriptions ORDER BY created_at',
   firm_feeds: 'SELECT * FROM firm_feeds ORDER BY firm_slug',
   users: 'SELECT id, email, role, disabled, created_at, last_login_at FROM users ORDER BY id', // never tokens or sessions
   firm_images: 'SELECT * FROM firm_images ORDER BY created_at, id', // the files themselves are in the lawdb-images bucket
@@ -65,6 +66,7 @@ export async function housekeeping(env) {
     run(`UPDATE leads SET name = NULL, email = NULL, phone = NULL, message = NULL, payload = '{}', page = NULL
          WHERE created_at < datetime('now', '-${RETENTION.leadMonths} months') AND (email IS NOT NULL OR name IS NOT NULL OR message IS NOT NULL OR phone IS NOT NULL)`),
     run(`DELETE FROM audit_log WHERE at < datetime('now', '-${RETENTION.auditMonths} months')`),
+    run("DELETE FROM stripe_events WHERE received_at < datetime('now', '-90 days')"),
   ]);
   const n = (r) => r.meta?.changes ?? 0;
   const detail = { sessions: n(sessions), tokens: n(tokens), ipHashes: n(ips1) + n(ips2), leadsAnonymised: n(leads), auditDeleted: n(logs) };

@@ -1,7 +1,7 @@
 // LawDB firm-owner dashboard. No framework, no build step.
 // SECURITY: everything shown here (including enquiries typed by the public) is inserted as text nodes only.
 
-import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, feedPanel, PROVINCES } from '/admin/ui.js';
+import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, feedPanel, planPanel, PROVINCES } from '/admin/ui.js';
 
 const app = document.getElementById('app');
 const mount = (...nodes) => app.replaceChildren(...nodes);
@@ -63,10 +63,11 @@ function viewFirms() {
       : m.status === 'pending' ? note('msg-ok', 'Waiting for approval. We will email you as soon as it is done.')
       : note('msg-err', 'This request was declined. If that is a mistake, write to info@lawdb.ca.');
     return h('div', { class: 'card' },
-      h('div', { class: 'row spread' }, h('b', null, m.name), h('span', { class: 'badge' + (m.status === 'approved' ? '' : ' new') }, m.status === 'approved' ? 'Yours' : m.status === 'pending' ? 'Pending' : 'Declined')),
+      h('div', { class: 'row spread' }, h('b', null, m.name), h('span', { class: 'badge' + (m.status === 'approved' ? (m.featured ? ' featured' : '') : ' new') }, m.status === 'approved' ? (m.featured ? 'Featured' : 'Basic') : m.status === 'pending' ? 'Pending' : 'Declined')),
       h('p', { class: 'muted' }, where(m)), state,
       m.status === 'approved' && h('div', { class: 'row' },
         h('a', { href: `#edit/${m.slug}` }, h('button', { class: 'primary', type: 'button' }, 'Edit my profile')),
+        !m.featured && m.firmStatus === 'live' && h('a', { href: `#edit/${m.slug}` }, h('button', { type: 'button' }, 'Upgrade to Featured')),
         h('a', { href: `#leads/${m.slug}` }, h('button', { type: 'button' }, 'Enquiries')),
         m.firmStatus === 'live' && h('a', { href: `/firms/${m.slug}`, target: '_blank', rel: 'noopener' }, 'View public page')));
   }));
@@ -193,6 +194,7 @@ async function viewEdit(slug) {
   const hrs = hoursEditor(hours);
   const save = h('button', { class: 'primary', type: 'submit' }, 'Save changes');
   return h('div', null, h('p', null, h('a', { href: '#firms' }, '← My firms')),
+    planPanel(`/api/account/firms/${encodeURIComponent(slug)}/plan`),
     h('form', { class: 'card', onsubmit: async (e) => {
       e.preventDefault();
       save.disabled = true;

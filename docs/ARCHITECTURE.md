@@ -117,6 +117,17 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
   20 uploads per person per hour, owner descriptions pass the content rules. Pictures are served with `nosniff` and a sandboxing CSP.
 - Admins can manage any firm's pictures; owners only their own. Every add/remove is in the activity log. The backup includes the `firm_images` rows; the files are in the bucket.
 
+## Featured payments (Stripe)
+
+- **No API key.** Stripe sends signed webhooks to `POST /api/stripe/webhook`; `src/lib/stripe.js` checks the `Stripe-Signature` header (HMAC-SHA256 with `STRIPE_WEBHOOK_SECRET`, 5-minute tolerance,
+  constant-time comparison) before anything else. No secret configured = 503; bad signature = 400. Each event id is stored (`stripe_events`) so a repeat is applied once; a failure removes the id so Stripe retries.
+- **Who gets Featured:** the owner's "Upgrade to Featured" button opens the Stripe payment link with `client_reference_id=<firm slug>` and `prefilled_email=<owner email>` (`STRIPE_PAYMENT_LINK`, one plan: $199/month).
+  On `checkout.session.completed` the firm is made Featured only if the payer's email is an approved owner of that firm. Otherwise the payment is parked as `needs_review` (admin Payments tab: assign to a firm or dismiss).
+- **Lifecycle** (`firm_subscriptions`, migration 0009): subscription events keep status (`active`, `past_due`, `canceled`), renewal date and cancel-at-period-end. `past_due` keeps the firm Featured while Stripe retries the card.
+  When no live subscription remains the firm returns to Basic, unless it was already Featured before paying (`featured_before`, e.g. set by hand), which is never undone. Events may arrive in any order.
+- **Owner side:** `GET /api/account/firms/:slug/plan` feeds the plan card (Basic/Featured, renewal date, upgrade link, manage-billing link from `STRIPE_PORTAL_URL`). **Admin side:** Payments tab, Overview totals (count and monthly amount).
+- Setup steps for the live account are in `docs/STRIPE_SETUP.md`. Local tests sign events with `STRIPE_WEBHOOK_SECRET=whsec_smoke_test_secret` from `.dev.vars`.
+
 ## Safeguards (hardening pass)
 
 - **Ownership signal:** the Approvals card compares the claimant's email domain with the firm's website

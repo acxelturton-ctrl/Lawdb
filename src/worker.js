@@ -8,6 +8,7 @@ import * as pub from './routes/public.js';
 import * as auth from './routes/auth.js';
 import * as admin from './routes/admin.js';
 import * as account from './routes/account.js';
+import * as stripe from './routes/stripe.js';
 import * as dyn from './routes/dynamic.js';
 import { firmPage } from './routes/firm-page.js';
 import { reportPage } from './routes/report-page.js';
@@ -44,6 +45,8 @@ const ROUTES = [
   route('GET', '/api/blog', pub.listBlog),
   route('POST', '/api/leads', pub.createLead),
 
+  route('POST', '/api/stripe/webhook', stripe.webhook),
+
   route('POST', '/api/auth/request-link', auth.requestLink),
   route('POST', '/api/auth/verify', auth.verify),
   route('POST', '/api/auth/logout', auth.logout),
@@ -61,6 +64,9 @@ const ROUTES = [
   route('PATCH', '/api/admin/members/:id', admin.decideMember),
   route('GET', '/api/admin/audit', admin.listAudit),
   route('POST', '/api/admin/audit/:id/revert', admin.revertEdit),
+  route('GET', '/api/admin/payments', admin.paymentsList),
+  route('POST', '/api/admin/payments/:id/assign', admin.paymentsAssign),
+  route('POST', '/api/admin/payments/:id/dismiss', admin.paymentsDismiss),
   route('GET', '/api/admin/firms/:slug/feed', admin.feedGet),
   route('PATCH', '/api/admin/firms/:slug/feed', admin.feedUpdate),
   route('POST', '/api/admin/firms/:slug/feed/refresh', admin.feedRefresh),
@@ -78,6 +84,7 @@ const ROUTES = [
   route('GET', '/api/account/firms/:slug', account.getFirm),
   route('PATCH', '/api/account/firms/:slug', account.updateFirm),
   route('GET', '/api/account/firms/:slug/leads', account.listLeads),
+  route('GET', '/api/account/firms/:slug/plan', account.planGet),
   route('GET', '/api/account/firms/:slug/feed', account.feedGet),
   route('PATCH', '/api/account/firms/:slug/feed', account.feedUpdate),
   route('POST', '/api/account/firms/:slug/feed/refresh', account.feedRefresh),

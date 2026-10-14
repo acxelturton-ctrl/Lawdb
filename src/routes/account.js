@@ -10,6 +10,7 @@ import { mailInBackground, newClaimEmail } from '../lib/email.js';
 import { adminEmails } from '../lib/auth.js';
 import { LEAD_STATUSES } from './admin.js';
 import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
+import { planInfo } from '../lib/stripe.js';
 import { addImage, removeImage, listImages } from '../lib/images.js';
 
 const reply = (body, status = 200) => json(body, status, NO_STORE);
@@ -30,10 +31,10 @@ function notifyAdmins(env, exec, origin, details) {
 export async function me({ request, env }) {
   const user = await requireUser(env, request);
   const { results } = await env.DB.prepare(
-    `SELECT m.id, m.firm_slug AS slug, m.status, m.created_at AS requestedAt, f.name, f.city, f.province, f.status AS firmStatus, f.page_mode AS pageMode
+    `SELECT m.id, m.firm_slug AS slug, m.status, m.created_at AS requestedAt, f.name, f.city, f.province, f.status AS firmStatus, f.page_mode AS pageMode, f.featured AS featured
      FROM firm_members m JOIN firms f ON f.slug = m.firm_slug WHERE m.user_id = ? ORDER BY m.id DESC`
   ).bind(user.id).all();
-  return reply({ user: { email: user.email, role: user.role }, memberships: results });
+  return reply({ user: { email: user.email, role: user.role }, memberships: results.map((m) => ({ ...m, featured: !!m.featured })) });
 }
 
 // Find a listing to claim. Only live listings, and only the fields a stranger needs to recognise their firm.
@@ -188,4 +189,12 @@ export async function imagesRemove({ request, env, params }) {
   await requireOwner(env, user, params.slug);
   await removeImage(env, user, params.slug, params.id);
   return reply({ ok: true });
+}
+
+
+// ---------------------------------------------------------------- plan and billing (own firm)
+export async function planGet({ request, env, params }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  return reply(await planInfo(env, user, params.slug));
 }

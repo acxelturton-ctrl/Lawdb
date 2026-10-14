@@ -20,3 +20,9 @@ jobs:
         run: |
           npm run db:migrate:local
           npm run db:seed:local
+      - name: End-to-end smoke test (sign-in, admin API, security rules)
+        run: |
+          printf 'ADMIN_EMAILS=smoke-admin@example.com\nDEV_ECHO_LINK=1\n' > .dev.vars
+          npx wrangler dev --port 8799 > dev.log 2>&1 &
+          for i in $(seq 1 40); do curl -sf localhost:8799/api/health && break; sleep 2; done
+          node scripts/smoke.mjs || { cat dev.log; exit 1; }

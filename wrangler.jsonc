@@ -9,6 +9,13 @@
     // Static files are served directly (free, fast). Only /api/* runs the Worker.
     "run_worker_first": ["/api/*"]
   },
+  // Non-secret settings. Secrets (BREVO_API_KEY, ADMIN_EMAILS) are set in the Cloudflare dashboard:
+  // Workers & Pages -> lawdb -> Settings -> Variables and Secrets.
+  "vars": {
+    "SITE_ORIGIN": "https://lawdb.ca",
+    "MAIL_FROM_EMAIL": "info@lawdb.ca",
+    "MAIL_FROM_NAME": "LawDB"
+  },
   "d1_databases": [
     {
       "binding": "DB",

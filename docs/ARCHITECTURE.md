@@ -137,6 +137,8 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 
 - **LawDB News** (`/legal-news.html`, rendered by `src/routes/news-page.js` + `src/render/news-page.js`) is the page of member firms' blog cards: firm name (Featured badge), date, headline, a short preview that expands,
   and a link to the full article on the firm's own website. Filter by firm with `?firm=<slug>`. A static copy (`legal-news.html`, built by `scripts/build-news-fallback.mjs`, checked by `npm run check`) is served if the database is down.
+- **A picture feed:** the page is laid out like a social feed (`.lw-feed`): one large card at a time on a phone (post header with the firm's logo or initial, Featured badge and date; a big 4:3 picture; headline; longer preview), two columns on a wide screen.
+  Every post with a picture is shown, but at most 3 posts without one (the newest) so it never becomes a wall of text (`limitWithoutPicture` in `src/routes/news-page.js`).
 - **Which blogs:** every firm with blog cards switched on (`firm_feeds.enabled`). Featured firms are added automatically each night; the admin **News** tab adds or removes any firm and has the switch
   `news_featured_only` (`site_settings`) to limit the page to Featured members only. The page fills itself: when someone visits, blogs never read (or not for 12 hours) are read in the background, a few per visit;
   the nightly job also refreshes them.

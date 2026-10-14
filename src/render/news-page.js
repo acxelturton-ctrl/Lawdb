@@ -1,7 +1,7 @@
 // LawDB News: blog cards from member firms, newest first. Each card shows the firm, the headline, a short preview that
 // opens a little wider, and a link to read the full article on the firm's own website. Text only, always escaped.
 import * as C from './firm-chunks.generated.js';
-import { esc } from './firm-page.js';
+import { esc, safeUrl } from './firm-page.js';
 import { BLOG_CSS, cardHtml, safePostUrl } from './blog-cards.js';
 
 const CSS = `<style>
@@ -25,10 +25,16 @@ export function renderNewsPage({ posts, firms, selected = '' }) {
     ? `<nav class="news-chips" aria-label="Filter by firm"><a href="/legal-news.html"${selected ? '' : ' aria-current="true"'}>All firms</a>${firms.map((f) =>
         `<a href="/legal-news.html?firm=${esc(f.slug)}"${selected === f.slug ? ' aria-current="true"' : ''}>${esc(f.name)}</a>`).join('')}</nav>`
     : '';
-  const cards = shown.map((p) =>
-    cardHtml(p, { byline: `<div class="lw-by"><a href="/firms/${esc(p.firmSlug)}">${esc(p.firmName)}</a>${p.featured ? '<span class="lw-ft">Featured</span>' : ''}</div>` })).join('');
+  const avatar = (p) => {
+    const logo = safeUrl(p.logo);
+    return logo ? `<img src="${esc(/^https:/.test(logo) || logo.startsWith('/') ? logo : '/' + logo)}" alt="" loading="lazy" width="40" height="40">` : esc((p.firmName || '?').trim().charAt(0).toUpperCase());
+  };
+  const cards = shown.map((p) => cardHtml(p, { head: {
+    avatar: avatar(p),
+    who: `<span class="lw-by"><a href="/firms/${esc(p.firmSlug)}">${esc(p.firmName)}</a>${p.featured ? '<span class="lw-ft">Featured</span>' : ''}</span>`,
+  } })).join('');
   const body = shown.length
-    ? `<div class="lw-bc-grid">${cards}</div>`
+    ? `<div class="lw-bc-grid lw-feed">${cards}</div>`
     : '<div class="news-empty"><b>LawDB News is filling up.</b><br>Articles from our Featured members appear here as soon as their blogs are connected. Check back soon.</div>';
   const desc = 'Articles from Featured law firms on LawDB: short previews with a link to read the full article on each firm\'s own website.';
   return [

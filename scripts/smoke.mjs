@@ -471,7 +471,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const news = await getRaw('/legal-news.html');
   ok(news.status === 200 && news.headers.get('x-lawdb-source') === 'database' && /<h1>LawDB News<\/h1>/.test(news.text), 'LawDB News is built from the database');
   const nCards = (news.text.match(/<article class="lw-bc">/g) || []).length;
-  ok(nCards === 10 && news.text.includes('Daniel Brown Law LLP') && news.text.includes('Achkar Law'), 'it shows cards from every firm that has its blog switched on');
+  ok(nCards === 7 && news.text.includes('Daniel Brown Law LLP') && news.text.includes('Achkar Law'), 'it shows cards from every firm that has its blog switched on, with only a few that have no picture');
+  const noPic = news.text.split('<article class="lw-bc">').slice(1).filter((c) => !c.includes('class="lw-bc-img"')).length;
+  ok(noPic === 3 && (news.text.match(/class="lw-bc-img"/g) || []).length === 4, 'every post with a picture is shown, and at most three without');
+  ok(news.text.includes('class="lw-bc-grid lw-feed"') && news.text.includes('class="lw-bc-head"') && news.text.includes('/images/logos/daniel-brown-law-llp.jpg') && /class="lw-av">[A-Z]</.test(news.text), 'the News page is laid out as a feed with a post header: the firm logo, or its initial');
   ok(!news.text.includes('Back to results'), 'the News page header has no stray "Back to results" link');
   ok(/Daniel Brown Law LLP<\/a><span class="lw-ft">Featured<\/span>/.test(news.text) && !/Achkar Law<\/a><span class="lw-ft">/.test(news.text), 'only Featured firms carry the Featured badge');
   ok(news.text.includes('<details><summary>Read more</summary>') && news.text.includes(`href="${origin}/blog/impaired"`) && !news.text.includes('evil.example') && !news.text.includes('<script>alert') && !news.text.includes('onerror=alert'), 'cards expand, link to the firm\'s own site, and nothing unsafe gets in');

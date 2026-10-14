@@ -90,6 +90,7 @@ ok((await call('GET', `/api/firms/${slug}`)).data.blurb === before.blurb, 'edit 
 const log = await call('GET', '/api/admin/audit?limit=20');
 const actions = log.data.entries.map((e) => e.action);
 ok(['login', 'lead.status', 'firm.update'].every((a) => actions.includes(a)), 'audit log recorded login, lead and firm changes');
+ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged');
 
 // --- cross-site requests are refused even with a valid session cookie
 ok((await call('PATCH', `/api/admin/leads/${mine.id}`, { status: 'new' }, { origin: 'https://evil.example' })).status === 403, 'cross-origin write refused');

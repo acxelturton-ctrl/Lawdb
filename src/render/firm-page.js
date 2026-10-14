@@ -147,7 +147,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
 
   const planLine = f.featured
     ? '<p class="li-meta li-feat">Featured on LawDB</p>'
-    : '<p class="li-meta">Basic listing &middot; <a href="../list-your-firm.html">Own this firm? Get featured</a></p>';
+    : '<p class="li-meta">Basic listing &middot; <a href="/list-your-firm">Own this firm? Get featured</a></p>';
 
   const card =
     `<section class="li-card" aria-label="${esc(f.name)} profile">\n      ${coverDiv(f)}\n      <div class="li-body">\n        ${logoSpan(f)}\n` +

@@ -486,7 +486,7 @@ async function viewNews() {
     return h('div', { class: 'audit' },
       h('div', null, h('b', null, f.name), ' ', f.featured && h('span', { class: 'badge featured' }, 'Featured'), ' ', h('span', { class: 'muted' }, `${f.city}, ${f.province}`)),
       h('div', { class: 'muted' }, statusText(f)),
-      h('div', { class: 'row' }, check, toggle, h('a', { href: `/legal-news.html?firm=${f.slug}`, target: '_blank', rel: 'noopener' }, 'See on News')), msg);
+      h('div', { class: 'row' }, check, toggle, h('a', { href: `/news?firm=${f.slug}`, target: '_blank', rel: 'noopener' }, 'See on News')), msg);
   };
 
   const search = h('input', { type: 'search', placeholder: 'Add a firm: search by name or city', 'aria-label': 'Search firms to add' });
@@ -512,7 +512,7 @@ async function viewNews() {
       h('p', { class: 'muted' }, 'LawDB News shows blog cards: a headline, a short preview and a link to the full article on the firm\'s own website. Featured firms are added automatically; you can add any other firm too.'),
       h('label', { class: 'check', for: 'news-only' }, only, 'Show Featured members only'),
       h('p', { class: 'muted' }, 'Tick this when you want the page limited to Featured members. Until then it shows every firm below that is switched on.'),
-      h('div', { class: 'row' }, h('a', { href: '/legal-news.html', target: '_blank', rel: 'noopener' }, 'Open LawDB News')), out),
+      h('div', { class: 'row' }, h('a', { href: '/news', target: '_blank', rel: 'noopener' }, 'Open LawDB News')), out),
     h('div', { class: 'card' }, search, results),
     h('div', { class: 'card' }, data.firms.length ? data.firms.map(row) : h('p', { class: 'muted' }, 'No firms have blog cards yet.')));
 }

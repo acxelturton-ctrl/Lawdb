@@ -87,7 +87,20 @@ for (const path of ['/find-lawyers', '/ontario/ottawa/', '/manitoba/', '/quebec/
 }
 const plain = await getRaw('/ontario/toronto/business-lawyers');
 ok(plain.status === 200 && !plain.headers.get('x-lawdb-source'), 'pages without a firm list pass through untouched');
-ok([301, 302, 307, 308].includes((await getRaw('/find-lawyers.html')).status), '.html URL still redirects to the clean URL');
+{ const old = await getRaw('/find-lawyers.html'); ok(old.status === 301 && old.headers.get('location').endsWith('/find-lawyers'), 'an old .html address redirects to the clean address, permanently (301)'); }
+{
+  const check = async (from, to, label) => { const r = await getRaw(from); ok(r.status === 301 && r.headers.get('location').endsWith(to), label || `${from} moves permanently to ${to}`); };
+  await check('/ontario/toronto/family-lawyers.html', '/ontario/toronto/family-lawyers');
+  await check('/ontario/toronto/index.html', '/ontario/toronto/');
+  await check('/index.html', '/');
+  await check('/services/family', '/ontario/family-lawyers', 'the old Ontario practice-area page moved under /ontario/');
+  await check('/services/bc-injury.html', '/british-columbia/personal-injury-lawyers');
+  await check('/services/qc-traffic', '/quebec/traffic-ticket-lawyers');
+  await check('/legal-news', '/news');
+  await check('/legal-news.html?firm=x', '/news?firm=x', 'the old News address keeps its filter');
+  await check('/legal-news/scc-berg-credibility-wd-2026.html', '/court-decisions/scc-berg-credibility-wd-2026');
+  ok((await getRaw('/british-columbia/family-lawyers')).status === 200 && (await getRaw('/court-decisions/scc-berg-credibility-wd-2026')).status === 200 && (await getRaw('/news')).status === 200, 'the new addresses answer directly, with no redirect');
+}
 ok((await getRaw('/images/favicon-192.png')).status === 200, 'static images unaffected');
 
 // --- admin is locked by default
@@ -188,7 +201,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(pg.text.includes('class="guide"') && pg.text.includes('class="lw-car"') && pg.text.includes('id="leadForm-' + slug2 + '"'), 'guidance, nearby firms and contact form are present');
   ok(!/from \d+ Google reviews/.test(pg.text), 'no review line for a firm without Google data');
   const redir = await getRaw(`/firms/${slug2}.html`);
-  ok(redir.status === 307 && redir.headers.get('location').endsWith('/firms/' + slug2), '.html address redirects to the clean address');
+  ok(redir.status === 301 && redir.headers.get('location').endsWith('/firms/' + slug2), '.html address redirects to the clean address');
   ok((await getRaw('/firms/no-such-firm-xyz')).status === 404, 'unknown firm is a 404');
 
   const list = JSON.parse((await getRaw('/firms_data.json')).text);
@@ -476,7 +489,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: true, feedUrl: origin + '/feed.xml' });
   await call('PATCH', '/api/admin/firms/achkar-law/feed', { enabled: true, feedUrl: origin + '/feed.xml' });
   cookie = '';
-  const news = await getRaw('/legal-news.html');
+  const news = await getRaw('/news');
   ok(news.status === 200 && news.headers.get('x-lawdb-source') === 'database' && /<h1>LawDB News<\/h1>/.test(news.text), 'LawDB News is built from the database');
   const nCards = (news.text.match(/<article class="lw-bc[ "]/g) || []).length;
   ok(nCards === 7 && news.text.includes('Daniel Brown Law LLP') && news.text.includes('Achkar Law'), 'it shows cards from every firm that has its blog switched on, with only a few that have no picture');
@@ -489,15 +502,15 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(/Daniel Brown Law LLP<\/a><span class="lw-ft">Featured<\/span>/.test(news.text) && !/Achkar Law<\/a><span class="lw-ft">/.test(news.text), 'only Featured firms carry the Featured badge');
   ok(news.text.includes('<details><summary>Read more</summary>') && news.text.includes(`href="${origin}/blog/impaired"`) && !news.text.includes('evil.example') && !news.text.includes('<script>alert') && !news.text.includes('onerror=alert'), 'cards expand, link to the firm\'s own site, and nothing unsafe gets in');
   ok(news.text.includes(`<img src="${origin}/img/a.jpg"`) && news.text.includes('aspect-ratio:16/9'), 'LawDB News cards carry the article pictures');
-  ok(news.text.includes('/legal-news.html?firm=achkar-law') && news.text.includes('aria-current="true">All firms'), 'there are filters by firm');
-  const only = await getRaw('/legal-news.html?firm=achkar-law');
+  ok(news.text.includes('/news?firm=achkar-law') && news.text.includes('aria-current="true">All firms'), 'there are filters by firm');
+  const only = await getRaw('/news?firm=achkar-law');
   ok((only.text.match(/<article class="lw-bc[ "]/g) || []).length === 5 && !only.text.includes('Daniel Brown Law LLP</a><span'), 'a firm filter shows only that firm\'s cards');
   as(adminJar);
   const nAdmin = await call('GET', '/api/admin/news');
   ok(nAdmin.status === 200 && nAdmin.data.featuredOnly === false && nAdmin.data.firms.some((f) => f.slug === featSlug && f.featured && f.enabled && f.status === 'ok' && f.posts === 5), 'the admin sees which firms are on the page, and their status');
   ok((await call('PATCH', '/api/admin/news', { featuredOnly: true })).status === 200, 'the admin limits the page to Featured members');
   cookie = '';
-  const fOnly = (await getRaw('/legal-news.html')).text;
+  const fOnly = (await getRaw('/news')).text;
   ok(fOnly.includes('Daniel Brown Law LLP') && !fOnly.includes('>Achkar Law<'), 'then only Featured firms\' blogs appear');
   as(adminJar);
   ok((await call('PATCH', '/api/admin/news', { featuredOnly: 'yes' })).status === 422, 'the setting must be true or false');
@@ -509,20 +522,20 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   as(adminJar);
   for (const slug of ['achkar-law', featSlug]) await call('PATCH', `/api/admin/firms/${slug}/feed`, { enabled: false });
   cookie = '';
-  const emptyNews = await getRaw('/legal-news.html');
+  const emptyNews = await getRaw('/news');
   ok(emptyNews.status === 200 && emptyNews.text.includes('LawDB News is filling up'), 'with no blogs connected the page says it is filling up');
 
   // the court-decision explainers have their own page now
   const cd = await getRaw('/court-decisions');
-  ok(cd.status === 200 && /<h1>Court Decisions Explained<\/h1>/.test(cd.text) && (cd.text.match(/href="legal-news\/[^"]+\.html"/g) || []).length === 12, 'the 12 court-decision articles are listed on their own page');
-  ok(readFileSync(new URL('../legal-news/scc-corbett-prior-convictions-2026.html', import.meta.url), 'utf8').includes('<a href="../court-decisions.html">Court Decisions</a>'), 'each article\'s breadcrumb leads back to that page');
+  ok(cd.status === 200 && /<h1>Court Decisions Explained<\/h1>/.test(cd.text) && (cd.text.match(/href="\/court-decisions\/[^"]+"/g) || []).length === 12, 'the 12 court-decision articles are listed on their own page');
+  ok(readFileSync(new URL('../court-decisions/scc-corbett-prior-convictions-2026.html', import.meta.url), 'utf8').includes('<a href="/court-decisions">Court Decisions</a>'), 'each article\'s breadcrumb leads back to that page');
 
   // menus: three items, one hub for firms, no duplicates
   const pageFile = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
   const navOf = (h) => (h.match(/<nav class="desktop-nav"[^>]*>(.*?)<\/nav>/s) || [])[1] || '';
   const drawerOf = (h) => (h.match(/<nav class="menu-drawer"[^>]*>(.*?)<\/nav>/s) || [])[1] || '';
   const labels = (h) => [...h.matchAll(/<a[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]);
-  for (const f of ['index.html', 'firms/torkin-manes-llp.html', 'ontario/toronto/family-lawyers.html', 'services/immigration.html', 'for-firms.html']) {
+  for (const f of ['index.html', 'firms/torkin-manes-llp.html', 'ontario/toronto/family-lawyers.html', 'ontario/immigration-lawyers.html', 'for-firms.html']) {
     const h = pageFile(f);
     ok(isDeepStrictEqual(labels(navOf(h)), ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Request a Consultation']) && isDeepStrictEqual(labels(drawerOf(h)), ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Request a Consultation']), `${f}: the menu has three items and the consultation button`);
     const firmsCol = (h.match(/<h4>For Law Firms<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
@@ -531,7 +544,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(isDeepStrictEqual(labels(clientsCol), ['Find Your Lawyer', 'Browse by Case Type', 'LawDB News', 'Court Decisions Explained', 'Blog', 'How LawDB Works', 'Request a Consultation']), `${f}: the footer's clients column is complete`);
   }
   const hub = pageFile('for-firms.html');
-  ok(['list-your-firm.html"', 'list-your-firm.html?plan=featured"', '/account/"', 'grow-your-practice.html"'].every((l) => hub.slice(hub.indexOf('class="hub-grid"'), hub.indexOf('class="hub-grid"') + 2200).includes(l)), 'For Law Firms is the hub: list, Featured, manage, grow');
+  ok(['/list-your-firm"', '/list-your-firm?plan=featured"', '/account/"', '/grow-your-practice"'].every((l) => hub.slice(hub.indexOf('class="hub-grid"'), hub.indexOf('class="hub-grid"') + 2200).includes(l)), 'For Law Firms is the hub: list, Featured, manage, grow');
   ok(!/Advertise With Us|>Add Your Firm<\/a><a class="nav-cta"/.test(pageFile('index.html')), 'the old menu wording is gone');
   fixtureServer.close();
   // pictures: owners add a logo, cover and photos; everything is checked; admins can do it for any firm
@@ -885,12 +898,12 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(g.sitemapPuts.length === 1 && g.sitemapPuts[0][0] === 'sc-domain:lawdb.ca' && g.sitemapPuts[0][1] === 'https://lawdb.ca/sitemap.xml', 'the sitemap is submitted for the right property (found automatically)');
     ok(g.auth.every((a) => a === 'Bearer tok-123') && g.inspected.every((b) => b.siteUrl === 'sc-domain:lawdb.ca' && /^https:\/\/lawdb\.ca\//.test(b.inspectionUrl)), 'every call carries the token and names lawdb.ca pages');
     const first = g.inspected.map((b) => b.inspectionUrl);
-    ok(['/', '/find-lawyers', '/legal-news.html', '/for-firms.html'].every((p) => first.includes('https://lawdb.ca' + p)) && new Set(first).size === 40, 'the key pages are always checked, with no repeats');
+    ok(['/', '/find-lawyers', '/news', '/for-firms'].every((p) => first.includes('https://lawdb.ca' + p)) && new Set(first).size === 40, 'the key pages are always checked, with no repeats');
     const sum1 = run1.data.summary;
     ok(sum1.pagesChecked === 40 && sum1.onGoogle === 1 && sum1.states.some((s) => s.state === 'Submitted and indexed' && s.n === 1) && sum1.notOnGoogle === 39 && sum1.problems.length === 25 && /^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$/.test(sum1.sitemap.at) && /^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$/.test(sum1.sitemap.lastDownloaded) && sum1.sitemap.warnings === 2 && sum1.sitemap.submitted === 610, 'the answers are stored and summarised: what is on Google, what is not, and the sitemap status');
     g.inspected.length = 0;
     const run2 = await call('POST', '/api/admin/search/run', { part: 'inspect' });
-    const second = g.inspected.map((b) => b.inspectionUrl).filter((u) => !['/', '/find-lawyers', '/legal-news.html', '/for-firms.html'].includes(new URL(u).pathname));
+    const second = g.inspected.map((b) => b.inspectionUrl).filter((u) => !['/', '/find-lawyers', '/news', '/for-firms'].includes(new URL(u).pathname));
     ok(run2.data.ok && second.length === 36 && !second.some((u) => first.includes(u)), 'the next run moves on to different pages');
     ok(run2.data.summary.pagesChecked === 76 && g.sitemapPuts.length === 1, 'pages build up over runs; an inspect-only run does not resend the sitemap');
     ok((await call('POST', '/api/admin/search/run', { part: 'nonsense' })).status === 422, 'an unknown part is refused');

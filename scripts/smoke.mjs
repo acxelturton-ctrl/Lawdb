@@ -180,7 +180,13 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     about: 'About <b>us</b>\n\nSecond paragraph', hours: { 1: [['08:30', '17:00']], 2: [['08:30', '12:00'], ['13:00', '17:00']] },
   };
   ok((await call('POST', '/api/admin/firms', { ...body, province: 'ZZ' })).status === 422, 'create: bad province refused');
-  ok((await call('POST', '/api/admin/firms', { ...body, lat: undefined })).status === 422, 'create: missing coordinates refused');
+  ok((await call('POST', '/api/admin/firms', { ...body, lat: undefined })).status === 422, 'create: half a pair of coordinates refused');
+  const noPin = await call('POST', '/api/admin/firms', { ...body, name: `${body.name} nopin`, lat: undefined, lng: undefined });
+  ok(noPin.status === 201, 'create: coordinates are optional');
+  const noPinFirm = (await call('GET', '/api/firms/' + noPin.data.slug)).data;
+  ok(noPinFirm.lat >= 43 && noPinFirm.lat <= 44 && noPinFirm.lng >= -80 && noPinFirm.lng <= -79 && noPinFirm.approxCoords === true, 'create: without coordinates the pin goes to the middle of the city and is marked approximate');
+  const noPinPage = await getRaw('/firms/' + noPin.data.slug);
+  ok(noPinPage.status === 200 && !noPinPage.text.includes('maps?q='), 'an approximate pin hides the exact-location map on the firm page');
   ok((await call('POST', '/api/admin/firms', { ...body, caseTypes: ['nonsense'] })).status === 422, 'create: unknown category refused');
   ok((await call('POST', '/api/admin/firms', { ...body, hours: { 1: [['17:00', '08:00']] } })).status === 422, 'create: backwards hours refused');
   const made = await call('POST', '/api/admin/firms', body);
@@ -346,12 +352,12 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   as(adminJar);
   const nm = (await call('GET', '/api/admin/members')).data.members.find((m) => m.slug === nslug);
   ok(nm && nm.isNewListing && nm.hasCoordinates === false, 'admin sees the new listing, flagged as new, without map coordinates');
-  ok((await call('PATCH', `/api/admin/members/${nm.id}`, { status: 'approved' })).status === 422, 'a new listing cannot go live without coordinates');
   ok((await call('PATCH', `/api/admin/members/${nm.id}`, { status: 'approved', lat: 0, lng: 0 })).status === 422, 'coordinates outside Canada are refused');
-  ok((await call('PATCH', `/api/admin/members/${nm.id}`, { status: 'approved', lat: 45.42, lng: -75.69 })).status === 200, 'admin approves and publishes the new listing');
+  ok((await call('PATCH', `/api/admin/members/${nm.id}`, { status: 'approved' })).status === 200, 'admin approves and publishes the new listing without typing any coordinates');
   const live = await getRaw('/firms/' + nslug);
   ok(live.status === 200 && live.headers.get('x-lawdb-source') === 'database' && live.text.includes('Birchwood &amp; &quot;Legal&quot;'), 'the approved firm has a public page, name escaped');
-  ok((await call('GET', '/api/firms/' + nslug)).data.lat === 45.42, 'the approved firm is in the public API with its map position');
+  const pubNew = (await call('GET', '/api/firms/' + nslug)).data;
+  ok(pubNew.lat >= 41 && pubNew.lat <= 84 && pubNew.lng >= -142 && pubNew.lng <= -52 && pubNew.approxCoords === true, 'the approved firm is in the public API with a pin in the middle of its city');
   ok(inlineFirms((await getRaw('/find-lawyers')).text).some((f) => f.slug === nslug), 'the approved firm appears on the Find Lawyers page');
   cookie = '';
   ok((await call('POST', '/api/account/firms', newBody)).status === 401, 'still needs sign-in');

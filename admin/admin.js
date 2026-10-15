@@ -209,7 +209,7 @@ async function viewFirms() {
         const payload = {
           name: f.name.value, city: f.city.value, province: f.province.value, address: f.address.value, phone: f.phone.value,
           website: f.website.value, tags: splitTags(f.tags.value), caseTypes: cats.get(), about: f.about.value,
-          lat: Number(f.lat.value), lng: Number(f.lng.value),
+          lat: f.lat.value === '' ? null : Number(f.lat.value), lng: f.lng.value === '' ? null : Number(f.lng.value),
         };
         if (hrs.anyOpen()) payload.hours = hrs.get();
         const res = await api('POST', '/api/admin/firms', payload);
@@ -223,7 +223,7 @@ async function viewFirms() {
       field('Phone', f.phone), field('Website', f.website), field('Practice areas (comma separated)', f.tags),
       h('label', null, 'Categories'), cats.el,
       field('About the firm', f.about),
-      field('Latitude', f.lat, 'Needed for the map. In Google Maps, press and hold the spot, then copy the two numbers.'), field('Longitude', f.lng),
+      field('Latitude (optional)', f.lat, 'Leave both empty and LawDB finds the address, or puts the pin in the middle of the city. Only fill them if you want an exact spot.'), field('Longitude (optional)', f.lng),
       h('label', null, 'Opening hours (optional)'), hrs.el,
       h('div', { class: 'row' }, go, h('button', { type: 'button', onclick: () => editor.replaceChildren() }, 'Cancel')), out);
     editor.replaceChildren(form);
@@ -289,7 +289,7 @@ async function viewApprovals() {
       m.otherOwners && h('p', { class: 'msg-err' }, 'This firm already has an approved owner: ' + m.otherOwners),
       m.isNewListing && h('p', { class: 'muted' }, 'Not public yet. It goes live when you approve.'),
       needsCoords && h('div', null,
-        h('p', { class: 'muted' }, 'The address could not be placed on the map automatically. Find it on the map, then enter its position:'),
+        h('p', { class: 'muted' }, 'The address could not be found exactly. You can approve as is: LawDB puts the pin in the middle of the city and hides the map on the firm page. Or enter the exact position (optional):'),
         h('a', { href: `https://www.google.com/maps/search/${mapQuery}`, target: '_blank', rel: 'noopener' }, 'Find on Google Maps'),
         h('div', { class: 'row' }, lat, lng)),
       m.pageMode === 'static' && h('label', { class: 'check small' }, switchPage,

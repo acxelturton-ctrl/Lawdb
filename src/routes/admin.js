@@ -8,6 +8,7 @@ import { audit } from '../lib/audit.js';
 import { searchSummary, runSearchConsole, inspectUrl, gscKey } from '../lib/gsc.js';
 import { mailInBackground, decisionEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES } from '../lib/firm-edit.js';
+import { placeFor } from '../lib/geocode.js';
 
 export { CASE_TYPES };
 
@@ -124,7 +125,9 @@ export async function listAudit({ request, env, url }) {
 export async function createFirm({ request, env }) {
   const admin = await requireAdmin(env, request);
   const body = await readJson(request, 20000);
-  const built = await prepareNewFirm(env, body, { requireCoords: true });
+  // Coordinates are optional: without them the pin goes to the address, or the middle of the city.
+  const coords = body.lat == null && body.lng == null ? await placeFor(env, { address: typeof body.address === 'string' ? body.address : '', city: String(body.city || ''), province: String(body.province || '').toUpperCase() }) : undefined;
+  const built = await prepareNewFirm(env, body, { coords });
   await insertFirm(env, built, { status: 'live', createdBy: admin.id });
   await audit(env, admin, 'firm.create', 'firm', built.firm.slug, { name: built.firm.name, city: built.firm.city, province: built.firm.province });
   return reply({ ok: true, slug: built.firm.slug, url: `/firms/${built.firm.slug}` }, 201);
@@ -180,13 +183,21 @@ export async function decideMember({ request, env, url, params, exec }) {
   const detail = { firm: m.slug, owner: m.email, from: m.status, to: body.status };
   if (body.status === 'approved') {
     if (m.firmStatus === 'pending') {
-      // A brand-new listing needs a map position before it can go public.
-      let lat = m.lat, lng = m.lng;
+      // A brand-new listing gets a map position when it goes public: the admin's own numbers if typed, else what was found for the address,
+      // else the address looked up now, else the middle of the city. Nobody has to find coordinates by hand.
+      let lat = m.lat, lng = m.lng, approx = false;
       if (body.lat != null || body.lng != null) { lat = Number(body.lat); lng = Number(body.lng); }
-      if (!(lat >= 41 && lat <= 84 && lng >= -142 && lng <= -52)) throw new HttpError(422, 'This new listing needs map coordinates (lat and lng, inside Canada) before it can go live.');
-      const firm = { ...JSON.parse(m.data), lat, lng };
+      else if (!(lat >= 41 && lat <= 84 && lng >= -142 && lng <= -52)) {
+        const f0 = JSON.parse(m.data);
+        const place = await placeFor(env, { address: f0.address, city: f0.city, province: f0.province });
+        if (place) ({ lat, lng, approx } = place);
+      }
+      if (!(lat >= 41 && lat <= 84 && lng >= -142 && lng <= -52)) throw new HttpError(422, 'Those coordinates are not inside Canada. Clear them to let LawDB place the pin, or check the numbers.');
+      const firm = { ...JSON.parse(m.data), lat, lng, ...(approx ? { approxCoords: true } : {}) };
+      if (!approx) delete firm.approxCoords;
       writes.push(env.DB.prepare("UPDATE firms SET status = 'live', lat = ?, lng = ?, data = ?, updated_at = datetime('now') WHERE slug = ?").bind(lat, lng, JSON.stringify(firm), m.slug));
       detail.wentLive = true;
+      if (approx) detail.approxCoords = true;
     }
     // The owner's edits only show on a database-built page; the hand-built page ignores them.
     if (body.switchPage === true && m.pageMode === 'static') {

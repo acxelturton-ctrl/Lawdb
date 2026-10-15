@@ -140,12 +140,13 @@ export async function prepareNewFirm(env, body, { requireCoords, coords, checkTe
     lat = Number(body.lat); lng = Number(body.lng);
     if (!(lat >= 41 && lat <= 84 && lng >= -142 && lng <= -52)) throw new HttpError(422, 'lat and lng are required and must be inside Canada');
   } else if (coords) ({ lat, lng } = coords);
+  const approx = !!(coords && coords.approx && body.lat == null && body.lng == null);
 
   const firm = {
     name, city, featured: false,
     tags: 'tags' in body ? FIRM_FIELDS.tags(body.tags) : [],
     caseTypes: 'caseTypes' in body ? FIRM_FIELDS.caseTypes(body.caseTypes) : [],
-    province, lat, lng,
+    province, lat, lng, ...(approx ? { approxCoords: true } : {}),
     address: 'address' in body ? FIRM_FIELDS.address(body.address) : '',
     phone: 'phone' in body ? FIRM_FIELDS.phone(body.phone) : '',
     rating: 0, count: 0,

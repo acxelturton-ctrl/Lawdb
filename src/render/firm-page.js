@@ -132,7 +132,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     description: about || desc,
     address: { '@type': 'PostalAddress', streetAddress: f.address || '', addressLocality: f.city, addressRegion: f.province, addressCountry: 'CA' },
     ...(f.phone ? { telephone: f.phone } : {}),
-    ...(num(f.lat) && num(f.lng) ? { geo: { '@type': 'GeoCoordinates', latitude: f.lat, longitude: f.lng } } : {}),
+    ...(num(f.lat) && num(f.lng) && !f.approxCoords ? { geo: { '@type': 'GeoCoordinates', latitude: f.lat, longitude: f.lng } } : {}),
     ...(rated ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: f.rating, reviewCount: f.count } } : {}),
     url,
     ...(customCover ? { image: ogImage } : {}),
@@ -169,7 +169,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `      <a href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.pin2}<span>View on Google Maps</span></a>\n    </div>`;
 
   const toks = { NAME: esc(f.name), SLUG: esc(f.slug), LAT: esc(f.lat), LNG: esc(f.lng) };
-  const mapHtml = num(f.lat) && num(f.lng) ? fill(C.MAP_EMBED, toks) : '';
+  const mapHtml = num(f.lat) && num(f.lng) && !f.approxCoords ? fill(C.MAP_EMBED, toks) : '';
   // The lead script is JavaScript, so the name goes in as a JS-safe string, not HTML.
   const jsName = String(f.name).replace(/[\\'"<>&\n\r]/g, ' ');
   const leadScript = fill(C.LEAD_SCRIPT, { SLUG: String(f.slug).replace(/[^a-z0-9-]/g, ''), NAME: jsName });

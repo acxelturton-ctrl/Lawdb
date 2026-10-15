@@ -28,19 +28,7 @@
   <a href="/account/">Sign in</a>
   <a class="menu-cta" href="/book-a-call">Request a Consultation</a>
 </nav>
-<script>
-(function(){
-  var toggle = document.getElementById('menuToggle');
-  var closeBtn = document.getElementById('menuClose');
-  var overlay = document.getElementById('menuOverlay');
-  var drawer = document.getElementById('menuDrawer');
-  function openMenu(){ overlay.classList.add('open'); drawer.classList.add('open'); }
-  function shutMenu(){ overlay.classList.remove('open'); drawer.classList.remove('open'); }
-  if(toggle) toggle.addEventListener('click', openMenu);
-  if(closeBtn) closeBtn.addEventListener('click', shutMenu);
-  if(overlay) overlay.addEventListener('click', shutMenu);
-})();
-</script>
+<script src="/account/menu.js" defer></script>
 <div id="app"><div class="wrap"><p class="muted">Loading…</p></div></div>
 <noscript><div class="wrap"><p>JavaScript is required for your LawDB account.</p></div></noscript>
 <script src="/account/account.js" type="module"></script>

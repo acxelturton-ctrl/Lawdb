@@ -126,3 +126,14 @@ textarea.tall { min-height: 150px; }
 .wiz-opt{display:flex;flex-direction:column;gap:2px;text-align:center;padding:14px 12px;background:#fff;border:1.5px solid #e3dfd5;border-radius:10px;cursor:pointer;font-size:15px;color:#1f2328}
 .wiz-opt span{font-size:13px;color:#636870;font-weight:400}.wiz-opt[aria-pressed="true"]{border-color:#e8a91f;background:#fff3d4}
 .wiz-bar{display:flex;gap:8px;justify-content:center;margin-top:24px}.wiz-bar i{display:block;width:44px;height:5px;border-radius:3px;background:#e3dfd5}.wiz-bar i.on{background:#1f2328}
+
+/* My network: LinkedIn-style firm rows and the Follow pill */
+.fbtn{font:600 13.5px Inter,system-ui,sans-serif;border:1.5px solid #1f2328;background:#fff;color:#1f2328;border-radius:999px;padding:7px 16px;cursor:pointer;white-space:nowrap;line-height:1.2}
+.fbtn:hover{background:#fff3d4;border-color:#e8a91f}.fbtn[disabled]{opacity:.6;cursor:wait}
+.fbtn[aria-pressed="true"]{background:#f0ede5;border-color:#d6d1c4;color:#3f444b}
+.fbtn .b{display:none}
+@media (hover:hover){.fbtn[aria-pressed="true"]:hover{background:#fbeceb;border-color:#a1261c;color:#a1261c}.fbtn[aria-pressed="true"]:hover .a{display:none}.fbtn[aria-pressed="true"]:hover .b{display:inline}}
+.nw-list{padding:4px 16px}.nw-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.nw-row:last-child{border-bottom:0}
+.nw-ava{flex:none;width:52px;height:52px;border-radius:10px;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:700;color:#636870;text-decoration:none}
+.nw-ava img{width:100%;height:100%;object-fit:contain;padding:4px}
+.nw-info{min-width:0;flex:1;display:flex;flex-direction:column;gap:1px;font-size:14px}.nw-info a{text-decoration:none;font-size:15.5px}.nw-info a:hover{text-decoration:underline}.nw-info .badge{align-self:flex-start;margin:2px 0}

@@ -41,3 +41,6 @@ body.lw-focus .lw-tabbar,body.lw-focus .site-header{display:none}
 .lw-hf-card b{font:700 16px/1.3 "Source Serif 4",Georgia,serif}
 .lw-hf-empty{border:1px dashed #cfc8b8;border-radius:12px;padding:16px;color:#3f444b;font:15px/1.5 Inter,system-ui,sans-serif}
 .lw-hf-empty a{color:#b45309;font-weight:700}
+.lw-dot{position:absolute;top:0;right:calc(50% - 20px);min-width:17px;height:17px;border-radius:9px;background:#e8a91f;color:#1f2328;font:700 10.5px/17px Inter,system-ui,sans-serif;text-align:center;padding:0 4px;font-style:normal;box-shadow:0 0 0 2px #fff}
+.lw-dot.sm{min-width:12px;width:12px;height:12px;top:-2px;right:-2px;padding:0}
+.lw-hf-sug{display:flex;flex-direction:column;gap:8px}.lw-hf-sug .r{display:flex;align-items:center;gap:12px;border:1px solid #e3dfd5;border-radius:12px;padding:10px 12px;background:#f8f6f1}.lw-hf-sug .r a{flex:1;min-width:0;text-decoration:none;color:#1f2328;font:700 15px Inter,system-ui,sans-serif;display:flex;flex-direction:column}.lw-hf-sug .r small{font:500 12.5px Inter,system-ui,sans-serif;color:#636870}

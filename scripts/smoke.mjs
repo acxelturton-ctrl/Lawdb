@@ -1080,7 +1080,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
         if (m[2] === 'token') {
           const f = new URLSearchParams(raw); const rec = codes.get(f.get('code'));
           const sha = createHash('sha256').update(f.get('code_verifier') || '').digest('base64url');
-          if (!rec || rec.used || f.get('client_secret') !== (m[1] === 'google' ? 'test-google-secret' : 'test-li-secret') || f.get('client_id') !== (m[1] === 'google' ? 'test-google-id' : 'test-li-id') || sha !== rec.challenge || f.get('redirect_uri') !== `${BASE}/api/auth/${m[1]}/callback` || f.get('grant_type') !== 'authorization_code') return send(400, { error: 'invalid_grant' });
+          if (!rec || rec.used || f.get('client_secret') !== (m[1] === 'google' ? 'test-google-secret' : 'test-li-secret') || f.get('client_id') !== (m[1] === 'google' ? 'test-google-id' : 'test-li-id') || (rec.challenge ? sha !== rec.challenge : f.has('code_verifier')) || f.get('redirect_uri') !== `${BASE}/api/auth/${m[1]}/callback` || f.get('grant_type') !== 'authorization_code') return send(400, { error: 'invalid_grant' });
           rec.used = true; return send(200, { access_token: 'at-' + f.get('code') });
         }
         const rec = codes.get((req.headers.authorization || '').replace('Bearer at-', ''));
@@ -1120,7 +1120,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     // the same person through LinkedIn lands in the same account
     const l1 = await dance('linkedin', { email: `oauth-${run}@example.com`, name: 'Olivia Oauth' });
     cookie = sessionOf(l1.cb);
-    ok(l1.cb.status === 302 && l1.loc.searchParams.get('client_id') === 'test-li-id' && (await call('GET', '/api/account/me')).data.user.email === `oauth-${run}@example.com`, 'LinkedIn signs the same person into the same account (matched by verified e-mail)');
+    ok(l1.cb.status === 302 && l1.loc.searchParams.get('client_id') === 'test-li-id' && !l1.loc.searchParams.has('code_challenge') && l1.loc.searchParams.get('redirect_uri') === `${BASE}/api/auth/linkedin/callback` && l1.loc.searchParams.get('scope') === 'openid profile email' && (await call('GET', '/api/account/me')).data.user.email === `oauth-${run}@example.com`, 'LinkedIn signs the same person into the same account (matched by verified e-mail)');
     // profile
     ok((await call('PATCH', '/api/account/profile', { name: 'Olivia O.', kind: 'lawyer' })).data.profile.kind === 'lawyer' && (await call('GET', '/api/account/me')).data.user.name === 'Olivia O.', 'a profile (name and who you are) can be saved');
     ok((await call('PATCH', '/api/account/profile', { kind: 'wizard' })).status === 422 && (await call('PATCH', '/api/account/profile', { name: '<b>x</b>' })).status === 422 && (await call('PATCH', '/api/account/profile', {})).status === 422, 'odd profile input is refused');

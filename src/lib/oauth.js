@@ -17,7 +17,7 @@ const PROVIDERS = {
     auth: 'https://accounts.google.com/o/oauth2/v2/auth', token: 'https://oauth2.googleapis.com/token', user: 'https://openidconnect.googleapis.com/v1/userinfo',
   },
   linkedin: {
-    name: 'LinkedIn', idVar: 'LINKEDIN_CLIENT_ID', secretVar: 'LINKEDIN_CLIENT_SECRET', scope: 'openid profile email', extra: {},
+    name: 'LinkedIn', idVar: 'LINKEDIN_CLIENT_ID', secretVar: 'LINKEDIN_CLIENT_SECRET', scope: 'openid profile email', extra: {}, pkce: false, // LinkedIn's web sign-in does not accept PKCE parameters; the client secret and the one-time state protect the exchange
     auth: 'https://www.linkedin.com/oauth/v2/authorization', token: 'https://www.linkedin.com/oauth/v2/accessToken', user: 'https://api.linkedin.com/v2/userinfo',
   },
 };
@@ -50,8 +50,8 @@ export async function startOAuth(env, request, url, key) {
     env.DB.prepare('INSERT INTO oauth_states (state_hash, provider, verifier, next_path) VALUES (?, ?, ?, ?)').bind(await sha256Hex(state), key, verifier, safeNext(url.searchParams.get('next'))),
   ]);
   const q = new URLSearchParams({
-    response_type: 'code', client_id: c.id, redirect_uri: `${origin}/api/auth/${key}/callback`, scope: c.scope, state,
-    code_challenge: b64url(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier))), code_challenge_method: 'S256', ...c.extra,
+    response_type: 'code', client_id: c.id, redirect_uri: `${origin}/api/auth/${key}/callback`, scope: c.scope, state, ...c.extra,
+    ...(c.pkce === false ? {} : { code_challenge: b64url(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier))), code_challenge_method: 'S256' }),
   });
   return Response.redirect(`${c.auth}?${q}`, 302);
 }
@@ -59,7 +59,7 @@ export async function startOAuth(env, request, url, key) {
 async function readProfile(c, code, verifier, redirectUri) {
   const tok = await fetch(c.token, {
     method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' }, signal: AbortSignal.timeout(10000),
-    body: new URLSearchParams({ grant_type: 'authorization_code', code, redirect_uri: redirectUri, client_id: c.id, client_secret: c.secret, code_verifier: verifier }),
+    body: new URLSearchParams({ grant_type: 'authorization_code', code, redirect_uri: redirectUri, client_id: c.id, client_secret: c.secret, ...(c.pkce === false ? {} : { code_verifier: verifier }) }),
   });
   const t = await tok.json().catch(() => ({}));
   if (!tok.ok || !t.access_token) throw new Error(`token exchange failed (${tok.status})`);

@@ -27,3 +27,10 @@ Open `https://lawdb.ca/account/` in a private window. The buttons show. Press on
 - Every attempt has a one-time `state` (hash stored, valid 10 minutes). Reused, expired or invented states are refused.
 - An account is matched by email address, and only when the provider says the address is **verified**. Nothing else (no contacts, no password) is requested.
 - `ADMIN_EMAILS` still decides who is an admin; disabled accounts cannot sign in; at most 150 new accounts a day.
+
+## If LinkedIn shows "Bummer, something went wrong"
+LinkedIn shows that page when it rejects the sign-in request before the person logs in. Check, in this order:
+1. **Auth tab, Authorized redirect URLs:** exactly `https://lawdb.ca/api/auth/linkedin/callback` (https, no `www`, no trailing slash, no spaces).
+2. **Products tab:** "Sign In with LinkedIn using OpenID Connect" must say it is added (not "Requested").
+3. **Client ID** in Cloudflare must be the one on that same app's Auth tab, and the Client Secret its Primary Client Secret.
+LawDB does not send PKCE parameters to LinkedIn (its web sign-in does not accept them); Google does use PKCE.

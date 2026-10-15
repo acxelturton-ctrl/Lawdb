@@ -21,7 +21,7 @@ const SIGNIN_MESSAGES = {
 };
 
 // LawDB's own LinkedIn page, shown on the sign-in badge. Leave empty to hide the link.
-const LAWDB_LINKEDIN = '';
+const LAWDB_LINKEDIN = 'https://www.linkedin.com/company/lawdb/';
 
 async function renderLogin() {
   const msg = h('div');

@@ -21,6 +21,7 @@ const TABLES = {
   users: 'SELECT id, email, role, disabled, created_at, last_login_at FROM users ORDER BY id', // never tokens or sessions
   firm_images: 'SELECT * FROM firm_images ORDER BY created_at, id', // the files themselves are in the lawdb-images bucket
   leads: 'SELECT * FROM leads ORDER BY id',
+  firm_ratings: 'SELECT * FROM firm_ratings ORDER BY user_id, firm_slug',
   follows: 'SELECT * FROM follows ORDER BY user_id, firm_slug',
   saved_stories: 'SELECT * FROM saved_stories ORDER BY user_id, post_id',
   audit_log: 'SELECT * FROM audit_log ORDER BY id',

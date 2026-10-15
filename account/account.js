@@ -362,7 +362,8 @@ async function viewSaved() {
 
 // ---------------------------------------------------------------- profile
 const KIND_LABELS = [['lawyer', 'A lawyer'], ['staff', 'Law firm staff'], ['public', 'Looking for a lawyer'], ['other', 'Something else']];
-function viewProfile() {
+async function viewProfile() {
+  const { ratings } = await api('GET', '/api/account/ratings');
   const name = h('input', { type: 'text', id: 'pname', maxlength: 80, autocomplete: 'name', value: user.name || '', placeholder: 'Your name' });
   const kind = h('select', { id: 'pkind' }, h('option', { value: '' }, 'Choose one'), KIND_LABELS.map(([v, l]) => { const o = h('option', { value: v }, l); if (v === user.kind) o.selected = true; return o; }));
   const msg = h('div');
@@ -371,7 +372,14 @@ function viewProfile() {
     try { const r = await api('PATCH', '/api/account/profile', { name: name.value, kind: kind.value }); user.name = r.profile.name; user.kind = r.profile.kind; msg.replaceChildren(note('msg-ok', 'Saved.')); }
     catch (err) { msg.replaceChildren(note('msg-err', err.message)); }
   } }, h('label', { for: 'pname' }, 'Your name'), name, h('label', { for: 'pkind' }, 'I am'), kind, h('div', { class: 'row' }, h('button', { class: 'primary', type: 'submit' }, 'Save')), msg);
-  return h('div', null, h('h1', null, 'Your profile'), h('p', { class: 'muted' }, `Signed in as ${user.email}. Your name personalises your dashboard and emails.`), h('div', { class: 'card' }, form));
+  const mine = h('div', { class: 'card' });
+  const drawMine = () => mine.replaceChildren(...(ratings.length ? ratings.map((r) => {
+    const del = h('button', { type: 'button' }, 'Remove');
+    del.addEventListener('click', async () => { del.disabled = true; try { await api('DELETE', `/api/account/ratings/${encodeURIComponent(r.slug)}`); ratings.splice(ratings.indexOf(r), 1); drawMine(); } catch { del.disabled = false; } });
+    return h('div', { class: 'audit' }, h('div', null, h('a', { href: `/firms/${r.slug}#rate` }, h('b', null, r.name)), ' ', h('span', { class: 'muted' }, '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars) + (r.commentStatus === 'pending' ? ' · comment waiting for review' : ''))), r.comment && h('div', { class: 'muted' }, r.comment), h('div', { class: 'row' }, del));
+  }) : [h('p', { class: 'muted' }, 'You have not rated any firms yet. Open a firm page and use "Rate this firm".')]));
+  drawMine();
+  return h('div', null, h('h1', null, 'Your profile'), h('p', { class: 'muted' }, `Signed in as ${user.email}. Your name personalises your dashboard and emails.`), h('div', { class: 'card' }, form), h('h2', null, 'Your ratings'), mine);
 }
 
 // After signing in from a Follow or Save button on a public page, finish what the person asked for.
@@ -381,6 +389,7 @@ async function finishPending() {
   if (!p) return false;
   try {
     if (p.type === 'follow') { await api('POST', '/api/account/follow', { slug: p.slug }); location.hash = '#following'; return true; }
+    if (p.type === 'back' && typeof p.url === 'string' && /^\/firms\/[a-z0-9-]+(#rate)?$/.test(p.url)) { location.replace(p.url); return true; }
     if (p.type === 'save') { await api('POST', '/api/account/saved', { postId: Number(p.id) }); location.hash = '#saved'; return true; }
   } catch { /* the page still opens; the person can try again */ }
   return false;
@@ -403,7 +412,7 @@ async function render() {
     else if (tab === 'feed') view = await viewFeed();
     else if (tab === 'following') view = await viewFollowing();
     else if (tab === 'saved') view = await viewSaved();
-    else if (tab === 'profile') view = viewProfile();
+    else if (tab === 'profile') view = await viewProfile();
     else if (name === 'edit' && arg) view = await viewEdit(arg);
     else if (name === 'leads') view = await viewLeads(arg);
     else { await loadMe(); view = viewFirms(); }

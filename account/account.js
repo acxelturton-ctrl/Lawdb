@@ -308,6 +308,7 @@ async function viewFeed() {
   const first = (user.name || '').split(/\s+/)[0];
   return h('div', null, h('h1', null, first ? `Welcome, ${first}!` : 'Your feed'),
     (!user.name || !user.kind) && h('div', { class: 'card' }, h('p', null, h('b', null, 'Finish your profile')), h('p', { class: 'muted' }, 'Add your name and tell us who you are. It takes a few seconds.'), h('a', { href: '#profile' }, h('button', { class: 'primary', type: 'button' }, 'Continue setting up your profile'))),
+    user.name && !user.avatar && h('div', { class: 'card' }, h('p', null, h('b', null, 'Add a profile photo')), h('p', { class: 'muted' }, 'A photo makes your account feel like yours. It takes a few seconds.'), h('a', { href: '#profile' }, h('button', { type: 'button' }, 'Add a photo'))),
     h('p', { class: 'muted' }, 'The latest stories from the firms you follow.'),
     nF === 0
       ? h('div', { class: 'card' }, h('p', null, 'You are not following any firms yet.'), h('p', { class: 'muted' }, 'Follow firms to see their new articles here. You can follow any firm from its profile page, from LawDB News, or search for firms below.'), h('a', { href: '#network' }, h('button', { class: 'primary', type: 'button' }, 'Find firms to follow')))
@@ -384,6 +385,60 @@ async function viewSaved() {
 
 // ---------------------------------------------------------------- profile
 const KIND_LABELS = [['lawyer', 'A lawyer'], ['staff', 'Law firm staff'], ['public', 'Looking for a lawyer'], ['other', 'Something else']];
+// Profile photo and cover: the picture is cropped to the right shape (a centred square, or 3:1 for the cover) and shrunk in the browser,
+// so uploads are small and fast.
+async function cropJpeg(file, w, h) {
+  const bmp = await createImageBitmap(file).catch(() => null);
+  if (!bmp) throw new Error('That file could not be read as a picture. Try a JPEG or PNG.');
+  const scale = Math.max(w / bmp.width, h / bmp.height);
+  const sw = w / scale, sh = h / scale;
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  c.getContext('2d').drawImage(bmp, (bmp.width - sw) / 2, (bmp.height - sh) / 2, sw, sh, 0, 0, w, h);
+  return await new Promise((ok, no) => c.toBlob((b) => (b ? ok(b) : no(new Error('Could not prepare that picture.'))), 'image/jpeg', 0.86));
+}
+
+// The top of the profile, like a LinkedIn profile: a cover banner with the profile photo sitting on it.
+function photoCard() {
+  const box = h('div', { class: 'card pf-head' });
+  const msg = h('div');
+  const mkInput = (label) => h('input', { type: 'file', accept: 'image/jpeg,image/png,image/webp', class: 'photo-input', 'aria-label': label });
+  const avIn = mkInput('Choose a profile photo'), cvIn = mkInput('Choose a cover photo');
+  const draw = () => {
+    const cover = h('div', { class: user.cover ? 'pf-cover' : 'pf-cover gen' }, user.cover && h('img', { src: user.cover, alt: 'Your cover photo' }),
+      h('div', { class: 'pf-cbtns' },
+        h('button', { type: 'button', onclick: () => cvIn.click() }, user.cover ? 'Change cover' : 'Add cover photo'),
+        user.cover && h('button', { type: 'button', onclick: () => remove('cover') }, 'Remove')));
+    const face = user.avatar ? h('img', { src: user.avatar, alt: 'Your profile photo' }) : h('span', null, initialsOf(user.name || user.email));
+    const who = h('div', { class: 'pf-who' }, h('b', null, user.name || 'Your name'), [user.jobTitle, user.employer].filter(Boolean).length && h('span', { class: 'muted' }, [user.jobTitle, user.employer].filter(Boolean).join(' at ')), (user.city || user.province) && h('span', { class: 'muted' }, [user.city, PROVINCES[user.province] || user.province].filter(Boolean).join(', ')));
+    box.replaceChildren(cover, h('div', { class: 'pf-body' }, h('div', { class: 'ph' }, face), who,
+      h('div', { class: 'row' }, h('button', { type: 'button', class: 'primary', onclick: () => avIn.click() }, user.avatar ? 'Change photo' : 'Add photo'), user.avatar && h('button', { type: 'button', onclick: () => remove('avatar') }, 'Remove photo')),
+      h('p', { class: 'muted pf-note' }, 'Only you can see your photos for now. JPEG, PNG or WebP.'), msg), avIn, cvIn);
+  };
+  const done = (profile) => {
+    user.avatar = profile.avatar; user.cover = profile.cover;
+    try { sessionStorage.removeItem('lawdb_me'); } catch (e) {}
+    draw(); if (window.lawdbRefresh) window.lawdbRefresh();
+  };
+  async function remove(kind) {
+    try { done((await api('DELETE', `/api/account/${kind}`)).profile); msg.replaceChildren(note('msg-ok', 'Removed.')); } catch (err) { msg.replaceChildren(note('msg-err', err.message)); }
+  }
+  const wire = (input, kind, w, h2) => input.addEventListener('change', async () => {
+    const file = input.files[0]; input.value = '';
+    if (!file) return;
+    msg.replaceChildren(note('msg-ok', 'Uploading…'));
+    try {
+      const blob = await cropJpeg(file, w, h2);
+      const res = await fetch(`/api/account/${kind}`, { method: 'PUT', credentials: 'same-origin', headers: { 'content-type': blob.type }, body: blob });
+      const data = await res.json().catch(() => null);
+      if (!res.ok) throw new Error((data && data.error) || `Upload failed (${res.status})`);
+      done(data.profile); msg.replaceChildren(note('msg-ok', 'Saved. Looking good!'));
+    } catch (err) { msg.replaceChildren(note('msg-err', err.message)); }
+  });
+  wire(avIn, 'avatar', 400, 400); wire(cvIn, 'cover', 1200, 400);
+  draw();
+  return box;
+}
+
 async function viewProfile() {
   const { ratings } = await api('GET', '/api/account/ratings');
   const f = (id, label, key, extra = {}) => { const i = h('input', { type: 'text', id, value: user[key] || '', maxlength: 100, ...extra }); return [h('label', { for: id }, label), i, i]; };
@@ -394,7 +449,7 @@ async function viewProfile() {
   const msg = h('div');
   const form = h('form', { onsubmit: async (e) => {
     e.preventDefault(); msg.replaceChildren();
-    try { const r = await api('PATCH', '/api/account/profile', { name: name.value, city: city.value, province: prov.value, jobTitle: title.value, employer: emp.value, kind: kind.value }); Object.assign(user, r.profile); msg.replaceChildren(note('msg-ok', 'Saved.')); }
+    try { const r = await api('PATCH', '/api/account/profile', { name: name.value, city: city.value, province: prov.value, jobTitle: title.value, employer: emp.value, kind: kind.value }); Object.assign(user, r.profile); if (window.lawdbRefresh) window.lawdbRefresh(); msg.replaceChildren(note('msg-ok', 'Saved.')); }
     catch (err) { msg.replaceChildren(note('msg-err', err.message)); }
   } }, h('label', { for: 'pname' }, 'Your name'), name, h('label', { for: 'pkind' }, 'I am'), kind, h('label', { for: 'pcity' }, 'City'), city, h('label', { for: 'pprov' }, 'Province or territory'), prov, h('label', { for: 'ptitle' }, 'Job title'), title, h('label', { for: 'pemp' }, 'Law firm or employer'), emp, h('div', { class: 'row' }, h('button', { class: 'primary', type: 'submit' }, 'Save')), msg);
   const mine = h('div', { class: 'card' });
@@ -404,7 +459,7 @@ async function viewProfile() {
     return h('div', { class: 'audit' }, h('div', null, h('a', { href: `/firms/${r.slug}#rate` }, h('b', null, r.name)), ' ', h('span', { class: 'muted' }, '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars) + (r.commentStatus === 'pending' ? ' · comment waiting for review' : ''))), r.comment && h('div', { class: 'muted' }, r.comment), h('div', { class: 'row' }, del));
   }) : [h('p', { class: 'muted' }, 'You have not rated any firms yet. Open a firm page and use "Rate this firm".')]));
   drawMine();
-  return h('div', null, h('h1', null, 'Your profile'), h('p', { class: 'muted' }, `Signed in as ${user.email}. Your name personalises your dashboard and emails.`), h('div', { class: 'card' }, form), h('h2', null, 'Your ratings'), mine,
+  return h('div', null, h('h1', null, 'Your profile'), h('p', { class: 'muted' }, `Signed in as ${user.email}. Your name personalises your dashboard and emails.`), photoCard(), h('div', { class: 'card' }, form), h('h2', null, 'Your ratings'), mine,
     h('p', { class: 'muted' }, h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); try { localStorage.setItem('lawdb_in', '0'); sessionStorage.removeItem('lawdb_me'); } catch (err) {} location.replace('/account/'); } }, 'Sign out of every device')));
 }
 

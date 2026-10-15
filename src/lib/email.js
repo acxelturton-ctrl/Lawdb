@@ -123,6 +123,19 @@ export function leadEmail(origin, firmName, lead) {
   };
 }
 
+export function leadDigestEmail(origin, { firmName, week, fresh, featured }) {
+  const link = `${origin}/account/#leads`;
+  const n = (c, w) => `${c} ${c === 1 ? w : w + 's'}`;
+  const pitch = featured
+    ? `${fresh} ${fresh === 1 ? 'is' : 'are'} still marked new. Open your dashboard to reply, add notes or export them.`
+    : `Featured members read and manage enquiries in a dashboard, with notes, filters and a spreadsheet export. Your enquiry emails keep coming either way.`;
+  return {
+    subject: `${firmName}: ${n(week, 'enquiry').replace('enquirys', 'enquiries')} on LawDB this week`,
+    text: `${firmName} received ${n(week, 'enquiry').replace('enquirys', 'enquiries')} through LawDB in the last 7 days.\n\n${pitch}\n\n${featured ? 'Open your enquiries' : 'See your plan'}: ${link}`,
+    html: `<p><b>${esc(firmName)}</b> received <b>${esc(n(week, 'enquiry').replace('enquirys', 'enquiries'))}</b> through LawDB in the last 7 days.</p><p>${esc(pitch)}</p>${button(link, featured ? 'Open my enquiries' : 'See my plan')}`,
+  };
+}
+
 export function reportEmail(origin, { slug, reason, name, email, message }) {
   const link = `${origin}/admin/#leads`;
   const firm = slug ? `${origin}/firms/${slug}` : '(no firm given)';

@@ -79,9 +79,11 @@ async function renderLogin() {
 // ---------------------------------------------------------------- shell
 function shell(active, content) {
   const tabs = [['feed', 'Feed'], ['network', 'My network'], ['saved', 'Saved'], ['firms', 'My firms'], ['profile', 'Profile'], ['find', 'Add or claim a firm']];
+  if (approved().length) tabs.splice(3, 0, ['leads', 'Enquiries']);
+  const fresh = approved().reduce((n, m) => n + (m.newLeads || 0), 0);
   return h('div', null,
     h('div', { class: 'wrap' },
-      h('nav', { class: 'tabs', 'aria-label': 'Sections' }, tabs.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label))),
+      h('nav', { class: 'tabs', 'aria-label': 'Sections' }, tabs.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'leads' && fresh > 0 && h('span', { class: 'lx-count', 'aria-label': `${fresh} new` }, fresh > 99 ? '99+' : String(fresh))))),
       content));
 }
 
@@ -269,41 +271,93 @@ async function viewLeads(slug) {
   const mine = approved();
   if (!slug) {
     if (mine.length === 1) { location.replace(`#leads/${mine[0].slug}`); return h('p', { class: 'muted' }, 'Loading…'); }
-    return h('div', null, h('h1', null, 'Enquiries'), mine.length ? mine.map((m) => h('a', { class: 'firm-row', href: `#leads/${m.slug}` }, h('span', null, m.name, h('small', null, where(m))))) : h('p', { class: 'muted' }, 'You do not manage a firm yet.'));
+    return h('div', null, h('h1', null, 'Enquiries'), mine.length ? mine.map((m) => h('a', { class: 'firm-row', href: `#leads/${m.slug}` }, h('span', null, m.name, h('small', null, where(m))), m.newLeads > 0 && h('span', { class: 'badge new' }, `${m.newLeads} new`))) : h('p', { class: 'muted' }, 'You do not manage a firm yet.'));
   }
   const firmName = (memberships.find((m) => m.slug === slug) || {}).name || slug;
-  const list = h('div');
-  const more = h('div', { class: 'row' });
-  let next = null;
+  const base = `/api/account/firms/${encodeURIComponent(slug)}/leads`;
+  const back = mine.length > 1 ? h('p', null, h('a', { href: '#leads' }, '\u2190 All my firms')) : null;
+  const first = await api('GET', `${base}?peek=1`); // learns the plan and the numbers without marking anything as opened
+
+  if (first.locked) {
+    const s = first.summary;
+    return h('div', null, back, h('h1', null, 'Enquiries for ' + firmName),
+      h('div', { class: 'card lx-locked' },
+        h('h2', null, s.total ? `${s.total} ${s.total === 1 ? 'enquiry' : 'enquiries'} so far` : 'No enquiries yet'),
+        h('p', { class: 'muted' }, s.total
+          ? `${s.new} still new, ${s.week} in the last 7 days. We email you every enquiry as it arrives, so none are lost. Featured members also read and manage them here.`
+          : 'When someone contacts you through your LawDB page, we email it to you. Featured members also read and manage enquiries here.'),
+        h('ul', { class: 'lx-perks' }, ['Every enquiry in one inbox, newest first', 'Reply by email or call in one tap', 'Status and private notes on each enquiry', 'Filters, search and a spreadsheet export', 'A weekly summary email'].map((t) => h('li', null, t))),
+        first.upgradeUrl ? h('a', { href: first.upgradeUrl }, h('button', { class: 'primary', type: 'button' }, `Upgrade to Featured, ${first.price}`)) : h('a', { href: `#edit/${slug}` }, h('button', { class: 'primary', type: 'button' }, 'See my plan'))));
+  }
+
+  let status = '', q = '', next = null, timer;
+  const list = h('div'), more = h('div', { class: 'row' }), tiles = h('div', { class: 'lx-tiles' });
+  const tile = (n, label, hot) => h('div', { class: 'lx-tile' + (hot ? ' hot' : '') }, h('b', null, String(n)), h('span', null, label));
+  const drawTiles = (s) => tiles.replaceChildren(tile(s.new, 'New', s.new > 0), tile(s.week, 'Last 7 days'), tile(s.month, 'Last 30 days'), tile(s.total, 'All time'));
+  drawTiles(first.summary);
 
   const card = (l) => {
     const badge = h('span', { class: 'badge ' + (l.status === 'new' ? 'new' : '') }, l.status);
-    const status = h('select', { 'aria-label': 'Enquiry status', onchange: async () => {
-      status.disabled = true;
-      try { await api('PATCH', `/api/account/leads/${l.id}`, { status: status.value }); badge.textContent = status.value; badge.className = 'badge ' + (status.value === 'new' ? 'new' : ''); }
-      catch (err) { alert(err.message); status.value = badge.textContent; }
-      status.disabled = false;
-    } }, ['new', 'contacted', 'closed', 'spam'].map((s) => h('option', { value: s, selected: s === l.status }, s)));
-    return h('article', { class: 'card lead' },
-      h('div', { class: 'row spread' }, h('b', null, l.name || '(no name)'), badge),
-      h('div', { class: 'meta' }, h('a', { href: 'mailto:' + l.email }, l.email), l.phone && h('a', { href: 'tel:' + l.phone.replace(/[^\d+]/g, '') }, l.phone), h('span', null, when(l.created_at))),
-      l.message && h('div', { class: 'body' }, l.message),
-      h('div', { class: 'row' }, h('label', { class: 'muted' }, 'Status '), status));
+    const save = async (patch) => api('PATCH', `/api/account/leads/${l.id}`, patch);
+    const setStatus = async (v) => { await save({ status: v }); l.status = v; badge.textContent = v; badge.className = 'badge ' + (v === 'new' ? 'new' : ''); sel.value = v; };
+    const sel = h('select', { 'aria-label': 'Enquiry status', onchange: async () => {
+      sel.disabled = true;
+      try { await setStatus(sel.value); } catch (err) { saved.replaceChildren(note('msg-err', err.message)); sel.value = l.status; }
+      sel.disabled = false;
+    } }, ['new', 'contacted', 'closed', 'spam'].map((v) => h('option', { value: v, selected: v === l.status }, v)));
+    const saved = h('span', { class: 'muted small', 'aria-live': 'polite' });
+    const memo = h('textarea', { class: 'lx-note', rows: 2, maxlength: 1000, placeholder: 'Private note, only you see it', 'aria-label': 'Private note' }, l.note || '');
+    let was = l.note || '';
+    memo.addEventListener('blur', async () => {
+      if (memo.value.trim() === was) return;
+      try { await save({ note: memo.value }); was = memo.value.trim(); saved.textContent = 'Saved'; setTimeout(() => { saved.textContent = ''; }, 1800); }
+      catch (err) { saved.replaceChildren(note('msg-err', err.message)); }
+    });
+    const subject = encodeURIComponent(`Re: your enquiry to ${firmName}`);
+    const body = encodeURIComponent(`Hello${l.name ? ' ' + l.name.split(' ')[0] : ''},\r\n\r\nThank you for contacting ${firmName}. `);
+    const reply = l.email && h('a', { class: 'lx-act', href: `mailto:${l.email}?subject=${subject}&body=${body}`, onclick: () => { if (l.status === 'new') setStatus('contacted').catch(() => {}); } }, 'Reply by email');
+    const call = l.phone && h('a', { class: 'lx-act', href: 'tel:' + l.phone.replace(/[^\d+]/g, ''), onclick: () => { if (l.status === 'new') setStatus('contacted').catch(() => {}); } }, 'Call');
+    return h('article', { class: 'card lead' + (l.unread ? ' unread' : '') },
+      h('div', { class: 'row spread' }, h('b', null, l.unread && h('span', { class: 'lx-dot', title: 'Not opened before' }), l.name || '(no name)'), badge),
+      h('div', { class: 'meta' }, l.email && h('a', { href: 'mailto:' + l.email }, l.email), l.phone && h('a', { href: 'tel:' + l.phone.replace(/[^\d+]/g, '') }, l.phone), h('span', null, when(l.created_at))),
+      l.message ? h('div', { class: 'body' }, l.message) : h('div', { class: 'body muted' }, '(no message)'),
+      h('div', { class: 'row' }, reply, call, h('label', { class: 'muted' }, 'Status '), sel),
+      memo, saved);
   };
 
   async function load(reset) {
     if (reset) { list.replaceChildren(); next = null; }
     more.replaceChildren();
     try {
-      const data = await api('GET', `/api/account/firms/${encodeURIComponent(slug)}/leads?limit=30${next ? '&before=' + next : ''}`);
-      if (!data.leads.length && reset) list.append(h('p', { class: 'muted' }, 'No enquiries yet. When someone contacts you through your LawDB page, it appears here and we email you.'));
+      const qs = new URLSearchParams({ limit: '30' });
+      if (status) qs.set('status', status);
+      if (q) qs.set('q', q);
+      if (next) qs.set('before', String(next));
+      const data = await api('GET', `${base}?${qs}`);
+      if (reset) drawTiles(data.summary);
+      if (!data.leads.length && reset) list.append(h('p', { class: 'muted' }, q || status ? 'No enquiries match.' : 'No enquiries yet. When someone contacts you through your LawDB page, it appears here and we email you.'));
       data.leads.forEach((l) => list.append(card(l)));
       next = data.next;
       if (next) more.append(h('button', { type: 'button', onclick: () => load(false) }, 'Load more'));
     } catch (err) { list.append(note('msg-err', err.message)); }
   }
+
+  const chips = [['', 'Active'], ['new', 'New'], ['contacted', 'Contacted'], ['closed', 'Closed'], ['spam', 'Spam']];
+  const chipRow = h('div', { class: 'lx-chips', role: 'group', 'aria-label': 'Filter by status' }, chips.map(([v, label]) => {
+    const b = h('button', { type: 'button', class: 'lx-chip', 'aria-pressed': v === status ? 'true' : 'false', onclick: () => {
+      status = v; chipRow.querySelectorAll('.lx-chip').forEach((c) => c.setAttribute('aria-pressed', c === b ? 'true' : 'false')); load(true);
+    } }, label);
+    return b;
+  }));
+  const search = h('input', { type: 'search', placeholder: 'Search name, email, message or note', 'aria-label': 'Search enquiries' });
+  search.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => { q = search.value.trim(); load(true); }, 300); });
+
   await load(true);
-  return h('div', null, h('p', null, h('a', { href: '#firms' }, '← My firms')), h('h1', null, 'Enquiries for ' + firmName), list, more);
+  await loadMe().catch(() => {}); // the "new" count on the tab clears once they have been opened
+  return h('div', null, back,
+    h('div', { class: 'row spread' }, h('h1', null, 'Enquiries for ' + firmName), h('a', { class: 'lx-export', href: `${base}.csv`, download: '' }, 'Export to spreadsheet')),
+    tiles, h('div', { class: 'lx-bar' }, chipRow, search), list, more,
+    h('p', { class: 'muted small' }, 'Enquiries are kept in full for 12 months, then only the date and status remain. Notes are private to your firm.'));
 }
 
 
@@ -590,7 +644,7 @@ async function render() {
   document.body.classList.toggle('lw-focus', !!(user && !user.onboarded));
   if (user && !user.onboarded) return renderWizard();
   const [name, arg] = location.hash.slice(1).split('/');
-  const tab = ['feed', 'network', 'saved', 'profile', 'find'].includes(name) ? name : name === 'following' ? 'network' : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
+  const tab = ['feed', 'network', 'saved', 'profile', 'find', 'leads'].includes(name) ? name : name === 'following' ? 'network' : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
   mount(shell(tab, h('p', { class: 'muted' }, 'Loading…')));
   try {
     let view;

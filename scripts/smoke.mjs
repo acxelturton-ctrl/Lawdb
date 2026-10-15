@@ -567,7 +567,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(isDeepStrictEqual(labels(clientsCol), ['Find Your Lawyer', 'Browse by Case Type', 'LawDB News', 'Court Decisions Explained', 'Blog', 'How LawDB Works', 'Request a Consultation']), `${f}: the footer's clients column is complete`);
   }
   const hub = pageFile('for-firms.html');
-  ok(['/list-your-firm"', '/list-your-firm?plan=featured"', '/account/"', '/grow-your-practice"'].every((l) => hub.slice(hub.indexOf('class="hub-grid"'), hub.indexOf('class="hub-grid"') + 2200).includes(l)), 'For Law Firms is the hub: list, Featured, manage, grow');
+  ok(['/list-your-firm"', '/list-your-firm?plan=featured"', '/account/"', '/grow-your-practice"'].every((l) => hub.slice(hub.indexOf('class="promo-links"'), hub.indexOf('class="promo-links"') + 900).includes(l)) && hub.includes('/images/featured-promo-1536.webp') && /alt="LawDB Featured law firm members/.test(hub), 'For Law Firms is the hub: the Featured picture with its alt text, and links to list, Featured, manage, grow');
   ok(!/Advertise With Us|>Add Your Firm<\/a><a class="nav-cta"/.test(pageFile('index.html')), 'the old menu wording is gone');
   fixtureServer.close();
   // pictures: owners add a logo, cover and photos; everything is checked; admins can do it for any firm

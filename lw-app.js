@@ -27,6 +27,7 @@
     if (n) { var p = n.split(/\s+/); return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : '')).toUpperCase(); }
     return (me.email || '?')[0].toUpperCase();
   };
+  var face = function (me) { return me.avatar ? '<img alt="" src="' + esc(me.avatar) + '">' : esc(initials(me)); };
   var signedOut = function () {
     try { localStorage.setItem('lawdb_in', '0'); sessionStorage.removeItem('lawdb_me'); } catch (e) {}
     all('.lw-ava,.lw-tabbar,.lw-ov,.lw-panel').forEach(function (el) { el.remove(); });
@@ -42,7 +43,7 @@
       return r.json();
     }).then(function (d) {
       if (!d || !d.user) return;
-      var v = { name: d.user.name || '', email: d.user.email, role: d.user.role, jobTitle: d.user.jobTitle || '', employer: d.user.employer || '', onboarded: d.user.onboarded !== false,
+      var v = { name: d.user.name || '', email: d.user.email, role: d.user.role, jobTitle: d.user.jobTitle || '', employer: d.user.employer || '', avatar: d.user.avatar || '', onboarded: d.user.onboarded !== false,
         firms: (d.memberships || []).filter(function (m) { return m.status === 'approved'; }).length };
       try { sessionStorage.setItem('lawdb_me', JSON.stringify({ t: Date.now(), v: v })); localStorage.setItem('lawdb_in', '1'); } catch (e) {}
       if (!cached) cb(v);
@@ -56,7 +57,7 @@
     var ov = document.createElement('div'); ov.className = 'lw-ov';
     var panel = document.createElement('aside'); panel.className = 'lw-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Your account');
     panel.innerHTML = '<button class="lw-x" type="button" aria-label="Close">&times;</button>' +
-      '<div class="lw-who"><span class="lw-ava big">' + esc(initials(m)) + '</span><b>' + esc(m.name || 'Your account') + '</b>' + (line ? '<small>' + esc(line) + '</small>' : '') + '<small>' + esc(m.email) + '</small></div>' +
+      '<div class="lw-who"><span class="lw-ava big">' + face(m) + '</span><b>' + esc(m.name || 'Your account') + '</b>' + (line ? '<small>' + esc(line) + '</small>' : '') + '<small>' + esc(m.email) + '</small></div>' +
       '<a class="lw-vp" href="/account/#profile">View profile</a>' +
       '<nav>' +
       '<a href="/account/#feed">' + ICON.feed + 'Your feed</a>' +
@@ -84,7 +85,7 @@
     all('.desktop-nav a[href="/account/"]').forEach(function (a) { a.remove(); });
     all('.menu-drawer a[href="/account/"]').forEach(function (a) { a.textContent = 'My account'; });
     if (right && !$('.lw-ava', right)) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'lw-ava'; b.setAttribute('aria-label', 'Your account'); b.textContent = initials(m);
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'lw-ava'; b.setAttribute('aria-label', 'Your account'); b.innerHTML = face(m);
       b.addEventListener('click', open);
       var ham = $('.hamburger-btn', right); right.insertBefore(b, ham || null);
       // phones show the avatar next to the menu button; the menu button stays for the rest of the site
@@ -94,7 +95,7 @@
     var bar = document.createElement('nav'); bar.className = 'lw-tabbar'; bar.setAttribute('aria-label', 'Member navigation');
     var tabs = [['home', 'Home', '/'], ['find', 'Find', '/find-lawyers'], ['network', 'Network', '/account/#network'], ['feed', 'Feed', '/account/#feed']];
     bar.innerHTML = tabs.map(function (t) { return '<a href="' + t[2] + '" data-t="' + t[0] + '">' + (ICON[t[0]] || ICON.users) + t[1] + '</a>'; }).join('') +
-      '<button type="button" data-t="me"><span class="lw-ava">' + esc(initials(m)) + '</span>Me</button>';
+      '<button type="button" data-t="me"><span class="lw-ava">' + face(m) + '</span>Me</button>';
     document.body.appendChild(bar); document.body.classList.add('lw-has-tabs');
     $('[data-t="me"]', bar).addEventListener('click', open);
     var mark = function () {
@@ -154,5 +155,12 @@
   }
 
   function start() { me(function (m) { if (!m) return; build(m); homeFeed(); }); }
+  // the account page calls this after a profile or photo change so the header, panel and tab bar update at once
+  window.lawdbRefresh = function () {
+    try { sessionStorage.removeItem('lawdb_me'); } catch (e) {}
+    all('.lw-ava,.lw-tabbar,.lw-ov,.lw-panel,.lw-dot').forEach(function (el) { el.remove(); });
+    document.body.classList.remove('lw-has-tabs');
+    me(function (m) { if (m) build(m); });
+  };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

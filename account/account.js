@@ -43,7 +43,7 @@ async function renderLogin() {
     },
   }, h('label', { for: 'email' }, 'Email address'), email, h('div', { class: 'row' }, btn));
   // LinkedIn sign-in is built but not offered yet: add 'linkedin' here once its keys are in Cloudflare.
-  const OFFERED = ['google'];
+  const OFFERED = ['google', 'linkedin'];
   const social = OFFERED.filter((k) => providers[k]).map((k) => h('a', { class: 'provider', href: `/api/auth/${k}/start` }, icon(k), k === 'google' ? 'Continue with Google' : 'Continue with LinkedIn'));
   mount(h('div', { class: 'wrap' }, h('div', { class: 'center card' },
     h('h1', null, 'Sign in to LawDB'),

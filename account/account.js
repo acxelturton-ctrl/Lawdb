@@ -364,14 +364,17 @@ async function viewSaved() {
 const KIND_LABELS = [['lawyer', 'A lawyer'], ['staff', 'Law firm staff'], ['public', 'Looking for a lawyer'], ['other', 'Something else']];
 async function viewProfile() {
   const { ratings } = await api('GET', '/api/account/ratings');
-  const name = h('input', { type: 'text', id: 'pname', maxlength: 80, autocomplete: 'name', value: user.name || '', placeholder: 'Your name' });
+  const f = (id, label, key, extra = {}) => { const i = h('input', { type: 'text', id, value: user[key] || '', maxlength: 100, ...extra }); return [h('label', { for: id }, label), i, i]; };
+  const [l1, name] = f('pname', 'Your name', 'name', { autocomplete: 'name' }); const [l2, city] = f('pcity', 'City', 'city', { autocomplete: 'address-level2' });
+  const [l3, title] = f('ptitle', 'Job title', 'jobTitle'); const [l4, emp] = f('pemp', 'Law firm or employer', 'employer');
+  const prov = h('select', { id: 'pprov' }, h('option', { value: '' }, 'Province or territory'), Object.entries(PROVINCES).map(([v, l]) => { const o = h('option', { value: v }, l); if (v === user.province) o.selected = true; return o; }));
   const kind = h('select', { id: 'pkind' }, h('option', { value: '' }, 'Choose one'), KIND_LABELS.map(([v, l]) => { const o = h('option', { value: v }, l); if (v === user.kind) o.selected = true; return o; }));
   const msg = h('div');
   const form = h('form', { onsubmit: async (e) => {
     e.preventDefault(); msg.replaceChildren();
-    try { const r = await api('PATCH', '/api/account/profile', { name: name.value, kind: kind.value }); user.name = r.profile.name; user.kind = r.profile.kind; msg.replaceChildren(note('msg-ok', 'Saved.')); }
+    try { const r = await api('PATCH', '/api/account/profile', { name: name.value, city: city.value, province: prov.value, jobTitle: title.value, employer: emp.value, kind: kind.value }); Object.assign(user, r.profile); msg.replaceChildren(note('msg-ok', 'Saved.')); }
     catch (err) { msg.replaceChildren(note('msg-err', err.message)); }
-  } }, h('label', { for: 'pname' }, 'Your name'), name, h('label', { for: 'pkind' }, 'I am'), kind, h('div', { class: 'row' }, h('button', { class: 'primary', type: 'submit' }, 'Save')), msg);
+  } }, h('label', { for: 'pname' }, 'Your name'), name, h('label', { for: 'pkind' }, 'I am'), kind, h('label', { for: 'pcity' }, 'City'), city, h('label', { for: 'pprov' }, 'Province or territory'), prov, h('label', { for: 'ptitle' }, 'Job title'), title, h('label', { for: 'pemp' }, 'Law firm or employer'), emp, h('div', { class: 'row' }, h('button', { class: 'primary', type: 'submit' }, 'Save')), msg);
   const mine = h('div', { class: 'card' });
   const drawMine = () => mine.replaceChildren(...(ratings.length ? ratings.map((r) => {
     const del = h('button', { type: 'button' }, 'Remove');
@@ -395,6 +398,80 @@ async function finishPending() {
   return false;
 }
 
+
+// ---------------------------------------------------------------- welcome steps (new accounts)
+// Four short screens, like a signup wizard: your name, where you are, your current role, and what brings you to LawDB.
+const GOALS = [
+  ['find', 'I am looking for a lawyer', 'Find a firm near me'],
+  ['clients', 'I am a lawyer who wants more clients', 'List or claim my firm'],
+  ['staff', 'I work at a law firm', 'Help manage our listing'],
+  ['follow', 'I follow the legal profession', 'Follow firms and read their news'],
+  ['study', 'I am a student or researcher', 'Learn about firms and the law'],
+  ['other', 'Something else', ''],
+];
+let cityList = null;
+
+function renderWizard() {
+  const parts = (user.name || '').trim().split(/\s+/);
+  const d = { first: parts[0] || '', last: parts.slice(1).join(' '), city: user.city || '', province: user.province || '', title: user.jobTitle || '', employer: user.employer || '', goal: user.goal || '' };
+  let step = 0;
+  const steps = 4;
+  const valid = [() => d.first.trim() && d.last.trim(), () => d.city.trim(), () => d.title.trim(), () => !!d.goal];
+
+  const input = (id, label, key, attrs = {}) => {
+    const i = h('input', { type: 'text', id, value: d[key], maxlength: 80, ...attrs });
+    i.addEventListener('input', () => { d[key] = i.value; refresh(); });
+    return [h('label', { for: id }, label), i];
+  };
+  let go;
+  const refresh = () => { if (go) go.disabled = !valid[step](); };
+
+  async function finish(skipped) {
+    go.disabled = true;
+    try {
+      const body = skipped ? { complete: true } : { name: `${d.first.trim()} ${d.last.trim()}`.trim(), city: d.city.trim(), province: d.province, jobTitle: d.title.trim(), employer: d.employer.trim(), goal: d.goal, complete: true };
+      const r = await api('PATCH', '/api/account/profile', body);
+      Object.assign(user, r.profile);
+      if (skipped) { location.hash = '#feed'; return render(); }
+      if (d.goal === 'find') return location.assign('/find-lawyers');
+      location.hash = d.goal === 'clients' || d.goal === 'staff' ? '#find' : '#feed';
+      return render();
+    } catch (err) { go.disabled = false; msgBox.replaceChildren(note('msg-err', err.message)); }
+  }
+
+  const msgBox = h('div');
+  function body() {
+    if (step === 0) return [h('h1', { class: 'wiz-h' }, 'Join LawDB. It is free'), h('p', { class: 'muted center-text' }, 'Follow firms, save stories and rate the firms you have worked with.'), ...input('w-first', 'First name', 'first', { autocomplete: 'given-name' }), ...input('w-last', 'Last name', 'last', { autocomplete: 'family-name' })];
+    if (step === 1) {
+      const box = h('input', { type: 'text', id: 'w-city', value: d.city ? (d.province ? `${d.city}, ${d.province}` : d.city) : '', placeholder: 'Start typing a city', autocomplete: 'off', maxlength: 80 });
+      const list = h('div', { class: 'wiz-list' });
+      const pickCity = (c, pv) => { d.city = c; d.province = pv; box.value = pv ? `${c}, ${pv}` : c; list.replaceChildren(); refresh(); };
+      const draw = () => {
+        const q = box.value.trim().toLowerCase(); d.city = box.value.trim(); d.province = ''; refresh();
+        if (q.length < 1) return list.replaceChildren();
+        const hits = (cityList || []).filter((c) => c.city.toLowerCase().startsWith(q) || `${c.city}, ${c.province}`.toLowerCase().startsWith(q)).slice(0, 6);
+        list.replaceChildren(...hits.map((c) => h('button', { type: 'button', onclick: () => pickCity(c.city, c.province) }, `${c.city}, ${PROVINCES[c.province] || c.province}`)));
+      };
+      box.addEventListener('input', draw);
+      if (!cityList) api('GET', '/api/cities').then((r) => { cityList = r.cities; }).catch(() => { cityList = []; });
+      return [h('h1', { class: 'wiz-h' }, 'Add your location'), h('p', { class: 'muted center-text' }, 'Pick the city closest to you. It helps us show firms nearby.'), h('label', { for: 'w-city' }, 'Location'), box, list];
+    }
+    if (step === 2) return [h('h1', { class: 'wiz-h' }, 'What is your most recent experience?'), ...input('w-title', 'Job title', 'title', { placeholder: 'For example: Lawyer, Paralegal, Student', autocomplete: 'organization-title' }), ...input('w-emp', 'Law firm or employer (optional)', 'employer', { maxlength: 100, autocomplete: 'organization' })];
+    return [h('h1', { class: 'wiz-h' }, 'What brings you to LawDB?'), h('p', { class: 'muted center-text' }, 'This helps us personalise your LawDB.'),
+      h('div', { class: 'wiz-opts' }, GOALS.map(([k, label, sub]) => h('button', { type: 'button', class: 'wiz-opt', 'aria-pressed': d.goal === k ? 'true' : 'false', onclick: () => { d.goal = k; draw(); } }, h('b', null, label), sub && h('span', null, sub))))];
+  }
+  function draw() {
+    go = h('button', { class: 'primary wiz-go', type: 'button' }, step === steps - 1 ? 'Finish' : 'Continue');
+    go.addEventListener('click', () => { if (!valid[step]()) return; if (step === steps - 1) finish(false); else { step++; draw(); const f = app.querySelector('input'); if (f) f.focus(); } });
+    mount(h('div', { class: 'wiz' },
+      h('div', { class: 'wiz-top' }, h('a', { class: 'brand', href: '/' }, h('img', { src: '/images/logo-icon.png', alt: '' }), 'LawDB'), h('a', { href: '#', class: 'wiz-skip', onclick: (e) => { e.preventDefault(); finish(true); } }, 'Skip for now')),
+      h('div', { class: 'card wiz-card' }, step > 0 && h('button', { type: 'button', class: 'wiz-back', 'aria-label': 'Back', onclick: () => { step--; draw(); } }, '←'), ...body(), go, msgBox),
+      h('div', { class: 'wiz-bar', role: 'progressbar', 'aria-valuemin': 1, 'aria-valuemax': steps, 'aria-valuenow': step + 1 }, Array.from({ length: steps }, (_, i) => h('i', { class: i <= step ? 'on' : '' })))));
+    refresh();
+  }
+  draw();
+}
+
 // ---------------------------------------------------------------- router
 async function loadMe() {
   const data = await api('GET', '/api/account/me');
@@ -403,6 +480,7 @@ async function loadMe() {
 }
 
 async function render() {
+  if (user && !user.onboarded) return renderWizard();
   const [name, arg] = location.hash.slice(1).split('/');
   const tab = ['feed', 'following', 'saved', 'profile', 'find'].includes(name) ? name : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
   mount(shell(tab, h('p', { class: 'muted' }, 'Loading…')));

@@ -4,6 +4,7 @@
   if (window.lawdbSocial) return;
   var css = '.lw-fbtn,.lw-sbtn{font:600 13px Inter,system-ui,sans-serif;border:1px solid #1f2328;background:transparent;color:#1f2328;border-radius:999px;padding:5px 12px;cursor:pointer;line-height:1.2;white-space:nowrap}' +
     '.lw-fbtn[aria-pressed="true"],.lw-sbtn[aria-pressed="true"]{background:#1f2328;color:#fff}.lw-fbtn:hover,.lw-sbtn:hover{border-color:#b45309}.lw-fbtn[disabled],.lw-sbtn[disabled]{opacity:.6;cursor:wait}' +
+    '.lw-fbtn.lw-in{border-radius:999px}.lc-btns{flex-wrap:wrap}.lc-btns .lw-fbtn{flex:1 1 100%;margin-top:2px;padding:10px 14px;font-size:14px}.frow .lw-fbtn{display:inline-block;margin-top:8px}.fcard-actions .lw-fbtn{padding:6px 12px;font-size:12.5px}.ra-actions .lw-fbtn{padding:6px 12px;font-size:12.5px}' +
     '.li-actions{flex-wrap:wrap}.li-actions .lw-fbtn{border-radius:4px;padding:11px 18px;font-size:14px}@media(max-width:520px){.li-actions .lw-fbtn{flex:1 1 100%}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   var state = { signedIn: false, follows: {}, saved: {} };
@@ -23,19 +24,48 @@
     });
   }
 
+  // Firm cards on the home page, city and practice-area pages and the lawyer search get a Follow button too.
+  var slugOf = function (href) { var m = (href || '').match(/\/firms\/([a-z0-9][a-z0-9-]*)\/?$/); return m ? m[1] : null; };
+  var mk = function (slug) { var b = document.createElement('button'); b.type = 'button'; b.className = 'lw-fbtn lw-in'; b.setAttribute('data-follow', slug); b.textContent = 'Follow'; return b; };
+  function decorate(root) {
+    var n = 0;
+    all(root, '.lc').forEach(function (c) {
+      if (c.querySelector('[data-follow]')) return;
+      var a = c.querySelector('h3 a'), box = c.querySelector('.lc-btns'), s = a && slugOf(a.getAttribute('href'));
+      if (s && box) { box.appendChild(mk(s)); n++; }
+    });
+    all(root, 'a.frow').forEach(function (a) {
+      if (a.querySelector('[data-follow]')) return;
+      var s = slugOf(a.getAttribute('href')); if (s) { a.appendChild(mk(s)); n++; }
+    });
+    all(root, 'a.fa-profile, a.ra-profile').forEach(function (a) {
+      var nx = a.nextElementSibling; if (nx && nx.hasAttribute && nx.hasAttribute('data-follow')) return;
+      var s = slugOf(a.getAttribute('href')); if (s) { a.insertAdjacentElement('afterend', mk(s)); n++; }
+    });
+    return n;
+  }
+
   function init(root) {
-    var slugs = uniq(all(root, '[data-follow]').map(function (b) { return b.getAttribute('data-follow'); })).slice(0, 40);
+    decorate(root);
+    var slugs = uniq(all(root, '[data-follow]').map(function (b) { return b.getAttribute('data-follow'); }));
     var ids = uniq(all(root, '[data-save]').map(function (b) { return b.getAttribute('data-save'); })).slice(0, 60);
     if (!slugs.length && !ids.length) return;
     paint(root);
-    fetch('/api/social/status?slugs=' + encodeURIComponent(slugs.join(',')) + '&posts=' + encodeURIComponent(ids.join(',')), { credentials: 'same-origin' })
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
-        state.signedIn = !!d.signedIn;
-        Object.keys(d.follows || {}).forEach(function (k) { state.follows[k] = d.follows[k]; });
-        ids.forEach(function (id) { state.saved[id] = !!(d.saved && d.saved[id]); });
-        paint(root);
-      }).catch(function () {});
+    var chunks = [];
+    for (var i = 0; i < slugs.length; i += 40) chunks.push(slugs.slice(i, i + 40));
+    if (!chunks.length) chunks.push([]);
+    chunks.forEach(function (ch, k) {
+      var mine = k === 0 ? ids : [];
+      fetch('/api/social/status?slugs=' + encodeURIComponent(ch.join(',')) + '&posts=' + encodeURIComponent(mine.join(',')), { credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          state.signedIn = !!d.signedIn;
+          try { localStorage.setItem('lawdb_in', d.signedIn ? '1' : '0'); } catch (e) {}
+          Object.keys(d.follows || {}).forEach(function (key) { state.follows[key] = d.follows[key]; });
+          mine.forEach(function (id) { state.saved[id] = !!(d.saved && d.saved[id]); });
+          paint(root);
+        }).catch(function () {});
+    });
   }
 
   function toAccount(action) {
@@ -135,6 +165,13 @@
   }
 
   window.lawdbSocial = { init: init, initRatings: initRatings };
-  function boot() { init(document); initRatings(document); }
+  function boot() {
+    init(document); initRatings(document);
+    // The lawyer search draws its result cards with script, so watch for new ones.
+    if (window.MutationObserver) {
+      var t = null;
+      new MutationObserver(function () { clearTimeout(t); t = setTimeout(function () { if (decorate(document)) init(document); }, 150); }).observe(document.body, { childList: true, subtree: true });
+    }
+  }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

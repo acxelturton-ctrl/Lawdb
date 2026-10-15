@@ -10,6 +10,11 @@
     --new: #8fbaf5; --new-bg: #18283f; --done: #b7b0a4; --done-bg: #2b2721;
   }
 }
+/* the member account pages (not the admin) always use the light look, like the rest of the site */
+@media (prefers-color-scheme: dark) {
+  :root.lw-light { color-scheme: light; --bg: #f8f6f1; --card: #fff; --ink: #15181c; --muted: #636870; --line: #e3dfd5;
+    --ok: #1e6b3a; --ok-bg: #e8f3ea; --err: #a1261c; --err-bg: #fbeceb; --new: #1d5fb4; --new-bg: #e6effa; --done: #5d5750; --done-bg: #f0ede5; }
+}
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }

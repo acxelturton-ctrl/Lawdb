@@ -506,6 +506,7 @@ async function render() {
 async function boot() {
   try {
     const who = await api('GET', '/api/auth/me');
+    try { localStorage.setItem('lawdb_in', who.user ? '1' : '0'); } catch (e) {}
     if (!who.user) return await renderLogin();
     await loadMe();
   } catch (err) { return mount(h('div', { class: 'wrap' }, note('msg-err', err.message))); }

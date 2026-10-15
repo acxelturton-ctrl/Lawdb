@@ -26,9 +26,10 @@ const dev = (env) => env.DEV_ECHO_LINK === '1';
 
 function config(env, key) {
   const p = PROVIDERS[key];
-  if (!p || !env[p.idVar] || !env[p.secretVar]) return null;
+  const id = String(env[p?.idVar] ?? '').trim(), secret = String(env[p?.secretVar] ?? '').trim(); // a stray space or line break from pasting must not break the sign-in
+  if (!p || !id || !secret) return null;
   const o = (suffix, fallback) => (dev(env) && env[`${key.toUpperCase()}_${suffix}`]) || fallback; // local tests point these at a pretend provider
-  return { ...p, id: env[p.idVar], secret: env[p.secretVar], auth: o('AUTH_URL', p.auth), token: o('TOKEN_URL', p.token), user: o('USERINFO_URL', p.user) };
+  return { ...p, id, secret, auth: o('AUTH_URL', p.auth), token: o('TOKEN_URL', p.token), user: o('USERINFO_URL', p.user) };
 }
 
 export const providersConfigured = (env) => ({ google: !!config(env, 'google'), linkedin: !!config(env, 'linkedin') });
@@ -115,4 +116,26 @@ export async function finishOAuth(env, request, url, exec, key) {
   const cookie = await createSession(env, request, user.id);
   await audit(env, user, 'login', 'user', user.id, { provider: key });
   return new Response(null, { status: 302, headers: { location: origin + row.next_path, 'set-cookie': cookie, 'cache-control': 'no-store' } });
+}
+
+// For the admin "Sign-in check": what LawDB sends to each provider, and common mistakes in the saved keys. Never returns a secret.
+export function signinCheck(env, url) {
+  const origin = siteOrigin(env, url);
+  return Object.entries(PROVIDERS).map(([key, p]) => {
+    const rawId = String(env[p.idVar] ?? ''), rawSecret = String(env[p.secretVar] ?? '');
+    const id = rawId.trim(), secret = rawSecret.trim();
+    const problems = [];
+    if (!id) problems.push(`${p.idVar} is not set.`);
+    if (!secret) problems.push(`${p.secretVar} is not set.`);
+    if (rawId !== id || rawSecret !== secret) problems.push('A key has a space or line break at the start or end. LawDB trims it, but paste it again cleanly.');
+    if (key === 'linkedin' && /googleusercontent|^\d{6,}-/.test(id)) problems.push('This Client ID looks like a Google one, not LinkedIn.');
+    if (key === 'linkedin' && id && !/^[A-Za-z0-9]{10,18}$/.test(id)) problems.push('A LinkedIn Client ID is normally 12 to 16 letters and numbers. Copy it again from the app\'s Auth tab.');
+    if (key === 'linkedin' && secret && !secret.startsWith('WPL_')) problems.push('Most LinkedIn Client Secrets start with "WPL_". Check this is the Primary Client Secret of the same app.');
+    if (key === 'linkedin' && id && secret && id === secret) problems.push('The Client ID and the Client Secret are the same value.');
+    return {
+      key, name: p.name, configured: !!(id && secret),
+      clientId: id, clientIdLength: id.length, secretLength: secret.length, secretLooksRight: key === 'linkedin' ? secret.startsWith('WPL_') : null,
+      redirectUri: `${origin}/api/auth/${key}/callback`, scope: p.scope, pkce: p.pkce !== false, problems,
+    };
+  });
 }

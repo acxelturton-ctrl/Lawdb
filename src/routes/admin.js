@@ -9,6 +9,7 @@ import { searchSummary, runSearchConsole, inspectUrl, gscKey } from '../lib/gsc.
 import { mailInBackground, decisionEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES } from '../lib/firm-edit.js';
 import { placeFor } from '../lib/geocode.js';
+import { signinCheck } from '../lib/oauth.js';
 
 export { CASE_TYPES };
 
@@ -381,4 +382,10 @@ export async function searchInspect({ request, env }) {
   } catch (err) {
     throw new HttpError(502, String(err.message || err).slice(0, 300));
   }
+}
+
+// What LawDB sends to Google and LinkedIn when someone signs in, so it can be compared with the settings in each app.
+export async function signinInfo({ request, env, url }) {
+  await requireAdmin(env, request);
+  return json({ providers: signinCheck(env, url) }, 200, NO_STORE);
 }

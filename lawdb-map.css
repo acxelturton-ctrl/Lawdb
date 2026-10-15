@@ -28,12 +28,12 @@ html body.gm-on .city-hero{ max-width:1440px !important; margin-left:auto !impor
 .gm-app button{ font-family:inherit; }
 
 /* ---------------------------------------------------------- map side */
-.gm-mapwrap{ position:relative; grid-column:2; grid-row:1; min-width:0; background:#e3dfd5; overflow:hidden; }
+.gm-mapwrap{ position:relative; grid-column:2; grid-row:1; min-width:0; background:#f4f1e8; overflow:hidden; }
 .gm-app .map-card{
   position:absolute; inset:0; height:100%; border:0; border-radius:0; box-shadow:none; background:#e3dfd5;
   transform:none; will-change:auto;
 }
-.gm-app .map-card .map-loading{ background:#e3dfd5; color:#636870; }
+.gm-app .map-card .map-loading{ background:#f4f1e8; color:#636870; }
 .gm-app #map{ transform:none; }
 
 .gm-top{ position:absolute; z-index:5; top:12px; left:12px; right:12px; display:flex; flex-direction:column; gap:10px; pointer-events:none; }

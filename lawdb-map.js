@@ -387,9 +387,9 @@
 
   /* ------------------------------------------------------------ basemap theme */
   var P = {
-    land: '#ece6d8', water: '#cbbd96', park: '#d6d3b6', wood: '#cdc9ab', grass: '#dcd9c1', resid: '#e4ddcd',
-    road: '#fffdf8', casing: '#cfc7b3', major: '#f4e4b6', motor: '#e2b45c', motorCasing: '#b45309',
-    building: '#ddd5c3', buildingLine: '#c9c0ac', halo: 'rgba(248,246,241,.93)', text: '#1f2328', textSoft: '#636870', water_txt: '#6f5115'
+    land: '#f4f1e8', water: '#bfe0ee', park: '#d3ebc6', wood: '#c7e4b8', grass: '#e0eed3', resid: '#efece2',
+    road: '#ffffff', casing: '#e2ddd0', major: '#fdefc0', motor: '#f8d27a', motorCasing: '#e3a93a',
+    building: '#e8e3d6', buildingLine: '#d9d3c4', halo: 'rgba(255,255,255,.92)', text: '#1f2328', textSoft: '#636870', water_txt: '#5b8fa8'
   };
   window.__gmPalette = P;
   applyMapTheme = function(){
@@ -419,7 +419,7 @@
           if(/rail|transit|ferry|aerialway|cablecar/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
           if(/^boundary/.test(id)){
             if(/boundary_3|disputed/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
-            map.setPaintProperty(id, 'line-color', '#b3aa96'); return;
+            map.setPaintProperty(id, 'line-color', '#c9c2b0'); return;
           }
           if(/waterway/.test(id)){ map.setPaintProperty(id, 'line-color', P.water); return; }
           if(/highway|road|bridge|tunnel|link|motorway|trunk|primary|secondary|tertiary|minor|service|path|pier/.test(id)){
@@ -427,7 +427,7 @@
             if(/casing/.test(id)) c = /motorway|trunk/.test(id) ? P.motorCasing : P.casing;
             else if(/motorway|trunk/.test(id)) c = P.motor;
             else if(/major|primary|secondary|link/.test(id)) c = P.major;
-            else if(/path|track/.test(id)) c = '#d2cab6';
+            else if(/path|track/.test(id)) c = '#e2ddd0';
             map.setPaintProperty(id, 'line-color', c);
           }
           return;
@@ -436,14 +436,14 @@
         if(ty === 'fill'){
           if(id === 'water' || /^water/.test(id)) map.setPaintProperty(id, 'fill-color', P.water);
           else if(/^park/.test(id) || /landcover_(wood|forest)/.test(id)) map.setPaintProperty(id, 'fill-color', /wood|forest/.test(id) ? P.wood : P.park);
-          else if(/landcover_(ice|glacier)/.test(id)) map.setPaintProperty(id, 'fill-color', '#ece8dd');
-          else if(/landcover_(sand|beach)/.test(id)) map.setPaintProperty(id, 'fill-color', '#e8dec3');
-          else if(/landcover_wetland/.test(id)) map.setPaintProperty(id, 'fill-color', '#d6d2b8');
+          else if(/landcover_(ice|glacier)/.test(id)) map.setPaintProperty(id, 'fill-color', '#f1efe8');
+          else if(/landcover_(sand|beach)/.test(id)) map.setPaintProperty(id, 'fill-color', '#efe6cc');
+          else if(/landcover_wetland/.test(id)) map.setPaintProperty(id, 'fill-color', '#d5e8cf');
           else if(/landcover/.test(id)) map.setPaintProperty(id, 'fill-color', P.grass);
           else if(/landuse_residential/.test(id)) map.setPaintProperty(id, 'fill-color', P.resid);
-          else if(/landuse_cemetery/.test(id)) map.setPaintProperty(id, 'fill-color', '#d6d3b6');
-          else if(/landuse_hospital/.test(id)) map.setPaintProperty(id, 'fill-color', '#e6d9cc');
-          else if(/landuse_school/.test(id)) map.setPaintProperty(id, 'fill-color', '#e3d9c0');
+          else if(/landuse_cemetery/.test(id)) map.setPaintProperty(id, 'fill-color', '#d3ebc6');
+          else if(/landuse_hospital/.test(id)) map.setPaintProperty(id, 'fill-color', '#f0e3df');
+          else if(/landuse_school/.test(id)) map.setPaintProperty(id, 'fill-color', '#ece7d3');
           else if(id === 'building'){
             map.setPaintProperty(id, 'fill-color', P.building); map.setPaintProperty(id, 'fill-outline-color', P.buildingLine);
             map.setPaintProperty(id, 'fill-opacity', ['interpolate', ['linear'], ['zoom'], 14, 0, 15.5, 1]);
@@ -464,10 +464,15 @@
     x.bezierCurveTo(17, 44, 3, 28, 3, 16.5); x.arc(17, 16.5, 14, Math.PI, 0, false); x.bezierCurveTo(31, 28, 17, 44, 17, 44); x.closePath();
     x.fillStyle = fill; x.fill(); x.shadowColor = 'transparent'; x.lineWidth = 1.4; x.strokeStyle = stroke; x.stroke();
     if(gold){
-      x.beginPath(); x.arc(17, 16.5, 8.2, 0, Math.PI * 2); x.fillStyle = '#ffffff'; x.fill();
-      x.beginPath(); x.moveTo(12.6, 16.8); x.lineTo(15.8, 20); x.lineTo(21.6, 13); x.lineWidth = 2.4; x.lineCap = 'round'; x.lineJoin = 'round'; x.strokeStyle = '#b45309'; x.stroke();
+      // a white disc with the LawDB database-stack mark in gold
+      x.beginPath(); x.arc(17, 16.5, 8.6, 0, Math.PI * 2); x.fillStyle = '#ffffff'; x.fill();
+      x.fillStyle = '#e8a91f';
+      x.beginPath(); x.ellipse(17, 12.6, 5, 2.1, 0, 0, Math.PI * 2); x.fill();
+      x.beginPath(); x.moveTo(12, 12.6); x.lineTo(12, 20.4); x.ellipse(17, 20.4, 5, 2.1, 0, Math.PI, 0, true); x.lineTo(22, 12.6); x.closePath(); x.fill();
+      x.strokeStyle = '#ffffff'; x.lineWidth = 1; x.beginPath(); x.ellipse(17, 15.4, 5, 2, 0, 0, Math.PI); x.stroke();
+      x.beginPath(); x.ellipse(17, 18.1, 5, 2, 0, 0, Math.PI); x.stroke();
     } else {
-      x.beginPath(); x.arc(17, 16.5, 5.2, 0, Math.PI * 2); x.fillStyle = '#e8a91f'; x.fill();
+      x.beginPath(); x.arc(17, 16.5, 5.2, 0, Math.PI * 2); x.fillStyle = '#ffffff'; x.fill();
     }
     return { width: W * 2, height: H * 2, data: x.getImageData(0, 0, W * 2, H * 2).data };
   }
@@ -514,17 +519,17 @@
     map.addSource('firms-feat', { type: 'geojson', data: empty });
     map.addSource('firm-sel', { type: 'geojson', data: empty });
     map.addSource('me', { type: 'geojson', data: empty });
-    var IM = { 'gm-pin': ['#1f2328', '#14110f', 1, false], 'gm-pin-gold': ['#e8a91f', '#b45309', 1, true], 'gm-pin-sel': ['#1f2328', '#14110f', 1.35, false], 'gm-pin-sel-gold': ['#e8a91f', '#b45309', 1.35, true] };
+    var IM = { 'gm-pin': ['#6f757d', '#4a4f56', 1, false], 'gm-pin-gold': ['#f0b429', '#c98a0a', 1.12, true], 'gm-pin-sel': ['#1f2328', '#14110f', 1.35, false], 'gm-pin-sel-gold': ['#f0b429', '#c98a0a', 1.5, true] };
     Object.keys(IM).forEach(function(k){ if(!map.hasImage(k)) map.addImage(k, pinImage(IM[k][0], IM[k][1], IM[k][2], IM[k][3]), { pixelRatio: 2 }); });
     var font = pickFonts(), tf = font.bold || font.any;
     var size = ['interpolate', ['linear'], ['zoom'], 8, 0.55, 13, 0.8];
     var notCluster = ['!', ['has', 'point_count']];
 
     map.addLayer({ id: 'firm-cluster', type: 'circle', source: 'firms', filter: ['has', 'point_count'],
-      paint: { 'circle-color': '#3c3733', 'circle-radius': ['step', ['get', 'point_count'], 17, 5, 21, 15, 26], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 3 } });
+      paint: { 'circle-color': '#f0b429', 'circle-radius': ['step', ['get', 'point_count'], 17, 5, 21, 15, 26], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 3 } });
     var cl = { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-allow-overlap': true };
     if(tf) cl['text-font'] = tf;
-    map.addLayer({ id: 'firm-cluster-count', type: 'symbol', source: 'firms', filter: ['has', 'point_count'], layout: cl, paint: { 'text-color': '#ffffff' } });
+    map.addLayer({ id: 'firm-cluster-count', type: 'symbol', source: 'firms', filter: ['has', 'point_count'], layout: cl, paint: { 'text-color': '#1f2328' } });
 
     map.addLayer({ id: 'firm-pin', type: 'symbol', source: 'firms', filter: notCluster,
       layout: { 'icon-image': 'gm-pin', 'icon-size': size, 'icon-anchor': 'bottom', 'icon-allow-overlap': true, 'symbol-sort-key': ['get', 'prio'] } });

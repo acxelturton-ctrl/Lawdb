@@ -73,7 +73,22 @@ async function viewOverview() {
       h('p', { class: 'muted' }, s.lastBackupAt ? 'Last backup: ' + when(s.lastBackupAt) + '. A copy is made every night and kept for 35 days.' : 'No backup has run yet.'),
       h('div', { class: 'row' }, backupBtn), backupOut),
     h('div', { class: 'card' }, h('b', null, 'Leads by status'),
-      h('p', { class: 'muted' }, `New ${s.leads.new} · Contacted ${s.leads.contacted} · Closed ${s.leads.closed} · Spam ${s.leads.spam}`)));
+      h('p', { class: 'muted' }, `New ${s.leads.new} · Contacted ${s.leads.contacted} · Closed ${s.leads.closed} · Spam ${s.leads.spam}`)),
+    await signinCard());
+}
+
+// Shows exactly what LawDB sends to Google and LinkedIn, to compare with the settings in each app. Never shows a secret.
+async function signinCard() {
+  let providers = [];
+  try { providers = (await api('GET', '/api/admin/signin-check')).providers; } catch { return null; }
+  const row = (k, v) => [h('dt', null, k), h('dd', null, v)];
+  return h('div', { class: 'card' }, h('b', null, 'Sign-in check (Google and LinkedIn)'),
+    h('p', { class: 'muted' }, 'If a sign-in button fails, compare these values with the settings in that provider\'s app. Secrets are never shown here.'),
+    providers.map((p) => h('div', { class: 'signin-check' },
+      h('h3', null, p.name, ' ', h('span', { class: 'badge ' + (p.configured && !p.problems.length ? '' : 'new') }, p.configured ? (p.problems.length ? 'Check this' : 'Keys saved') : 'Not set up')),
+      h('dl', null, ...row('Client ID LawDB sends', p.clientId || '(none)'), ...row('Client ID length', String(p.clientIdLength)), ...row('Client Secret saved', p.secretLength ? `yes, ${p.secretLength} characters` : 'no'),
+        ...row('Redirect URL LawDB sends', p.redirectUri), ...row('Permissions asked for', p.scope)),
+      p.problems.map((t) => note('msg-err', t)))));
 }
 
 // ---------------------------------------------------------------- leads

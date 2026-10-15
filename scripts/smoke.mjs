@@ -1102,6 +1102,14 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 
     cookie = '';
     ok(isDeepStrictEqual((await call('GET', '/api/auth/providers')).data, { google: true, linkedin: true }), 'the sign-in page can tell which providers are switched on');
+    cookie = '';
+    ok((await call('GET', '/api/admin/signin-check')).status === 401, 'the sign-in check is for admins only');
+    as(adminJar);
+    const sc = await call('GET', '/api/admin/signin-check');
+    const scLi = sc.data.providers.find((x) => x.key === 'linkedin');
+    ok(sc.status === 200 && scLi.configured && scLi.clientId === 'test-li-id' && scLi.redirectUri === `${BASE}/api/auth/linkedin/callback` && scLi.scope === 'openid profile email' && scLi.pkce === false && sc.data.providers.find((x) => x.key === 'google').pkce === true, 'the admin sign-in check shows what LawDB sends to each provider');
+    ok(!JSON.stringify(sc.data).includes('test-li-secret') && !JSON.stringify(sc.data).includes('test-google-secret'), 'the sign-in check never shows a secret');
+    cookie = '';
     const g1 = await dance('google', { email: `oauth-${run}@example.com`, name: 'Olivia Oauth' });
     ok(g1.start.status === 302 && g1.loc.origin === 'http://127.0.0.1:8797' && g1.loc.searchParams.get('response_type') === 'code' && g1.loc.searchParams.get('client_id') === 'test-google-id' && g1.loc.searchParams.get('redirect_uri') === `${BASE}/api/auth/google/callback` && /openid/.test(g1.loc.searchParams.get('scope')) && g1.loc.searchParams.get('code_challenge_method') === 'S256' && /^[0-9a-f]{64}$/.test(g1.state) && g1.loc.searchParams.get('prompt') === 'select_account', 'Continue with Google sends the person to Google with a one-time state and a PKCE challenge');
     ok(g1.cb.status === 302 && g1.cb.headers.get('location') === `${BASE}/account/` && /lawdb_session=[0-9a-f]{64}/.test(g1.cb.headers.get('set-cookie') || '') && /HttpOnly/.test(g1.cb.headers.get('set-cookie')), 'coming back from Google creates the account and signs the person in');

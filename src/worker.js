@@ -62,6 +62,7 @@ const ROUTES = [
   route('GET', '/api/auth/me', auth.me),
 
   route('GET', '/api/admin/stats', admin.stats),
+  route('GET', '/api/admin/signin-check', admin.signinInfo),
   route('GET', '/api/admin/leads', admin.listLeads),
   route('PATCH', '/api/admin/leads/:id', admin.updateLead),
   route('GET', '/api/admin/firms', admin.listFirms),

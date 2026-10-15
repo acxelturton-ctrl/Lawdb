@@ -39,3 +39,36 @@
 .site-header.lw-light .back-link:hover{ color:#1f2328; }
 .site-header.lw-light .hamburger-btn span{ background:#1f2328; }
 @media (min-width:1100px){ .site-header.lw-light{ height:84px; } .site-header.lw-light .mark img{ height:46px !important; } .site-header.lw-light .wordmark .name{ font-size:22px; } .site-header.lw-light .wordmark .tagline{ font-size:8.5px; } }
+
+/* Footer (same look as the public pages) */
+.site-footer{ background:#15181c; color:#8d9197; padding:48px 20px 24px; margin-top:32px; }
+.site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2a2f35; }
+@media (max-width:760px){ .site-footer .foot-grid{ grid-template-columns:1fr 1fr; } }
+.site-footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:19px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.site-footer .fimg{ height:26px; width:auto; display:block; }
+.site-footer .fblurb{ font-size:13px; line-height:1.7; max-width:280px; }
+.site-footer .fbadges{ display:flex; align-items:center; gap:14px; margin-top:12px; }
+.site-footer .fb1{ height:38px; width:auto; border-radius:4px; } .site-footer .fb2{ height:32px; width:auto; border-radius:4px; }
+.site-footer h4{ color:#c7cfda; font-size:12px; text-transform:uppercase; letter-spacing:.06em; margin:0 0 14px; font-weight:700; }
+.site-footer ul{ list-style:none; margin:0; padding:0; } .site-footer li{ margin-bottom:10px; }
+.site-footer a{ color:#8d9197; text-decoration:none; font-size:13.5px; } .site-footer a:hover{ color:#fff; }
+.site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#636870; }
+@media (max-width:759px){ .ac-foot{ padding-bottom:84px; } }
+
+/* Sign-in page: centred, with the facts that make it feel like a real directory */
+.ac-login{ text-align:center; padding:0 0 8px; }
+.ac-login .center{ margin:40px auto 28px; padding:28px 22px; text-align:center; }
+.ac-login h1{ font:700 26px/1.25 'Source Serif 4',Georgia,serif; margin:6px 0 10px; }
+.ac-login .center .muted{ margin:0 0 20px; }
+.ac-login .provider{ margin-bottom:10px; padding:14px; font-size:16px; border-radius:999px; }
+.ac-login .center .small{ margin:16px 0 0; }
+.ac-stats{ max-width:760px; margin:0 auto 22px; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.ac-stats div{ background:#fff; border:1px solid #e3dfd5; border-radius:12px; padding:14px 6px; }
+.ac-stats b{ display:block; font:700 24px 'Source Serif 4',Georgia,serif; color:#b45309; line-height:1.1; }
+.ac-stats span{ font-size:12.5px; color:#636870; font-weight:600; }
+.ac-perks{ max-width:760px; margin:0 auto 20px; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; text-align:left; }
+.ac-perks div{ background:#fff; border:1px solid #e3dfd5; border-radius:12px; padding:14px; }
+.ac-perks h3{ font-size:14.5px; margin:0 0 4px; } .ac-perks p{ font-size:13px; color:#636870; margin:0; line-height:1.5; }
+.ac-note{ max-width:620px; margin:0 auto; font-size:13px; color:#636870; line-height:1.6; }
+.ac-note a{ color:#b45309; font-weight:600; }
+@media (max-width:640px){ .ac-stats,.ac-perks{ grid-template-columns:1fr 1fr; } }

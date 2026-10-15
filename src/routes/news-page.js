@@ -1,6 +1,7 @@
 // GET /news: LawDB News, built from the database. Falls back to the static page if the database is unavailable.
 import { renderNewsPage } from '../render/news-page.js';
 import { dueFeeds, refreshFirmFeed } from '../lib/feeds.js';
+import { storyPath } from '../lib/stories.js';
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -22,13 +23,13 @@ export function limitWithoutPicture(posts, max = MAX_WITHOUT_PICTURE) {
 async function loadPosts(env) {
   const featuredOnly = (await getSetting(env, 'news_featured_only', '0')) === '1';
   const { results } = await env.DB.prepare(
-    `SELECT p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo
+    `SELECT p.id, p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo
      FROM firm_posts p JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live'
      ${featuredOnly ? 'WHERE f.featured = 1' : ''}
      ORDER BY p.published_at DESC, p.id DESC LIMIT 60`
   ).all();
   const seen = new Set();
-  return results.filter((r) => (seen.has(r.firmSlug + '|' + r.url) ? false : seen.add(r.firmSlug + '|' + r.url))).map((r) => ({ ...r, featured: !!r.featured }));
+  return results.filter((r) => (seen.has(r.firmSlug + '|' + r.url) ? false : seen.add(r.firmSlug + '|' + r.url))).map((r) => ({ ...r, featured: !!r.featured, storyHref: storyPath(r.firmSlug, r.id, r.title) }));
 }
 
 export async function newsPage({ request, env, ctx }) {

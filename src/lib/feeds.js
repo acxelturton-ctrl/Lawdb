@@ -9,7 +9,7 @@
 import { audit } from './audit.js';
 import { HttpError } from './http.js';
 
-export const FEED_LIMITS = { posts: 6, excerpt: 600, title: 200, bytes: 1_500_000, pageBytes: 600_000, timeoutMs: 8000, redirects: 3, recheckMinutes: 5 };
+export const FEED_LIMITS = { posts: 20, excerpt: 600, title: 200, bytes: 1_500_000, pageBytes: 600_000, timeoutMs: 8000, redirects: 3, recheckMinutes: 5 };
 const UA = 'LawDB-FeedReader/1.0 (+https://lawdb.ca; info@lawdb.ca)';
 const COMMON_PATHS = ['/feed', '/feed/', '/blog/feed', '/blog/feed/', '/rss', '/rss.xml', '/feed.xml', '/atom.xml', '/index.xml', '/blog/rss.xml', '/news/feed', '/blog/index.xml'];
 
@@ -178,6 +178,7 @@ export const isWpUrl = (u) => /\/wp-json\/wp\/v2\/posts/i.test(u);
 // The same list, also asking for each post's featured picture (_embed). Sites that refuse this are read the plain way.
 export function wpPostsUrlWithImages(feedUrl) {
   const u = new URL(feedUrl);
+  u.searchParams.set('per_page', String(FEED_LIMITS.posts));
   u.searchParams.set('_embed', 'wp:featuredmedia');
   u.searchParams.set('_fields', 'id,date,link,title,excerpt,featured_media,jetpack_featured_media_url,yoast_head_json.og_image,_embedded');
   return u.toString();
@@ -234,7 +235,7 @@ export async function fillWpMedia(env, posts, feedUrl, { allowLocal = false } = 
   if (!need.length) return posts;
   try {
     const origin = new URL(feedUrl).origin;
-    const q = `${origin}/wp-json/wp/v2/media?include=${[...new Set(need.map((p) => p.mediaId))].slice(0, 12).join(',')}&per_page=12&_fields=id,source_url,media_details.width,media_details.sizes.medium_large.source_url,media_details.sizes.large.source_url`;
+    const q = `${origin}/wp-json/wp/v2/media?include=${[...new Set(need.map((p) => p.mediaId))].slice(0, FEED_LIMITS.posts).join(',')}&per_page=${FEED_LIMITS.posts}&_fields=id,source_url,media_details.width,media_details.sizes.medium_large.source_url,media_details.sizes.large.source_url`;
     const { url, text } = await safeGet(env, q, { maxBytes: FEED_LIMITS.pageBytes, accept: 'application/json' });
     const byId = new Map();
     for (const m of JSON.parse(text)) {
@@ -320,7 +321,7 @@ export async function refreshFirmFeed(env, slug, { discover = true } = {}) {
       // Ask for the pictures too; if the site refuses that, read the plain list (cards then have no picture).
       try { got = await safeGet(env, wpPostsUrlWithImages(feedUrl), { maxBytes: FEED_LIMITS.bytes * 2, accept }); JSON.parse(got.text); } catch { got = null; }
     }
-    if (!got) got = await safeGet(env, feedUrl, { maxBytes: FEED_LIMITS.bytes, accept });
+    if (!got) { const plainUrl = new URL(feedUrl); if (wp) plainUrl.searchParams.set('per_page', String(FEED_LIMITS.posts)); got = await safeGet(env, plainUrl.toString(), { maxBytes: FEED_LIMITS.bytes, accept }); }
     const { url, text } = got;
     let posts;
     if (wp) {

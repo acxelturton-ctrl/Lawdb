@@ -5,3 +5,4 @@ Disallow: /account/
 Disallow: /api/
 
 Sitemap: https://lawdb.ca/sitemap.xml
+Sitemap: https://lawdb.ca/sitemap-news.xml

@@ -16,7 +16,7 @@
       "/find-lawyers",
       "/firms/*",
       "/report-listing",
-      "/news", "/*.html",
+      "/news", "/news/*", "/sitemap-news.xml", "/*.html",
       "/img/*",
       "/alberta/", "/manitoba/",
       "/ontario/*/", "/quebec/*/", "/british-columbia/*/", "/alberta/*/", "/manitoba/*/"

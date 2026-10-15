@@ -76,10 +76,25 @@ const CSS = `<style>
 @keyframes nwBreath{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.05)}}
 @keyframes nwRise{0%{transform:translateY(120%) rotate(var(--r));opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateY(-140%) rotate(var(--r));opacity:0}}
 @keyframes nwUnder{0%,15%{background-size:0 .2em}45%,85%{background-size:100% .2em}100%{background-size:0 .2em}}
+.st-dlg{border:0;padding:0;width:min(940px,calc(100% - 32px));max-height:92dvh;border-radius:20px;background:#fbf6ea;color:#2b2723;overflow:auto;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.st-dlg::backdrop{background:rgba(31,28,25,.62)}
+.st-dlg .st{padding:clamp(18px,3vw,38px)}
+.st-x{position:sticky;top:10px;float:right;margin:10px 12px 0 0;z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid #e0d6bd;background:#fff;color:#2b2723;font-size:26px;line-height:1;cursor:pointer}
+@media(max-width:700px){.st-dlg{width:100%;height:100dvh;max-height:100dvh;border-radius:0}}
 @media(max-width:1099px){.news-drift{display:none}.news-seal,.news-sealmid{opacity:.45}}
 @media(max-width:700px){.news-seal,.news-sealmid{opacity:.3;right:-70px}}
 @media(prefers-reduced-motion:reduce){.news-seal,.news-sealmid,.news-card,.news-band h1 .u{animation:none!important}.news-sealmid,.news-seal{transform:translateY(-50%)}.news-card{opacity:1}.news-band h1 .u{background-size:100% .2em}}
 </style>`;
+
+// Tapping a story opens it over the page (and gives it its own address, so Back closes it and the link can be shared). Without JavaScript it is an ordinary link to the story's own page.
+const STORY_JS = `(function(){var d=document.getElementById('story-dlg');if(!d||!d.showModal)return;var b=document.getElementById('story-body'),open=false;
+function show(h,push){fetch(h+(h.indexOf('?')>-1?'&':'?')+'partial=1').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){b.innerHTML=t;if(!d.open)d.showModal();d.scrollTop=0;if(push)history.pushState({story:h},'',h);open=true}).catch(function(){location.href=h})}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-story]');if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();show(a.getAttribute('href'),true)});
+d.addEventListener('close',function(){if(open&&history.state&&history.state.story){open=false;history.back()}else open=false});
+d.querySelector('.st-x').addEventListener('click',function(){d.close()});
+d.addEventListener('click',function(e){if(e.target===d)d.close()});
+window.addEventListener('popstate',function(e){if(d.open){open=false;d.close()}else if(e.state&&e.state.story){show(e.state.story,false)}});
+})();`;
 
 const initial = (n) => esc((n || '?').trim().charAt(0).toUpperCase());
 const avatarOf = (logo, name) => {
@@ -142,8 +157,10 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
     '  </main>',
     '  <div class="news-cta"><div><b>Run a law firm?</b><span>Featured members\' blogs appear on this page, with their logo and a link back to their site.</span></div><a href="/for-firms">See how Featured works &rarr;</a></div>',
     '  <p class="news-foot">Headlines and short excerpts come from each firm\'s public blog. The articles belong to the firms that wrote them, and the full text is on their websites. LawDB is an independent directory and does not endorse any article or firm.</p>',
+    '  <dialog id="story-dlg" class="st-dlg" aria-label="Story"><button class="st-x" type="button" aria-label="Close">&times;</button><div id="story-body"></div></dialog>',
     '  ' + C.FOOTER,
     '<script src="/site.js" defer></script>',
+    '<script>' + STORY_JS + '</script>',
     '</body>\n</html>\n',
   ].join('\n');
 }

@@ -169,6 +169,15 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - Firm slugs (`/firms/<name>`) were already lowercase, hyphenated and descriptive (a city is added only to tell same-named firms apart) and are unchanged.
 - Adding a page: save it as `some-page.html`, link to `/some-page`, canonical `https://lawdb.ca/some-page`, add it to `sitemap.xml`, run `npm run check`.
 
+## Story pages (every blog card has its own page)
+
+- `/news/<firm>/<headline-words>-<id>` (`src/routes/story-page.js`, `src/render/story-page.js`, address helpers in `src/lib/stories.js`): the picture, headline, the short preview the firm publishes (never the full article), the firm with a link to its LawDB profile,
+  a clear "Read the full article on <their site>" button, more stories from the same firm and more firms in the same city. Self-canonical, `og:*` tags and a breadcrumb list. The id makes the address stable; wrong or old wording redirects (301) to the right one.
+- Why own pages: they are internal links into firm profiles and city pages and give search engines fresh, crawlable pages per story, without copying anyone's article (which would be duplicate content and the firms' copyright). They will not outrank the firms' own articles for the article's topic.
+  Watch Search Console: if most are reported "Crawled, not indexed", switch the page to `noindex` (one line in `renderStoryPage`) and keep the expanded view.
+- The News page opens a story over the page: a `<dialog>` loads `<story address>?partial=1` (just the story, `X-Robots-Tag: noindex`) and pushes the story's own address into the browser history, so Back or Escape closes it and the link can be shared. Without JavaScript the cards are ordinary links to the story pages.
+- Up to 20 stories per firm are kept (was 6) so story pages live for weeks; a story that rotates off, or a firm whose cards are switched off, returns 404. `/sitemap-news.xml` lists every story; `robots.txt` announces it and the nightly Search Console run submits it.
+
 ## Safeguards (hardening pass)
 
 - **Ownership signal:** the Approvals card compares the claimant's email domain with the firm's website

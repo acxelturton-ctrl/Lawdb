@@ -55,7 +55,7 @@ async function renderLogin() {
 
 // ---------------------------------------------------------------- shell
 function shell(active, content) {
-  const tabs = [['feed', 'Feed'], ['following', 'Following'], ['saved', 'Saved'], ['firms', 'My firms'], ['profile', 'Profile'], ['find', 'Add or claim a firm']];
+  const tabs = [['feed', 'Feed'], ['network', 'My network'], ['saved', 'Saved'], ['firms', 'My firms'], ['profile', 'Profile'], ['find', 'Add or claim a firm']];
   return h('div', null,
     h('div', { class: 'wrap' },
       h('nav', { class: 'tabs', 'aria-label': 'Sections' }, tabs.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label))),
@@ -303,31 +303,57 @@ function storyRow(s, onChange) {
 
 async function viewFeed() {
   const { stories } = await api('GET', '/api/account/feed');
+  api('POST', '/api/account/feed/seen', {}).then(() => { try { sessionStorage.removeItem('lawdb_notif'); } catch (e) {} if (window.lawdbDot) window.lawdbDot(0); }).catch(() => {});
   const nF = (await api('GET', '/api/account/following')).firms.length;
   const first = (user.name || '').split(/\s+/)[0];
   return h('div', null, h('h1', null, first ? `Welcome, ${first}!` : 'Your feed'),
     (!user.name || !user.kind) && h('div', { class: 'card' }, h('p', null, h('b', null, 'Finish your profile')), h('p', { class: 'muted' }, 'Add your name and tell us who you are. It takes a few seconds.'), h('a', { href: '#profile' }, h('button', { class: 'primary', type: 'button' }, 'Continue setting up your profile'))),
     h('p', { class: 'muted' }, 'The latest stories from the firms you follow.'),
     nF === 0
-      ? h('div', { class: 'card' }, h('p', null, 'You are not following any firms yet.'), h('p', { class: 'muted' }, 'Follow firms to see their new articles here. You can follow any firm from its profile page, from LawDB News, or search for firms below.'), h('a', { href: '#following' }, h('button', { class: 'primary', type: 'button' }, 'Find firms to follow')))
+      ? h('div', { class: 'card' }, h('p', null, 'You are not following any firms yet.'), h('p', { class: 'muted' }, 'Follow firms to see their new articles here. You can follow any firm from its profile page, from LawDB News, or search for firms below.'), h('a', { href: '#network' }, h('button', { class: 'primary', type: 'button' }, 'Find firms to follow')))
       : stories.length
         ? h('div', { class: 'card' }, stories.map((s) => storyRow(s)))
         : h('div', { class: 'card' }, h('p', { class: 'muted' }, 'The firms you follow have no stories yet. New ones appear here when they publish.')));
 }
 
-async function viewFollowing() {
-  const out = h('div');
-  const search = h('input', { type: 'search', placeholder: 'Find a firm to follow: name or city', 'aria-label': 'Search firms to follow' });
-  const results = h('div');
-  const list = h('div', { class: 'card' });
-  const draw = async () => {
-    const { firms } = await api('GET', '/api/account/following');
-    list.replaceChildren(...(firms.length ? firms.map((f) => {
-      const b = h('button', { type: 'button' }, 'Unfollow');
-      b.addEventListener('click', async () => { b.disabled = true; try { await api('DELETE', `/api/account/follow/${encodeURIComponent(f.slug)}`); await draw(); } catch (err) { out.replaceChildren(note('msg-err', err.message)); b.disabled = false; } });
-      return h('div', { class: 'audit' }, h('div', null, h('a', { href: `/firms/${f.slug}` }, h('b', null, f.name)), ' ', f.featured && h('span', { class: 'badge featured' }, 'Featured'), ' ', h('span', { class: 'muted' }, `${f.city}, ${PROVINCES[f.province] || f.province} · ${f.followers} follower${f.followers === 1 ? '' : 's'}`)), h('div', { class: 'row' }, b));
-    }) : [h('p', { class: 'muted' }, 'You are not following any firms yet.')]));
-  };
+const logoSrc = (f) => (f.logo ? (/^(https?:)?\//.test(f.logo) ? f.logo : `/${f.logo}`) : '');
+const initialsOf = (name) => (name || '?').split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+
+// A LinkedIn-style Follow pill: "+ Follow", then "Following" (which turns into "Unfollow" when you point at it).
+function followPill(f, onChange) {
+  const b = h('button', { type: 'button', class: 'fbtn' });
+  let on = !!f.following;
+  const paint = () => { b.setAttribute('aria-pressed', on ? 'true' : 'false'); b.replaceChildren(...(on ? [h('span', { class: 'a' }, '✓ Following'), h('span', { class: 'b' }, 'Unfollow')] : ['+ Follow'])); };
+  paint();
+  b.addEventListener('click', async () => {
+    b.disabled = true;
+    try {
+      const r = on ? await api('DELETE', `/api/account/follow/${encodeURIComponent(f.slug)}`) : await api('POST', '/api/account/follow', { slug: f.slug });
+      on = r.following; f.followers = r.followers; f.following = on; paint(); if (onChange) onChange(on, r);
+    } catch (err) { b.title = err.message; b.textContent = 'Try again'; setTimeout(paint, 2000); }
+    b.disabled = false;
+  });
+  return b;
+}
+
+function firmRow(f, onChange) {
+  const src = logoSrc(f);
+  const place = `${f.city}, ${PROVINCES[f.province] || f.province}`;
+  const facts = [f.why, f.followers ? `${f.followers.toLocaleString('en-CA')} follower${f.followers === 1 ? '' : 's'}` : '', f.rating ? `★ ${Number(f.rating).toFixed(1)}` : ''].filter(Boolean).join(' · ');
+  return h('div', { class: 'nw-row' },
+    h('a', { class: 'nw-ava', href: `/firms/${f.slug}`, 'aria-hidden': 'true', tabindex: '-1' }, src ? h('img', { src, alt: '', loading: 'lazy' }) : initialsOf(f.name)),
+    h('div', { class: 'nw-info' }, h('a', { href: `/firms/${f.slug}` }, h('b', null, f.name)), f.featured && h('span', { class: 'badge featured' }, 'Featured'), h('span', { class: 'muted' }, place), facts && h('span', { class: 'muted' }, facts)),
+    followPill(f, onChange));
+}
+
+// "My network": the firms you follow, and firms worth following next (same place as your firms or you, then the best rated).
+async function viewNetwork() {
+  const { following, suggestions } = await api('GET', '/api/account/network');
+  const count = h('span', null, String(following.length));
+  const followingList = h('div', { class: 'card nw-list' }, following.length ? following.map((f) => firmRow({ ...f, following: true })) : [h('p', { class: 'muted' }, 'You are not following any firms yet. Start with the suggestions above, or search for a firm.')]);
+  const suggest = h('div', { class: 'card nw-list' }, suggestions.length ? suggestions.map((f) => firmRow(f, (on) => { count.textContent = String(Math.max(0, Number(count.textContent) + (on ? 1 : -1))); })) : [h('p', { class: 'muted' }, 'You follow every firm we can suggest. Nice.')]);
+  const search = h('input', { type: 'search', placeholder: 'Search any firm by name or city', 'aria-label': 'Search firms to follow' });
+  const results = h('div', { class: 'nw-list' });
   let timer;
   search.addEventListener('input', () => {
     clearTimeout(timer);
@@ -336,16 +362,15 @@ async function viewFollowing() {
       if (q.length < 2) return results.replaceChildren();
       try {
         const { firms } = await api('GET', '/api/account/search?q=' + encodeURIComponent(q));
-        results.replaceChildren(...firms.map((f) => h('button', { class: 'firm-row', type: 'button', onclick: async () => {
-          try { await api('POST', '/api/account/follow', { slug: f.slug }); search.value = ''; results.replaceChildren(); await draw(); } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
-        } }, h('span', null, f.name, h('small', null, `${f.city}, ${PROVINCES[f.province] || f.province}`)), h('span', { class: 'muted' }, 'Follow'))));
+        results.replaceChildren(...firms.map((f) => firmRow({ ...f, following: false })));
       } catch (err) { results.replaceChildren(note('msg-err', err.message)); }
     }, 250);
   });
-  await draw();
-  return h('div', null, h('h1', null, 'Following'),
-    h('p', { class: 'muted' }, 'Only you can see who you follow. Firms see just how many people follow them.'),
-    h('div', { class: 'card' }, search, results), out, list);
+  return h('div', null, h('h1', null, 'My network'),
+    h('p', { class: 'muted' }, 'Follow firms to see their newest articles in your feed. Only you can see who you follow; firms see just how many people follow them.'),
+    h('div', { class: 'card' }, search, results),
+    h('h2', null, 'Firms you may want to follow'), suggest,
+    h('h2', null, 'Following (', count, ')'), followingList);
 }
 
 async function viewSaved() {
@@ -389,7 +414,7 @@ async function finishPending() {
   try { p = JSON.parse(localStorage.getItem('lawdb_pending') || 'null'); localStorage.removeItem('lawdb_pending'); } catch {}
   if (!p) return false;
   try {
-    if (p.type === 'follow') { await api('POST', '/api/account/follow', { slug: p.slug }); location.hash = '#following'; return true; }
+    if (p.type === 'follow') { await api('POST', '/api/account/follow', { slug: p.slug }); location.hash = '#network'; return true; }
     if (p.type === 'back' && typeof p.url === 'string' && /^\/firms\/[a-z0-9-]+(#rate)?$/.test(p.url)) { location.replace(p.url); return true; }
     if (p.type === 'save') { await api('POST', '/api/account/saved', { postId: Number(p.id) }); location.hash = '#saved'; return true; }
   } catch { /* the page still opens; the person can try again */ }
@@ -477,25 +502,29 @@ async function loadMe() {
   memberships = data.memberships;
 }
 
+let renderSeq = 0;
 async function render() {
+  const seq = ++renderSeq; // a slower, older render must never overwrite a newer one
   document.body.classList.toggle('lw-focus', !!(user && !user.onboarded));
   if (user && !user.onboarded) return renderWizard();
   const [name, arg] = location.hash.slice(1).split('/');
-  const tab = ['feed', 'following', 'saved', 'profile', 'find'].includes(name) ? name : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
+  const tab = ['feed', 'network', 'saved', 'profile', 'find'].includes(name) ? name : name === 'following' ? 'network' : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
   mount(shell(tab, h('p', { class: 'muted' }, 'Loading…')));
   try {
     let view;
     if (name === 'find') view = viewFind();
     else if (tab === 'feed') view = await viewFeed();
-    else if (tab === 'following') view = await viewFollowing();
+    else if (tab === 'network') view = await viewNetwork();
     else if (tab === 'saved') view = await viewSaved();
     else if (tab === 'profile') view = await viewProfile();
     else if (name === 'edit' && arg) view = await viewEdit(arg);
     else if (name === 'leads') view = await viewLeads(arg);
     else { await loadMe(); view = viewFirms(); }
+    if (seq !== renderSeq) return;
     mount(shell(tab, view));
   } catch (err) {
     if (err.status === 401) return boot();
+    if (seq !== renderSeq) return;
     mount(shell(tab, note('msg-err', err.message)));
   }
 }

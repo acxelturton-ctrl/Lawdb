@@ -969,6 +969,15 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(isDeepStrictEqual((await call('GET', '/api/account/following')).data.firms.map((f) => f.slug), [F]), 'and not other people\'s');
     const st = await call('GET', `/api/social/status?slugs=${F},torys-llp`);
     ok(st.data.signedIn && st.data.follows[F].following && st.data.follows[F].followers === 2 && st.data.follows['torys-llp'].following === false && st.data.follows['torys-llp'].followers === 1, 'the buttons know who follows what, and the totals');
+    const net = await call('GET', '/api/account/network');
+    ok(net.status === 200 && net.data.following.length === 1 && net.data.following[0].slug === F && net.data.following[0].followers === 2 && net.data.suggestions.length > 0 && net.data.suggestions.length <= 12 && !net.data.suggestions.some((x) => x.slug === F), 'My network lists the firms you follow and suggests others');
+    ok(net.data.suggestions[0].why === 'In Toronto' && net.data.suggestions.every((x) => x.slug && x.name && x.city && 'followers' in x), 'suggestions start with firms in the same city as one you follow');
+    const nt = await call('GET', '/api/account/notifications');
+    ok(nt.status === 200 && Number.isInteger(nt.data.unseen) && nt.data.unseen >= 0 && nt.data.unseen <= 99, 'the feed dot reads how many new stories there are');
+    ok((await call('POST', '/api/account/feed/seen', {})).status === 200 && (await call('GET', '/api/account/notifications')).data.unseen === 0, 'opening the feed clears the dot');
+    cookie = '';
+    ok((await call('GET', '/api/account/network')).status === 401 && (await call('GET', '/api/account/notifications')).status === 401 && (await call('POST', '/api/account/feed/seen', {})).status === 401, 'network and notifications need sign-in');
+    as(o1.jar);
     const fd = await call('GET', '/api/account/feed');
     ok(fd.status === 200 && fd.data.stories.length >= 3 && fd.data.stories.every((x) => x.firm.slug === F && new RegExp(`^/news/${F}/[a-z0-9-]+-\\d+$`).test(x.href)), 'the feed holds the followed firm\'s stories, each with its own page address');
     const sid = fd.data.stories[0].id;

@@ -17,7 +17,24 @@ async function followerCount(env, slug) {
 }
 
 // For the Follow and Save buttons on public pages: who is looking, which of these firms they follow and how many follow each, which of these stories they saved.
-export async function status({ request, env, url }) {
+export async function status({ request, env, url, exec }) {
+  // Signed-out visitors all get the same answer, so it is kept at the edge for a minute: pages with Follow buttons do not read the database on every view.
+  const anon = !/lawdb_session/.test(request.headers.get('cookie') || '');
+  const ttl = Number(env.PUBLIC_CACHE_TTL ?? 60);
+  const key = new Request(`${url.origin}/api/social/status?slugs=${slugsOf(url.searchParams.get('slugs')).sort().join(',')}`, { method: 'GET' });
+  if (anon && ttl > 0 && !url.searchParams.get('posts')) {
+    const hit = await caches.default.match(key);
+    if (hit) return hit;
+  }
+  const res = await statusBody({ request, env, url });
+  if (anon && ttl > 0 && !url.searchParams.get('posts') && exec) {
+    const copy = new Response(res.clone().body, { headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': `public, max-age=${ttl}` } });
+    exec(caches.default.put(key, copy));
+  }
+  return res;
+}
+
+async function statusBody({ request, env, url }) {
   const user = await getUser(env, request);
   const slugs = slugsOf(url.searchParams.get('slugs'));
   const ids = idsOf(url.searchParams.get('posts'));
@@ -118,4 +135,46 @@ export async function unsave({ request, env, params }) {
   if (!Number.isInteger(id) || id < 1) throw new HttpError(422, 'Not a story.');
   await env.DB.prepare('DELETE FROM saved_stories WHERE user_id = ? AND post_id = ?').bind(user.id, id).run();
   return reply({ saved: false });
+}
+
+// ---- My network: who you follow, who you might follow next, and whether the firms you follow have posted anything new.
+const LOGO = "json_extract(f.data, '$.src')";
+const cardOf = (r, extra = {}) => ({ slug: r.slug, name: r.name, city: r.city, province: r.province, featured: !!r.featured, followers: r.followers, rating: r.rating, reviews: r.reviews, logo: r.logo || '', ...extra });
+
+export async function network({ request, env }) {
+  const user = await requireUser(env, request);
+  const mine = (await env.DB.prepare(
+    `SELECT f.slug, f.name, f.city, f.province, f.featured, f.rating, f.review_count AS reviews, ${LOGO} AS logo, (SELECT COUNT(*) FROM follows x WHERE x.firm_slug = f.slug) AS followers
+     FROM follows w JOIN firms f ON f.slug = w.firm_slug AND f.status = 'live' WHERE w.user_id = ? ORDER BY w.created_at DESC, f.name LIMIT 200`
+  ).bind(user.id).all()).results;
+  const profile = await env.DB.prepare('SELECT city, province FROM users WHERE id = ?').bind(user.id).first();
+  const cities = [...new Set([profile?.city, ...mine.map((m) => m.city)].filter(Boolean))].slice(0, 10);
+  const provinces = [...new Set([profile?.province, ...mine.map((m) => m.province)].filter(Boolean))].slice(0, 10);
+  const cm = cities.length ? marks(cities.length) : "''";
+  const pm = provinces.length ? marks(provinces.length) : "''";
+  // Nearer firms first (same city as something you follow or your own city, then same province), then the best rated. Paid placement does not change the order.
+  const { results } = await env.DB.prepare(
+    `SELECT f.slug, f.name, f.city, f.province, f.featured, f.rating, f.review_count AS reviews, ${LOGO} AS logo,
+       (SELECT COUNT(*) FROM follows x WHERE x.firm_slug = f.slug) AS followers,
+       (CASE WHEN f.city IN (${cm}) THEN 2 ELSE 0 END + CASE WHEN f.province IN (${pm}) THEN 1 ELSE 0 END) AS near
+     FROM firms f WHERE f.status = 'live' AND f.slug NOT IN (SELECT firm_slug FROM follows WHERE user_id = ?)
+     ORDER BY near DESC, COALESCE(f.review_count, 0) >= 10 DESC, f.rating DESC, f.review_count DESC, f.name LIMIT 12`
+  ).bind(...cities, ...provinces, user.id).all();
+  return reply({ following: mine.map((m) => cardOf(m)), suggestions: results.map((r) => cardOf(r, { why: r.near >= 2 ? `In ${r.city}` : r.near === 1 ? 'In your province' : 'Top rated' })) });
+}
+
+// A dot on the Feed tab: stories from followed firms newer than the last time the feed was opened.
+export async function notifications({ request, env }) {
+  const user = await requireUser(env, request);
+  const r = await env.DB.prepare(
+    `SELECT COUNT(*) AS n FROM firm_posts p ${LIVE} JOIN follows w ON w.firm_slug = p.firm_slug AND w.user_id = ?
+     WHERE datetime(p.published_at) > datetime(COALESCE((SELECT feed_seen_at FROM users WHERE id = ?), (SELECT created_at FROM users WHERE id = ?)))`
+  ).bind(user.id, user.id, user.id).first();
+  return reply({ unseen: Math.min(r.n, 99) });
+}
+
+export async function feedSeen({ request, env }) {
+  const user = await requireUser(env, request);
+  await env.DB.prepare("UPDATE users SET feed_seen_at = datetime('now') WHERE id = ?").bind(user.id).run();
+  return reply({ ok: true });
 }

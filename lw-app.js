@@ -60,7 +60,7 @@
       '<a class="lw-vp" href="/account/#profile">View profile</a>' +
       '<nav>' +
       '<a href="/account/#feed">' + ICON.feed + 'Your feed</a>' +
-      '<a href="/account/#following">' + ICON.users + 'Following</a>' +
+      '<a href="/account/#network">' + ICON.users + 'My network</a>' +
       '<a href="/account/#saved">' + ICON.saved + 'Saved stories</a>' +
       (m.firms ? '<a href="/account/#firms">' + ICON.firm + 'Dashboard: my firms</a>' : '') +
       '<a href="/account/#find">' + ICON.plus + 'Add or claim a firm</a>' +
@@ -92,8 +92,8 @@
 
     // bottom tab bar on phones
     var bar = document.createElement('nav'); bar.className = 'lw-tabbar'; bar.setAttribute('aria-label', 'Member navigation');
-    var tabs = [['home', 'Home', '/'], ['find', 'Find', '/find-lawyers'], ['feed', 'Feed', '/account/#feed'], ['saved', 'Saved', '/account/#saved']];
-    bar.innerHTML = tabs.map(function (t) { return '<a href="' + t[2] + '" data-t="' + t[0] + '">' + ICON[t[0]] + t[1] + '</a>'; }).join('') +
+    var tabs = [['home', 'Home', '/'], ['find', 'Find', '/find-lawyers'], ['network', 'Network', '/account/#network'], ['feed', 'Feed', '/account/#feed']];
+    bar.innerHTML = tabs.map(function (t) { return '<a href="' + t[2] + '" data-t="' + t[0] + '">' + (ICON[t[0]] || ICON.users) + t[1] + '</a>'; }).join('') +
       '<button type="button" data-t="me"><span class="lw-ava">' + esc(initials(m)) + '</span>Me</button>';
     document.body.appendChild(bar); document.body.classList.add('lw-has-tabs');
     $('[data-t="me"]', bar).addEventListener('click', open);
@@ -101,11 +101,30 @@
       var p = location.pathname, h = location.hash.replace('#', ''), on = '';
       if (p === '/') on = 'home';
       else if (/^\/find-lawyers/.test(p)) on = 'find';
-      else if (p === '/account/') on = (h === '' || h === 'feed') ? 'feed' : h === 'saved' ? 'saved' : '';
+      else if (p === '/account/') on = (h === '' || h === 'feed') ? 'feed' : (h === 'network' || h === 'following') ? 'network' : '';
       all('[data-t]', bar).forEach(function (el) { el.classList.toggle('on', el.getAttribute('data-t') === on); });
     };
     mark(); window.addEventListener('hashchange', mark);
     window.lawdbOpenPanel = open;
+    dots();
+  }
+
+  // a dot on Feed (and on your avatar) when the firms you follow have posted since you last looked
+  function paintDot(n) {
+    all('.lw-dot').forEach(function (d) { d.remove(); });
+    if (!n) return;
+    var feed = $('.lw-tabbar [data-t="feed"]'); if (feed) { var d1 = document.createElement('i'); d1.className = 'lw-dot'; d1.textContent = n > 9 ? '9+' : n; feed.style.position = 'relative'; feed.appendChild(d1); }
+    var ava = $('.site-header .lw-ava'); if (ava) { var d2 = document.createElement('i'); d2.className = 'lw-dot sm'; ava.style.position = 'relative'; ava.appendChild(d2); }
+  }
+  window.lawdbDot = paintDot;
+  function dots() {
+    var c = null;
+    try { var j = JSON.parse(sessionStorage.getItem('lawdb_notif') || 'null'); if (j && Date.now() - j.t < 60000) c = j.n; } catch (e) {}
+    if (c !== null) return paintDot(c);
+    fetch('/api/account/notifications', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (!d) return; try { sessionStorage.setItem('lawdb_notif', JSON.stringify({ t: Date.now(), n: d.unseen })); } catch (e) {}
+      paintDot(d.unseen);
+    }).catch(function () {});
   }
 
   // the home page: a short "Your feed" under the search
@@ -121,9 +140,16 @@
           return '<a class="lw-hf-card" href="' + esc(x.href) + '">' + (x.image ? '<img loading="lazy" referrerpolicy="no-referrer" alt="" src="' + esc(x.image) + '" onerror="this.remove()">' : '') +
             '<div><small>' + esc(x.firm && x.firm.name) + '</small><b>' + esc(x.title) + '</b></div></a>';
         }).join('') + '</div>'
-        : '<div class="lw-hf-empty">Your feed is empty. <b>Follow law firms</b> with the Follow button on any card below, or on <a href="/news">LawDB News</a>, and their newest articles will show up here.</div>';
-      sec.innerHTML = '<div class="lw-hf-in"><div class="lw-hf-top"><h2>Your feed</h2><a href="/account/#feed">See all</a></div>' + body + '</div>';
+        : '<div class="lw-hf-empty">Your feed is empty. <b>Follow law firms</b> and their newest articles will show up here. A few to start with:</div><div class="lw-hf-sug" id="lwSug"></div>';
+      sec.innerHTML = '<div class="lw-hf-in"><div class="lw-hf-top"><h2>Your feed</h2><a href="/account/#' + (s.length ? 'feed' : 'network') + '">' + (s.length ? 'See all' : 'My network') + '</a></div>' + body + '</div>';
       anchor.parentNode.insertBefore(sec, anchor);
+      if (!s.length) fetch('/api/account/network', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (n) {
+        var box = $('#lwSug', sec); if (!n || !box) return;
+        box.innerHTML = (n.suggestions || []).slice(0, 3).map(function (f) {
+          return '<div class="r"><a href="/firms/' + esc(f.slug) + '">' + esc(f.name) + '<small>' + esc(f.city) + ', ' + esc(f.province) + '</small></a><button type="button" class="lw-fbtn" data-follow="' + esc(f.slug) + '">+ Follow</button></div>';
+        }).join('');
+        if (window.lawdbSocial) window.lawdbSocial.init(sec);
+      }).catch(function () {});
     }).catch(function () {});
   }
 

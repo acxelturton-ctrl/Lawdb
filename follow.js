@@ -2,9 +2,14 @@
    becomes a Save button. Signed-in people toggle them in place; everyone else is taken to sign in and the action is finished when they come back. */
 (function () {
   if (window.lawdbSocial) return;
-  var css = '.lw-fbtn,.lw-sbtn{font:600 13px Inter,system-ui,sans-serif;border:1px solid #1f2328;background:transparent;color:#1f2328;border-radius:999px;padding:5px 12px;cursor:pointer;line-height:1.2;white-space:nowrap}' +
-    '.lw-fbtn[aria-pressed="true"],.lw-sbtn[aria-pressed="true"]{background:#1f2328;color:#fff}.lw-fbtn:hover,.lw-sbtn:hover{border-color:#b45309}.lw-fbtn[disabled],.lw-sbtn[disabled]{opacity:.6;cursor:wait}' +
-    '.lw-fbtn.lw-in{border-radius:999px}.lc-btns{flex-wrap:wrap}.lc-btns .lw-fbtn{flex:1 1 100%;margin-top:2px;padding:10px 14px;font-size:14px}.frow .lw-fbtn{display:inline-block;margin-top:8px}.fcard-actions .lw-fbtn{padding:6px 12px;font-size:12.5px}.ra-actions .lw-fbtn{padding:6px 12px;font-size:12.5px}' +
+  var css = '.lw-fbtn,.lw-sbtn{font:600 13px Inter,system-ui,sans-serif;border:1.5px solid #1f2328;background:#fff;color:#1f2328;border-radius:999px;padding:6px 14px;cursor:pointer;line-height:1.2;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px}' +
+    '.lw-fbtn:hover,.lw-sbtn:hover{background:#fff3d4;border-color:#e8a91f}.lw-fbtn[disabled],.lw-sbtn[disabled]{opacity:.6;cursor:wait}' +
+    '.lw-fbtn[aria-pressed="true"]{background:#f0ede5;border-color:#d6d1c4;color:#3f444b}@media(hover:hover){.lw-fbtn[aria-pressed="true"]:hover{background:#fbeceb;border-color:#a1261c;color:#a1261c}.lw-fbtn[aria-pressed="true"]:hover .lw-a{display:none}.lw-fbtn[aria-pressed="true"]:hover .lw-b{display:inline}}' +
+    '.lw-fbtn .lw-b{display:none}' +
+    '.lw-sbtn[aria-pressed="true"]{background:#1f2328;color:#fff}' +
+    '.lc .lw-fbtn{position:absolute;top:10px;left:10px;z-index:3;box-shadow:0 1px 4px rgba(31,35,40,.18)}' +
+    '.frow .lw-fbtn{position:absolute;top:12px;right:12px;z-index:2}.fcard-actions .lw-fbtn{padding:6px 12px;font-size:12.5px}.ra-actions .lw-fbtn{padding:6px 12px;font-size:12.5px}' +
+    '.lw-fcount{margin:0 0 8px;font:600 13.5px Inter,system-ui,sans-serif;color:#636870}' +
     '.li-actions{flex-wrap:wrap}.li-actions .lw-fbtn{border-radius:4px;padding:11px 18px;font-size:14px}@media(max-width:520px){.li-actions .lw-fbtn{flex:1 1 100%}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   var state = { signedIn: false, follows: {}, saved: {} };
@@ -15,8 +20,21 @@
     all(root, '[data-follow]').forEach(function (b) {
       var s = state.follows[b.getAttribute('data-follow')] || { following: false, followers: 0 };
       b.setAttribute('aria-pressed', s.following ? 'true' : 'false');
-      b.textContent = (s.following ? 'Following ✓' : 'Follow') + (s.followers > 0 ? ' · ' + s.followers : '');
-      b.title = s.following ? 'You follow this firm. Tap to stop.' : 'Follow this firm to see its new stories in your feed';
+      var key = s.following ? 'on' : 'off';
+      if (b.getAttribute('data-h') !== key) {
+        b.setAttribute('data-h', key);
+        while (b.firstChild) b.removeChild(b.firstChild);
+        if (s.following) {
+          var a = document.createElement('span'); a.className = 'lw-a'; a.textContent = '\u2713 Following';
+          var u = document.createElement('span'); u.className = 'lw-b'; u.textContent = 'Unfollow';
+          b.appendChild(a); b.appendChild(u);
+        } else b.textContent = '+ Follow';
+      }
+      b.title = s.following ? 'You follow this firm. Tap to unfollow.' : 'Follow this firm to see its new stories in your feed';
+    });
+    all(root, '[data-fcount]').forEach(function (el) {
+      var s = state.follows[el.getAttribute('data-fcount')];
+      el.textContent = s && s.followers > 0 ? s.followers.toLocaleString('en-CA') + (s.followers === 1 ? ' follower' : ' followers') : '';
     });
     all(root, '[data-save]').forEach(function (b) {
       var on = !!state.saved[b.getAttribute('data-save')];
@@ -26,7 +44,7 @@
 
   // Firm cards on the home page, city and practice-area pages and the lawyer search get a Follow button too.
   var slugOf = function (href) { var m = (href || '').match(/\/firms\/([a-z0-9][a-z0-9-]*)\/?$/); return m ? m[1] : null; };
-  var mk = function (slug) { var b = document.createElement('button'); b.type = 'button'; b.className = 'lw-fbtn lw-in'; b.setAttribute('data-follow', slug); b.textContent = 'Follow'; return b; };
+  var mk = function (slug) { var b = document.createElement('button'); b.type = 'button'; b.className = 'lw-fbtn lw-in'; b.setAttribute('data-follow', slug); b.textContent = '+ Follow'; return b; };
   function decorate(root) {
     var n = 0;
     all(root, '.lc').forEach(function (c) {
@@ -47,7 +65,7 @@
 
   function init(root) {
     decorate(root);
-    var slugs = uniq(all(root, '[data-follow]').map(function (b) { return b.getAttribute('data-follow'); }));
+    var slugs = uniq(all(root, '[data-follow],[data-fcount]').map(function (b) { return b.getAttribute('data-follow') || b.getAttribute('data-fcount'); }));
     var ids = uniq(all(root, '[data-save]').map(function (b) { return b.getAttribute('data-save'); })).slice(0, 60);
     if (!slugs.length && !ids.length) return;
     paint(root);

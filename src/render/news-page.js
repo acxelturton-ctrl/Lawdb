@@ -140,12 +140,18 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
       <div class="news-step"><i>3</i><h2>You read the real thing</h2><p>Tap any story to read the full article on the firm's own site, and contact the firm directly if it speaks to your situation.</p></div>
     </div>`;
   const desc = 'Articles from Featured law firms on LawDB: short previews with a link to read the full article on each firm\'s own website.';
+  const ld = {
+    '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'LawDB News', url: 'https://lawdb.ca/news', description: desc,
+    isPartOf: { '@type': 'WebSite', name: 'LawDB', url: 'https://lawdb.ca/' },
+    mainEntity: { '@type': 'ItemList', itemListElement: shown.filter((p) => p.storyHref).slice(0, 20).map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://lawdb.ca${p.storyHref}`, name: p.title })) },
+  };
   return [
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n' + C.FAVICONS + '\n<meta name="viewport" content="width=device-width, initial-scale=1.0">',
     '<title>LawDB News | Articles from Featured Law Firms | LawDB.ca</title>',
     `<meta name="description" content="${esc(desc)}">`,
     '<link rel="canonical" href="https://lawdb.ca/news">',
     '<meta property="og:title" content="LawDB News"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/news">' + `<meta property="og:description" content="${esc(desc)}">`,
+    '<script type="application/ld+json">' + JSON.stringify(ld).replace(/</g, '\\u003c') + '</script>',
     C.STYLE + BLOG_CSS + CSS + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n</head>',
     '<body>\n  ' + C.HEADER.replace(/<a[^>]*>Back to results<\/a>/, ''),
     '  <header class="news-band">' + pressArt(shown) + '<p class="news-eyebrow">Straight from the firms</p><h1><span class="u">LawDB News</span></h1><p class="news-lede">What Canada\'s law firms are writing, all in one place.</p>' +

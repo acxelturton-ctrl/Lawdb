@@ -327,3 +327,6 @@ a.seo-chip:hover{ background:#fff3d4; border-color:#e8a91f; }
 .seo-ul,.seo-ol{ margin:0 0 14px; padding-left:22px; font-size:15px; line-height:1.75; color:#30353b; max-width:860px; }
 .seo-ul li,.seo-ol li{ margin-bottom:4px; }
 .seo-city .seo-ol,.seo-city .seo-ul{ font-size:14.5px; }
+
+/* Follow buttons sit at the right of firm rows on city and practice pages; the room is reserved here so nothing jumps when they appear. */
+.frow{ position:relative; padding-right:112px !important; }

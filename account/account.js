@@ -9,10 +9,25 @@ let user = null;
 let memberships = [];
 
 // ---------------------------------------------------------------- sign in / create account
-function renderLogin() {
+const ICONS = {
+  google: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 0 1 0-9.4l-7.9-6.1a24 24 0 0 0 0 21.6l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>`,
+  linkedin: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#0A66C2"/><path fill="#fff" d="M9 18h6v21H9zM12 8.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zM19 18h5.7v2.9h.1c.8-1.5 2.7-3.3 5.7-3.3 6 0 7.1 3.9 7.1 9V39h-6V28c0-2.6 0-6-3.7-6s-4.2 2.8-4.2 5.8V39h-6z"/></svg>`,
+};
+const icon = (k) => h('img', { src: 'data:image/svg+xml;utf8,' + encodeURIComponent(ICONS[k]), alt: '', width: 20, height: 20 });
+const SIGNIN_MESSAGES = {
+  failed: 'We could not sign you in with that account. Please try again, or use the email link below.',
+  cancelled: 'Sign-in was cancelled. You can try again whenever you like.',
+  unavailable: 'That sign-in option is not available right now. Please use the email link below.',
+};
+
+async function renderLogin() {
   const msg = h('div');
-  const email = h('input', { type: 'email', id: 'email', required: true, autocomplete: 'email', placeholder: 'you@yourfirm.ca' });
-  const btn = h('button', { class: 'primary', type: 'submit' }, 'Email me a link');
+  const q = new URLSearchParams(location.search).get('signin');
+  if (SIGNIN_MESSAGES[q]) msg.replaceChildren(note('msg-err', SIGNIN_MESSAGES[q]));
+  let providers = {};
+  try { providers = await api('GET', '/api/auth/providers'); } catch { /* the email link always works */ }
+  const email = h('input', { type: 'email', id: 'email', required: true, autocomplete: 'email', placeholder: 'you@example.com' });
+  const btn = h('button', { class: 'primary', type: 'submit' }, 'Email me a sign-in link');
   const form = h('form', {
     onsubmit: async (e) => {
       e.preventDefault();
@@ -26,16 +41,19 @@ function renderLogin() {
         btn.disabled = false;
       }
     },
-  }, h('label', { for: 'email' }, 'Work email'), email, h('div', { class: 'row' }, btn), msg);
+  }, h('label', { for: 'email' }, 'Email address'), email, h('div', { class: 'row' }, btn));
+  const social = ['google', 'linkedin'].filter((k) => providers[k]).map((k) => h('a', { class: 'provider', href: `/api/auth/${k}/start` }, icon(k), k === 'google' ? 'Continue with Google' : 'Continue with LinkedIn'));
   mount(h('div', { class: 'wrap' }, h('div', { class: 'center card' },
-    h('h1', null, 'Manage your firm on LawDB'),
-    h('p', { class: 'muted' }, 'Update your firm\'s details and hours, and see the enquiries people send you. No password: we email you a one-time link. New here? The same link creates your free account.'),
-    form)));
+    h('h1', null, 'Sign in to LawDB'),
+    h('p', { class: 'muted' }, 'Follow law firms, save stories, rate the firms you have worked with, and manage your firm. Free. New here? The same sign-in creates your account.'),
+    ...social, social.length ? h('div', { class: 'or' }, 'or') : null,
+    form, msg,
+    h('p', { class: 'muted small' }, 'No password to remember or lose: we email you a one-time link.'))));
 }
 
 // ---------------------------------------------------------------- shell
 function shell(active, content) {
-  const tabs = [['feed', 'Feed'], ['following', 'Following'], ['saved', 'Saved'], ['firms', 'My firms'], ['find', 'Add or claim a firm']];
+  const tabs = [['feed', 'Feed'], ['following', 'Following'], ['saved', 'Saved'], ['firms', 'My firms'], ['profile', 'Profile'], ['find', 'Add or claim a firm']];
   return h('div', null,
     h('header', { class: 'top' }, h('div', { class: 'wrap' },
       h('a', { class: 'brand', href: '/account/' }, h('img', { src: '/images/logo-icon.png', alt: '' }), 'LawDB'),
@@ -289,7 +307,9 @@ function storyRow(s, onChange) {
 async function viewFeed() {
   const { stories } = await api('GET', '/api/account/feed');
   const nF = (await api('GET', '/api/account/following')).firms.length;
-  return h('div', null, h('h1', null, 'Your feed'),
+  const first = (user.name || '').split(/\s+/)[0];
+  return h('div', null, h('h1', null, first ? `Welcome, ${first}!` : 'Your feed'),
+    (!user.name || !user.kind) && h('div', { class: 'card' }, h('p', null, h('b', null, 'Finish your profile')), h('p', { class: 'muted' }, 'Add your name and tell us who you are. It takes a few seconds.'), h('a', { href: '#profile' }, h('button', { class: 'primary', type: 'button' }, 'Continue setting up your profile'))),
     h('p', { class: 'muted' }, 'The latest stories from the firms you follow.'),
     nF === 0
       ? h('div', { class: 'card' }, h('p', null, 'You are not following any firms yet.'), h('p', { class: 'muted' }, 'Follow firms to see their new articles here. You can follow any firm from its profile page, from LawDB News, or search for firms below.'), h('a', { href: '#following' }, h('button', { class: 'primary', type: 'button' }, 'Find firms to follow')))
@@ -339,6 +359,21 @@ async function viewSaved() {
   return h('div', null, h('h1', null, 'Saved stories'), box);
 }
 
+
+// ---------------------------------------------------------------- profile
+const KIND_LABELS = [['lawyer', 'A lawyer'], ['staff', 'Law firm staff'], ['public', 'Looking for a lawyer'], ['other', 'Something else']];
+function viewProfile() {
+  const name = h('input', { type: 'text', id: 'pname', maxlength: 80, autocomplete: 'name', value: user.name || '', placeholder: 'Your name' });
+  const kind = h('select', { id: 'pkind' }, h('option', { value: '' }, 'Choose one'), KIND_LABELS.map(([v, l]) => { const o = h('option', { value: v }, l); if (v === user.kind) o.selected = true; return o; }));
+  const msg = h('div');
+  const form = h('form', { onsubmit: async (e) => {
+    e.preventDefault(); msg.replaceChildren();
+    try { const r = await api('PATCH', '/api/account/profile', { name: name.value, kind: kind.value }); user.name = r.profile.name; user.kind = r.profile.kind; msg.replaceChildren(note('msg-ok', 'Saved.')); }
+    catch (err) { msg.replaceChildren(note('msg-err', err.message)); }
+  } }, h('label', { for: 'pname' }, 'Your name'), name, h('label', { for: 'pkind' }, 'I am'), kind, h('div', { class: 'row' }, h('button', { class: 'primary', type: 'submit' }, 'Save')), msg);
+  return h('div', null, h('h1', null, 'Your profile'), h('p', { class: 'muted' }, `Signed in as ${user.email}. Your name personalises your dashboard and emails.`), h('div', { class: 'card' }, form));
+}
+
 // After signing in from a Follow or Save button on a public page, finish what the person asked for.
 async function finishPending() {
   let p = null;
@@ -360,7 +395,7 @@ async function loadMe() {
 
 async function render() {
   const [name, arg] = location.hash.slice(1).split('/');
-  const tab = ['feed', 'following', 'saved', 'find'].includes(name) ? name : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
+  const tab = ['feed', 'following', 'saved', 'profile', 'find'].includes(name) ? name : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
   mount(shell(tab, h('p', { class: 'muted' }, 'Loading…')));
   try {
     let view;
@@ -368,6 +403,7 @@ async function render() {
     else if (tab === 'feed') view = await viewFeed();
     else if (tab === 'following') view = await viewFollowing();
     else if (tab === 'saved') view = await viewSaved();
+    else if (tab === 'profile') view = viewProfile();
     else if (name === 'edit' && arg) view = await viewEdit(arg);
     else if (name === 'leads') view = await viewLeads(arg);
     else { await loadMe(); view = viewFirms(); }
@@ -381,7 +417,7 @@ async function render() {
 async function boot() {
   try {
     const who = await api('GET', '/api/auth/me');
-    if (!who.user) return renderLogin();
+    if (!who.user) return await renderLogin();
     await loadMe();
   } catch (err) { return mount(h('div', { class: 'wrap' }, note('msg-err', err.message))); }
   await finishPending();

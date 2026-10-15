@@ -187,6 +187,14 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - `/account/` has tabs Feed, Following, Saved, My firms. People who do not manage a firm land on Feed. The header menu has a "Sign in" link on every page.
 - Not built yet (ideas, in order): a weekly email of new stories from the firms you follow, lawyers' own posts on LawDB, follower lists with consent.
 
+## Easy sign-in, profile and welcome email
+
+- The sign-in card (`/account/`) offers **Continue with Google**, **Continue with LinkedIn** (each shown only when configured) and an email link. `src/lib/oauth.js`: OpenID Connect with PKCE, one-time `state` in `oauth_states`,
+  accounts matched by provider-verified email, `ADMIN_EMAILS` still authoritative, disabled accounts refused, 150 new accounts a day. Routes `GET /api/auth/{google,linkedin}/{start,callback}` and `GET /api/auth/providers`. Setup: `docs/SIGN_IN_SETUP.md`.
+- Migration 0016: `users.name`, `users.kind` (lawyer, staff, public, other), `users.provider`, `users.welcomed_at`. `PATCH /api/account/profile`. The dashboard says "Welcome, <first name>!" and prompts to finish the profile until name and kind are set.
+- **Welcome email** (`welcomeEmail` in `src/lib/email.js`): sent once per account (`welcomeOnce`), whichever way the account was created; existing accounts were marked as already welcomed. Call to action "Continue setting up your profile" opens `/account/#profile`.
+- Homepage: the partner strip is no longer the first thing under the search box. It sits below "Browse by city", is titled "Firms to explore", and every Featured firm in it is still clearly marked "Featured".
+
 ## Safeguards (hardening pass)
 
 - **Ownership signal:** the Approvals card compares the claimant's email domain with the firm's website

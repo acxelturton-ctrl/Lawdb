@@ -99,3 +99,9 @@ textarea.tall { min-height: 150px; }
 
 .planp h2 { margin: 0; font-size: 18px; }
 .pay-money { font-weight: 700; }
+
+/* sign-in buttons (Google, LinkedIn) */
+.provider{display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #cfc8b8;border-radius:8px;padding:12px 14px;font-weight:600;color:#2b2723;text-decoration:none;background:#fff;margin:0 0 10px;font-size:15px}
+.provider:hover{border-color:#9a6f1c}.provider img{display:block}
+.or{display:flex;align-items:center;gap:12px;color:#8f8a80;font-size:13px;margin:16px 0}
+.or::before,.or::after{content:'';flex:1;height:1px;background:#e4ded3}

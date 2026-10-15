@@ -2,7 +2,7 @@
 // Needs .dev.vars containing:  ADMIN_EMAILS=smoke-admin@example.com  and  DEV_ECHO_LINK=1
 //   BASE=http://localhost:8799 npm run smoke
 import { readFileSync, existsSync } from 'node:fs';
-import { createPublicKey, createVerify } from 'node:crypto';
+import { createPublicKey, createVerify, createHash } from 'node:crypto';
 import zlib from 'node:zlib';
 import { isDeepStrictEqual } from 'node:util';
 import { emailMatch } from '../src/routes/admin.js';
@@ -1006,6 +1006,111 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     let okCount = 0; let limited = 0;
     for (const slug of many) { const r = await call('POST', '/api/account/follow', { slug }); if (r.status === 200) okCount++; else if (r.status === 429) limited++; }
     ok(okCount === 60 && limited === many.length - 60, 'following is limited to 60 new firms an hour per person');
+  }
+
+  // Continue with Google / LinkedIn, the welcome email, and the profile (a pretend provider plays Google and LinkedIn on this computer)
+  if (/GOOGLE_CLIENT_ID=/.test(devVars)) {
+    const codes = new Map();
+    const provider = http.createServer((req, res) => {
+      let raw = '';
+      req.on('data', (c) => (raw += c));
+      req.on('end', () => {
+        const send = (code, body) => { res.writeHead(code, { 'content-type': 'application/json' }); res.end(JSON.stringify(body)); };
+        const m = /^\/(google|linkedin)\/(token|userinfo)$/.exec(req.url);
+        if (!m) return send(404, {});
+        if (m[2] === 'token') {
+          const f = new URLSearchParams(raw); const rec = codes.get(f.get('code'));
+          const sha = createHash('sha256').update(f.get('code_verifier') || '').digest('base64url');
+          if (!rec || rec.used || f.get('client_secret') !== (m[1] === 'google' ? 'test-google-secret' : 'test-li-secret') || f.get('client_id') !== (m[1] === 'google' ? 'test-google-id' : 'test-li-id') || sha !== rec.challenge || f.get('redirect_uri') !== `${BASE}/api/auth/${m[1]}/callback` || f.get('grant_type') !== 'authorization_code') return send(400, { error: 'invalid_grant' });
+          rec.used = true; return send(200, { access_token: 'at-' + f.get('code') });
+        }
+        const rec = codes.get((req.headers.authorization || '').replace('Bearer at-', ''));
+        return rec ? send(200, { sub: 'sub-' + rec.email, email: rec.email, email_verified: rec.verified, name: rec.name }) : send(401, {});
+      });
+    });
+    await new Promise((r, rej) => { provider.once('error', rej); provider.listen(8797, '127.0.0.1', r); });
+    let seq = 0;
+    // go through the whole dance: start -> (provider) -> callback; returns the callback response
+    const dance = async (key, who, { state, code } = {}) => {
+      const start = await fetch(`${BASE}/api/auth/${key}/start`, { redirect: 'manual' });
+      const loc = new URL(start.headers.get('location'));
+      const id = `c${++seq}`;
+      codes.set(id, { email: who.email, verified: who.verified !== false, name: who.name || '', challenge: loc.searchParams.get('code_challenge') });
+      const cb = await fetch(`${BASE}/api/auth/${key}/callback?code=${code ?? id}&state=${state ?? loc.searchParams.get('state')}`, { redirect: 'manual' });
+      return { start, loc, cb, state: loc.searchParams.get('state'), code: id };
+    };
+    const sessionOf = (cb) => (cb.headers.get('set-cookie') || '').split(';')[0];
+
+    cookie = '';
+    ok(isDeepStrictEqual((await call('GET', '/api/auth/providers')).data, { google: true, linkedin: true }), 'the sign-in page can tell which providers are switched on');
+    const g1 = await dance('google', { email: `oauth-${run}@example.com`, name: 'Olivia Oauth' });
+    ok(g1.start.status === 302 && g1.loc.origin === 'http://127.0.0.1:8797' && g1.loc.searchParams.get('response_type') === 'code' && g1.loc.searchParams.get('client_id') === 'test-google-id' && g1.loc.searchParams.get('redirect_uri') === `${BASE}/api/auth/google/callback` && /openid/.test(g1.loc.searchParams.get('scope')) && g1.loc.searchParams.get('code_challenge_method') === 'S256' && /^[0-9a-f]{64}$/.test(g1.state) && g1.loc.searchParams.get('prompt') === 'select_account', 'Continue with Google sends the person to Google with a one-time state and a PKCE challenge');
+    ok(g1.cb.status === 302 && g1.cb.headers.get('location') === `${BASE}/account/` && /lawdb_session=[0-9a-f]{64}/.test(g1.cb.headers.get('set-cookie') || '') && /HttpOnly/.test(g1.cb.headers.get('set-cookie')), 'coming back from Google creates the account and signs the person in');
+    cookie = sessionOf(g1.cb);
+    const me1 = (await call('GET', '/api/account/me')).data;
+    ok(me1.user.email === `oauth-${run}@example.com` && me1.user.name === 'Olivia Oauth' && me1.user.role === 'member', 'the account carries the e-mail and name Google verified, as a plain member');
+    cookie = '';
+    // the welcome email: once
+    as(adminJar);
+    const welcomes = async () => { as(adminJar); return (await call('GET', '/api/admin/audit?limit=200')).data.entries.filter((e) => e.action === 'mail.dev' && e.entity_id === `oauth-${run}@example.com` && e.detail?.subject === 'Welcome to LawDB: your member account is active').length; };
+    ok((await welcomes()) === 1, 'a new member gets the welcome email');
+    cookie = '';
+    const g2 = await dance('google', { email: `oauth-${run}@example.com`, name: 'Olivia Oauth' });
+    const w2 = await welcomes(); cookie = '';
+    ok(g2.cb.status === 302 && g2.cb.headers.get('location') === `${BASE}/account/` && w2 === 1, 'signing in again does not send it again');
+    // the same person through LinkedIn lands in the same account
+    const l1 = await dance('linkedin', { email: `oauth-${run}@example.com`, name: 'Olivia Oauth' });
+    cookie = sessionOf(l1.cb);
+    ok(l1.cb.status === 302 && l1.loc.searchParams.get('client_id') === 'test-li-id' && (await call('GET', '/api/account/me')).data.user.email === `oauth-${run}@example.com`, 'LinkedIn signs the same person into the same account (matched by verified e-mail)');
+    // profile
+    ok((await call('PATCH', '/api/account/profile', { name: 'Olivia O.', kind: 'lawyer' })).data.profile.kind === 'lawyer' && (await call('GET', '/api/account/me')).data.user.name === 'Olivia O.', 'a profile (name and who you are) can be saved');
+    ok((await call('PATCH', '/api/account/profile', { kind: 'wizard' })).status === 422 && (await call('PATCH', '/api/account/profile', { name: '<b>x</b>' })).status === 422 && (await call('PATCH', '/api/account/profile', {})).status === 422, 'odd profile input is refused');
+    cookie = '';
+    ok((await call('PATCH', '/api/account/profile', { name: 'x' })).status === 401, 'the profile needs sign-in');
+    // refusals
+    const before = (await call('GET', '/api/admin/stats').catch(() => ({}))).status;
+    const fail = (r) => r.cb.status === 302 && r.cb.headers.get('location') === `${BASE}/account/?signin=failed` && !r.cb.headers.get('set-cookie');
+    ok(fail(await dance('google', { email: `unverified-${run}@example.com`, verified: false })), 'a provider e-mail that is not verified is refused');
+    as(adminJar);
+    ok(!(await call('GET', `/api/admin/users`)).data.users.some((u) => u.email === `unverified-${run}@example.com`), 'and no account is created for it');
+    cookie = '';
+    const reuse = await dance('google', { email: `oauth2-${run}@example.com` });
+    const again = await fetch(`${BASE}/api/auth/google/callback?code=${reuse.code}&state=${reuse.state}`, { redirect: 'manual' });
+    ok(again.headers.get('location') === `${BASE}/account/?signin=failed` && !again.headers.get('set-cookie'), 'a sign-in attempt can only be used once');
+    ok(fail(await dance('google', { email: `x-${run}@example.com` }, { state: 'a'.repeat(64) })) && fail(await dance('google', { email: `x-${run}@example.com` }, { state: 'nonsense' })), 'a made-up or malformed state is refused');
+    const cross = await dance('google', { email: `x2-${run}@example.com` });
+    const wrong = await fetch(`${BASE}/api/auth/linkedin/callback?code=${cross.code}&state=${cross.state}`, { redirect: 'manual' });
+    ok(wrong.headers.get('location') === `${BASE}/account/?signin=failed`, 'a state made for one provider does not work for the other');
+    const bad = await fetch(`${BASE}/api/auth/google/callback?code=zzz&state=${(await dance('google', { email: `x3-${run}@example.com` })).state}`, { redirect: 'manual' });
+    ok(bad.headers.get('location') === `${BASE}/account/?signin=failed`, 'a code the provider does not recognise is refused');
+    const denied = await fetch(`${BASE}/api/auth/google/callback?error=access_denied`, { redirect: 'manual' });
+    ok(denied.headers.get('location') === `${BASE}/account/?signin=cancelled`, 'cancelling at Google returns with a friendly message');
+    // a disabled person cannot get back in
+    as(adminJar);
+    const users = (await call('GET', '/api/admin/users')).data.users;
+    const olivia = users.find((u) => u.email === `oauth-${run}@example.com`);
+    ok((await call('PATCH', `/api/admin/users/${olivia.id}`, { disabled: true })).status === 200, 'an admin can disable an account');
+    cookie = '';
+    ok(fail(await dance('google', { email: `oauth-${run}@example.com` })), 'a disabled account cannot sign in with Google either');
+    as(adminJar);
+    await call('PATCH', `/api/admin/users/${olivia.id}`, { disabled: false });
+    // admins stay decided by ADMIN_EMAILS, whichever way they sign in
+    cookie = '';
+    const adm = await dance('google', { email: 'smoke-admin@example.com', name: 'Smoke Admin' });
+    cookie = sessionOf(adm.cb);
+    ok((await call('GET', '/api/admin/stats')).status === 200, 'an address on ADMIN_EMAILS is an admin when it signs in with Google');
+    // the email-link sign-up gets the same welcome
+    as(adminJar);
+    ok((await call('GET', '/api/admin/audit?limit=200')).data.entries.some((e) => e.action === 'mail.dev' && e.entity_id === `owner1-${run}@example.com` && e.detail?.subject === 'Welcome to LawDB: your member account is active'), 'an owner who signs up with an e-mail link gets the welcome email too');
+    // the sign-in page and the homepage
+    cookie = '';
+    const acct = await getRaw('/account/');
+    ok(acct.status === 200 && acct.text.includes('/account/account.js'), 'the account page loads');
+    const acctJs = readFileSync(new URL('../account/account.js', import.meta.url), 'utf8');
+    ok(acctJs.includes('Continue with Google') && acctJs.includes('Continue with LinkedIn') && acctJs.includes('Email me a sign-in link') && acctJs.includes('/api/auth/${k}/start'), 'the sign-in card offers Google, LinkedIn and an e-mail link');
+    const home = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+    ok(home.indexOf('class="citystrip"') > 0 && home.indexOf('class="citystrip"') < home.indexOf('<section class="feat-swipe">') && !/<h2>Featured Partners<\/h2>/.test(home) && home.includes('<h2>Firms to explore</h2>') && /lc-feat">Featured</.test(home), 'the homepage no longer opens with paid partners: cities come first and the strip is "Firms to explore", with each Featured firm still clearly marked');
+    provider.close();
   }
 
   // put the shared test firm back as it was

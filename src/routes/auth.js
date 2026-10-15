@@ -2,6 +2,7 @@ import { json, readJson, isEmail, NO_STORE, HttpError } from '../lib/http.js';
 import { randomToken, sha256Hex } from '../lib/crypto.js';
 import { adminEmails, createSession, destroySession, getUser } from '../lib/auth.js';
 import { sendLoginEmail } from '../lib/email.js';
+import { providersConfigured, startOAuth, finishOAuth, welcomeOnce } from '../lib/oauth.js';
 import { audit } from '../lib/audit.js';
 
 const MAX_LINKS_PER_15_MIN = 3;
@@ -63,7 +64,7 @@ export async function requestLink({ request, env, url, exec }) {
 
 // Called by the verify page after the visitor clicks the link (POST, so mail scanners that
 // pre-fetch links cannot burn the one-time token).
-export async function verify({ request, env }) {
+export async function verify({ request, env, url, exec }) {
   const body = await readJson(request, 2000);
   const token = typeof body.token === 'string' ? body.token : '';
   if (!/^[0-9a-f]{64}$/.test(token)) throw new HttpError(400, 'This sign-in link is invalid or has expired.');
@@ -92,11 +93,16 @@ export async function verify({ request, env }) {
     user.role = 'member';
   }
   await env.DB.prepare("UPDATE users SET last_login_at = datetime('now') WHERE id = ?").bind(user.id).run();
+  await welcomeOnce(env, exec, env.DEV_ECHO_LINK === '1' ? url.origin : env.SITE_ORIGIN || url.origin, user, '');
 
   const cookie = await createSession(env, request, user.id);
   await audit(env, user, 'login', 'user', user.id);
   return json({ ok: true, user: { email: user.email, role: user.role } }, 200, { ...NO_STORE, 'set-cookie': cookie });
 }
+
+export const providers = ({ env }) => json(providersConfigured(env), 200, NO_STORE);
+export const oauthStart = (key) => ({ request, env, url }) => startOAuth(env, request, url, key);
+export const oauthCallback = (key) => ({ request, env, url, exec }) => finishOAuth(env, request, url, exec, key);
 
 export async function logout({ request, env }) {
   const user = await getUser(env, request);

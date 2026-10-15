@@ -81,6 +81,26 @@ export function decisionEmail(origin, { firmName, approved }) {
       };
 }
 
+// Sent once, when an account is created (by email link, Google or LinkedIn).
+export function welcomeEmail(origin, { name }) {
+  const link = `${origin}/account/#profile`;
+  const hi = name ? `Hi ${name.split(/\s+/)[0]},` : 'Hi,';
+  const things = [
+    'Follow law firms and see their latest stories in your own feed',
+    'Save the stories you want to come back to',
+    'Rate firms you have worked with, to help others choose',
+    'Claim or manage your firm\'s listing, if you are a lawyer',
+  ];
+  return {
+    subject: 'Welcome to LawDB: your member account is active',
+    text: `${hi}\n\nYour LawDB member account is active. Continue setting up your profile here:\n${link}\n\nWhat you can do with LawDB:\n${things.map((t) => '- ' + t).join('\n')}\n\nHave questions? Just reply to this email.\n\nThe LawDB team`,
+    html: `<p>${esc(hi)}</p><p>Your LawDB member account is active, and you can now use LawDB to follow law firms, save stories and build your profile.</p>` +
+      `<div style="border-left:4px solid #d9a441;background:#fbf3e3;padding:12px 16px;margin:16px 0"><b>Continue setting up your profile</b><br>Add your name and tell us who you are, so firms and other members recognise you.</div>` +
+      `${button(link, 'Continue setting up your profile')}<p style="margin-top:24px"><b>What you can do with LawDB</b></p><ul>${things.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` +
+      `<p style="color:#666">Have questions? Just reply to this email.</p>`,
+  };
+}
+
 export function leadEmail(origin, firmName, lead) {
   const link = `${origin}/account/#leads`;
   const lines = [

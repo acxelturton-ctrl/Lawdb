@@ -2,8 +2,8 @@
    becomes a Save button. Signed-in people toggle them in place; everyone else is taken to sign in and the action is finished when they come back. */
 (function () {
   if (window.lawdbSocial) return;
-  var css = '.lw-fbtn,.lw-sbtn{font:600 13px Inter,system-ui,sans-serif;border:1px solid #2b2723;background:transparent;color:#2b2723;border-radius:999px;padding:5px 12px;cursor:pointer;line-height:1.2;white-space:nowrap}' +
-    '.lw-fbtn[aria-pressed="true"],.lw-sbtn[aria-pressed="true"]{background:#2b2723;color:#fff}.lw-fbtn:hover,.lw-sbtn:hover{border-color:#9a6f1c}.lw-fbtn[disabled],.lw-sbtn[disabled]{opacity:.6;cursor:wait}' +
+  var css = '.lw-fbtn,.lw-sbtn{font:600 13px Inter,system-ui,sans-serif;border:1px solid #1f2328;background:transparent;color:#1f2328;border-radius:999px;padding:5px 12px;cursor:pointer;line-height:1.2;white-space:nowrap}' +
+    '.lw-fbtn[aria-pressed="true"],.lw-sbtn[aria-pressed="true"]{background:#1f2328;color:#fff}.lw-fbtn:hover,.lw-sbtn:hover{border-color:#b45309}.lw-fbtn[disabled],.lw-sbtn[disabled]{opacity:.6;cursor:wait}' +
     '.li-actions{flex-wrap:wrap}.li-actions .lw-fbtn{border-radius:4px;padding:11px 18px;font-size:14px}@media(max-width:520px){.li-actions .lw-fbtn{flex:1 1 100%}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   var state = { signedIn: false, follows: {}, saved: {} };
@@ -71,12 +71,12 @@
 
 
   // ---- member ratings: <div data-rate="<firm slug>"> becomes the rating box
-  var rcss = '.lw-rate{max-width:640px;margin:18px auto;padding:16px 18px;background:#fff;border:1px solid #e4ded3;border-radius:12px;font:15px/1.5 Inter,system-ui,sans-serif;color:#2b2723}' +
-    '.lw-rate h2{font:700 17px "Source Serif 4",Georgia,serif;margin:0 0 6px}.lw-rate .lw-avg{font-size:26px;font-weight:700;color:#9a6f1c}.lw-rate .lw-sub{color:#6b645b;font-size:14px}' +
-    '.lw-rate .lw-row2{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:6px 0}.lw-rate button{font:600 14px Inter,system-ui,sans-serif;border:1px solid #2b2723;background:transparent;color:#2b2723;border-radius:8px;padding:9px 16px;cursor:pointer}' +
-    '.lw-rate button.go{background:#2b2723;color:#fff}.lw-rate button[disabled]{opacity:.6}.lw-stars button{border:0;background:none;font-size:30px;line-height:1;padding:2px 4px;color:#cfc8b8;cursor:pointer}.lw-stars button.on{color:#d9a441}' +
-    '.lw-rate textarea{width:100%;min-height:80px;border:1px solid #cfc8b8;border-radius:8px;padding:10px;font:15px Inter,system-ui,sans-serif;margin:8px 0}.lw-rate .lw-note{font-size:12.5px;color:#8f8a80}' +
-    '.lw-rate .lw-cm{border-top:1px solid #eee7d6;padding:10px 0 0;margin-top:10px}.lw-rate .lw-cm b{color:#d9a441}.lw-rate .lw-err{color:#a8402f;font-size:14px}';
+  var rcss = '.lw-rate{max-width:640px;margin:18px auto;padding:16px 18px;background:#fff;border:1px solid #e3dfd5;border-radius:12px;font:15px/1.5 Inter,system-ui,sans-serif;color:#1f2328}' +
+    '.lw-rate h2{font:700 17px "Source Serif 4",Georgia,serif;margin:0 0 6px}.lw-rate .lw-avg{font-size:26px;font-weight:700;color:#b45309}.lw-rate .lw-sub{color:#636870;font-size:14px}' +
+    '.lw-rate .lw-row2{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:6px 0}.lw-rate button{font:600 14px Inter,system-ui,sans-serif;border:1px solid #1f2328;background:transparent;color:#1f2328;border-radius:8px;padding:9px 16px;cursor:pointer}' +
+    '.lw-rate button.go{background:#1f2328;color:#fff}.lw-rate button[disabled]{opacity:.6}.lw-stars button{border:0;background:none;font-size:30px;line-height:1;padding:2px 4px;color:#e3dfd5;cursor:pointer}.lw-stars button.on{color:#e8a91f}' +
+    '.lw-rate textarea{width:100%;min-height:80px;border:1px solid #e3dfd5;border-radius:8px;padding:10px;font:15px Inter,system-ui,sans-serif;margin:8px 0}.lw-rate .lw-note{font-size:12.5px;color:#8d9197}' +
+    '.lw-rate .lw-cm{border-top:1px solid #f0ede5;padding:10px 0 0;margin-top:10px}.lw-rate .lw-cm b{color:#e8a91f}.lw-rate .lw-err{color:#a8402f;font-size:14px}';
   var rs = document.createElement('style'); rs.textContent = rcss; document.head.appendChild(rs);
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function stars(n) { return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n); }

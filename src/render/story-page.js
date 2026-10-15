@@ -14,26 +14,26 @@ const isoDay = (d) => { const t = d ? new Date(String(d).replace(' ', 'T') + 'Z'
 
 const CSS = `<style>
 .st-wrap{max-width:860px;margin:0 auto;padding:clamp(18px,3vw,40px) clamp(16px,4vw,32px) 60px}
-.st-crumb{font-size:13.5px;color:#6b645b;margin:0 0 14px}.st-crumb a{color:#9a6f1c;text-decoration:none;font-weight:600}
-.st-img{display:block;border-radius:16px;overflow:hidden;background:#f1ece2;aspect-ratio:16/9;margin:0 0 clamp(16px,2.4vw,26px)}
+.st-crumb{font-size:13.5px;color:#636870;margin:0 0 14px}.st-crumb a{color:#b45309;text-decoration:none;font-weight:600}
+.st-img{display:block;border-radius:16px;overflow:hidden;background:#f0ede5;aspect-ratio:16/9;margin:0 0 clamp(16px,2.4vw,26px)}
 .st-img img{display:block;width:100%;height:100%;object-fit:cover}
 .st-firm{display:flex;align-items:center;gap:12px;margin:0 0 12px}
-.st-av{flex:none;width:48px;height:48px;border-radius:50%;background:#f1ece2;border:1px solid #e4ded3;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:700;color:#6b5a45}
+.st-av{flex:none;width:48px;height:48px;border-radius:50%;background:#f0ede5;border:1px solid #e3dfd5;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:700;color:#5d5f63}
 .st-av img{width:100%;height:100%;object-fit:contain;background:#fff}
-.st-firm a.n{font-weight:700;color:#2b2723;text-decoration:none;font-size:16px}.st-firm a.n:hover{text-decoration:underline}
-.st-firm .ft{background:#b8863b;color:#fff;border-radius:999px;padding:1px 8px;font-size:11px;font-weight:700;margin-left:8px}
-.st-firm small{display:block;color:#8f8a80;font-size:13px}
+.st-firm a.n{font-weight:700;color:#1f2328;text-decoration:none;font-size:16px}.st-firm a.n:hover{text-decoration:underline}
+.st-firm .ft{background:#b45309;color:#fff;border-radius:999px;padding:1px 8px;font-size:11px;font-weight:700;margin-left:8px}
+.st-firm small{display:block;color:#8d9197;font-size:13px}
 .st h1{font:700 clamp(28px,4.4vw,46px)/1.12 'Source Serif 4',serif;margin:0 0 14px;text-wrap:balance}
-.st .pre{font-size:clamp(16.5px,1.5vw,19px);line-height:1.7;color:#3b3631;margin:0 0 20px}
-.st-go{display:inline-block;background:#2b2723;color:#fff;border-radius:10px;padding:14px 22px;font-weight:700;text-decoration:none;font-size:16px}
-.st-go:hover{background:#9a6f1c}
+.st .pre{font-size:clamp(16.5px,1.5vw,19px);line-height:1.7;color:#30353b;margin:0 0 20px}
+.st-go{display:inline-block;background:#1f2328;color:#fff;border-radius:10px;padding:14px 22px;font-weight:700;text-decoration:none;font-size:16px}
+.st-go:hover{background:#b45309}
 .st-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.st-note{font-size:13px;color:#8f8a80;margin:12px 0 0;line-height:1.55}
-.st-box{background:#fff;border:1px solid #e4ded3;border-radius:14px;padding:18px 20px;margin:26px 0 0}
+.st-note{font-size:13px;color:#8d9197;margin:12px 0 0;line-height:1.55}
+.st-box{background:#fff;border:1px solid #e3dfd5;border-radius:14px;padding:18px 20px;margin:26px 0 0}
 .st-box h2{font:700 19px 'Source Serif 4',serif;margin:0 0 10px}
-.st-box ul{list-style:none;margin:0;padding:0}.st-box li{margin:0 0 9px}.st-box li a{color:#2b2723;font-weight:600;text-decoration:none}.st-box li a:hover{text-decoration:underline}.st-box li small{color:#8f8a80;margin-left:6px}
-.st-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}.st-chips span{background:#efe8d6;color:#7a5516;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600}
-.st-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}.st-row a{border:1px solid #2b2723;color:#2b2723;border-radius:8px;padding:10px 16px;font-weight:600;font-size:14.5px;text-decoration:none}
+.st-box ul{list-style:none;margin:0;padding:0}.st-box li{margin:0 0 9px}.st-box li a{color:#1f2328;font-weight:600;text-decoration:none}.st-box li a:hover{text-decoration:underline}.st-box li small{color:#8d9197;margin-left:6px}
+.st-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}.st-chips span{background:#f0ede5;color:#7a5516;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600}
+.st-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}.st-row a{border:1px solid #1f2328;color:#1f2328;border-radius:8px;padding:10px 16px;font-weight:600;font-size:14.5px;text-decoration:none}
 </style>`;
 
 const avatarOf = (firm) => {

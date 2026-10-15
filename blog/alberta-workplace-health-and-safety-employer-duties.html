@@ -117,31 +117,31 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap');
   :root{
-    --ink:#2b2723; --ink-soft:#6b645b; --brass:#d9a441; --brass-deep:#9a6f1c;
-    --red:#d9a441; --red-deep:#9a6f1c; --red-tint:#fbf3e3; --red-border:#edd9ae;
-    --cream:#f4f1ea; --card:#ffffff; --line:#dcd8cb; --dark:#1f1c19; --dark-2:#26221e; --green:#1f6f6b;
+    --ink:#1f2328; --ink-soft:#636870; --brass:#e8a91f; --brass-deep:#b45309;
+    --red:#e8a91f; --red-deep:#b45309; --red-tint:#fff3d4; --red-border:#f6dc9a;
+    --cream:#f8f6f1; --card:#ffffff; --line:#e3dfd5; --dark:#15181c; --dark-2:#15181c; --green:#1f6f6b;
   }
   *{box-sizing:border-box;}
   body{margin:0; font-family:'Inter',sans-serif; color:var(--ink); background:var(--cream);}
   a{color:inherit;}
   
-  .site-header{ height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:var(--dark,#1b1815); color:#fff; position:sticky; top:0; z-index:500; }
+  .site-header{ height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:var(--dark,#15181c); color:#fff; position:sticky; top:0; z-index:500; }
   .site-header .mark{ font-family:'Source Serif 4',serif; font-size:19px; font-weight:700; text-decoration:none; color:#fff; display:flex; align-items:center; gap:8px; }
   .brand-icon{ flex-shrink:0; display:block; }
   .site-header .header-right{ display:flex; align-items:center; gap:12px; }
-  .site-header .back-link{ font-size:12px; color:#aca59c; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link{ font-size:12px; color:#8d9197; text-decoration:none; white-space:nowrap; }
   .site-header .back-link:hover{ color:#fff; }
-  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#1c1204; background:var(--brass,#c99749); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
+  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#1f2328; background:var(--brass,#e0a93a); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
   .add-firm-btn:hover{ filter:brightness(1.08); }
   .hamburger-btn{ background:none; border:none; cursor:pointer; padding:6px; display:flex; flex-direction:column; gap:4px; }
   .hamburger-btn span{ display:block; width:22px; height:2px; background:#fff; border-radius:2px; }
   .menu-overlay{ position:fixed; inset:0; background:rgba(6,8,11,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
   .menu-overlay.open{ opacity:1; pointer-events:auto; }
-  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#1f1c19; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
+  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#15181c; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
   .menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(0,0,0,0.35); }
-  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#aca59c; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
-  .menu-drawer a{ color:#efece6; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #38332e; }
-  .menu-drawer a:hover{ color:var(--brass,#c99749); }
+  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#8d9197; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
+  .menu-drawer a{ color:#f0ede5; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #2a2f35; }
+  .menu-drawer a:hover{ color:var(--brass,#e0a93a); }
   .menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#e0342f); color:#fff; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
 
 
@@ -159,7 +159,7 @@
     align-items:flex-end; padding:26px; color:#fff; }
   .hero-banner span{ font-family:'Source Serif 4',serif; font-size:20px; font-weight:600;
     text-shadow:0 1px 3px rgba(0,0,0,0.25); }
-  .post-body{ font-size:16px; line-height:1.8; color:#3b3631; }
+  .post-body{ font-size:16px; line-height:1.8; color:#30353b; }
   .post-body h2{ font-family:'Source Serif 4',serif; font-size:21px; color:var(--ink); margin:32px 0 12px; }
   .post-body p{ margin:0 0 18px; }
   .post-cta{ background:var(--card); border:1px solid var(--line); border-left:3px solid var(--brass);
@@ -168,21 +168,21 @@
   .post-cta p{ margin:0; font-size:14px; color:var(--ink-soft); }
   .post-cta a{ color:var(--brass-deep); font-weight:600; text-decoration:none; }
   .post-cta a:hover{ text-decoration:underline; }
-  .fine{ font-size:11.5px; color:#8f8a80; margin-top:30px; line-height:1.6; }
+  .fine{ font-size:11.5px; color:#8d9197; margin-top:30px; line-height:1.6; }
 
   
-  .site-footer{ background:var(--dark,#1b1815); color:#8f8a80; padding:48px 20px 24px; }
-  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2e2a26; }
+  .site-footer{ background:var(--dark,#15181c); color:#8d9197; padding:48px 20px 24px; }
+  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2a2f35; }
   @media (max-width:760px){ .site-footer .foot-grid{ grid-template-columns:1fr 1fr; } }
   .site-footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:19px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
   .site-footer .fblurb{ font-size:13px; line-height:1.7; max-width:280px; }
   .site-footer h4{ color:#c7cfda; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px; font-weight:700; }
   .site-footer ul{ list-style:none; margin:0; padding:0; }
   .site-footer li{ margin-bottom:10px; }
-  .site-footer a{ color:#8f8a80; text-decoration:none; font-size:13.5px; }
+  .site-footer a{ color:#8d9197; text-decoration:none; font-size:13.5px; }
   .site-footer a:hover{ color:#fff; }
-  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#c99749); color:#1c1204; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
-  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#6b645b; }
+  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#e0a93a); color:#1f2328; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
+  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#636870; }
 
   footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:16px; margin-bottom:6px; display:block; }
 
@@ -193,10 +193,10 @@
     .site-header .mark .wordmark .name{ font-size:22px; }
     .site-header .mark .wordmark .tagline{ font-size:8.5px; }
     .desktop-nav{ display:flex; align-items:center; }
-    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#2b2723; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
-    .desktop-nav a:hover{ color:#9a6f1c; }
-    .desktop-nav .nav-cta{ background:#d9a441; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
-    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#9a6f1c; }
+    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#1f2328; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
+    .desktop-nav a:hover{ color:#b45309; }
+    .desktop-nav .nav-cta{ background:#e8a91f; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
+    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#b45309; }
     .hamburger-btn{ display:none; }
   }
 
@@ -206,7 +206,7 @@
   .faq h2{ font-family:'Source Serif 4',serif; font-size:21px; margin:0 0 14px; }
   .faq .q{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:4px 18px; margin:0 0 10px; }
   .faq .q h3{ font-size:15.5px; margin:14px 0 6px; color:var(--ink); }
-  .faq .q p{ font-size:14.5px; line-height:1.7; color:#3b3631; margin:0 0 14px; }
+  .faq .q p{ font-size:14.5px; line-height:1.7; color:#30353b; margin:0 0 14px; }
   .more{ margin:30px 0 0; }
   .more h2{ font-family:'Source Serif 4',serif; font-size:19px; margin:0 0 10px; }
   .more a{ display:block; padding:11px 0; border-bottom:1px solid var(--line); text-decoration:none; color:var(--ink); font-weight:600; font-size:14.5px; }
@@ -268,7 +268,7 @@
   </div>
   <div class="post-cta"><h3>Firm spotlight: Field Law</h3><p>Field Law is a western and northern regional business law firm with offices in Edmonton, Calgary and Yellowknife. Its Edmonton office traces its roots to 1915 and a firm called Woods, Sherry, Collison &amp; Field, and its Calgary office to 1921. In 2015 it expanded into Northern Canada and says it became the largest law firm serving the Northwest Territories. <a href="/firms/field-law">See the full Field Law profile</a>. Read more from <a href="https://www.fieldlaw.com" target="_blank" rel="noopener">Field Law’s website</a>.</p></div>
   <div class="faq"><h2>Frequently asked questions</h2><div class="q"><h3>What law governs workplace safety in Alberta?</h3><p>The Occupational Health and Safety Act, Regulation and Code.</p></div><div class="q"><h3>Do small employers have safety duties?</h3><p>Yes. All employers have duties, though some requirements depend on size and industry.</p></div><div class="q"><h3>Can a worker refuse unsafe work?</h3><p>Yes, if they reasonably believe it is dangerous, and they are protected from reprisal.</p></div><div class="q"><h3>Which incidents must be reported?</h3><p>Serious incidents as defined in the legislation, which must be reported and investigated.</p></div><div class="q"><h3>What is due diligence?</h3><p>Documented steps an employer took to prevent an incident, which can be an important defence.</p></div></div>
-  <div class="post-cta"><h3>Alberta firms to look at</h3><div style="margin-top:8px;"><a href='/firms/field-law' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #dcd8cb;text-decoration:none;color:#2b2723;"><span style="font-weight:600;font-size:14.5px;">Field Law</span><span style="font-size:13px;color:#9a6f1c;white-space:nowrap;margin-left:12px;">&#9733; 3.9 <span style="color:#8f8a80;">(60)</span></span></a><a href='/firms/parlee-mclaws-llp' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #dcd8cb;text-decoration:none;color:#2b2723;"><span style="font-weight:600;font-size:14.5px;">Parlee McLaws LLP</span><span style="font-size:13px;color:#9a6f1c;white-space:nowrap;margin-left:12px;">&#9733; 4.5 <span style="color:#8f8a80;">(22)</span></span></a><a href='/firms/bryan-and-company-llp' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #dcd8cb;text-decoration:none;color:#2b2723;"><span style="font-weight:600;font-size:14.5px;">Bryan &amp; Company LLP</span><span style="font-size:13px;color:#9a6f1c;white-space:nowrap;margin-left:12px;">&#9733; 4.1 <span style="color:#8f8a80;">(25)</span></span></a><a href='/firms/witten-llp' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #dcd8cb;text-decoration:none;color:#2b2723;"><span style="font-weight:600;font-size:14.5px;">Witten LLP</span><span style="font-size:13px;color:#9a6f1c;white-space:nowrap;margin-left:12px;">&#9733; 3.9 <span style="color:#8f8a80;">(54)</span></span></a></div>
+  <div class="post-cta"><h3>Alberta firms to look at</h3><div style="margin-top:8px;"><a href='/firms/field-law' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd5;text-decoration:none;color:#1f2328;"><span style="font-weight:600;font-size:14.5px;">Field Law</span><span style="font-size:13px;color:#b45309;white-space:nowrap;margin-left:12px;">&#9733; 3.9 <span style="color:#8d9197;">(60)</span></span></a><a href='/firms/parlee-mclaws-llp' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd5;text-decoration:none;color:#1f2328;"><span style="font-weight:600;font-size:14.5px;">Parlee McLaws LLP</span><span style="font-size:13px;color:#b45309;white-space:nowrap;margin-left:12px;">&#9733; 4.5 <span style="color:#8d9197;">(22)</span></span></a><a href='/firms/bryan-and-company-llp' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd5;text-decoration:none;color:#1f2328;"><span style="font-weight:600;font-size:14.5px;">Bryan &amp; Company LLP</span><span style="font-size:13px;color:#b45309;white-space:nowrap;margin-left:12px;">&#9733; 4.1 <span style="color:#8d9197;">(25)</span></span></a><a href='/firms/witten-llp' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd5;text-decoration:none;color:#1f2328;"><span style="font-weight:600;font-size:14.5px;">Witten LLP</span><span style="font-size:13px;color:#b45309;white-space:nowrap;margin-left:12px;">&#9733; 3.9 <span style="color:#8d9197;">(54)</span></span></a></div>
     <p style="margin-top:12px;"><a href="../alberta/edmonton/">See all Edmonton law firms</a> &middot; <a href="../alberta/">All Alberta law firms</a></p></div>
   <div class="more"><h2>More Alberta guides</h2><a href="/blog/wills-enduring-power-of-attorney-personal-directive-alberta">Wills, Powers of Attorney and Personal Directives in Alberta: The Documents You Actually Need<span>Wills &amp; Estates &middot; Edmonton, AB</span></a><a href="/blog/defamation-and-online-reviews-alberta-anti-slapp">Defamation and Online Reviews in Alberta: When a Post Becomes a Lawsuit<span>Media Law &middot; Edmonton, AB</span></a><a href="/blog/buying-selling-oil-gas-assets-alberta">Buying or Selling Oil and Gas Assets in Alberta: How the Deal Fits Together<span>Energy &middot; Calgary, AB</span></a></div>
   <div class="fine">General information for readers in Alberta, not legal advice for any specific situation. Laws, thresholds and deadlines change, so confirm current rules with a lawyer before relying on anything above. LawDB is an independent directory and is not affiliated with Field Law; firm details come from the firm’s own published descriptions and public listings.</div>

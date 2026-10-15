@@ -48,52 +48,52 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap');
   :root{
-    --ink:#2b2723; --ink-soft:#6b645b; --brass:#d9a441; --brass-deep:#9a6f1c;
-    --red:#d9a441; --red-deep:#9a6f1c; --red-tint:#fbf3e3; --red-border:#edd9ae;
-    --cream:#f4f1ea; --card:#ffffff; --line:#dcd8cb; --dark:#1f1c19; --dark-2:#26221e; --green:#1f6f6b;
+    --ink:#1f2328; --ink-soft:#636870; --brass:#e8a91f; --brass-deep:#b45309;
+    --red:#e8a91f; --red-deep:#b45309; --red-tint:#fff3d4; --red-border:#f6dc9a;
+    --cream:#f8f6f1; --card:#ffffff; --line:#e3dfd5; --dark:#15181c; --dark-2:#15181c; --green:#1f6f6b;
   }
   *{box-sizing:border-box;}
   body{margin:0; font-family:'Inter',sans-serif; color:var(--ink); background:var(--cream);}
   .wrap{ max-width:640px; margin:0 auto; padding:26px 18px 60px; }
   @media (min-width:900px){ .wrap{ max-width:860px; padding-top:44px; } .firm-head h1{ font-size:26px; } .actions{ gap:12px; } .article,.services,.guide{ padding:26px 30px; } }
   
-  .site-header{ height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#f4f1ea; border-bottom:1px solid #dcd8cb; color:#2b2723; position:sticky; top:0; z-index:500; }
+  .site-header{ height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#f8f6f1; border-bottom:1px solid #e3dfd5; color:#1f2328; position:sticky; top:0; z-index:500; }
   .site-header .mark{ text-decoration:none; display:flex; align-items:center; gap:10px; }
   .site-header .mark img{ height:34px; width:auto; display:block; }
   .site-header .mark .wordmark{ display:flex; flex-direction:column; line-height:1; }
-  .site-header .mark .wordmark .name{ font-family:'Inter',sans-serif; font-size:19px; font-weight:800; letter-spacing:-0.01em; color:#2b2723; }
-  .site-header .mark .wordmark .name .db{ color:#d9a441; }
-  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#9a6f1c; margin-top:2px; }
+  .site-header .mark .wordmark .name{ font-family:'Inter',sans-serif; font-size:19px; font-weight:800; letter-spacing:-0.01em; color:#1f2328; }
+  .site-header .mark .wordmark .name .db{ color:#e8a91f; }
+  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#b45309; margin-top:2px; }
   .brand-icon{ flex-shrink:0; display:block; }
   .site-header .header-right{ display:flex; align-items:center; gap:12px; }
-  .site-header .back-link{ font-size:12px; color:#7a756b; text-decoration:none; white-space:nowrap; }
-  .site-header .back-link:hover{ color:#2b2723; }
-  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#1c1204; background:var(--brass,#c99749); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link{ font-size:12px; color:#636870; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link:hover{ color:#1f2328; }
+  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#1f2328; background:var(--brass,#e0a93a); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
   .add-firm-btn:hover{ filter:brightness(1.08); }
   .hamburger-btn{ background:none; border:none; cursor:pointer; padding:6px; display:flex; flex-direction:column; gap:4px; }
-  .hamburger-btn span{ display:block; width:22px; height:2px; background:#2b2723; border-radius:2px; }
+  .hamburger-btn span{ display:block; width:22px; height:2px; background:#1f2328; border-radius:2px; }
   .menu-overlay{ position:fixed; inset:0; background:rgba(6,8,11,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
   .menu-overlay.open{ opacity:1; pointer-events:auto; }
-  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#1f1c19; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
+  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#15181c; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
   .menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(0,0,0,0.35); }
-  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#aca59c; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
-  .menu-drawer a{ color:#efece6; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #38332e; }
-  .menu-drawer a:hover{ color:var(--brass,#c99749); }
+  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#8d9197; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
+  .menu-drawer a{ color:#f0ede5; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #2a2f35; }
+  .menu-drawer a:hover{ color:var(--brass,#e0a93a); }
   .menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#e0342f); color:#fff; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
 
   
-  .site-footer{ background:var(--dark,#1b1815); color:#8f8a80; padding:48px 20px 24px; }
-  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2e2a26; }
+  .site-footer{ background:var(--dark,#15181c); color:#8d9197; padding:48px 20px 24px; }
+  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2a2f35; }
   @media (max-width:760px){ .site-footer .foot-grid{ grid-template-columns:1fr 1fr; } }
   .site-footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:19px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
   .site-footer .fblurb{ font-size:13px; line-height:1.7; max-width:280px; }
   .site-footer h4{ color:#c7cfda; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px; font-weight:700; }
   .site-footer ul{ list-style:none; margin:0; padding:0; }
   .site-footer li{ margin-bottom:10px; }
-  .site-footer a{ color:#8f8a80; text-decoration:none; font-size:13.5px; }
+  .site-footer a{ color:#8d9197; text-decoration:none; font-size:13.5px; }
   .site-footer a:hover{ color:#fff; }
-  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#c99749); color:#1c1204; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
-  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#6b645b; }
+  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#e0a93a); color:#1f2328; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
+  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#636870; }
 
   .guide{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:18px 20px; margin:22px 0; }
   .guide h2{ font-family:'Source Serif 4',serif; font-size:17px; margin:0 0 4px; }
@@ -101,7 +101,7 @@
   .guide h3{ font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--brass-deep); margin:16px 0 8px; }
   .guide ul{ margin:0; padding-left:18px; }
   .guide li{ font-size:13.5px; line-height:1.65; margin-bottom:7px; }
-  .guide p{ font-size:13.5px; line-height:1.7; margin:0; color:#3b3631; }
+  .guide p{ font-size:13.5px; line-height:1.7; margin:0; color:#30353b; }
   .nearby{ margin:22px 0; }
   .nearby h2{ font-family:'Source Serif 4',serif; font-size:17px; margin:0 0 12px; }
   .nearby a{ display:flex; justify-content:space-between; gap:10px; align-items:center;
@@ -114,17 +114,17 @@
   .firm-head h1{ margin:0; }
   .firm-monogram{ flex-shrink:0; border-radius:11px; }
   @media (max-width:480px){ .firm-head{ gap:11px; } .firm-monogram{ width:52px; height:52px; } }
-  .ribbon-basic{ display:inline-block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#7a756b; background:#eef0f2; padding:4px 10px; border-radius:20px; margin-bottom:10px; }
+  .ribbon-basic{ display:inline-block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#636870; background:#eef0f2; padding:4px 10px; border-radius:20px; margin-bottom:10px; }
   h1{ font-family:'Source Serif 4',serif; font-size:28px; margin:6px 0 4px; line-height:1.2; }
   .addr{ color:var(--ink-soft); font-size:14px; margin-bottom:14px; }
   .chips{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
-  .chip{ font-size:12px; background:#efe8d6; color:var(--brass-deep); padding:4px 10px; border-radius:20px; font-weight:600; }
+  .chip{ font-size:12px; background:#f0ede5; color:var(--brass-deep); padding:4px 10px; border-radius:20px; font-weight:600; }
   .rate-row{ display:flex; align-items:center; gap:8px; margin:14px 0 20px; font-size:15px; }
   .services{ background:var(--card); border:1px solid var(--line); border-radius:6px; padding:20px 22px; margin-bottom:24px; }
   .services h2{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 12px; }
   .services ul{ margin:0; padding-left:20px; }
-  .services li{ font-size:14px; line-height:1.9; color:#3b3631; }
-  .from-firm{ background:#fbf3e3; border:1px solid #edd9ae; border-radius:6px; padding:20px 22px; margin-bottom:24px; }
+  .services li{ font-size:14px; line-height:1.9; color:#30353b; }
+  .from-firm{ background:#fff3d4; border:1px solid #f6dc9a; border-radius:6px; padding:20px 22px; margin-bottom:24px; }
   .from-firm h2{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 4px; }
   .from-firm .post-title{ font-weight:700; font-size:14.5px; margin:8px 0 6px; }
   .from-firm p{ font-size:13.5px; line-height:1.7; color:#4a3a1e; margin:0 0 10px; }
@@ -136,14 +136,14 @@
   .a-web{ background:var(--ink); color:#fff; }
   .a-dir{ background:transparent; border:1px solid var(--ink); color:var(--ink); }
   .a-rev{ background:transparent; border:1px solid var(--brass); color:var(--brass-deep); }
-  .article{ font-size:15.5px; line-height:1.75; color:#3b3631; background:var(--card); border:1px solid var(--line); padding:20px 22px; border-radius:6px; margin-bottom:24px; }
+  .article{ font-size:15.5px; line-height:1.75; color:#30353b; background:var(--card); border:1px solid var(--line); padding:20px 22px; border-radius:6px; margin-bottom:24px; }
   .socials{ display:flex; gap:10px; flex-wrap:wrap; }
   .map-embed{ margin:22px 0; }
   .map-embed h2{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 12px; }
   .map-embed iframe{ display:block; width:100%; height:320px; border:0; border-radius:8px; border:1px solid var(--line); }
   .socials a{ font-size:13px; color:var(--ink-soft); text-decoration:none; border:1px solid var(--line); padding:8px 12px; border-radius:4px; }
   .socials a:hover{ border-color:var(--brass); color:var(--brass-deep); }
-  .fine{ font-size:11.5px; color:#8f8a80; margin-top:30px; line-height:1.6; }
+  .fine{ font-size:11.5px; color:#8d9197; margin-top:30px; line-height:1.6; }
 
   .desktop-nav{ display:none; }
   @media (min-width:900px){
@@ -152,10 +152,10 @@
     .site-header .mark .wordmark .name{ font-size:22px; }
     .site-header .mark .wordmark .tagline{ font-size:8.5px; }
     .desktop-nav{ display:flex; align-items:center; }
-    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#2b2723; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
-    .desktop-nav a:hover{ color:#9a6f1c; }
-    .desktop-nav .nav-cta{ background:#d9a441; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
-    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#9a6f1c; }
+    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#1f2328; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
+    .desktop-nav a:hover{ color:#b45309; }
+    .desktop-nav .nav-cta{ background:#e8a91f; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
+    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#b45309; }
     .hamburger-btn{ display:none; }
   }
 </style>
@@ -212,7 +212,7 @@
         <button type="button" class="ls-toggle" aria-expanded="false">Send message</button>
       </div>
       <div class="ls-more">
-      <p style="font-size:11.5px;color:#8f8a80;margin:0 0 14px;line-height:1.5;">By submitting, you agree LawDB may contact you about your inquiry and will share these details with Davidson Cahill Morrison LLP so they can respond. See our <a href="/privacy-policy" style="color:inherit;text-decoration:underline;">Privacy Policy</a>.</p>
+      <p style="font-size:11.5px;color:#8d9197;margin:0 0 14px;line-height:1.5;">By submitting, you agree LawDB may contact you about your inquiry and will share these details with Davidson Cahill Morrison LLP so they can respond. See our <a href="/privacy-policy" style="color:inherit;text-decoration:underline;">Privacy Policy</a>.</p>
       <form id="leadForm-davidson-cahill-morrison-llp" onsubmit="return false;">
         <input type="hidden" name="access_key" value="fab93f49-936a-43f3-95e9-104ed29e503f">
         <input type="hidden" name="firm_name" value="Davidson Cahill Morrison LLP">
@@ -220,22 +220,22 @@
         <input type="hidden" name="subject" value="New LawDB lead for Davidson Cahill Morrison LLP">
         <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
         <div style="margin-bottom:12px;">
-          <label style="display:block;font-size:12.5px;font-weight:600;color:#2b2723;margin-bottom:5px;">Your name</label>
-          <input type="text" name="name" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #dcd8cb;border-radius:5px;font-size:14px;font-family:inherit;">
+          <label style="display:block;font-size:12.5px;font-weight:600;color:#1f2328;margin-bottom:5px;">Your name</label>
+          <input type="text" name="name" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd5;border-radius:5px;font-size:14px;font-family:inherit;">
         </div>
         <div style="margin-bottom:12px;">
-          <label style="display:block;font-size:12.5px;font-weight:600;color:#2b2723;margin-bottom:5px;">Email</label>
-          <input type="email" name="email" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #dcd8cb;border-radius:5px;font-size:14px;font-family:inherit;">
+          <label style="display:block;font-size:12.5px;font-weight:600;color:#1f2328;margin-bottom:5px;">Email</label>
+          <input type="email" name="email" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd5;border-radius:5px;font-size:14px;font-family:inherit;">
         </div>
         <div style="margin-bottom:12px;">
-          <label style="display:block;font-size:12.5px;font-weight:600;color:#2b2723;margin-bottom:5px;">Phone (optional)</label>
-          <input type="tel" name="phone" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #dcd8cb;border-radius:5px;font-size:14px;font-family:inherit;">
+          <label style="display:block;font-size:12.5px;font-weight:600;color:#1f2328;margin-bottom:5px;">Phone (optional)</label>
+          <input type="tel" name="phone" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd5;border-radius:5px;font-size:14px;font-family:inherit;">
         </div>
         <div style="margin-bottom:16px;">
-          <label style="display:block;font-size:12.5px;font-weight:600;color:#2b2723;margin-bottom:5px;">Briefly describe your situation</label>
-          <textarea name="message" rows="4" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #dcd8cb;border-radius:5px;font-size:14px;font-family:inherit;resize:vertical;"></textarea>
+          <label style="display:block;font-size:12.5px;font-weight:600;color:#1f2328;margin-bottom:5px;">Briefly describe your situation</label>
+          <textarea name="message" rows="4" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd5;border-radius:5px;font-size:14px;font-family:inherit;resize:vertical;"></textarea>
         </div>
-        <button type="submit" id="leadBtn-davidson-cahill-morrison-llp" style="background:#2b2723;color:#fff;border:none;border-radius:5px;padding:12px 22px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;">Send Message</button>
+        <button type="submit" id="leadBtn-davidson-cahill-morrison-llp" style="background:#1f2328;color:#fff;border:none;border-radius:5px;padding:12px 22px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;">Send Message</button>
         <div id="leadStatus-davidson-cahill-morrison-llp" style="margin-top:12px;font-size:13.5px;"></div>
       </form>
       </div>
@@ -318,7 +318,7 @@
     </div>
   </div>
   <div class="foot-bottom">
-    &copy; 2026 LawDB.ca. Listing data sourced from Google's public business listings. LawDB is an independent directory and is not affiliated with, endorsed by, or representing any listed firm. Ratings, review counts, and practice-area tags reflect a snapshot at the time each page was generated and may have changed since. Something wrong with this listing? <a href="mailto:info@lawdb.ca?subject=Listing%20correction%3A%20davidson-cahill-morrison-llp" style="color:#aca59c;text-decoration:underline;">Report a correction</a>.
+    &copy; 2026 LawDB.ca. Listing data sourced from Google's public business listings. LawDB is an independent directory and is not affiliated with, endorsed by, or representing any listed firm. Ratings, review counts, and practice-area tags reflect a snapshot at the time each page was generated and may have changed since. Something wrong with this listing? <a href="mailto:info@lawdb.ca?subject=Listing%20correction%3A%20davidson-cahill-morrison-llp" style="color:#8d9197;text-decoration:underline;">Report a correction</a>.
   </div>
 </footer>
   <script>

@@ -20,6 +20,9 @@ const SIGNIN_MESSAGES = {
   unavailable: 'That sign-in option is not available right now. Please try the other button, or come back soon.',
 };
 
+// LawDB's own LinkedIn page, shown on the sign-in badge. Leave empty to hide the link.
+const LAWDB_LINKEDIN = '';
+
 async function renderLogin() {
   const msg = h('div');
   const q = new URLSearchParams(location.search).get('signin');
@@ -46,7 +49,12 @@ async function renderLogin() {
   // so nobody is ever locked out (admins still use the email link on /admin/).
   const OFFERED = ['google', 'linkedin'];
   const social = OFFERED.filter((k) => providers[k]).map((k) => h('a', { class: 'provider', href: `/api/auth/${k}/start` }, icon(k), k === 'google' ? 'Continue with Google' : 'Continue with LinkedIn'));
+  const badge = h('div', { class: 'lw-badge' },
+    h('img', { src: '/images/logo-icon.png', alt: 'LawDB', width: 56, height: 56 }),
+    h('div', { class: 'lw-badge-text' }, h('b', null, 'LawDB.ca'), h('span', null, 'Canada\u2019s Legal Directory')),
+    LAWDB_LINKEDIN && h('a', { class: 'lw-badge-li', href: LAWDB_LINKEDIN, target: '_blank', rel: 'noopener', 'aria-label': 'LawDB on LinkedIn' }, icon('linkedin'), 'LinkedIn'));
   mount(h('div', { class: 'wrap' }, h('div', { class: 'center card' },
+    badge,
     h('h1', null, 'Sign in to LawDB'),
     h('p', { class: 'muted' }, 'Follow law firms, save stories, rate the firms you have worked with, and manage your firm. Free. New here? The same sign-in creates your account.'),
     ...social,

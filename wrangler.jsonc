@@ -22,6 +22,8 @@
       "/ontario/*/", "/quebec/*/", "/british-columbia/*/", "/alberta/*/", "/manitoba/*/"
     ]
   },
+  // Keep anything added by hand in the dashboard (e.g. a "Text" variable) when this config is deployed.
+  "keep_vars": true,
   // Non-secret settings. Secrets (BREVO_API_KEY, ADMIN_EMAILS) are set in the Cloudflare dashboard:
   // Workers & Pages -> lawdb -> Settings -> Variables and Secrets.
   "vars": {

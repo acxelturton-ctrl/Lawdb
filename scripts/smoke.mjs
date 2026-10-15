@@ -7,6 +7,7 @@ import zlib from 'node:zlib';
 import { isDeepStrictEqual } from 'node:util';
 import { emailMatch } from '../src/routes/admin.js';
 import { checkOwnerText } from '../src/lib/content-rules.js';
+import { postalOf } from '../src/lib/geocode.js';
 import { parseFeed, parseWpPosts, fillWpMedia, plain as feedPlain, checkFeedUrl, cleanImageUrl, wpPostsUrlWithImages } from '../src/lib/feeds.js';
 import http from 'node:http';
 import { createHmac } from 'node:crypto';
@@ -185,6 +186,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(noPin.status === 201, 'create: coordinates are optional');
   const noPinFirm = (await call('GET', '/api/firms/' + noPin.data.slug)).data;
   ok(noPinFirm.lat >= 43 && noPinFirm.lat <= 44 && noPinFirm.lng >= -80 && noPinFirm.lng <= -79 && noPinFirm.approxCoords === true, 'create: without coordinates the pin goes to the middle of the city and is marked approximate');
+  ok(postalOf('103 Church St #400, Toronto, ON M5C 2G3')?.full === 'M5C 2G3' && postalOf('50 Main St, Ottawa ON k1p6l2')?.area === 'K1P' && postalOf('no code here') === null && postalOf('PO Box D1D 1D1') === null, 'a postal code written in an address is picked out, so it can place the pin');
   const noPinPage = await getRaw('/firms/' + noPin.data.slug);
   ok(noPinPage.status === 200 && !noPinPage.text.includes('maps?q='), 'an approximate pin hides the exact-location map on the firm page');
   ok((await call('POST', '/api/admin/firms', { ...body, caseTypes: ['nonsense'] })).status === 422, 'create: unknown category refused');

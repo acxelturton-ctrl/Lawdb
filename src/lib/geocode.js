@@ -24,9 +24,23 @@ const inCanada = (lat, lng) => lat >= 41 && lat <= 84 && lng >= -142 && lng <= -
 
 // A map position for a listing, so nobody has to look up coordinates by hand: the exact address when it can be found, otherwise the middle of
 // the city (the average of the firms already listed there, or a city lookup, or the province). `approx` says the pin is not the exact address.
+// The postal code written in an address, if any: { full: 'M5C 2G3', area: 'M5C' }. Canadian codes look like A1A 1A1.
+export function postalOf(text) {
+  const m = String(text || '').toUpperCase().match(/\b([ABCEGHJ-NPRSTVXY]\d[A-Z])\s?(\d[A-Z]\d)\b/);
+  return m ? { full: `${m[1]} ${m[2]}`, area: m[1] } : null;
+}
+
 export async function placeFor(env, { address, city, province }) {
   const exact = address ? await geocode(env, { address, city, province }) : null;
   if (exact) return { ...exact, approx: false };
+  // The postal code alone: a full code is about one block (good enough for the map), the first three characters are a neighbourhood.
+  const pc = postalOf(address);
+  if (pc) {
+    const block = await geocode(env, { address: pc.full, province });
+    if (block) return { ...block, approx: false };
+    const area = await geocode(env, { address: pc.area, province });
+    if (area) return { ...area, approx: true };
+  }
   try {
     const near = await env.DB.prepare("SELECT AVG(lat) AS lat, AVG(lng) AS lng, COUNT(*) AS n FROM firms WHERE status = 'live' AND city = ? AND province = ? AND lat IS NOT NULL AND lng IS NOT NULL").bind(city, province).first();
     if (near && near.n > 0 && inCanada(near.lat, near.lng)) return { lat: near.lat, lng: near.lng, approx: true };

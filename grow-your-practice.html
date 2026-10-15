@@ -35,28 +35,28 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap');
   :root{
-    --ink:#2b2723; --ink-soft:#6b645b; --brass:#d9a441; --brass-deep:#9a6f1c;
-    --red:#d9a441; --red-deep:#9a6f1c; --red-tint:#fbf3e3; --red-border:#edd9ae;
-    --cream:#f4f1ea; --card:#ffffff; --line:#dcd8cb; --dark:#1f1c19; --dark-2:#26221e; --green:#1f6f6b;
+    --ink:#1f2328; --ink-soft:#636870; --brass:#e8a91f; --brass-deep:#b45309;
+    --red:#e8a91f; --red-deep:#b45309; --red-tint:#fff3d4; --red-border:#f6dc9a;
+    --cream:#f8f6f1; --card:#ffffff; --line:#e3dfd5; --dark:#15181c; --dark-2:#15181c; --green:#1f6f6b;
   }
   *{box-sizing:border-box;}
   body{margin:0; font-family:'Inter',sans-serif; color:var(--ink); background:var(--cream);}
   a{color:inherit;}
-  .site-header{ height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:var(--dark,#1b1815); color:#fff; position:sticky; top:0; z-index:500; }
+  .site-header{ height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:var(--dark,#15181c); color:#fff; position:sticky; top:0; z-index:500; }
   .site-header .mark{ font-family:'Source Serif 4',serif; font-size:19px; font-weight:700; text-decoration:none; color:#fff; display:flex; align-items:center; gap:8px; }
   .brand-icon{ flex-shrink:0; display:block; }
   .site-header .header-right{ display:flex; align-items:center; gap:12px; }
-  .site-header .back-link{ font-size:12px; color:#aca59c; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link{ font-size:12px; color:#8d9197; text-decoration:none; white-space:nowrap; }
   .site-header .back-link:hover{ color:#fff; }
   .hamburger-btn{ background:none; border:none; cursor:pointer; padding:6px; display:flex; flex-direction:column; gap:4px; }
   .hamburger-btn span{ display:block; width:22px; height:2px; background:#fff; border-radius:2px; }
   .menu-overlay{ position:fixed; inset:0; background:rgba(6,8,11,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
   .menu-overlay.open{ opacity:1; pointer-events:auto; }
-  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#1f1c19; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
+  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#15181c; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
   .menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(0,0,0,0.35); }
-  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#aca59c; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
-  .menu-drawer a{ color:#efece6; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #38332e; }
-  .menu-drawer a:hover{ color:var(--brass,#c99749); }
+  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#8d9197; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
+  .menu-drawer a{ color:#f0ede5; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #2a2f35; }
+  .menu-drawer a:hover{ color:var(--brass,#e0a93a); }
   .menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#e0342f); color:#fff; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
   .wrap{ max-width:720px; margin:0 auto; padding:36px 20px 80px; }
   @media (min-width:900px){ .wrap{ max-width:780px; padding-top:48px; } }
@@ -68,7 +68,7 @@
   h1{ font-family:'Source Serif 4',serif; font-size:30px; line-height:1.28; margin:0 0 18px; }
   .hero-banner{ width:100%; height:200px; border-radius:8px; margin-bottom:26px; display:flex; align-items:flex-end; padding:26px; color:#fff; }
   .hero-banner span{ font-family:'Source Serif 4',serif; font-size:20px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.25); }
-  .post-body{ font-size:16px; line-height:1.8; color:#3b3631; }
+  .post-body{ font-size:16px; line-height:1.8; color:#30353b; }
   .post-body h2{ font-family:'Source Serif 4',serif; font-size:21px; color:var(--ink); margin:32px 0 12px; }
   .post-body p{ margin:0 0 18px; }
   .post-body a{ color:var(--brass-deep); font-weight:600; text-decoration:none; }
@@ -84,18 +84,18 @@
   .related li{ margin-bottom:6px; font-size:14px; }
   .related a{ color:var(--ink); font-weight:600; text-decoration:none; }
   .related a:hover{ color:var(--brass-deep); text-decoration:underline; }
-  .fine{ font-size:11.5px; color:#8f8a80; margin-top:30px; line-height:1.6; }
-  .site-footer{ background:var(--dark,#1b1815); color:#8f8a80; padding:48px 20px 24px; }
-  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2e2a26; }
+  .fine{ font-size:11.5px; color:#8d9197; margin-top:30px; line-height:1.6; }
+  .site-footer{ background:var(--dark,#15181c); color:#8d9197; padding:48px 20px 24px; }
+  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2a2f35; }
   @media (max-width:760px){ .site-footer .foot-grid{ grid-template-columns:1fr 1fr; } }
   .site-footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:19px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
   .site-footer .fblurb{ font-size:13px; line-height:1.7; max-width:280px; }
   .site-footer h4{ color:#c7cfda; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px; font-weight:700; }
   .site-footer ul{ list-style:none; margin:0; padding:0; }
   .site-footer li{ margin-bottom:10px; }
-  .site-footer a{ color:#8f8a80; text-decoration:none; font-size:13.5px; }
+  .site-footer a{ color:#8d9197; text-decoration:none; font-size:13.5px; }
   .site-footer a:hover{ color:#fff; }
-  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#6b645b; }
+  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#636870; }
 
   .wrap2{ max-width:960px; margin:0 auto; padding:40px 20px 80px; }
   h1.hub{ font-family:'Source Serif 4',serif; font-size:34px; margin:0 0 10px; }
@@ -116,10 +116,10 @@
     .site-header .mark .wordmark .name{ font-size:22px; }
     .site-header .mark .wordmark .tagline{ font-size:8.5px; }
     .desktop-nav{ display:flex; align-items:center; }
-    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#2b2723; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
-    .desktop-nav a:hover{ color:#9a6f1c; }
-    .desktop-nav .nav-cta{ background:#d9a441; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
-    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#9a6f1c; }
+    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#1f2328; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
+    .desktop-nav a:hover{ color:#b45309; }
+    .desktop-nav .nav-cta{ background:#e8a91f; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
+    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#b45309; }
     .hamburger-btn{ display:none; }
   }
 </style>
@@ -162,21 +162,21 @@
   <h1 class="hub">Grow Your Practice</h1>
   <p class="sub">Free, practical guides on how Canadian lawyers and law firms get more clients online - from Google Business Profile and SEO basics to directories, referrals, reviews, and paid ads, plus what's different by practice area and province.</p>
   <div class="grid2">
-    <a class="card2" href="/grow-your-practice/how-lawyers-get-more-clients-2026"><div class="card-banner" style="background:linear-gradient(135deg,#2b2723 0%,#5f584f 100%);"><span>Practice Growth</span></div><div class="card2-body"><h2>How Lawyers Get More Clients in Canada: A 2026 Guide</h2><p>A practical breakdown of how Canadian lawyers actually generate new clients in 2026 - Google Business Profile, directories, referrals, content, and paid ads, in the order most firms should tackle them.</p></div></a>
-    <a class="card2" href="/grow-your-practice/lawyer-lead-generation-guide"><div class="card-banner" style="background:linear-gradient(135deg,#6b5a45 0%,#676057 100%);"><span>Lead Generation</span></div><div class="card2-body"><h2>Lawyer Lead Generation: A Complete Guide for Canadian Firms</h2><p>What lead generation actually means for a law firm, the difference between a good lead source and a wasteful one, and how to track it without expensive software.</p></div></a>
-    <a class="card2" href="/grow-your-practice/best-legal-directories-canada"><div class="card-banner" style="background:linear-gradient(135deg,#4a443d 0%,#797269 100%);"><span>Directories</span></div><div class="card2-body"><h2>The Best Legal Directories to List Your Law Firm On in Canada</h2><p>A rundown of the legal directories worth a Canadian firm&#x27;s time in 2026, what separates a useful one from a dead one, and how to prioritize your listings.</p></div></a>
-    <a class="card2" href="/grow-your-practice/seo-for-lawyers-beginners-guide"><div class="card-banner" style="background:linear-gradient(135deg,#3b3631 0%,#7b746b 100%);"><span>SEO</span></div><div class="card2-body"><h2>SEO for Lawyers: A Beginner&#x27;s Guide to Ranking on Google</h2><p>How SEO actually works for a law firm website, and the technical and content basics that move the needle before you hire an agency.</p></div></a>
-    <a class="card2" href="/grow-your-practice/google-business-profile-for-law-firms"><div class="card-banner" style="background:linear-gradient(135deg,#4a443d 0%,#797269 100%);"><span>Local SEO</span></div><div class="card2-body"><h2>How to Optimize Your Google Business Profile as a Law Firm</h2><p>Google Business Profile is often the first thing a prospective client sees. How to set one up correctly and what actually affects your local ranking.</p></div></a>
+    <a class="card2" href="/grow-your-practice/how-lawyers-get-more-clients-2026"><div class="card-banner" style="background:linear-gradient(135deg,#1f2328 0%,#5f584f 100%);"><span>Practice Growth</span></div><div class="card2-body"><h2>How Lawyers Get More Clients in Canada: A 2026 Guide</h2><p>A practical breakdown of how Canadian lawyers actually generate new clients in 2026 - Google Business Profile, directories, referrals, content, and paid ads, in the order most firms should tackle them.</p></div></a>
+    <a class="card2" href="/grow-your-practice/lawyer-lead-generation-guide"><div class="card-banner" style="background:linear-gradient(135deg,#5d5f63 0%,#676057 100%);"><span>Lead Generation</span></div><div class="card2-body"><h2>Lawyer Lead Generation: A Complete Guide for Canadian Firms</h2><p>What lead generation actually means for a law firm, the difference between a good lead source and a wasteful one, and how to track it without expensive software.</p></div></a>
+    <a class="card2" href="/grow-your-practice/best-legal-directories-canada"><div class="card-banner" style="background:linear-gradient(135deg,#3f444b 0%,#797269 100%);"><span>Directories</span></div><div class="card2-body"><h2>The Best Legal Directories to List Your Law Firm On in Canada</h2><p>A rundown of the legal directories worth a Canadian firm&#x27;s time in 2026, what separates a useful one from a dead one, and how to prioritize your listings.</p></div></a>
+    <a class="card2" href="/grow-your-practice/seo-for-lawyers-beginners-guide"><div class="card-banner" style="background:linear-gradient(135deg,#30353b 0%,#7b746b 100%);"><span>SEO</span></div><div class="card2-body"><h2>SEO for Lawyers: A Beginner&#x27;s Guide to Ranking on Google</h2><p>How SEO actually works for a law firm website, and the technical and content basics that move the needle before you hire an agency.</p></div></a>
+    <a class="card2" href="/grow-your-practice/google-business-profile-for-law-firms"><div class="card-banner" style="background:linear-gradient(135deg,#3f444b 0%,#797269 100%);"><span>Local SEO</span></div><div class="card2-body"><h2>How to Optimize Your Google Business Profile as a Law Firm</h2><p>Google Business Profile is often the first thing a prospective client sees. How to set one up correctly and what actually affects your local ranking.</p></div></a>
     <a class="card2" href="/grow-your-practice/lawyer-online-reviews-guide"><div class="card-banner" style="background:linear-gradient(135deg,#4a3b52 0%,#7d5a75 100%);"><span>Reputation</span></div><div class="card2-body"><h2>Why Online Reviews Matter More Than Ever for Law Firms (and How to Get More)</h2><p>Reviews now influence both what clients decide and how Google ranks your firm locally. A practical, ethical way to ask for more of them.</p></div></a>
-    <a class="card2" href="/grow-your-practice/solo-lawyer-marketing-guide"><div class="card-banner" style="background:linear-gradient(135deg,#4a443d 0%,#857e75 100%);"><span>Solo Practice</span></div><div class="card2-body"><h2>Solo Lawyer Marketing: How to Compete With Bigger Firms</h2><p>A solo practice can&#x27;t outspend a 50-lawyer firm on ads, but it can out-execute on the channels that actually matter at a small scale.</p></div></a>
-    <a class="card2" href="/grow-your-practice/referral-network-for-lawyers"><div class="card-banner" style="background:linear-gradient(135deg,#6b5a45 0%,#8b847b 100%);"><span>Referrals</span></div><div class="card2-body"><h2>Building a Referral Network as a Lawyer: A Practical Guide</h2><p>Referrals are still the highest-converting client source for most firms. How to build a referral network deliberately instead of waiting for it to happen.</p></div></a>
+    <a class="card2" href="/grow-your-practice/solo-lawyer-marketing-guide"><div class="card-banner" style="background:linear-gradient(135deg,#3f444b 0%,#857e75 100%);"><span>Solo Practice</span></div><div class="card2-body"><h2>Solo Lawyer Marketing: How to Compete With Bigger Firms</h2><p>A solo practice can&#x27;t outspend a 50-lawyer firm on ads, but it can out-execute on the channels that actually matter at a small scale.</p></div></a>
+    <a class="card2" href="/grow-your-practice/referral-network-for-lawyers"><div class="card-banner" style="background:linear-gradient(135deg,#5d5f63 0%,#8b847b 100%);"><span>Referrals</span></div><div class="card2-body"><h2>Building a Referral Network as a Lawyer: A Practical Guide</h2><p>Referrals are still the highest-converting client source for most firms. How to build a referral network deliberately instead of waiting for it to happen.</p></div></a>
     <a class="card2" href="/grow-your-practice/how-personal-injury-lawyers-get-more-clients"><div class="card-banner" style="background:linear-gradient(135deg,#4a3b52 0%,#7d5a75 100%);"><span>Personal Injury</span></div><div class="card2-body"><h2>How Personal Injury Lawyers Get More Clients Online</h2><p>Personal injury is one of the most competitive practice areas online. What actually works for PI firms trying to reach injured clients before a competitor does.</p></div></a>
     <a class="card2" href="/grow-your-practice/how-family-lawyers-get-more-clients"><div class="card-banner" style="background:linear-gradient(135deg,#484138 0%,#726b62 100%);"><span>Family Law</span></div><div class="card2-body"><h2>How Family Lawyers Attract More Clients Searching Online</h2><p>Family law clients are searching under stress, often at odd hours. What that means for how a family lawyer should show up online.</p></div></a>
-    <a class="card2" href="/grow-your-practice/how-immigration-lawyers-get-more-clients"><div class="card-banner" style="background:linear-gradient(135deg,#4a443d 0%,#797269 100%);"><span>Immigration</span></div><div class="card2-body"><h2>How Immigration Lawyers Can Reach More Clients Online</h2><p>Immigration clients often start their search from outside Canada, sometimes in a different language. What that changes about marketing an immigration practice.</p></div></a>
-    <a class="card2" href="/grow-your-practice/how-criminal-defence-lawyers-get-more-clients"><div class="card-banner" style="background:linear-gradient(135deg,#2b2723 0%,#6b645b 100%);"><span>Criminal Defence</span></div><div class="card2-body"><h2>How Criminal Defence Lawyers Get Found by Clients Searching Online</h2><p>A criminal charge usually means someone is searching for a lawyer within hours, not weeks. What that urgency means for a defence firm&#x27;s marketing.</p></div></a>
-    <a class="card2" href="/grow-your-practice/law-firm-google-ads-guide"><div class="card-banner" style="background:linear-gradient(135deg,#9a6f1c 0%,#d9a441 100%);"><span>Paid Advertising</span></div><div class="card2-body"><h2>Should Your Law Firm Advertise on Google? Costs, ROI, and What to Expect</h2><p>Legal keywords are some of the most expensive in Google Ads. What a realistic budget looks like and when ads make more sense than organic search.</p></div></a>
-    <a class="card2" href="/grow-your-practice/law-firm-website-mistakes"><div class="card-banner" style="background:linear-gradient(135deg,#6b645b 0%,#8f8a80 100%);"><span>Website</span></div><div class="card2-body"><h2>7 Website Mistakes That Cost Law Firms New Clients</h2><p>The common, fixable mistakes on law firm websites that quietly turn away potential clients before they ever pick up the phone.</p></div></a>
-    <a class="card2" href="/grow-your-practice/quebec-bc-ontario-lawyer-marketing-differences"><div class="card-banner" style="background:linear-gradient(135deg,#2b2723 0%,#6b645b 100%);"><span>Provincial Rules</span></div><div class="card2-body"><h2>How Lawyer Marketing Differs Across Ontario, Quebec, and BC</h2><p>Advertising rules, language requirements, and client search habits aren&#x27;t the same in Ontario, Quebec, and BC. What that means for a firm operating in more than one.</p></div></a>
+    <a class="card2" href="/grow-your-practice/how-immigration-lawyers-get-more-clients"><div class="card-banner" style="background:linear-gradient(135deg,#3f444b 0%,#797269 100%);"><span>Immigration</span></div><div class="card2-body"><h2>How Immigration Lawyers Can Reach More Clients Online</h2><p>Immigration clients often start their search from outside Canada, sometimes in a different language. What that changes about marketing an immigration practice.</p></div></a>
+    <a class="card2" href="/grow-your-practice/how-criminal-defence-lawyers-get-more-clients"><div class="card-banner" style="background:linear-gradient(135deg,#1f2328 0%,#636870 100%);"><span>Criminal Defence</span></div><div class="card2-body"><h2>How Criminal Defence Lawyers Get Found by Clients Searching Online</h2><p>A criminal charge usually means someone is searching for a lawyer within hours, not weeks. What that urgency means for a defence firm&#x27;s marketing.</p></div></a>
+    <a class="card2" href="/grow-your-practice/law-firm-google-ads-guide"><div class="card-banner" style="background:linear-gradient(135deg,#b45309 0%,#e8a91f 100%);"><span>Paid Advertising</span></div><div class="card2-body"><h2>Should Your Law Firm Advertise on Google? Costs, ROI, and What to Expect</h2><p>Legal keywords are some of the most expensive in Google Ads. What a realistic budget looks like and when ads make more sense than organic search.</p></div></a>
+    <a class="card2" href="/grow-your-practice/law-firm-website-mistakes"><div class="card-banner" style="background:linear-gradient(135deg,#636870 0%,#8d9197 100%);"><span>Website</span></div><div class="card2-body"><h2>7 Website Mistakes That Cost Law Firms New Clients</h2><p>The common, fixable mistakes on law firm websites that quietly turn away potential clients before they ever pick up the phone.</p></div></a>
+    <a class="card2" href="/grow-your-practice/quebec-bc-ontario-lawyer-marketing-differences"><div class="card-banner" style="background:linear-gradient(135deg,#1f2328 0%,#636870 100%);"><span>Provincial Rules</span></div><div class="card2-body"><h2>How Lawyer Marketing Differs Across Ontario, Quebec, and BC</h2><p>Advertising rules, language requirements, and client search habits aren&#x27;t the same in Ontario, Quebec, and BC. What that means for a firm operating in more than one.</p></div></a>
   </div>
 </div>
 <footer class="site-footer">

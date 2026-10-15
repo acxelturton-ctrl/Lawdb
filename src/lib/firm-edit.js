@@ -121,7 +121,7 @@ const FOLD = new RegExp('[' + String.fromCharCode(0x300) + '-' + String.fromChar
 export const slugify = (text) =>
   String(text).normalize('NFKD').replace(FOLD, '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
 
-const MONO_COLORS = ['#3a3a1c', '#6b5a45', '#2e4a43', '#4a3a5c', '#5c3a3a', '#35506b', '#4f4a2e', '#5a4636'];
+const MONO_COLORS = ['#3a3a1c', '#5d5f63', '#2e4a43', '#4a3a5c', '#5c3a3a', '#35506b', '#4f4a2e', '#5a4636'];
 const initialsOf = (name) => {
   const words = name.replace(/[^A-Za-z0-9 ]/g, ' ').split(/\s+/).filter((w) => w && !/^(law|llp|the|and|of|office|offices|firm|professional|corporation)$/i.test(w));
   return ((words[0] || name)[0] + ((words[1] || '')[0] || '')).toUpperCase();

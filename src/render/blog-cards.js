@@ -6,36 +6,36 @@ const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').
 export const BLOG_CSS = `<style>
 .lw-blog{margin:26px 0}
 .lw-blog h2{font-size:18px;margin:0 0 4px}
-.lw-blog .lw-blog-sub{margin:0 0 12px;color:#6b645a;font-size:13px}
+.lw-blog .lw-blog-sub{margin:0 0 12px;color:#636870;font-size:13px}
 .lw-bc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
-.lw-bc{background:#fff;border:1px solid #e4ded3;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
-.lw-bc-img{display:block;aspect-ratio:16/9;background:#f1ece2;overflow:hidden}
+.lw-bc{background:#fff;border:1px solid #e3dfd5;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.lw-bc-img{display:block;aspect-ratio:16/9;background:#f0ede5;overflow:hidden}
 .lw-bc-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .25s ease}
 .lw-bc:hover .lw-bc-img img{transform:scale(1.03)}
 .lw-bc-in{padding:14px 16px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
-.lw-bc time{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:#8f8a80;font-weight:600}
+.lw-bc time{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:#8d9197;font-weight:600}
 .lw-bc h3{margin:0;font-size:15.5px;line-height:1.3}
 .lw-bc h3 a{color:inherit;text-decoration:none}.lw-bc h3 a:hover{text-decoration:underline}
-.lw-bc p{margin:0;font-size:13.5px;line-height:1.55;color:#4a453d}
+.lw-bc p{margin:0;font-size:13.5px;line-height:1.55;color:#3f444b}
 .lw-bc details{margin-top:2px}
 .lw-bc summary{cursor:pointer;color:#8a6420;font-weight:700;font-size:12.5px;list-style:none;padding:2px 0}
 .lw-bc summary::-webkit-details-marker{display:none}
 .lw-bc summary::after{content:' \\25BE'}.lw-bc details[open] summary::after{content:' \\25B4'}
 .lw-bc details[open] summary{margin-bottom:6px}
 .lw-bc .lw-more{margin-bottom:10px}
-.lw-bc .lw-go{display:inline-block;background:#2b2723;color:#fff;border-radius:6px;padding:8px 12px;font-size:12.5px;font-weight:700;text-decoration:none}
+.lw-bc .lw-go{display:inline-block;background:#1f2328;color:#fff;border-radius:6px;padding:8px 12px;font-size:12.5px;font-weight:700;text-decoration:none}
 .lw-bc:has(details[open]) .lw-teaser{display:none}
-.lw-blog .lw-note{margin:10px 0 0;font-size:11.5px;color:#8f8a80;line-height:1.5}
+.lw-blog .lw-note{margin:10px 0 0;font-size:11.5px;color:#8d9197;line-height:1.5}
 /* LawDB News: a feed, one big card at a time on a phone (post header, large picture, headline, preview) */
 .lw-feed{grid-template-columns:1fr;gap:18px}
 @media(min-width:900px){.lw-feed{grid-template-columns:repeat(2,1fr);gap:22px}}
-.lw-feed .lw-bc{border-radius:14px;box-shadow:0 1px 2px rgba(43,39,35,.06)}
+.lw-feed .lw-bc{border-radius:14px;box-shadow:0 1px 2px rgba(31,35,40,.06)}
 .lw-feed .lw-bc-head{display:flex;align-items:center;gap:10px;padding:12px 16px}
-.lw-feed .lw-av{flex:none;width:40px;height:40px;border-radius:50%;background:#f1ece2;border:1px solid #e4ded3;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:700;color:#6b5a45}
+.lw-feed .lw-av{flex:none;width:40px;height:40px;border-radius:50%;background:#f0ede5;border:1px solid #e3dfd5;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:700;color:#5d5f63}
 .lw-feed .lw-av img{width:100%;height:100%;object-fit:contain;background:#fff}
 .lw-feed .lw-who{min-width:0;display:flex;flex-direction:column;line-height:1.25}
 .lw-feed .lw-who .lw-by{font-size:14px}
-.lw-feed .lw-who time{font-size:12px;letter-spacing:0;text-transform:none;font-weight:500;color:#8f8a80}
+.lw-feed .lw-who time{font-size:12px;letter-spacing:0;text-transform:none;font-weight:500;color:#8d9197}
 .lw-feed .lw-bc-img{aspect-ratio:4/3}
 @media(min-width:900px){.lw-feed .lw-bc-img{aspect-ratio:16/10}}
 .lw-feed .lw-bc-in{padding:16px 18px 20px;gap:10px}

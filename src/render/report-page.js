@@ -16,11 +16,11 @@ const REASONS = [
 export function renderReportPage({ slug = '', firmName = '' }) {
   const label = firmName ? `Report: ${esc(firmName)}` : 'Report a listing';
   const css = `
-.rp{max-width:560px;margin:28px auto;background:#fff;border:1px solid #e4ded3;border-radius:12px;padding:22px}
-.rp h1{font-size:22px;margin:0 0 6px}.rp p{color:#6b645a;font-size:14px;line-height:1.5}
+.rp{max-width:560px;margin:28px auto;background:#fff;border:1px solid #e3dfd5;border-radius:12px;padding:22px}
+.rp h1{font-size:22px;margin:0 0 6px}.rp p{color:#636870;font-size:14px;line-height:1.5}
 .rp label{display:block;font-weight:600;font-size:14px;margin:14px 0 4px}
 .rp input,.rp select,.rp textarea{width:100%;box-sizing:border-box;padding:10px 12px;font:inherit;border:1px solid #d9d3c7;border-radius:6px;background:#fff}
-.rp textarea{min-height:110px}.rp button{margin-top:16px;background:#2b2723;color:#fff;border:0;border-radius:6px;padding:12px 22px;font-weight:700;font:inherit;cursor:pointer}
+.rp textarea{min-height:110px}.rp button{margin-top:16px;background:#1f2328;color:#fff;border:0;border-radius:6px;padding:12px 22px;font-weight:700;font:inherit;cursor:pointer}
 .rp .ok{background:#e8f3ea;color:#1e6b3a;padding:12px;border-radius:8px}.rp .err{background:#fbeceb;color:#a1261c;padding:10px;border-radius:8px;margin-top:12px}`;
   return [
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n' + C.FAVICONS + '\n<meta name="viewport" content="width=device-width, initial-scale=1.0">',

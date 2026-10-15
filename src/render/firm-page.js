@@ -44,7 +44,7 @@ export function hoursCard(hours, province) {
 
 function monogram(f) {
   const ini = esc((f.initials || f.name || '?').slice(0, 3).toUpperCase());
-  const col = /^#[0-9a-fA-F]{6}$/.test(f.color || '') ? f.color : '#6b5a45';
+  const col = /^#[0-9a-fA-F]{6}$/.test(f.color || '') ? f.color : '#5d5f63';
   return `<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${ini}"><rect width="60" height="60" rx="10.8" fill="${col}"/><text x="50%" y="50%" dy="0.35em" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="24.0" fill="#ffffff" letter-spacing="0.02em">${ini}</text></svg>`;
 }
 

@@ -35,36 +35,36 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap');
   :root{
-    --ink:#2b2723; --ink-soft:#6b645b; --brass:#d9a441; --brass-deep:#9a6f1c;
-    --red:#d9a441; --red-deep:#9a6f1c; --red-tint:#fbf3e3; --red-border:#edd9ae;
-    --cream:#f4f1ea; --card:#ffffff; --line:#dcd8cb; --dark:#1f1c19; --dark-2:#26221e; --green:#1f6f6b;
+    --ink:#1f2328; --ink-soft:#636870; --brass:#e8a91f; --brass-deep:#b45309;
+    --red:#e8a91f; --red-deep:#b45309; --red-tint:#fff3d4; --red-border:#f6dc9a;
+    --cream:#f8f6f1; --card:#ffffff; --line:#e3dfd5; --dark:#15181c; --dark-2:#15181c; --green:#1f6f6b;
   }
   *{box-sizing:border-box;}
   body{margin:0; font-family:'Inter',sans-serif; color:var(--ink); background:var(--cream);}
   a{color:inherit;}
   
-  .site-header{ height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#f4f1ea; border-bottom:1px solid #dcd8cb; color:#2b2723; position:sticky; top:0; z-index:500; }
+  .site-header{ height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#f8f6f1; border-bottom:1px solid #e3dfd5; color:#1f2328; position:sticky; top:0; z-index:500; }
   .site-header .mark{ text-decoration:none; display:flex; align-items:center; gap:10px; }
   .site-header .mark img{ height:34px; width:auto; display:block; }
   .site-header .mark .wordmark{ display:flex; flex-direction:column; line-height:1; }
-  .site-header .mark .wordmark .name{ font-family:'Inter',sans-serif; font-size:19px; font-weight:800; letter-spacing:-0.01em; color:#2b2723; }
-  .site-header .mark .wordmark .name .db{ color:#d9a441; }
-  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#9a6f1c; margin-top:2px; }
+  .site-header .mark .wordmark .name{ font-family:'Inter',sans-serif; font-size:19px; font-weight:800; letter-spacing:-0.01em; color:#1f2328; }
+  .site-header .mark .wordmark .name .db{ color:#e8a91f; }
+  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#b45309; margin-top:2px; }
   .brand-icon{ flex-shrink:0; display:block; }
   .site-header .header-right{ display:flex; align-items:center; gap:12px; }
-  .site-header .back-link{ font-size:12px; color:#7a756b; text-decoration:none; white-space:nowrap; }
-  .site-header .back-link:hover{ color:#2b2723; }
-  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#1c1204; background:var(--brass,#c99749); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link{ font-size:12px; color:#636870; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link:hover{ color:#1f2328; }
+  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#1f2328; background:var(--brass,#e0a93a); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
   .add-firm-btn:hover{ filter:brightness(1.08); }
   .hamburger-btn{ background:none; border:none; cursor:pointer; padding:6px; display:flex; flex-direction:column; gap:4px; }
-  .hamburger-btn span{ display:block; width:22px; height:2px; background:#2b2723; border-radius:2px; }
+  .hamburger-btn span{ display:block; width:22px; height:2px; background:#1f2328; border-radius:2px; }
   .menu-overlay{ position:fixed; inset:0; background:rgba(6,8,11,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
   .menu-overlay.open{ opacity:1; pointer-events:auto; }
-  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#1f1c19; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
+  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#15181c; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
   .menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(0,0,0,0.35); }
-  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#aca59c; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
-  .menu-drawer a{ color:#efece6; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #38332e; }
-  .menu-drawer a:hover{ color:var(--brass,#c99749); }
+  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#8d9197; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
+  .menu-drawer a{ color:#f0ede5; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #2a2f35; }
+  .menu-drawer a:hover{ color:var(--brass,#e0a93a); }
   .menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#e0342f); color:#fff; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
 
   .wrap{ max-width:960px; margin:0 auto; padding:40px 20px 80px; }
@@ -83,18 +83,18 @@
   .card h2{ font-family:'Source Serif 4',serif; font-size:17px; margin:0 0 8px; line-height:1.35; }
   .card p{ font-size:13px; color:var(--ink-soft); margin:0; line-height:1.6; }
   
-  .site-footer{ background:var(--dark,#1b1815); color:#8f8a80; padding:48px 20px 24px; }
-  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2e2a26; }
+  .site-footer{ background:var(--dark,#15181c); color:#8d9197; padding:48px 20px 24px; }
+  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2a2f35; }
   @media (max-width:760px){ .site-footer .foot-grid{ grid-template-columns:1fr 1fr; } }
   .site-footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:19px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
   .site-footer .fblurb{ font-size:13px; line-height:1.7; max-width:280px; }
   .site-footer h4{ color:#c7cfda; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px; font-weight:700; }
   .site-footer ul{ list-style:none; margin:0; padding:0; }
   .site-footer li{ margin-bottom:10px; }
-  .site-footer a{ color:#8f8a80; text-decoration:none; font-size:13.5px; }
+  .site-footer a{ color:#8d9197; text-decoration:none; font-size:13.5px; }
   .site-footer a:hover{ color:#fff; }
-  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#c99749); color:#1c1204; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
-  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#6b645b; }
+  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#e0a93a); color:#1f2328; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
+  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#636870; }
 
   footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:16px; margin-bottom:6px; display:block; }
 
@@ -105,10 +105,10 @@
     .site-header .mark .wordmark .name{ font-size:22px; }
     .site-header .mark .wordmark .tagline{ font-size:8.5px; }
     .desktop-nav{ display:flex; align-items:center; }
-    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#2b2723; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
-    .desktop-nav a:hover{ color:#9a6f1c; }
-    .desktop-nav .nav-cta{ background:#d9a441; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
-    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#9a6f1c; }
+    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#1f2328; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
+    .desktop-nav a:hover{ color:#b45309; }
+    .desktop-nav .nav-cta{ background:#e8a91f; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
+    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#b45309; }
     .hamburger-btn{ display:none; }
   }
 </style>
@@ -155,20 +155,20 @@
     <a class="card" href="/blog/ottawa-bilingual-family-court"><img src="images/blog/legal-services-laptop.jpg" alt="Researching family law services online"><div class="card-body"><span class="city-pill">Ottawa, ON</span><h2>Family Law in Two Languages: What Bilingual Court Services in Ottawa Mean for Your Case</h2><p>Ontario's Courts of Justice Act gives every party the right to bilingual proceedings, but Ottawa is where that right is easiest to actually exercise. Here's why that matters for a family law matter.</p></div></a>
     <a class="card" href="/blog/hamilton-impaired-driving-local-court"><img src="images/blog/ai-legal-scales.jpg" alt="Legal defence representation"><div class="card-body"><span class="city-pill">Hamilton, ON</span><h2>Impaired Driving Charges in Hamilton: Why the Courthouse You're Assigned to Matters</h2><p>An impaired driving charge in Hamilton is heard at the John Sopinka Courthouse, and the local Crown's office has its own practices around resolution discussions. What that means for how the case actually unfolds.</p></div></a>
     <a class="card" href="/blog/mississauga-commercial-lease-disputes"><img src="images/blog/handshake-agreement.jpg" alt="Two people shaking hands on a business agreement"><div class="card-body"><span class="city-pill">Mississauga, ON</span><h2>Commercial Lease Disputes in Mississauga's Business Parks: What to Nail Down Before You Sign</h2><p>Mississauga's Airport Corporate Centre and Meadowvale business parks put a lot of companies under long commercial leases with complex clauses. The disputes that end up in litigation usually trace back to one of a few recurring gaps.</p></div></a>
-    <a class="card" href="/blog/montreal-quebec-immigration-selection"><div class="card-banner" style="background:linear-gradient(135deg,#4a443d 0%,#797269 100%);"><span>Montreal &middot; Immigration</span></div><div class="card-body"><span class="city-pill">Montreal, QC</span><h2>Immigrating Through Quebec: Why the Provincial Selection Process Works Differently</h2><p>Quebec selects its own economic immigrants under a decades-old accord with the federal government, running mostly separately from the Express Entry system used in the rest of Canada. What that means if Montreal is the destination.</p></div></a>
+    <a class="card" href="/blog/montreal-quebec-immigration-selection"><div class="card-banner" style="background:linear-gradient(135deg,#3f444b 0%,#797269 100%);"><span>Montreal &middot; Immigration</span></div><div class="card-body"><span class="city-pill">Montreal, QC</span><h2>Immigrating Through Quebec: Why the Provincial Selection Process Works Differently</h2><p>Quebec selects its own economic immigrants under a decades-old accord with the federal government, running mostly separately from the Express Entry system used in the rest of Canada. What that means if Montreal is the destination.</p></div></a>
     <a class="card" href="/blog/quebec-city-civil-code-succession"><div class="card-banner" style="background:linear-gradient(135deg,#484138 0%,#726b62 100%);"><span>Quebec City &middot; Wills & Estates</span></div><div class="card-body"><span class="city-pill">Quebec City, QC</span><h2>Succession Under Quebec's Civil Code: Why Estate Planning Looks Different Here</h2><p>Quebec is the only province governed by a civil code rather than common law, and succession planning follows a different path here - notarial wills, a distinct spousal property regime, and terminology the rest of Canada doesn't use.</p></div></a>
     <a class="card" href="/blog/vancouver-icbc-personal-injury"><div class="card-banner" style="background:linear-gradient(135deg,#4a3b52 0%,#7d5a75 100%);"><span>Vancouver &middot; Personal Injury</span></div><div class="card-body"><span class="city-pill">Vancouver, BC</span><h2>ICBC and Personal Injury Claims in Vancouver: What No-Fault Insurance Actually Changed</h2><p>BC's 2021 shift to the Enhanced Care model changed who can sue after a crash and for what. Here's what actually changed for a Vancouver driver, and what didn't.</p></div></a>
-    <a class="card" href="/blog/surrey-presale-real-estate-closing"><div class="card-banner" style="background:linear-gradient(135deg,#4a443d 0%,#857e75 100%);"><span>Surrey &middot; Real Estate</span></div><div class="card-body"><span class="city-pill">Surrey, BC</span><h2>Buying Presale in Surrey: What a Real Estate Lawyer Actually Reviews Before You Close</h2><p>Surrey's presale condo market runs on disclosure statements and assignment clauses most buyers never read closely. What actually gets checked before a presale closing, and why the assignment clause matters most.</p></div></a>
+    <a class="card" href="/blog/surrey-presale-real-estate-closing"><div class="card-banner" style="background:linear-gradient(135deg,#3f444b 0%,#857e75 100%);"><span>Surrey &middot; Real Estate</span></div><div class="card-body"><span class="city-pill">Surrey, BC</span><h2>Buying Presale in Surrey: What a Real Estate Lawyer Actually Reviews Before You Close</h2><p>Surrey's presale condo market runs on disclosure statements and assignment clauses most buyers never read closely. What actually gets checked before a presale closing, and why the assignment clause matters most.</p></div></a>
   </div>
 
   <div style="margin-top:56px; padding-top:40px; border-top:1px solid var(--line);">
     <h1 style="font-size:26px;">Grow Your Practice</h1>
     <p class="sub">Are you a lawyer or law firm? These guides cover how Canadian firms actually get more clients online - SEO, Google Business Profile, directories, referrals, reviews, and paid ads.</p>
     <div class="grid">
-      <a class="card" href="/grow-your-practice/how-lawyers-get-more-clients-2026"><div class="card-banner" style="background:linear-gradient(135deg,#2b2723 0%,#5f584f 100%);"><span>Practice Growth</span></div><div class="card-body"><h2>How Lawyers Get More Clients in Canada: A 2026 Guide</h2><p>A practical breakdown of how Canadian lawyers actually generate new clients in 2026, in the order most firms should tackle them.</p></div></a>
-      <a class="card" href="/grow-your-practice/seo-for-lawyers-beginners-guide"><div class="card-banner" style="background:linear-gradient(135deg,#3b3631 0%,#7b746b 100%);"><span>SEO</span></div><div class="card-body"><h2>SEO for Lawyers: A Beginner's Guide to Ranking on Google</h2><p>The technical and content basics that move the needle before you hire an agency.</p></div></a>
-      <a class="card" href="/grow-your-practice/best-legal-directories-canada"><div class="card-banner" style="background:linear-gradient(135deg,#4a443d 0%,#797269 100%);"><span>Directories</span></div><div class="card-body"><h2>The Best Legal Directories to List Your Firm On in Canada</h2><p>What separates a useful directory from a dead one, and how to prioritize your listings.</p></div></a>
-      <a class="card" href="/grow-your-practice/law-firm-google-ads-guide"><div class="card-banner" style="background:linear-gradient(135deg,#9a6f1c 0%,#d9a441 100%);"><span>Paid Advertising</span></div><div class="card-body"><h2>Should Your Law Firm Advertise on Google?</h2><p>Costs, ROI, and what a realistic budget looks like for legal keywords.</p></div></a>
+      <a class="card" href="/grow-your-practice/how-lawyers-get-more-clients-2026"><div class="card-banner" style="background:linear-gradient(135deg,#1f2328 0%,#5f584f 100%);"><span>Practice Growth</span></div><div class="card-body"><h2>How Lawyers Get More Clients in Canada: A 2026 Guide</h2><p>A practical breakdown of how Canadian lawyers actually generate new clients in 2026, in the order most firms should tackle them.</p></div></a>
+      <a class="card" href="/grow-your-practice/seo-for-lawyers-beginners-guide"><div class="card-banner" style="background:linear-gradient(135deg,#30353b 0%,#7b746b 100%);"><span>SEO</span></div><div class="card-body"><h2>SEO for Lawyers: A Beginner's Guide to Ranking on Google</h2><p>The technical and content basics that move the needle before you hire an agency.</p></div></a>
+      <a class="card" href="/grow-your-practice/best-legal-directories-canada"><div class="card-banner" style="background:linear-gradient(135deg,#3f444b 0%,#797269 100%);"><span>Directories</span></div><div class="card-body"><h2>The Best Legal Directories to List Your Firm On in Canada</h2><p>What separates a useful directory from a dead one, and how to prioritize your listings.</p></div></a>
+      <a class="card" href="/grow-your-practice/law-firm-google-ads-guide"><div class="card-banner" style="background:linear-gradient(135deg,#b45309 0%,#e8a91f 100%);"><span>Paid Advertising</span></div><div class="card-body"><h2>Should Your Law Firm Advertise on Google?</h2><p>Costs, ROI, and what a realistic budget looks like for legal keywords.</p></div></a>
     <a class="card" href="/blog/freezing-assets-alberta-mareva-injunction"><img src="images/blog/ab-freezing-assets-alberta-mareva-injunction.png" alt="Freezing Assets: Calgary, Alberta guide" loading="lazy"><div class="card-body"><span class="city-pill">Calgary, AB</span><h2>Freezing Assets in an Alberta Lawsuit: What a Mareva Injunction Is and When Courts Grant One</h2><p>A Mareva injunction freezes a defendant’s assets before judgment. Here is how the order works in Alberta, what a court needs to see, and the risks for the person asking for it.</p></div></a>
     <a class="card" href="/blog/prompt-payment-construction-lien-act-alberta"><img src="images/blog/ab-prompt-payment-construction-lien-act-alberta.png" alt="Prompt Payment: Calgary, Alberta guide" loading="lazy"><div class="card-body"><span class="city-pill">Calgary, AB</span><h2>Getting Paid on Alberta Construction Projects: Prompt Payment and Adjudication Explained</h2><p>Alberta’s Prompt Payment and Construction Lien Act, in force since August 2022, added payment timelines and adjudication to the lien system. What owners, contractors and subs should know.</p></div></a>
     <a class="card" href="/blog/buying-selling-oil-gas-assets-alberta"><img src="images/blog/ab-buying-selling-oil-gas-assets-alberta.png" alt="Oil &amp; Gas Deals: Calgary, Alberta guide" loading="lazy"><div class="card-body"><span class="city-pill">Calgary, AB</span><h2>Buying or Selling Oil and Gas Assets in Alberta: How the Deal Fits Together</h2><p>From Crown leases to regulator approvals, an Alberta oil and gas asset sale has more moving parts than most. A plain overview of the documents, diligence and approvals.</p></div></a>

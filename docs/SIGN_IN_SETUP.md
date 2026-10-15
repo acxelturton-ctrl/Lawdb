@@ -10,7 +10,7 @@ The buttons appear on the sign-in page by themselves as soon as a provider's two
 2. *APIs & Services* → **Credentials** → **Create credentials** → **OAuth client ID** → type **Web application**.
    **Authorised redirect URI:** `https://lawdb.ca/api/auth/google/callback` (exactly).
 3. Copy the **Client ID** and **Client secret**. In Cloudflare add:
-   - `GOOGLE_CLIENT_ID` (type Text or Secret)
+   - `GOOGLE_CLIENT_ID` (type **Secret** is simplest)
    - `GOOGLE_CLIENT_SECRET` (type **Secret**)
 
 ## LinkedIn (about 10 minutes)

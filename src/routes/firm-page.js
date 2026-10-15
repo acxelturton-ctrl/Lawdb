@@ -43,10 +43,18 @@ async function feedPosts(env, slug) {
 }
 
 // Every firm page gets a Follow button (next to Call / Website / Directions), the member-ratings box under the profile card, and the small script that runs them.
-const withFollow = (res, slug) =>
+const managedBy = async (env, slug) => {
+  try { return !!(await env.DB.prepare("SELECT 1 FROM firm_members WHERE firm_slug = ? AND status = 'approved'").bind(slug).first()); } catch { return false; }
+};
+const claimLine = (slug, managed) => managed
+  ? '<p class="lw-claim lw-claimed">&#10003; Managed by the firm</p>'
+  : `<p class="lw-claim"><a href="/account/#find/${slug}" data-claim="${slug}">Is this your firm? Claim this listing</a></p>`;
+
+const withFollow = (res, slug, managed) =>
   new HTMLRewriter()
     .on('div.li-actions', { element(el) { el.before(`<p class="lw-fcount" data-fcount="${slug}"></p>`, { html: true }); } })
     .on('div.li-actions', { element(el) { el.append(`<button class="li-btn li-ghost lw-fbtn" type="button" data-follow="${slug}">+ Follow</button>`, { html: true }); } })
+    .on('div.li-actions', { element(el) { el.after(claimLine(slug, managed), { html: true }); } })
     .on('section.li-card', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>`, { html: true }); } })
     .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })
     .transform(res);
@@ -85,7 +93,7 @@ export async function firmPage({ request, env, ctx }) {
           .transform(res);
       }
     }
-    if (res.status === 200 && row && row.status === 'live') res = withFollow(res, m[1]);
+    if (res.status === 200 && row && row.status === 'live') res = withFollow(res, m[1], await managedBy(env, m[1]));
     if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
     return res;
   }
@@ -107,7 +115,7 @@ export async function firmPage({ request, env, ctx }) {
       'x-content-type-options': 'nosniff',
       'x-lawdb-source': 'database',
     },
-  }), m[1]);
+  }), m[1], await managedBy(env, m[1]));
   if (ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
   return res;
 }

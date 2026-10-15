@@ -93,6 +93,11 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - Shared code: `src/lib/firm-edit.js` (validation, create, edit), `src/lib/email.js` (all mail), `admin/ui.js` (UI helpers).
 - Local development sends no mail; each message is recorded in the audit log as `mail.dev` instead.
 
+## Owner invites and the Claim button
+- **Invite (admin, after a phone call):** Admin, Firms, open a firm, "Give this firm to its owner". Enter the owner's email. `POST /api/admin/firms/:slug/invite` stores a hashed one-time token in `firm_invites` (14 days, limits: 5 per firm and 60 in total per day) and emails the link `/account/welcome#invite=<token>`. The admin also sees the link to copy or read out.
+- **Accept:** the owner presses a button on `/account/welcome` (the token is POSTed to `/api/auth/invite-accept`, so mail scanners cannot burn it). One request atomically uses the token, creates the account if needed, makes them an approved owner of that firm, skips the member welcome steps, signs them in and opens `#edit/<slug>`. The invite can also switch a hand-built page to the database-built page so their edits show.
+- **Claim button:** every live firm page shows "Is this your firm? Claim this listing" (or "Managed by the firm" when an approved owner exists), added by `withFollow` in `src/routes/firm-page.js`. Signed-out visitors get the centred sign-in popup, then land on the claim form for that exact firm (`/account/#find/<slug>`). Claims still wait for admin approval.
+
 ## Blog cards ("Latest from the firm")
 
 - Source: the firm's public RSS/Atom feed, found automatically from its website (`<link rel="alternate">`, then common paths like `/feed`) or entered by hand.

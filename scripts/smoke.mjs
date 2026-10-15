@@ -1239,6 +1239,44 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(rp.includes(`data-rate="${R}"`) && rp.includes('id="rate"') && rp.includes('/follow.js'), 'firm pages carry the member-ratings box');
   }
 
+  // owner invites: an admin gives a firm to its owner by email; the link signs them straight in with that firm approved
+  {
+    as(o2.jar);
+    ok((await call('POST', '/api/admin/firms/achkar-law/invite', { email: `inv-${run}@example.com` })).status === 403, 'an owner cannot send invites');
+    cookie = '';
+    ok((await call('POST', '/api/auth/invite-accept', { token: 'f'.repeat(64) })).status === 400, 'a made-up invite link is refused');
+    as(adminJar);
+    ok((await call('POST', '/api/admin/firms/achkar-law/invite', { email: 'not-an-email' })).status === 422, 'an invite needs a real email address');
+    ok((await call('POST', '/api/admin/firms/no-such-firm-xyz/invite', { email: `inv-${run}@example.com` })).status === 404, 'an invite for an unknown firm is refused');
+    const inv = await call('POST', '/api/admin/firms/achkar-law/invite', { email: `Inv-${run}@Example.com`, switchPage: true });
+    ok(inv.status === 201 && /\/account\/welcome#invite=[0-9a-f]{64}$/.test(inv.data.link), 'an admin can invite an owner and gets the link');
+    ok((await call('GET', '/api/admin/firms/achkar-law/invites')).data.invites.some((i) => i.email === `inv-${run}@example.com` && !i.usedAt), 'the invite is listed as waiting');
+    const tok = inv.data.link.split('#invite=')[1];
+    cookie = '';
+    const acc = await call('POST', '/api/auth/invite-accept', { token: tok });
+    ok(acc.status === 200 && acc.data.slug === 'achkar-law' && /HttpOnly/i.test(acc.headers.get('set-cookie') || ''), 'the invite link signs the owner in');
+    const me = await call('GET', '/api/account/me');
+    ok(me.data.memberships.some((m) => m.slug === 'achkar-law' && m.status === 'approved') && me.data.user.email === `inv-${run}@example.com`, 'the invited owner manages the firm at once, with no approval wait');
+    ok(me.data.user.onboarded === true, 'an invited owner goes straight to their firm, not the member welcome steps');
+    ok((await call('PATCH', '/api/account/firms/achkar-law', { phone: '(416) 555-0199' })).status === 200, 'the invited owner can edit the firm');
+    ok((await call('GET', '/api/admin/stats')).status === 403, 'an invited owner is still only a member');
+    ok((await call('POST', '/api/auth/invite-accept', { token: tok }) ).status === 400, 'an invite link works only once');
+    as(adminJar);
+    ok((await call('GET', '/api/admin/firms/achkar-law/invites')).data.invites.some((i) => i.email === `inv-${run}@example.com` && i.usedAt), 'the used invite shows as signed in');
+    ok((await call('GET', '/api/admin/firms/achkar-law')).data.pageMode === 'dynamic', 'the invite switched the firm to the database-built page, as asked');
+    ok((await call('GET', '/api/admin/audit?limit=100')).data.entries.some((e) => e.action === 'owner.invite_accept'), 'accepting an invite leaves a trace');
+    // the "Claim this listing" button on firm pages
+    cookie = o1.jar;
+    const brief = await call('GET', '/api/account/search?slug=achkar-law');
+    ok(brief.data.firms.length === 1 && brief.data.firms[0].slug === 'achkar-law', 'a claim button can open one exact firm');
+    ok((await call('GET', '/api/account/search?slug=nope-xyz')).data.firms.length === 0, 'an unknown firm slug finds nothing');
+    const page = (await getRaw('/firms/achkar-law')).text;
+    ok(page.includes('data-claim="achkar-law"') || page.includes('Managed by the firm'), 'firm pages show Claim this listing (or Managed by the firm)');
+    const fjs = (await getRaw('/follow.js')).text;
+    ok(fjs.includes("type: 'claim'") && fjs.includes('data-claim'), 'the claim button opens the sign-in popup when signed out');
+    ok(!(await getRaw('/account/welcome.js')).text.includes('innerHTML') && (await getRaw("/account/welcome")).text.includes('/account/welcome.js'), 'the invite page is a plain button, with no inline script');
+  }
+
   // put the shared test firm back as it was
   as(adminJar);
   await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static', phone: origFirm.phone || '', about: origFirm.about || '' });

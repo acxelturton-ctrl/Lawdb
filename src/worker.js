@@ -20,6 +20,7 @@ import { legacyRedirect } from './lib/redirects.js';
 import { storyPage, storySitemap } from './routes/story-page.js';
 import * as social from './routes/social.js';
 import * as ratings from './routes/ratings.js';
+import * as invite from './routes/invite.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -55,6 +56,7 @@ const ROUTES = [
 
   route('POST', '/api/auth/request-link', auth.requestLink),
   route('POST', '/api/auth/verify', auth.verify),
+  route('POST', '/api/auth/invite-accept', invite.accept),
   route('POST', '/api/auth/logout', auth.logout),
   route('POST', '/api/auth/logout-all', auth.logoutAll),
   route('GET', '/api/auth/me', auth.me),
@@ -66,6 +68,8 @@ const ROUTES = [
   route('GET', '/api/admin/firms/:slug', admin.getFirm),
   route('POST', '/api/admin/firms', admin.createFirm),
   route('PATCH', '/api/admin/firms/:slug', admin.updateFirm),
+  route('POST', '/api/admin/firms/:slug/invite', invite.create),
+  route('GET', '/api/admin/firms/:slug/invites', invite.list),
   route('GET', '/api/admin/members', admin.listMembers),
   route('PATCH', '/api/admin/members/:id', admin.decideMember),
   route('GET', '/api/admin/audit', admin.listAudit),

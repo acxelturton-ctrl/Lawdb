@@ -124,6 +124,49 @@ async function viewLeads() {
 }
 
 // ---------------------------------------------------------------- firms
+// "Give this firm to its owner": after a phone call, email them a sign-in link that opens their own profile editor.
+function invitePanel(slug, firm, pageMode) {
+  const email = h('input', { type: 'email', placeholder: 'owner@theirfirm.ca', autocomplete: 'off', required: true, 'aria-label': 'Owner email' });
+  const isStatic = pageMode === 'static';
+  const showEdits = h('input', { type: 'checkbox', checked: isStatic && !firm.featured });
+  const out = h('div');
+  const history = h('div');
+  const go = h('button', { class: 'primary', type: 'submit' }, 'Send invite');
+
+  async function loadHistory() {
+    try {
+      const { invites } = await api('GET', `/api/admin/firms/${encodeURIComponent(slug)}/invites`);
+      history.replaceChildren(...invites.map((i) => h('p', { class: 'muted small' },
+        `${i.email}: ${i.usedAt ? 'signed in ' + i.usedAt.slice(0, 10) : i.expired ? 'expired' : 'waiting (sent ' + i.createdAt.slice(0, 10) + ')'}`)));
+    } catch { /* optional */ }
+  }
+
+  const form = h('form', { class: 'card', onsubmit: async (e) => {
+    e.preventDefault();
+    go.disabled = true;
+    try {
+      const r = await api('POST', `/api/admin/firms/${encodeURIComponent(slug)}/invite`, { email: email.value, switchPage: isStatic && showEdits.checked });
+      const link = h('input', { type: 'text', readonly: true, value: r.link, 'aria-label': 'Invite link' });
+      const copy = h('button', { type: 'button', onclick: async () => {
+        try { await navigator.clipboard.writeText(r.link); copy.textContent = 'Copied'; } catch { link.select(); copy.textContent = 'Press copy on your keyboard'; }
+      } }, 'Copy link');
+      out.replaceChildren(note('msg-ok', `Invite emailed to ${r.email}. The link works once and lasts ${r.expiresInDays} days. You can also paste it into a text or read it out:`), h('div', { class: 'row' }, link, copy));
+      email.value = '';
+      loadHistory();
+    } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
+    go.disabled = false;
+  } },
+    h('h2', null, 'Give this firm to its owner'),
+    h('p', { class: 'muted' }, 'After you speak with them, enter their email. They get a link that signs them straight in to edit this firm, with no approval step. Later they can sign in with Google or LinkedIn using the same email.'),
+    field('Owner email', email),
+    isStatic && h('label', { class: 'check small' }, showEdits, firm.featured
+      ? 'Show the owner\'s edits on the firm\'s page (replaces this Featured firm\'s custom hand-built layout)'
+      : 'Show the owner\'s edits on the firm\'s page (switches it to the database-built page)'),
+    h('div', { class: 'row' }, go), out, history);
+  loadHistory();
+  return form;
+}
+
 async function viewFirms() {
   const results = h('div');
   const editor = h('div');
@@ -181,7 +224,7 @@ async function viewFirms() {
       field('Profile page style', f.pageMode, 'The original pages are hand-built and keep their own wording. The new style is built from the database, so it shows everything you enter here.'),
       h('p', { class: 'muted' }, 'Saved right away; public pages update within about a minute. Rating, reviews and map position come from Google and are not editable here.'),
       h('div', { class: 'row' }, save, h('button', { type: 'button', onclick: () => editor.replaceChildren() }, 'Close')), out);
-    editor.replaceChildren(form, picturesPanel(`/api/admin/firms/${encodeURIComponent(slug)}/images`), feedPanel(`/api/admin/firms/${encodeURIComponent(slug)}/feed`));
+    editor.replaceChildren(form, invitePanel(slug, firm, pageMode), picturesPanel(`/api/admin/firms/${encodeURIComponent(slug)}/images`), feedPanel(`/api/admin/firms/${encodeURIComponent(slug)}/feed`));
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 

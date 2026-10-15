@@ -70,7 +70,8 @@
   if(stats.length){ stats.forEach(function(b){ var n=parseInt(b.textContent.replace(/\D/g,''),10); if(!n) return; var t0=null,dur=1100; b.textContent='0';
     function f(t){ if(!t0) t0=t; var p=Math.min(1,(t-t0)/dur); b.textContent=Math.round(n*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(f); else b.textContent=n; } requestAnimationFrame(f); }); }
 })();
-// Once someone has signed in on this device, the menu says "My account" instead of "Sign in".
+// Once someone has signed in on this device, the site shows the member side (avatar, account panel, phone tab bar).
 (function(){ try{ if(localStorage.getItem('lawdb_in')!=='1') return;
-  var swap=function(){ [].forEach.call(document.querySelectorAll('a[href="/account/"]'),function(a){ if(/^\s*Sign in\s*$/.test(a.textContent)) a.textContent='My account'; }); };
+  var swap=function(){ [].forEach.call(document.querySelectorAll('a[href="/account/"]'),function(a){ if(/^\s*Sign in\s*$/.test(a.textContent)) a.textContent='My account'; });
+    var s=document.createElement('script'); s.src='/lw-app.js'; s.defer=true; document.head.appendChild(s); };
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',swap); else swap(); }catch(e){} })();

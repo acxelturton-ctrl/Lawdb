@@ -1,0 +1,41 @@
+/* Header, menu drawer and light look shared with the public pages, for /account/ (copied from the public pages so the member area looks like the same site) */
+.site-header{ height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:var(--dark,#15181c); color:#fff; position:sticky; top:0; z-index:500; }
+.site-header .mark{ font-family:'Source Serif 4',serif; font-size:19px; font-weight:700; text-decoration:none; color:#fff; display:flex; align-items:center; gap:8px; }
+.brand-icon{ flex-shrink:0; display:block; }
+.site-header .header-right{ display:flex; align-items:center; gap:12px; }
+.site-header .back-link{ font-size:12px; color:#8d9197; text-decoration:none; white-space:nowrap; }
+.site-header .back-link:hover{ color:#fff; }
+.hamburger-btn{ background:none; border:none; cursor:pointer; padding:6px; display:flex; flex-direction:column; gap:4px; }
+.hamburger-btn span{ display:block; width:22px; height:2px; background:#fff; border-radius:2px; }
+.menu-overlay{ position:fixed; inset:0; background:rgba(6,8,11,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
+.menu-overlay.open{ opacity:1; pointer-events:auto; }
+.menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#15181c; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
+.menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(0,0,0,0.35); }
+.menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#8d9197; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
+.menu-drawer a{ color:#f0ede5; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #2a2f35; }
+.menu-drawer a:hover{ color:var(--brass,#e0a93a); }
+.menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#e0342f); color:#fff; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
+.desktop-nav{ display:none; }
+@media (min-width:900px){
+  .site-header{ height:84px; }
+  .site-header .mark img{ height:46px; }
+  .site-header .mark .wordmark .name{ font-size:22px; }
+  .site-header .mark .wordmark .tagline{ font-size:8.5px; }
+  .desktop-nav{ display:flex; align-items:center; }
+  .desktop-nav a{ font-size:15.5px; font-weight:600; color:#1f2328; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
+  .desktop-nav a:hover{ color:#b45309; }
+  .desktop-nav .nav-cta{ background:#e8a91f; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
+  .desktop-nav .nav-cta:hover{ color:#ffffff; background:#b45309; }
+  .hamburger-btn{ display:none; }
+}
+.site-header.lw-light{ background:#f8f6f1 !important; color:#1f2328 !important; border-bottom:1px solid #e3dfd5; height:64px; }
+.site-header.lw-light .mark{ font-family:'Inter',sans-serif; gap:10px; color:#1f2328; }
+.site-header.lw-light .mark img{ height:34px !important; width:auto; display:block; }
+.site-header.lw-light .wordmark{ display:flex; flex-direction:column; line-height:1; }
+.site-header.lw-light .wordmark .name{ font:800 19px 'Inter',sans-serif; letter-spacing:-.01em; color:#1f2328; }
+.site-header.lw-light .wordmark .db{ color:#e8a91f; }
+.site-header.lw-light .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#b45309; margin-top:2px; }
+.site-header.lw-light .back-link{ color:#636870; }
+.site-header.lw-light .back-link:hover{ color:#1f2328; }
+.site-header.lw-light .hamburger-btn span{ background:#1f2328; }
+@media (min-width:1100px){ .site-header.lw-light{ height:84px; } .site-header.lw-light .mark img{ height:46px !important; } .site-header.lw-light .wordmark .name{ font-size:22px; } .site-header.lw-light .wordmark .tagline{ font-size:8.5px; } }

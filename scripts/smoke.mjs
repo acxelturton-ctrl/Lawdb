@@ -1186,6 +1186,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const fj = (await getRaw('/follow.js')).text;
     ok(fj.includes("'.lc'") && fj.includes("'a.frow'") && fj.includes('fa-profile') && fj.includes('lawdb_in'), 'the Follow script adds buttons to home, city and search cards and remembers sign-in for the menu');
     ok((await getRaw('/account/')).text.includes('class="lw-light"'), 'the member account page always uses the light look');
+    const acct = (await getRaw('/account/')).text;
+    ok(acct.includes('class="site-header lw-light"') && acct.includes('/lw-app.js') && acct.includes('/account/shell.css'), 'the account page uses the same header as the rest of the site and loads the member shell');
+    const lwa = (await getRaw('/lw-app.js')).text;
+    ok(lwa.includes('lw-tabbar') && lwa.includes('/api/account/feed') && lwa.includes('/lw-app.css') && (await getRaw('/lw-app.css')).text.includes('.lw-panel') && (await getRaw('/site.js')).text.includes('/lw-app.js'), 'signed-in visitors get the avatar, account panel, phone tab bar and home feed on every page');
     const rp = (await getRaw(`/firms/${R}`)).text;
     ok(rp.includes(`data-rate="${R}"`) && rp.includes('id="rate"') && rp.includes('/follow.js'), 'firm pages carry the member-ratings box');
   }

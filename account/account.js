@@ -57,11 +57,6 @@ async function renderLogin() {
 function shell(active, content) {
   const tabs = [['feed', 'Feed'], ['following', 'Following'], ['saved', 'Saved'], ['firms', 'My firms'], ['profile', 'Profile'], ['find', 'Add or claim a firm']];
   return h('div', null,
-    h('header', { class: 'top' }, h('div', { class: 'wrap' },
-      h('a', { class: 'brand', href: '/account/' }, h('img', { src: '/images/logo-icon.png', alt: '' }), 'LawDB'),
-      h('div', { class: 'who' }, user.email, h('br'),
-        h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.replace('/account/'); } }, 'Sign out'), ' · ',
-        h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); location.replace('/account/'); } }, 'Sign out everywhere')))),
     h('div', { class: 'wrap' },
       h('nav', { class: 'tabs', 'aria-label': 'Sections' }, tabs.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label))),
       content));
@@ -384,7 +379,8 @@ async function viewProfile() {
     return h('div', { class: 'audit' }, h('div', null, h('a', { href: `/firms/${r.slug}#rate` }, h('b', null, r.name)), ' ', h('span', { class: 'muted' }, '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars) + (r.commentStatus === 'pending' ? ' · comment waiting for review' : ''))), r.comment && h('div', { class: 'muted' }, r.comment), h('div', { class: 'row' }, del));
   }) : [h('p', { class: 'muted' }, 'You have not rated any firms yet. Open a firm page and use "Rate this firm".')]));
   drawMine();
-  return h('div', null, h('h1', null, 'Your profile'), h('p', { class: 'muted' }, `Signed in as ${user.email}. Your name personalises your dashboard and emails.`), h('div', { class: 'card' }, form), h('h2', null, 'Your ratings'), mine);
+  return h('div', null, h('h1', null, 'Your profile'), h('p', { class: 'muted' }, `Signed in as ${user.email}. Your name personalises your dashboard and emails.`), h('div', { class: 'card' }, form), h('h2', null, 'Your ratings'), mine,
+    h('p', { class: 'muted' }, h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); try { localStorage.setItem('lawdb_in', '0'); sessionStorage.removeItem('lawdb_me'); } catch (err) {} location.replace('/account/'); } }, 'Sign out of every device')));
 }
 
 // After signing in from a Follow or Save button on a public page, finish what the person asked for.
@@ -482,6 +478,7 @@ async function loadMe() {
 }
 
 async function render() {
+  document.body.classList.toggle('lw-focus', !!(user && !user.onboarded));
   if (user && !user.onboarded) return renderWizard();
   const [name, arg] = location.hash.slice(1).split('/');
   const tab = ['feed', 'following', 'saved', 'profile', 'find'].includes(name) ? name : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');

@@ -7,11 +7,43 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Your firm on LawDB</title>
 <link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/admin/admin.css">
+<link rel="stylesheet" href="/account/shell.css">
 </head>
 <body>
+<header class="site-header lw-light">
+  <a class="mark" href="/"><img src="/images/logo-icon.png" alt="LawDB"><span class="wordmark"><span class="name"><span class="law">Law</span><span class="db">DB</span><sup style="font-size:.4em;font-weight:600;margin-left:1px;vertical-align:super;line-height:0;">&trade;</sup></span><span class="tagline">Canada&#39;s Legal Directory</span></span></a>
+  <div class="header-right">
+    <nav class="desktop-nav" aria-label="Primary"><a href="/find-lawyers">Find Your Lawyer</a><a href="/news">LawDB News</a><a href="/for-firms">For Law Firms</a><a href="/account/">Sign in</a><a class="nav-cta" href="/book-a-call">Request a Consultation</a></nav>
+    <button class="hamburger-btn" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="menu-drawer" id="menuDrawer">
+  <button class="menu-close" id="menuClose" aria-label="Close menu">&times;</button>
+  <a href="/find-lawyers">Find Your Lawyer</a>
+  <a href="/news">LawDB News</a>
+  <a href="/for-firms">For Law Firms</a>
+  <a href="/account/">Sign in</a>
+  <a class="menu-cta" href="/book-a-call">Request a Consultation</a>
+</nav>
+<script>
+(function(){
+  var toggle = document.getElementById('menuToggle');
+  var closeBtn = document.getElementById('menuClose');
+  var overlay = document.getElementById('menuOverlay');
+  var drawer = document.getElementById('menuDrawer');
+  function openMenu(){ overlay.classList.add('open'); drawer.classList.add('open'); }
+  function shutMenu(){ overlay.classList.remove('open'); drawer.classList.remove('open'); }
+  if(toggle) toggle.addEventListener('click', openMenu);
+  if(closeBtn) closeBtn.addEventListener('click', shutMenu);
+  if(overlay) overlay.addEventListener('click', shutMenu);
+})();
+</script>
 <div id="app"><div class="wrap"><p class="muted">Loading…</p></div></div>
 <noscript><div class="wrap"><p>JavaScript is required for your LawDB account.</p></div></noscript>
 <script src="/account/account.js" type="module"></script>
+<script src="/lw-app.js" defer></script>
 </body>
 </html>

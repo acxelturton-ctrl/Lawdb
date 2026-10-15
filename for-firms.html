@@ -85,7 +85,8 @@
   .stats-strip .num{ font-family:'Source Serif 4',serif; font-size:27px; font-weight:700; color:var(--brass); display:block; }
   .stats-strip .lbl{ font-size:11.5px; text-transform:uppercase; letter-spacing:0.07em; color:#a7a097; margin-top:3px; display:block; }
 
-  .wrap{ max-width:900px; margin:0 auto; padding:52px 20px 70px; }
+  .wrap{ max-width:900px; margin:0 auto; padding:28px 20px 70px; }
+  .sr-only{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
   h2{ font-family:'Source Serif 4',serif; font-size:25px; margin:0 0 10px; }
   .lede{ color:var(--ink-soft); font-size:14.5px; line-height:1.7; margin:0 0 30px; max-width:620px; }
 
@@ -228,31 +229,11 @@
 })();
 </script>
 
-<section class="hero hero-anim">
-  <h1>Get your firm in front of people already looking for one</h1>
-  <p>LawDB is a Canadian law firm directory built around one question: what kind of case do you have?
-  People search by case type and city, and land on the firms that actually handle that work.</p>
-  <div class="hero-btns">
-    <a class="btn-primary" href="/list-your-firm">List Your Firm &mdash; Free</a>
-    <a class="btn-ghost" href="/book-a-call">Request a Consultation</a>
-  </div>
-</section>
-
-<section class="stats-strip">
-  <div class="inner">
-    <div><span class="num">370</span><span class="lbl">Law Firms Listed</span></div>
-    <div><span class="num">5</span><span class="lbl">Provinces</span></div>
-    <div><span class="num">62</span><span class="lbl">Cities Covered</span></div>
-    <div><span class="num">10</span><span class="lbl">Practice Areas</span></div>
-  </div>
-</section>
-
 <div class="wrap">
 
-  <h2>Be seen. Get more clients.</h2>
-  <p class="lede">Featured members get premium placement on LawDB: a highlighted marker on the map, the top of search results for their city and practice area, a custom profile page, and their own blog.</p>
+  <h1 class="sr-only">Be seen. Get more clients. Featured law firm members on LawDB</h1>
   <a class="promo" href="/list-your-firm?plan=featured">
-    <img src="/images/featured-promo-1536.webp" srcset="/images/featured-promo-768.webp 768w, /images/featured-promo-1536.webp 1536w" sizes="(max-width:900px) 100vw, 1100px" width="1536" height="1024" loading="lazy" decoding="async"
+    <img src="/images/featured-promo-1536.webp" srcset="/images/featured-promo-768.webp 768w, /images/featured-promo-1536.webp 1536w" sizes="(max-width:900px) 100vw, 1100px" width="1536" height="1024" fetchpriority="high" decoding="async"
       alt="LawDB Featured law firm members: be seen and get more clients. Featured on the map with a highlighted badge, ranked first in your area for your practice area, a custom profile page with your team, services and blog, and a place to showcase your expertise.">
   </a>
   <div class="promo-links">

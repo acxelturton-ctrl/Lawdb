@@ -1,4 +1,4 @@
-# Connecting Stripe to LawDB (Featured, $199/month)
+# Connecting Stripe to LawDB (Featured, $89/month)
 
 LawDB never holds a Stripe API key. Stripe sends signed messages ("webhooks") to the site, and the site checks the signature with one
 secret. That secret goes straight into Cloudflare, never into chat or the repository.
@@ -35,7 +35,7 @@ Owners with a subscription then see a **Manage billing** button.
 ## 4. Test with no money moving
 
 1. Stripe -> Product catalog -> Coupons -> create a coupon: 100% off, **Duration: once**, **limit to 1 redemption**, with a promotion code such as `LAWDBTEST`.
-2. Stripe -> Payment links -> the $199 link -> Edit -> tick **Allow promotion codes**.
+2. Stripe -> Payment links -> the $89 link -> Edit -> tick **Allow promotion codes**.
 3. Make a test firm owner (a second email of yours), claim a firm, approve it in the admin Approvals tab.
 4. As that owner open the dashboard -> Edit my profile -> **Upgrade to Featured**, pay with the same email and the code `LAWDBTEST`.
 5. Within seconds the firm shows **Featured** in the dashboard and in the admin Overview ("Featured subscriptions").

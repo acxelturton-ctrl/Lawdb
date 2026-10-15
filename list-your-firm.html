@@ -245,7 +245,7 @@
       <div class="lf-note"><img src="images/logo-icon.png" alt=""><span>Basic listings are free. Featured is optional.</span></div>
     </div>
     <div class="lf-price">
-      <div class="lf-plate"><b id="heroPrice">$199</b><span>/ Month</span></div>
+      <div class="lf-plate"><b id="heroPrice">$89</b><span>/ Month</span></div>
       <p>Featured plan.<br>Basic listing is free.</p>
     </div>
     <div class="lf-visual">
@@ -298,7 +298,7 @@
     </div>
     <div class="plan" id="planFeatured" role="radio" aria-checked="false" tabindex="0">
       <h3>Featured</h3>
-      <div class="price" id="featuredPrice">$199 / month</div>
+      <div class="price" id="featuredPrice">$89 / month</div>
       <ul>
         <li>Placed above Basic firms in every search and case-type match for your city</li>
         <li>Listed first in the live search dropdown, with a gold Featured badge, as people type their case and city</li>
@@ -471,14 +471,14 @@
 
 <script>
 // One source of truth for plan, price and checkout destination.
-// ?type=solo only changes the wording for solo practitioners; there is one Featured plan ($199/month) for everyone.
+// ?type=solo only changes the wording for solo practitioners; there is one Featured plan ($89/month) for everyone.
 // ?plan=featured pre-selects Featured (used by the "Get Featured" buttons across the site).
 const QS = new URLSearchParams(window.location.search);
 const SEGMENT = (QS.get('type') === 'solo') ? 'solo' : 'firm';
 const PLANS = {
-  firm: { price: '$199 / month', amount: '$199', label: 'Featured ($199/month)', stripe: 'https://buy.stripe.com/4gM7sN2X7d8naOFe0dfbq01' }
+  firm: { price: '$89 / month', amount: '$89', label: 'Featured ($89/month)', stripe: 'https://buy.stripe.com/4gM7sN2X7d8naOFe0dfbq01' }
 };
-PLANS.solo = PLANS.firm; // one Featured plan for everyone: $199/month
+PLANS.solo = PLANS.firm; // one Featured plan for everyone: $89/month
 const PLAN = PLANS[SEGMENT];
 const STRIPE_URL = PLAN.stripe;
 let selectedPlan = 'basic';   // 'basic' | 'featured' - the only thing the submit handler trusts

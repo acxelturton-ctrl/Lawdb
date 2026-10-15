@@ -646,7 +646,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     let data = null; try { data = await res.json(); } catch {}
     return { status: res.status, data };
   };
-  const checkout = (sub, { slug, email, mode = 'subscription', paid = 'paid', amount = 19900 } = {}) => mkEvent('checkout.session.completed', {
+  const checkout = (sub, { slug, email, mode = 'subscription', paid = 'paid', amount = 8900 } = {}) => mkEvent('checkout.session.completed', {
     id: 'cs_' + sub, mode, payment_status: paid, subscription: mode === 'subscription' ? sub : null, customer: 'cus_' + sub, amount_total: amount, currency: 'cad',
     client_reference_id: slug, customer_details: { email },
   });
@@ -670,7 +670,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   as(o1.jar);
   const plan0 = (await call('GET', '/api/account/firms/achkar-law/plan')).data;
   const upUrl = new URL(plan0.upgradeUrl);
-  ok(plan0.featured === false && plan0.price === '$199 / month' && upUrl.origin === 'https://buy.stripe.com' && upUrl.searchParams.get('client_reference_id') === 'achkar-law' && upUrl.searchParams.get('prefilled_email') === ownerEmail1 && plan0.portalUrl === null, 'a Basic firm\'s owner gets an upgrade link with the firm and email attached');
+  ok(plan0.featured === false && plan0.price === '$89 / month' && upUrl.origin === 'https://buy.stripe.com' && upUrl.searchParams.get('client_reference_id') === 'achkar-law' && upUrl.searchParams.get('prefilled_email') === ownerEmail1 && plan0.portalUrl === null, 'a Basic firm\'s owner gets an upgrade link with the firm and email attached');
   as(o2.jar);
   ok((await call('GET', '/api/account/firms/achkar-law/plan')).status === 403, 'another owner cannot see this plan');
   cookie = '';
@@ -714,7 +714,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('POST', `/api/admin/payments/${subB}/assign`, { slug: 'achkar-law' })).status === 200 && await firmFeatured('achkar-law') === true, 'the admin approves it and the firm becomes Featured');
   ok((await call('POST', `/api/admin/payments/${subB}/assign`, { slug: 'achkar-law' })).status === 409, 'a payment cannot be assigned twice');
   const pay2 = (await call('GET', '/api/admin/payments')).data;
-  ok(pay2.active.some((r) => r.id === subB) && pay2.totals.activeCount >= 1 && pay2.totals.monthlyCents >= 19900, 'the admin sees the subscription and the monthly total');
+  ok(pay2.active.some((r) => r.id === subB) && pay2.totals.activeCount >= 1 && pay2.totals.monthlyCents >= 8900, 'the admin sees the subscription and the monthly total');
   cookie = '';
   await stripePost(subEvent('customer.subscription.deleted', subB, 'canceled'));
   ok(await firmFeatured('achkar-law') === false, 'cancelling it takes Featured away again');

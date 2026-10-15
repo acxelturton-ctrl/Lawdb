@@ -25,7 +25,7 @@ body.lw-has-tabs .to-top{bottom:calc(82px + env(safe-area-inset-bottom,0px))}}
 .lw-tabbar a,.lw-tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px;background:none;border:0;color:#636870;font:600 11px Inter,system-ui,sans-serif;text-decoration:none;cursor:pointer}
 .lw-tabbar svg{width:24px;height:24px}
 .lw-tabbar .on{color:#1f2328}
-.lw-tabbar .on svg{color:#b45309}
+.lw-tabbar .on svg{color:#e8a91f}
 .lw-tabbar .lw-ava{width:26px;height:26px;font-size:11px}
 body.lw-focus .lw-tabbar,body.lw-focus .site-header{display:none}
 .lw-hf{background:#fff;border-bottom:1px solid #e3dfd5;padding:22px 16px 26px}

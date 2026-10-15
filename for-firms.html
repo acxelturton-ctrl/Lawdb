@@ -86,6 +86,7 @@
   .stats-strip .lbl{ font-size:11.5px; text-transform:uppercase; letter-spacing:0.07em; color:#a7a097; margin-top:3px; display:block; }
 
   .wrap{ max-width:900px; margin:0 auto; padding:52px 20px 70px; }
+  .sr-only{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
   h2{ font-family:'Source Serif 4',serif; font-size:25px; margin:0 0 10px; }
   .lede{ color:var(--ink-soft); font-size:14.5px; line-height:1.7; margin:0 0 30px; max-width:620px; }
 
@@ -178,8 +179,39 @@
     .hamburger-btn{ display:none; }
   }
 
-  .promo{ display:block; margin:6px 0 14px; }
-  .promo img{ display:block; width:100%; height:auto; border-radius:16px; border:1px solid #e3dfd5; box-shadow:0 8px 28px rgba(31,35,40,.10); }
+  /* ---- full-width hero: copy on the left, an interactive mock-up of a Featured listing on the right ---- */
+  .hx{ position:relative; overflow:hidden; background:linear-gradient(180deg,#fbf7ef 0%,#f8f2e4 100%); }
+  .hx::after{ content:''; position:absolute; left:-10%; right:-10%; bottom:-120px; height:220px; background:radial-gradient(60% 100% at 50% 100%,#f3dca6 0,rgba(243,220,166,0) 70%); pointer-events:none; }
+  .hx-in{ position:relative; z-index:1; max-width:1240px; margin:0 auto; padding:44px 20px 56px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.12fr); grid-template-areas:'head stage' 'body stage'; grid-template-rows:auto 1fr; gap:0 36px; align-items:start; }
+  .hx-head{ grid-area:head; align-self:end; } .hx-body{ grid-area:body; } .hx-stage{ grid-area:stage; align-self:center; }
+  .hx-eyebrow{ font:700 12.5px 'Inter',sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#d49a1a; margin:0 0 10px; }
+  .hx h1{ font-family:'Source Serif 4',serif; font-size:clamp(38px,5.4vw,64px); line-height:1.04; letter-spacing:-.01em; margin:0 0 14px; color:#12161c; }
+  .hx-sub{ font-size:17px; line-height:1.6; color:#3f444b; margin:0 0 20px; max-width:520px; }
+  .hx-feats{ list-style:none; margin:0 0 22px; padding:0; display:grid; gap:8px; }
+  .hx-feat{ display:flex; gap:14px; align-items:flex-start; width:100%; text-align:left; background:transparent; border:1.5px solid transparent; border-radius:14px; padding:10px 12px; cursor:pointer; font:inherit; color:inherit; transition:background .25s,border-color .25s,transform .25s; }
+  .hx-feat:hover{ background:rgba(255,255,255,.6); }
+  .hx-feat[aria-pressed="true"]{ background:#fff; border-color:#e8a91f; box-shadow:0 6px 20px rgba(212,154,26,.18); transform:translateX(4px); }
+  .hx-ico{ flex:0 0 46px; height:46px; border-radius:50%; background:#fbe7b4; display:grid; place-items:center; transition:background .25s; }
+  .hx-feat[aria-pressed="true"] .hx-ico{ background:#e8a91f; }
+  .hx-ico svg{ width:22px; height:22px; fill:#d49a1a; transition:fill .25s; }
+  .hx-feat[aria-pressed="true"] .hx-ico svg{ fill:#1f2328; }
+  .hx-feat b{ display:block; font:700 16.5px 'Inter',sans-serif; color:#12161c; }
+  .hx-feat span.d{ display:block; font-size:14px; line-height:1.5; color:#4a4f56; margin-top:2px; }
+  .hx .promo-links{ margin:0; }
+  .hx-stage{ position:relative; perspective:1400px; }
+  .hx-frame{ position:relative; aspect-ratio:981/938; width:100%; transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); transition:transform .25s ease-out; will-change:transform; animation:hxfloat 7s ease-in-out infinite; }
+  .hx-frame img{ position:absolute; inset:0; width:100%; height:100%; display:block;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 97%,transparent 100%),linear-gradient(180deg,transparent 0,#000 3%,#000 90%,transparent 100%); -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 97%,transparent 100%),linear-gradient(180deg,transparent 0,#000 3%,#000 90%,transparent 100%); mask-composite:intersect; }
+  .hx-spot{ position:absolute; border:3px solid #e8a91f; box-shadow:0 0 0 6px rgba(232,169,31,.22),0 0 28px rgba(232,169,31,.55); opacity:0; transform:scale(.92); transition:opacity .35s,transform .35s; pointer-events:none; }
+  .hx-spot.on{ opacity:1; transform:scale(1); animation:hxpulse 1.8s ease-in-out infinite; }
+  .hx-spot.round{ border-radius:50%; } .hx-spot.box{ border-radius:12px; }
+  .hx-in > *{ animation:hxin .7s both; } .hx-in > :nth-child(2){ animation-delay:.12s; }
+  @keyframes hxin{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+  @keyframes hxfloat{ 0%,100%{ translate:0 0; } 50%{ translate:0 -8px; } }
+  @keyframes hxpulse{ 0%,100%{ box-shadow:0 0 0 4px rgba(232,169,31,.22),0 0 22px rgba(232,169,31,.45); } 50%{ box-shadow:0 0 0 12px rgba(232,169,31,.10),0 0 38px rgba(232,169,31,.7); } }
+  @media (max-width:979px){ .hx-in{ grid-template-columns:1fr; grid-template-areas:'head' 'stage' 'body'; grid-template-rows:auto; padding:28px 18px 44px; } .hx-stage{ max-width:640px; margin:0 auto 18px; width:100%; } .hx-sub{ font-size:16px; margin-bottom:6px; } }
+  @media (prefers-reduced-motion:reduce){ .hx-frame,.hx-in > *,.hx-spot.on{ animation:none; } .hx-frame{ transition:none; } .hx-feat{ transition:none; } }
   .promo-links{ display:flex; flex-wrap:wrap; gap:10px; margin:0 0 34px; }
   .promo-links a{ display:inline-flex; align-items:center; border:1.5px solid #1f2328; border-radius:999px; padding:10px 18px; font-weight:700; font-size:14.5px; text-decoration:none; color:#1f2328; background:#fff; }
   .promo-links a:hover{ background:#fff3d4; border-color:#e8a91f; }
@@ -228,39 +260,63 @@
 })();
 </script>
 
-<section class="hero hero-anim">
-  <h1>Get your firm in front of people already looking for one</h1>
-  <p>LawDB is a Canadian law firm directory built around one question: what kind of case do you have?
-  People search by case type and city, and land on the firms that actually handle that work.</p>
-  <div class="hero-btns">
-    <a class="btn-primary" href="/list-your-firm">List Your Firm &mdash; Free</a>
-    <a class="btn-ghost" href="/book-a-call">Request a Consultation</a>
+<section class="hx" aria-labelledby="hxh">
+  <div class="hx-in">
+    <div class="hx-head">
+      <p class="hx-eyebrow">Featured law firm members</p>
+      <h1 id="hxh">Be Seen. Get More Clients.</h1>
+      <p class="hx-sub">Stand out on LawDB with premium placement, more visibility and a custom profile that showcases what makes your firm unique.</p>
+    </div>
+    <div class="hx-body">
+      <ul class="hx-feats">
+        <li><button class="hx-feat" type="button" data-i="0" aria-pressed="true"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span><span><b>Featured on the Map</b><span class="d">Your firm appears with a highlighted badge on the LawDB map, making it easier for clients to find you in your area.</span></span></button></li>
+        <li><button class="hx-feat" type="button" data-i="1" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7L12 2Z"/></svg></span><span><b>Ranked First in Your Area</b><span class="d">Featured members show up at the top of search results for their location and practice area.</span></span></button></li>
+        <li><button class="hx-feat" type="button" data-i="2" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5Z"/></svg></span><span><b>Custom Profile Page</b><span class="d">Showcase your firm with a detailed profile, including your team, services, credentials, photos and company blogs.</span></span></button></li>
+        <li><button class="hx-feat" type="button" data-i="3" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM9 12v1.8h8V12H9Zm0 4v1.8h8V16H9Z"/></svg></span><span><b>Showcase Your Expertise</b><span class="d">Keep clients informed and build trust with your latest news, articles and legal insights.</span></span></button></li>
+      </ul>
+      <div class="promo-links">
+        <a class="promo-go" href="/list-your-firm?plan=featured">Get Featured: $89 / month</a>
+        <a href="/list-your-firm">List your firm (free)</a>
+        <a href="/account/">Manage your listing</a>
+        <a href="/grow-your-practice">Grow your practice</a>
+      </div>
+    </div>
+    <div class="hx-stage" id="hxStage">
+      <div class="hx-frame" id="hxFrame">
+        <img src="/images/featured-hero-981.webp" srcset="/images/featured-hero-640.webp 640w, /images/featured-hero-981.webp 981w" sizes="(max-width:979px) 92vw, 640px" width="981" height="938" fetchpriority="high" decoding="async"
+          alt="A LawDB Featured firm: a gold highlighted badge on the map, ranked first in search results for your area and practice area, and a custom profile page with your team, services, credentials and blog.">
+        <span class="hx-spot round" style="left:57%;top:28%;width:10%;aspect-ratio:1" data-i="0"></span>
+        <span class="hx-spot box" style="left:51%;top:46.6%;width:17%;height:5.6%" data-i="1"></span>
+        <span class="hx-spot box" style="left:5%;top:45.5%;width:44%;height:12%" data-i="2"></span>
+        <span class="hx-spot box" style="left:4.4%;top:75%;width:62%;height:22%" data-i="3"></span>
+      </div>
+    </div>
   </div>
 </section>
-
-<section class="stats-strip">
-  <div class="inner">
-    <div><span class="num">370</span><span class="lbl">Law Firms Listed</span></div>
-    <div><span class="num">5</span><span class="lbl">Provinces</span></div>
-    <div><span class="num">62</span><span class="lbl">Cities Covered</span></div>
-    <div><span class="num">10</span><span class="lbl">Practice Areas</span></div>
-  </div>
-</section>
+<script>
+(function(){
+  var feats=[].slice.call(document.querySelectorAll('.hx-feat')), spots=[].slice.call(document.querySelectorAll('.hx-spot'));
+  var stage=document.getElementById('hxStage'), frame=document.getElementById('hxFrame');
+  var cur=0, timer=null, reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(i){ cur=i; feats.forEach(function(b,k){ b.setAttribute('aria-pressed',k===i?'true':'false'); }); spots.forEach(function(s,k){ s.classList.toggle('on',k===i); }); }
+  function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+  function play(){ stop(); if(reduce) return; timer=setInterval(function(){ show((cur+1)%feats.length); },4200); }
+  feats.forEach(function(b,k){
+    b.addEventListener('click',function(){ show(k); stop(); });
+    b.addEventListener('mouseenter',function(){ show(k); stop(); });
+    b.addEventListener('focus',function(){ show(k); stop(); });
+  });
+  var hero=document.querySelector('.hx'); if(hero){ hero.addEventListener('mouseleave',play); }
+  show(0); play();
+  // the mock-up leans toward the pointer
+  if(stage&&frame&&!reduce&&window.matchMedia('(hover: hover)').matches){
+    stage.addEventListener('pointermove',function(e){ var r=stage.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; frame.style.setProperty('--ry',(x*7).toFixed(2)+'deg'); frame.style.setProperty('--rx',(-y*6).toFixed(2)+'deg'); });
+    stage.addEventListener('pointerleave',function(){ frame.style.setProperty('--ry','0deg'); frame.style.setProperty('--rx','0deg'); });
+  }
+})();
+</script>
 
 <div class="wrap">
-
-  <h2>Be seen. Get more clients.</h2>
-  <p class="lede">Featured members get premium placement on LawDB: a highlighted marker on the map, the top of search results for their city and practice area, a custom profile page, and their own blog.</p>
-  <a class="promo" href="/list-your-firm?plan=featured">
-    <img src="/images/featured-promo-1536.webp" srcset="/images/featured-promo-768.webp 768w, /images/featured-promo-1536.webp 1536w" sizes="(max-width:900px) 100vw, 1100px" width="1536" height="1024" loading="lazy" decoding="async"
-      alt="LawDB Featured law firm members: be seen and get more clients. Featured on the map with a highlighted badge, ranked first in your area for your practice area, a custom profile page with your team, services and blog, and a place to showcase your expertise.">
-  </a>
-  <div class="promo-links">
-    <a class="promo-go" href="/list-your-firm?plan=featured">Get Featured: $89 / month</a>
-    <a href="/list-your-firm">List your firm (free)</a>
-    <a href="/account/">Manage your listing</a>
-    <a href="/grow-your-practice">Grow your practice</a>
-  </div>
 
   <h2>Why list with us</h2>
   <p class="lede">We are a young directory and we would rather tell you exactly what a listing does and

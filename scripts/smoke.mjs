@@ -567,7 +567,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(isDeepStrictEqual(labels(clientsCol), ['Find Your Lawyer', 'Browse by Case Type', 'LawDB News', 'Court Decisions Explained', 'Blog', 'How LawDB Works', 'Request a Consultation']), `${f}: the footer's clients column is complete`);
   }
   const hub = pageFile('for-firms.html');
-  ok(['/list-your-firm"', '/list-your-firm?plan=featured"', '/account/"', '/grow-your-practice"'].every((l) => hub.slice(hub.indexOf('class="promo-links"'), hub.indexOf('class="promo-links"') + 900).includes(l)) && hub.includes('/images/featured-promo-1536.webp') && /alt="LawDB Featured law firm members/.test(hub), 'For Law Firms is the hub: the Featured picture with its alt text, and links to list, Featured, manage, grow');
+  ok(['/list-your-firm"', '/list-your-firm?plan=featured"', '/account/"', '/grow-your-practice"'].every((l) => hub.slice(hub.indexOf('class="promo-links"'), hub.indexOf('class="promo-links"') + 900).includes(l)) && hub.includes('/images/featured-hero-981.webp') && /alt="A LawDB Featured firm/.test(hub) && hub.indexOf('class="hx"') > 0 && hub.indexOf('class="hx"') < hub.indexOf('<div class="wrap">') && (hub.match(/<h1[ >]/g) || []).length === 1 && !hub.includes('class="stats-strip"') && hub.includes('data-i="3"'), 'For Law Firms opens with the full-width interactive Featured hero (one h1, four features, the buttons), with no old dark hero or stats strip');
   ok(!/Advertise With Us|>Add Your Firm<\/a><a class="nav-cta"/.test(pageFile('index.html')), 'the old menu wording is gone');
   fixtureServer.close();
   // pictures: owners add a logo, cover and photos; everything is checked; admins can do it for any firm

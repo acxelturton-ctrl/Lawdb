@@ -18,6 +18,7 @@ import { nightly } from './lib/backup.js';
 import { searchNightly } from './lib/gsc.js';
 import { legacyRedirect } from './lib/redirects.js';
 import { storyPage, storySitemap } from './routes/story-page.js';
+import * as social from './routes/social.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -101,6 +102,14 @@ const ROUTES = [
   route('POST', '/api/account/firms/:slug/images', account.imagesAdd),
   route('DELETE', '/api/account/firms/:slug/images/:id', account.imagesRemove),
   route('PATCH', '/api/account/leads/:id', account.updateLead),
+  route('GET', '/api/social/status', social.status),
+  route('POST', '/api/account/follow', social.follow),
+  route('DELETE', '/api/account/follow/:slug', social.unfollow),
+  route('GET', '/api/account/following', social.following),
+  route('GET', '/api/account/feed', social.feed),
+  route('GET', '/api/account/saved', social.savedList),
+  route('POST', '/api/account/saved', social.save),
+  route('DELETE', '/api/account/saved/:id', social.unsave),
 ];
 
 export default {

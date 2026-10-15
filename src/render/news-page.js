@@ -88,7 +88,7 @@ const CSS = `<style>
 
 // Tapping a story opens it over the page (and gives it its own address, so Back closes it and the link can be shared). Without JavaScript it is an ordinary link to the story's own page.
 const STORY_JS = `(function(){var d=document.getElementById('story-dlg');if(!d||!d.showModal)return;var b=document.getElementById('story-body'),open=false;
-function show(h,push){fetch(h+(h.indexOf('?')>-1?'&':'?')+'partial=1').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){b.innerHTML=t;if(!d.open)d.showModal();d.scrollTop=0;if(push)history.pushState({story:h},'',h);open=true}).catch(function(){location.href=h})}
+function show(h,push){fetch(h+(h.indexOf('?')>-1?'&':'?')+'partial=1').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){b.innerHTML=t;if(window.lawdbSocial)window.lawdbSocial.init(b);if(!d.open)d.showModal();d.scrollTop=0;if(push)history.pushState({story:h},'',h);open=true}).catch(function(){location.href=h})}
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-story]');if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();show(a.getAttribute('href'),true)});
 d.addEventListener('close',function(){if(open&&history.state&&history.state.story){open=false;history.back()}else open=false});
 d.querySelector('.st-x').addEventListener('click',function(){d.close()});
@@ -121,6 +121,7 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
   const headOf = (p) => ({
     avatar: avatarOf(p.logo, p.firmName),
     who: `<span class="lw-by"><a href="/firms/${esc(p.firmSlug)}">${esc(p.firmName)}</a>${p.featured ? '<span class="lw-ft">Featured</span>' : ''}</span>`,
+    action: `<button class="lw-fbtn" type="button" data-follow="${esc(p.firmSlug)}">Follow</button>`,
   });
   // The lead story is the newest post that has a picture; the rest follow in date order.
   const lead = shown.find((p) => p.image) || null;
@@ -160,6 +161,7 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
     '  <dialog id="story-dlg" class="st-dlg" aria-label="Story"><button class="st-x" type="button" aria-label="Close">&times;</button><div id="story-body"></div></dialog>',
     '  ' + C.FOOTER,
     '<script src="/site.js" defer></script>',
+    '<script src="/follow.js" defer></script>',
     '<script>' + STORY_JS + '</script>',
     '</body>\n</html>\n',
   ].join('\n');

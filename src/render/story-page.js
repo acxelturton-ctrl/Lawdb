@@ -27,6 +27,7 @@ const CSS = `<style>
 .st .pre{font-size:clamp(16.5px,1.5vw,19px);line-height:1.7;color:#3b3631;margin:0 0 20px}
 .st-go{display:inline-block;background:#2b2723;color:#fff;border-radius:10px;padding:14px 22px;font-weight:700;text-decoration:none;font-size:16px}
 .st-go:hover{background:#9a6f1c}
+.st-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .st-note{font-size:13px;color:#8f8a80;margin:12px 0 0;line-height:1.55}
 .st-box{background:#fff;border:1px solid #e4ded3;border-radius:14px;padding:18px 20px;margin:26px 0 0}
 .st-box h2{font:700 19px 'Source Serif 4',serif;margin:0 0 10px}
@@ -49,10 +50,10 @@ export function storyBody({ post, firm, more, nearby }) {
   const call = firm.phone ? `<a href="tel:${esc(String(firm.phone).replace(/[^+\d]/g, ''))}">Call ${esc(firm.name)}</a>` : '';
   return `<article class="st">` +
     (post.image && safePostUrl(post.image) ? `<span class="st-img"><img src="${esc(post.image)}" alt="" decoding="async" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"></span>` : '') +
-    `<div class="st-firm"><span class="st-av">${avatarOf(firm)}</span><span><a class="n" href="/firms/${esc(firm.slug)}">${esc(firm.name)}</a>${firm.featured ? '<span class="ft">Featured</span>' : ''}<small>${esc(firm.city)}, ${esc(firm.province)}${date ? ' &middot; ' + esc(date) : ''}</small></span></div>` +
+    `<div class="st-firm"><span class="st-av">${avatarOf(firm)}</span><span><a class="n" href="/firms/${esc(firm.slug)}">${esc(firm.name)}</a>${firm.featured ? '<span class="ft">Featured</span>' : ''}<small>${esc(firm.city)}, ${esc(firm.province)}${date ? ' &middot; ' + esc(date) : ''}</small></span><button class="lw-fbtn" type="button" data-follow="${esc(firm.slug)}" style="margin-left:auto">Follow</button></div>` +
     `<h1>${esc(post.title)}</h1>` +
     (post.excerpt ? `<p class="pre">${esc(post.excerpt)}</p>` : '') +
-    `<a class="st-go" href="${esc(post.url)}" target="_blank" rel="noopener">Read the full article on ${esc(host)} &rarr;</a>` +
+    `<div class="st-cta"><a class="st-go" href="${esc(post.url)}" target="_blank" rel="noopener">Read the full article on ${esc(host)} &rarr;</a><button class="lw-sbtn" type="button" data-save="${Number(post.id)}">Save</button></div>` +
     `<p class="st-note">This is a short preview. The article was written by ${esc(firm.name)} and the full text is on their website.</p>` +
     `<div class="st-box"><h2>About ${esc(firm.name)}</h2>${tags ? `<div class="st-chips">${tags}</div>` : ''}<div class="st-row"><a href="/firms/${esc(firm.slug)}">See their LawDB profile</a>${call}</div></div>` +
     (more.length ? `<div class="st-box"><h2>More from ${esc(firm.name)}</h2><ul>${more.map((m) => `<li><a href="${esc(storyPath(firm.slug, m.id, m.title))}" data-story>${esc(m.title)}</a></li>`).join('')}</ul></div>` : '') +
@@ -81,6 +82,7 @@ export function renderStoryPage({ post, firm, more, nearby, origin = 'https://la
     `  <main class="st-wrap"><p class="st-crumb"><a href="/news">LawDB News</a> &rsaquo; <a href="/news?firm=${esc(firm.slug)}">${esc(firm.name)}</a></p>` + storyBody({ post, firm, more, nearby }) + '</main>',
     '  ' + C.FOOTER,
     '<script src="/site.js" defer></script>',
+    '<script src="/follow.js" defer></script>',
     '</body>\n</html>\n',
   ].join('\n');
 }

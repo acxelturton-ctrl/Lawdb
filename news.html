@@ -162,6 +162,8 @@
 .lw-feed .lw-bc summary{font-size:14px;padding:6px 0}
 .lw-feed .lw-bc .lw-go{padding:11px 16px;font-size:14px;border-radius:8px}
 /* the lead story: picture and text side by side on a wide screen */
+.lw-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:4px}
+.lw-bc-head .lw-fbtn{margin-left:auto;flex:none}
 .lw-feed .lw-hero{grid-column:1/-1}
 .lw-feed .lw-hero h3{font-size:clamp(24px,2.4vw,38px);line-height:1.15}
 .lw-feed .lw-hero p{font-size:clamp(16px,1.2vw,18.5px)}
@@ -247,7 +249,7 @@
   <a class="mark" href="/"><img src="../images/logo-icon.png" alt="LawDB"><span class="wordmark"><span class="name"><span class="law">Law</span><span class="db">DB</span><sup style="font-size:.4em;font-weight:600;margin-left:1px;vertical-align:super;line-height:0;">&trade;</sup></span><span class="tagline">Canada&#39;s Legal Directory</span></span></a>
   <div class="header-right">
     
-    <nav class="desktop-nav" aria-label="Primary"><a href="/find-lawyers">Find Your Lawyer</a><a href="/news">LawDB News</a><a href="/for-firms">For Law Firms</a><a class="nav-cta" href="/book-a-call">Request a Consultation</a></nav>
+    <nav class="desktop-nav" aria-label="Primary"><a href="/find-lawyers">Find Your Lawyer</a><a href="/news">LawDB News</a><a href="/for-firms">For Law Firms</a><a href="/account/">Sign in</a><a class="nav-cta" href="/book-a-call">Request a Consultation</a></nav>
     <button class="hamburger-btn" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -257,6 +259,7 @@
   <a href="/find-lawyers">Find Your Lawyer</a>
   <a href="/news">LawDB News</a>
   <a href="/for-firms">For Law Firms</a>
+  <a href="/account/">Sign in</a>
   <a class="menu-cta" href="/book-a-call">Request a Consultation</a>
 </nav>
   <header class="news-band"><svg class="news-seal" viewBox="0 0 300 300" aria-hidden="true" focusable="false"><defs><path id="nwCirc" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0"/></defs><circle cx="150" cy="150" r="140" fill="none" stroke="#e0b252" stroke-width="2"/><circle cx="150" cy="150" r="96" fill="none" stroke="#e0b252" stroke-width="1.2" stroke-dasharray="3 5"/><text><textPath href="#nwCirc">LAWDB NEWS &#183; CANADA'S LEGAL DIRECTORY &#183; STRAIGHT FROM THE FIRMS &#183; </textPath></text></svg><div class="news-sealmid" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><g fill="none" stroke="#9a6f1c" stroke-width="3" stroke-linecap="round"><path d="M32 10v40M20 50h24M14 20h36"/><path d="M14 20l-7 16a8 6 0 0 0 14 0zM50 20l-7 16a8 6 0 0 0 14 0z"/></g></svg></div><p class="news-eyebrow">Straight from the firms</p><h1><span class="u">LawDB News</span></h1><p class="news-lede">What Canada's law firms are writing, all in one place.</p><p class="news-intro">Every article on this page was written by a lawyer or firm you will find in the LawDB directory. We gather their latest work here so you can see how the people behind the listings think, explain and help, before you ever pick up the phone.</p></header>
@@ -330,8 +333,9 @@
 </html>
 
 <script src="/site.js" defer></script>
+<script src="/follow.js" defer></script>
 <script>(function(){var d=document.getElementById('story-dlg');if(!d||!d.showModal)return;var b=document.getElementById('story-body'),open=false;
-function show(h,push){fetch(h+(h.indexOf('?')>-1?'&':'?')+'partial=1').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){b.innerHTML=t;if(!d.open)d.showModal();d.scrollTop=0;if(push)history.pushState({story:h},'',h);open=true}).catch(function(){location.href=h})}
+function show(h,push){fetch(h+(h.indexOf('?')>-1?'&':'?')+'partial=1').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){b.innerHTML=t;if(window.lawdbSocial)window.lawdbSocial.init(b);if(!d.open)d.showModal();d.scrollTop=0;if(push)history.pushState({story:h},'',h);open=true}).catch(function(){location.href=h})}
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-story]');if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();show(a.getAttribute('href'),true)});
 d.addEventListener('close',function(){if(open&&history.state&&history.state.story){open=false;history.back()}else open=false});
 d.querySelector('.st-x').addEventListener('click',function(){d.close()});

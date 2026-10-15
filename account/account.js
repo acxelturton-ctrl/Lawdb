@@ -35,7 +35,7 @@ function renderLogin() {
 
 // ---------------------------------------------------------------- shell
 function shell(active, content) {
-  const tabs = [['firms', 'My firms'], ['find', 'Add or claim a firm']];
+  const tabs = [['feed', 'Feed'], ['following', 'Following'], ['saved', 'Saved'], ['firms', 'My firms'], ['find', 'Add or claim a firm']];
   return h('div', null,
     h('header', { class: 'top' }, h('div', { class: 'wrap' },
       h('a', { class: 'brand', href: '/account/' }, h('img', { src: '/images/logo-icon.png', alt: '' }), 'LawDB'),
@@ -265,6 +265,92 @@ async function viewLeads(slug) {
   return h('div', null, h('p', null, h('a', { href: '#firms' }, '← My firms')), h('h1', null, 'Enquiries for ' + firmName), list, more);
 }
 
+
+// ---------------------------------------------------------------- following, feed, saved
+const shortText = (t, n = 200) => (t && t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + '…' : t || '');
+
+function storyRow(s, onChange) {
+  const save = h('button', { type: 'button' }, s.saved ? 'Saved ✓' : 'Save');
+  save.addEventListener('click', async () => {
+    save.disabled = true;
+    try {
+      const r = s.saved ? await api('DELETE', `/api/account/saved/${s.id}`) : await api('POST', '/api/account/saved', { postId: s.id });
+      s.saved = r.saved; save.textContent = s.saved ? 'Saved ✓' : 'Save'; if (onChange) onChange(s);
+    } catch (err) { save.textContent = err.message; }
+    save.disabled = false;
+  });
+  return h('div', { class: 'audit' },
+    h('div', null, h('a', { href: `/firms/${s.firm.slug}` }, h('b', null, s.firm.name)), ' ', s.firm.featured && h('span', { class: 'badge featured' }, 'Featured'), ' ', h('span', { class: 'muted' }, s.publishedAt ? when(s.publishedAt) : '')),
+    h('div', null, h('a', { href: s.href }, s.title)),
+    s.excerpt && h('div', { class: 'muted' }, shortText(s.excerpt)),
+    h('div', { class: 'row' }, h('a', { href: s.href }, 'Read the story'), save));
+}
+
+async function viewFeed() {
+  const { stories } = await api('GET', '/api/account/feed');
+  const nF = (await api('GET', '/api/account/following')).firms.length;
+  return h('div', null, h('h1', null, 'Your feed'),
+    h('p', { class: 'muted' }, 'The latest stories from the firms you follow.'),
+    nF === 0
+      ? h('div', { class: 'card' }, h('p', null, 'You are not following any firms yet.'), h('p', { class: 'muted' }, 'Follow firms to see their new articles here. You can follow any firm from its profile page, from LawDB News, or search for firms below.'), h('a', { href: '#following' }, h('button', { class: 'primary', type: 'button' }, 'Find firms to follow')))
+      : stories.length
+        ? h('div', { class: 'card' }, stories.map((s) => storyRow(s)))
+        : h('div', { class: 'card' }, h('p', { class: 'muted' }, 'The firms you follow have no stories yet. New ones appear here when they publish.')));
+}
+
+async function viewFollowing() {
+  const out = h('div');
+  const search = h('input', { type: 'search', placeholder: 'Find a firm to follow: name or city', 'aria-label': 'Search firms to follow' });
+  const results = h('div');
+  const list = h('div', { class: 'card' });
+  const draw = async () => {
+    const { firms } = await api('GET', '/api/account/following');
+    list.replaceChildren(...(firms.length ? firms.map((f) => {
+      const b = h('button', { type: 'button' }, 'Unfollow');
+      b.addEventListener('click', async () => { b.disabled = true; try { await api('DELETE', `/api/account/follow/${encodeURIComponent(f.slug)}`); await draw(); } catch (err) { out.replaceChildren(note('msg-err', err.message)); b.disabled = false; } });
+      return h('div', { class: 'audit' }, h('div', null, h('a', { href: `/firms/${f.slug}` }, h('b', null, f.name)), ' ', f.featured && h('span', { class: 'badge featured' }, 'Featured'), ' ', h('span', { class: 'muted' }, `${f.city}, ${PROVINCES[f.province] || f.province} · ${f.followers} follower${f.followers === 1 ? '' : 's'}`)), h('div', { class: 'row' }, b));
+    }) : [h('p', { class: 'muted' }, 'You are not following any firms yet.')]));
+  };
+  let timer;
+  search.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      const q = search.value.trim();
+      if (q.length < 2) return results.replaceChildren();
+      try {
+        const { firms } = await api('GET', '/api/account/search?q=' + encodeURIComponent(q));
+        results.replaceChildren(...firms.map((f) => h('button', { class: 'firm-row', type: 'button', onclick: async () => {
+          try { await api('POST', '/api/account/follow', { slug: f.slug }); search.value = ''; results.replaceChildren(); await draw(); } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
+        } }, h('span', null, f.name, h('small', null, `${f.city}, ${PROVINCES[f.province] || f.province}`)), h('span', { class: 'muted' }, 'Follow'))));
+      } catch (err) { results.replaceChildren(note('msg-err', err.message)); }
+    }, 250);
+  });
+  await draw();
+  return h('div', null, h('h1', null, 'Following'),
+    h('p', { class: 'muted' }, 'Only you can see who you follow. Firms see just how many people follow them.'),
+    h('div', { class: 'card' }, search, results), out, list);
+}
+
+async function viewSaved() {
+  const { stories } = await api('GET', '/api/account/saved');
+  const box = h('div', { class: 'card' });
+  const draw = () => box.replaceChildren(...(stories.length ? stories.map((s) => storyRow(s, (x) => { if (!x.saved) { stories.splice(stories.indexOf(x), 1); draw(); } })) : [h('p', { class: 'muted' }, 'Nothing saved yet. Tap Save on any story to keep it here.')]));
+  draw();
+  return h('div', null, h('h1', null, 'Saved stories'), box);
+}
+
+// After signing in from a Follow or Save button on a public page, finish what the person asked for.
+async function finishPending() {
+  let p = null;
+  try { p = JSON.parse(localStorage.getItem('lawdb_pending') || 'null'); localStorage.removeItem('lawdb_pending'); } catch {}
+  if (!p) return false;
+  try {
+    if (p.type === 'follow') { await api('POST', '/api/account/follow', { slug: p.slug }); location.hash = '#following'; return true; }
+    if (p.type === 'save') { await api('POST', '/api/account/saved', { postId: Number(p.id) }); location.hash = '#saved'; return true; }
+  } catch { /* the page still opens; the person can try again */ }
+  return false;
+}
+
 // ---------------------------------------------------------------- router
 async function loadMe() {
   const data = await api('GET', '/api/account/me');
@@ -274,11 +360,14 @@ async function loadMe() {
 
 async function render() {
   const [name, arg] = location.hash.slice(1).split('/');
-  const tab = name === 'find' ? 'find' : 'firms';
+  const tab = ['feed', 'following', 'saved', 'find'].includes(name) ? name : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
   mount(shell(tab, h('p', { class: 'muted' }, 'Loading…')));
   try {
     let view;
     if (name === 'find') view = viewFind();
+    else if (tab === 'feed') view = await viewFeed();
+    else if (tab === 'following') view = await viewFollowing();
+    else if (tab === 'saved') view = await viewSaved();
     else if (name === 'edit' && arg) view = await viewEdit(arg);
     else if (name === 'leads') view = await viewLeads(arg);
     else { await loadMe(); view = viewFirms(); }
@@ -295,6 +384,7 @@ async function boot() {
     if (!who.user) return renderLogin();
     await loadMe();
   } catch (err) { return mount(h('div', { class: 'wrap' }, note('msg-err', err.message))); }
+  await finishPending();
   window.removeEventListener('hashchange', render);
   window.addEventListener('hashchange', render);
   render();

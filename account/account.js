@@ -112,7 +112,7 @@ function viewFirms() {
 }
 
 // ---------------------------------------------------------------- find / claim / add
-function viewFind() {
+function viewFind(slug) {
   const results = h('div');
   const panel = h('div');
   const search = h('input', { type: 'search', placeholder: 'Search by firm name or city', 'aria-label': 'Search firms' });
@@ -208,6 +208,9 @@ function viewFind() {
   }
 
   search.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(find, 250); });
+  if (slug) { // opened from a firm page's "Claim this listing"
+    api('GET', '/api/account/search?slug=' + encodeURIComponent(slug)).then(({ firms }) => { if (firms[0]) claimForm(firms[0]); }).catch(() => {});
+  }
   return h('div', null, h('h1', null, 'Add or claim a firm'),
     h('div', { class: 'card' }, h('b', null, 'Is your firm already listed?'), h('p', { class: 'muted' }, 'Search for it and ask to manage it.'), search, results),
     panel,
@@ -494,6 +497,7 @@ async function finishPending() {
   try {
     if (p.type === 'follow') { await api('POST', '/api/account/follow', { slug: p.slug }); location.hash = '#network'; return true; }
     if (p.type === 'back' && typeof p.url === 'string' && /^\/firms\/[a-z0-9-]+(#rate)?$/.test(p.url)) { location.replace(p.url); return true; }
+    if (p.type === 'claim' && /^[a-z0-9-]+$/.test(String(p.slug))) { location.hash = '#find/' + p.slug; return true; }
     if (p.type === 'save') { await api('POST', '/api/account/saved', { postId: Number(p.id) }); location.hash = '#saved'; return true; }
   } catch { /* the page still opens; the person can try again */ }
   return false;
@@ -590,7 +594,7 @@ async function render() {
   mount(shell(tab, h('p', { class: 'muted' }, 'Loading…')));
   try {
     let view;
-    if (name === 'find') view = viewFind();
+    if (name === 'find') view = viewFind(arg);
     else if (tab === 'feed') view = await viewFeed();
     else if (tab === 'network') view = await viewNetwork();
     else if (tab === 'saved') view = await viewSaved();

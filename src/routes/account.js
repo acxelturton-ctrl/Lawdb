@@ -91,6 +91,13 @@ export async function cities({ env }) {
 export async function search({ request, env, url }) {
   await requireUser(env, request);
   const q = (url.searchParams.get('q') || '').trim();
+  const bySlug = (url.searchParams.get('slug') || '').trim();
+  if (bySlug) { // a "Claim this listing" button on a firm page opens that exact firm
+    const row = await env.DB.prepare(
+      `SELECT f.slug, f.name, f.city, f.province, EXISTS (SELECT 1 FROM firm_members m WHERE m.firm_slug = f.slug AND m.status = 'approved') AS managed FROM firms f WHERE f.status = 'live' AND f.slug = ?`
+    ).bind(bySlug).first();
+    return reply({ firms: row ? [{ ...row, managed: !!row.managed }] : [] });
+  }
   if (q.length < 2) return reply({ firms: [] });
   const like = `%${q.replace(/[\\%_]/g, '\\$&')}%`;
   const { results } = await env.DB.prepare(

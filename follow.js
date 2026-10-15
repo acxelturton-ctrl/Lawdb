@@ -9,6 +9,7 @@
     '.lw-sbtn[aria-pressed="true"]{background:#1f2328;color:#fff}' +
     '.lc .lw-fbtn{position:absolute;top:10px;left:10px;z-index:3;box-shadow:0 1px 4px rgba(31,35,40,.18)}' +
     '.frow .lw-fbtn{position:absolute;top:12px;right:12px;z-index:2}.fcard-actions .lw-fbtn{padding:6px 12px;font-size:12.5px}.ra-actions .lw-fbtn{padding:6px 12px;font-size:12.5px}' +
+    '.lw-claim{margin:10px 0 0;font:600 13.5px Inter,system-ui,sans-serif}.lw-claim a{color:#b45309;text-decoration:underline;text-underline-offset:2px}.lw-claim a:hover{color:#1f2328}.lw-claimed{color:#1e6b3a}' +
     '.lw-fcount{margin:0 0 8px;font:600 13.5px Inter,system-ui,sans-serif;color:#636870}' +
     '.li-actions{flex-wrap:wrap}.li-actions .lw-fbtn{border-radius:4px;padding:11px 18px;font-size:14px}@media(max-width:520px){.li-actions .lw-fbtn{flex:1 1 100%}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
@@ -112,15 +113,15 @@
     if (document.querySelector('.lw-gate')) return;
     if (!document.getElementById('lw-gate-css')) { var g = document.createElement('style'); g.id = 'lw-gate-css'; g.textContent = gcss; document.head.appendChild(g); }
     var mkEl = function (tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
-    var follow = action.type === 'follow', prev = document.activeElement;
+    var follow = action.type === 'follow', claim = action.type === 'claim', prev = document.activeElement;
     var wrap = mkEl('div', 'lw-gate'), card = mkEl('div', 'lw-gate-card');
     card.setAttribute('role', 'dialog'); card.setAttribute('aria-modal', 'true'); card.setAttribute('aria-labelledby', 'lw-gate-h');
     var x = mkEl('button', 'lw-gate-x', '\u00d7'); x.type = 'button'; x.setAttribute('aria-label', 'Close');
     var logo = mkEl('a', 'lw-gate-logo'); logo.href = '/';
     var im = document.createElement('img'); im.src = '/images/logo-icon.png'; im.alt = ''; logo.appendChild(im);
     var wm = mkEl('span'); wm.appendChild(document.createTextNode('Law')); wm.appendChild(mkEl('i', '', 'DB')); logo.appendChild(wm);
-    var h = mkEl('h2', '', follow ? 'Follow ' + (name || 'this firm') + ' to see what they share.' : 'Sign in to save this story.'); h.id = 'lw-gate-h';
-    var sub = mkEl('p', '', follow ? 'Stay up to date with news and updates from the law firms you care about. Free.' : 'Keep the stories you want to read again in your own list. Free.');
+    var h = mkEl('h2', '', claim ? 'Claim ' + (name || 'this firm') + ' on LawDB.' : follow ? 'Follow ' + (name || 'this firm') + ' to see what they share.' : 'Sign in to save this story.'); h.id = 'lw-gate-h';
+    var sub = mkEl('p', '', claim ? 'Sign in to manage this listing: edit your description, practice areas, hours and photos. We check every request so listings stay trustworthy.' : follow ? 'Stay up to date with news and updates from the law firms you care about. Free.' : 'Keep the stories you want to read again in your own list. Free.');
     var li = mkEl('a', 'lw-gate-btn go', 'Log in'); li.href = '/account/'; li.setAttribute('role', 'button');
     var su = mkEl('a', 'lw-gate-btn alt', 'Sign up'); su.href = '/account/?join=1'; su.setAttribute('role', 'button');
     var fine = mkEl('small', '', 'Continue with Google or LinkedIn. No password to remember.');
@@ -144,6 +145,13 @@
   }
 
   document.addEventListener('click', function (e) {
+    var cl = e.target.closest && e.target.closest('[data-claim]');
+    if (cl) {
+      e.preventDefault(); e.stopPropagation();
+      var cs = cl.getAttribute('data-claim');
+      if (!state.signedIn) { var h1 = document.querySelector('h1'); return gate({ type: 'claim', slug: cs }, h1 ? h1.textContent.replace(/\s+/g, ' ').trim() : ''); }
+      return toAccount({ type: 'claim', slug: cs });
+    }
     var f = e.target.closest && e.target.closest('[data-follow]');
     var s = !f && e.target.closest && e.target.closest('[data-save]');
     if (!f && !s) return;

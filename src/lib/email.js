@@ -55,6 +55,14 @@ export function loginEmail(link) {
 
 export const sendLoginEmail = (env, to, link) => sendMail(env, { to, ...loginEmail(link) });
 
+export function inviteEmail(link, { firmName, days }) {
+  return {
+    subject: `Your ${firmName} profile on LawDB is ready`,
+    text: `Hello,\n\nAs we discussed, your firm's profile on LawDB.ca is ready for you to manage. Use this link to sign in and edit ${firmName}: your description, practice areas, hours, photos and more.\n\n${link}\n\nThe link works once and expires in ${days} days. After the first time you can sign in with Google or LinkedIn using this same email address.\n\nIf you were not expecting this, you can ignore this email.`,
+    html: `<p>As we discussed, your firm's profile on LawDB.ca is ready for you to manage. Use the button below to sign in and edit <b>${esc(firmName)}</b>: your description, practice areas, hours, photos and more.</p>${button(link, 'Open my profile')}${small(`The link works once and expires in ${days} days. After the first time you can sign in with Google or LinkedIn using this same email address. If you were not expecting this, you can ignore this email.`)}`,
+  };
+}
+
 export function newClaimEmail(origin, { email, contactName, jobTitle, firmName, city, isNew }) {
   const link = `${origin}/admin/#approvals`;
   const who = `${contactName}${jobTitle ? ` (${jobTitle})` : ''}, ${email}`;

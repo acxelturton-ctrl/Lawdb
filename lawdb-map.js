@@ -388,7 +388,7 @@
   /* ------------------------------------------------------------ basemap theme */
   var P = {
     land: '#f4f1e8', water: '#bfe0ee', park: '#d3ebc6', wood: '#c7e4b8', grass: '#e0eed3', resid: '#efece2',
-    road: '#ffffff', casing: '#e2ddd0', major: '#fdefc0', motor: '#f8d27a', motorCasing: '#e3a93a',
+    road: '#ffffff', casing: '#e2ddd0', major: '#ffffff', motor: '#e4eaf1', motorCasing: '#b8c3cf',
     building: '#e8e3d6', buildingLine: '#d9d3c4', halo: 'rgba(255,255,255,.92)', text: '#1f2328', textSoft: '#636870', water_txt: '#5b8fa8'
   };
   window.__gmPalette = P;

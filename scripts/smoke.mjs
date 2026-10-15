@@ -56,6 +56,10 @@ const rawCall = async (method, path, bytes, type, extraHeaders = {}) => {
 };
 const tokenFrom = (link) => link.split('#token=')[1];
 const staticFile = (f) => JSON.parse(readFileSync(new URL('../' + f, import.meta.url), 'utf8'));
+const getRawWith = async (path, jar) => {
+  const res = await fetch(BASE + path, { redirect: 'manual', headers: { cookie: jar, 'cf-connecting-ip': RUN_IP }, signal: AbortSignal.timeout(15000) });
+  return { status: res.status, headers: res.headers, text: await res.text() };
+};
 const getRaw = async (path) => {
   const res = await fetch(BASE + path, { redirect: 'manual', signal: AbortSignal.timeout(15000) });
   return { status: res.status, headers: res.headers, text: await res.text() };
@@ -316,15 +320,53 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('POST', '/api/leads', { name: 'Client One', email: `client-${run}@example.com`, phone: '613 555 0111', message: note1, form: 'firm-profile', firm: 'achkar-law', firmName: 'Achkar Law' })).status === 201, 'a visitor sends an enquiry from the firm\'s page');
   ok((await call('POST', '/api/leads', { name: 'Stray', email: `stray-${run}@example.com`, form: 'firm-profile', firm: 'no-such-firm' })).status === 201, 'an enquiry naming an unknown firm is still saved');
   as(o1.jar);
+  // a Basic firm gets every enquiry by email but cannot read or manage them in the dashboard (that is a Featured benefit)
+  const locked = await call('GET', '/api/account/firms/achkar-law/leads');
+  ok(locked.status === 200 && locked.data.locked === true && locked.data.summary.total >= 1 && locked.data.leads.length === 0 && !JSON.stringify(locked.data).includes(note1), 'a Basic owner sees only the count, not the enquiries');
+  ok(locked.data.upgradeUrl === null || /^https:\/\/buy\.stripe\.com\//.test(locked.data.upgradeUrl), 'a Basic owner is offered the upgrade');
+  ok((await call('GET', '/api/account/firms/achkar-law/leads.csv')).status === 403, 'a Basic owner cannot export enquiries');
+  ok((await call('PATCH', '/api/account/leads/1', { status: 'contacted' })).status === 403 || (await call('PATCH', '/api/account/leads/1', { status: 'contacted' })).status === 404, 'a Basic owner cannot manage enquiries');
+  const me0 = (await call('GET', '/api/account/me')).data.memberships.find((m) => m.slug === 'achkar-law');
+  ok(me0.newLeads >= 1, 'the dashboard tab shows how many enquiries are new');
+  as(adminJar);
+  await call('PATCH', '/api/admin/firms/achkar-law', { featured: true });
+  as(o1.jar);
+  const peek = await call('GET', '/api/account/firms/achkar-law/leads?peek=1');
+  ok(peek.data.locked === false && peek.data.leads.length === 0 && peek.data.summary.unread >= 1, 'a Featured owner can look at the numbers without opening anything');
   const leads = await call('GET', '/api/account/firms/achkar-law/leads');
   const lead = leads.data.leads.find((l) => l.message === note1);
-  ok(lead && lead.email === `client-${run}@example.com` && lead.phone === '613 555 0111', 'the owner sees the enquiry in their dashboard');
+  ok(lead && lead.email === `client-${run}@example.com` && lead.phone === '613 555 0111' && lead.unread === true, 'a Featured owner sees the enquiry in their dashboard, marked as not yet opened');
   ok(!leads.data.leads.some((l) => l.email === `stray-${run}@example.com`), 'the owner sees only their own firm\'s enquiries');
+  ok((await call('GET', '/api/account/firms/achkar-law/leads')).data.leads.find((l) => l.id === lead.id).unread === false, 'once opened it is no longer marked new');
+  ok((await call('GET', '/api/account/me')).data.memberships.find((m) => m.slug === 'achkar-law').newLeads === 0, 'opening the enquiries clears the new count');
   ok((await call('PATCH', `/api/account/leads/${lead.id}`, { status: 'contacted' })).status === 200, 'the owner marks an enquiry contacted');
   ok((await call('PATCH', `/api/account/leads/${lead.id}`, { status: 'bogus' })).status === 422, 'bad enquiry status refused');
+  ok((await call('PATCH', `/api/account/leads/${lead.id}`, { note: 'Called, booked for Tuesday =HYPERLINK("x")' })).status === 200 && (await call('PATCH', `/api/account/leads/${lead.id}`, { note: 'x'.repeat(1001) })).status === 422, 'the owner can keep a private note (up to 1000 characters)');
+  ok((await call('PATCH', `/api/account/leads/${lead.id}`, {})).status === 422, 'an empty change is refused');
+  const byStatus = (await call('GET', '/api/account/firms/achkar-law/leads?status=contacted')).data.leads;
+  ok(byStatus.some((l) => l.id === lead.id && /Tuesday/.test(l.note)) && !(await call('GET', '/api/account/firms/achkar-law/leads?status=closed')).data.leads.some((l) => l.id === lead.id), 'enquiries can be filtered by status');
+  ok((await call('GET', `/api/account/firms/achkar-law/leads?q=${encodeURIComponent('Tuesday')}`)).data.leads.some((l) => l.id === lead.id) && (await call('GET', `/api/account/firms/achkar-law/leads?q=${encodeURIComponent('zzz-no-such-text')}`)).data.leads.length === 0 && (await call('GET', `/api/account/firms/achkar-law/leads?q=${encodeURIComponent('%')}`)).data.leads.length === 0, 'enquiries can be searched (and % is not a wildcard)');
+  cookie = '';
+  await call('POST', '/api/leads', { name: '=SUM(1+1)', email: `formula-${run}@example.com`, message: 'hello', form: 'firm-profile', firm: 'achkar-law', firmName: 'Achkar Law' });
+  as(o1.jar);
+  const csv = await getRawWith('/api/account/firms/achkar-law/leads.csv', o1.jar);
+  ok(csv.status === 200 && /text\/csv/.test(csv.headers.get('content-type')) && /attachment/.test(csv.headers.get('content-disposition')) && csv.text.includes(`client-${run}@example.com`), 'the owner can export enquiries to a spreadsheet');
+  ok(csv.text.includes(`"'=SUM(1+1)"`) && !csv.text.includes(`,"=SUM`) && !csv.text.startsWith('"=SUM'), 'exported cells cannot run as formulas');
   as(o2.jar);
   ok((await call('PATCH', `/api/account/leads/${lead.id}`, { status: 'closed' })).status === 403, 'another owner cannot change this enquiry');
+  ok((await call('PATCH', `/api/account/leads/${lead.id}`, { note: 'hi' })).status === 403 && (await call('GET', '/api/account/firms/achkar-law/leads.csv')).status === 403, 'another owner cannot add notes or export');
+  // the nightly job sends each owner a weekly summary of the enquiries their firm got
+  await fetch(BASE + '/__scheduled?cron=17+7+*+*+*', { signal: AbortSignal.timeout(30000) });
   as(adminJar);
+  let digestSeen = false;
+  for (let i = 0; i < 24 && !digestSeen; i++) {
+    const es = (await call('GET', '/api/admin/audit?limit=200')).data.entries;
+    digestSeen = es.some((e) => e.action === 'mail.dev' && e.entity_id === `owner1-${run}@example.com` && /enquir(y|ies) on LawDB this week/.test(e.detail?.subject || ''));
+    if (!digestSeen) await new Promise((r) => setTimeout(r, 500));
+  }
+  ok(digestSeen, 'the nightly job emails an owner a weekly summary of their firm\'s enquiries');
+  as(adminJar);
+  await call('PATCH', '/api/admin/firms/achkar-law', { featured: !!origFirm.featured });
   const audit3 = (await call('GET', '/api/admin/audit?limit=200')).data.entries;
   ok(audit3.some((e) => e.action === 'mail.dev' && e.entity_id === `owner1-${run}@example.com` && e.detail?.subject === 'New enquiry for Achkar Law'), 'the owner is emailed about the enquiry');
 

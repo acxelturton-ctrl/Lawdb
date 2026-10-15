@@ -99,6 +99,7 @@ const ROUTES = [
   route('GET', '/api/account/firms/:slug', account.getFirm),
   route('PATCH', '/api/account/firms/:slug', account.updateFirm),
   route('GET', '/api/account/firms/:slug/leads', account.listLeads),
+  route('GET', '/api/account/firms/:slug/leads.csv', account.exportLeads),
   route('GET', '/api/account/firms/:slug/plan', account.planGet),
   route('GET', '/api/account/firms/:slug/feed', account.feedGet),
   route('PATCH', '/api/account/firms/:slug/feed', account.feedUpdate),

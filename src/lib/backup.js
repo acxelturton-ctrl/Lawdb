@@ -8,6 +8,7 @@
 
 import { audit } from './audit.js';
 import { refreshAllFeeds } from './feeds.js';
+import { sendLeadDigests } from './leads.js';
 
 export const RETENTION = { leadMonths: 12, ipHashDays: 7, auditMonths: 24, backupDays: 30 };
 
@@ -67,7 +68,7 @@ export async function housekeeping(env) {
     run(`UPDATE login_tokens SET ip_hash = NULL WHERE ip_hash IS NOT NULL AND created_at < datetime('now', '-${RETENTION.ipHashDays} days')`),
     run(`UPDATE leads SET ip_hash = NULL WHERE ip_hash IS NOT NULL AND created_at < datetime('now', '-${RETENTION.ipHashDays} days')`),
     // Enquiries keep only "which firm, when, what status" once they are old, so reports still add up.
-    run(`UPDATE leads SET name = NULL, email = NULL, phone = NULL, message = NULL, payload = '{}', page = NULL
+    run(`UPDATE leads SET name = NULL, email = NULL, phone = NULL, message = NULL, note = NULL, payload = '{}', page = NULL
          WHERE created_at < datetime('now', '-${RETENTION.leadMonths} months') AND (email IS NOT NULL OR name IS NOT NULL OR message IS NOT NULL OR phone IS NOT NULL)`),
     run(`DELETE FROM audit_log WHERE at < datetime('now', '-${RETENTION.auditMonths} months')`),
     run("DELETE FROM stripe_events WHERE received_at < datetime('now', '-90 days')"),
@@ -80,6 +81,7 @@ export async function housekeeping(env) {
 
 export async function nightly(env) {
   try { await housekeeping(env); } catch (err) { console.error('housekeeping failed', err); await audit(env, null, 'housekeeping.failed', 'system', 'nightly', { error: String(err.message || err).slice(0, 300) }); }
+  try { await sendLeadDigests(env); } catch (err) { console.error('lead summary failed', err); await audit(env, null, 'leads.digest_failed', 'system', 'weekly', { error: String(err.message || err).slice(0, 300) }); }
   try { await refreshAllFeeds(env); } catch (err) { console.error('feed refresh failed', err); await audit(env, null, 'feeds.failed', 'system', 'nightly', { error: String(err.message || err).slice(0, 300) }); }
   try { await runBackup(env, null); } catch (err) { console.error('backup failed', err); await audit(env, null, 'backup.failed', 'backup', 'nightly', { error: String(err.message || err).slice(0, 300) }); }
 }

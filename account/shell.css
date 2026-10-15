@@ -72,3 +72,24 @@
 .ac-note{ max-width:620px; margin:0 auto; font-size:13px; color:#636870; line-height:1.6; }
 .ac-note a{ color:#b45309; font-weight:600; }
 @media (max-width:640px){ .ac-stats,.ac-perks{ grid-template-columns:1fr 1fr; } }
+
+/* Enquiries dashboard */
+.lx-count{ display:inline-block; min-width:18px; margin-left:6px; padding:0 6px; border-radius:999px; background:#e8a91f; color:#1f2328; font-size:11.5px; font-weight:800; line-height:18px; text-align:center; }
+.lx-tiles{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:0 0 14px; }
+.lx-tile{ background:#fff; border:1px solid #e3dfd5; border-radius:12px; padding:12px 8px; text-align:center; }
+.lx-tile b{ display:block; font:700 26px 'Source Serif 4',Georgia,serif; line-height:1.1; color:#1f2328; }
+.lx-tile span{ font-size:12.5px; color:#636870; font-weight:600; }
+.lx-tile.hot{ border-color:#e8a91f; background:#fff9e8; } .lx-tile.hot b{ color:#b45309; }
+.lx-bar{ display:flex; flex-wrap:wrap; gap:10px 14px; align-items:center; margin:0 0 14px; }
+.lx-bar input[type=search]{ flex:1 1 220px; min-width:0; margin:0; }
+.lx-chips{ display:flex; flex-wrap:wrap; gap:6px; }
+.lx-chip{ border:1.5px solid #cfc9bb; background:#fff; color:#1f2328; border-radius:999px; padding:6px 14px; font-weight:600; font-size:14px; cursor:pointer; }
+.lx-chip[aria-pressed="true"]{ background:#1f2328; border-color:#1f2328; color:#fff; }
+.lx-dot{ display:inline-block; width:9px; height:9px; margin-right:8px; border-radius:50%; background:#e8a91f; vertical-align:middle; }
+.lead.unread{ border-left:4px solid #e8a91f; }
+.lx-act{ display:inline-block; border:1.5px solid #1f2328; border-radius:999px; padding:6px 14px; font-weight:700; font-size:14px; text-decoration:none; color:#1f2328; background:#fff; }
+.lx-act:hover{ background:#fff3d4; border-color:#e8a91f; }
+.lx-note{ width:100%; box-sizing:border-box; margin-top:8px; }
+.lx-export{ font-weight:600; font-size:14px; }
+.lx-locked h2{ margin:0 0 6px; } .lx-perks{ margin:10px 0 16px; padding-left:20px; line-height:1.7; }
+@media (max-width:560px){ .lx-tiles{ grid-template-columns:repeat(2,1fr); } }

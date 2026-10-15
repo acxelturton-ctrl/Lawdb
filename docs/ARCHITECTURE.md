@@ -98,6 +98,13 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - **Accept:** the owner presses a button on `/account/welcome` (the token is POSTed to `/api/auth/invite-accept`, so mail scanners cannot burn it). One request atomically uses the token, creates the account if needed, makes them an approved owner of that firm, skips the member welcome steps, signs them in and opens `#edit/<slug>`. The invite can also switch a hand-built page to the database-built page so their edits show.
 - **Claim button:** every live firm page shows "Is this your firm? Claim this listing" (or "Managed by the firm" when an approved owner exists), added by `withFollow` in `src/routes/firm-page.js`. Signed-out visitors get the centred sign-in popup, then land on the claim form for that exact firm (`/account/#find/<slug>`). Claims still wait for admin approval.
 
+## Enquiries dashboard (a Featured benefit)
+- Every enquiry from a firm page is still emailed to the firm's approved owners, on every plan.
+- **Featured firms** get the dashboard at `/account/#leads`: numbers on top (new, 7 days, 30 days, all time), filters by status, search, a "new" marker and count on the tab, Reply by email / Call, status, a private note per enquiry, and an export to spreadsheet (`/api/account/firms/:slug/leads.csv`, formula-safe). Opening the list marks the enquiries as seen (`leads.seen_at`).
+- **Basic firms** see only the counts and an upgrade prompt (`listLeads` returns `locked: true` with no personal details; changing and exporting return 403). The plan check is `isFeatured` in `src/lib/leads.js`.
+- Mondays (every night when `DEV_ECHO_LINK=1`), the nightly job emails each approved owner whose firm had enquiries in the last 7 days a summary (`sendLeadDigests`; `firm_members.digest_at` stops repeats). Featured and Basic get different wording.
+- Enquiry details, including notes, are blanked after 12 months by the nightly housekeeping. Migration `0023_lead_inbox.sql`.
+
 ## Blog cards ("Latest from the firm")
 
 - Source: the firm's public RSS/Atom feed, found automatically from its website (`<link rel="alternate">`, then common paths like `/feed`) or entered by hand.

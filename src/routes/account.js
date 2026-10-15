@@ -9,6 +9,7 @@ import { geocode } from '../lib/geocode.js';
 import { mailInBackground, newClaimEmail } from '../lib/email.js';
 import { adminEmails } from '../lib/auth.js';
 import { LEAD_STATUSES } from './admin.js';
+import { isFeatured, leadSummary, leadsCsv } from '../lib/leads.js';
 import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
 import { planInfo } from '../lib/stripe.js';
 import { addImage, removeImage, listImages, imageInfo } from '../lib/images.js';
@@ -31,7 +32,8 @@ function notifyAdmins(env, exec, origin, details) {
 export async function me({ request, env }) {
   const user = await requireUser(env, request);
   const { results } = await env.DB.prepare(
-    `SELECT m.id, m.firm_slug AS slug, m.status, m.created_at AS requestedAt, f.name, f.city, f.province, f.status AS firmStatus, f.page_mode AS pageMode, f.featured AS featured
+    `SELECT m.id, m.firm_slug AS slug, m.status, m.created_at AS requestedAt, f.name, f.city, f.province, f.status AS firmStatus, f.page_mode AS pageMode, f.featured AS featured,
+       CASE WHEN m.status = 'approved' THEN (SELECT COUNT(*) FROM leads l WHERE l.firm_slug = m.firm_slug AND l.status = 'new' AND l.seen_at IS NULL) ELSE 0 END AS newLeads
      FROM firm_members m JOIN firms f ON f.slug = m.firm_slug WHERE m.user_id = ? ORDER BY m.id DESC`
   ).bind(user.id).all();
   const prof = await profileOf(env, user.id);
@@ -184,25 +186,60 @@ export async function updateFirm({ request, env, params }) {
 export async function listLeads({ request, env, params, url }) {
   const user = await requireUser(env, request);
   await requireOwner(env, user, params.slug);
+  const summary = await leadSummary(env, params.slug);
+  if (!(await isFeatured(env, params.slug))) {
+    // Basic firms still get every enquiry by email; reading and managing them here is a Featured benefit.
+    const plan = await planInfo(env, user, params.slug);
+    return reply({ locked: true, summary: { total: summary.total, new: summary.new, week: summary.week, month: summary.month }, upgradeUrl: plan.upgradeUrl, price: plan.price, leads: [], next: null });
+  }
+  if (url.searchParams.get('peek') === '1') return reply({ locked: false, summary, leads: [], next: null }); // plan and numbers only; nothing is marked as opened
   const limit = clampInt(url.searchParams.get('limit'), 30, 1, 100);
   const before = clampInt(url.searchParams.get('before'), 0, 0, Number.MAX_SAFE_INTEGER);
+  const status = LEAD_STATUSES.includes(url.searchParams.get('status')) ? url.searchParams.get('status') : null;
+  const q = (url.searchParams.get('q') || '').trim().slice(0, 100);
+  const like = q ? `%${q.replace(/[\\%_]/g, '\\$&')}%` : null;
+  const where = ['firm_slug = ?'], args = [params.slug];
+  if (status) { where.push('status = ?'); args.push(status); } else where.push("status != 'spam'");
+  if (before) { where.push('id < ?'); args.push(before); }
+  if (like) { where.push("(name LIKE ? ESCAPE '\\' OR email LIKE ? ESCAPE '\\' OR message LIKE ? ESCAPE '\\' OR note LIKE ? ESCAPE '\\')"); args.push(like, like, like, like); }
   const { results } = await env.DB.prepare(
-    `SELECT id, name, email, phone, message, status, created_at FROM leads WHERE firm_slug = ? ${before ? 'AND id < ?' : ''} ORDER BY id DESC LIMIT ?`
-  ).bind(...[params.slug, ...(before ? [before] : []), limit + 1]).all();
+    `SELECT id, name, email, phone, message, status, note, created_at, (seen_at IS NULL) AS unread FROM leads WHERE ${where.join(' AND ')} ORDER BY id DESC LIMIT ?`
+  ).bind(...args, limit + 1).all();
   const page = results.slice(0, limit);
-  return reply({ leads: page, next: results.length > limit ? page[page.length - 1].id : null });
+  const unseen = page.filter((r) => r.unread).map((r) => r.id);
+  if (unseen.length) await env.DB.prepare(`UPDATE leads SET seen_at = datetime('now') WHERE firm_slug = ? AND seen_at IS NULL AND id IN (${unseen.map(() => '?').join(',')})`).bind(params.slug, ...unseen).run();
+  return reply({ locked: false, summary, leads: page.map((r) => ({ ...r, unread: !!r.unread })), next: results.length > limit ? page[page.length - 1].id : null, keptMonths: 12 });
+}
+
+export async function exportLeads({ request, env, params }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  if (!(await isFeatured(env, params.slug))) throw new HttpError(403, 'Exporting enquiries is a Featured benefit.');
+  const { results } = await env.DB.prepare("SELECT created_at, name, email, phone, message, status, note FROM leads WHERE firm_slug = ? AND status != 'spam' ORDER BY id DESC LIMIT 5000").bind(params.slug).all();
+  await audit(env, user, 'lead.export', 'firm', params.slug, { rows: results.length });
+  return new Response(leadsCsv(results), { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="lawdb-enquiries-${params.slug}.csv"`, 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } });
 }
 
 export async function updateLead({ request, env, params }) {
   const user = await requireUser(env, request);
-  const body = await readJson(request, 1000);
-  if (!LEAD_STATUSES.includes(body.status)) throw new HttpError(422, `status must be one of: ${LEAD_STATUSES.join(', ')}`);
+  const body = await readJson(request, 3000);
+  const hasStatus = 'status' in body, hasNote = 'note' in body;
+  if (!hasStatus && !hasNote) throw new HttpError(422, 'Nothing to change');
+  if (hasStatus && !LEAD_STATUSES.includes(body.status)) throw new HttpError(422, `status must be one of: ${LEAD_STATUSES.join(', ')}`);
+  let note = null;
+  if (hasNote) {
+    note = typeof body.note === 'string' ? body.note.trim() : '';
+    if (note.length > 1000) throw new HttpError(422, 'A note can be up to 1000 characters.');
+    note = note || null;
+  }
   const id = Number.parseInt(params.id, 10);
   const lead = await env.DB.prepare('SELECT firm_slug, status FROM leads WHERE id = ?').bind(id).first();
   if (!lead || !lead.firm_slug) throw new HttpError(404, 'Lead not found');
   await requireOwner(env, user, lead.firm_slug);
-  await env.DB.prepare('UPDATE leads SET status = ? WHERE id = ?').bind(body.status, id).run();
-  await audit(env, user, 'lead.status', 'lead', id, { from: lead.status, to: body.status });
+  if (!(await isFeatured(env, lead.firm_slug))) throw new HttpError(403, 'Managing enquiries here is a Featured benefit.');
+  if (hasStatus) await env.DB.prepare('UPDATE leads SET status = ? WHERE id = ?').bind(body.status, id).run();
+  if (hasNote) await env.DB.prepare('UPDATE leads SET note = ? WHERE id = ?').bind(note, id).run();
+  await audit(env, user, hasStatus ? 'lead.status' : 'lead.note', 'lead', id, hasStatus ? { from: lead.status, to: body.status } : {});
   return reply({ ok: true });
 }
 

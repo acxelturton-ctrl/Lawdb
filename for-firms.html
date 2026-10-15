@@ -178,6 +178,13 @@
     .hamburger-btn{ display:none; }
   }
 
+  .promo{ display:block; margin:6px 0 14px; }
+  .promo img{ display:block; width:100%; height:auto; border-radius:16px; border:1px solid #e3dfd5; box-shadow:0 8px 28px rgba(31,35,40,.10); }
+  .promo-links{ display:flex; flex-wrap:wrap; gap:10px; margin:0 0 34px; }
+  .promo-links a{ display:inline-flex; align-items:center; border:1.5px solid #1f2328; border-radius:999px; padding:10px 18px; font-weight:700; font-size:14.5px; text-decoration:none; color:#1f2328; background:#fff; }
+  .promo-links a:hover{ background:#fff3d4; border-color:#e8a91f; }
+  .promo-links a.promo-go{ background:#e8a91f; border-color:#e8a91f; color:#1f2328; }
+  .promo-links a.promo-go:hover{ background:#f0b429; }
   .hub-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:6px 0 34px; }
   .hub-card{ display:flex; flex-direction:column; gap:6px; background:#fff; border:1px solid #e3dfd5; border-radius:12px; padding:18px; text-decoration:none; color:#1f2328; }
   .hub-card b{ font-family:'Source Serif 4',serif; font-size:18px; }
@@ -242,13 +249,17 @@
 
 <div class="wrap">
 
-  <h2>Everything for law firms, in one place</h2>
-  <p class="lede">Choose where you are: getting listed, getting Featured, running your listing, or growing your practice.</p>
-  <div class="hub-grid">
-    <a class="hub-card" href="/list-your-firm"><b>List your firm</b><span>Free. Your own profile page, map pin and place in search by case type and city.</span><em>Add your firm &rarr;</em></a>
-    <a class="hub-card feat" href="/list-your-firm?plan=featured"><b>Get Featured</b><span>$89 / month. Priority placement, a gold marker, and your blog on LawDB News.</span><em>See Featured &rarr;</em></a>
-    <a class="hub-card" href="/account/"><b>Manage your listing</b><span>Sign in to edit your details, add photos, read your enquiries and manage billing.</span><em>Sign in or create an account &rarr;</em></a>
-    <a class="hub-card" href="/grow-your-practice"><b>Grow your practice</b><span>Plain-language marketing guides written for Canadian lawyers.</span><em>Read the guides &rarr;</em></a>
+  <h2>Be seen. Get more clients.</h2>
+  <p class="lede">Featured members get premium placement on LawDB: a highlighted marker on the map, the top of search results for their city and practice area, a custom profile page, and their own blog.</p>
+  <a class="promo" href="/list-your-firm?plan=featured">
+    <img src="/images/featured-promo-1536.webp" srcset="/images/featured-promo-768.webp 768w, /images/featured-promo-1536.webp 1536w" sizes="(max-width:900px) 100vw, 1100px" width="1536" height="1024" loading="lazy" decoding="async"
+      alt="LawDB Featured law firm members: be seen and get more clients. Featured on the map with a highlighted badge, ranked first in your area for your practice area, a custom profile page with your team, services and blog, and a place to showcase your expertise.">
+  </a>
+  <div class="promo-links">
+    <a class="promo-go" href="/list-your-firm?plan=featured">Get Featured: $89 / month</a>
+    <a href="/list-your-firm">List your firm (free)</a>
+    <a href="/account/">Manage your listing</a>
+    <a href="/grow-your-practice">Grow your practice</a>
   </div>
 
   <h2>Why list with us</h2>

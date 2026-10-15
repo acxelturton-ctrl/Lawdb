@@ -1182,6 +1182,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     for (const slug of many) { const r = await call('POST', '/api/account/ratings', { slug, stars: 4 }); if (r.status === 200) rated++; else if (r.status === 429) limited++; }
     ok(rated === 10 && limited === many.length - 10, 'a person can rate 10 new firms a day');
     cookie = '';
+    for (const path of ['/', '/find-lawyers', '/ontario/toronto/']) ok((await getRaw(path)).text.includes('/follow.js'), `${path} loads the Follow buttons for firm cards`);
+    const fj = (await getRaw('/follow.js')).text;
+    ok(fj.includes("'.lc'") && fj.includes("'a.frow'") && fj.includes('fa-profile') && fj.includes('lawdb_in'), 'the Follow script adds buttons to home, city and search cards and remembers sign-in for the menu');
+    ok((await getRaw('/account/')).text.includes('class="lw-light"'), 'the member account page always uses the light look');
     const rp = (await getRaw(`/firms/${R}`)).text;
     ok(rp.includes(`data-rate="${R}"`) && rp.includes('id="rate"') && rp.includes('/follow.js'), 'firm pages carry the member-ratings box');
   }

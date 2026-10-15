@@ -245,7 +245,7 @@
       <div class="lf-note"><img src="images/logo-icon.png" alt=""><span>Basic listings are free. Featured is optional.</span></div>
     </div>
     <div class="lf-price">
-      <div class="lf-plate"><b id="heroPrice">$199</b><span>/ Month</span></div>
+      <div class="lf-plate"><b id="heroPrice">$89</b><span>/ Month</span></div>
       <p>Featured plan.<br>Basic listing is free.</p>
     </div>
     <div class="lf-visual">
@@ -298,7 +298,7 @@
     </div>
     <div class="plan" id="planFeatured" role="radio" aria-checked="false" tabindex="0">
       <h3>Featured</h3>
-      <div class="price" id="featuredPrice">$199 / month</div>
+      <div class="price" id="featuredPrice">$89 / month</div>
       <ul>
         <li>Placed above Basic firms in every search and case-type match for your city</li>
         <li>Listed first in the live search dropdown, with a gold Featured badge, as people type their case and city</li>
@@ -308,7 +308,7 @@
         <li>One-tap Call, Website and Directions buttons, plus a consultation request form</li>
         <li>Gold tick and Featured badge wherever your firm appears</li>
       </ul>
-      <a class="stripe-direct" id="stripeDirectLink" href="https://buy.stripe.com/4gM7sN2X7d8naOFe0dfbq01" target="_blank" rel="noopener" onclick="event.stopPropagation()">Already decided? Go straight to checkout &rarr;</a>
+      <a class="stripe-direct" id="stripeDirectLink" href="https://buy.stripe.com/dRmeVf2X79Wbg8Z1drfbq03" target="_blank" rel="noopener" onclick="event.stopPropagation()">Already decided? Go straight to checkout &rarr;</a>
     </div>
   </div>
   <p class="plans-note" id="plansNote">LawDB is a new directory. Featured changes where and how your firm is shown on LawDB; it does not guarantee calls, clients or search-engine rankings. Basic stays free, and Featured is a monthly subscription you can cancel any time. If you use the direct checkout link, please also send the form below so we know which firm to set up.</p>
@@ -384,7 +384,7 @@
     <h2 id="successTitle">Request received</h2>
     <p id="successText">Thanks for submitting your firm. We review every request before a profile goes live, and we will email you to confirm.</p>
     <div id="successCheckout" style="display:none;">
-      <a class="submit-btn checkout-btn" id="checkoutLink" href="https://buy.stripe.com/4gM7sN2X7d8naOFe0dfbq01" target="_blank" rel="noopener">Continue to secure checkout &rarr;</a>
+      <a class="submit-btn checkout-btn" id="checkoutLink" href="https://buy.stripe.com/dRmeVf2X79Wbg8Z1drfbq03" target="_blank" rel="noopener">Continue to secure checkout &rarr;</a>
       <p class="note" id="checkoutNote">Checkout opens on Stripe in a new tab. Your listing is not Featured until payment is confirmed. Already have a LawDB account? <a href="/account/">Upgrade from your dashboard</a> and it switches on automatically. If the page does not open, email <a href="mailto:info@lawdb.ca">info@lawdb.ca</a> and we will send you the link.</p>
     </div>
   </div>
@@ -471,14 +471,14 @@
 
 <script>
 // One source of truth for plan, price and checkout destination.
-// ?type=solo only changes the wording for solo practitioners; there is one Featured plan ($199/month) for everyone.
+// ?type=solo only changes the wording for solo practitioners; there is one Featured plan ($89/month) for everyone.
 // ?plan=featured pre-selects Featured (used by the "Get Featured" buttons across the site).
 const QS = new URLSearchParams(window.location.search);
 const SEGMENT = (QS.get('type') === 'solo') ? 'solo' : 'firm';
 const PLANS = {
-  firm: { price: '$199 / month', amount: '$199', label: 'Featured ($199/month)', stripe: 'https://buy.stripe.com/4gM7sN2X7d8naOFe0dfbq01' }
+  firm: { price: '$89 / month', amount: '$89', label: 'Featured ($89/month)', stripe: 'https://buy.stripe.com/dRmeVf2X79Wbg8Z1drfbq03' }
 };
-PLANS.solo = PLANS.firm; // one Featured plan for everyone: $199/month
+PLANS.solo = PLANS.firm; // one Featured plan for everyone: $89/month
 const PLAN = PLANS[SEGMENT];
 const STRIPE_URL = PLAN.stripe;
 let selectedPlan = 'basic';   // 'basic' | 'featured' - the only thing the submit handler trusts

@@ -8,7 +8,7 @@ import { audit } from './audit.js';
 import { adminEmails } from './auth.js';
 import { mailInBackground, featuredOnEmail, featuredOffEmail, paymentReviewEmail, paymentFailedEmail } from './email.js';
 
-export const FEATURED_PRICE_LABEL = '$199 / month';
+export const FEATURED_PRICE_LABEL = '$89 / month';
 const enc = new TextEncoder();
 const toHex = (buf) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
 

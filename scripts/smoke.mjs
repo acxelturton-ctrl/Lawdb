@@ -1162,7 +1162,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const acct = await getRaw('/account/');
     ok(acct.status === 200 && acct.text.includes('/account/account.js'), 'the account page loads');
     const acctJs = readFileSync(new URL('../account/account.js', import.meta.url), 'utf8');
-    ok(acctJs.includes('Continue with Google') && acctJs.includes('Continue with LinkedIn') && acctJs.includes('Email me a sign-in link') && acctJs.includes('/api/auth/${k}/start'), 'the sign-in card offers Google, LinkedIn and an e-mail link');
+    ok(acctJs.includes('Continue with Google') && acctJs.includes('Continue with LinkedIn') && acctJs.includes('social.length ? null : form') && acctJs.includes('/api/auth/${k}/start'), 'the sign-in card offers Google and LinkedIn, and shows the e-mail form only when neither is set up');
     const home = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
     ok(home.indexOf('class="citystrip"') > 0 && home.indexOf('class="citystrip"') < home.indexOf('<section class="feat-swipe">') && !/<h2>Featured Partners<\/h2>/.test(home) && home.includes('<h2>Firms to explore</h2>') && /lc-feat">Featured</.test(home), 'the homepage no longer opens with paid partners: cities come first and the strip is "Firms to explore", with each Featured firm still clearly marked');
     provider.close();

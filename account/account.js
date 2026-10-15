@@ -15,9 +15,9 @@ const ICONS = {
 };
 const icon = (k) => h('img', { src: 'data:image/svg+xml;utf8,' + encodeURIComponent(ICONS[k]), alt: '', width: 20, height: 20 });
 const SIGNIN_MESSAGES = {
-  failed: 'We could not sign you in with that account. Please try again, or use the email link below.',
+  failed: 'We could not sign you in with that account. Please try again, or use the other sign-in button.',
   cancelled: 'Sign-in was cancelled. You can try again whenever you like.',
-  unavailable: 'That sign-in option is not available right now. Please use the email link below.',
+  unavailable: 'That sign-in option is not available right now. Please try the other button, or come back soon.',
 };
 
 async function renderLogin() {
@@ -42,15 +42,18 @@ async function renderLogin() {
       }
     },
   }, h('label', { for: 'email' }, 'Email address'), email, h('div', { class: 'row' }, btn));
-  // LinkedIn sign-in is built but not offered yet: add 'linkedin' here once its keys are in Cloudflare.
+  // Members sign in with Google or LinkedIn only. The email-link form stays as a fallback if neither is set up,
+  // so nobody is ever locked out (admins still use the email link on /admin/).
   const OFFERED = ['google', 'linkedin'];
   const social = OFFERED.filter((k) => providers[k]).map((k) => h('a', { class: 'provider', href: `/api/auth/${k}/start` }, icon(k), k === 'google' ? 'Continue with Google' : 'Continue with LinkedIn'));
   mount(h('div', { class: 'wrap' }, h('div', { class: 'center card' },
     h('h1', null, 'Sign in to LawDB'),
     h('p', { class: 'muted' }, 'Follow law firms, save stories, rate the firms you have worked with, and manage your firm. Free. New here? The same sign-in creates your account.'),
-    ...social, social.length ? h('div', { class: 'or' }, 'or') : null,
-    form, msg,
-    h('p', { class: 'muted small' }, 'No password to remember or lose: we email you a one-time link.'))));
+    ...social,
+    social.length ? null : form, msg,
+    h('p', { class: 'muted small' }, social.length
+      ? 'No password to remember or lose. We use your name and email to set up your account, and never post anything on your behalf.'
+      : 'No password to remember or lose: we email you a one-time link.'))));
 }
 
 // ---------------------------------------------------------------- shell

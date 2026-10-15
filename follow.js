@@ -86,9 +86,57 @@
     });
   }
 
-  function toAccount(action) {
+  function toAccount(action, join) {
     try { localStorage.setItem('lawdb_pending', JSON.stringify(action)); } catch (e) {}
-    location.href = '/account/';
+    location.href = '/account/' + (join ? '?join=1' : '');
+  }
+
+  // Signed-out people who tap Follow or Save get a centred sign-in popup instead of being thrown to another page.
+  var gcss = '.lw-gate{position:fixed;inset:0;z-index:2000;background:rgba(21,24,28,.55);display:flex;align-items:center;justify-content:center;padding:16px;font-family:Inter,system-ui,sans-serif}' +
+    '.lw-gate-card{position:relative;background:#fff;border-radius:16px;width:100%;max-width:440px;padding:56px 28px 32px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.28);color:#1f2328}' +
+    '.lw-gate-x{position:absolute;top:10px;left:10px;width:40px;height:40px;border:0;background:none;font-size:28px;line-height:1;color:#636870;cursor:pointer;border-radius:50%}.lw-gate-x:hover{background:#f0ede5;color:#1f2328}' +
+    '.lw-gate-logo{display:inline-flex;align-items:center;gap:10px;margin:0 0 24px;text-decoration:none;color:#1f2328;font:800 26px Inter,system-ui,sans-serif;letter-spacing:-.01em}.lw-gate-logo img{height:40px;width:auto;display:block}.lw-gate-logo i{font-style:normal;color:#e8a91f}' +
+    '.lw-gate h2{font:700 24px/1.25 "Source Serif 4",Georgia,serif;margin:0 0 10px;text-wrap:balance}.lw-gate p{margin:0 0 26px;color:#4a4f56;font-size:16px;line-height:1.5}' +
+    '.lw-gate-btn{display:block;width:100%;box-sizing:border-box;border-radius:999px;padding:14px 18px;font:700 16px Inter,system-ui,sans-serif;cursor:pointer;text-align:center;text-decoration:none;margin:0 0 12px}' +
+    '.lw-gate-btn.go{background:#e8a91f;border:1.5px solid #e8a91f;color:#1f2328}.lw-gate-btn.go:hover{background:#f0b429}' +
+    '.lw-gate-btn.alt{background:#fff;border:1.5px solid #cfc9bb;color:#1f2328}.lw-gate-btn.alt:hover{border-color:#e8a91f;background:#fff9e8}' +
+    '.lw-gate small{display:block;margin-top:8px;color:#8d9197;font-size:12.5px;line-height:1.5}';
+  function nameOf(slug, btn) {
+    var t = '', card = btn.closest && btn.closest('.lc, .frow, .fcard, .rcard');
+    if (card) { var n = card.querySelector('h3 a, .rname, .fname'); t = n ? (n.firstChild && n.firstChild.nodeType === 3 ? n.firstChild.textContent : n.textContent) : ''; }
+    if (!t && location.pathname.indexOf('/firms/' + slug) === 0) { var h1 = document.querySelector('h1'); t = h1 ? h1.textContent : ''; }
+    if (!t) { all(document, 'a[href$="/firms/' + slug + '"]').some(function (a) { var x = a.textContent.replace(/\s+/g, ' ').trim(); if (x && !/^(view |see )?(profile|website|more|call)/i.test(x)) { t = x; return true; } return false; }); }
+    return (t || '').replace(/\s+/g, ' ').trim();
+  }
+  function gate(action, name) {
+    if (document.querySelector('.lw-gate')) return;
+    if (!document.getElementById('lw-gate-css')) { var g = document.createElement('style'); g.id = 'lw-gate-css'; g.textContent = gcss; document.head.appendChild(g); }
+    var mkEl = function (tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
+    var follow = action.type === 'follow', prev = document.activeElement;
+    var wrap = mkEl('div', 'lw-gate'), card = mkEl('div', 'lw-gate-card');
+    card.setAttribute('role', 'dialog'); card.setAttribute('aria-modal', 'true'); card.setAttribute('aria-labelledby', 'lw-gate-h');
+    var x = mkEl('button', 'lw-gate-x', '\u00d7'); x.type = 'button'; x.setAttribute('aria-label', 'Close');
+    var logo = mkEl('a', 'lw-gate-logo'); logo.href = '/';
+    var im = document.createElement('img'); im.src = '/images/logo-icon.png'; im.alt = ''; logo.appendChild(im);
+    var wm = mkEl('span'); wm.appendChild(document.createTextNode('Law')); wm.appendChild(mkEl('i', '', 'DB')); logo.appendChild(wm);
+    var h = mkEl('h2', '', follow ? 'Follow ' + (name || 'this firm') + ' to see what they share.' : 'Sign in to save this story.'); h.id = 'lw-gate-h';
+    var sub = mkEl('p', '', follow ? 'Stay up to date with news and updates from the law firms you care about. Free.' : 'Keep the stories you want to read again in your own list. Free.');
+    var li = mkEl('a', 'lw-gate-btn go', 'Log in'); li.href = '/account/'; li.setAttribute('role', 'button');
+    var su = mkEl('a', 'lw-gate-btn alt', 'Sign up'); su.href = '/account/?join=1'; su.setAttribute('role', 'button');
+    var fine = mkEl('small', '', 'Continue with Google or LinkedIn. No password to remember.');
+    [li, su].forEach(function (a, i) { a.addEventListener('click', function (ev) { ev.preventDefault(); toAccount(action, i === 1); }); });
+    [x, logo, h, sub, li, su, fine].forEach(function (e) { card.appendChild(e); });
+    wrap.appendChild(card); document.body.appendChild(wrap);
+    var prevOverflow = document.body.style.overflow; document.body.style.overflow = 'hidden';
+    function close() { document.removeEventListener('keydown', key, true); document.body.style.overflow = prevOverflow; wrap.remove(); if (prev && prev.focus) try { prev.focus(); } catch (e) {} }
+    function key(ev) {
+      if (ev.key === 'Escape') { ev.preventDefault(); close(); }
+      else if (ev.key === 'Tab') { var f = [x, li, su], i = f.indexOf(document.activeElement); ev.preventDefault(); f[(i + (ev.shiftKey ? f.length - 1 : 1)) % f.length].focus(); }
+    }
+    x.addEventListener('click', close);
+    wrap.addEventListener('mousedown', function (ev) { if (ev.target === wrap) close(); });
+    document.addEventListener('keydown', key, true);
+    li.focus();
   }
   function call(method, url, body) {
     return fetch(url, { method: method, credentials: 'same-origin', headers: body ? { 'content-type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined })
@@ -101,7 +149,7 @@
     if (!f && !s) return;
     e.preventDefault(); e.stopPropagation();
     var b = f || s;
-    if (!state.signedIn) return toAccount(f ? { type: 'follow', slug: b.getAttribute('data-follow') } : { type: 'save', id: b.getAttribute('data-save') });
+    if (!state.signedIn) return f ? gate({ type: 'follow', slug: b.getAttribute('data-follow') }, nameOf(b.getAttribute('data-follow'), b)) : gate({ type: 'save', id: b.getAttribute('data-save') });
     b.disabled = true;
     var p;
     if (f) {

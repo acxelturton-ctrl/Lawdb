@@ -53,15 +53,27 @@ async function renderLogin() {
     h('img', { src: '/images/logo-icon.png', alt: 'LawDB', width: 56, height: 56 }),
     h('div', { class: 'lw-badge-text' }, h('b', null, 'LawDB.ca'), h('span', null, 'Canada\u2019s Legal Directory')),
     LAWDB_LINKEDIN && h('a', { class: 'lw-badge-li', href: LAWDB_LINKEDIN, target: '_blank', rel: 'noopener', 'aria-label': 'LawDB on LinkedIn' }, icon('linkedin'), 'LinkedIn'));
-  mount(h('div', { class: 'wrap' }, h('div', { class: 'center card' },
-    badge,
-    h('h1', null, 'Sign in to LawDB'),
-    h('p', { class: 'muted' }, 'Follow law firms, save stories, rate the firms you have worked with, and manage your firm. Free. New here? The same sign-in creates your account.'),
-    ...social,
-    social.length ? null : form, msg,
-    h('p', { class: 'muted small' }, social.length
-      ? 'No password to remember or lose. We use your name and email to set up your account, and never post anything on your behalf.'
-      : 'No password to remember or lose: we email you a one-time link.'))));
+  const join = new URLSearchParams(location.search).get('join') === '1';
+  const stat = (n, label) => h('div', null, h('b', null, n), h('span', null, label));
+  const perk = (t, d) => h('div', null, h('h3', null, t), h('p', null, d));
+  mount(h('div', { class: 'wrap ac-login' },
+    h('div', { class: 'center card' },
+      badge,
+      h('h1', null, join ? 'Create your free LawDB account' : 'Log in to LawDB'),
+      h('p', { class: 'muted' }, 'Follow law firms, save stories, rate the firms you have worked with, and manage your firm. Free. New here? The same sign-in creates your account.'),
+      ...social,
+      social.length ? null : form, msg,
+      h('p', { class: 'muted small' }, social.length
+        ? 'No password to remember or lose. We use your name and email to set up your account, and never post anything on your behalf.'
+        : 'No password to remember or lose: we email you a one-time link.')),
+    h('div', { class: 'ac-stats' }, stat('370+', 'law firms'), stat('62', 'cities'), stat('10', 'practice areas'), stat('5', 'provinces')),
+    h('div', { class: 'ac-perks' },
+      perk('Follow firms', 'See new stories from the firms you care about in your own feed.'),
+      perk('Save stories', 'Keep the articles you want to read again in one list.'),
+      perk('Rate firms', 'Members rate the firms they have worked with. Comments are reviewed first.'),
+      perk('Run your listing', 'Claim or add your firm and edit it yourself, any time.')),
+    h('p', { class: 'ac-note' }, 'LawDB is an independent Canadian directory and is not a law firm or a referral service. ',
+      h('a', { href: '/privacy-policy' }, 'Privacy policy'), ' \u00b7 ', h('a', { href: '/terms' }, 'Terms'), ' \u00b7 ', h('a', { href: '/contact' }, 'Contact us'))));
 }
 
 // ---------------------------------------------------------------- shell

@@ -43,7 +43,7 @@
       return r.json();
     }).then(function (d) {
       if (!d || !d.user) return;
-      var v = { name: d.user.name || '', email: d.user.email, role: d.user.role, jobTitle: d.user.jobTitle || '', employer: d.user.employer || '', avatar: d.user.avatar || '', onboarded: d.user.onboarded !== false,
+      var v = { name: d.user.name || '', email: d.user.email, role: d.user.role, jobTitle: d.user.jobTitle || '', employer: d.user.employer || '', avatar: d.user.avatar || '', cover: d.user.cover || '', onboarded: d.user.onboarded !== false,
         firms: (d.memberships || []).filter(function (m) { return m.status === 'approved'; }).length };
       try { sessionStorage.setItem('lawdb_me', JSON.stringify({ t: Date.now(), v: v })); localStorage.setItem('lawdb_in', '1'); } catch (e) {}
       if (!cached) cb(v);
@@ -57,7 +57,7 @@
     var ov = document.createElement('div'); ov.className = 'lw-ov';
     var panel = document.createElement('aside'); panel.className = 'lw-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Your account');
     panel.innerHTML = '<button class="lw-x" type="button" aria-label="Close">&times;</button>' +
-      '<div class="lw-who"><span class="lw-ava big">' + face(m) + '</span><b>' + esc(m.name || 'Your account') + '</b>' + (line ? '<small>' + esc(line) + '</small>' : '') + '<small>' + esc(m.email) + '</small></div>' +
+      '<div class="lw-cover"' + (m.cover ? ' style="background-image:url(' + esc(m.cover) + ')"' : '') + '></div><div class="lw-who"><span class="lw-ava big">' + face(m) + '</span><b>' + esc(m.name || 'Your account') + '</b>' + (line ? '<small>' + esc(line) + '</small>' : '') + '<small>' + esc(m.email) + '</small></div>' +
       '<a class="lw-vp" href="/account/#profile">View profile</a>' +
       '<nav>' +
       '<a href="/account/#feed">' + ICON.feed + 'Your feed</a>' +

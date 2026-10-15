@@ -385,43 +385,56 @@ async function viewSaved() {
 
 // ---------------------------------------------------------------- profile
 const KIND_LABELS = [['lawyer', 'A lawyer'], ['staff', 'Law firm staff'], ['public', 'Looking for a lawyer'], ['other', 'Something else']];
-// Profile photo: the picture is cropped to a centred square and shrunk to 400 px in the browser, so uploads are small and fast.
-async function squareJpeg(file, side = 400) {
+// Profile photo and cover: the picture is cropped to the right shape (a centred square, or 3:1 for the cover) and shrunk in the browser,
+// so uploads are small and fast.
+async function cropJpeg(file, w, h) {
   const bmp = await createImageBitmap(file).catch(() => null);
   if (!bmp) throw new Error('That file could not be read as a picture. Try a JPEG or PNG.');
-  const s = Math.min(bmp.width, bmp.height);
-  const c = document.createElement('canvas'); c.width = side; c.height = side;
-  c.getContext('2d').drawImage(bmp, (bmp.width - s) / 2, (bmp.height - s) / 2, s, s, 0, 0, side, side);
+  const scale = Math.max(w / bmp.width, h / bmp.height);
+  const sw = w / scale, sh = h / scale;
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  c.getContext('2d').drawImage(bmp, (bmp.width - sw) / 2, (bmp.height - sh) / 2, sw, sh, 0, 0, w, h);
   return await new Promise((ok, no) => c.toBlob((b) => (b ? ok(b) : no(new Error('Could not prepare that picture.'))), 'image/jpeg', 0.86));
 }
 
+// The top of the profile, like a LinkedIn profile: a cover banner with the profile photo sitting on it.
 function photoCard() {
-  const box = h('div', { class: 'card photo-card' });
+  const box = h('div', { class: 'card pf-head' });
   const msg = h('div');
-  const input = h('input', { type: 'file', accept: 'image/jpeg,image/png,image/webp', class: 'photo-input', 'aria-label': 'Choose a profile photo' });
+  const mkInput = (label) => h('input', { type: 'file', accept: 'image/jpeg,image/png,image/webp', class: 'photo-input', 'aria-label': label });
+  const avIn = mkInput('Choose a profile photo'), cvIn = mkInput('Choose a cover photo');
   const draw = () => {
+    const cover = h('div', { class: user.cover ? 'pf-cover' : 'pf-cover gen' }, user.cover && h('img', { src: user.cover, alt: 'Your cover photo' }),
+      h('div', { class: 'pf-cbtns' },
+        h('button', { type: 'button', onclick: () => cvIn.click() }, user.cover ? 'Change cover' : 'Add cover photo'),
+        user.cover && h('button', { type: 'button', onclick: () => remove('cover') }, 'Remove')));
     const face = user.avatar ? h('img', { src: user.avatar, alt: 'Your profile photo' }) : h('span', null, initialsOf(user.name || user.email));
-    const pick = h('button', { type: 'button', class: 'primary', onclick: () => input.click() }, user.avatar ? 'Change photo' : 'Add photo');
-    const del = user.avatar && h('button', { type: 'button', onclick: remove }, 'Remove');
-    box.replaceChildren(h('div', { class: 'ph' }, face), h('div', { class: 'ph-side' }, h('b', null, 'Profile photo'),
-      h('span', { class: 'muted' }, 'Only you can see it for now. A clear photo of your face works best. JPEG, PNG or WebP.'), h('div', { class: 'row' }, pick, del), msg), input);
+    const who = h('div', { class: 'pf-who' }, h('b', null, user.name || 'Your name'), [user.jobTitle, user.employer].filter(Boolean).length && h('span', { class: 'muted' }, [user.jobTitle, user.employer].filter(Boolean).join(' at ')), (user.city || user.province) && h('span', { class: 'muted' }, [user.city, PROVINCES[user.province] || user.province].filter(Boolean).join(', ')));
+    box.replaceChildren(cover, h('div', { class: 'pf-body' }, h('div', { class: 'ph' }, face), who,
+      h('div', { class: 'row' }, h('button', { type: 'button', class: 'primary', onclick: () => avIn.click() }, user.avatar ? 'Change photo' : 'Add photo'), user.avatar && h('button', { type: 'button', onclick: () => remove('avatar') }, 'Remove photo')),
+      h('p', { class: 'muted pf-note' }, 'Only you can see your photos for now. JPEG, PNG or WebP.'), msg), avIn, cvIn);
   };
-  const done = (profile) => { user.avatar = profile.avatar; try { sessionStorage.removeItem('lawdb_me'); } catch (e) {} draw(); if (window.lawdbRefresh) window.lawdbRefresh(); };
-  async function remove() {
-    try { done((await api('DELETE', '/api/account/avatar')).profile); msg.replaceChildren(note('msg-ok', 'Removed.')); } catch (err) { msg.replaceChildren(note('msg-err', err.message)); }
+  const done = (profile) => {
+    user.avatar = profile.avatar; user.cover = profile.cover;
+    try { sessionStorage.removeItem('lawdb_me'); } catch (e) {}
+    draw(); if (window.lawdbRefresh) window.lawdbRefresh();
+  };
+  async function remove(kind) {
+    try { done((await api('DELETE', `/api/account/${kind}`)).profile); msg.replaceChildren(note('msg-ok', 'Removed.')); } catch (err) { msg.replaceChildren(note('msg-err', err.message)); }
   }
-  input.addEventListener('change', async () => {
+  const wire = (input, kind, w, h2) => input.addEventListener('change', async () => {
     const file = input.files[0]; input.value = '';
     if (!file) return;
     msg.replaceChildren(note('msg-ok', 'Uploading…'));
     try {
-      const blob = await squareJpeg(file);
-      const res = await fetch('/api/account/avatar', { method: 'PUT', credentials: 'same-origin', headers: { 'content-type': blob.type }, body: blob });
+      const blob = await cropJpeg(file, w, h2);
+      const res = await fetch(`/api/account/${kind}`, { method: 'PUT', credentials: 'same-origin', headers: { 'content-type': blob.type }, body: blob });
       const data = await res.json().catch(() => null);
       if (!res.ok) throw new Error((data && data.error) || `Upload failed (${res.status})`);
       done(data.profile); msg.replaceChildren(note('msg-ok', 'Saved. Looking good!'));
     } catch (err) { msg.replaceChildren(note('msg-err', err.message)); }
   });
+  wire(avIn, 'avatar', 400, 400); wire(cvIn, 'cover', 1200, 400);
   draw();
   return box;
 }

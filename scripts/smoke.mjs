@@ -1096,10 +1096,23 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const av2 = await rawCall('PUT', '/api/account/avatar', makePng(200, 200, 40), 'image/png');
     ok(av2.status === 200 && av2.data.profile.avatar !== av1.data.profile.avatar, 'changing the photo replaces it');
     ok((await rawCall('PUT', '/api/account/avatar', Buffer.alloc(700 * 1024, 1), 'image/png')).status === 413, 'a photo over 600 KB is refused');
+    // cover photo
+    const wide = makePng(900, 300, 70);
+    ok((await call('GET', '/api/account/me')).data.user.cover === '' && (await fetch(BASE + '/api/account/cover', { headers: { cookie } })).status === 404, 'a new member has no cover photo');
+    ok((await rawCall('PUT', '/api/account/cover', makePng(300, 100), 'image/png')).status === 422 && (await rawCall('PUT', '/api/account/cover', Buffer.from('plain text, definitely not a picture at all, padded out'), 'image/png')).status === 415, 'a small cover or a non-picture is refused');
+    const cv1 = await rawCall('PUT', '/api/account/cover', wide, 'image/png');
+    ok(cv1.status === 200 && /^\/api\/account\/cover\?v=\d+$/.test(cv1.data.profile.cover) && (await call('GET', '/api/account/me')).data.user.cover === cv1.data.profile.cover, 'a member can add a cover photo');
+    const cvGet = await fetch(BASE + '/api/account/cover', { headers: { cookie } });
+    ok(cvGet.status === 200 && cvGet.headers.get('content-type') === 'image/png' && cvGet.headers.get('x-content-type-options') === 'nosniff' && Buffer.from(await cvGet.arrayBuffer()).equals(wide), 'the cover comes back byte for byte, served safely');
+    ok((await rawCall('PUT', '/api/account/cover', Buffer.alloc(1000 * 1024, 1), 'image/png')).status === 413, 'a cover over 900 KB is refused');
+    const photoStill = (await call('GET', '/api/account/me')).data.user;
+    ok(photoStill.avatar && photoStill.cover, 'photo and cover are kept apart');
+    const cvDel = await call('DELETE', '/api/account/cover');
+    ok(cvDel.status === 200 && cvDel.data.profile.cover === '' && cvDel.data.profile.avatar !== '' && (await fetch(BASE + '/api/account/cover', { headers: { cookie } })).status === 404, 'the cover can be removed without touching the photo');
     const avDel = await call('DELETE', '/api/account/avatar');
     ok(avDel.status === 200 && avDel.data.profile.avatar === '' && (await fetch(BASE + '/api/account/avatar', { headers: { cookie } })).status === 404, 'the photo can be removed');
     cookie = '';
-    ok((await rawCall('PUT', '/api/account/avatar', face, 'image/png')).status === 401 && (await call('DELETE', '/api/account/avatar')).status === 401 && (await fetch(BASE + '/api/account/avatar')).status === 401, 'photos need sign-in and are private');
+    ok((await rawCall('PUT', '/api/account/avatar', face, 'image/png')).status === 401 && (await call('DELETE', '/api/account/avatar')).status === 401 && (await fetch(BASE + '/api/account/avatar')).status === 401 && (await rawCall('PUT', '/api/account/cover', wide, 'image/png')).status === 401 && (await fetch(BASE + '/api/account/cover')).status === 401, 'photos and covers need sign-in and are private');
     ok((await call('PATCH', '/api/account/profile', { name: 'x' })).status === 401, 'the profile needs sign-in');
     // refusals
     const before = (await call('GET', '/api/admin/stats').catch(() => ({}))).status;

@@ -44,8 +44,8 @@ export const GOALS = ['find', 'clients', 'staff', 'follow', 'study', 'other'];
 const PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
 const KIND_OF_GOAL = { find: 'public', clients: 'lawyer', staff: 'staff', follow: 'lawyer', study: 'other', other: 'other' };
 const profileOf = async (env, id) => {
-  const p = await env.DB.prepare('SELECT name, kind, city, province, job_title AS jobTitle, employer, goal, onboarded_at, avatar_at FROM users WHERE id = ?').bind(id).first();
-  return { name: p?.name || '', kind: p?.kind || '', city: p?.city || '', province: p?.province || '', jobTitle: p?.jobTitle || '', employer: p?.employer || '', goal: p?.goal || '', onboarded: !!p?.onboarded_at, avatar: p?.avatar_at ? `/api/account/avatar?v=${p.avatar_at.replace(/\D/g, '')}` : '' };
+  const p = await env.DB.prepare('SELECT name, kind, city, province, job_title AS jobTitle, employer, goal, onboarded_at, avatar_at, cover_at FROM users WHERE id = ?').bind(id).first();
+  return { name: p?.name || '', kind: p?.kind || '', city: p?.city || '', province: p?.province || '', jobTitle: p?.jobTitle || '', employer: p?.employer || '', goal: p?.goal || '', onboarded: !!p?.onboarded_at, avatar: p?.avatar_at ? `/api/account/avatar?v=${p.avatar_at.replace(/\D/g, '')}` : '', cover: p?.cover_at ? `/api/account/cover?v=${p.cover_at.replace(/\D/g, '')}` : '' };
 };
 const plain = (v, label, max) => {
   const t = typeof v === 'string' ? v.replace(/\s+/g, ' ').trim() : '';
@@ -250,47 +250,63 @@ export async function planGet({ request, env, params }) {
 }
 
 
-// ---------------------------------------------------------------- profile photo
-// One small picture per person, kept private to them for now (nothing public shows members). The browser shrinks it to a square first;
-// the server still checks the real file type from its first bytes, accepts only JPEG, PNG or WebP, and caps size and shape.
-export const AVATAR_RULES = { maxBytes: 600 * 1024, minSide: 64, maxSide: 2000, perHour: 10 };
-const AVATAR_MIME = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
+// ---------------------------------------------------------------- profile photo and cover
+// One small picture per person for each, private to them for now (nothing public shows members). The browser crops and shrinks first
+// (a square for the photo, 3:1 for the cover); the server still checks the real file type from its first bytes, accepts only JPEG, PNG or WebP,
+// and caps size and shape.
+const MEDIA = {
+  avatar: { prefix: 'avatars', type: 'avatar_type', at: 'avatar_at', maxBytes: 600 * 1024, minW: 64, minH: 64, maxSide: 2000, label: 'Profile photo' },
+  cover: { prefix: 'covers', type: 'cover_type', at: 'cover_at', maxBytes: 900 * 1024, minW: 600, minH: 150, maxSide: 3000, label: 'Cover photo' },
+};
+export const AVATAR_RULES = { perHour: 10 };
+const MIME = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
 
-export async function avatarSet({ request, env }) {
+async function mediaSet(kind, { request, env }) {
+  const m = MEDIA[kind];
   const user = await requireUser(env, request);
   if (!env.IMAGES) throw new HttpError(503, 'Picture storage is not available right now.');
-  const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM audit_log WHERE actor_user_id = ? AND action = 'avatar.set' AND at > datetime('now','-1 hour')").bind(user.id).first();
-  if (recent.n >= AVATAR_RULES.perHour) throw new HttpError(429, 'Too many photo changes this hour. Please try again later.');
+  const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM audit_log WHERE actor_user_id = ? AND action IN ('avatar.set','cover.set') AND at > datetime('now','-1 hour')").bind(user.id).first();
+  if (recent.n >= AVATAR_RULES.perHour) throw new HttpError(429, 'Too many picture changes this hour. Please try again later.');
+  const kb = Math.round(m.maxBytes / 1024);
   const declared = Number(request.headers.get('content-length'));
-  if (declared && declared > AVATAR_RULES.maxBytes + 1024) throw new HttpError(413, 'Profile photos can be up to 600 KB. The page shrinks it for you; try another picture.');
+  if (declared && declared > m.maxBytes + 1024) throw new HttpError(413, `${m.label}s can be up to ${kb} KB. The page shrinks it for you; try another picture.`);
   const body = new Uint8Array(await request.arrayBuffer());
   if (!body.length) throw new HttpError(422, 'No picture was sent.');
-  if (body.length > AVATAR_RULES.maxBytes) throw new HttpError(413, 'Profile photos can be up to 600 KB. Try another picture.');
+  if (body.length > m.maxBytes) throw new HttpError(413, `${m.label}s can be up to ${kb} KB. Try another picture.`);
   const info = imageInfo(body);
   if (!info) throw new HttpError(415, 'Please choose a JPEG, PNG or WebP picture.');
-  if (info.width < AVATAR_RULES.minSide || info.height < AVATAR_RULES.minSide) throw new HttpError(422, `The picture is too small. Each side must be at least ${AVATAR_RULES.minSide} pixels.`);
-  if (info.width > AVATAR_RULES.maxSide || info.height > AVATAR_RULES.maxSide) throw new HttpError(422, `The picture is too large. Each side can be at most ${AVATAR_RULES.maxSide} pixels.`);
-  await env.IMAGES.put(`avatars/${user.id}`, body, { httpMetadata: { contentType: AVATAR_MIME[info.format] } });
-  await env.DB.prepare("UPDATE users SET avatar_type = ?, avatar_at = strftime('%Y-%m-%d %H:%M:%f', 'now') WHERE id = ?").bind(AVATAR_MIME[info.format], user.id).run();
-  await audit(env, user, 'avatar.set', 'user', user.id, { bytes: body.length, width: info.width, height: info.height });
+  if (info.width < m.minW || info.height < m.minH) throw new HttpError(422, `The picture is too small (at least ${m.minW} by ${m.minH} pixels).`);
+  if (info.width > m.maxSide || info.height > m.maxSide) throw new HttpError(422, `The picture is too large. Each side can be at most ${m.maxSide} pixels.`);
+  await env.IMAGES.put(`${m.prefix}/${user.id}`, body, { httpMetadata: { contentType: MIME[info.format] } });
+  await env.DB.prepare(`UPDATE users SET ${m.type} = ?, ${m.at} = strftime('%Y-%m-%d %H:%M:%f', 'now') WHERE id = ?`).bind(MIME[info.format], user.id).run();
+  await audit(env, user, `${kind}.set`, 'user', user.id, { bytes: body.length, width: info.width, height: info.height });
   return reply({ ok: true, profile: await profileOf(env, user.id) });
 }
 
-export async function avatarGet({ request, env }) {
+async function mediaGet(kind, { request, env }) {
+  const m = MEDIA[kind];
   const user = await requireUser(env, request);
-  const row = await env.DB.prepare('SELECT avatar_type FROM users WHERE id = ? AND avatar_at IS NOT NULL').bind(user.id).first();
-  const obj = row && env.IMAGES ? await env.IMAGES.get(`avatars/${user.id}`) : null;
+  const row = await env.DB.prepare(`SELECT ${m.type} AS type FROM users WHERE id = ? AND ${m.at} IS NOT NULL`).bind(user.id).first();
+  const obj = row && env.IMAGES ? await env.IMAGES.get(`${m.prefix}/${user.id}`) : null;
   if (!obj) return new Response('Not found', { status: 404, headers: NO_STORE });
   return new Response(obj.body, { headers: {
-    'content-type': row.avatar_type, 'cache-control': 'private, max-age=86400', 'x-content-type-options': 'nosniff',
+    'content-type': row.type, 'cache-control': 'private, max-age=86400', 'x-content-type-options': 'nosniff',
     'content-security-policy': "default-src 'none'; style-src 'unsafe-inline'; sandbox", 'cross-origin-resource-policy': 'same-origin',
   } });
 }
 
-export async function avatarRemove({ request, env }) {
+async function mediaRemove(kind, { request, env }) {
+  const m = MEDIA[kind];
   const user = await requireUser(env, request);
-  await env.DB.prepare('UPDATE users SET avatar_type = NULL, avatar_at = NULL WHERE id = ?').bind(user.id).run();
-  if (env.IMAGES) await env.IMAGES.delete(`avatars/${user.id}`).catch((err) => console.error('avatar delete failed', user.id, err));
-  await audit(env, user, 'avatar.remove', 'user', user.id, null);
+  await env.DB.prepare(`UPDATE users SET ${m.type} = NULL, ${m.at} = NULL WHERE id = ?`).bind(user.id).run();
+  if (env.IMAGES) await env.IMAGES.delete(`${m.prefix}/${user.id}`).catch((err) => console.error(`${kind} delete failed`, user.id, err));
+  await audit(env, user, `${kind}.remove`, 'user', user.id, null);
   return reply({ ok: true, profile: await profileOf(env, user.id) });
 }
+
+export const avatarSet = (ctx) => mediaSet('avatar', ctx);
+export const avatarGet = (ctx) => mediaGet('avatar', ctx);
+export const avatarRemove = (ctx) => mediaRemove('avatar', ctx);
+export const coverSet = (ctx) => mediaSet('cover', ctx);
+export const coverGet = (ctx) => mediaGet('cover', ctx);
+export const coverRemove = (ctx) => mediaRemove('cover', ctx);

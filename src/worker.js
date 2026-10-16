@@ -64,6 +64,10 @@ const ROUTES = [
 
   route('GET', '/api/admin/stats', admin.stats),
   route('GET', '/api/admin/signin-check', admin.signinInfo),
+  route('GET', '/api/admin/logo-queue', admin.logoQueue),
+  route('GET', '/api/admin/logo-preview', admin.logoPreview),
+  route('GET', '/api/admin/firms/:slug/logo-candidates', admin.logoCandidates),
+  route('POST', '/api/admin/firms/:slug/logo-from-url', admin.logoAccept),
   route('GET', '/api/admin/leads', admin.listLeads),
   route('PATCH', '/api/admin/leads/:id', admin.updateLead),
   route('GET', '/api/admin/firms', admin.listFirms),

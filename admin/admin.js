@@ -33,7 +33,7 @@ function renderLogin() {
 // ---------------------------------------------------------------- shell
 let pendingCount = 0;
 let paymentCount = 0;
-const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['news', 'News'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['logos', 'Logos'], ['news', 'News'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
 
 function shell(user, active, content) {
   return h('div', null,
@@ -294,6 +294,59 @@ async function viewFirms() {
     h('div', { class: 'card' }, h('p', { class: 'muted' },
       'Edits are saved to the database and appear on the Find Lawyers page, the directory pages, search and the map within about a minute. A firm\'s profile page changes too once its style is set to "New page, built from the database"; original hand-built pages stay as they are until you switch them.')),
     editor, results);
+}
+
+// ---------------------------------------------------------------- logos
+// Firms that still show initials instead of a logo. For each, LawDB looks at the firm's own website and offers what it finds; you pick one or skip.
+async function viewLogos() {
+  const KEY = 'lawdb_logo_after';
+  let after = '';
+  try { after = localStorage.getItem(KEY) || ''; } catch { /* optional */ }
+  const list = h('div');
+  const status = h('p', { class: 'muted' });
+  const more = h('div', { class: 'row' });
+  let busy = false;
+
+  const card = (f) => {
+    const body = h('div', { class: 'logo-opts' }, h('span', { class: 'muted' }, 'Looking at the website...'));
+    const skip = h('button', { type: 'button', onclick: () => c.remove() }, 'Skip');
+    const c = h('div', { class: 'card logo-card' },
+      h('div', { class: 'row spread' }, h('div', null, h('b', null, f.name), h('div', { class: 'muted' }, `${f.city}, ${f.province} · `, h('a', { href: f.website, target: '_blank', rel: 'noopener' }, 'website'))), skip), body);
+    api('GET', `/api/admin/firms/${encodeURIComponent(f.slug)}/logo-candidates`).then(({ candidates, note: why }) => {
+      if (!candidates.length) { body.replaceChildren(h('span', { class: 'muted' }, 'No usable logo found' + (why ? ` (${why})` : '') + '. You can upload one in Firms, or skip.')); return; }
+      body.replaceChildren(...candidates.map((cand) => {
+        const use = h('button', { type: 'button', class: 'primary' }, 'Use this logo');
+        use.addEventListener('click', async () => {
+          use.disabled = true;
+          try { await api('POST', `/api/admin/firms/${encodeURIComponent(f.slug)}/logo-from-url`, { url: cand.url }); body.replaceChildren(note('msg-ok', 'Saved. The logo shows on the firm\'s page and in search within about a minute.')); skip.remove(); }
+          catch (err) { use.disabled = false; body.append(note('msg-err', err.message)); }
+        });
+        return h('div', { class: 'logo-opt' }, h('img', { src: '/api/admin/logo-preview?url=' + encodeURIComponent(cand.url), alt: `Logo candidate for ${f.name}`, width: 96, height: 96 }),
+          h('small', { class: 'muted' }, `${cand.source}, ${cand.width}x${cand.height}`), use);
+      }));
+    }).catch((err) => body.replaceChildren(note('msg-err', err.message)));
+    return c;
+  };
+
+  async function next() {
+    if (busy) return;
+    busy = true; more.replaceChildren(); status.textContent = 'Loading...';
+    try {
+      const q = await api('GET', '/api/admin/logo-queue?limit=5&after=' + encodeURIComponent(after));
+      q.firms.forEach((f) => list.append(card(f)));
+      if (q.firms.length) { after = q.firms[q.firms.length - 1].slug; try { localStorage.setItem(KEY, after); } catch { /* optional */ } }
+      const left = q.remaining - q.firms.length;
+      status.textContent = left > 0 ? `${left} more firm${left === 1 ? '' : 's'} without a logo.` : (q.firms.length ? 'That was the last one.' : 'No firms without a logo are left.');
+      if (left > 0) more.append(h('button', { type: 'button', class: 'primary', onclick: next }, 'Next 5 firms'));
+    } catch (err) { status.replaceChildren(note('msg-err', err.message)); }
+    busy = false;
+  }
+  const restart = h('button', { type: 'button', onclick: () => { try { localStorage.removeItem(KEY); } catch { /* optional */ } render(me); } }, 'Start from the beginning');
+  await next();
+  return h('div', null, h('h1', null, 'Logos'),
+    h('div', { class: 'card' }, h('p', { class: 'muted' }, 'These firms show their initials because no logo has been added. For each one LawDB reads the firm\'s own website for its logo and shows what it finds. Press "Use this logo" on the right one, or Skip. Nothing is saved unless you choose it, and only real JPEG, PNG or WebP pictures are used (not SVG).'),
+      h('div', { class: 'row' }, restart), status),
+    list, more);
 }
 
 // ---------------------------------------------------------------- approvals
@@ -653,7 +706,7 @@ async function viewActivity() {
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, news: viewNews, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, logos: viewLogos, news: viewNews, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
 async function render(user) {

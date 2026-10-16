@@ -10,6 +10,7 @@ import { mailInBackground, decisionEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES } from '../lib/firm-edit.js';
 import { placeFor } from '../lib/geocode.js';
 import { signinCheck } from '../lib/oauth.js';
+import { findLogos, fetchPicture } from '../lib/logo-finder.js';
 
 export { CASE_TYPES };
 
@@ -388,4 +389,52 @@ export async function searchInspect({ request, env }) {
 export async function signinInfo({ request, env, url }) {
   await requireAdmin(env, request);
   return json({ providers: signinCheck(env, url) }, 200, NO_STORE);
+}
+
+// ---------------------------------------------------------------- logo finder
+// Firms with a website but no logo yet, a few at a time. The admin looks at what the site offers and picks one (or skips).
+export async function logoQueue({ request, env, url }) {
+  await requireAdmin(env, request);
+  const after = (url.searchParams.get('after') || '').slice(0, 200);
+  const limit = clampInt(url.searchParams.get('limit'), 5, 1, 10);
+  const base = `FROM firms WHERE status = 'live' AND COALESCE(json_extract(data, '$.type'), '') != 'logo'
+                AND COALESCE(json_extract(data, '$.website'), '') != ''`;
+  const [{ results }, rest] = await Promise.all([
+    env.DB.prepare(`SELECT slug, json_extract(data, '$.name') AS name, city, province, json_extract(data, '$.website') AS website ${base} AND slug > ? ORDER BY slug LIMIT ?`).bind(after, limit).all(),
+    env.DB.prepare(`SELECT COUNT(*) AS n ${base} AND slug > ?`).bind(after).first(),
+  ]);
+  return reply({ firms: results, remaining: rest.n });
+}
+
+export async function logoCandidates({ request, env, params }) {
+  await requireAdmin(env, request);
+  const row = await env.DB.prepare("SELECT json_extract(data, '$.website') AS website FROM firms WHERE slug = ?").bind(params.slug).first();
+  if (!row) throw new HttpError(404, 'Firm not found');
+  if (!row.website) return reply({ candidates: [], note: 'This firm has no website on file.' });
+  try {
+    return reply({ candidates: await findLogos(env, row.website) });
+  } catch (err) {
+    const msg = String(err.message || err);
+    return reply({ candidates: [], note: /^(The website answered|Use the website|That address)/.test(msg) ? msg.slice(0, 160) : 'the website could not be read' });
+  }
+}
+
+// Shows a candidate picture inside the admin (the admin pages may not load pictures from other sites directly).
+export async function logoPreview({ request, env, url }) {
+  await requireAdmin(env, request);
+  const { bytes, info } = await fetchPicture(env, url.searchParams.get('url') || '');
+  return new Response(bytes, { headers: { 'content-type': { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' }[info.format], 'cache-control': 'private, max-age=600', 'x-content-type-options': 'nosniff', 'content-security-policy': "default-src 'none'; sandbox" } });
+}
+
+export async function logoAccept({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 2000);
+  const src = typeof body.url === 'string' ? body.url.trim() : '';
+  const firm = await env.DB.prepare("SELECT json_extract(data, '$.name') AS name FROM firms WHERE slug = ?").bind(params.slug).first();
+  if (!firm) throw new HttpError(404, 'Firm not found');
+  const { bytes } = await fetchPicture(env, src);
+  const alt = encodeURIComponent(`${firm.name} logo`.slice(0, 120));
+  const image = await addImage(env, admin, params.slug, new Request(`https://lawdb.invalid/?kind=logo&alt=${alt}`, { method: 'POST', headers: { 'content-type': 'application/octet-stream' }, body: bytes }), { admin: true });
+  await audit(env, admin, 'logo.from_site', 'firm', params.slug, { from: src.slice(0, 200) });
+  return reply({ ok: true, image }, 201);
 }

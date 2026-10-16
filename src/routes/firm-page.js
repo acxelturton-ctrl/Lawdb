@@ -32,10 +32,12 @@ async function nearbyFirms(env, f) {
 async function feedPosts(env, slug) {
   try {
     const { results } = await env.DB.prepare(
-      `SELECT p.id, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image FROM firm_posts p JOIN firm_feeds f ON f.firm_slug = p.firm_slug
+      `SELECT p.id, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, (f.page_only = 1 AND m.featured = 0) AS pageOnly
+       FROM firm_posts p JOIN firm_feeds f ON f.firm_slug = p.firm_slug JOIN firms m ON m.slug = p.firm_slug
        WHERE p.firm_slug = ? AND f.enabled = 1 ORDER BY p.published_at DESC, p.id DESC LIMIT 3`
     ).bind(slug).all();
-    return results.map((r) => ({ ...r, storyHref: storyPath(slug, r.id, r.title) }));
+    // Page-only cards go straight to the firm's own article; there is no LawDB story page for them.
+    return results.map((r) => (r.pageOnly ? { id: null, title: r.title, url: r.url, publishedAt: r.publishedAt, excerpt: r.excerpt, image: r.image } : { ...r, storyHref: storyPath(slug, r.id, r.title) }));
   } catch (err) {
     console.error('blog cards lookup failed', slug, err);
     return []; // the page always works without the cards
@@ -73,7 +75,7 @@ export async function firmPage({ request, env, ctx }) {
 
   let row = null;
   try {
-    row = await env.DB.prepare('SELECT data, hours, page_mode, about, status FROM firms WHERE slug = ?').bind(m[1]).first();
+    row = await env.DB.prepare('SELECT data, hours, page_mode, about, status, featured FROM firms WHERE slug = ?').bind(m[1]).first();
   } catch (err) {
     console.error('firm lookup failed, serving static page', m[1], err);
     return env.ASSETS.fetch(request);
@@ -93,6 +95,9 @@ export async function firmPage({ request, env, ctx }) {
           .transform(res);
       }
     }
+    // The "Before you call about..." guide is the same text on every firm in a case type, so only Featured firms keep it
+    // (the city and case-type pages already carry that guidance once, where it belongs).
+    if (res.status === 200 && row && row.status === 'live' && !row.featured) res = new HTMLRewriter().on('div.guide', { element(el) { el.remove(); } }).transform(res);
     if (res.status === 200 && row && row.status === 'live') res = withFollow(res, m[1], await managedBy(env, m[1]));
     if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
     return res;

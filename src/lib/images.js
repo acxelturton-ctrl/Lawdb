@@ -101,7 +101,7 @@ export async function addImage(env, actor, slug, request, { admin }) {
   if (!firm) throw new HttpError(404, 'Firm not found');
 
   const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM firm_images WHERE uploaded_by = ? AND created_at > datetime('now','-1 hour')").bind(actor.id).first();
-  if (recent.n >= IMAGE_RULES.perUserPerHour) throw new HttpError(429, 'Too many uploads this hour. Please try again later.');
+  if (recent.n >= (admin ? 300 : IMAGE_RULES.perUserPerHour)) throw new HttpError(429, 'Too many uploads this hour. Please try again later.');
   if (kind === 'photo') {
     const c = await env.DB.prepare("SELECT COUNT(*) AS n FROM firm_images WHERE firm_slug = ? AND kind = 'photo'").bind(slug).first();
     if (c.n >= IMAGE_RULES.maxPhotos) throw new HttpError(409, `A firm can have up to ${IMAGE_RULES.maxPhotos} photos. Remove one first.`);

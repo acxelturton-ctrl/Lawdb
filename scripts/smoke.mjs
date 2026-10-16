@@ -210,7 +210,14 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(ldOk, 'structured data is valid JSON and has no made-up rating');
   ok(pg.text.includes('8:30 am – 5 pm') && pg.text.includes('8:30 am – 12 pm, 1 pm – 5 pm') && /Saturday<\/span><span class="ht closed">Closed/.test(pg.text), 'opening hours card is rendered');
   ok(!JSON.stringify(JSON.parse((await getRaw('/firms_data.json')).text)).includes('Second paragraph'), 'about text stays out of the public firm list');
-  ok(pg.text.includes('class="guide"') && pg.text.includes('class="lw-car"') && pg.text.includes('id="leadForm-' + slug2 + '"'), 'guidance, nearby firms and contact form are present');
+  ok(!pg.text.includes('class="guide"') && pg.text.includes('class="lw-car"') && pg.text.includes('id="leadForm-' + slug2 + '"'), 'a Basic firm has nearby firms and a contact form, but not the shared "Before you call" guide');
+  // the guide is a Featured benefit, on database-built and hand-built pages alike
+  ok((await getRaw('/firms/achkar-law')).text.includes('class="guide"') === false && (await getRaw('/firms/gupta-law-firm')).text.includes('class="guide"'), 'hand-built pages: Basic firms drop the shared guide, Featured firms keep it');
+  await call('PATCH', '/api/admin/firms/' + slug2, { featured: true });
+  let featuredGuide = false;
+  for (let i = 0; i < 10 && !featuredGuide; i++) { featuredGuide = (await getRaw('/firms/' + slug2)).text.includes('class="guide"'); if (!featuredGuide) await new Promise((r) => setTimeout(r, 500)); }
+  ok(featuredGuide, 'a firm that becomes Featured gets the guide');
+  await call('PATCH', '/api/admin/firms/' + slug2, { featured: false });
   ok(!/from \d+ Google reviews/.test(pg.text), 'no review line for a firm without Google data');
   const redir = await getRaw(`/firms/${slug2}.html`);
   ok(redir.status === 301 && redir.headers.get('location').endsWith('/firms/' + slug2), '.html address redirects to the clean address');
@@ -438,6 +445,9 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     if (req.url.startsWith('/wp-json/wp/v2/posts')) return wpOn ? send(200, 'application/json', wpJson()) : send(404, 'application/json', '{"code":"rest_no_route"}');
     if (req.url === '/feed.xml') return feedBroken ? send(500, 'text/plain', 'broken') : send(200, 'application/rss+xml', rss());
     if (req.url === '/site') return send(200, 'text/html', `<html><head><link rel="alternate" type="application/rss+xml" href="/feed.xml"></head><body>Firm</body></html>`);
+    if (req.url === '/logosite') return send(200, 'text/html', `<html><head><link rel="apple-touch-icon" sizes="180x180" href="/touch.png"><link rel="icon" href="/favicon.svg"><meta property="og:image" content="/tiny.png"></head><body><img class="site-logo" src="/logo.png" alt="Firm logo"><img src="/logo.svg" alt="logo svg"><img src="/partner-logo-badge.png" alt="Clio partner badge"></body></html>`);
+    if (['/logo.png', '/touch.png', '/tiny.png', '/partner-logo-badge.png'].includes(req.url)) { res.writeHead(200, { 'content-type': 'image/png' }); return res.end(makePng(req.url === '/touch.png' ? 180 : req.url === '/tiny.png' ? 16 : 128, req.url === '/touch.png' ? 180 : req.url === '/tiny.png' ? 16 : 128, 90)); }
+    if (req.url === '/logo.svg') return send(200, 'image/svg+xml', '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><script>alert(1)</script></svg>');
     if (req.url === '/boom') return send(500, 'text/plain', 'broken');
     if (req.url === '/html') return send(200, 'text/html', '<html><body>not a feed</body></html>');
     send(404, 'text/plain', 'nope');
@@ -585,6 +595,49 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   cookie = '';
   ok((await call('GET', '/api/admin/news')).status === 401, 'News settings need sign-in');
   as(adminJar);
+  // "page only" blogs: cards on the firm's own page that link to the firm's own articles, but not on News and no LawDB story pages
+  const achHref = (/href="(\/news\/achkar-law\/[a-z0-9-]+-\d+)"/.exec(only.text) || [])[1];
+  as(o1.jar);
+  ok((await call('PATCH', '/api/admin/firms/achkar-law/feed', { pageOnly: true })).status === 403, 'owners cannot change where a blog is shown');
+  as(adminJar);
+  ok((await call('PATCH', '/api/admin/firms/achkar-law/feed', { pageOnly: 'x' })).status === 422, 'pageOnly must be true or false');
+  ok((await call('PATCH', '/api/admin/firms/achkar-law/feed', { pageOnly: true })).status === 200, 'the admin can show a firm\'s blog on its own page only');
+  cookie = '';
+  const poNews = (await getRaw('/news')).text;
+  ok(!poNews.includes('>Achkar Law<') && poNews.includes('Daniel Brown Law LLP'), 'a page-only firm is not on LawDB News');
+  const poPage = (await getRaw('/firms/achkar-law')).text;
+  ok(poPage.includes('class="lw-blog"') && !poPage.includes('data-story') && !poPage.includes('data-save=') && poPage.includes(`href="${origin}/blog/`), 'its own page still shows the cards, linking straight to the firm\'s articles');
+  ok(!!achHref && (await getRaw(achHref)).status === 404 && !(await getRaw('/sitemap-news.xml')).text.includes('/news/achkar-law/'), 'a page-only firm has no LawDB story pages and none in the story sitemap');
+  as(adminJar);
+  ok((await call('GET', '/api/admin/news')).data.firms.every((f) => f.slug !== 'achkar-law'), 'page-only firms are not listed among the News firms');
+  await call('PATCH', '/api/admin/firms/achkar-law', { featured: true });
+  let poFeat = false;
+  for (let i = 0; i < 10 && !poFeat; i++) { poFeat = (await getRaw('/news')).text.includes('>Achkar Law<'); if (!poFeat) await new Promise((r) => setTimeout(r, 500)); }
+  ok(poFeat, 'a page-only firm that becomes Featured is shown everywhere');
+  await call('PATCH', '/api/admin/firms/achkar-law', { featured: !!origFirm.featured });
+  as(adminJar);
+  // logo finder: reads a firm's own website for its logo; an admin picks one; nothing is saved by itself
+  as(o1.jar);
+  ok((await call('GET', '/api/admin/logo-queue')).status === 403 && (await call('GET', '/api/admin/firms/achkar-law/logo-candidates')).status === 403 && (await call('POST', '/api/admin/firms/achkar-law/logo-from-url', { url: origin + '/logo.png' })).status === 403, 'owners cannot use the logo finder');
+  as(adminJar);
+  const lq = await call('GET', '/api/admin/logo-queue?limit=3');
+  ok(lq.status === 200 && lq.data.firms.length === 3 && lq.data.remaining > 3 && lq.data.firms.every((f) => f.website) , 'the logo finder lists firms that have a website but no logo');
+  await call('PATCH', '/api/admin/firms/achkar-law', { website: origin + '/logosite' });
+  const lc = await call('GET', '/api/admin/firms/achkar-law/logo-candidates');
+  const urls = (lc.data.candidates || []).map((c) => c.url);
+  ok(lc.status === 200 && urls.includes(origin + '/logo.png') && urls.includes(origin + '/touch.png') && !urls.some((u) => /svg|tiny|partner/.test(u)), 'it finds the logo on the page and the site icon, and skips SVG, tiny and partner-badge pictures');
+  ok(lc.data.candidates[0].url === origin + '/logo.png' && lc.data.candidates[0].width === 128, 'the logo on the page comes first, with its real size');
+  const lp = await fetch(BASE + '/api/admin/logo-preview?url=' + encodeURIComponent(origin + '/logo.png'), { headers: { cookie: adminJar } });
+  ok(lp.status === 200 && lp.headers.get('content-type') === 'image/png' && lp.headers.get('x-content-type-options') === 'nosniff', 'a candidate can be previewed inside the admin');
+  ok((await fetch(BASE + '/api/admin/logo-preview?url=' + encodeURIComponent(origin + '/logo.svg'), { headers: { cookie: adminJar } })).status === 415 && (await fetch(BASE + '/api/admin/logo-preview?url=' + encodeURIComponent('https://169.254.169.254/x.png'), { headers: { cookie: adminJar } })).status === 422 && (await fetch(BASE + '/api/admin/logo-preview?url=' + encodeURIComponent(origin + '/logosite'), { headers: { cookie: adminJar } })).status === 415, 'SVG, pages and internal addresses are refused');
+  ok((await fetch(BASE + '/api/admin/logo-preview?url=' + encodeURIComponent(origin + '/logo.png'))).status === 401, 'previews need an admin session');
+  const acc = await call('POST', '/api/admin/firms/achkar-law/logo-from-url', { url: origin + '/logo.png' });
+  ok(acc.status === 201 && acc.data.image.kind === 'logo' && acc.data.image.width === 128, 'an admin can save a candidate as the firm\'s logo');
+  const logoImgs = (await call('GET', '/api/admin/firms/achkar-law/images')).data.images;
+  ok(logoImgs.some((i) => i.kind === 'logo' && i.id === acc.data.image.id), 'the logo is stored with the firm\'s pictures');
+  ok((await call('POST', '/api/admin/firms/achkar-law/logo-from-url', { url: origin + '/logosite' })).status === 415 && (await call('POST', '/api/admin/firms/achkar-law/logo-from-url', { url: origin + '/logo.svg' })).status === 415, 'only real pictures can be saved as a logo');
+  await call('DELETE', `/api/admin/firms/achkar-law/images/${acc.data.image.id}`);
+  await call('PATCH', '/api/admin/firms/achkar-law', { website: origFirm.website || '' });
   for (const slug of ['achkar-law', featSlug]) await call('PATCH', `/api/admin/firms/${slug}/feed`, { enabled: false });
   cookie = '';
   const emptyNews = await getRaw('/news');
@@ -894,6 +947,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   cookie = '';
   const cron = await fetch(BASE + '/__scheduled?cron=17+7+*+*+*', { signal: AbortSignal.timeout(30000) });
   ok(cron.status === 200, 'the nightly job can be triggered');
+  ok((await fetch(BASE + '/__scheduled?cron=*%2F15+*+*+*+*', { signal: AbortSignal.timeout(30000) })).status === 200, 'the every-15-minutes blog finder can be triggered');
   as(adminJar);
   let nightlyDone = false;
   for (let i = 0; i < 20 && !nightlyDone; i++) {

@@ -168,3 +168,13 @@
 .lwa-sec{max-width:880px;margin:44px auto;padding:0 16px}
 .lwa-sec .lwa-h{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(22px,4vw,28px);line-height:1.2;margin:0 0 6px;color:#1f2328;text-align:left;text-transform:none;letter-spacing:0}
 .lwa-sec .lwa-lede{margin:0 0 18px;color:#636870;font-size:15.5px;line-height:1.5;max-width:62ch}
+
+/* Fast pace: used on the home page search demo (lwa--fast). About one second per step. */
+.lwa--fast .lwa-typed{transition-duration:.7s}
+.lwa--fast.lwa--search .lwa-cnt{transition:opacity .25s}
+.lwa--fast.lwa--search .lwa-row{transition:transform .35s cubic-bezier(.3,.9,.3,1),opacity .25s,background .25s,border-color .25s,box-shadow .3s}
+.lwa--fast.lwa--search [data-s="2"] .lwa-row{transition-delay:calc(var(--i)*.06s)}
+.lwa--fast.lwa--search .lwa-tick{transition:transform .25s cubic-bezier(.3,1.8,.5,1) .1s}
+.lwa--fast.lwa--search .lwa-btns{transition:opacity .25s .1s}
+.lwa--fast.lwa--search .lwa-feat{transition:opacity .25s .1s}
+.lwa--fast.lwa--search .lwa-note{transition:.3s .1s}

@@ -98,6 +98,12 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - **Accept:** the owner presses a button on `/account/welcome` (the token is POSTed to `/api/auth/invite-accept`, so mail scanners cannot burn it). One request atomically uses the token, creates the account if needed, makes them an approved owner of that firm, skips the member welcome steps, signs them in and opens `#edit/<slug>`. The invite can also switch a hand-built page to the database-built page so their edits show.
 - **Claim button:** every live firm page shows "Is this your firm? Claim this listing" (or "Managed by the firm" when an approved owner exists), added by `withFollow` in `src/routes/firm-page.js`. Signed-out visitors get the centred sign-in popup, then land on the claim form for that exact firm (`/account/#find/<slug>`). Claims still wait for admin approval.
 
+## Blog cards for every firm
+- Every live firm with a website gets a `firm_feeds` row (`ensureFeedRows`). A cron every 15 minutes (`feedBatch`) finds the blog of one firm that was never looked at (discovery is about 15 requests; a run may make 50), and re-reads up to 6 known blogs that are due. All 350+ firms are covered within days, then kept fresh.
+- **Featured firms** (and any blog added by hand in the admin) are shown everywhere: LawDB News, a LawDB story page per article, the story sitemap, members' feeds.
+- **Everyone else is `page_only`**: up to 3 cards on the firm's own page that link straight to the firm's own article. No story pages, nothing on News, nothing in the sitemap (thousands of thin excerpt pages would lower the site's quality). The visibility rule is `(page_only = 0 OR featured = 1)` in the News, story, sitemap and feed queries, so a firm that turns Featured is shown everywhere at once.
+- Admins can flip a firm with `PATCH /api/admin/firms/:slug/feed {pageOnly}`; adding a firm to News by hand sets it to everywhere. Migration `0024_feed_page_only.sql`.
+
 ## Enquiries dashboard (a Featured benefit)
 - Every enquiry from a firm page is still emailed to the firm's approved owners, on every plan.
 - **Featured firms** get the dashboard at `/account/#leads`: numbers on top (new, 7 days, 30 days, all time), filters by status, search, a "new" marker and count on the tab, Reply by email / Call, status, a private note per enquiry, and an export to spreadsheet (`/api/account/firms/:slug/leads.csv`, formula-safe). Opening the list marks the enquiries as seen (`leads.seen_at`).

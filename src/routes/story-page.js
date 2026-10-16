@@ -29,7 +29,7 @@ export async function storyPage({ request, env, ctx }) {
   try {
     post = await env.DB.prepare(
       `SELECT p.id, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image FROM firm_posts p
-       JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live'
+       JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live' AND (ff.page_only = 0 OR f.featured = 1)
        WHERE p.id = ? AND p.firm_slug = ?`
     ).bind(ref.id, ref.firmSlug).first();
     if (!post) return notFound();
@@ -56,7 +56,7 @@ export async function storySitemap({ request, env }) {
   try {
     const { results } = await env.DB.prepare(
       `SELECT p.id, p.firm_slug AS slug, p.title, p.published_at AS publishedAt, p.fetched_at AS fetchedAt FROM firm_posts p
-       JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live'
+       JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live' AND (ff.page_only = 0 OR f.featured = 1)
        ORDER BY p.published_at DESC, p.id DESC LIMIT 2000`
     ).all();
     const day = (d) => { const t = d ? new Date(String(d).replace(' ', 'T') + 'Z') : null; return t && !Number.isNaN(t.getTime()) ? t.toISOString().slice(0, 10) : ''; };

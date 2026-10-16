@@ -338,7 +338,7 @@ export async function newsGet({ request, env }) {
     env.DB.prepare(
       `SELECT ff.firm_slug AS slug, json_extract(f.data, '$.name') AS name, f.city, f.province, f.featured, ff.enabled, ff.status, ff.kind, ff.feed_url AS feedUrl,
               ff.last_checked_at AS lastCheckedAt, ff.last_error AS lastError, (SELECT COUNT(*) FROM firm_posts p WHERE p.firm_slug = ff.firm_slug) AS posts
-       FROM firm_feeds ff JOIN firms f ON f.slug = ff.firm_slug ORDER BY f.featured DESC, name`
+       FROM firm_feeds ff JOIN firms f ON f.slug = ff.firm_slug WHERE ff.page_only = 0 OR f.featured = 1 ORDER BY f.featured DESC, name`
     ).all(),
     env.DB.prepare("SELECT value FROM site_settings WHERE key = 'news_featured_only'").first(),
   ]);

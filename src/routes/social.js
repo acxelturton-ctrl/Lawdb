@@ -94,7 +94,7 @@ const withSaved = async (env, user, rows) => {
   return rows.map((r) => ({ id: r.id, title: r.title, excerpt: r.excerpt, publishedAt: r.publishedAt, image: r.image, firm: { slug: r.firmSlug, name: r.firmName, featured: !!r.featured }, href: storyPath(r.firmSlug, r.id, r.title), saved: saved.has(r.id) }));
 };
 const STORY_COLS = `p.id, p.title, p.excerpt, p.published_at AS publishedAt, p.image_url AS image, p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured`;
-const LIVE = `JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live'`;
+const LIVE = `JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live' AND (ff.page_only = 0 OR f.featured = 1)`;
 
 // The stories of the firms this person follows, newest first.
 export async function feed({ request, env }) {

@@ -351,16 +351,54 @@ export async function refreshFirmFeed(env, slug, { discover = true } = {}) {
   }
 }
 
+// Every live firm with a website gets a feed row so its blog is looked for. Featured firms are shown everywhere (News, story pages);
+// the rest are "page only": cards on the firm's own page that link straight to the firm's own article.
+export async function ensureFeedRows(env) {
+  await env.DB.prepare(
+    `INSERT OR IGNORE INTO firm_feeds (firm_slug, page_only) SELECT slug, CASE WHEN featured = 1 THEN 0 ELSE 1 END FROM firms
+     WHERE status = 'live' AND json_extract(data, '$.website') IS NOT NULL AND json_extract(data, '$.website') != ''`
+  ).run();
+  // A firm that turned Featured is shown everywhere from then on.
+  await env.DB.prepare("UPDATE firm_feeds SET page_only = 0 WHERE page_only = 1 AND firm_slug IN (SELECT slug FROM firms WHERE featured = 1)").run();
+}
+
+// Runs every 15 minutes: finds the blog of one firm that has never been looked at (discovery takes about 15 requests, and a run may make 50),
+// and re-reads a few known blogs that are due. 356 firms are covered in a few days, then it keeps them fresh.
+export async function feedBatch(env) {
+  if (env.DEV_ECHO_LINK === '1') return { skipped: 'local development' };
+  await ensureFeedRows(env);
+  const out = { discovered: 0, refreshed: 0, ok: 0, failed: 0 };
+  const fresh = await env.DB.prepare(
+    `SELECT f.firm_slug AS slug FROM firm_feeds f JOIN firms m ON m.slug = f.firm_slug
+     WHERE f.enabled = 1 AND m.status = 'live' AND f.feed_url IS NULL AND f.last_checked_at IS NULL ORDER BY f.created_at LIMIT 1`
+  ).first();
+  if (fresh) {
+    const r = await refreshFirmFeed(env, fresh.slug);
+    out.discovered++;
+    if (r.status === 'ok') out.ok++; else if (r.status === 'error') out.failed++;
+  }
+  const { results } = await env.DB.prepare(
+    `SELECT f.firm_slug AS slug FROM firm_feeds f JOIN firms m ON m.slug = f.firm_slug
+     WHERE f.enabled = 1 AND m.status = 'live' AND f.feed_url IS NOT NULL AND (f.last_checked_at IS NULL OR f.last_checked_at < datetime('now', '-20 hours'))
+     ORDER BY f.last_checked_at LIMIT 6`
+  ).all();
+  for (const r of results) {
+    const res = await refreshFirmFeed(env, r.slug);
+    out.refreshed++;
+    if (res.status === 'ok') out.ok++; else if (res.status === 'error') out.failed++;
+  }
+  if (out.discovered || out.refreshed) await audit(env, null, 'feeds.batch', 'system', 'every-15-min', out);
+  return out;
+}
+
 // Used by the News page: reads blogs that have never been read, or not for half a day. Never more than a few per visit.
 export async function dueFeeds(env, limit = 3) {
   const dev = env.DEV_ECHO_LINK === '1';
   // Featured firms are on the page without waiting for the nightly job: give them a feed row so their blog is looked for on this visit.
-  if (!dev) await env.DB.prepare(
-    "INSERT OR IGNORE INTO firm_feeds (firm_slug) SELECT slug FROM firms WHERE featured = 1 AND status = 'live' AND json_extract(data, '$.website') IS NOT NULL AND json_extract(data, '$.website') != ''"
-  ).run();
+  if (!dev) await ensureFeedRows(env);
   const { results } = await env.DB.prepare(
     `SELECT f.firm_slug AS slug FROM firm_feeds f JOIN firms m ON m.slug = f.firm_slug
-     WHERE f.enabled = 1 AND m.status = 'live' ${dev ? "AND f.source = 'manual'" : ''} AND (
+     WHERE f.enabled = 1 AND f.page_only = 0 AND m.status = 'live' ${dev ? "AND f.source = 'manual'" : ''} AND (
        (f.status != 'none' AND (f.last_checked_at IS NULL OR f.last_checked_at < datetime('now', '-12 hours')))
        OR (f.status = 'none' AND f.last_checked_at < datetime('now', '-7 days')))
      ORDER BY f.last_checked_at LIMIT ?`
@@ -372,13 +410,11 @@ export async function dueFeeds(env, limit = 3) {
 export async function refreshAllFeeds(env) {
   // Local development never goes looking at real websites; it only re-reads feeds entered by hand.
   const dev = env.DEV_ECHO_LINK === '1';
-  if (!dev) await env.DB.prepare(
-    "INSERT OR IGNORE INTO firm_feeds (firm_slug) SELECT slug FROM firms WHERE featured = 1 AND status = 'live' AND json_extract(data, '$.website') IS NOT NULL AND json_extract(data, '$.website') != ''"
-  ).run();
+  if (!dev) await ensureFeedRows(env);
   // Feeds with a known address are re-read daily; firms still without one are retried weekly.
   const { results } = await env.DB.prepare(
     `SELECT f.firm_slug AS slug, f.feed_url FROM firm_feeds f JOIN firms m ON m.slug = f.firm_slug
-     WHERE f.enabled = 1 AND m.status = 'live' ${dev ? "AND f.source = 'manual'" : ''} AND (
+     WHERE f.enabled = 1 AND f.page_only = 0 AND m.status = 'live' ${dev ? "AND f.source = 'manual'" : ''} AND (
        (f.feed_url IS NOT NULL AND (f.last_checked_at IS NULL OR f.last_checked_at < datetime('now', '-20 hours')))
        OR (f.feed_url IS NULL AND (f.last_checked_at IS NULL OR f.last_checked_at < datetime('now', '-7 days'))))
      ORDER BY f.last_checked_at LIMIT 14`
@@ -400,8 +436,12 @@ export async function refreshAllFeeds(env) {
 // body: { enabled?: boolean, feedUrl?: string }. An empty feedUrl goes back to finding the feed automatically.
 export async function updateFeedSettings(env, actor, slug, body, exec) {
   const keys = Object.keys(body);
-  if (!keys.length || keys.some((k) => k !== 'enabled' && k !== 'feedUrl')) throw new HttpError(422, 'Send enabled and/or feedUrl.');
+  if (!keys.length || keys.some((k) => k !== 'enabled' && k !== 'feedUrl' && k !== 'pageOnly')) throw new HttpError(422, 'Send enabled and/or feedUrl.');
   if ('enabled' in body && typeof body.enabled !== 'boolean') throw new HttpError(422, 'enabled must be true or false.');
+  if ('pageOnly' in body) {
+    if (actor?.role !== 'admin') throw new HttpError(403, 'Only LawDB can change where a blog is shown.');
+    if (typeof body.pageOnly !== 'boolean') throw new HttpError(422, 'pageOnly must be true or false.');
+  }
   let url;
   if ('feedUrl' in body) {
     const v = typeof body.feedUrl === 'string' ? body.feedUrl.trim() : '';
@@ -413,6 +453,8 @@ export async function updateFeedSettings(env, actor, slug, body, exec) {
   const sets = [];
   const args = [];
   if ('enabled' in body) { sets.push('enabled = ?'); args.push(body.enabled ? 1 : 0); }
+  if (body.enabled === true && actor?.role === 'admin' && !('pageOnly' in body)) sets.push('page_only = 0'); // adding a firm to News by hand puts it on News
+  if ('pageOnly' in body) { sets.push('page_only = ?'); args.push(body.pageOnly ? 1 : 0); }
   if ('feedUrl' in body) { sets.push('feed_url = ?', 'source = ?', 'kind = ?', "status = 'pending'", 'last_error = NULL', 'last_checked_at = NULL'); args.push(url, url ? 'manual' : 'auto', url && isWpUrl(url) ? 'wp' : 'rss'); }
   await env.DB.prepare(`UPDATE firm_feeds SET ${sets.join(', ')} WHERE firm_slug = ?`).bind(...args, slug).run();
   if ('feedUrl' in body) await env.DB.prepare('DELETE FROM firm_posts WHERE firm_slug = ?').bind(slug).run(); // a new address starts fresh

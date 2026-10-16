@@ -592,6 +592,27 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   cookie = '';
   ok((await call('GET', '/api/admin/news')).status === 401, 'News settings need sign-in');
   as(adminJar);
+  // "page only" blogs: cards on the firm's own page that link to the firm's own articles, but not on News and no LawDB story pages
+  const achHref = (/href="(\/news\/achkar-law\/[a-z0-9-]+-\d+)"/.exec(only.text) || [])[1];
+  as(o1.jar);
+  ok((await call('PATCH', '/api/admin/firms/achkar-law/feed', { pageOnly: true })).status === 403, 'owners cannot change where a blog is shown');
+  as(adminJar);
+  ok((await call('PATCH', '/api/admin/firms/achkar-law/feed', { pageOnly: 'x' })).status === 422, 'pageOnly must be true or false');
+  ok((await call('PATCH', '/api/admin/firms/achkar-law/feed', { pageOnly: true })).status === 200, 'the admin can show a firm\'s blog on its own page only');
+  cookie = '';
+  const poNews = (await getRaw('/news')).text;
+  ok(!poNews.includes('>Achkar Law<') && poNews.includes('Daniel Brown Law LLP'), 'a page-only firm is not on LawDB News');
+  const poPage = (await getRaw('/firms/achkar-law')).text;
+  ok(poPage.includes('class="lw-blog"') && !poPage.includes('data-story') && !poPage.includes('data-save=') && poPage.includes(`href="${origin}/blog/`), 'its own page still shows the cards, linking straight to the firm\'s articles');
+  ok(!!achHref && (await getRaw(achHref)).status === 404 && !(await getRaw('/sitemap-news.xml')).text.includes('/news/achkar-law/'), 'a page-only firm has no LawDB story pages and none in the story sitemap');
+  as(adminJar);
+  ok((await call('GET', '/api/admin/news')).data.firms.every((f) => f.slug !== 'achkar-law'), 'page-only firms are not listed among the News firms');
+  await call('PATCH', '/api/admin/firms/achkar-law', { featured: true });
+  let poFeat = false;
+  for (let i = 0; i < 10 && !poFeat; i++) { poFeat = (await getRaw('/news')).text.includes('>Achkar Law<'); if (!poFeat) await new Promise((r) => setTimeout(r, 500)); }
+  ok(poFeat, 'a page-only firm that becomes Featured is shown everywhere');
+  await call('PATCH', '/api/admin/firms/achkar-law', { featured: !!origFirm.featured });
+  as(adminJar);
   for (const slug of ['achkar-law', featSlug]) await call('PATCH', `/api/admin/firms/${slug}/feed`, { enabled: false });
   cookie = '';
   const emptyNews = await getRaw('/news');
@@ -901,6 +922,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   cookie = '';
   const cron = await fetch(BASE + '/__scheduled?cron=17+7+*+*+*', { signal: AbortSignal.timeout(30000) });
   ok(cron.status === 200, 'the nightly job can be triggered');
+  ok((await fetch(BASE + '/__scheduled?cron=*%2F15+*+*+*+*', { signal: AbortSignal.timeout(30000) })).status === 200, 'the every-15-minutes blog finder can be triggered');
   as(adminJar);
   let nightlyDone = false;
   for (let i = 0; i < 20 && !nightlyDone; i++) {

@@ -161,7 +161,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const tags = (f.tags || []).filter(Boolean);
   const services = tags.length ? `\n    <div class="services">\n      <h2>Practice areas</h2>\n      <ul>${tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>\n    </div>` : '';
   const hoursHtml = hoursCard(hours, f.province);
-  const guide = C.GUIDES[(f.caseTypes || [])[0]] || '';
+  // Same text on every firm of a case type, so only Featured firms show it (see also the Worker, which does the same for hand-built pages).
+  const guide = f.featured ? (C.GUIDES[(f.caseTypes || [])[0]] || '') : '';
 
   const socials =
     `<div class="socials">\n      <a href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.star}<span>Read Google Reviews</span></a>\n` +

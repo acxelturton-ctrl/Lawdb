@@ -305,6 +305,7 @@ async function viewLogos() {
   const list = h('div');
   const status = h('p', { class: 'muted' });
   const more = h('div', { class: 'row' });
+  const bulk = h('div', { class: 'row' });
   let busy = false;
 
   const card = (f) => {
@@ -312,7 +313,11 @@ async function viewLogos() {
     const skip = h('button', { type: 'button', onclick: () => c.remove() }, 'Skip');
     const c = h('div', { class: 'card logo-card' },
       h('div', { class: 'row spread' }, h('div', null, h('b', null, f.name), h('div', { class: 'muted' }, `${f.city}, ${f.province} · `, h('a', { href: f.website, target: '_blank', rel: 'noopener' }, 'website'))), skip), body);
-    api('GET', `/api/admin/firms/${encodeURIComponent(f.slug)}/logo-candidates`).then(({ candidates, note: why }) => {
+    c.ready = api('GET', `/api/admin/firms/${encodeURIComponent(f.slug)}/logo-candidates`).then(({ candidates, note: why }) => {
+      if (candidates.length && candidates[0].source === 'logo on the page') {
+        // The picture is literally called a logo on the firm's own page: safe enough to offer in one tap for the whole page.
+        c.sure = async () => { await api('POST', `/api/admin/firms/${encodeURIComponent(f.slug)}/logo-from-url`, { url: candidates[0].url }); body.replaceChildren(note('msg-ok', 'Saved. The logo shows on the firm\'s page and in search within about a minute.')); skip.remove(); };
+      }
       if (!candidates.length) { body.replaceChildren(h('span', { class: 'muted' }, 'No usable logo found' + (why ? ` (${why})` : '') + '. You can upload one in Firms, or skip.')); return; }
       body.replaceChildren(...candidates.map((cand) => {
         const use = h('button', { type: 'button', class: 'primary' }, 'Use this logo');
@@ -332,12 +337,25 @@ async function viewLogos() {
     if (busy) return;
     busy = true; more.replaceChildren(); status.textContent = 'Loading...';
     try {
-      const q = await api('GET', '/api/admin/logo-queue?limit=5&after=' + encodeURIComponent(after));
-      q.firms.forEach((f) => list.append(card(f)));
+      const q = await api('GET', '/api/admin/logo-queue?limit=10&after=' + encodeURIComponent(after));
+      const cards = q.firms.map((f) => card(f));
+      cards.forEach((c) => list.append(c));
+      Promise.allSettled(cards.map((c) => c.ready)).then(() => {
+        const sure = cards.filter((c) => c.sure && c.isConnected);
+        if (sure.length < 2) return;
+        const all = h('button', { type: 'button', class: 'primary' }, `Save the first logo for the ${sure.length} firms where the website calls it "logo"`);
+        const out = h('span', { class: 'muted' });
+        all.addEventListener('click', async () => {
+          all.disabled = true; let ok = 0;
+          for (const c of sure) { try { await c.sure(); ok++; out.textContent = `Saved ${ok} of ${sure.length}...`; } catch { /* leave that card for a manual choice */ } }
+          out.textContent = `Saved ${ok} of ${sure.length}. Check the rest by hand.`;
+        });
+        bulk.replaceChildren(all, out);
+      });
       if (q.firms.length) { after = q.firms[q.firms.length - 1].slug; try { localStorage.setItem(KEY, after); } catch { /* optional */ } }
       const left = q.remaining - q.firms.length;
       status.textContent = left > 0 ? `${left} more firm${left === 1 ? '' : 's'} without a logo.` : (q.firms.length ? 'That was the last one.' : 'No firms without a logo are left.');
-      if (left > 0) more.append(h('button', { type: 'button', class: 'primary', onclick: next }, 'Next 5 firms'));
+      if (left > 0) more.append(h('button', { type: 'button', class: 'primary', onclick: next }, 'Next 10 firms'));
     } catch (err) { status.replaceChildren(note('msg-err', err.message)); }
     busy = false;
   }
@@ -346,7 +364,7 @@ async function viewLogos() {
   return h('div', null, h('h1', null, 'Logos'),
     h('div', { class: 'card' }, h('p', { class: 'muted' }, 'These firms show their initials because no logo has been added. For each one LawDB reads the firm\'s own website for its logo and shows what it finds. Press "Use this logo" on the right one, or Skip. Nothing is saved unless you choose it, and only real JPEG, PNG or WebP pictures are used (not SVG).'),
       h('div', { class: 'row' }, restart), status),
-    list, more);
+    bulk, list, more);
 }
 
 // ---------------------------------------------------------------- approvals

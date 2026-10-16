@@ -417,7 +417,31 @@
   .why3-steps span:not(.n){ font-size:13.5px; color:#b9b2a4; line-height:1.5; }
   .firms-divider{ max-width:1080px; margin:20px auto 0; padding:0 20px; display:flex; align-items:center; gap:14px; color:var(--brass-deep); font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
   .firms-divider::before,.firms-divider::after{ content:''; flex:1; height:1px; background:var(--line); }
-.hero.hero3{ text-align:center; padding:64px 20px 48px; background:radial-gradient(ellipse 55% 75% at 50% 48%, rgba(250,247,240,.95) 0%, rgba(250,247,240,.84) 58%, rgba(250,247,240,.38) 100%), url('images/hero-map-canada-v2.jpg') center 70%/cover no-repeat, #fdfcf9; }
+.hero.hero3{ position:relative; text-align:center; padding:300px 14px 30px; background:#efebe1; }
+  @media(max-width:1100px){ .hm-bg{ bottom:auto; height:660px; } }
+  .hm-bg{ position:absolute; inset:0; overflow:hidden; }
+  #hmsvg{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .hero.hero3 .h3-inner{ position:relative; z-index:3; max-width:760px; background:#fff; border-radius:26px; padding:26px 18px 24px; box-shadow:0 26px 70px rgba(31,35,40,.26); }
+  @media(min-width:640px){ .hero.hero3 .h3-inner{ padding:38px 34px 32px; } }
+  @media(min-width:1101px){ .hero.hero3{ padding:60px 20px 60px; } }
+  .hm-bg .pin{ transform-box:fill-box; transform-origin:50% 100%; animation:hmDrop .65s cubic-bezier(.3,1.5,.5,1) backwards; }
+  .hm-bg .fp{ cursor:pointer; transition:transform .3s cubic-bezier(.3,1.5,.5,1); }
+  .hm-bg .fpw.on .fp{ transform:scale(1.35); }
+  .hm-bg .pulse{ fill:none; stroke:#e8a91f; stroke-width:5; opacity:0; transform-box:fill-box; transform-origin:50% 50%; }
+  .hm-bg .fpw.on .pulse{ animation:hmPulse 1.9s ease-out infinite; }
+  .hm-bg .fpw.on .p2{ animation-delay:.95s; }
+  @keyframes hmDrop{ 0%{ transform:translateY(-90px) scale(.3); opacity:0; } 100%{ transform:none; opacity:1; } }
+  @keyframes hmPulse{ 0%{ transform:scale(.3,.17); opacity:.95; } 100%{ transform:scale(2.4,1.3); opacity:0; } }
+  .hm-card{ position:absolute; z-index:4; width:272px; background:#fff; border-radius:16px; padding:12px 14px 12px; box-shadow:0 16px 44px rgba(31,35,40,.34); text-align:left; visibility:hidden; opacity:0; transform:translateY(8px); transition:opacity .3s, transform .3s, visibility 0s .3s; }
+  .hm-card.show{ visibility:visible; opacity:1; transform:none; transition:opacity .3s, transform .3s, visibility 0s; }
+  .hm-card::after{ content:''; position:absolute; bottom:-8px; left:var(--ax,50%); margin-left:-8px; width:16px; height:16px; background:#fff; transform:rotate(45deg); border-radius:3px; box-shadow:5px 5px 10px rgba(31,35,40,.12); }
+  .hm-card .bd{ display:inline-block; background:#fff3d4; color:#b45309; font:700 10.5px 'Inter',sans-serif; letter-spacing:.08em; text-transform:uppercase; border-radius:999px; padding:3px 9px; }
+  .hm-card b{ display:block; font:700 16.5px/1.25 'Source Serif 4',serif; color:var(--ink); margin:7px 0 3px; }
+  .hm-card .rt{ font-size:13px; color:var(--ink-soft); } .hm-card .rt i{ color:#fbbc04; font-style:normal; letter-spacing:1px; }
+  .hm-card .tg{ font-size:12.5px; color:var(--ink-soft); margin-top:3px; }
+  .hm-card a{ display:inline-block; margin-top:9px; font:700 13px 'Inter',sans-serif; color:var(--brass-deep); text-decoration:none; }
+  .hm-card a:hover{ text-decoration:underline; }
+  @media(prefers-reduced-motion:reduce){ .hm-bg .pin,.hm-bg .fpw.on .pulse{ animation:none!important; } .hm-card{ transition:none; } }
   .hero.hero3 h1{ max-width:none; margin:0 0 14px; text-align:center; font-size:clamp(36px,6vw,56px); }
   .hero.hero3 .h3-sub{ text-align:center; }
   #cases{ padding-bottom:10px; }
@@ -461,7 +485,172 @@
 
 
 
-<div class="hero hero3">
+<div class="hero hero3" id="hmap">
+ <div class="hm-bg">
+<svg id="hmsvg" viewBox="0 0 1600 760" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+<defs><symbol id="pin" viewBox="-24 -62 48 64" overflow="visible"><path d="M0 0C-9-16-23-27-23-41a23 23 0 1 1 46 0C23-27 9-16 0 0z" fill="currentColor" stroke="#fff" stroke-width="3"/><circle cy="-41" r="9" fill="#fff"/></symbol>
+<symbol id="pinf" viewBox="-30 -80 60 82" overflow="visible"><path d="M0 0C-12-21-30-35-30-53a30 30 0 1 1 60 0C30-35 12-21 0 0z" fill="#e8a91f" stroke="#fff" stroke-width="4"/><circle cy="-53" r="12" fill="#1f2328"/></symbol></defs>
+<rect width="1600" height="760" fill="#efebe1"/>
+<path d="M-40 640 C180 600 300 700 520 660 C760 615 900 700 1130 670 C1320 646 1460 700 1660 650 L1660 800 L-40 800Z" fill="#a6d4f3"/>
+<path d="M-40 640 C180 600 300 700 520 660 C760 615 900 700 1130 670 C1320 646 1460 700 1660 650" fill="none" stroke="#c9e6fa" stroke-width="8"/>
+<path d="M1010 -20 C1060 120 960 230 1030 330 C1090 420 1010 520 1070 640" fill="none" stroke="#a6d4f3" stroke-width="44" stroke-linecap="round"/>
+<path d="M40 330 C110 290 250 300 330 340 C390 380 380 470 330 530 C250 590 110 590 50 540 C0 490 -10 380 40 330Z" fill="#bfe3b0" stroke="#a5d397" stroke-width="3"/>
+<path d="M1210 70 C1290 20 1450 30 1540 90 C1610 140 1590 250 1520 300 C1430 350 1290 330 1230 270 C1180 210 1160 110 1210 70Z" fill="#bfe3b0" stroke="#a5d397" stroke-width="3"/>
+<path d="M560 520 C620 490 720 500 770 540 C810 580 780 630 710 640 C640 650 560 620 550 570Z" fill="#bfe3b0" stroke="#a5d397" stroke-width="3"/>
+<path d="M1180 470 C1250 440 1360 450 1420 490 C1460 530 1430 600 1350 610 C1270 620 1190 590 1170 540Z" fill="#bfe3b0" stroke="#a5d397" stroke-width="3"/>
+<path d="M430 40 C480 10 560 20 590 60 C610 100 570 140 510 140 C450 140 400 90 430 40Z" fill="#bfe3b0" stroke="#a5d397" stroke-width="3"/>
+<path d="M120 380 C170 350 250 360 290 400 C320 440 290 490 230 510 C160 525 100 480 100 430Z" fill="#aedb9e"/>
+<path d="M1280 110 C1340 80 1430 95 1470 140 C1500 190 1450 240 1380 245 C1310 250 1260 200 1270 150Z" fill="#aedb9e"/>
+<circle cx="93" cy="466" r="14" fill="#8ec97b"/>
+<circle cx="85" cy="435" r="10" fill="#6fb35e"/>
+<circle cx="84" cy="454" r="10" fill="#7fbf6c"/>
+<circle cx="147" cy="455" r="8" fill="#6fb35e"/>
+<circle cx="346" cy="427" r="10" fill="#6fb35e"/>
+<circle cx="309" cy="448" r="8" fill="#7fbf6c"/>
+<circle cx="227" cy="495" r="8" fill="#8ec97b"/>
+<circle cx="147" cy="522" r="10" fill="#6fb35e"/>
+<circle cx="208" cy="505" r="8" fill="#6fb35e"/>
+<circle cx="304" cy="489" r="14" fill="#6fb35e"/>
+<circle cx="337" cy="437" r="12" fill="#8ec97b"/>
+<circle cx="205" cy="354" r="8" fill="#7fbf6c"/>
+<circle cx="155" cy="425" r="8" fill="#8ec97b"/>
+<circle cx="89" cy="517" r="8" fill="#7fbf6c"/>
+<circle cx="236" cy="551" r="14" fill="#8ec97b"/>
+<circle cx="294" cy="431" r="8" fill="#6fb35e"/>
+<circle cx="109" cy="363" r="12" fill="#8ec97b"/>
+<circle cx="274" cy="476" r="14" fill="#7fbf6c"/>
+<circle cx="284" cy="516" r="8" fill="#7fbf6c"/>
+<circle cx="98" cy="458" r="10" fill="#8ec97b"/>
+<circle cx="51" cy="433" r="10" fill="#8ec97b"/>
+<circle cx="168" cy="408" r="14" fill="#7fbf6c"/>
+<circle cx="339" cy="440" r="12" fill="#7fbf6c"/>
+<circle cx="223" cy="513" r="8" fill="#7fbf6c"/>
+<circle cx="269" cy="436" r="12" fill="#7fbf6c"/>
+<circle cx="212" cy="372" r="12" fill="#8ec97b"/>
+<circle cx="1410" cy="188" r="10" fill="#7fbf6c"/>
+<circle cx="1296" cy="139" r="14" fill="#7fbf6c"/>
+<circle cx="1471" cy="157" r="10" fill="#8ec97b"/>
+<circle cx="1394" cy="211" r="10" fill="#6fb35e"/>
+<circle cx="1370" cy="219" r="10" fill="#6fb35e"/>
+<circle cx="1504" cy="146" r="8" fill="#8ec97b"/>
+<circle cx="1417" cy="185" r="12" fill="#7fbf6c"/>
+<circle cx="1364" cy="113" r="14" fill="#6fb35e"/>
+<circle cx="1262" cy="179" r="8" fill="#7fbf6c"/>
+<circle cx="1385" cy="249" r="8" fill="#8ec97b"/>
+<circle cx="1404" cy="268" r="8" fill="#7fbf6c"/>
+<circle cx="1358" cy="241" r="8" fill="#7fbf6c"/>
+<circle cx="1411" cy="229" r="10" fill="#7fbf6c"/>
+<circle cx="1278" cy="247" r="12" fill="#6fb35e"/>
+<circle cx="1358" cy="103" r="10" fill="#6fb35e"/>
+<circle cx="1390" cy="178" r="12" fill="#6fb35e"/>
+<circle cx="1360" cy="192" r="8" fill="#8ec97b"/>
+<circle cx="1446" cy="198" r="10" fill="#7fbf6c"/>
+<circle cx="1469" cy="209" r="8" fill="#6fb35e"/>
+<circle cx="1366" cy="139" r="12" fill="#8ec97b"/>
+<circle cx="1459" cy="210" r="8" fill="#8ec97b"/>
+<circle cx="1395" cy="169" r="14" fill="#6fb35e"/>
+<circle cx="1492" cy="182" r="14" fill="#6fb35e"/>
+<circle cx="1410" cy="177" r="8" fill="#6fb35e"/>
+<circle cx="699" cy="592" r="14" fill="#6fb35e"/>
+<circle cx="623" cy="617" r="14" fill="#8ec97b"/>
+<circle cx="601" cy="584" r="8" fill="#8ec97b"/>
+<circle cx="615" cy="554" r="10" fill="#6fb35e"/>
+<circle cx="725" cy="604" r="14" fill="#8ec97b"/>
+<circle cx="708" cy="557" r="10" fill="#6fb35e"/>
+<circle cx="616" cy="552" r="12" fill="#6fb35e"/>
+<circle cx="723" cy="560" r="10" fill="#8ec97b"/>
+<circle cx="628" cy="589" r="14" fill="#7fbf6c"/>
+<circle cx="706" cy="554" r="12" fill="#7fbf6c"/>
+<circle cx="707" cy="602" r="8" fill="#6fb35e"/>
+<circle cx="747" cy="594" r="10" fill="#7fbf6c"/>
+<circle cx="1250" cy="549" r="10" fill="#8ec97b"/>
+<circle cx="1247" cy="567" r="12" fill="#6fb35e"/>
+<circle cx="1353" cy="494" r="14" fill="#8ec97b"/>
+<circle cx="1316" cy="544" r="8" fill="#6fb35e"/>
+<circle cx="1281" cy="500" r="12" fill="#6fb35e"/>
+<circle cx="1304" cy="533" r="10" fill="#8ec97b"/>
+<circle cx="1285" cy="542" r="12" fill="#7fbf6c"/>
+<circle cx="1316" cy="492" r="8" fill="#8ec97b"/>
+<circle cx="1357" cy="565" r="12" fill="#7fbf6c"/>
+<circle cx="1282" cy="517" r="14" fill="#8ec97b"/>
+<circle cx="1304" cy="545" r="14" fill="#6fb35e"/>
+<circle cx="1291" cy="517" r="12" fill="#8ec97b"/>
+<circle cx="453" cy="69" r="10" fill="#8ec97b"/>
+<circle cx="539" cy="49" r="10" fill="#7fbf6c"/>
+<circle cx="462" cy="103" r="14" fill="#7fbf6c"/>
+<circle cx="485" cy="86" r="8" fill="#8ec97b"/>
+<circle cx="464" cy="69" r="12" fill="#8ec97b"/>
+<circle cx="483" cy="120" r="8" fill="#6fb35e"/>
+<circle cx="546" cy="50" r="8" fill="#7fbf6c"/>
+<circle cx="512" cy="108" r="8" fill="#8ec97b"/>
+<path d="M0 120 L1600 170 M0 270 L1600 250 M0 410 L1600 440 M0 560 L1600 540 M120 0 L170 760 M330 0 L380 760 M560 0 L520 760 M760 0 L800 760 M1180 0 L1150 760 M1400 0 L1450 760 M0 50 L1600 20 M840 0 L1000 760" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+<path d="M-20 330 C300 300 600 360 900 330 S1400 300 1620 340" fill="none" stroke="#d9d3c4" stroke-width="30" stroke-linecap="round"/>
+<path d="M240 -20 C300 200 360 420 330 780" fill="none" stroke="#d9d3c4" stroke-width="30" stroke-linecap="round"/>
+<path d="M-20 700 L560 300 L1000 -20" fill="none" stroke="#d9d3c4" stroke-width="30" stroke-linecap="round"/>
+<path d="M1100 780 C1160 600 1260 420 1330 -20" fill="none" stroke="#d9d3c4" stroke-width="30" stroke-linecap="round"/>
+<path d="M-20 330 C300 300 600 360 900 330 S1400 300 1620 340" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round"/>
+<path d="M240 -20 C300 200 360 420 330 780" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round"/>
+<path d="M-20 700 L560 300 L1000 -20" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round"/>
+<path d="M1100 780 C1160 600 1260 420 1330 -20" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round"/>
+<path d="M-20 480 C400 420 800 560 1200 470 S1500 430 1620 450" fill="none" stroke="#b8c3cf" stroke-width="30" stroke-linecap="round"/>
+<path d="M700 -20 C760 200 700 420 800 780" fill="none" stroke="#b8c3cf" stroke-width="30" stroke-linecap="round"/>
+<path d="M-20 480 C400 420 800 560 1200 470 S1500 430 1620 450" fill="none" stroke="#e6edf5" stroke-width="22" stroke-linecap="round"/>
+<path d="M700 -20 C760 200 700 420 800 780" fill="none" stroke="#e6edf5" stroke-width="22" stroke-linecap="round"/>
+<path id="rt1" d="M-20 330 C300 300 600 360 900 330 S1400 300 1620 340" fill="none"/>
+<path id="rt2" d="M-20 480 C400 420 800 560 1200 470 S1500 430 1620 450" fill="none"/>
+<path id="rt3" d="M240 -20 C300 200 360 420 330 780" fill="none"/>
+<path id="rt4" d="M1100 780 C1160 600 1260 420 1330 -20" fill="none"/>
+<path id="rt5" d="M700 -20 C760 200 700 420 800 780" fill="none"/>
+<path id="rt6" d="M0 270 L1600 250" fill="none"/>
+<text x="200" y="445" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="22" fill="#4f8f46" opacity=".9">Riverside Park</text>
+<text x="1370" y="180" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="22" fill="#4f8f46" opacity=".9">Maple Gardens</text>
+<text x="660" y="578" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="22" fill="#4f8f46" opacity=".9">Central Green</text>
+<text x="1120" y="684" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="22" fill="#4a8bbf" opacity=".9">Harbour</text>
+<text x="380" y="700" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="22" fill="#4a8bbf" opacity=".9">Lake Ontario</text>
+<text x="930" y="322" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="17" fill="#8b8576">Main St</text>
+<text x="520" y="232" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="17" fill="#8b8576">King St</text>
+<text x="1260" y="420" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="17" fill="#8b8576">Bay St</text>
+<circle r="7" fill="#ef4444" stroke="#fff" stroke-width="2.5" class="car"><animateMotion dur="16s" begin="0s" repeatCount="indefinite"><mpath href="#rt1"/></animateMotion></circle>
+<circle r="7" fill="#3b82f6" stroke="#fff" stroke-width="2.5" class="car"><animateMotion dur="20s" begin="-8s" repeatCount="indefinite"><mpath href="#rt1"/></animateMotion></circle>
+<circle r="7" fill="#e8a91f" stroke="#fff" stroke-width="2.5" class="car"><animateMotion dur="22s" begin="-3s" repeatCount="indefinite"><mpath href="#rt2"/></animateMotion></circle>
+<circle r="7" fill="#10b981" stroke="#fff" stroke-width="2.5" class="car"><animateMotion dur="14s" begin="-5s" repeatCount="indefinite"><mpath href="#rt3"/></animateMotion></circle>
+<circle r="7" fill="#8b5cf6" stroke="#fff" stroke-width="2.5" class="car"><animateMotion dur="18s" begin="0s" repeatCount="indefinite"><mpath href="#rt4"/></animateMotion></circle>
+<circle r="7" fill="#f97316" stroke="#fff" stroke-width="2.5" class="car"><animateMotion dur="17s" begin="-9s" repeatCount="indefinite"><mpath href="#rt5"/></animateMotion></circle>
+<circle r="7" fill="#ef4444" stroke="#fff" stroke-width="2.5" class="car"><animateMotion dur="24s" begin="-12s" repeatCount="indefinite"><mpath href="#rt6"/></animateMotion></circle>
+<circle r="7" fill="#3b82f6" stroke="#fff" stroke-width="2.5" class="car"><animateMotion dur="19s" begin="-14s" repeatCount="indefinite"><mpath href="#rt2"/></animateMotion></circle>
+<g transform="translate(1335 351)"><g class="pin bp" style="animation-delay:0.15s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(794 632)"><g class="pin bp" style="animation-delay:0.21s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(119 566)"><g class="pin bp" style="animation-delay:0.27s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(570 143)"><g class="pin bp" style="animation-delay:0.33s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(564 479)"><g class="pin bp" style="animation-delay:0.39s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(1173 194)"><g class="pin bp" style="animation-delay:0.45s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(86 311)"><g class="pin bp" style="animation-delay:0.51s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(895 376)"><g class="pin bp" style="animation-delay:0.57s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(432 488)"><g class="pin bp" style="animation-delay:0.63s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(63 95)"><g class="pin bp" style="animation-delay:0.69s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(488 310)"><g class="pin bp" style="animation-delay:0.75s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(652 411)"><g class="pin bp" style="animation-delay:0.81s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(358 360)"><g class="pin bp" style="animation-delay:0.87s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(193 429)"><g class="pin bp" style="animation-delay:0.93s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(677 93)"><g class="pin bp" style="animation-delay:0.99s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(787 403)"><g class="pin bp" style="animation-delay:1.05s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(1044 413)"><g class="pin bp" style="animation-delay:1.11s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(1027 270)"><g class="pin bp" style="animation-delay:1.17s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(887 108)"><g class="pin bp" style="animation-delay:1.23s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(1184 518)"><g class="pin bp" style="animation-delay:1.29s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(1244 99)"><g class="pin bp" style="animation-delay:1.35s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(1509 275)"><g class="pin bp" style="animation-delay:1.41s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(1134 346)"><g class="pin bp" style="animation-delay:1.47s;color:#5f86b8"><use href="#pin" x="-12" y="-33" width="24" height="33"/></g></g>
+<g transform="translate(300 238)" class="fpw" data-i="0"><circle class="pulse" r="30"/><circle class="pulse p2" r="30"/><g class="pin fp" style="animation-delay:0.90s"><use href="#pinf" x="-18" y="-49" width="36" height="49"/></g></g>
+<g transform="translate(230 566)" class="fpw" data-i="1"><circle class="pulse" r="30"/><circle class="pulse p2" r="30"/><g class="pin fp" style="animation-delay:1.02s"><use href="#pinf" x="-18" y="-49" width="36" height="49"/></g></g>
+<g transform="translate(1292 214)" class="fpw" data-i="2"><circle class="pulse" r="30"/><circle class="pulse p2" r="30"/><g class="pin fp" style="animation-delay:1.14s"><use href="#pinf" x="-18" y="-49" width="36" height="49"/></g></g>
+<g transform="translate(1352 548)" class="fpw" data-i="3"><circle class="pulse" r="30"/><circle class="pulse p2" r="30"/><g class="pin fp" style="animation-delay:1.26s"><use href="#pinf" x="-18" y="-49" width="36" height="49"/></g></g>
+<g transform="translate(692 276)" class="fpw" data-i="4"><circle class="pulse" r="30"/><circle class="pulse p2" r="30"/><g class="pin fp" style="animation-delay:1.38s"><use href="#pinf" x="-18" y="-49" width="36" height="49"/></g></g>
+<g transform="translate(908 262)" class="fpw" data-i="5"><circle class="pulse" r="30"/><circle class="pulse p2" r="30"/><g class="pin fp" style="animation-delay:1.50s"><use href="#pinf" x="-18" y="-49" width="36" height="49"/></g></g>
+<g transform="translate(800 246)" class="fpw" data-i="6"><circle class="pulse" r="30"/><circle class="pulse p2" r="30"/><g class="pin fp" style="animation-delay:1.62s"><use href="#pinf" x="-18" y="-49" width="36" height="49"/></g></g>
+</svg>
+</div>
+ <div class="hm-card" id="hmCard" role="group" aria-label="Featured firm"></div>
  <div class="h3-inner">
   <h1>Find your lawyer</h1>
   <p class="h3-sub">Type the kind of lawyer you need and your city. We show real firms with their public Google ratings.</p>
@@ -483,6 +672,56 @@
   <div class="h3-stats"><div><b>370</b><span>law firms</span></div><div><b>62</b><span>cities</span></div><div><b>5</b><span>provinces</span></div><div><b>10</b><span>practice areas</span></div></div>
  </div>
 </div>
+<script>
+(function(){
+  var hero=document.getElementById('hmap'); if(!hero) return;
+  var svg=document.getElementById('hmsvg'), card=document.getElementById('hmCard'), inner=hero.querySelector('.h3-inner');
+  var F=[{"n": "Daniel Brown Law LLP", "c": "Toronto, ON", "r": "5.0", "k": 156, "t": "Criminal Defence · Appeals", "s": "daniel-brown-law-llp"}, {"n": "Nelligan Law", "c": "Ottawa, ON", "r": "4.7", "k": 260, "t": "Employment", "s": "nelligan-law"}, {"n": "Gupta Law Firm", "c": "Brampton, ON", "r": "5.0", "k": 213, "t": "Personal Injury · Civil Litigation", "s": "gupta-law-firm"}, {"n": "Amlea Avocats", "c": "Montreal, QC", "r": "4.9", "k": 338, "t": "Business Law · Corporate", "s": "amlea-avocats"}, {"n": "Gagan Nahal Criminal Lawyer", "c": "Surrey, BC", "r": "4.9", "k": 257, "t": "Criminal Defence", "s": "gagan-nahal-criminal-lawyer"}, {"n": "Blottman Legal Services", "c": "Cookstown, ON", "r": "4.9", "k": 102, "t": "Traffic Tickets", "s": "blottman-legal-services"}, {"n": "Barbarian Law", "c": "Aurora, ON", "r": "5.0", "k": 166, "t": "Real Estate Closings · Corporate & Wills", "s": "barbarian-law"}];
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce) Array.prototype.forEach.call(svg.querySelectorAll('.car'),function(c){c.parentNode.removeChild(c);});
+  var wraps=Array.prototype.slice.call(svg.querySelectorAll('.fpw')), cur=-1, timer=null, seen=true;
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function fill(i){var f=F[i];card.innerHTML='<span class="bd">Featured firm</span><b>'+esc(f.n)+'</b><div class="rt"><i>\u2605</i> '+f.r+' &middot; '+f.k+' Google reviews</div><div class="tg">'+esc(f.c)+' &middot; '+esc(f.t)+'</div><a href="/firms/'+f.s+'">View profile &rarr;</a>';}
+  function rect(el){return el.getBoundingClientRect();}
+  var CW=272, GAP=16, PAD=12;
+  function calc(i){
+    var hr=rect(hero), ir=rect(inner), pr=rect(wraps[i].querySelector('.fp'));
+    var px=pr.left+pr.width/2-hr.left, py=pr.top-hr.top;
+    var il=ir.left-hr.left, irr=ir.right-hr.left, it=ir.top-hr.top, ib=ir.bottom-hr.top;
+    var ch=card.offsetHeight||120;
+    var l=px-CW/2;
+    if(px<il) l=Math.min(l,il-PAD-CW); else if(px>irr) l=Math.max(l,irr+PAD);
+    l=Math.max(8,Math.min(hr.width-CW-8,l));
+    var t=py-ch-GAP;
+    var inside=function(x,y){return x>il-PAD&&x<irr+PAD&&y>it-PAD&&y<ib+PAD;};
+    var hitCard=!(l+CW<=il-PAD+1||l>=irr+PAD-1||t+ch<=it-PAD||t>=ib+PAD);
+    var pinHit=inside(px,py)||inside(px,py-40);
+    var good=px>20&&px<hr.width-20&&t>6&&py<hr.height-10&&!hitCard&&!pinHit;
+    return {l:l,t:t,x:px,good:good};
+  }
+  function place(i){
+    fill(i); var c=calc(i);
+    card.style.left=c.l+'px'; card.style.top=c.t+'px';
+    card.style.setProperty('--ax',Math.max(18,Math.min(CW-18,c.x-c.l))+'px');
+  }
+  function ok(i){ fill(i); return calc(i).good; }
+  function show(i){
+    wraps.forEach(function(w,k){w.classList.toggle('on',k===i);});
+    card.classList.remove('show');
+    setTimeout(function(){ if(cur!==i) return; place(i); card.classList.add('show'); },reduce?0:260);
+  }
+  function next(){
+    var n=wraps.length, k, start=cur;
+    for(var s=1;s<=n;s++){ k=(start+s+n)%n; if(ok(k)){ cur=k; show(k); return; } }
+    card.classList.remove('show');
+  }
+  function start(){ if(timer||reduce) return; timer=setInterval(function(){ if(seen&&!document.hidden) next(); },4200); }
+  wraps.forEach(function(w,k){ w.addEventListener('click',function(){ cur=k; show(k); }); });
+  setTimeout(function(){ next(); start(); },reduce?0:1700);
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(e){ seen=e[0].isIntersecting; }).observe(hero); }
+  var rz; window.addEventListener('resize',function(){ clearTimeout(rz); rz=setTimeout(function(){ if(cur>=0&&ok(cur)){ place(cur); } else { next(); } },200); });
+})();
+</script>
 <script src="suggest.js?v=2"></script>
 <script>LawdbSuggest(document.getElementById('heroInput'),document.getElementById('heroSuggest'),{root:''});</script>
 

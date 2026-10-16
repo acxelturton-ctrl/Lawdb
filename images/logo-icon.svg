@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 195 191" width="195" height="191">
+<title>LawDB</title>
+<defs>
+<linearGradient id="g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="190"><stop offset="0" stop-color="#FFEBB0"/><stop offset=".45" stop-color="#F8D170"/><stop offset="1" stop-color="#EBB02F"/></linearGradient>
+<linearGradient id="d" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="75"><stop offset="0" stop-color="#FFF0C0"/><stop offset="1" stop-color="#F7D275"/></linearGradient>
+<mask id="m" maskUnits="userSpaceOnUse" x="-5" y="-5" width="205" height="201">
+<path fill="#fff" d="M0.3 59A97.2 30 0 0 0 194.7 59V153A97.2 36.2 0 0 1 0.3 153Z"/>
+<path fill="#000" d="M-2 96H0.3A97.2 34.5 0 0 0 50 126.1V139.2A97.2 27.6 0 0 1 0.3 115.1H-2Z"/>
+<path fill="#000" d="M197 96H194.7A97.2 34.5 0 0 1 145 126.1V139.2A97.2 27.6 0 0 0 194.7 115.1H197Z"/>
+<polygon fill="#000" stroke="#000" stroke-width="1" stroke-linejoin="round" points="97.50,105.40 103.90,118.00 110.90,117.00 109.70,139.00 120.80,130.00 125.00,134.40 134.00,133.60 131.00,146.00 134.40,151.00 117.00,166.00 118.00,170.40 99.70,169.60 99.70,192.00 95.30,192.00 95.30,169.60 77.00,170.40 78.00,166.00 60.60,151.00 64.00,146.00 61.00,133.60 70.00,134.40 74.20,130.00 85.30,139.00 84.10,117.00 91.10,118.00"/>
+</mask>
+</defs>
+<ellipse cx="97.5" cy="37.3" rx="97.2" ry="37.3" fill="url(#d)"/>
+<rect x="-5" y="-5" width="205" height="201" fill="url(#g)" mask="url(#m)"/>
+</svg>

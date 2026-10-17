@@ -7,6 +7,15 @@ const ROOT = new URL('..', import.meta.url).pathname;
 const ORIGIN = 'https://lawdb.ca';
 const SKIP = new Set(['node_modules', '.git', '.wrangler', 'admin', 'account', 'docs', 'migrations', 'scripts', 'src', 'db']);
 
+// Firms added in batches have no hand-built page: /firms/<slug> is rendered from the database, so a released batch firm counts as an existing page.
+const batchFirms = new Set();
+{
+  const released = new Set(JSON.parse(readFileSync(join(ROOT, 'data/release.json'), 'utf8')).released);
+  for (const f of readdirSync(join(ROOT, 'data')).filter((x) => /^firms-batch-\d+\.json$/.test(x) && released.has(Number(x.match(/\d+/)[0])))) {
+    for (const firm of JSON.parse(readFileSync(join(ROOT, 'data', f), 'utf8'))) batchFirms.add(`/firms/${firm.slug}`);
+  }
+}
+
 const pages = [];
 (function walk(dir) {
   for (const f of readdirSync(dir)) {
@@ -55,6 +64,7 @@ for (const rel of pages) {
     if (path.endsWith('/') && served.has(path)) continue;
     if (existsSync(join(ROOT, path.slice(1))) && statSync(join(ROOT, path.slice(1))).isFile()) continue; // an asset: css, js, image, pdf...
     if (path === '/') continue;
+    if (batchFirms.has(path)) continue;
     if (/^\/firms\/[a-z0-9-]+$/.test(path)) { bad(rel, `link to a firm page that does not exist: ${m[1]}`); continue; }
     bad(rel, `broken link ${m[1]} (-> ${path})`);
   }

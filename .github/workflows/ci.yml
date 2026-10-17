@@ -48,3 +48,8 @@ jobs:
           npm run db:extra:local
           npm run db:extra:local
           npx wrangler d1 execute DB --local --command "SELECT COUNT(*) AS dynamic_live_firms FROM firms WHERE page_mode='dynamic' AND status='live'"
+      - name: Logo and hours updates for the original firms load (twice, changing nothing the second time)
+        run: |
+          npm run db:updates:local
+          npm run db:updates:local
+          npx wrangler d1 execute DB --local --command "SELECT COUNT(*) AS logos_now FROM firms WHERE json_extract(data, '$.type') = 'logo'"

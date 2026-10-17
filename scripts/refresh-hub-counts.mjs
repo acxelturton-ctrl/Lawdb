@@ -142,7 +142,7 @@ function provincePage(file, province) {
   html = html.replace(/(<h3>Browse by city<\/h3>\s*)<div class="seo-chips">[\s\S]*?<\/div>/, (_, h3) => h3 + chips(cityCounts.filter((x) => cityLinks.has(x.c)).map((x) => `<a class="seo-chip" href="${cityLinks.get(x.c)}">${esc(x.c)} <span>${x.n}</span></a>`)));
 
   const tcs = byCount(typeCounts(list));
-  html = html.replace(/(<h3>Browse by practice area<\/h3>\s*)<div class="seo-chips">[\s\S]*?<\/div>/, (_, h3) => h3 + chips(tcs.map((t) => `<a class="seo-chip" href="/${dir}/${t.page}">${t.label} lawyers <span>${t.n}</span></a>`)));
+  html = html.replace(/(<h3>Browse by practice area<\/h3>\s*)<div class="seo-chips">[\s\S]*?<\/div>/, (_, h3) => h3 + chips(tcs.map((t) => (existsSync(`${dir}/${t.page}.html`) ? `<a class="seo-chip" href="/${dir}/${t.page}">${t.label} lawyers <span>${t.n}</span></a>` : `<span class="seo-chip off">${OFF_LABEL[t.k]} <span>${t.n}</span></span>`))));
 
   html = html.replace(/(<div class="flist">)[\s\S]*?(<\/div>)/, (_, a, b) => a + ranked(list).slice(0, 20).map(row).join('') + b);
 

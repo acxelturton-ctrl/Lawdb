@@ -102,7 +102,8 @@ function tagline(f) {
 // The search-result description is the first sentence of the firm's own written profile when that sentence reads as a summary
 // (50 to 160 characters); otherwise the generic line below is used.
 export function metaFromAbout(about) {
-  const first = String(about || '').trim().split(/(?<=[.!?])\s/)[0] || '';
+  // A full stop after St., Ste., Inc., Ltd. and similar abbreviations does not end the sentence.
+  const first = String(about || '').trim().split(/(?<!\b(?:St|Ste|Mt|Dr|Mr|Mrs|Ms|Inc|Ltd|Co|Corp|No|vs|Prof)\.)(?<=[.!?])\s+(?=[A-Z"“])/)[0] || '';
   return first.length >= 50 && first.length <= 160 && !/[\n<>]/.test(first) ? first : '';
 }
 

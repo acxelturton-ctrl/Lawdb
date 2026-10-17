@@ -121,6 +121,7 @@ export async function submitSitemap(env) {
   const put = (u) => gsc(env, 'PUT', `${apiBase(env)}/webmasters/v3/sites/${encodeURIComponent(site)}/sitemaps/${encodeURIComponent(u)}`);
   await put(sm);
   try { await put(`${origin(env)}/sitemap-news.xml`); } catch { /* the story sitemap is a bonus: never fail the main one over it */ }
+  try { await put(`${origin(env)}/sitemap-firms.xml`); } catch { /* so is the new-firms sitemap */ }
   const at = stamp(Date.now());
   let status = null;
   try {

@@ -73,7 +73,7 @@ export function logoCandidates(html, pageUrl) {
     const a = attrs(m[0]);
     const src = a.src || a['data-src'] || a['data-lazy-src'];
     const hint = `${src || ''} ${a.alt || ''} ${a.class || ''} ${a.id || ''}`;
-    if (/logo|brand/i.test(hint) && !/(partner|client|badge|award|member|sponsor|facebook|twitter|linkedin|instagram|google|clio)/i.test(hint)) add(src, 'logo on the page', 90);
+    if (/logo|brand/i.test(hint) && !/(partner|client|badge|award|winner|member|sponsor|facebook|twitter|linkedin|instagram|google|clio|association|as[-_ ]seen|seen[-_ ]on|featured[-_ ]in|press|media|news|forbes|cbc|lawzen|avvo|martindale|superlawyers|best[-_ ]lawyers|recogni[sz]ed|ranked|rating|reader|accredit|certified|university|college|alumni|\bubc\b)/i.test(hint)) add(src, 'logo on the page', 90);
   }
   return [...found.values()].sort((x, y) => y.score - x.score).slice(0, 5);
 }

@@ -19,6 +19,7 @@ import { searchNightly } from './lib/gsc.js';
 import { feedBatch } from './lib/feeds.js';
 import { legacyRedirect } from './lib/redirects.js';
 import { storyPage, storySitemap } from './routes/story-page.js';
+import { firmSitemap } from './routes/firm-sitemap.js';
 import * as social from './routes/social.js';
 import * as ratings from './routes/ratings.js';
 import * as invite from './routes/invite.js';
@@ -164,7 +165,7 @@ export default {
         if (request.method !== 'GET' && request.method !== 'HEAD') return env.ASSETS.fetch(request);
         const moved = legacyRedirect(url); // old addresses go to the clean one, permanently
         if (moved) return moved;
-        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path === '/news' ? newsPage : path === '/sitemap-news.xml' ? storySitemap : path.startsWith('/news/') ? storyPage : path.startsWith('/img/') ? serveImage : path.startsWith('/firms/') ? firmPage : dyn.page);
+        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path === '/news' ? newsPage : path === '/sitemap-news.xml' ? storySitemap : path === '/sitemap-firms.xml' ? firmSitemap : path.startsWith('/news/') ? storyPage : path.startsWith('/img/') ? serveImage : path.startsWith('/firms/') ? firmPage : dyn.page);
         return await handler({ request, env, ctx });
       }
       const method = request.method === 'HEAD' ? 'GET' : request.method;

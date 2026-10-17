@@ -54,8 +54,7 @@ const claimLine = (slug, managed) => managed
 
 const withFollow = (res, slug, managed) =>
   new HTMLRewriter()
-    .on('div.li-actions', { element(el) { el.before(`<p class="lw-fcount" data-fcount="${slug}"></p>`, { html: true }); } })
-    .on('div.li-actions', { element(el) { el.append(`<button class="li-btn li-ghost lw-fbtn" type="button" data-follow="${slug}">+ Follow</button>`, { html: true }); } })
+    .on('div.li-actions', { element(el) { el.before(`<div class="lw-fline"><span class="lw-fcount" data-fcount="${slug}"></span><button class="lw-fbtn" type="button" data-follow="${slug}">+ Follow</button></div>`, { html: true }); } })
     .on('div.li-actions', { element(el) { el.after(claimLine(slug, managed), { html: true }); } })
     .on('section.li-card', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>`, { html: true }); } })
     .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })

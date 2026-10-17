@@ -2,16 +2,20 @@
    becomes a Save button. Signed-in people toggle them in place; everyone else is taken to sign in and the action is finished when they come back. */
 (function () {
   if (window.lawdbSocial) return;
-  var css = '.lw-fbtn,.lw-sbtn{font:600 13px Inter,system-ui,sans-serif;border:1.5px solid #1f2328;background:#fff;color:#1f2328;border-radius:999px;padding:6px 14px;cursor:pointer;line-height:1.2;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px}' +
-    '.lw-fbtn:hover,.lw-sbtn:hover{background:#fff3d4;border-color:#e8a91f}.lw-fbtn[disabled],.lw-sbtn[disabled]{opacity:.6;cursor:wait}' +
-    '.lw-fbtn[aria-pressed="true"]{background:#f0ede5;border-color:#d6d1c4;color:#3f444b}@media(hover:hover){.lw-fbtn[aria-pressed="true"]:hover{background:#fbeceb;border-color:#a1261c;color:#a1261c}.lw-fbtn[aria-pressed="true"]:hover .lw-a{display:none}.lw-fbtn[aria-pressed="true"]:hover .lw-b{display:inline}}' +
+  // Follow is plain text in the site's link colour, like on other social platforms (no box). Save keeps its pill.
+  var css = '.lw-sbtn{font:600 13px Inter,system-ui,sans-serif;border:1.5px solid #1f2328;background:#fff;color:#1f2328;border-radius:999px;padding:6px 14px;cursor:pointer;line-height:1.2;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px}' +
+    '.lw-sbtn:hover{background:#fff3d4;border-color:#e8a91f}.lw-sbtn[disabled]{opacity:.6;cursor:wait}' +
+    '.lw-fbtn{font:700 14px Inter,system-ui,sans-serif;border:0;background:none;color:#b45309;padding:2px 0;margin:0;cursor:pointer;line-height:1.2;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;text-decoration:none}' +
+    '.lw-fbtn:hover{text-decoration:underline;text-underline-offset:3px}.lw-fbtn[disabled]{opacity:.6;cursor:wait}' +
+    '.lw-fbtn[aria-pressed="true"]{color:#636870;font-weight:600}@media(hover:hover){.lw-fbtn[aria-pressed="true"]:hover{color:#a1261c}.lw-fbtn[aria-pressed="true"]:hover .lw-a{display:none}.lw-fbtn[aria-pressed="true"]:hover .lw-b{display:inline}}' +
     '.lw-fbtn .lw-b{display:none}' +
     '.lw-sbtn[aria-pressed="true"]{background:#1f2328;color:#fff}' +
-    '.lc .lw-fbtn{position:absolute;top:10px;left:10px;z-index:3;box-shadow:0 1px 4px rgba(31,35,40,.18)}' +
-    '.frow .lw-fbtn{position:absolute;top:12px;right:12px;z-index:2}.fcard-actions .lw-fbtn{padding:6px 12px;font-size:12.5px}.ra-actions .lw-fbtn{padding:6px 12px;font-size:12.5px}' +
+    '.lc .lw-fbtn{position:static;margin-left:10px;font-size:13px}' +
+    '.frow .lw-fbtn{position:absolute;top:12px;right:14px;z-index:2}.fcard-actions .lw-fbtn,.ra-actions .lw-fbtn{font-size:13px}' +
     '.lw-claim{margin:10px 0 0;font:600 13.5px Inter,system-ui,sans-serif}.lw-claim a{color:#b45309;text-decoration:underline;text-underline-offset:2px}.lw-claim a:hover{color:#1f2328}.lw-claimed{color:#1e6b3a}' +
-    '.lw-fcount{margin:0 0 8px;font:600 13.5px Inter,system-ui,sans-serif;color:#636870}' +
-    '.li-actions{flex-wrap:wrap}.li-actions .lw-fbtn{border-radius:4px;padding:11px 18px;font-size:14px}@media(max-width:520px){.li-actions .lw-fbtn{flex:1 1 100%}}';
+    '.lw-fcount{margin:0;font:600 13.5px Inter,system-ui,sans-serif;color:#636870}' +
+    '.lw-fline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px}.lw-fline .lw-fcount:empty{display:none}.lw-fline .lw-fcount:not(:empty)::after{content:"\\00b7";margin-left:10px;color:#b9b2a4}' +
+    '.li-actions{flex-wrap:wrap}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   var state = { signedIn: false, follows: {}, saved: {} };
   var all = function (root, sel) { return [].slice.call((root || document).querySelectorAll(sel)); };
@@ -50,8 +54,8 @@
     var n = 0;
     all(root, '.lc').forEach(function (c) {
       if (c.querySelector('[data-follow]')) return;
-      var a = c.querySelector('h3 a'), box = c.querySelector('.lc-btns'), s = a && slugOf(a.getAttribute('href'));
-      if (s && box) { box.appendChild(mk(s)); n++; }
+      var a = c.querySelector('h3 a'), rate = c.querySelector('.lc-rate'), box = c.querySelector('.lc-btns'), s = a && slugOf(a.getAttribute('href'));
+      if (s && rate) { rate.appendChild(mk(s)); n++; } else if (s && box) { box.appendChild(mk(s)); n++; }
     });
     all(root, 'a.frow').forEach(function (a) {
       if (a.querySelector('[data-follow]')) return;

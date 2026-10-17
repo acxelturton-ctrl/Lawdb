@@ -20,7 +20,7 @@
       if(i===0&&!manual&&!reduce){stage.setAttribute('data-s','0');setTimeout(function(){paint(0);schedule();},80);}
       else{paint(i);schedule();}
     }
-    function schedule(){clearTimeout(timer);if(!playing||!visible)return;timer=setTimeout(function(){go((cur+1)%steps.length);},cur===steps.length-1?5200:4200);}
+    function schedule(){clearTimeout(timer);if(!playing||!visible)return;var fast=root.classList.contains('lwa--fast');timer=setTimeout(function(){go((cur+1)%steps.length);},cur===steps.length-1?(fast?2400:5200):(fast?1100:4200));}
     pp.addEventListener('click',function(){playing=!playing;pp.textContent=playing?'Pause':'Play';if(playing)schedule();else clearTimeout(timer);});
     if(reduce)pp.textContent='Play';
     paint(reduce?steps.length-1:0);cur=reduce?steps.length-1:0;

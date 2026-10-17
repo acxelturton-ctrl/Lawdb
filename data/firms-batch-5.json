@@ -1,0 +1,1365 @@
+[
+ {
+  "name": "EDH Law",
+  "city": "Peterborough",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.3004849,
+  "lng": -78.3215171,
+  "address": "195 Sherbrooke St, Peterborough, ON K9J 2N2",
+  "phone": "+17057483012",
+  "rating": 4.7,
+  "count": 144,
+  "slug": "edh-law-peterborough",
+  "mapsUrl": "https://www.google.com/maps/search/EDH+Law+Peterborough+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=195+Sherbrooke+St%2C+Peterborough%2C+ON+K9J+2N2",
+  "website": "https://edhlaw.ca",
+  "blurb": "Law firm in Peterborough. Rated 4.7 from 144 Google reviews.",
+  "type": "logo",
+  "about": "EDH Law is a law firm in Peterborough, Ontario. Clients rate the firm 4.7 out of 5 from 144 public Google reviews. The office is at 195 Sherbrooke St, Peterborough, ON K9J 2N2, and you can call (705) 748-3012 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Evans de Vries Higgins is a multi-disciplined law practice in the heart of downtown Bradford and Peterborough Ontario. We take pride in offering quality legal representation that is client-centered, efficient and accessible.”",
+  "src": "images/logos/edh-law-peterborough.png"
+ },
+ {
+  "name": "Lamprey Law Professional Corporation",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.3945609,
+  "lng": -79.6949704,
+  "address": "174 Bayfield St, Barrie, ON L4M 3B5",
+  "phone": "+17057221114",
+  "rating": 4.9,
+  "count": 110,
+  "slug": "lamprey-law-professional-corporation-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/Lamprey+Law+Professional+Corporation+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=174+Bayfield+St%2C+Barrie%2C+ON+L4M+3B5",
+  "website": "https://lampreylaw.ca",
+  "blurb": "Real Estate / Wills & Estates in Barrie. Rated 4.9 from 110 Google reviews.",
+  "type": "logo",
+  "about": "Lamprey Law Professional Corporation is a law firm in Barrie, Ontario that practises real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 110 public Google reviews. The office is at 174 Bayfield St, Barrie, ON L4M 3B5, and you can call (705) 722-1114 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “With 40+ years of experience in family, real estate, wills & estate law in Barrie and unparalleled standards of service, we're ready to help.”",
+  "src": "images/logos/lamprey-law-professional-corporation-barrie.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Cootauco Law Office",
+  "city": "St. Catharines",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.1600375,
+  "lng": -79.2465686,
+  "address": "110 James St #206, St. Catharines, ON L2R 7E8",
+  "phone": "+12268848114",
+  "rating": 4.9,
+  "count": 109,
+  "slug": "cootauco-law-office-st-catharines",
+  "mapsUrl": "https://www.google.com/maps/search/Cootauco+Law+Office+St.+Catharines+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=110+James+St+%23206%2C+St.+Catharines%2C+ON+L2R+7E8",
+  "website": "https://www.cootauco.com",
+  "blurb": "Family Law in St. Catharines. Rated 4.9 from 109 Google reviews.",
+  "type": "logo",
+  "about": "Cootauco Law Office is a law firm in St. Catharines, Ontario that practises family law. Clients rate the firm 4.9 out of 5 from 109 public Google reviews. The office is at 110 James St #206, St. Catharines, ON L2R 7E8, and you can call (226) 884-8114 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Family lawyer in St. Catharines, Welland and Niagara Falls. We accept Legal Aid certificates.”",
+  "src": "images/logos/cootauco-law-office-st-catharines.webp"
+ },
+ {
+  "name": "Bussey Ainsworth Lawyers",
+  "city": "Peterborough",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.295771,
+  "lng": -78.3254893,
+  "address": "294 Rink St Ste 101, Peterborough, ON K9J 2K2",
+  "phone": "+17057490628",
+  "rating": 5,
+  "count": 106,
+  "slug": "bussey-ainsworth-lawyers-peterborough",
+  "mapsUrl": "https://www.google.com/maps/search/Bussey+Ainsworth+Lawyers+Peterborough+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=294+Rink+St+Ste+101%2C+Peterborough%2C+ON+K9J+2K2",
+  "website": "https://busseyainsworth.ca",
+  "blurb": "Real Estate / Wills & Estates in Peterborough. Rated 5.0 from 106 Google reviews.",
+  "type": "logo",
+  "about": "Bussey Ainsworth Lawyers is a law firm in Peterborough, Ontario that practises real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 106 public Google reviews. The office is at 294 Rink St Ste 101, Peterborough, ON K9J 2K2, and you can call (705) 749-0628 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/bussey-ainsworth-lawyers-peterborough.png",
+  "hours": {
+   "1": [
+    [
+     "08:00",
+     "17:30"
+    ]
+   ],
+   "2": [
+    [
+     "08:00",
+     "17:30"
+    ]
+   ],
+   "3": [
+    [
+     "08:00",
+     "17:30"
+    ]
+   ],
+   "4": [
+    [
+     "08:00",
+     "17:30"
+    ]
+   ],
+   "5": [
+    [
+     "08:00",
+     "15:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Houlihan Law",
+  "city": "Sarnia",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "southwestern",
+  "province": "ON",
+  "lat": 43.0045838,
+  "lng": -82.3887166,
+  "address": "640 Cathcart Blvd Unit 2, Sarnia, ON N7V 2N4",
+  "phone": "+15194912136",
+  "rating": 5,
+  "count": 89,
+  "slug": "houlihan-law-sarnia",
+  "mapsUrl": "https://www.google.com/maps/search/Houlihan+Law+Sarnia+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=640+Cathcart+Blvd+Unit+2%2C+Sarnia%2C+ON+N7V+2N4",
+  "website": "https://houlihanlaw.ca",
+  "blurb": "Real Estate / Wills & Estates in Sarnia. Rated 5.0 from 89 Google reviews.",
+  "type": "logo",
+  "about": "Houlihan Law is a law firm in Sarnia, Ontario that practises real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 89 public Google reviews. The office is at 640 Cathcart Blvd Unit 2, Sarnia, ON N7V 2N4, and you can call (519) 491-2136 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/houlihan-law-sarnia.png"
+ },
+ {
+  "name": "Norton Law PC",
+  "city": "Oshawa",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8970379,
+  "lng": -78.8629025,
+  "address": "21 Simcoe St S, Oshawa, ON L1H 4G1",
+  "phone": "+16476167667",
+  "rating": 5,
+  "count": 87,
+  "slug": "norton-law-pc-oshawa",
+  "mapsUrl": "https://www.google.com/maps/search/Norton+Law+PC+Oshawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=21+Simcoe+St+S%2C+Oshawa%2C+ON+L1H+4G1",
+  "website": "https://norton-law.ca",
+  "blurb": "Criminal Defence in Oshawa. Rated 5.0 from 87 Google reviews.",
+  "type": "logo",
+  "about": "Norton Law PC is a law firm in Oshawa, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 87 public Google reviews. The office is at 21 Simcoe St S, Oshawa, ON L1H 4G1, and you can call (647) 616-7667 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/norton-law-pc-oshawa.png",
+  "hours": {
+   "1": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "2": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "3": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "4": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "5": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "6": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "7": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "10(B) Criminal Law Center",
+  "city": "St. Catharines",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.160038,
+  "lng": -79.246569,
+  "address": "110 James St 2nd floor, St. Catharines, ON L2R 7E8",
+  "phone": "+18888861022",
+  "rating": 4.7,
+  "count": 90,
+  "slug": "10-b-criminal-law-center-st-catharines",
+  "mapsUrl": "https://www.google.com/maps/search/10%28B%29+Criminal+Law+Center+St.+Catharines+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=110+James+St+2nd+floor%2C+St.+Catharines%2C+ON+L2R+7E8",
+  "website": "https://www.10blaw.com",
+  "blurb": "Criminal Defence in St. Catharines. Rated 4.7 from 90 Google reviews.",
+  "type": "logo",
+  "about": "10(B) Criminal Law Center is a law firm in St. Catharines, Ontario that practises criminal defence. Clients rate the firm 4.7 out of 5 from 90 public Google reviews. The office is at 110 James St 2nd floor, St. Catharines, ON L2R 7E8, and you can call (888) 886-1022 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/10-b-criminal-law-center-st-catharines.png"
+ },
+ {
+  "name": "White Macgillivray Lester LLP",
+  "city": "Thunder Bay",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "northern",
+  "province": "ON",
+  "lat": 48.4345565,
+  "lng": -89.2194275,
+  "address": "1 Cumberland St S, Thunder Bay, ON P7B 2T1",
+  "phone": "+18073441000",
+  "rating": 4.9,
+  "count": 82,
+  "slug": "white-macgillivray-lester-llp-thunder-bay",
+  "mapsUrl": "https://www.google.com/maps/search/White+Macgillivray+Lester+LLP+Thunder+Bay+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1+Cumberland+St+S%2C+Thunder+Bay%2C+ON+P7B+2T1",
+  "website": "https://www.tbayinjurylaw.com",
+  "blurb": "Personal Injury in Thunder Bay. Rated 4.9 from 82 Google reviews.",
+  "type": "logo",
+  "about": "White Macgillivray Lester LLP is a law firm in Thunder Bay, Ontario that practises personal injury. Clients rate the firm 4.9 out of 5 from 82 public Google reviews. The office is at 1 Cumberland St S, Thunder Bay, ON P7B 2T1, and you can call (807) 344-1000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Personal Injury Lawyers. White Macgillivray Lester. A personal injury law firm located in Thunder Bay that serves all of Northwestern Ontario.”",
+  "src": "images/logos/white-macgillivray-lester-llp-thunder-bay.png"
+ },
+ {
+  "name": "Miskin Law",
+  "city": "Peterborough",
+  "featured": false,
+  "tags": [
+   "Personal Injury",
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "injury",
+   "realestate",
+   "wills"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.3028218,
+  "lng": -78.3286273,
+  "address": "351 Charlotte St, Peterborough, ON K9J 2W1",
+  "phone": "+17057557363",
+  "rating": 4.6,
+  "count": 75,
+  "slug": "miskin-law-peterborough",
+  "mapsUrl": "https://www.google.com/maps/search/Miskin+Law+Peterborough+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=351+Charlotte+St%2C+Peterborough%2C+ON+K9J+2W1",
+  "website": "https://www.miskinlaw.ca",
+  "blurb": "Personal Injury / Real Estate in Peterborough. Rated 4.6 from 75 Google reviews.",
+  "type": "logo",
+  "about": "Miskin Law is a law firm in Peterborough, Ontario that practises personal injury, real estate and wills and estates. Clients rate the firm 4.6 out of 5 from 75 public Google reviews. The office is at 351 Charlotte St, Peterborough, ON K9J 2W1, and you can call (705) 755-7363 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “With offices in Peterborough & Oshawa, we provide personal injury, asbestos, class action, real estate, corporate, & estates services in Ontario & across Canada.”",
+  "src": "images/logos/miskin-law-peterborough.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "TLC Family Law",
+  "city": "Prince George",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "bc-north",
+  "province": "BC",
+  "lat": 53.9199902,
+  "lng": -122.7556322,
+  "address": "1896 3rd Ave, Prince George, BC V2M 1G4",
+  "phone": "+12505633630",
+  "rating": 4.8,
+  "count": 67,
+  "slug": "tlc-family-law-prince-george",
+  "mapsUrl": "https://www.google.com/maps/search/TLC+Family+Law+Prince+George+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1896+3rd+Ave%2C+Prince+George%2C+BC+V2M+1G4",
+  "website": "https://www.tlc-law.ca",
+  "blurb": "Family Law in Prince George. Rated 4.8 from 67 Google reviews.",
+  "type": "logo",
+  "about": "TLC Family Law is a law firm in Prince George, British Columbia that practises family law. Clients rate the firm 4.8 out of 5 from 67 public Google reviews. The office is at 1896 3rd Ave, Prince George, BC V2M 1G4, and you can call (250) 563-3630 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/tlc-family-law-prince-george.webp"
+ },
+ {
+  "name": "Andrews Donnelly LLP",
+  "city": "Kingston",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "family",
+   "litigation"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 44.2595867,
+  "lng": -76.5203935,
+  "address": "1471 John Counter Blvd #302, Kingston, ON K7M 8S8",
+  "phone": "+16135313032",
+  "rating": 4.7,
+  "count": 66,
+  "slug": "andrews-donnelly-llp-kingston",
+  "mapsUrl": "https://www.google.com/maps/search/Andrews+Donnelly+LLP+Kingston+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1471+John+Counter+Blvd+%23302%2C+Kingston%2C+ON+K7M+8S8",
+  "website": "https://www.andrewsdonnellylaw.ca",
+  "blurb": "Family Law / Civil Litigation in Kingston. Rated 4.7 from 66 Google reviews.",
+  "type": "logo",
+  "about": "Andrews Donnelly LLP is a law firm in Kingston, Ontario that practises family law and civil litigation. Clients rate the firm 4.7 out of 5 from 66 public Google reviews. The office is at 1471 John Counter Blvd #302, Kingston, ON K7M 8S8, and you can call (613) 531-3032 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Andrews Donnelly LLP offers comprehensive dispute resolution services to clients in the City of Kingston and throughout the surrounding areas including”",
+  "src": "images/logos/andrews-donnelly-llp-kingston.png"
+ },
+ {
+  "name": "Le Cabinet M",
+  "city": "Saint-Jerome",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "qc-laval-laurentides",
+  "province": "QC",
+  "lat": 45.7813845,
+  "lng": -74.0070234,
+  "address": "484 Rue Laviolette, Saint-Jérôme, QC J7Y 2T9",
+  "phone": "+15143853876",
+  "rating": 4.7,
+  "count": 61,
+  "slug": "le-cabinet-m-saint-jerome",
+  "mapsUrl": "https://www.google.com/maps/search/Le+Cabinet+M+Saint-Jerome+Quebec",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=484+Rue+Laviolette%2C+Saint-J%C3%A9r%C3%B4me%2C+QC+J7Y+2T9",
+  "website": "https://www.lecabinetm.com",
+  "blurb": "Law firm in Saint-Jerome. Rated 4.7 from 61 Google reviews.",
+  "type": "logo",
+  "about": "Le Cabinet M is a law firm in Saint-Jerome, Quebec. Clients rate the firm 4.7 out of 5 from 61 public Google reviews. The office is at 484 Rue Laviolette, Saint-Jérôme, QC J7Y 2T9, and you can call (514) 385-3876 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/le-cabinet-m-saint-jerome.webp"
+ },
+ {
+  "name": "Casselman Legal",
+  "city": "Sarnia",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "southwestern",
+  "province": "ON",
+  "lat": 43.0045838,
+  "lng": -82.3887166,
+  "address": "640 Cathcart Blvd Unit 2, Sarnia, ON N7V 2N4",
+  "phone": "+12267849804",
+  "rating": 4.9,
+  "count": 58,
+  "slug": "casselman-legal-sarnia",
+  "mapsUrl": "https://www.google.com/maps/search/Casselman+Legal+Sarnia+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=640+Cathcart+Blvd+Unit+2%2C+Sarnia%2C+ON+N7V+2N4",
+  "website": "https://casselmanlegal.com",
+  "blurb": "Real Estate in Sarnia. Rated 4.9 from 58 Google reviews.",
+  "type": "logo",
+  "about": "Casselman Legal is a law firm in Sarnia, Ontario that practises real estate. Clients rate the firm 4.9 out of 5 from 58 public Google reviews. The office is at 640 Cathcart Blvd Unit 2, Sarnia, ON N7V 2N4, and you can call (226) 784-9804 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/casselman-legal-sarnia.png"
+ },
+ {
+  "name": "Lemieux Litigation",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "Personal Injury",
+   "Family Law",
+   "Employment Law",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "injury",
+   "family",
+   "employment",
+   "litigation"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.4122757,
+  "lng": -79.688691,
+  "address": "190 Cundles Rd E #204, Barrie, ON L4M 4S5",
+  "phone": "+17059994998",
+  "rating": 4.7,
+  "count": 57,
+  "slug": "lemieux-litigation-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/Lemieux+Litigation+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=190+Cundles+Rd+E+%23204%2C+Barrie%2C+ON+L4M+4S5",
+  "website": "https://lemieuxlaw.ca",
+  "blurb": "Personal Injury / Family Law in Barrie. Rated 4.7 from 57 Google reviews.",
+  "type": "logo",
+  "about": "Lemieux Litigation is a law firm in Barrie, Ontario that practises personal injury, family law and employment law. Clients rate the firm 4.7 out of 5 from 57 public Google reviews. The office is at 190 Cundles Rd E #204, Barrie, ON L4M 4S5, and you can call (705) 999-4998 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/lemieux-litigation-barrie.png"
+ },
+ {
+  "name": "MKC Law Office",
+  "city": "Peterborough",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.3070807,
+  "lng": -78.3240889,
+  "address": "254 Brock St, Peterborough, ON K9H 2P7",
+  "phone": "+17057482241",
+  "rating": 4.6,
+  "count": 54,
+  "slug": "mkc-law-office-peterborough",
+  "mapsUrl": "https://www.google.com/maps/search/MKC+Law+Office+Peterborough+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=254+Brock+St%2C+Peterborough%2C+ON+K9H+2P7",
+  "website": "https://www.mkclaw.ca",
+  "blurb": "Family Law / Real Estate in Peterborough. Rated 4.6 from 54 Google reviews.",
+  "type": "logo",
+  "about": "MKC Law Office is a law firm in Peterborough, Ontario that practises family law, real estate and wills and estates. Clients rate the firm 4.6 out of 5 from 54 public Google reviews. The office is at 254 Brock St, Peterborough, ON K9H 2P7, and you can call (705) 748-2241 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/mkc-law-office-peterborough.webp"
+ },
+ {
+  "name": "HGR GRAHAM PARTNERS LLP",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.4123497,
+  "lng": -79.6889801,
+  "address": "190 Cundles Rd E Unit 107, Barrie, ON L4M 4S5",
+  "phone": "+17057371811",
+  "rating": 4.8,
+  "count": 49,
+  "slug": "hgr-graham-partners-llp-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/HGR+GRAHAM+PARTNERS+LLP+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=190+Cundles+Rd+E+Unit+107%2C+Barrie%2C+ON+L4M+4S5",
+  "website": "https://hgrgp.ca",
+  "blurb": "Law firm in Barrie. Rated 4.8 from 49 Google reviews.",
+  "type": "logo",
+  "about": "HGR GRAHAM PARTNERS LLP is a law firm in Barrie, Ontario. Clients rate the firm 4.8 out of 5 from 49 public Google reviews. The office is at 190 Cundles Rd E Unit 107, Barrie, ON L4M 4S5, and you can call (705) 737-1811 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/hgr-graham-partners-llp-barrie.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "B&B Law",
+  "city": "Greater Sudbury",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "northern",
+  "province": "ON",
+  "lat": 46.4933395,
+  "lng": -81.0044707,
+  "address": "238 Elm St Unit 200, Greater Sudbury, ON P3C 1V3",
+  "phone": "+17054796141",
+  "rating": 5,
+  "count": 47,
+  "slug": "b-and-b-law-greater-sudbury",
+  "mapsUrl": "https://www.google.com/maps/search/B%26B+Law+Greater+Sudbury+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=238+Elm+St+Unit+200%2C+Greater+Sudbury%2C+ON+P3C+1V3",
+  "website": "https://www.bandb-law.com",
+  "blurb": "Law firm in Greater Sudbury. Rated 5.0 from 47 Google reviews.",
+  "type": "logo",
+  "about": "B&B Law is a law firm in Greater Sudbury, Ontario. Clients rate the firm 5.0 out of 5 from 47 public Google reviews. The office is at 238 Elm St Unit 200, Greater Sudbury, ON P3C 1V3, and you can call (705) 479-6141 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/b-and-b-law-greater-sudbury.png"
+ },
+ {
+  "name": "de Bakker Law",
+  "city": "Thunder Bay",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "northern",
+  "province": "ON",
+  "lat": 48.430023,
+  "lng": -89.230954,
+  "address": "217 Algoma St S, Thunder Bay, ON P7B 3C3",
+  "phone": "+18073452356",
+  "rating": 4.6,
+  "count": 49,
+  "slug": "de-bakker-law-thunder-bay",
+  "mapsUrl": "https://www.google.com/maps/search/de+Bakker+Law+Thunder+Bay+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=217+Algoma+St+S%2C+Thunder+Bay%2C+ON+P7B+3C3",
+  "website": "https://www.debakkerlaw.ca",
+  "blurb": "Law firm in Thunder Bay. Rated 4.6 from 49 Google reviews.",
+  "type": "logo",
+  "about": "de Bakker Law is a law firm in Thunder Bay, Ontario. Clients rate the firm 4.6 out of 5 from 49 public Google reviews. The office is at 217 Algoma St S, Thunder Bay, ON P7B 3C3, and you can call (807) 345-2356 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/de-bakker-law-thunder-bay.webp"
+ },
+ {
+  "name": "Bakleh Avocats & Associés",
+  "city": "Saint-Jerome",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "qc-laval-laurentides",
+  "province": "QC",
+  "lat": 45.7760489,
+  "lng": -74.002924,
+  "address": "35 Rue de la Gare, Saint-Jérôme, QC J7Z 5A2",
+  "phone": "+15144308335",
+  "rating": 5,
+  "count": 43,
+  "slug": "bakleh-avocats-and-associes-saint-jerome",
+  "mapsUrl": "https://www.google.com/maps/search/Bakleh+Avocats+%26+Associ%C3%A9s+Saint-Jerome+Quebec",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=35+Rue+de+la+Gare%2C+Saint-J%C3%A9r%C3%B4me%2C+QC+J7Z+5A2",
+  "website": "https://baklehavocats.com",
+  "blurb": "Law firm in Saint-Jerome. Rated 5.0 from 43 Google reviews.",
+  "type": "logo",
+  "about": "Bakleh Avocats & Associés is a law firm in Saint-Jerome, Quebec. Clients rate the firm 5.0 out of 5 from 43 public Google reviews. The office is at 35 Rue de la Gare, Saint-Jérôme, QC J7Z 5A2, and you can call (514) 430-8335 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/bakleh-avocats-and-associes-saint-jerome.png"
+ },
+ {
+  "name": "Fazio Law",
+  "city": "Sarnia",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "southwestern",
+  "province": "ON",
+  "lat": 42.9847142,
+  "lng": -82.3999695,
+  "address": "568 Christina St N, Sarnia, ON N7T 7X6",
+  "phone": "+15193440777",
+  "rating": 4.8,
+  "count": 44,
+  "slug": "fazio-law-sarnia",
+  "mapsUrl": "https://www.google.com/maps/search/Fazio+Law+Sarnia+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=568+Christina+St+N%2C+Sarnia%2C+ON+N7T+7X6",
+  "website": "https://faziolaw.net",
+  "blurb": "Law firm in Sarnia. Rated 4.8 from 44 Google reviews.",
+  "type": "logo",
+  "about": "Fazio Law is a law firm in Sarnia, Ontario. Clients rate the firm 4.8 out of 5 from 44 public Google reviews. The office is at 568 Christina St N, Sarnia, ON N7T 7X6, and you can call (519) 344-0777 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/fazio-law-sarnia.jpg"
+ },
+ {
+  "name": "Simeson Law",
+  "city": "Oshawa",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8998278,
+  "lng": -78.8599287,
+  "address": "100 Bond St E, Oshawa, ON L1G 0B7",
+  "phone": "+19055795302",
+  "rating": 4.8,
+  "count": 42,
+  "slug": "simeson-law-oshawa",
+  "mapsUrl": "https://www.google.com/maps/search/Simeson+Law+Oshawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=100+Bond+St+E%2C+Oshawa%2C+ON+L1G+0B7",
+  "website": "https://www.kslawfirm.ca",
+  "blurb": "Personal Injury in Oshawa. Rated 4.8 from 42 Google reviews.",
+  "type": "logo",
+  "about": "Simeson Law is a law firm in Oshawa, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 42 public Google reviews. The office is at 100 Bond St E, Oshawa, ON L1G 0B7, and you can call (905) 579-5302 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/simeson-law-oshawa.png"
+ },
+ {
+  "name": "BLFON Personal Injury Lawyer",
+  "city": "North Bay",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "northern",
+  "province": "ON",
+  "lat": 46.308148,
+  "lng": -79.459869,
+  "address": "437 Sherbrooke St, North Bay, ON P1B 2C2",
+  "phone": "+18005960743",
+  "rating": 5,
+  "count": 38,
+  "slug": "blfon-personal-injury-lawyer-north-bay",
+  "mapsUrl": "https://www.google.com/maps/search/BLFON+Personal+Injury+Lawyer+North+Bay+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=437+Sherbrooke+St%2C+North+Bay%2C+ON+P1B+2C2",
+  "website": "https://blfonlaw.ca",
+  "blurb": "Personal Injury in North Bay. Rated 5.0 from 38 Google reviews.",
+  "type": "logo",
+  "about": "BLFON Personal Injury Lawyer is a law firm in North Bay, Ontario that practises personal injury. Clients rate the firm 5.0 out of 5 from 38 public Google reviews. The office is at 437 Sherbrooke St, North Bay, ON P1B 2C2, and you can call (800) 596-0743 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/blfon-personal-injury-lawyer-north-bay.png"
+ },
+ {
+  "name": "Fallow Gould LLP",
+  "city": "Kingston",
+  "featured": false,
+  "tags": [
+   "Wills & Estates",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "wills",
+   "litigation"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 44.242067,
+  "lng": -76.480842,
+  "address": "The Woolen Mill, 4 Cataraqui St #114, Kingston, ON K7K 1Z7",
+  "phone": "+16137660200",
+  "rating": 5,
+  "count": 37,
+  "slug": "fallow-gould-llp-kingston",
+  "mapsUrl": "https://www.google.com/maps/search/Fallow+Gould+LLP+Kingston+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=The+Woolen+Mill%2C+4+Cataraqui+St+%23114%2C+Kingston%2C+ON+K7K+1Z7",
+  "website": "https://www.fallowgould.ca",
+  "blurb": "Wills & Estates / Civil Litigation in Kingston. Rated 5.0 from 37 Google reviews.",
+  "type": "logo",
+  "about": "Fallow Gould LLP is a law firm in Kingston, Ontario that practises wills and estates and civil litigation. Clients rate the firm 5.0 out of 5 from 37 public Google reviews. The office is at The Woolen Mill, 4 Cataraqui St #114, Kingston, ON K7K 1Z7, and you can call (613) 766-0200 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Fallow Gould LLP offers bespoke estate planning, estate administration, beneficiary guidance and strategic estate litigation. With discretion and precision we ensure your legacy endures for generations.”",
+  "src": "images/logos/fallow-gould-llp-kingston.png"
+ },
+ {
+  "name": "Osborne Law Group",
+  "city": "St. Catharines",
+  "featured": false,
+  "tags": [
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "wills"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.1586812,
+  "lng": -79.2413373,
+  "address": "5 Race St, St. Catharines, ON L2R 3M1",
+  "phone": "+19056889352",
+  "rating": 4.8,
+  "count": 36,
+  "slug": "osborne-law-group-st-catharines",
+  "mapsUrl": "https://www.google.com/maps/search/Osborne+Law+Group+St.+Catharines+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5+Race+St%2C+St.+Catharines%2C+ON+L2R+3M1",
+  "website": "https://www.osbornelaw.ca",
+  "blurb": "Wills & Estates in St. Catharines. Rated 4.8 from 36 Google reviews.",
+  "type": "logo",
+  "about": "Osborne Law Group is a law firm in St. Catharines, Ontario that practises wills and estates. Clients rate the firm 4.8 out of 5 from 36 public Google reviews. The office is at 5 Race St, St. Catharines, ON L2R 3M1, and you can call (905) 688-9352 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Probate lawyer serving St. Catharines and Niagara. Fixed-fee options for eligible Ontario probate applications, Certificates of Appointment, estate administration, and executor guidance.”",
+  "src": "images/logos/osborne-law-group-st-catharines.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Ain Whitehead LLP",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.390831,
+  "lng": -79.6898911,
+  "address": "27 Clapperton St, Barrie, ON L4M 3E6",
+  "phone": "+17057258171",
+  "rating": 4.7,
+  "count": 36,
+  "slug": "ain-whitehead-llp-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/Ain+Whitehead+LLP+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=27+Clapperton+St%2C+Barrie%2C+ON+L4M+3E6",
+  "website": "https://www.ainwhitehead.com",
+  "blurb": "Real Estate / Wills & Estates in Barrie. Rated 4.7 from 36 Google reviews.",
+  "type": "logo",
+  "about": "Ain Whitehead LLP is a law firm in Barrie, Ontario that practises real estate and wills and estates. Clients rate the firm 4.7 out of 5 from 36 public Google reviews. The office is at 27 Clapperton St, Barrie, ON L4M 3E6, and you can call (705) 725-8171 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ain-whitehead-llp-barrie.png"
+ },
+ {
+  "name": "Lambert Boenders Employment Lawyer",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6516092,
+  "lng": -79.3823093,
+  "address": "65 Queen St W Ste 615, Toronto, ON M5H 2M8",
+  "phone": "+14165617323",
+  "rating": 5,
+  "count": 33,
+  "slug": "lambert-boenders-employment-lawyer-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Lambert+Boenders+Employment+Lawyer+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=65+Queen+St+W+Ste+615%2C+Toronto%2C+ON+M5H+2M8",
+  "website": "https://www.employmentlawcounsel.ca",
+  "blurb": "Employment Law in Toronto. Rated 5.0 from 33 Google reviews.",
+  "type": "logo",
+  "about": "Lambert Boenders Employment Lawyer is a law firm in Toronto, Ontario that practises employment law. Clients rate the firm 5.0 out of 5 from 33 public Google reviews. The office is at 65 Queen St W Ste 615, Toronto, ON M5H 2M8, and you can call (416) 561-7323 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/lambert-boenders-employment-lawyer-toronto.png"
+ },
+ {
+  "name": "Ewen Boyd LLP",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.3696871,
+  "lng": -79.7082797,
+  "address": "11 Patterson Rd #24, Barrie, ON L4N 7W5",
+  "phone": "+17052526730",
+  "rating": 4.8,
+  "count": 32,
+  "slug": "ewen-boyd-llp-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/Ewen+Boyd+LLP+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=11+Patterson+Rd+%2324%2C+Barrie%2C+ON+L4N+7W5",
+  "website": "https://www.ewenboyd.com",
+  "blurb": "Family Law / Real Estate in Barrie. Rated 4.8 from 32 Google reviews.",
+  "type": "logo",
+  "about": "Ewen Boyd LLP is a law firm in Barrie, Ontario that practises family law, real estate and wills and estates. Clients rate the firm 4.8 out of 5 from 32 public Google reviews. The office is at 11 Patterson Rd #24, Barrie, ON L4N 7W5, and you can call (705) 252-6730 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ewen-boyd-llp-barrie.webp"
+ },
+ {
+  "name": "Murray & Associates LLP",
+  "city": "St. Catharines",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.1576581,
+  "lng": -79.2489043,
+  "address": "14 Church, St. Catharines, ON L2R 3B3",
+  "phone": "+19056878200",
+  "rating": 4.7,
+  "count": 31,
+  "slug": "murray-and-associates-llp-st-catharines",
+  "mapsUrl": "https://www.google.com/maps/search/Murray+%26+Associates+LLP+St.+Catharines+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=14+Church%2C+St.+Catharines%2C+ON+L2R+3B3",
+  "website": "https://www.murlaw.ca",
+  "blurb": "Law firm in St. Catharines. Rated 4.7 from 31 Google reviews.",
+  "type": "logo",
+  "about": "Murray & Associates LLP is a law firm in St. Catharines, Ontario. Clients rate the firm 4.7 out of 5 from 31 public Google reviews. The office is at 14 Church, St. Catharines, ON L2R 3B3, and you can call (905) 687-8200 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/murray-and-associates-llp-st-catharines.jpg"
+ },
+ {
+  "name": "Kooner Priddle Law Group",
+  "city": "Kamloops",
+  "featured": false,
+  "tags": [
+   "Civil Litigation",
+   "Employment Law",
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "litigation",
+   "employment",
+   "injury"
+  ],
+  "region": "bc-thompson",
+  "province": "BC",
+  "lat": 50.6734698,
+  "lng": -120.3369498,
+  "address": "172 Battle St, Kamloops, BC V2C 2L2",
+  "phone": "+12504348911",
+  "rating": 4.7,
+  "count": 30,
+  "slug": "kooner-priddle-law-group-kamloops",
+  "mapsUrl": "https://www.google.com/maps/search/Kooner+Priddle+Law+Group+Kamloops+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=172+Battle+St%2C+Kamloops%2C+BC+V2C+2L2",
+  "website": "https://koonerpriddlelaw.ca",
+  "blurb": "Civil Litigation / Employment Law in Kamloops. Rated 4.7 from 30 Google reviews.",
+  "type": "logo",
+  "about": "Kooner Priddle Law Group is a law firm in Kamloops, British Columbia that practises civil litigation, employment law and personal injury. Clients rate the firm 4.7 out of 5 from 30 public Google reviews. The office is at 172 Battle St, Kamloops, BC V2C 2L2, and you can call (250) 434-8911 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our Kamloops Based Lawyers offer a full scope of litigation services from designing litigation strategies, drafting for claims and more.”",
+  "src": "images/logos/kooner-priddle-law-group-kamloops.png"
+ },
+ {
+  "name": "Gerry Law",
+  "city": "Thunder Bay",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "northern",
+  "province": "ON",
+  "lat": 48.4360337,
+  "lng": -89.218462,
+  "address": "34 Cumberland St N, Thunder Bay, ON P7A 4L3",
+  "phone": "+18665322676",
+  "rating": 4.8,
+  "count": 29,
+  "slug": "gerry-law-thunder-bay",
+  "mapsUrl": "https://www.google.com/maps/search/Gerry+Law+Thunder+Bay+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=34+Cumberland+St+N%2C+Thunder+Bay%2C+ON+P7A+4L3",
+  "website": "https://gerrylaw.ca",
+  "blurb": "Personal Injury in Thunder Bay. Rated 4.8 from 29 Google reviews.",
+  "type": "logo",
+  "about": "Gerry Law is a law firm in Thunder Bay, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 29 public Google reviews. The office is at 34 Cumberland St N, Thunder Bay, ON P7A 4L3, and you can call (866) 532-2676 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/gerry-law-thunder-bay.webp"
+ },
+ {
+  "name": "Tremblay Law Group PC",
+  "city": "North Bay",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "northern",
+  "province": "ON",
+  "lat": 46.304565,
+  "lng": -79.4599735,
+  "address": "195 Regina St, North Bay, ON P1B 2J6",
+  "phone": "+17054742920",
+  "rating": 4.9,
+  "count": 28,
+  "slug": "tremblay-law-group-pc-north-bay",
+  "mapsUrl": "https://www.google.com/maps/search/Tremblay+Law+Group+PC+North+Bay+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=195+Regina+St%2C+North+Bay%2C+ON+P1B+2J6",
+  "website": "https://tremblaylawgroup.ca",
+  "blurb": "Law firm in North Bay. Rated 4.9 from 28 Google reviews.",
+  "type": "logo",
+  "about": "Tremblay Law Group PC is a law firm in North Bay, Ontario. Clients rate the firm 4.9 out of 5 from 28 public Google reviews. The office is at 195 Regina St, North Bay, ON P1B 2J6, and you can call (705) 474-2920 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Complete, multi-disciplinary legal services provided in the Nipissing area.”",
+  "src": "images/logos/tremblay-law-group-pc-north-bay.png"
+ },
+ {
+  "name": "Parlatore Law, Niagara",
+  "city": "Niagara Falls",
+  "featured": false,
+  "tags": [
+   "Personal Injury",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "injury",
+   "realestate"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.1049444,
+  "lng": -79.1020138,
+  "address": "6387 Morrison St Ste 200, Niagara Falls, ON L2E 7H1",
+  "phone": "+13658807777",
+  "rating": 5,
+  "count": 27,
+  "slug": "parlatore-law-niagara-niagara-falls",
+  "mapsUrl": "https://www.google.com/maps/search/Parlatore+Law%2C+Niagara+Niagara+Falls+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=6387+Morrison+St+Ste+200%2C+Niagara+Falls%2C+ON+L2E+7H1",
+  "website": "https://www.parlatorelawyers.com",
+  "blurb": "Personal Injury / Real Estate in Niagara Falls. Rated 5.0 from 27 Google reviews.",
+  "type": "logo",
+  "about": "Parlatore Law, Niagara is a law firm in Niagara Falls, Ontario that practises personal injury and real estate. Clients rate the firm 5.0 out of 5 from 27 public Google reviews. The office is at 6387 Morrison St Ste 200, Niagara Falls, ON L2E 7H1, and you can call (365) 880-7777 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/parlatore-law-niagara-niagara-falls.webp"
+ },
+ {
+  "name": "McLaren Bryan Law Professional Corporation",
+  "city": "Peterborough",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.3094825,
+  "lng": -78.3310917,
+  "address": "398 McDonnel St Unit# 4, Peterborough, ON K9H 2X4",
+  "phone": "+16479016815",
+  "rating": 5,
+  "count": 25,
+  "slug": "mclaren-bryan-law-professional-corporation-peterborough",
+  "mapsUrl": "https://www.google.com/maps/search/McLaren+Bryan+Law+Professional+Corporation+Peterborough+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=398+McDonnel+St+Unit%23+4%2C+Peterborough%2C+ON+K9H+2X4",
+  "website": "https://mclarenbryanlaw.com",
+  "blurb": "Law firm in Peterborough. Rated 5.0 from 25 Google reviews.",
+  "type": "logo",
+  "about": "McLaren Bryan Law Professional Corporation is a law firm in Peterborough, Ontario. Clients rate the firm 5.0 out of 5 from 25 public Google reviews. The office is at 398 McDonnel St Unit# 4, Peterborough, ON K9H 2X4, and you can call (647) 901-6815 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/mclaren-bryan-law-professional-corporation-peterborough.webp"
+ },
+ {
+  "name": "Bouffard Law Office",
+  "city": "Greater Sudbury",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "northern",
+  "province": "ON",
+  "lat": 46.4633829,
+  "lng": -81.0294054,
+  "address": "1351 Kelly Lake Rd Ste C5, Greater Sudbury, ON P3E 5P5",
+  "phone": "+17058851488",
+  "rating": 5,
+  "count": 24,
+  "slug": "bouffard-law-office-greater-sudbury",
+  "mapsUrl": "https://www.google.com/maps/search/Bouffard+Law+Office+Greater+Sudbury+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1351+Kelly+Lake+Rd+Ste+C5%2C+Greater+Sudbury%2C+ON+P3E+5P5",
+  "website": "https://bouffardlaw.ca",
+  "blurb": "Real Estate / Wills & Estates in Greater Sudbury. Rated 5.0 from 24 Google reviews.",
+  "type": "logo",
+  "about": "Bouffard Law Office is a law firm in Greater Sudbury, Ontario that practises real estate, wills and estates and business law. Clients rate the firm 5.0 out of 5 from 24 public Google reviews. The office is at 1351 Kelly Lake Rd Ste C5, Greater Sudbury, ON P3E 5P5, and you can call (705) 885-1488 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/bouffard-law-office-greater-sudbury.png"
+ },
+ {
+  "name": "Williams Litigation North",
+  "city": "North Bay",
+  "featured": false,
+  "tags": [
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "litigation"
+  ],
+  "region": "northern",
+  "province": "ON",
+  "lat": 46.2886085,
+  "lng": -79.4508933,
+  "address": "176 Lakeshore Dr Unit 4A, North Bay, ON P1A 2A8",
+  "phone": "+17052235464",
+  "rating": 4.8,
+  "count": 24,
+  "slug": "williams-litigation-north-north-bay",
+  "mapsUrl": "https://www.google.com/maps/search/Williams+Litigation+North+North+Bay+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=176+Lakeshore+Dr+Unit+4A%2C+North+Bay%2C+ON+P1A+2A8",
+  "website": "https://www.williamslitigationnorth.ca",
+  "blurb": "Civil Litigation in North Bay. Rated 4.8 from 24 Google reviews.",
+  "type": "logo",
+  "about": "Williams Litigation North is a law firm in North Bay, Ontario that practises civil litigation. Clients rate the firm 4.8 out of 5 from 24 public Google reviews. The office is at 176 Lakeshore Dr Unit 4A, North Bay, ON P1A 2A8, and you can call (705) 223-5464 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/williams-litigation-north-north-bay.png"
+ },
+ {
+  "name": "TS Canadian Immigration Services",
+  "city": "Brandon",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "mb-brandon",
+  "province": "MB",
+  "lat": 49.8451931,
+  "lng": -99.9509644,
+  "address": "930 Lorne Ave, Brandon, MB R7A 6K7",
+  "phone": "+12047611491",
+  "rating": 5,
+  "count": 23,
+  "slug": "ts-canadian-immigration-services-brandon",
+  "mapsUrl": "https://www.google.com/maps/search/TS+Canadian+Immigration+Services+Brandon+Manitoba",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=930+Lorne+Ave%2C+Brandon%2C+MB+R7A+6K7",
+  "website": "https://www.tscanadianimmigration.com",
+  "blurb": "Immigration in Brandon. Rated 5.0 from 23 Google reviews.",
+  "type": "logo",
+  "about": "TS Canadian Immigration Services is a law firm in Brandon, Manitoba that practises immigration. Clients rate the firm 5.0 out of 5 from 23 public Google reviews. The office is at 930 Lorne Ave, Brandon, MB R7A 6K7, and you can call (204) 761-1491 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ts-canadian-immigration-services-brandon.png"
+ },
+ {
+  "name": "Collaborative Law Corporation",
+  "city": "Nanaimo",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "family",
+   "employment"
+  ],
+  "region": "bc-island",
+  "province": "BC",
+  "lat": 49.1648853,
+  "lng": -123.9405858,
+  "address": "348 Wesley St, Nanaimo, BC V9R 2T6",
+  "phone": "+12508241255",
+  "rating": 4.7,
+  "count": 24,
+  "slug": "collaborative-law-corporation-nanaimo",
+  "mapsUrl": "https://www.google.com/maps/search/Collaborative+Law+Corporation+Nanaimo+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=348+Wesley+St%2C+Nanaimo%2C+BC+V9R+2T6",
+  "website": "https://collaborativelegal.ca",
+  "blurb": "Family Law / Employment Law in Nanaimo. Rated 4.7 from 24 Google reviews.",
+  "type": "logo",
+  "about": "Collaborative Law Corporation is a law firm in Nanaimo, British Columbia that practises family law and employment law. Clients rate the firm 4.7 out of 5 from 24 public Google reviews. The office is at 348 Wesley St, Nanaimo, BC V9R 2T6, and you can call (250) 824-1255 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/collaborative-law-corporation-nanaimo.png"
+ },
+ {
+  "name": "Campisi Law St. Catharines",
+  "city": "St. Catharines",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.1599626,
+  "lng": -79.2465686,
+  "address": "110 James St #400, St. Catharines, ON L2R 7E8",
+  "phone": "+12899072476",
+  "rating": 5,
+  "count": 22,
+  "slug": "campisi-law-st-catharines-st-catharines",
+  "mapsUrl": "https://www.google.com/maps/search/Campisi+Law+St.+Catharines+St.+Catharines+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=110+James+St+%23400%2C+St.+Catharines%2C+ON+L2R+7E8",
+  "website": "https://campisilaw.ca",
+  "blurb": "Personal Injury in St. Catharines. Rated 5.0 from 22 Google reviews.",
+  "type": "logo",
+  "about": "Campisi Law St. Catharines is a law firm in St. Catharines, Ontario that practises personal injury. Clients rate the firm 5.0 out of 5 from 22 public Google reviews. The office is at 110 James St #400, St. Catharines, ON L2R 7E8, and you can call (289) 907-2476 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/campisi-law-st-catharines-st-catharines.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Henderson Family Law",
+  "city": "Thunder Bay",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "northern",
+  "province": "ON",
+  "lat": 48.4360337,
+  "lng": -89.218462,
+  "address": "34 Cumberland St N, Thunder Bay, ON P7A 4L3",
+  "phone": "+18073442400",
+  "rating": 4.9,
+  "count": 21,
+  "slug": "henderson-family-law-thunder-bay",
+  "mapsUrl": "https://www.google.com/maps/search/Henderson+Family+Law+Thunder+Bay+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=34+Cumberland+St+N%2C+Thunder+Bay%2C+ON+P7A+4L3",
+  "website": "https://www.hendersonfamilylaw.ca",
+  "blurb": "Family Law in Thunder Bay. Rated 4.9 from 21 Google reviews.",
+  "type": "logo",
+  "about": "Henderson Family Law is a law firm in Thunder Bay, Ontario that practises family law. Clients rate the firm 4.9 out of 5 from 21 public Google reviews. The office is at 34 Cumberland St N, Thunder Bay, ON P7A 4L3, and you can call (807) 344-2400 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “At Henderson Family Law, we put our deep knowledge of the law and the legal system to work for you, as we guide you through your family law matter.”",
+  "src": "images/logos/henderson-family-law-thunder-bay.png"
+ },
+ {
+  "name": "FG Avocat inc.",
+  "city": "Repentigny",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "qc-lanaudiere",
+  "province": "QC",
+  "lat": 45.7560085,
+  "lng": -73.4453713,
+  "address": "121 Bd Industriel #218, Repentigny, Quebec J6A 7K4",
+  "phone": "+14388655297",
+  "rating": 5,
+  "count": 20,
+  "slug": "fg-avocat-inc-repentigny",
+  "mapsUrl": "https://www.google.com/maps/search/FG+Avocat+inc.+Repentigny+Quebec",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=121+Bd+Industriel+%23218%2C+Repentigny%2C+Quebec+J6A+7K4",
+  "website": "https://www.fgavocat.ca",
+  "blurb": "Criminal Defence in Repentigny. Rated 5.0 from 20 Google reviews.",
+  "type": "logo",
+  "about": "FG Avocat inc. is a law firm in Repentigny, Quebec that practises criminal defence. Clients rate the firm 5.0 out of 5 from 20 public Google reviews. The office is at 121 Bd Industriel #218, Repentigny, Quebec J6A 7K4, and you can call (438) 865-5297 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/fg-avocat-inc-repentigny.webp"
+ },
+ {
+  "name": "Fabris McIver & Durvin",
+  "city": "Nanaimo",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "bc-island",
+  "province": "BC",
+  "lat": 49.162836,
+  "lng": -123.9356367,
+  "address": "40 Cavan St, Nanaimo, BC V9R 5M2",
+  "phone": "+12507536661",
+  "rating": 4.6,
+  "count": 21,
+  "slug": "fabris-mciver-and-durvin-nanaimo",
+  "mapsUrl": "https://www.google.com/maps/search/Fabris+McIver+%26+Durvin+Nanaimo+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=40+Cavan+St%2C+Nanaimo%2C+BC+V9R+5M2",
+  "website": "https://www.fabris-law.com",
+  "blurb": "Law firm in Nanaimo. Rated 4.6 from 21 Google reviews.",
+  "type": "logo",
+  "about": "Fabris McIver & Durvin is a law firm in Nanaimo, British Columbia. Clients rate the firm 4.6 out of 5 from 21 public Google reviews. The office is at 40 Cavan St, Nanaimo, BC V9R 5M2, and you can call (250) 753-6661 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/fabris-mciver-and-durvin-nanaimo.png"
+ }
+]

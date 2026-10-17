@@ -55,7 +55,51 @@
   "blurb": "Personal Injury / Civil Litigation in Calgary. Rated 5.0 from 769 Google reviews.",
   "type": "logo",
   "about": "Grover Law Firm is a law firm in Calgary, Alberta that practises personal injury and civil litigation. Clients rate the firm 5.0 out of 5 from 769 public Google reviews. The office is at Sovereign Centre, 6700 Macleod Trl SE Ste 390, Calgary, AB T2H 0L3, and you can call (403) 253-1029 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/grover-law-firm-calgary.webp"
+  "src": "images/logos/grover-law-firm-calgary.webp",
+  "hours": {
+   "1": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "2": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "3": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "4": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "5": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "6": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "7": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ]
+  }
  },
  {
   "name": "Tabuchi Law",
@@ -111,7 +155,39 @@
   "blurb": "Real Estate / Wills & Estates in Windsor. Rated 5.0 from 299 Google reviews.",
   "type": "logo",
   "about": "Simplyclose Real Estate Law is a law firm in Windsor, Ontario that practises real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 299 public Google reviews. The office is at 625 Erie St E, Windsor, ON N9A 3Y1, and you can call (519) 997-3775 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Ontario's real estate law firm built around you. All-in pricing, in-person or remote signings, and a law firm that actually picks up.”",
-  "src": "images/logos/simplyclose-real-estate-law-windsor.webp"
+  "src": "images/logos/simplyclose-real-estate-law-windsor.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
  },
  {
   "name": "Waseer Law Office",
@@ -319,7 +395,51 @@
   "blurb": "Law firm in London. Rated 4.8 from 272 Google reviews.",
   "type": "logo",
   "about": "Millars Lawyers London is a law firm in London, Ontario. Clients rate the firm 4.8 out of 5 from 272 public Google reviews. The office is at 1886 Oxford St W Unit 301, London, ON N6K 0J8, and you can call (519) 657-1529 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Millars Lawyers, When Losing is Not an Option. You don't deserve to be in this position; you need help to navigate these dangerous waters.”",
-  "src": "images/logos/millars-lawyers-london-london.png"
+  "src": "images/logos/millars-lawyers-london-london.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
  },
  {
   "name": "Lakin Afolabi Law",
@@ -494,7 +614,51 @@
   "blurb": "Criminal Defence / Family Law in Toronto. Rated 5.0 from 214 Google reviews.",
   "type": "logo",
   "about": "Citadel Law is a law firm in Toronto, Ontario that practises criminal defence and family law. Clients rate the firm 5.0 out of 5 from 214 public Google reviews. The office is at 1235 Bay St. Office 501, Toronto, ON M5R 3K4, and you can call (647) 632-0083 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Citadel Law Group provides criminal defence and family law services across Ontario. Speak with an Ontario criminal lawyer or family lawyer about your matter.”",
-  "src": "images/logos/citadel-law-toronto.png"
+  "src": "images/logos/citadel-law-toronto.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
  },
  {
   "name": "Bow River Law LLP",
@@ -765,7 +929,51 @@
   "blurb": "Family Law in Edmonton. Rated 4.8 from 183 Google reviews.",
   "type": "logo",
   "about": "Jarrah Law is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 4.8 out of 5 from 183 public Google reviews. The office is at 10154 104 Street NW #402, Edmonton, AB T5J 1A7, and you can call (780) 665-4955 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/jarrah-law-edmonton.jpg"
+  "src": "images/logos/jarrah-law-edmonton.jpg",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
  },
  {
   "name": "Hepburn Criminal Law",
@@ -1152,7 +1360,51 @@
   "blurb": "Personal Injury in Calgary. Rated 4.8 from 140 Google reviews.",
   "type": "logo",
   "about": "Barapp Law Calgary Personal Injury Lawyers is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.8 out of 5 from 140 public Google reviews. The office is at 888 3 St SW Ste 1021, Calgary, AB T2P 5C5, and you can call (587) 887-4844 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/barapp-law-calgary-personal-injury-lawyers-calgary.jpg"
+  "src": "images/logos/barapp-law-calgary-personal-injury-lawyers-calgary.jpg",
+  "hours": {
+   "1": [
+    [
+     "06:00",
+     "23:00"
+    ]
+   ],
+   "2": [
+    [
+     "06:00",
+     "23:00"
+    ]
+   ],
+   "3": [
+    [
+     "06:00",
+     "23:00"
+    ]
+   ],
+   "4": [
+    [
+     "06:00",
+     "23:00"
+    ]
+   ],
+   "5": [
+    [
+     "06:00",
+     "23:00"
+    ]
+   ],
+   "6": [
+    [
+     "06:00",
+     "23:00"
+    ]
+   ],
+   "7": [
+    [
+     "06:00",
+     "23:00"
+    ]
+   ]
+  }
  },
  {
   "name": "Batasar Law",
@@ -1264,7 +1516,51 @@
   "blurb": "Criminal Defence in North York. Rated 4.9 from 115 Google reviews.",
   "type": "logo",
   "about": "Jeffrey I. Reisman is a law firm in North York, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 115 public Google reviews. The office is at 220 Duncan Mill Rd #419, North York, ON M3B 3J5, and you can call (647) 351-4357 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/jeffrey-i-reisman-north-york.png"
+  "src": "images/logos/jeffrey-i-reisman-north-york.png",
+  "hours": {
+   "1": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "2": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "3": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "4": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "5": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "6": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "7": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ]
+  }
  },
  {
   "name": "Kainth Law Group",
@@ -1435,7 +1731,79 @@
   "blurb": "Criminal Defence / Civil Litigation in Toronto. Rated 4.9 from 105 Google reviews.",
   "type": "logo",
   "about": "Karapancev Law is a law firm in Toronto, Ontario that practises criminal defence and civil litigation. Clients rate the firm 4.9 out of 5 from 105 public Google reviews. The office is at 133 Richmond St W Ste 200, Toronto, ON M5H 3M8, and you can call (437) 747-9102 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Facing criminal charges in Toronto? Karapancev Law's criminal defence lawyers have secured acquittals, withdrawals, and stays across the GTA.”",
-  "src": "images/logos/karapancev-law-toronto.png"
+  "src": "images/logos/karapancev-law-toronto.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ],
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ],
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ],
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ],
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ],
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ],
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ],
+    [
+     "00:00",
+     "23:59"
+    ]
+   ]
+  }
  },
  {
   "name": "Rupinder Singh Dhaliwal Professional Corporation",
@@ -1485,7 +1853,51 @@
   "blurb": "Personal Injury in Ottawa. Rated 4.8 from 103 Google reviews.",
   "type": "logo",
   "about": "David Hollingsworth and Associates is a law firm in Ottawa, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 103 public Google reviews. The office is at 176 Bronson Ave, Ottawa, ON K1R 6H4, and you can call (613) 978-9549 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/david-hollingsworth-and-associates-ottawa.webp"
+  "src": "images/logos/david-hollingsworth-and-associates-ottawa.webp",
+  "hours": {
+   "1": [
+    [
+     "08:30",
+     "21:00"
+    ]
+   ],
+   "2": [
+    [
+     "08:30",
+     "21:00"
+    ]
+   ],
+   "3": [
+    [
+     "08:30",
+     "21:00"
+    ]
+   ],
+   "4": [
+    [
+     "08:30",
+     "21:00"
+    ]
+   ],
+   "5": [
+    [
+     "08:30",
+     "21:00"
+    ]
+   ],
+   "6": [
+    [
+     "08:30",
+     "21:00"
+    ]
+   ],
+   "7": [
+    [
+     "08:30",
+     "21:00"
+    ]
+   ]
+  }
  },
  {
   "name": "Christien Levien J.D.",

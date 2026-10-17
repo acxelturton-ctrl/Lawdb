@@ -212,7 +212,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(!JSON.stringify(JSON.parse((await getRaw('/firms_data.json')).text)).includes('Second paragraph'), 'about text stays out of the public firm list');
   ok(!pg.text.includes('class="guide"') && pg.text.includes('class="lw-car"') && pg.text.includes('id="leadForm-' + slug2 + '"'), 'a Basic firm has nearby firms and a contact form, but not the shared "Before you call" guide');
   // the guide is a Featured benefit, on database-built and hand-built pages alike
-  ok((await getRaw('/firms/achkar-law')).text.includes('class="guide"') === false && (await getRaw('/firms/gupta-law-firm')).text.includes('class="guide"'), 'hand-built pages: Basic firms drop the shared guide, Featured firms keep it');
+  ok((await getRaw('/firms/achkar-law')).text.includes('class="guide"') === false && (await getRaw('/firms/daniel-brown-law-llp')).text.includes('class="guide"'), 'hand-built pages: Basic firms drop the shared guide, Featured firms keep it');
   await call('PATCH', '/api/admin/firms/' + slug2, { featured: true });
   let featuredGuide = false;
   for (let i = 0; i < 10 && !featuredGuide; i++) { featuredGuide = (await getRaw('/firms/' + slug2)).text.includes('class="guide"'); if (!featuredGuide) await new Promise((r) => setTimeout(r, 500)); }

@@ -99,6 +99,13 @@ function tagline(f) {
   return `${esc(tags.join(' and '))} lawyers serving ${esc(f.city)}, ${esc(prov)}.`;
 }
 
+// The search-result description is the first sentence of the firm's own written profile when that sentence reads as a summary
+// (50 to 160 characters); otherwise the generic line below is used.
+export function metaFromAbout(about) {
+  const first = String(about || '').trim().split(/(?<=[.!?])\s/)[0] || '';
+  return first.length >= 50 && first.length <= 160 && !/[\n<>]/.test(first) ? first : '';
+}
+
 function description(f) {
   const prov = PROVINCES[f.province] || f.province;
   const lead = `${f.name} is a law firm in ${f.city}, ${prov}`;
@@ -116,8 +123,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
   const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-default.jpg`;
   const url = `${origin}/firms/${f.slug}`;
-  const desc = description(f);
   const about = typeof f.about === 'string' ? f.about.trim() : '';
+  const desc = metaFromAbout(about) || description(f);
   const rated = num(f.rating) > 0 && num(f.count) > 0;
   const title = `${esc(f.name)} | ${esc(f.city)}, ${esc(f.province)} Lawyers | LawDB`;
   const website = /^https?:\/\/[^\s"'<>]+$/i.test(f.website || '') ? f.website : '';

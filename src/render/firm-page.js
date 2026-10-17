@@ -164,6 +164,9 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `        ${f.address ? `<p class="li-meta">${esc(f.address)}</p>` : ''}${planLine}\n        ${actions}\n      </div>\n    </section>`;
 
   const aboutHtml = about ? `\n    <div class="article">${esc(about).replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>')}</div>` : '';
+  // A picture that does not suit the cover goes under the description, like a bio or blog picture.
+  const bio = safeUrl(f.bioImage);
+  const bioHtml = bio ? `\n    <figure style="margin:0 0 18px;"><img src="${esc(localImg(bio))}" alt="${esc(f.name)}, ${esc(f.city)}" loading="lazy" style="display:block;width:100%;max-width:520px;height:auto;border-radius:12px;"></figure>` : '';
   const photoTags = images.filter((i) => IMG_ID.test(i.id)).map((i) => `<img src="/img/${i.id}" alt="${esc(i.alt || `${f.name} photo`)}" loading="lazy" width="320" height="240">`);
   const photosHtml = photoTags.length ? `\n    <div class="photos"><h2>Photos</h2><div class="photo-grid">${photoTags.join('')}</div></div>` : '';
   const tags = (f.tags || []).filter(Boolean);
@@ -199,7 +202,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
     C.STYLE + PHOTO_CSS + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm">\n  ' + C.HEADER,
-    '  <div class="wrap">\n    ' + card + aboutHtml + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap">\n    ' + card + aboutHtml + bioHtml + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     '    ' + fill(C.LEAD_SLIM, toks),
     carousel(f, nearby),
     '\n\n    ' + leadScript,

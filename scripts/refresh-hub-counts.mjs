@@ -66,6 +66,7 @@ function sharedStreets(list) {
   return [...m].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 2).map(([s]) => s);
 }
 
+const cityHref = new Map(); // 'ON|Toronto' -> 'ontario/toronto/'
 let stale = 0;
 const save = (file, html, old) => { if (html !== old) { if (CHECK) { stale++; console.error('out of date:', file); } else writeFileSync(file, html); } };
 const plural = (n, a, b) => (n === 1 ? a : b);
@@ -80,11 +81,12 @@ function updateCommon(html, repl) {
 // ---------------------------------------------------------------- city pages
 function cityPage(file, province) {
   let html = readFileSync(file, 'utf8');
-  const hm = html.match(/<h2>Law firms in (.+?), (.+?)<\/h2>/);
+  const hm = html.match(/<h2>Law firms in ([^<,]+), ([^<]+)<\/h2>/);
   if (!hm) return;
   const city = hm[1].replace(/&#x27;/g, "'").replace(/&amp;/g, '&');
   const provName = hm[2];
   const dir = file.replace(/\/index\.html$/, '');
+  cityHref.set(`${province}|${city}`, dir + '/');
   const list = firms.filter((f) => f.province === province && f.city === city);
   if (!list.length) return;
   const s = stats(list);
@@ -122,7 +124,7 @@ function cityPage(file, province) {
 // ------------------------------------------------------------ province pages
 function provincePage(file, province) {
   let html = readFileSync(file, 'utf8');
-  const hm = html.match(/<h2>Law firms in (.+?)<\/h2>/);
+  const hm = html.match(/<h2>Law firms in ([^<]+)<\/h2>\s*<p class="seo-lede">/);
   if (!hm) return;
   const provName = hm[1];
   const dir = file.replace(/\/index\.html$/, '');
@@ -157,5 +159,14 @@ for (const [dirName, code] of Object.entries(PROV)) {
   if (!existsSync(`${dirName}/index.html`)) continue;
   provincePage(`${dirName}/index.html`, code);
   for (const d of readdirSync(dirName, { withFileTypes: true })) if (d.isDirectory() && existsSync(`${dirName}/${d.name}/index.html`)) cityPage(`${dirName}/${d.name}/index.html`, code);
+}
+// the home page's "Browse by city" strip: the twelve cities with the most firms
+{
+  const home = readFileSync('index.html', 'utf8');
+  const counts = new Map();
+  for (const f of firms) counts.set(`${f.province}|${f.city}`, (counts.get(`${f.province}|${f.city}`) || 0) + 1);
+  const top = [...counts].filter(([k]) => cityHref.has(k)).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 12);
+  const chipsHtml = top.map(([k, n]) => `<a class="cc" href="${cityHref.get(k)}">${esc(k.split('|')[1])}<span>${n}</span></a>`).join('');
+  save('index.html', home.replace(/(<div class="cs-chips">)[\s\S]*?(<\/div>)/, (_, a, b) => a + chipsHtml + b), home);
 }
 if (CHECK) { if (stale) process.exit(1); console.log('hub page counts are up to date'); } else console.log('hub page counts refreshed');

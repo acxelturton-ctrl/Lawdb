@@ -44,7 +44,7 @@ async function feedPosts(env, slug) {
   }
 }
 
-// Every firm page gets a Follow button (next to Call / Website / Directions), the member-ratings box under the profile card, and the small script that runs them.
+// Every firm page gets a Follow button (next to Call / Website / Directions), the member-ratings box under the contact form, and the small script that runs them.
 const managedBy = async (env, slug) => {
   try { return !!(await env.DB.prepare("SELECT 1 FROM firm_members WHERE firm_slug = ? AND status = 'approved'").bind(slug).first()); } catch { return false; }
 };
@@ -56,7 +56,7 @@ const withFollow = (res, slug, managed) =>
   new HTMLRewriter()
     .on('div.li-actions', { element(el) { el.before(`<div class="lw-fline"><span class="lw-fcount" data-fcount="${slug}"></span><button class="lw-fbtn" type="button" data-follow="${slug}">+ Follow</button></div>`, { html: true }); } })
     .on('div.li-actions', { element(el) { el.after(claimLine(slug, managed), { html: true }); } })
-    .on('section.li-card', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>`, { html: true }); } })
+    .on('div.lead-slim', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>`, { html: true }); } })
     .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })
     .transform(res);
 

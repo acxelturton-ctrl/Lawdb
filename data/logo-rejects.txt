@@ -1,0 +1,20 @@
+# Slugs whose automatically-found logo was checked by eye and is wrong (a partner badge, a news or award logo, a white logo that vanishes on a white page, or a blurry icon).
+# scripts/enrich-firm-batch.mjs leaves these with initials; choose their logo by hand in the admin Logos tab.
+shim-law-calgary
+auger-hollingsworth-accident-and-injury-lawyers-ottawa
+findlay-personal-injury-lawyers-hamilton-hamilton
+blouin-avocats-quebec-city
+dhindsa-law-criminal-lawyer-brampton-brampton
+bell-alliance-vancouver
+larlee-rosenberg-vancouver
+taman-singh-law-employment-lawyer-brampton
+avneet-saini-criminal-lawyer-brampton-brampton
+crash-lawyers-calgary
+sidhu-personal-injury-lawyers-calgary-calgary
+strategic-criminal-defence-toronto
+abrahamian-and-associates-laval
+michelle-johal-criminal-lawyer-brampton-brampton
+amin-law-professional-corporation-london
+pipella-law-calgary
+solimano-law-vancouver
+katzman-estate-law-windsor

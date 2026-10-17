@@ -17,17 +17,16 @@
   "lng": -75.7428064,
   "address": "1505 Laperriere Ave #210, Ottawa, ON K1Z 7T1",
   "phone": "+16136954443",
-  "rating": 5.0,
+  "rating": 5,
   "count": 310,
   "slug": "badre-law-professional-corporation-ottawa",
   "mapsUrl": "https://www.google.com/maps/search/Badre+Law+Professional+Corporation+Ottawa+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1505+Laperriere+Ave+%23210%2C+Ottawa%2C+ON+K1Z+7T1",
   "website": "https://badrelaw.com",
   "blurb": "Personal Injury / Civil Litigation in Ottawa. Rated 5.0 from 310 Google reviews.",
-  "type": "mono",
-  "initials": "BA",
-  "color": "#4a3a5c",
-  "about": "Badre Law Professional Corporation is a law firm in Ottawa, Ontario that practises personal injury and civil litigation. Clients rate the firm 5.0 out of 5 from 310 public Google reviews. The office is at 1505 Laperriere Ave #210, Ottawa, ON K1Z 7T1, and you can call (613) 695-4443 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Badre Law Professional Corporation is a law firm in Ottawa, Ontario that practises personal injury and civil litigation. Clients rate the firm 5.0 out of 5 from 310 public Google reviews. The office is at 1505 Laperriere Ave #210, Ottawa, ON K1Z 7T1, and you can call (613) 695-4443 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/badre-law-professional-corporation-ottawa.webp"
  },
  {
   "name": "Grover Law Firm",
@@ -47,17 +46,16 @@
   "lng": -114.0702399,
   "address": "Sovereign Centre, 6700 Macleod Trl SE Ste 390, Calgary, AB T2H 0L3",
   "phone": "+14032531029",
-  "rating": 5.0,
+  "rating": 5,
   "count": 769,
   "slug": "grover-law-firm-calgary",
   "mapsUrl": "https://www.google.com/maps/search/Grover+Law+Firm+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=Sovereign+Centre%2C+6700+Macleod+Trl+SE+Ste+390%2C+Calgary%2C+AB+T2H+0L3",
   "website": "https://www.groverlawfirm.com",
   "blurb": "Personal Injury / Civil Litigation in Calgary. Rated 5.0 from 769 Google reviews.",
-  "type": "mono",
-  "initials": "GR",
-  "color": "#5d5f63",
-  "about": "Grover Law Firm is a law firm in Calgary, Alberta that practises personal injury and civil litigation. Clients rate the firm 5.0 out of 5 from 769 public Google reviews. The office is at Sovereign Centre, 6700 Macleod Trl SE Ste 390, Calgary, AB T2H 0L3, and you can call (403) 253-1029 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Grover Law Firm is a law firm in Calgary, Alberta that practises personal injury and civil litigation. Clients rate the firm 5.0 out of 5 from 769 public Google reviews. The office is at Sovereign Centre, 6700 Macleod Trl SE Ste 390, Calgary, AB T2H 0L3, and you can call (403) 253-1029 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/grover-law-firm-calgary.webp"
  },
  {
   "name": "Prime Law Alberta",
@@ -75,7 +73,7 @@
   "lng": -113.3708962,
   "address": "Sector 17 Plaza, 1762 34 Ave NW #212, Edmonton, AB T6T 1B1",
   "phone": "+15877100211",
-  "rating": 5.0,
+  "rating": 5,
   "count": 568,
   "slug": "prime-law-alberta-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/Prime+Law+Alberta+Edmonton+Alberta",
@@ -103,17 +101,16 @@
   "lng": -79.6690633,
   "address": "120 Watline Ave #5, Mississauga, ON L4Z 2C1",
   "phone": "+14164775673",
-  "rating": 5.0,
+  "rating": 5,
   "count": 510,
   "slug": "tabuchi-law-mississauga",
   "mapsUrl": "https://www.google.com/maps/search/Tabuchi+Law+Mississauga+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=120+Watline+Ave+%235%2C+Mississauga%2C+ON+L4Z+2C1",
   "website": "https://www.tabuchilaw.com",
   "blurb": "Real Estate in Mississauga. Rated 5.0 from 510 Google reviews.",
-  "type": "mono",
-  "initials": "TA",
-  "color": "#5a4636",
-  "about": "Tabuchi Law is a law firm in Mississauga, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 510 public Google reviews. The office is at 120 Watline Ave #5, Mississauga, ON L4Z 2C1, and you can call (416) 477-5673 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Tabuchi Law is a law firm in Mississauga, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 510 public Google reviews. The office is at 120 Watline Ave #5, Mississauga, ON L4Z 2C1, and you can call (416) 477-5673 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/tabuchi-law-mississauga.png"
  },
  {
   "name": "Charitsis Law",
@@ -133,7 +130,7 @@
   "lng": -79.4687078,
   "address": "1000 Finch Ave W Ste 705, North York, ON M3J 2V5",
   "phone": "+14167317113",
-  "rating": 5.0,
+  "rating": 5,
   "count": 357,
   "slug": "charitsis-law-north-york",
   "mapsUrl": "https://www.google.com/maps/search/Charitsis+Law+North+York+Ontario",
@@ -163,17 +160,16 @@
   "lng": -83.0242337,
   "address": "625 Erie St E, Windsor, ON N9A 3Y1",
   "phone": "+15199973775",
-  "rating": 5.0,
+  "rating": 5,
   "count": 299,
   "slug": "simplyclose-real-estate-law-windsor",
   "mapsUrl": "https://www.google.com/maps/search/Simplyclose+Real+Estate+Law+Windsor+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=625+Erie+St+E%2C+Windsor%2C+ON+N9A+3Y1",
   "website": "https://simplyclose.ca",
   "blurb": "Real Estate / Wills & Estates in Windsor. Rated 5.0 from 299 Google reviews.",
-  "type": "mono",
-  "initials": "SR",
-  "color": "#5c3a3a",
-  "about": "Simplyclose Real Estate Law is a law firm in Windsor, Ontario that practises real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 299 public Google reviews. The office is at 625 Erie St E, Windsor, ON N9A 3Y1, and you can call (519) 997-3775 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Simplyclose Real Estate Law is a law firm in Windsor, Ontario that practises real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 299 public Google reviews. The office is at 625 Erie St E, Windsor, ON N9A 3Y1, and you can call (519) 997-3775 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Ontario's real estate law firm built around you. All-in pricing, in-person or remote signings, and a law firm that actually picks up.”",
+  "src": "images/logos/simplyclose-real-estate-law-windsor.webp"
  },
  {
   "name": "Waseer Law Office",
@@ -194,10 +190,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1204+Richmond+St%2C+London%2C+ON+N6A+3L4",
   "website": "https://waseerlaw.ca",
   "blurb": "Law firm in London. Rated 4.9 from 505 Google reviews.",
-  "type": "mono",
-  "initials": "WA",
-  "color": "#3a3a1c",
-  "about": "Waseer Law Office is a law firm in London, Ontario. Clients rate the firm 4.9 out of 5 from 505 public Google reviews. The office is at 1204 Richmond St, London, ON N6A 3L4, and you can call (519) 999-9676 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Waseer Law Office is a law firm in London, Ontario. Clients rate the firm 4.9 out of 5 from 505 public Google reviews. The office is at 1204 Richmond St, London, ON N6A 3L4, and you can call (519) 999-9676 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/waseer-law-office-london.png"
  },
  {
   "name": "Nussbaum Family & Divorce Lawyers",
@@ -225,7 +220,7 @@
   "type": "mono",
   "initials": "NF",
   "color": "#5c3a3a",
-  "about": "Nussbaum Family & Divorce Lawyers is a law firm in North York, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 1158 public Google reviews. The office is at The Madison Centre, 4950 Yonge St Ste 801, North York, ON M2N 6K1, and you can call (647) 557-9698 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Nussbaum Family & Divorce Lawyers is a law firm in North York, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 1158 public Google reviews. The office is at The Madison Centre, 4950 Yonge St Ste 801, North York, ON M2N 6K1, and you can call (647) 557-9698 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Ontario family lawyers helping you with divorce, separation, parenting and support. Understand your options. Start with a free case review.”"
  },
  {
   "name": "Litco Law",
@@ -288,10 +283,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10185+107+St+NW%2C+Edmonton%2C+AB+T5J+2Z3",
   "website": "https://www.edmontonlawoffice.ca",
   "blurb": "Family Law / Wills & Estates in Edmonton. Rated 4.8 from 600 Google reviews.",
-  "type": "mono",
-  "initials": "ED",
-  "color": "#5a4636",
-  "about": "Edmonton Law Office is a law firm in Edmonton, Alberta that practises family law, wills and estates and immigration. Clients rate the firm 4.8 out of 5 from 600 public Google reviews. The office is at 10185 107 St NW, Edmonton, AB T5J 2Z3, and you can call (780) 784-6666 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Edmonton Law Office is a law firm in Edmonton, Alberta that practises family law, wills and estates and immigration. Clients rate the firm 4.8 out of 5 from 600 public Google reviews. The office is at 10185 107 St NW, Edmonton, AB T5J 2Z3, and you can call (780) 784-6666 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/edmonton-law-office-edmonton.png"
  },
  {
   "name": "Chadi & Ibrahim LLP",
@@ -342,7 +336,7 @@
   "slug": "kahlon-law-office-brampton",
   "mapsUrl": "https://www.google.com/maps/search/Kahlon+Law+Office+Brampton+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1B%2C+Conestoga+Dr+Ste+200%2C+Brampton%2C+ON+L6Z+4N5",
-  "website": "http://www.akahlon.ca",
+  "website": "https://www.akahlon.ca",
   "blurb": "Immigration in Brampton. Rated 4.8 from 665 Google reviews.",
   "type": "mono",
   "initials": "KA",
@@ -378,10 +372,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1109+Edmonton+Trl%2C+Calgary%2C+AB+T2E+3K3",
   "website": "https://osujismith.ca",
   "blurb": "Family Law / Real Estate in Calgary. Rated 4.7 from 655 Google reviews.",
-  "type": "mono",
-  "initials": "OS",
-  "color": "#5a4636",
-  "about": "Osuji & Smith: Employment Lawyers is a law firm in Calgary, Alberta that practises family law, real estate and employment law. Clients rate the firm 4.7 out of 5 from 655 public Google reviews. The office is at 1109 Edmonton Trl, Calgary, AB T2E 3K3, and you can call (403) 283-8018 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Osuji & Smith: Employment Lawyers is a law firm in Calgary, Alberta that practises family law, real estate and employment law. Clients rate the firm 4.7 out of 5 from 655 public Google reviews. The office is at 1109 Edmonton Trl, Calgary, AB T2E 3K3, and you can call (403) 283-8018 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Award-winning employment lawyers in Calgary, family lawyers, business lawyers, and real estate lawyers. Calgary lawyers delivering legal excellence since 1980.”",
+  "src": "images/logos/osuji-and-smith-employment-lawyers-calgary.webp"
  },
  {
   "name": "Kavita V. Bhagat",
@@ -409,7 +402,7 @@
   "type": "mono",
   "initials": "KV",
   "color": "#5a4636",
-  "about": "Kavita V. Bhagat is a law firm in Brampton, Ontario that practises family law. Clients rate the firm 4.7 out of 5 from 315 public Google reviews. The office is at 215 Queen St W, Brampton, ON L6Y 1M6, and you can call (905) 497-6806 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Kavita V. Bhagat is a law firm in Brampton, Ontario that practises family law. Clients rate the firm 4.7 out of 5 from 315 public Google reviews. The office is at 215 Queen St W, Brampton, ON L6Y 1M6, and you can call (905) 497-6806 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Kavita V. Bhagat is a Family & Divorce Lawyer and Mediator handling Divorces, Child Custody & other Family Law matters in Brampton, Toronto, Mississauga & surrounding areas”"
  },
  {
   "name": "Shim Law",
@@ -441,9 +434,9 @@
   "website": "https://shimlaw.ca",
   "blurb": "Family Law / Immigration in Calgary. Rated 4.6 from 420 Google reviews.",
   "type": "mono",
+  "about": "Shim Law is a law firm in Calgary, Alberta that practises family law, immigration and criminal defence. Clients rate the firm 4.6 out of 5 from 420 public Google reviews. The office is at 634 6 Ave SW #810, Calgary, AB T2P 2Y5, and you can call (403) 476-2011 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “At Shim Law, our Calgary lawyers can offer their legal services in 20+ different languages and includes Punjabi, Mandarin, Farsi, Korean, Urdu and many more!”",
   "initials": "SH",
-  "color": "#2e4a43",
-  "about": "Shim Law is a law firm in Calgary, Alberta that practises family law, immigration and criminal defence. Clients rate the firm 4.6 out of 5 from 420 public Google reviews. The office is at 634 6 Ave SW #810, Calgary, AB T2P 2Y5, and you can call (403) 476-2011 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#2e4a43"
  },
  {
   "name": "Auger Hollingsworth Accident & Injury Lawyers",
@@ -473,9 +466,9 @@
   "website": "https://ahinjurylaw.com",
   "blurb": "Personal Injury / Civil Litigation in Ottawa. Rated 4.9 from 276 Google reviews.",
   "type": "mono",
+  "about": "Auger Hollingsworth Accident & Injury Lawyers is a law firm in Ottawa, Ontario that practises personal injury, civil litigation and employment law. Clients rate the firm 4.9 out of 5 from 276 public Google reviews. The office is at 304 O'Connor St, Ottawa, ON K2P 1V7, and you can call (613) 706-0401 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "AH",
-  "color": "#5c3a3a",
-  "about": "Auger Hollingsworth Accident & Injury Lawyers is a law firm in Ottawa, Ontario that practises personal injury, civil litigation and employment law. Clients rate the firm 4.9 out of 5 from 276 public Google reviews. The office is at 304 O'Connor St, Ottawa, ON K2P 1V7, and you can call (613) 706-0401 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5c3a3a"
  },
  {
   "name": "Millars Lawyers London",
@@ -496,10 +489,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1886+Oxford+St+W+Unit+301%2C+London%2C+ON+N6K+0J8",
   "website": "https://millarslaw.com",
   "blurb": "Law firm in London. Rated 4.8 from 272 Google reviews.",
-  "type": "mono",
-  "initials": "ML",
-  "color": "#4f4a2e",
-  "about": "Millars Lawyers London is a law firm in London, Ontario. Clients rate the firm 4.8 out of 5 from 272 public Google reviews. The office is at 1886 Oxford St W Unit 301, London, ON N6K 0J8, and you can call (519) 657-1529 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Millars Lawyers London is a law firm in London, Ontario. Clients rate the firm 4.8 out of 5 from 272 public Google reviews. The office is at 1886 Oxford St W Unit 301, London, ON N6K 0J8, and you can call (519) 657-1529 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Millars Lawyers, When Losing is Not an Option. You don't deserve to be in this position; you need help to navigate these dangerous waters.”",
+  "src": "images/logos/millars-lawyers-london-london.png"
  },
  {
   "name": "Findlay Personal Injury Lawyers Hamilton",
@@ -527,9 +519,9 @@
   "website": "https://findlaylaw.ca",
   "blurb": "Personal Injury / Civil Litigation in Hamilton. Rated 4.8 from 247 Google reviews.",
   "type": "mono",
+  "about": "Findlay Personal Injury Lawyers Hamilton is a law firm in Hamilton, Ontario that practises personal injury and civil litigation. Clients rate the firm 4.8 out of 5 from 247 public Google reviews. The office is at 20 Hughson St S #510, Hamilton, ON L8N 2A1, and you can call (866) 720-3839 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “For over 40 years, Findlay Personal Injury Lawyers have served Hamilton & Southern Ontario. Don't wait — speak with our experienced lawyers today to protect your right to fair compensation.”",
   "initials": "FP",
-  "color": "#5c3a3a",
-  "about": "Findlay Personal Injury Lawyers Hamilton is a law firm in Hamilton, Ontario that practises personal injury and civil litigation. Clients rate the firm 4.8 out of 5 from 247 public Google reviews. The office is at 20 Hughson St S #510, Hamilton, ON L8N 2A1, and you can call (866) 720-3839 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5c3a3a"
  },
  {
   "name": "Lakin Afolabi Law",
@@ -552,12 +544,11 @@
   "slug": "lakin-afolabi-law-london",
   "mapsUrl": "https://www.google.com/maps/search/Lakin+Afolabi+Law+London+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=433+William+St%2C+London%2C+ON+N6B+3N6",
-  "website": "http://www.lakinafolabilaw.com",
+  "website": "https://www.lakinafolabilaw.com",
   "blurb": "Criminal Defence in London. Rated 4.9 from 239 Google reviews.",
-  "type": "mono",
-  "initials": "LA",
-  "color": "#2e4a43",
-  "about": "Lakin Afolabi Law is a law firm in London, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 239 public Google reviews. The office is at 433 William St, London, ON N6B 3N6, and you can call (519) 645-6969 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Lakin Afolabi Law is a law firm in London, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 239 public Google reviews. The office is at 433 William St, London, ON N6B 3N6, and you can call (519) 645-6969 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Criminal Lawyers in London Ontario. Our Criminal Defense lawyers practice all areas of criminal law, emphasizing sexual assault and domestic violence.”",
+  "src": "images/logos/lakin-afolabi-law-london.jpg"
  },
  {
   "name": "Cashion Legal Employment Lawyers Calgary",
@@ -582,10 +573,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4954+Richard+Rd+SW+Ste+216%2C+Calgary%2C+AB+T3E+6L1",
   "website": "https://cashionlegal.com",
   "blurb": "Employment Law in Calgary. Rated 4.9 from 229 Google reviews.",
-  "type": "mono",
-  "initials": "CL",
-  "color": "#2e4a43",
-  "about": "Cashion Legal Employment Lawyers Calgary is a law firm in Calgary, Alberta that practises employment law. Clients rate the firm 4.9 out of 5 from 229 public Google reviews. The office is at 4954 Richard Rd SW Ste 216, Calgary, AB T3E 6L1, and you can call (587) 329-2334 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Cashion Legal Employment Lawyers Calgary is a law firm in Calgary, Alberta that practises employment law. Clients rate the firm 4.9 out of 5 from 229 public Google reviews. The office is at 4954 Richard Rd SW Ste 216, Calgary, AB T3E 6L1, and you can call (587) 329-2334 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/cashion-legal-employment-lawyers-calgary-calgary.png"
  },
  {
   "name": "Sherif Hanna avocats Inc.",
@@ -610,7 +600,7 @@
   "slug": "sherif-hanna-avocats-inc-laval",
   "mapsUrl": "https://www.google.com/maps/search/Sherif+Hanna+avocats+Inc.+Laval+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1555+Bd+de+l%27Avenir+%23203%2C+Laval%2C+Quebec+H7S+2N5",
-  "website": "http://www.sherifavocats.com",
+  "website": "https://www.sherifavocats.com",
   "blurb": "Family Law / Immigration in Laval. Rated 4.7 from 233 Google reviews.",
   "type": "mono",
   "initials": "SH",
@@ -640,12 +630,11 @@
   "slug": "ginzburg-legal-montreal",
   "mapsUrl": "https://www.google.com/maps/search/Ginzburg+Legal+Montreal+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=424+R.+Saint-Fran%C3%A7ois-Xavier%2C+Montr%C3%A9al%2C+QC+H2Y+1W8",
-  "website": "http://ginzburglegal.com",
+  "website": "https://ginzburglegal.com",
   "blurb": "Criminal Defence / Immigration in Montreal. Rated 4.9 from 221 Google reviews.",
-  "type": "mono",
-  "initials": "GL",
-  "color": "#5d5f63",
-  "about": "Ginzburg Legal is a law firm in Montreal, Quebec that practises criminal defence and immigration. Clients rate the firm 4.9 out of 5 from 221 public Google reviews. The office is at 424 R. Saint-François-Xavier, Montréal, QC H2Y 1W8, and you can call (514) 710-6749 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Ginzburg Legal is a law firm in Montreal, Quebec that practises criminal defence and immigration. Clients rate the firm 4.9 out of 5 from 221 public Google reviews. The office is at 424 R. Saint-François-Xavier, Montréal, QC H2Y 1W8, and you can call (514) 710-6749 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ginzburg-legal-montreal.png"
  },
  {
   "name": "Forum Law LLP",
@@ -674,10 +663,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=11835+149+St%2C+Edmonton%2C+AB+T5V+1B8",
   "website": "https://forumlaw.ca",
   "blurb": "Family Law / Civil Litigation in Edmonton. Rated 4.8 from 224 Google reviews.",
-  "type": "mono",
-  "initials": "FO",
-  "color": "#3a3a1c",
-  "about": "Forum Law LLP is a law firm in Edmonton, Alberta that practises family law, civil litigation and business law. Clients rate the firm 4.8 out of 5 from 224 public Google reviews. The office is at 11835 149 St, Edmonton, AB T5V 1B8, and you can call (780) 443-0250 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Forum Law LLP is a law firm in Edmonton, Alberta that practises family law, civil litigation and business law. Clients rate the firm 4.8 out of 5 from 224 public Google reviews. The office is at 11835 149 St, Edmonton, AB T5V 1B8, and you can call (780) 443-0250 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Your Trusted Law Firm in Edmonton - Edmonton Lawyers - Doing Our Best For Our Clients”",
+  "src": "images/logos/forum-law-llp-edmonton.webp"
  },
  {
   "name": "Citadel Law",
@@ -697,17 +685,16 @@
   "lng": -79.389677,
   "address": "1235 Bay St. Office 501, Toronto, ON M5R 3K4",
   "phone": "+16476320083",
-  "rating": 5.0,
+  "rating": 5,
   "count": 214,
   "slug": "citadel-law-toronto",
   "mapsUrl": "https://www.google.com/maps/search/Citadel+Law+Toronto+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1235+Bay+St.+Office+501%2C+Toronto%2C+ON+M5R+3K4",
   "website": "https://citadellawgroup.ca",
   "blurb": "Criminal Defence / Family Law in Toronto. Rated 5.0 from 214 Google reviews.",
-  "type": "mono",
-  "initials": "CI",
-  "color": "#5d5f63",
-  "about": "Citadel Law is a law firm in Toronto, Ontario that practises criminal defence and family law. Clients rate the firm 5.0 out of 5 from 214 public Google reviews. The office is at 1235 Bay St. Office 501, Toronto, ON M5R 3K4, and you can call (647) 632-0083 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Citadel Law is a law firm in Toronto, Ontario that practises criminal defence and family law. Clients rate the firm 5.0 out of 5 from 214 public Google reviews. The office is at 1235 Bay St. Office 501, Toronto, ON M5R 3K4, and you can call (647) 632-0083 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Citadel Law Group provides criminal defence and family law services across Ontario. Speak with an Ontario criminal lawyer or family lawyer about your matter.”",
+  "src": "images/logos/citadel-law-toronto.png"
  },
  {
   "name": "Bow River Law LLP",
@@ -732,10 +719,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=540+5+Ave+SW+unit+1240%2C+Calgary%2C+AB+T2P+0M2",
   "website": "https://bowriveremploymentlaw.com",
   "blurb": "Employment Law in Calgary. Rated 4.8 from 213 Google reviews.",
-  "type": "mono",
-  "initials": "BR",
-  "color": "#4a3a5c",
-  "about": "Bow River Law LLP is a law firm in Calgary, Alberta that practises employment law. Clients rate the firm 4.8 out of 5 from 213 public Google reviews. The office is at 540 5 Ave SW unit 1240, Calgary, AB T2P 0M2, and you can call (587) 391-7601 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Bow River Law LLP is a law firm in Calgary, Alberta that practises employment law. Clients rate the firm 4.8 out of 5 from 213 public Google reviews. The office is at 540 5 Ave SW unit 1240, Calgary, AB T2P 0M2, and you can call (587) 391-7601 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Calgary employment lawyers skilled in workplace & labour law including constructive dismissal, severance review, discrimination & harassment.”",
+  "src": "images/logos/bow-river-law-llp-calgary.jpg"
  },
  {
   "name": "Stephane Cohen Criminal Lawyer",
@@ -758,12 +744,12 @@
   "slug": "stephane-cohen-criminal-lawyer-montreal",
   "mapsUrl": "https://www.google.com/maps/search/Stephane+Cohen+Criminal+Lawyer+Montreal+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=417+Rue+Saint-Pierre+%23808%2C+Montreal%2C+Quebec+H2Y+1Y2",
-  "website": "http://www.avocatcriminelmtl.com",
+  "website": "https://www.avocatcriminelmtl.com",
   "blurb": "Criminal Defence in Montreal. Rated 4.9 from 206 Google reviews.",
   "type": "mono",
   "initials": "SC",
   "color": "#4f4a2e",
-  "about": "Stephane Cohen Criminal Lawyer is a law firm in Montreal, Quebec that practises criminal defence. Clients rate the firm 4.9 out of 5 from 206 public Google reviews. The office is at 417 Rue Saint-Pierre #808, Montreal, Quebec H2Y 1Y2, and you can call (514) 886-3710 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Stephane Cohen Criminal Lawyer is a law firm in Montreal, Quebec that practises criminal defence. Clients rate the firm 4.9 out of 5 from 206 public Google reviews. The office is at 417 Rue Saint-Pierre #808, Montreal, Quebec H2Y 1Y2, and you can call (514) 886-3710 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Avocat spécialisant en droit criminel à Montréal et à travers la province de Québec | Lawyer specializing in criminal law in Montreal and across Quebec”"
  },
  {
   "name": "Parr Business Law",
@@ -788,10 +774,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=525+W+8th+Ave+%23800%2C+Vancouver%2C+BC+V5Z+1C6",
   "website": "https://www.parrbusinesslaw.com",
   "blurb": "Business Law in Vancouver. Rated 4.9 from 205 Google reviews.",
-  "type": "mono",
-  "initials": "PB",
-  "color": "#35506b",
-  "about": "Parr Business Law is a law firm in Vancouver, British Columbia that practises business law. Clients rate the firm 4.9 out of 5 from 205 public Google reviews. The office is at 525 W 8th Ave #800, Vancouver, BC V5Z 1C6, and you can call (604) 283-8622 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Parr Business Law is a law firm in Vancouver, British Columbia that practises business law. Clients rate the firm 4.9 out of 5 from 205 public Google reviews. The office is at 525 W 8th Ave #800, Vancouver, BC V5Z 1C6, and you can call (604) 283-8622 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our Vancouver business lawyers near you are here to help with corporate law, probate law, wills & estate law and more”",
+  "src": "images/logos/parr-business-law-vancouver.webp"
  },
  {
   "name": "A. Dhillon Law",
@@ -809,17 +794,16 @@
   "lng": -79.6923212,
   "address": "9300 Goreway Dr Unit#218, Brampton, ON L6P 4N1",
   "phone": "+16479633612",
-  "rating": 5.0,
+  "rating": 5,
   "count": 199,
   "slug": "a-dhillon-law-brampton",
   "mapsUrl": "https://www.google.com/maps/search/A.+Dhillon+Law+Brampton+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=9300+Goreway+Dr+Unit%23218%2C+Brampton%2C+ON+L6P+4N1",
   "website": "https://adhillonlaw.com",
   "blurb": "Criminal Defence in Brampton. Rated 5.0 from 199 Google reviews.",
-  "type": "mono",
-  "initials": "AD",
-  "color": "#5d5f63",
-  "about": "A. Dhillon Law is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 199 public Google reviews. The office is at 9300 Goreway Dr Unit#218, Brampton, ON L6P 4N1, and you can call (647) 963-3612 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "A. Dhillon Law is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 199 public Google reviews. The office is at 9300 Goreway Dr Unit#218, Brampton, ON L6P 4N1, and you can call (647) 963-3612 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Brampton Criminal Lawyer Akash Dhillon is one of the GTA's leading Defence Lawyers, serving clients in Brampton, Toronto & all of Southern Ontario.”",
+  "src": "images/logos/a-dhillon-law-brampton.webp"
  },
  {
   "name": "Shaffie Law",
@@ -846,10 +830,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=65+Front+St+E+Ste+300%2C+Toronto%2C+ON+M5E+1B5",
   "website": "https://www.shaffielaw.ca",
   "blurb": "Criminal Defence / Civil Litigation in Toronto. Rated 4.9 from 203 Google reviews.",
-  "type": "mono",
-  "initials": "SH",
-  "color": "#5d5f63",
-  "about": "Shaffie Law is a law firm in Toronto, Ontario that practises criminal defence and civil litigation. Clients rate the firm 4.9 out of 5 from 203 public Google reviews. The office is at 65 Front St E Ste 300, Toronto, ON M5E 1B5, and you can call (647) 500-5186 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Shaffie Law is a law firm in Toronto, Ontario that practises criminal defence and civil litigation. Clients rate the firm 4.9 out of 5 from 203 public Google reviews. The office is at 65 Front St E Ste 300, Toronto, ON M5E 1B5, and you can call (647) 500-5186 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/shaffie-law-toronto.png"
  },
  {
   "name": "Mahmoud Avocats",
@@ -867,7 +850,7 @@
   "lng": -73.660155,
   "address": "9880 Rue Clark bureau 207, Montreal, Quebec H3L 2R3",
   "phone": "+15146012404",
-  "rating": 5.0,
+  "rating": 5,
   "count": 198,
   "slug": "mahmoud-avocats-montreal",
   "mapsUrl": "https://www.google.com/maps/search/Mahmoud+Avocats+Montreal+Quebec",
@@ -896,12 +879,11 @@
   "slug": "batth-law-office-brampton",
   "mapsUrl": "https://www.google.com/maps/search/Batth+Law+Office+Brampton+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=195+County+Ct+Blvd+%23204%2C+Brampton%2C+ON+L6W+4P7",
-  "website": "http://www.batthlaw.com",
+  "website": "https://www.batthlaw.com",
   "blurb": "Law firm in Brampton. Rated 4.9 from 201 Google reviews.",
-  "type": "mono",
-  "initials": "BA",
-  "color": "#35506b",
-  "about": "Batth Law Office is a law firm in Brampton, Ontario. Clients rate the firm 4.9 out of 5 from 201 public Google reviews. The office is at 195 County Ct Blvd #204, Brampton, ON L6W 4P7, and you can call (905) 965-6562 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Batth Law Office is a law firm in Brampton, Ontario. Clients rate the firm 4.9 out of 5 from 201 public Google reviews. The office is at 195 County Ct Blvd #204, Brampton, ON L6W 4P7, and you can call (905) 965-6562 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Batth Law Professional Corporation in Brampton, Ontario. Immigration, wills, criminal and real estate law explained simply. We speak Punjabi, Hindi and Urdu. Serving Brampton, Mississauga, Toronto and the GTA.”",
+  "src": "images/logos/batth-law-office-brampton.png"
  },
  {
   "name": "Michael Juskey",
@@ -926,12 +908,11 @@
   "slug": "michael-juskey-toronto",
   "mapsUrl": "https://www.google.com/maps/search/Michael+Juskey+Toronto+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=130+Spadina+Ave.+%23606%2C+Toronto%2C+ON+M5V+2L4",
-  "website": "http://mpjlaw.ca",
+  "website": "https://mpjlaw.ca",
   "blurb": "Criminal Defence / Civil Litigation in Toronto. Rated 4.9 from 200 Google reviews.",
-  "type": "mono",
-  "initials": "MJ",
-  "color": "#35506b",
-  "about": "Michael Juskey is a law firm in Toronto, Ontario that practises criminal defence and civil litigation. Clients rate the firm 4.9 out of 5 from 200 public Google reviews. The office is at 130 Spadina Ave. #606, Toronto, ON M5V 2L4, and you can call (416) 428-2760 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Michael Juskey is a law firm in Toronto, Ontario that practises criminal defence and civil litigation. Clients rate the firm 4.9 out of 5 from 200 public Google reviews. The office is at 130 Spadina Ave. #606, Toronto, ON M5V 2L4, and you can call (416) 428-2760 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Looking for a Toronto Criminal Lawyer? Michael has successfully defended hundreds of criminal charges and fights for the best results.”",
+  "src": "images/logos/michael-juskey-toronto.png"
  },
  {
   "name": "Bhardwaj+Co Family Law",
@@ -956,10 +937,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10055+106+St+%231250%2C+Edmonton%2C+AB+T5J+2Y2",
   "website": "https://bhardwajco.ca",
   "blurb": "Family Law in Edmonton. Rated 4.7 from 208 Google reviews.",
-  "type": "mono",
-  "initials": "BC",
-  "color": "#4a3a5c",
-  "about": "Bhardwaj+Co Family Law is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 4.7 out of 5 from 208 public Google reviews. The office is at 10055 106 St #1250, Edmonton, AB T5J 2Y2, and you can call (780) 222-2386 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Bhardwaj+Co Family Law is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 4.7 out of 5 from 208 public Google reviews. The office is at 10055 106 St #1250, Edmonton, AB T5J 2Y2, and you can call (780) 222-2386 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/bhardwaj-co-family-law-edmonton.png"
  },
  {
   "name": "Blouin Avocats",
@@ -982,12 +962,12 @@
   "slug": "blouin-avocats-quebec-city",
   "mapsUrl": "https://www.google.com/maps/search/Blouin+Avocats+Quebec+City+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2829+Boul+Laurier%2C+Qu%C3%A9bec%2C+QC+G1V+2L9",
-  "website": "http://www.immigrationblouin.com",
+  "website": "https://www.immigrationblouin.com",
   "blurb": "Immigration in Quebec City. Rated 4.8 from 202 Google reviews.",
   "type": "mono",
+  "about": "Blouin Avocats is a law firm in Quebec City, Quebec that practises immigration. Clients rate the firm 4.8 out of 5 from 202 public Google reviews. The office is at 2829 Boul Laurier, Québec, QC G1V 2L9, and you can call (581) 997-8418 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Avocat immigration Montréal, vous êtes à la recherche d'un cabinet d'avocats spécialisé en droit de l'immigration ? Blouin avocats spécilaisés en immigration à Montréal sont les avocats qu'il vous faut.”",
   "initials": "BL",
-  "color": "#5a4636",
-  "about": "Blouin Avocats is a law firm in Quebec City, Quebec that practises immigration. Clients rate the firm 4.8 out of 5 from 202 public Google reviews. The office is at 2829 Boul Laurier, Québec, QC G1V 2L9, and you can call (581) 997-8418 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5a4636"
  },
  {
   "name": "Ticket Defenders",
@@ -1011,7 +991,7 @@
   "type": "mono",
   "initials": "TD",
   "color": "#4a3a5c",
-  "about": "Ticket Defenders is a law firm in Kitchener, Ontario. Clients rate the firm 4.8 out of 5 from 202 public Google reviews. The office is at 290 King St E, Kitchener, ON N2G 2L3, and you can call (519) 744-4384 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Ticket Defenders is a law firm in Kitchener, Ontario. Clients rate the firm 4.8 out of 5 from 202 public Google reviews. The office is at 290 King St E, Kitchener, ON N2G 2L3, and you can call (519) 744-4384 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Facing a careless or stunt driving ticket in Ontario? Protect your license & insurance rates. Upload your ticket now for a free, 100% honest case review.”"
  },
  {
   "name": "Perera Law",
@@ -1053,7 +1033,7 @@
   "lng": -75.73361,
   "address": "11 Holland Ave #300, Ottawa, ON K1Y 4S7",
   "phone": "+16137067738",
-  "rating": 5.0,
+  "rating": 5,
   "count": 188,
   "slug": "bergeron-clifford-injury-lawyers-ottawa",
   "mapsUrl": "https://www.google.com/maps/search/Bergeron+Clifford+Injury+Lawyers+Ottawa+Ontario",
@@ -1063,7 +1043,7 @@
   "type": "mono",
   "initials": "BC",
   "color": "#5d5f63",
-  "about": "Bergeron Clifford Injury Lawyers is a law firm in Ottawa, Ontario that practises personal injury. Clients rate the firm 5.0 out of 5 from 188 public Google reviews. The office is at 11 Holland Ave #300, Ottawa, ON K1Y 4S7, and you can call (613) 706-7738 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Bergeron Clifford Injury Lawyers is a law firm in Ottawa, Ontario that practises personal injury. Clients rate the firm 5.0 out of 5 from 188 public Google reviews. The office is at 11 Holland Ave #300, Ottawa, ON K1Y 4S7, and you can call (613) 706-7738 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Bergeron Clifford is a leading personal injury law firm serving Ottawa and the surrounding area. Explore our legal services:”"
  },
  {
   "name": "League and Williams Lawyers",
@@ -1082,12 +1062,11 @@
   "slug": "league-and-williams-lawyers-victoria",
   "mapsUrl": "https://www.google.com/maps/search/League+and+Williams+Lawyers+Victoria+British+Columbia",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=850+Courtney+St%2C+Victoria%2C+BC+V8W+1C4",
-  "website": "http://www.leaguelaw.com",
+  "website": "https://www.leaguelaw.com",
   "blurb": "Law firm in Victoria. Rated 4.9 from 188 Google reviews.",
-  "type": "mono",
-  "initials": "LW",
-  "color": "#5c3a3a",
-  "about": "League and Williams Lawyers is a law firm in Victoria, British Columbia. Clients rate the firm 4.9 out of 5 from 188 public Google reviews. The office is at 850 Courtney St, Victoria, BC V8W 1C4, and you can call (250) 888-0002 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "League and Williams Lawyers is a law firm in Victoria, British Columbia. Clients rate the firm 4.9 out of 5 from 188 public Google reviews. The office is at 850 Courtney St, Victoria, BC V8W 1C4, and you can call (250) 888-0002 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/league-and-williams-lawyers-victoria.png"
  },
  {
   "name": "Dhindsa Law Criminal lawyer Brampton",
@@ -1117,9 +1096,9 @@
   "website": "https://www.dhindsalaw.ca",
   "blurb": "Criminal Defence / Family Law in Brampton. Rated 4.9 from 185 Google reviews.",
   "type": "mono",
+  "about": "Dhindsa Law Criminal lawyer Brampton is a law firm in Brampton, Ontario that practises criminal defence, family law and civil litigation. Clients rate the firm 4.9 out of 5 from 185 public Google reviews. The office is at 7956 Torbram Rd Unit 20, Brampton, ON L6T 5A2, and you can call (437) 998-1429 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "DC",
-  "color": "#5d5f63",
-  "about": "Dhindsa Law Criminal lawyer Brampton is a law firm in Brampton, Ontario that practises criminal defence, family law and civil litigation. Clients rate the firm 4.9 out of 5 from 185 public Google reviews. The office is at 7956 Torbram Rd Unit 20, Brampton, ON L6T 5A2, and you can call (437) 998-1429 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5d5f63"
  },
  {
   "name": "Jarrah Law",
@@ -1144,10 +1123,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10154+104+Street+NW+%23402%2C+Edmonton%2C+AB+T5J+1A7",
   "website": "https://jarrahlaw.com",
   "blurb": "Family Law in Edmonton. Rated 4.8 from 183 Google reviews.",
-  "type": "mono",
-  "initials": "JA",
-  "color": "#2e4a43",
-  "about": "Jarrah Law is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 4.8 out of 5 from 183 public Google reviews. The office is at 10154 104 Street NW #402, Edmonton, AB T5J 1A7, and you can call (780) 665-4955 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Jarrah Law is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 4.8 out of 5 from 183 public Google reviews. The office is at 10154 104 Street NW #402, Edmonton, AB T5J 1A7, and you can call (780) 665-4955 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/jarrah-law-edmonton.jpg"
  },
  {
   "name": "Bell Alliance",
@@ -1170,12 +1148,12 @@
   "slug": "bell-alliance-vancouver",
   "mapsUrl": "https://www.google.com/maps/search/Bell+Alliance+Vancouver+British+Columbia",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1367+W+Broadway+%23201%2C+Vancouver%2C+BC+V6H+4A7",
-  "website": "http://www.bellalliance.ca",
+  "website": "https://www.bellalliance.ca",
   "blurb": "Wills & Estates in Vancouver. Rated 4.7 from 186 Google reviews.",
   "type": "mono",
+  "about": "Bell Alliance is a law firm in Vancouver, British Columbia that practises wills and estates. Clients rate the firm 4.7 out of 5 from 186 public Google reviews. The office is at 1367 W Broadway #201, Vancouver, BC V6H 4A7, and you can call (604) 873-8723 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Bell Alliance is a Vancouver law firm that believes people come first. We're a team of lawyers, consultants, and designated paralegals who've got your back.”",
   "initials": "BA",
-  "color": "#4a3a5c",
-  "about": "Bell Alliance is a law firm in Vancouver, British Columbia that practises wills and estates. Clients rate the firm 4.7 out of 5 from 186 public Google reviews. The office is at 1367 W Broadway #201, Vancouver, BC V6H 4A7, and you can call (604) 873-8723 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#4a3a5c"
  },
  {
   "name": "Hepburn Criminal Law",
@@ -1206,10 +1184,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=UNION+GAS+BUILDING%2C+20+Hughson+St+S%2C+Hamilton%2C+ON+L8N+2A1",
   "website": "https://criminaldefencelawyerontario.com",
   "blurb": "Criminal Defence / Employment Law in Hamilton. Rated 4.9 from 178 Google reviews.",
-  "type": "mono",
-  "initials": "HC",
-  "color": "#2e4a43",
-  "about": "Hepburn Criminal Law is a law firm in Hamilton, Ontario that practises criminal defence, employment law and wills and estates. Clients rate the firm 4.9 out of 5 from 178 public Google reviews. The office is at UNION GAS BUILDING, 20 Hughson St S, Hamilton, ON L8N 2A1, and you can call (905) 869-5488 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Hepburn Criminal Law is a law firm in Hamilton, Ontario that practises criminal defence, employment law and wills and estates. Clients rate the firm 4.9 out of 5 from 178 public Google reviews. The office is at UNION GAS BUILDING, 20 Hughson St S, Hamilton, ON L8N 2A1, and you can call (905) 869-5488 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Located in Hamilton, Hepburn Law focuses on Criminal Law helping individuals who need top caliber legal defence in court. Kaley has been helping the needs of the community in Hamilton since 2010 and is rated in the top 3.”",
+  "src": "images/logos/hepburn-criminal-law-hamilton.png"
  },
  {
   "name": "Larlee Rosenberg",
@@ -1232,12 +1209,12 @@
   "slug": "larlee-rosenberg-vancouver",
   "mapsUrl": "https://www.google.com/maps/search/Larlee+Rosenberg+Vancouver+British+Columbia",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=595+Howe+St+%231400%2C+Vancouver%2C+BC+V6C+2T5",
-  "website": "http://www.larlee.com",
+  "website": "https://www.larlee.com",
   "blurb": "Immigration in Vancouver. Rated 4.9 from 177 Google reviews.",
   "type": "mono",
+  "about": "Larlee Rosenberg is a law firm in Vancouver, British Columbia that practises immigration. Clients rate the firm 4.9 out of 5 from 177 public Google reviews. The office is at 595 Howe St #1400, Vancouver, BC V6C 2T5, and you can call (604) 681-9887 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Larlee Rosenberg is a leading Vancouver-based law firm with deep expertise in all areas of Canadian immigration law.”",
   "initials": "LR",
-  "color": "#5a4636",
-  "about": "Larlee Rosenberg is a law firm in Vancouver, British Columbia that practises immigration. Clients rate the firm 4.9 out of 5 from 177 public Google reviews. The office is at 595 Howe St #1400, Vancouver, BC V6C 2T5, and you can call (604) 681-9887 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5a4636"
  },
  {
   "name": "Sitka Law Group",
@@ -1258,10 +1235,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3750+Shelbourne+St+%23202%2C+Victoria%2C+BC+V8P+4H4",
   "website": "https://sitkalaw.ca",
   "blurb": "Law firm in Victoria. Rated 4.8 from 180 Google reviews.",
-  "type": "mono",
-  "initials": "SG",
-  "color": "#35506b",
-  "about": "Sitka Law Group is a law firm in Victoria, British Columbia. Clients rate the firm 4.8 out of 5 from 180 public Google reviews. The office is at 3750 Shelbourne St #202, Victoria, BC V8P 4H4, and you can call (778) 265-2677 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Sitka Law Group is a law firm in Victoria, British Columbia. Clients rate the firm 4.8 out of 5 from 180 public Google reviews. The office is at 3750 Shelbourne St #202, Victoria, BC V8P 4H4, and you can call (778) 265-2677 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/sitka-law-group-victoria.png"
  },
  {
   "name": "Conway Law",
@@ -1289,7 +1265,7 @@
   "type": "mono",
   "initials": "CO",
   "color": "#2e4a43",
-  "about": "Conway Law is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.9 out of 5 from 174 public Google reviews. The office is at 1405 2 St SW, Calgary, AB T2R 0M4, and you can call (403) 640-1009 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Conway Law is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.9 out of 5 from 174 public Google reviews. The office is at 1405 2 St SW, Calgary, AB T2R 0M4, and you can call (403) 640-1009 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Serving Calgarians for over three decades specializing in motor vehicle injuries and serious head injuries like brain trauma. Read our personal injury law blog or client reviews to learn how we can represent you.”"
  },
  {
   "name": "Taman Singh Law- Employment lawyer",
@@ -1307,7 +1283,7 @@
   "lng": -79.6620749,
   "address": "4515 Ebenezer Rd, Brampton, ON L6P 2K7",
   "phone": "+16473601141",
-  "rating": 5.0,
+  "rating": 5,
   "count": 161,
   "slug": "taman-singh-law-employment-lawyer-brampton",
   "mapsUrl": "https://www.google.com/maps/search/Taman+Singh+Law-+Employment+lawyer+Brampton+Ontario",
@@ -1315,9 +1291,9 @@
   "website": "https://tamansinghlaw.com",
   "blurb": "Employment Law in Brampton. Rated 5.0 from 161 Google reviews.",
   "type": "mono",
+  "about": "Taman Singh Law- Employment lawyer is a law firm in Brampton, Ontario that practises employment law. Clients rate the firm 5.0 out of 5 from 161 public Google reviews. The office is at 4515 Ebenezer Rd, Brampton, ON L6P 2K7, and you can call (647) 360-1141 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "TS",
-  "color": "#3a3a1c",
-  "about": "Taman Singh Law- Employment lawyer is a law firm in Brampton, Ontario that practises employment law. Clients rate the firm 5.0 out of 5 from 161 public Google reviews. The office is at 4515 Ebenezer Rd, Brampton, ON L6P 2K7, and you can call (647) 360-1141 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#3a3a1c"
  },
  {
   "name": "AVNEET SAINI CRIMINAL LAWYER BRAMPTON",
@@ -1343,9 +1319,9 @@
   "website": "https://sainilaw.ca",
   "blurb": "Criminal Defence in Brampton. Rated 4.9 from 164 Google reviews.",
   "type": "mono",
+  "about": "AVNEET SAINI CRIMINAL LAWYER BRAMPTON is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 164 public Google reviews. The office is at 50 Cottrelle Blvd #27, Brampton, ON L6S 0E1, and you can call (647) 331-2245 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "AS",
-  "color": "#5d5f63",
-  "about": "AVNEET SAINI CRIMINAL LAWYER BRAMPTON is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 164 public Google reviews. The office is at 50 Cottrelle Blvd #27, Brampton, ON L6S 0E1, and you can call (647) 331-2245 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5d5f63"
  },
  {
   "name": "Henriquez Avocats",
@@ -1364,12 +1340,12 @@
   "slug": "henriquez-avocats-montreal",
   "mapsUrl": "https://www.google.com/maps/search/Henriquez+Avocats+Montreal+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=465+Rue+Saint-Jean+Bureau+1001%2C+Montreal%2C+Quebec+H2Y+2R6",
-  "website": "http://henriquezavocate.com",
+  "website": "https://henriquezavocate.com",
   "blurb": "Law firm in Montreal. Rated 4.8 from 167 Google reviews.",
   "type": "mono",
   "initials": "HE",
   "color": "#3a3a1c",
-  "about": "Henriquez Avocats is a law firm in Montreal, Quebec. Clients rate the firm 4.8 out of 5 from 167 public Google reviews. The office is at 465 Rue Saint-Jean Bureau 1001, Montreal, Quebec H2Y 2R6, and you can call (514) 903-9004 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Henriquez Avocats is a law firm in Montreal, Quebec. Clients rate the firm 4.8 out of 5 from 167 public Google reviews. The office is at 465 Rue Saint-Jean Bureau 1001, Montreal, Quebec H2Y 2R6, and you can call (514) 903-9004 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Cabinet d'avocats à Montréal : immigration, droit familial et médiation. Conseils juridiques en français, en espagnol, en anglais, en roumain et en russe.”"
  },
  {
   "name": "Brisebois Law Office",
@@ -1390,10 +1366,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2475+Central+Ave+Ste+101%2C+Windsor%2C+ON+N8W+4J4",
   "website": "https://briseboislawoffice.com",
   "blurb": "Law firm in Windsor. Rated 4.7 from 165 Google reviews.",
-  "type": "mono",
-  "initials": "BR",
-  "color": "#5a4636",
-  "about": "Brisebois Law Office is a law firm in Windsor, Ontario. Clients rate the firm 4.7 out of 5 from 165 public Google reviews. The office is at 2475 Central Ave Ste 101, Windsor, ON N8W 4J4, and you can call (519) 974-5884 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Brisebois Law Office is a law firm in Windsor, Ontario. Clients rate the firm 4.7 out of 5 from 165 public Google reviews. The office is at 2475 Central Ave Ste 101, Windsor, ON N8W 4J4, and you can call (519) 974-5884 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/brisebois-law-office-windsor.webp"
  },
  {
   "name": "Crash Lawyers",
@@ -1419,9 +1394,9 @@
   "website": "https://crashlawyers.ca",
   "blurb": "Personal Injury in Calgary. Rated 4.9 from 155 Google reviews.",
   "type": "mono",
+  "about": "Crash Lawyers is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.9 out of 5 from 155 public Google reviews. The office is at 2505 Macleod Trl Suite 210, Calgary, AB T2G 5J4, and you can call (587) 892-7274 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Crash Lawyers specialize in motor vehicle accidents and are ready to serve you in your next claim. We've successfully recovered millions for our clients.”",
   "initials": "CL",
-  "color": "#35506b",
-  "about": "Crash Lawyers is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.9 out of 5 from 155 public Google reviews. The office is at 2505 Macleod Trl Suite 210, Calgary, AB T2G 5J4, and you can call (587) 892-7274 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#35506b"
  },
  {
   "name": "Demas Schaefer Family Lawyers",
@@ -1450,10 +1425,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=9707+102+St+NW%2C+Edmonton%2C+AB+T5K+2T4",
   "website": "https://dsfamilylaw.ca",
   "blurb": "Family Law / Wills & Estates in Edmonton. Rated 4.6 from 160 Google reviews.",
-  "type": "mono",
-  "initials": "DS",
-  "color": "#5c3a3a",
-  "about": "Demas Schaefer Family Lawyers is a law firm in Edmonton, Alberta that practises family law, wills and estates and real estate. Clients rate the firm 4.6 out of 5 from 160 public Google reviews. The office is at 9707 102 St NW, Edmonton, AB T5K 2T4, and you can call (780) 423-2643 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Demas Schaefer Family Lawyers is a law firm in Edmonton, Alberta that practises family law, wills and estates and real estate. Clients rate the firm 4.6 out of 5 from 160 public Google reviews. The office is at 9707 102 St NW, Edmonton, AB T5K 2T4, and you can call (780) 423-2643 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/demas-schaefer-family-lawyers-edmonton.png"
  },
  {
   "name": "MG Law Personal Injury Lawyers",
@@ -1476,12 +1450,11 @@
   "slug": "mg-law-personal-injury-lawyers-ottawa",
   "mapsUrl": "https://www.google.com/maps/search/MG+Law+Personal+Injury+Lawyers+Ottawa+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2733+Lancaster+Rd%2C+Ottawa%2C+ON+K1B+4V8",
-  "website": "http://mginjurylawyers.com",
+  "website": "https://mginjurylawyers.com",
   "blurb": "Personal Injury in Ottawa. Rated 4.7 from 155 Google reviews.",
-  "type": "mono",
-  "initials": "MP",
-  "color": "#35506b",
-  "about": "MG Law Personal Injury Lawyers is a law firm in Ottawa, Ontario that practises personal injury. Clients rate the firm 4.7 out of 5 from 155 public Google reviews. The office is at 2733 Lancaster Rd, Ottawa, ON K1B 4V8, and you can call (613) 730-8460 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "MG Law Personal Injury Lawyers is a law firm in Ottawa, Ontario that practises personal injury. Clients rate the firm 4.7 out of 5 from 155 public Google reviews. The office is at 2733 Lancaster Rd, Ottawa, ON K1B 4V8, and you can call (613) 730-8460 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “MG Law is your trusted Personal injury lawyer Ottawa team ready to fight for your rights and get your rightful compensation.”",
+  "src": "images/logos/mg-law-personal-injury-lawyers-ottawa.webp"
  },
  {
   "name": "Madaans LLP Lawyers",
@@ -1504,12 +1477,11 @@
   "slug": "madaans-llp-lawyers-mississauga",
   "mapsUrl": "https://www.google.com/maps/search/Madaans+LLP+Lawyers+Mississauga+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=30+Topflight+Dr+Unit+102%2C+Mississauga%2C+ON+L5S+0A8",
-  "website": "http://www.madaanlawyers.ca",
+  "website": "https://www.madaanlawyers.ca",
   "blurb": "Real Estate in Mississauga. Rated 4.9 from 148 Google reviews.",
-  "type": "mono",
-  "initials": "ML",
-  "color": "#5c3a3a",
-  "about": "Madaans LLP Lawyers is a law firm in Mississauga, Ontario that practises real estate. Clients rate the firm 4.9 out of 5 from 148 public Google reviews. The office is at 30 Topflight Dr Unit 102, Mississauga, ON L5S 0A8, and you can call (905) 405-8100 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Madaans LLP Lawyers is a law firm in Mississauga, Ontario that practises real estate. Clients rate the firm 4.9 out of 5 from 148 public Google reviews. The office is at 30 Topflight Dr Unit 102, Mississauga, ON L5S 0A8, and you can call (905) 405-8100 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/madaans-llp-lawyers-mississauga.png"
  },
  {
   "name": "GOLDSTEIN Divorce & Family Law Group",
@@ -1537,7 +1509,7 @@
   "type": "mono",
   "initials": "GD",
   "color": "#4f4a2e",
-  "about": "GOLDSTEIN Divorce & Family Law Group is a law firm in North York, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 151 public Google reviews. The office is at 45 Sheppard Ave E #112, North York, ON M2N 5W9, and you can call (416) 519-5552 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "GOLDSTEIN Divorce & Family Law Group is a law firm in North York, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 151 public Google reviews. The office is at 45 Sheppard Ave E #112, North York, ON M2N 5W9, and you can call (416) 519-5552 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “When choosing family law lawyers to handle your matter, it's important to be comfortable with your choice. Your divorce lawyers will be seeing into some of the most intensely personal areas of your life, so you want to be able to trust her at every stage of your case.”"
  },
  {
   "name": "Caramanna, Friedberg LLP",
@@ -1565,7 +1537,7 @@
   "type": "mono",
   "initials": "CF",
   "color": "#3a3a1c",
-  "about": "Caramanna, Friedberg LLP is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 4.7 out of 5 from 154 public Google reviews. The office is at 700 Bay St. #405, Toronto, ON M5G 1Z6, and you can call (416) 924-5969 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Caramanna, Friedberg LLP is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 4.7 out of 5 from 154 public Google reviews. The office is at 700 Bay St. #405, Toronto, ON M5G 1Z6, and you can call (416) 924-5969 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Toronto Criminal Lawyers in Ontario Canada Experienced in Murder, Fraud, DUI, Professional Regulatory, Drug, Sexual Assault, Bail, Theft, Tax Prosecutions and More”"
  },
  {
   "name": "Ammar Law Professional Corporation",
@@ -1584,12 +1556,11 @@
   "slug": "ammar-law-professional-corporation-windsor",
   "mapsUrl": "https://www.google.com/maps/search/Ammar+Law+Professional+Corporation+Windsor+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3990+Tecumseh+Rd+E%2C+Windsor%2C+ON+N8W+1J3",
-  "website": "http://www.ammarlaw.ca",
+  "website": "https://www.ammarlaw.ca",
   "blurb": "Law firm in Windsor. Rated 4.7 from 148 Google reviews.",
-  "type": "mono",
-  "initials": "AM",
-  "color": "#5d5f63",
-  "about": "Ammar Law Professional Corporation is a law firm in Windsor, Ontario. Clients rate the firm 4.7 out of 5 from 148 public Google reviews. The office is at 3990 Tecumseh Rd E, Windsor, ON N8W 1J3, and you can call (519) 254-2245 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Ammar Law Professional Corporation is a law firm in Windsor, Ontario. Clients rate the firm 4.7 out of 5 from 148 public Google reviews. The office is at 3990 Tecumseh Rd E, Windsor, ON N8W 1J3, and you can call (519) 254-2245 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ammar-law-professional-corporation-windsor.png"
  },
  {
   "name": "Separy Law P.C.",
@@ -1643,9 +1614,9 @@
   "website": "https://injury-lawyer-calgary.com",
   "blurb": "Personal Injury in Calgary. Rated 4.9 from 139 Google reviews.",
   "type": "mono",
+  "about": "Sidhu Personal Injury Lawyers Calgary is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.9 out of 5 from 139 public Google reviews. The office is at 909 17 Ave SW Fl 4, Calgary, AB T2T 0A4, and you can call (403) 800-0314 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Get the compensation you deserve. Speak with experienced personal injury lawyers Calgary today. Free initial consultation. Contingency-free basis.”",
   "initials": "SP",
-  "color": "#3a3a1c",
-  "about": "Sidhu Personal Injury Lawyers Calgary is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.9 out of 5 from 139 public Google reviews. The office is at 909 17 Ave SW Fl 4, Calgary, AB T2T 0A4, and you can call (403) 800-0314 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#3a3a1c"
  },
  {
   "name": "GGFI Law LLP",
@@ -1664,12 +1635,11 @@
   "slug": "ggfi-law-llp-kitchener",
   "mapsUrl": "https://www.google.com/maps/search/GGFI+Law+LLP+Kitchener+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=515+Riverbend+Dr+Ste+200%2C+Kitchener%2C+ON+N2K+3S3",
-  "website": "http://www.ggfilaw.com",
+  "website": "https://www.ggfilaw.com",
   "blurb": "Law firm in Kitchener. Rated 4.6 from 148 Google reviews.",
-  "type": "mono",
-  "initials": "GG",
-  "color": "#35506b",
-  "about": "GGFI Law LLP is a law firm in Kitchener, Ontario. Clients rate the firm 4.6 out of 5 from 148 public Google reviews. The office is at 515 Riverbend Dr Ste 200, Kitchener, ON N2K 3S3, and you can call (519) 579-4300 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "GGFI Law LLP is a law firm in Kitchener, Ontario. Clients rate the firm 4.6 out of 5 from 148 public Google reviews. The office is at 515 Riverbend Dr Ste 200, Kitchener, ON N2K 3S3, and you can call (519) 579-4300 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ggfi-law-llp-kitchener.png"
  },
  {
   "name": "Wolf Law",
@@ -1687,17 +1657,16 @@
   "lng": -79.6532025,
   "address": "1563 Dundas St W 2nd Floor, Mississauga, ON L5C 1E3",
   "phone": "+19057390616",
-  "rating": 5.0,
+  "rating": 5,
   "count": 136,
   "slug": "wolf-law-mississauga",
   "mapsUrl": "https://www.google.com/maps/search/Wolf+Law+Mississauga+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1563+Dundas+St+W+2nd+Floor%2C+Mississauga%2C+ON+L5C+1E3",
   "website": "https://www.wolflaw.ca",
   "blurb": "Real Estate in Mississauga. Rated 5.0 from 136 Google reviews.",
-  "type": "mono",
-  "initials": "WO",
-  "color": "#5a4636",
-  "about": "Wolf Law is a law firm in Mississauga, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 136 public Google reviews. The office is at 1563 Dundas St W 2nd Floor, Mississauga, ON L5C 1E3, and you can call (905) 739-0616 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Wolf Law is a law firm in Mississauga, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 136 public Google reviews. The office is at 1563 Dundas St W 2nd Floor, Mississauga, ON L5C 1E3, and you can call (905) 739-0616 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Wolf Law advises purchasers, lenders, investors and businesses on real estate transactions, commercial lending, mergers and acquisitions, private lending, corporate structuring and complex business transactions across Ontario and internationally.”",
+  "src": "images/logos/wolf-law-mississauga.webp"
  },
  {
   "name": "McNally Gervan Lawyers LLP",
@@ -1722,10 +1691,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=359+Kent+St+%23200%2C+Ottawa%2C+ON+K2P+0R6",
   "website": "https://www.ottawa-attorneys.ca",
   "blurb": "Personal Injury in Ottawa. Rated 4.7 from 144 Google reviews.",
-  "type": "mono",
-  "initials": "MG",
-  "color": "#4f4a2e",
-  "about": "McNally Gervan Lawyers LLP is a law firm in Ottawa, Ontario that practises personal injury. Clients rate the firm 4.7 out of 5 from 144 public Google reviews. The office is at 359 Kent St #200, Ottawa, ON K2P 0R6, and you can call (613) 238-1424 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "McNally Gervan Lawyers LLP is a law firm in Ottawa, Ontario that practises personal injury. Clients rate the firm 4.7 out of 5 from 144 public Google reviews. The office is at 359 Kent St #200, Ottawa, ON K2P 0R6, and you can call (613) 238-1424 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/mcnally-gervan-lawyers-llp-ottawa.webp"
  },
  {
   "name": "Barapp Law Calgary Personal Injury Lawyers",
@@ -1750,10 +1718,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=888+3+St+SW+Ste+1021%2C+Calgary%2C+AB+T2P+5C5",
   "website": "https://barapplawalberta.com",
   "blurb": "Personal Injury in Calgary. Rated 4.8 from 140 Google reviews.",
-  "type": "mono",
-  "initials": "BC",
-  "color": "#2e4a43",
-  "about": "Barapp Law Calgary Personal Injury Lawyers is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.8 out of 5 from 140 public Google reviews. The office is at 888 3 St SW Ste 1021, Calgary, AB T2P 5C5, and you can call (587) 887-4844 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Barapp Law Calgary Personal Injury Lawyers is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.8 out of 5 from 140 public Google reviews. The office is at 888 3 St SW Ste 1021, Calgary, AB T2P 5C5, and you can call (587) 887-4844 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/barapp-law-calgary-personal-injury-lawyers-calgary.jpg"
  },
  {
   "name": "Batasar Law",
@@ -1780,10 +1747,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=27+John+St%2C+Brampton%2C+ON+L6W+1Z1",
   "website": "https://www.batasarlaw.ca",
   "blurb": "Criminal Defence / Civil Litigation in Brampton. Rated 4.6 from 145 Google reviews.",
-  "type": "mono",
-  "initials": "BA",
-  "color": "#5a4636",
-  "about": "Batasar Law is a law firm in Brampton, Ontario that practises criminal defence and civil litigation. Clients rate the firm 4.6 out of 5 from 145 public Google reviews. The office is at 27 John St, Brampton, ON L6W 1Z1, and you can call (905) 866-6464 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Batasar Law is a law firm in Brampton, Ontario that practises criminal defence and civil litigation. Clients rate the firm 4.6 out of 5 from 145 public Google reviews. The office is at 27 John St, Brampton, ON L6W 1Z1, and you can call (905) 866-6464 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Clients ask me to \"work my magic,\" but my results come from 28 years and 20,000+ cases. Facing charges in Brampton? Get the defence you deserve.”",
+  "src": "images/logos/batasar-law-brampton.png"
  },
  {
   "name": "Strategic Criminal Defence",
@@ -1809,9 +1775,9 @@
   "website": "https://www.strategiccriminaldefence.com",
   "blurb": "Criminal Defence in Toronto. Rated 4.9 from 136 Google reviews.",
   "type": "mono",
+  "about": "Strategic Criminal Defence is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 136 public Google reviews. The office is at 100 Richmond St W Ste 414, Toronto, ON M5H 3K6, and you can call (647) 986-8077 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "SC",
-  "color": "#4a3a5c",
-  "about": "Strategic Criminal Defence is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 136 public Google reviews. The office is at 100 Richmond St W Ste 414, Toronto, ON M5H 3K6, and you can call (647) 986-8077 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#4a3a5c"
  },
  {
   "name": "Stanchieri Family Law",
@@ -1839,7 +1805,7 @@
   "type": "mono",
   "initials": "SF",
   "color": "#5c3a3a",
-  "about": "Stanchieri Family Law is a law firm in Toronto, Ontario that practises family law. Clients rate the firm 4.7 out of 5 from 138 public Google reviews. The office is at 375 University Ave Ste 900, Toronto, ON M5G 2J5, and you can call (416) 595-9995 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Stanchieri Family Law is a law firm in Toronto, Ontario that practises family law. Clients rate the firm 4.7 out of 5 from 138 public Google reviews. The office is at 375 University Ave Ste 900, Toronto, ON M5G 2J5, and you can call (416) 595-9995 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Toronto family lawyers providing legal advice and representation in all areas of family law, including divorce, separation, and marriage.”"
  },
  {
   "name": "Abrahamian & Associates",
@@ -1858,12 +1824,12 @@
   "slug": "abrahamian-and-associates-laval",
   "mapsUrl": "https://www.google.com/maps/search/Abrahamian+%26+Associates+Laval+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3090+Boul.+le+Carrefour+bureau+200%2C+Laval%2C+Quebec+H7T+2J7",
-  "website": "http://abrahamianavocat.com",
+  "website": "https://abrahamianavocat.com",
   "blurb": "Law firm in Laval. Rated 4.9 from 131 Google reviews.",
   "type": "mono",
+  "about": "Abrahamian & Associates is a law firm in Laval, Quebec. Clients rate the firm 4.9 out of 5 from 131 public Google reviews. The office is at 3090 Boul. le Carrefour bureau 200, Laval, Quebec H7T 2J7, and you can call (514) 463-4463 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "AA",
-  "color": "#35506b",
-  "about": "Abrahamian & Associates is a law firm in Laval, Quebec. Clients rate the firm 4.9 out of 5 from 131 public Google reviews. The office is at 3090 Boul. le Carrefour bureau 200, Laval, Quebec H7T 2J7, and you can call (514) 463-4463 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#35506b"
  },
  {
   "name": "Lakshit Mehta Law Professional Corporation",
@@ -1888,7 +1854,7 @@
   "slug": "lakshit-mehta-law-professional-corporation-mississauga",
   "mapsUrl": "https://www.google.com/maps/search/Lakshit+Mehta+Law+Professional+Corporation+Mississauga+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=30+Topflight+Dr+Unit+4A%2C+Mississauga%2C+ON+L5S+0A8",
-  "website": "http://www.lmlawfirm.ca",
+  "website": "https://www.lmlawfirm.ca",
   "blurb": "Criminal Defence / Real Estate in Mississauga. Rated 4.9 from 130 Google reviews.",
   "type": "mono",
   "initials": "LM",
@@ -1918,12 +1884,11 @@
   "slug": "real-estate-lawyers-ca-llp-mississauga",
   "mapsUrl": "https://www.google.com/maps/search/Real+Estate+Lawyers.ca+LLP+Mississauga+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=77+City+Centre+Dr+Ste+501%2C+Mississauga%2C+ON+L5B+1M5",
-  "website": "http://www.realestatelawyers.ca",
+  "website": "https://www.realestatelawyers.ca",
   "blurb": "Real Estate / Wills & Estates in Mississauga. Rated 4.7 from 133 Google reviews.",
-  "type": "mono",
-  "initials": "RE",
-  "color": "#5a4636",
-  "about": "Real Estate Lawyers.ca LLP is a law firm in Mississauga, Ontario that practises real estate and wills and estates. Clients rate the firm 4.7 out of 5 from 133 public Google reviews. The office is at 77 City Centre Dr Ste 501, Mississauga, ON L5B 1M5, and you can call (289) 351-1195 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Real Estate Lawyers.ca LLP is a law firm in Mississauga, Ontario that practises real estate and wills and estates. Clients rate the firm 4.7 out of 5 from 133 public Google reviews. The office is at 77 City Centre Dr Ste 501, Mississauga, ON L5B 1M5, and you can call (289) 351-1195 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Ontario real estate lawyers for buying, selling, refinancing and estate matters. Flat-rate fees, 30+ locations, remote signing. Free quote.”",
+  "src": "images/logos/real-estate-lawyers-ca-llp-mississauga.png"
  },
  {
   "name": "Crease Harman LLP",
@@ -1947,7 +1912,7 @@
   "type": "mono",
   "initials": "CH",
   "color": "#2e4a43",
-  "about": "Crease Harman LLP is a law firm in Victoria, British Columbia. Clients rate the firm 4.8 out of 5 from 123 public Google reviews. The office is at 1070 Douglas St #800, Victoria, BC V8W 2C4, and you can call (250) 388-5421 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Crease Harman LLP is a law firm in Victoria, British Columbia. Clients rate the firm 4.8 out of 5 from 123 public Google reviews. The office is at 1070 Douglas St #800, Victoria, BC V8W 2C4, and you can call (250) 388-5421 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Victoria Lawyers since 1866. Offering a full range of services, Crease Harman allows you to manage all of your legal concerns under one roof.”"
  },
  {
   "name": "Winright Law",
@@ -2001,9 +1966,9 @@
   "website": "https://www.michellejohal.ca",
   "blurb": "Criminal Defence in Brampton. Rated 4.9 from 119 Google reviews.",
   "type": "mono",
+  "about": "Michelle Johal Criminal Lawyer Brampton is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 119 public Google reviews. The office is at 2 County Ct Blvd Suite 400, Brampton, ON L6W 4V1, and you can call (416) 824-3584 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "MJ",
-  "color": "#4a3a5c",
-  "about": "Michelle Johal Criminal Lawyer Brampton is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 119 public Google reviews. The office is at 2 County Ct Blvd Suite 400, Brampton, ON L6W 4V1, and you can call (416) 824-3584 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#4a3a5c"
  },
  {
   "name": "Arun Bhatia",
@@ -2022,7 +1987,7 @@
   "slug": "arun-bhatia-kitchener",
   "mapsUrl": "https://www.google.com/maps/search/Arun+Bhatia+Kitchener+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=7+Duke+St+W+%23201%2C+Kitchener%2C+ON+N2H+6N7",
-  "website": "http://www.bhatialawoffice.com",
+  "website": "https://www.bhatialawoffice.com",
   "blurb": "Law firm in Kitchener. Rated 4.9 from 119 Google reviews.",
   "type": "mono",
   "initials": "AB",
@@ -2052,10 +2017,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2263+Kingsway+Dr%2C+Kitchener%2C+ON+N2C+1A3",
   "website": "https://www.ddinjurylaw.com",
   "blurb": "Personal Injury in Kitchener. Rated 4.8 from 120 Google reviews.",
-  "type": "mono",
-  "initials": "DD",
-  "color": "#4f4a2e",
-  "about": "Deutschmann de Koning Law is a law firm in Kitchener, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 120 public Google reviews. The office is at 2263 Kingsway Dr, Kitchener, ON N2C 1A3, and you can call (519) 742-7774 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Deutschmann de Koning Law is a law firm in Kitchener, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 120 public Google reviews. The office is at 2263 Kingsway Dr, Kitchener, ON N2C 1A3, and you can call (519) 742-7774 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Personal Injury Lawyers Deutschmann de Koning Law assists Personal Injury victims in the greater Kitchener Waterloo area, suffering from accident injuries or disability.”",
+  "src": "images/logos/deutschmann-de-koning-law-kitchener.png"
  },
  {
   "name": "Jeffrey I. Reisman",
@@ -2080,10 +2044,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=220+Duncan+Mill+Rd+%23419%2C+North+York%2C+ON+M3B+3J5",
   "website": "https://www.jeffreismanlaw.ca",
   "blurb": "Criminal Defence in North York. Rated 4.9 from 115 Google reviews.",
-  "type": "mono",
-  "initials": "JI",
-  "color": "#5a4636",
-  "about": "Jeffrey I. Reisman is a law firm in North York, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 115 public Google reviews. The office is at 220 Duncan Mill Rd #419, North York, ON M3B 3J5, and you can call (647) 351-4357 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Jeffrey I. Reisman is a law firm in North York, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 115 public Google reviews. The office is at 220 Duncan Mill Rd #419, North York, ON M3B 3J5, and you can call (647) 351-4357 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/jeffrey-i-reisman-north-york.png"
  },
  {
   "name": "Amin Law Professional Corporation",
@@ -2102,12 +2065,12 @@
   "slug": "amin-law-professional-corporation-london",
   "mapsUrl": "https://www.google.com/maps/search/Amin+Law+Professional+Corporation+London+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=536+Queens+Ave%2C+London%2C+ON+N6B+1Y8",
-  "website": "http://www.davidaminlaw.com",
+  "website": "https://www.davidaminlaw.com",
   "blurb": "Law firm in London. Rated 4.9 from 113 Google reviews.",
   "type": "mono",
+  "about": "Amin Law Professional Corporation is a law firm in London, Ontario. Clients rate the firm 4.9 out of 5 from 113 public Google reviews. The office is at 536 Queens Ave, London, ON N6B 1Y8, and you can call (226) 224-8823 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “London Ontario lawyers providing criminal defence, real estate, and estate planning with wisdom, care, and proven experience.”",
   "initials": "AM",
-  "color": "#5c3a3a",
-  "about": "Amin Law Professional Corporation is a law firm in London, Ontario. Clients rate the firm 4.9 out of 5 from 113 public Google reviews. The office is at 536 Queens Ave, London, ON N6B 1Y8, and you can call (226) 224-8823 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5c3a3a"
  },
  {
   "name": "Trevor Ford",
@@ -2168,10 +2131,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=690+Belmont+Ave+W+%23303%2C+Kitchener%2C+ON+N2M+1N6",
   "website": "https://www.klawgp.com",
   "blurb": "Criminal Defence / Wills & Estates in Kitchener. Rated 4.9 from 109 Google reviews.",
-  "type": "mono",
-  "initials": "KG",
-  "color": "#5c3a3a",
-  "about": "Kainth Law Group is a law firm in Kitchener, Ontario that practises criminal defence, wills and estates and family law. Clients rate the firm 4.9 out of 5 from 109 public Google reviews. The office is at 690 Belmont Ave W #303, Kitchener, ON N2M 1N6, and you can call (226) 240-6640 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Kainth Law Group is a law firm in Kitchener, Ontario that practises criminal defence, wills and estates and family law. Clients rate the firm 4.9 out of 5 from 109 public Google reviews. The office is at 690 Belmont Ave W #303, Kitchener, ON N2M 1N6, and you can call (226) 240-6640 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “| Family Law | Civil Litigation & Employment Law | Wills & Estates | Criminal Law | Real Estate Law | Powers of Attorney | Business Law | Notary |”",
+  "src": "images/logos/kainth-law-group-kitchener.webp"
  },
  {
   "name": "Infinity Law",
@@ -2190,12 +2152,11 @@
   "slug": "infinity-law-victoria",
   "mapsUrl": "https://www.google.com/maps/search/Infinity+Law+Victoria+British+Columbia",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=931+Fort+St+%23200%2C+Victoria%2C+BC+V8V+3K3",
-  "website": "http://www.infinity-law.com",
+  "website": "https://www.infinity-law.com",
   "blurb": "Law firm in Victoria. Rated 4.6 from 116 Google reviews.",
-  "type": "mono",
-  "initials": "IN",
-  "color": "#5d5f63",
-  "about": "Infinity Law is a law firm in Victoria, British Columbia. Clients rate the firm 4.6 out of 5 from 116 public Google reviews. The office is at 931 Fort St #200, Victoria, BC V8V 3K3, and you can call (250) 385-6004 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Infinity Law is a law firm in Victoria, British Columbia. Clients rate the firm 4.6 out of 5 from 116 public Google reviews. The office is at 931 Fort St #200, Victoria, BC V8V 3K3, and you can call (250) 385-6004 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Leading law firm in Victoria, BC, offering comprehensive legal solutions. Trusted by families, businesses, and individuals. Schedule a consultation today!”",
+  "src": "images/logos/infinity-law-victoria.png"
  },
  {
   "name": "Preszler Injury Lawyers",
@@ -2250,10 +2211,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=7710+5+St+SE+Ste+108%2C+Calgary%2C+AB+T2H+2L9",
   "website": "https://macz.ca",
   "blurb": "Personal Injury in Calgary. Rated 4.8 from 109 Google reviews.",
-  "type": "mono",
-  "initials": "MZ",
-  "color": "#4f4a2e",
-  "about": "MacDonald Zhivov is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.8 out of 5 from 109 public Google reviews. The office is at 7710 5 St SE Ste 108, Calgary, AB T2H 2L9, and you can call (403) 770-4939 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "MacDonald Zhivov is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.8 out of 5 from 109 public Google reviews. The office is at 7710 5 St SE Ste 108, Calgary, AB T2H 2L9, and you can call (403) 770-4939 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “MacDonald Zhivov is a dedicated personal injury firm based in Calgary, specializing in assisting individuals injured in car accidents across Alberta.”",
+  "src": "images/logos/macdonald-zhivov-calgary.webp"
  },
  {
   "name": "Gray Criminal Defence",
@@ -2271,17 +2231,16 @@
   "lng": -79.373554,
   "address": "65 Front St E 3rd floor, Toronto, ON M5E 1B5",
   "phone": "+14168268610",
-  "rating": 5.0,
+  "rating": 5,
   "count": 103,
   "slug": "gray-criminal-defence-toronto",
   "mapsUrl": "https://www.google.com/maps/search/Gray+Criminal+Defence+Toronto+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=65+Front+St+E+3rd+floor%2C+Toronto%2C+ON+M5E+1B5",
-  "website": "http://georgegray.ca",
+  "website": "https://georgegray.ca",
   "blurb": "Criminal Defence in Toronto. Rated 5.0 from 103 Google reviews.",
-  "type": "mono",
-  "initials": "GC",
-  "color": "#3a3a1c",
-  "about": "Gray Criminal Defence is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 103 public Google reviews. The office is at 65 Front St E 3rd floor, Toronto, ON M5E 1B5, and you can call (416) 826-8610 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Gray Criminal Defence is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 103 public Google reviews. The office is at 65 Front St E 3rd floor, Toronto, ON M5E 1B5, and you can call (416) 826-8610 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/gray-criminal-defence-toronto.png"
  },
  {
   "name": "Karapancev Law",
@@ -2308,10 +2267,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=133+Richmond+St+W+Ste+200%2C+Toronto%2C+ON+M5H+3M8",
   "website": "https://karapancevlaw.ca",
   "blurb": "Criminal Defence / Civil Litigation in Toronto. Rated 4.9 from 105 Google reviews.",
-  "type": "mono",
-  "initials": "KA",
-  "color": "#5a4636",
-  "about": "Karapancev Law is a law firm in Toronto, Ontario that practises criminal defence and civil litigation. Clients rate the firm 4.9 out of 5 from 105 public Google reviews. The office is at 133 Richmond St W Ste 200, Toronto, ON M5H 3M8, and you can call (437) 747-9102 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Karapancev Law is a law firm in Toronto, Ontario that practises criminal defence and civil litigation. Clients rate the firm 4.9 out of 5 from 105 public Google reviews. The office is at 133 Richmond St W Ste 200, Toronto, ON M5H 3M8, and you can call (437) 747-9102 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Facing criminal charges in Toronto? Karapancev Law's criminal defence lawyers have secured acquittals, withdrawals, and stays across the GTA.”",
+  "src": "images/logos/karapancev-law-toronto.png"
  },
  {
   "name": "Border Solutions Law Group",
@@ -2367,9 +2325,9 @@
   "website": "https://pipellalaw.com",
   "blurb": "Personal Injury in Calgary. Rated 4.9 from 104 Google reviews.",
   "type": "mono",
+  "about": "Pipella Law is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.9 out of 5 from 104 public Google reviews. The office is at Pipella Place, 2004 1 Ave NW Ste 220, Calgary, AB T2N 0B3, and you can call (403) 265-8733 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "PI",
-  "color": "#3a3a1c",
-  "about": "Pipella Law is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 4.9 out of 5 from 104 public Google reviews. The office is at Pipella Place, 2004 1 Ave NW Ste 220, Calgary, AB T2N 0B3, and you can call (403) 265-8733 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#3a3a1c"
  },
  {
   "name": "Rupinder Singh Dhaliwal Professional Corporation",
@@ -2383,17 +2341,16 @@
   "lng": -79.827913,
   "address": "52 Iceland Poppy Trail, Brampton, ON L7A 0M9",
   "phone": "+16478941516",
-  "rating": 5.0,
+  "rating": 5,
   "count": 101,
   "slug": "rupinder-singh-dhaliwal-professional-corporation-brampton",
   "mapsUrl": "https://www.google.com/maps/search/Rupinder+Singh+Dhaliwal+Professional+Corporation+Brampton+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=52+Iceland+Poppy+Trail%2C+Brampton%2C+ON+L7A+0M9",
   "website": "https://www.dhaliwal.law",
   "blurb": "Law firm in Brampton. Rated 5.0 from 101 Google reviews.",
-  "type": "mono",
-  "initials": "RS",
-  "color": "#5d5f63",
-  "about": "Rupinder Singh Dhaliwal Professional Corporation is a law firm in Brampton, Ontario. Clients rate the firm 5.0 out of 5 from 101 public Google reviews. The office is at 52 Iceland Poppy Trail, Brampton, ON L7A 0M9, and you can call (647) 894-1516 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Rupinder Singh Dhaliwal Professional Corporation is a law firm in Brampton, Ontario. Clients rate the firm 5.0 out of 5 from 101 public Google reviews. The office is at 52 Iceland Poppy Trail, Brampton, ON L7A 0M9, and you can call (647) 894-1516 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Find ultimate legal Assistance Independent professional Independent professional Rupinder Singh Dhaliwal became a member of Law Society”",
+  "src": "images/logos/rupinder-singh-dhaliwal-professional-corporation-brampton.png"
  },
  {
   "name": "David Hollingsworth and Associates",
@@ -2418,10 +2375,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=176+Bronson+Ave%2C+Ottawa%2C+ON+K1R+6H4",
   "website": "https://ottawainjury.ca",
   "blurb": "Personal Injury in Ottawa. Rated 4.8 from 103 Google reviews.",
-  "type": "mono",
-  "initials": "DH",
-  "color": "#2e4a43",
-  "about": "David Hollingsworth and Associates is a law firm in Ottawa, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 103 public Google reviews. The office is at 176 Bronson Ave, Ottawa, ON K1R 6H4, and you can call (613) 978-9549 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "David Hollingsworth and Associates is a law firm in Ottawa, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 103 public Google reviews. The office is at 176 Bronson Ave, Ottawa, ON K1R 6H4, and you can call (613) 978-9549 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/david-hollingsworth-and-associates-ottawa.webp"
  },
  {
   "name": "Christien Levien J.D.",
@@ -2444,12 +2400,11 @@
   "slug": "christien-levien-j-d-brampton",
   "mapsUrl": "https://www.google.com/maps/search/Christien+Levien+J.D.+Brampton+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2+County+Ct+Blvd+Suite%2C+210%2C+Brampton%2C+ON+L6W+3W8",
-  "website": "http://www.levienlaw.com",
+  "website": "https://www.levienlaw.com",
   "blurb": "Criminal Defence in Brampton. Rated 4.8 from 103 Google reviews.",
-  "type": "mono",
-  "initials": "CL",
-  "color": "#5d5f63",
-  "about": "Christien Levien J.D. is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 4.8 out of 5 from 103 public Google reviews. The office is at 2 County Ct Blvd Suite, 210, Brampton, ON L6W 3W8, and you can call (416) 388-3003 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Christien Levien J.D. is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 4.8 out of 5 from 103 public Google reviews. The office is at 2 County Ct Blvd Suite, 210, Brampton, ON L6W 3W8, and you can call (416) 388-3003 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/christien-levien-j-d-brampton.png"
  },
  {
   "name": "Stayshyn Law Offices",
@@ -2474,10 +2429,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=795+King+St+E%2C+Hamilton%2C+ON+L8M+1A8",
   "website": "https://tslawoffice.ca",
   "blurb": "Personal Injury in Hamilton. Rated 4.8 from 102 Google reviews.",
-  "type": "mono",
-  "initials": "ST",
-  "color": "#5d5f63",
-  "about": "Stayshyn Law Offices is a law firm in Hamilton, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 102 public Google reviews. The office is at 795 King St E, Hamilton, ON L8M 1A8, and you can call (905) 777-0070 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Stayshyn Law Offices is a law firm in Hamilton, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 102 public Google reviews. The office is at 795 King St E, Hamilton, ON L8M 1A8, and you can call (905) 777-0070 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/stayshyn-law-offices-hamilton.png"
  },
  {
   "name": "Solimano Law",
@@ -2503,9 +2457,9 @@
   "website": "https://solimanolaw.ca",
   "blurb": "Wills & Estates in Vancouver. Rated 4.9 from 99 Google reviews.",
   "type": "mono",
+  "about": "Solimano Law is a law firm in Vancouver, British Columbia that practises wills and estates. Clients rate the firm 4.9 out of 5 from 99 public Google reviews. The office is at 666 Burrard St #500, Vancouver, BC V6C 2X8, and you can call (604) 428-2822 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "SO",
-  "color": "#5d5f63",
-  "about": "Solimano Law is a law firm in Vancouver, British Columbia that practises wills and estates. Clients rate the firm 4.9 out of 5 from 99 public Google reviews. The office is at 666 Burrard St #500, Vancouver, BC V6C 2X8, and you can call (604) 428-2822 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5d5f63"
  },
  {
   "name": "Michael A. Wills",
@@ -2530,10 +2484,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2557+Dougall+Ave+Unit+6+Suite+214%2C+Windsor%2C+ON+N8X+1T5",
   "website": "https://willslaw.ca",
   "blurb": "Wills & Estates in Windsor. Rated 4.9 from 99 Google reviews.",
-  "type": "mono",
-  "initials": "MA",
-  "color": "#5c3a3a",
-  "about": "Michael A. Wills is a law firm in Windsor, Ontario that practises wills and estates. Clients rate the firm 4.9 out of 5 from 99 public Google reviews. The office is at 2557 Dougall Ave Unit 6 Suite 214, Windsor, ON N8X 1T5, and you can call (226) 259-1129 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Michael A. Wills is a law firm in Windsor, Ontario that practises wills and estates. Clients rate the firm 4.9 out of 5 from 99 public Google reviews. The office is at 2557 Dougall Ave Unit 6 Suite 214, Windsor, ON N8X 1T5, and you can call (226) 259-1129 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Clear Advice and Legal Support in Employment Law, Labour Law, and Litigation. Over 25 years of experience serving clients across Windsor and Essex Ontario.”",
+  "src": "images/logos/michael-a-wills-windsor.webp"
  },
  {
   "name": "Zoom Law",
@@ -2551,17 +2504,16 @@
   "lng": -114.0670002,
   "address": "211 11 Ave SW Ste 610, Calgary, AB T2R 0C6",
   "phone": "+14032873134",
-  "rating": 5.0,
+  "rating": 5,
   "count": 97,
   "slug": "zoom-law-calgary",
   "mapsUrl": "https://www.google.com/maps/search/Zoom+Law+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=211+11+Ave+SW+Ste+610%2C+Calgary%2C+AB+T2R+0C6",
   "website": "https://www.zoomlawyers.ca",
   "blurb": "Personal Injury in Calgary. Rated 5.0 from 97 Google reviews.",
-  "type": "mono",
-  "initials": "ZO",
-  "color": "#4f4a2e",
-  "about": "Zoom Law is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 5.0 out of 5 from 97 public Google reviews. The office is at 211 11 Ave SW Ste 610, Calgary, AB T2R 0C6, and you can call (403) 287-3134 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Zoom Law is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 5.0 out of 5 from 97 public Google reviews. The office is at 211 11 Ave SW Ste 610, Calgary, AB T2R 0C6, and you can call (403) 287-3134 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/zoom-law-calgary.png"
  },
  {
   "name": "Miller Boileau Family Law Group",
@@ -2586,10 +2538,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10981+127+St%2C+Edmonton%2C+AB+T5M+0T1",
   "website": "https://www.millerboileau.com",
   "blurb": "Family Law in Edmonton. Rated 4.7 from 103 Google reviews.",
-  "type": "mono",
-  "initials": "MB",
-  "color": "#4f4a2e",
-  "about": "Miller Boileau Family Law Group is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 4.7 out of 5 from 103 public Google reviews. The office is at 10981 127 St, Edmonton, AB T5M 0T1, and you can call (780) 482-2888 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Miller Boileau Family Law Group is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 4.7 out of 5 from 103 public Google reviews. The office is at 10981 127 St, Edmonton, AB T5M 0T1, and you can call (780) 482-2888 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/miller-boileau-family-law-group-edmonton.png"
  },
  {
   "name": "OP Lawyers LLP",
@@ -2607,17 +2558,16 @@
   "lng": -114.0742889,
   "address": "600 6 Ave SW #600, Calgary, AB T2P 0S5",
   "phone": "+15878574684",
-  "rating": 5.0,
+  "rating": 5,
   "count": 94,
   "slug": "op-lawyers-llp-calgary",
   "mapsUrl": "https://www.google.com/maps/search/OP+Lawyers+LLP+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=600+6+Ave+SW+%23600%2C+Calgary%2C+AB+T2P+0S5",
   "website": "https://www.oplawyers.ca",
   "blurb": "Employment Law in Calgary. Rated 5.0 from 94 Google reviews.",
-  "type": "mono",
-  "initials": "OL",
-  "color": "#3a3a1c",
-  "about": "OP Lawyers LLP is a law firm in Calgary, Alberta that practises employment law. Clients rate the firm 5.0 out of 5 from 94 public Google reviews. The office is at 600 6 Ave SW #600, Calgary, AB T2P 0S5, and you can call (587) 857-4684 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "OP Lawyers LLP is a law firm in Calgary, Alberta that practises employment law. Clients rate the firm 5.0 out of 5 from 94 public Google reviews. The office is at 600 6 Ave SW #600, Calgary, AB T2P 0S5, and you can call (587) 857-4684 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “OP Lawyers LLP - Calgary Law Firm - Ovaici Peydayesh LLP - Family Law - Employment Law - Wills and Estates Law - Civil Litigation - Refugee Law - Divorce Law”",
+  "src": "images/logos/op-lawyers-llp-calgary.jpg"
  },
  {
   "name": "Katzman Estate Law",
@@ -2643,9 +2593,9 @@
   "website": "https://katzmanestatelaw.com",
   "blurb": "Wills & Estates in Windsor. Rated 4.8 from 97 Google reviews.",
   "type": "mono",
+  "about": "Katzman Estate Law is a law firm in Windsor, Ontario that practises wills and estates. Clients rate the firm 4.8 out of 5 from 97 public Google reviews. The office is at 3900 Tecumseh Rd E, Windsor, ON N8W 1J3, and you can call (519) 256-7130 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "KE",
-  "color": "#35506b",
-  "about": "Katzman Estate Law is a law firm in Windsor, Ontario that practises wills and estates. Clients rate the firm 4.8 out of 5 from 97 public Google reviews. The office is at 3900 Tecumseh Rd E, Windsor, ON N8W 1J3, and you can call (519) 256-7130 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#35506b"
  },
  {
   "name": "Westcoast Wills & Estates",
@@ -2663,17 +2613,16 @@
   "lng": -123.136372,
   "address": "1401 W Broadway #601, Vancouver, BC V6H 1H6",
   "phone": "+16042301068",
-  "rating": 5.0,
+  "rating": 5,
   "count": 91,
   "slug": "westcoast-wills-and-estates-vancouver",
   "mapsUrl": "https://www.google.com/maps/search/Westcoast+Wills+%26+Estates+Vancouver+British+Columbia",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1401+W+Broadway+%23601%2C+Vancouver%2C+BC+V6H+1H6",
   "website": "https://westcoastwills.com",
   "blurb": "Wills & Estates in Vancouver. Rated 5.0 from 91 Google reviews.",
-  "type": "mono",
-  "initials": "WW",
-  "color": "#5d5f63",
-  "about": "Westcoast Wills & Estates is a law firm in Vancouver, British Columbia that practises wills and estates. Clients rate the firm 5.0 out of 5 from 91 public Google reviews. The office is at 1401 W Broadway #601, Vancouver, BC V6H 1H6, and you can call (604) 230-1068 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Westcoast Wills & Estates is a law firm in Vancouver, British Columbia that practises wills and estates. Clients rate the firm 5.0 out of 5 from 91 public Google reviews. The office is at 1401 W Broadway #601, Vancouver, BC V6H 1H6, and you can call (604) 230-1068 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Peace of mind with friendly wills and probate lawyers in and around Vancouver. Our estate lawyers help with estates, tax, and corporate law.”",
+  "src": "images/logos/westcoast-wills-and-estates-vancouver.png"
  },
  {
   "name": "Michael Kachkar",
@@ -2691,17 +2640,17 @@
   "lng": -79.3962095,
   "address": "130 Spadina Ave. #606, Toronto, ON M5V 2L4",
   "phone": "+16473356960",
-  "rating": 5.0,
+  "rating": 5,
   "count": 90,
   "slug": "michael-kachkar-toronto",
   "mapsUrl": "https://www.google.com/maps/search/Michael+Kachkar+Toronto+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=130+Spadina+Ave.+%23606%2C+Toronto%2C+ON+M5V+2L4",
-  "website": "http://www.mkaylaw.com",
+  "website": "https://www.mkaylaw.com",
   "blurb": "Criminal Defence in Toronto. Rated 5.0 from 90 Google reviews.",
   "type": "mono",
   "initials": "MK",
   "color": "#5a4636",
-  "about": "Michael Kachkar is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 90 public Google reviews. The office is at 130 Spadina Ave. #606, Toronto, ON M5V 2L4, and you can call (647) 335-6960 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Michael Kachkar is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 90 public Google reviews. The office is at 130 Spadina Ave. #606, Toronto, ON M5V 2L4, and you can call (647) 335-6960 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Criminal defense lawyer in Toronto offering personalized legal representation for various criminal charges. Contact Michael Kachkar for dedicated advocacy.”"
  },
  {
   "name": "IG Law Professional Corporation",
@@ -2720,12 +2669,11 @@
   "slug": "ig-law-professional-corporation-london",
   "mapsUrl": "https://www.google.com/maps/search/IG+Law+Professional+Corporation+London+Ontario",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=291+King+St+Unit-104%2C+London%2C+ON+N6B+1R8",
-  "website": "http://iglaw.ca",
+  "website": "https://iglaw.ca",
   "blurb": "Law firm in London. Rated 4.9 from 91 Google reviews.",
-  "type": "mono",
-  "initials": "IG",
-  "color": "#5a4636",
-  "about": "IG Law Professional Corporation is a law firm in London, Ontario. Clients rate the firm 4.9 out of 5 from 91 public Google reviews. The office is at 291 King St Unit-104, London, ON N6B 1R8, and you can call (226) 526-4522 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "IG Law Professional Corporation is a law firm in London, Ontario. Clients rate the firm 4.9 out of 5 from 91 public Google reviews. The office is at 291 King St Unit-104, London, ON N6B 1R8, and you can call (226) 526-4522 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “IG Law is a law firm located in London, ON. We have easy accessibility to all our clients and provide legal consultations for many fields including real state filings, land transfers and much more.”",
+  "src": "images/logos/ig-law-professional-corporation-london.png"
  },
  {
   "name": "SG Injury Law",
@@ -2752,10 +2700,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1101+Prince+of+Wales+Dr+%23295%2C+Ottawa%2C+ON+K2C+3W7",
   "website": "https://www.sginjurylaw.ca",
   "blurb": "Personal Injury / Employment Law in Ottawa. Rated 4.8 from 92 Google reviews.",
-  "type": "mono",
-  "initials": "SI",
-  "color": "#4f4a2e",
-  "about": "SG Injury Law is a law firm in Ottawa, Ontario that practises personal injury and employment law. Clients rate the firm 4.8 out of 5 from 92 public Google reviews. The office is at 1101 Prince of Wales Dr #295, Ottawa, ON K2C 3W7, and you can call (613) 518-2416 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "SG Injury Law is a law firm in Ottawa, Ontario that practises personal injury and employment law. Clients rate the firm 4.8 out of 5 from 92 public Google reviews. The office is at 1101 Prince of Wales Dr #295, Ottawa, ON K2C 3W7, and you can call (613) 518-2416 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “SG Injury Law, your trusted personal injury law firm in Ottawa. We specialize in personal injury cases. Contact our team. No fees unless you win.”",
+  "src": "images/logos/sg-injury-law-ottawa.jpg"
  },
  {
   "name": "Robb MacDonald",
@@ -2780,10 +2727,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=130+Spadina+Ave.+%23606%2C+Toronto%2C+ON+M5V+2L4",
   "website": "https://www.lawintoronto.com",
   "blurb": "Criminal Defence in Toronto. Rated 4.9 from 87 Google reviews.",
-  "type": "mono",
-  "initials": "RM",
-  "color": "#5a4636",
-  "about": "Robb MacDonald is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 87 public Google reviews. The office is at 130 Spadina Ave. #606, Toronto, ON M5V 2L4, and you can call (416) 315-1505 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Robb MacDonald is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 87 public Google reviews. The office is at 130 Spadina Ave. #606, Toronto, ON M5V 2L4, and you can call (416) 315-1505 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Toronto criminal defence lawyer Robb MacDonald: two decades defending serious charges across Canada. Judges praise his work; other lawyers hire him.”",
+  "src": "images/logos/robb-macdonald-toronto.webp"
  },
  {
   "name": "Dietrich Law Office",
@@ -2808,9 +2754,8 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=141+Duke+St+E%2C+Kitchener%2C+ON+N2H+1A6",
   "website": "https://www.dietrichlaw.ca",
   "blurb": "Personal Injury in Kitchener. Rated 4.7 from 90 Google reviews.",
-  "type": "mono",
-  "initials": "DI",
-  "color": "#3a3a1c",
-  "about": "Dietrich Law Office is a law firm in Kitchener, Ontario that practises personal injury. Clients rate the firm 4.7 out of 5 from 90 public Google reviews. The office is at 141 Duke St E, Kitchener, ON N2H 1A6, and you can call (519) 749-0770 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Dietrich Law Office is a law firm in Kitchener, Ontario that practises personal injury. Clients rate the firm 4.7 out of 5 from 90 public Google reviews. The office is at 141 Duke St E, Kitchener, ON N2H 1A6, and you can call (519) 749-0770 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Kitchener Personal Injury Lawyers Personal Injury Lawyers and Disability Lawyers serving Kitchener, Waterloo, Cambridge, GTA, Brant and Oxford regions of Ontario.”",
+  "src": "images/logos/dietrich-law-office-kitchener.png"
  }
 ]

@@ -1,0 +1,3420 @@
+[
+ {
+  "name": "Abramovich Immigration Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6700261,
+  "lng": -79.3892518,
+  "address": "60 Bloor St W Ste 400, Toronto, ON M5R 3P5",
+  "phone": "+14165511757",
+  "rating": 5,
+  "count": 341,
+  "slug": "abramovich-immigration-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Abramovich+Immigration+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=60+Bloor+St+W+Ste+400%2C+Toronto%2C+ON+M5R+3P5",
+  "website": "https://atimmigrationlaw.com",
+  "blurb": "Immigration in Toronto. Rated 5.0 from 341 Google reviews.",
+  "type": "logo",
+  "about": "Abramovich Immigration Law is a law firm in Toronto, Ontario that practises immigration. Clients rate the firm 5.0 out of 5 from 341 public Google reviews. The office is at 60 Bloor St W Ste 400, Toronto, ON M5R 3P5, and you can call (416) 551-1757 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/abramovich-immigration-law-toronto.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Marwah Law",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Real Estate",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "immigration",
+   "realestate",
+   "business"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.3314483,
+  "lng": -75.7056804,
+  "address": "38 Auriga Dr 2nd Floor, Ottawa, ON K2E 8A5",
+  "phone": "+13438040844",
+  "rating": 5,
+  "count": 468,
+  "slug": "marwah-law-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Marwah+Law+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=38+Auriga+Dr+2nd+Floor%2C+Ottawa%2C+ON+K2E+8A5",
+  "website": "https://www.marwahlaw.com",
+  "blurb": "Immigration / Real Estate in Ottawa. Rated 5.0 from 468 Google reviews.",
+  "type": "logo",
+  "about": "Marwah Law is a law firm in Ottawa, Ontario. Clients rate the firm 5.0 out of 5 from 468 public Google reviews. The office is at 38 Auriga Dr 2nd Floor, Ottawa, ON K2E 8A5, and you can call (343) 804-0844 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Marwah Law Firm is committed to providing innovative immigration, real estate and business law services to individuals, families and businesses across Ontario.”",
+  "src": "images/logos/marwah-law-ottawa.png"
+ },
+ {
+  "name": "NK Lawyers Professional Corporation",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7648381,
+  "lng": -79.4127089,
+  "address": "4950 Yonge St SUITE 2200, North York, ON M2N 6K1",
+  "phone": "+14162387147",
+  "rating": 4.9,
+  "count": 592,
+  "slug": "nk-lawyers-professional-corporation-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/NK+Lawyers+Professional+Corporation+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4950+Yonge+St+SUITE+2200%2C+North+York%2C+ON+M2N+6K1",
+  "website": "https://www.nklawyers.ca",
+  "blurb": "Immigration in North York. Rated 4.9 from 592 Google reviews.",
+  "type": "logo",
+  "about": "NK Lawyers Professional Corporation is a law firm in North York, Ontario that practises immigration. Clients rate the firm 4.9 out of 5 from 592 public Google reviews. The office is at 4950 Yonge St SUITE 2200, North York, ON M2N 6K1, and you can call (416) 238-7147 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Efficient and responsive delivery of legal services ABOUT US Welcome to NK Lawyers NK Lawyers is a law practice that represents clients in different legal matters, specifically, real estate and immigration matters. NK Lawyers will help solve your legal matters by offering services that will obtain...”",
+  "src": "images/logos/nk-lawyers-professional-corporation-north-york.png"
+ },
+ {
+  "name": "Godwit Law Office",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "immigration",
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.7296608,
+  "lng": -79.7963109,
+  "address": "1A Conestoga Dr #300, Brampton, ON L6Z 4N5",
+  "phone": "+18883575162",
+  "rating": 4.9,
+  "count": 546,
+  "slug": "godwit-law-office-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Godwit+Law+Office+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1A+Conestoga+Dr+%23300%2C+Brampton%2C+ON+L6Z+4N5",
+  "website": "https://godwitlaw.com",
+  "blurb": "Immigration / Real Estate in Brampton. Rated 4.9 from 546 Google reviews.",
+  "type": "logo",
+  "about": "Godwit Law Office is a law firm in Brampton, Ontario that practises immigration and real estate. Clients rate the firm 4.9 out of 5 from 546 public Google reviews. The office is at 1A Conestoga Dr #300, Brampton, ON L6Z 4N5, and you can call (888) 357-5162 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Canadian work permit support for LMIA, open work permits, and extensions with legal guidance tailored to your case. Book a consultation.”",
+  "src": "images/logos/godwit-law-office-brampton.png"
+ },
+ {
+  "name": "SINGHA LAW PROFESSIONAL CORPORATION",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7052842,
+  "lng": -79.2512318,
+  "address": "2249 Kingston Rd, Scarborough, ON M1N 1T8",
+  "phone": "+14162659449",
+  "rating": 4.9,
+  "count": 348,
+  "slug": "singha-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/SINGHA+LAW+PROFESSIONAL+CORPORATION+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2249+Kingston+Rd%2C+Scarborough%2C+ON+M1N+1T8",
+  "website": "https://www.singhalaw.ca",
+  "blurb": "Real Estate in Toronto. Rated 4.9 from 348 Google reviews.",
+  "type": "logo",
+  "about": "SINGHA LAW PROFESSIONAL CORPORATION is a law firm in Toronto, Ontario that practises real estate. Clients rate the firm 4.9 out of 5 from 348 public Google reviews. The office is at 2249 Kingston Rd, Scarborough, ON M1N 1T8, and you can call (416) 265-9449 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Welcome to Singha Law Professional Corporation, an experienced and trusted Toronto law firm that can help you with your legal matters.”",
+  "src": "images/logos/singha-law-professional-corporation-toronto.png"
+ },
+ {
+  "name": "Nazarian Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6444776,
+  "lng": -79.3687467,
+  "address": "130 Queens Quay E Ste 715, Toronto, ON M5A 0P6",
+  "phone": "+16476606900",
+  "rating": 4.9,
+  "count": 461,
+  "slug": "nazarian-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Nazarian+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=130+Queens+Quay+E+Ste+715%2C+Toronto%2C+ON+M5A+0P6",
+  "website": "https://nazarianlaw.ca",
+  "blurb": "Family Law in Toronto. Rated 4.9 from 461 Google reviews.",
+  "type": "logo",
+  "about": "Nazarian Law is a law firm in Toronto, Ontario that practises family law. Clients rate the firm 4.9 out of 5 from 461 public Google reviews. The office is at 130 Queens Quay E Ste 715, Toronto, ON M5A 0P6, and you can call (647) 660-6900 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Nazarian Law helps Toronto families through divorce, custody, support and property division with 400+ five-star reviews. Book a Discovery Call today!”",
+  "src": "images/logos/nazarian-law-toronto.jpg"
+ },
+ {
+  "name": "X-Copper",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7085184,
+  "lng": -79.3624351,
+  "address": "143 Laird Dr, East York, ON M4G 3V5",
+  "phone": "+12898027134",
+  "rating": 4.8,
+  "count": 583,
+  "slug": "x-copper-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/X-Copper+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=143+Laird+Dr%2C+East+York%2C+ON+M4G+3V5",
+  "website": "https://www.xcopper.com",
+  "blurb": "Criminal Defence in Toronto. Rated 4.8 from 583 Google reviews.",
+  "type": "logo",
+  "about": "X-Copper is a law firm in Toronto, Ontario. Clients rate the firm 4.8 out of 5 from 583 public Google reviews. The office is at 143 Laird Dr, East York, ON M4G 3V5, and you can call (289) 802-7134 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Don't plead guilty yet. X-Copper's skilled team defends traffic tickets and criminal charges across Canada. Book your free consultation today.”",
+  "src": "images/logos/x-copper-toronto.png"
+ },
+ {
+  "name": "Zinati Kay",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7808811,
+  "lng": -79.2863207,
+  "address": "100 Cowdray Ct #320, Scarborough, ON M1S 5C8",
+  "phone": "+14163218766",
+  "rating": 4.8,
+  "count": 494,
+  "slug": "zinati-kay-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Zinati+Kay+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=100+Cowdray+Ct+%23320%2C+Scarborough%2C+ON+M1S+5C8",
+  "website": "https://zinatikay.com",
+  "blurb": "Real Estate in Toronto. Rated 4.8 from 494 Google reviews.",
+  "type": "logo",
+  "about": "Zinati Kay is a law firm in Toronto, Ontario that practises real estate. Clients rate the firm 4.8 out of 5 from 494 public Google reviews. The office is at 100 Cowdray Ct #320, Scarborough, ON M1S 5C8, and you can call (416) 321-8766 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “We are a Real Estate Law Firm in Toronto providing real estate legal services toronto with fixed closing costs for purchase, sale, title transfer, and mortgage refinance. We support buyers, seller and purchaser with contracts, clauses, title searches, discharge, taxes and taxation across Ontario....”",
+  "src": "images/logos/zinati-kay-toronto.jpg",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Agnes Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7810041,
+  "lng": -79.235865,
+  "address": "885 Progress Ave Ste 218, Scarborough, ON M1H 3G3",
+  "phone": "+16475546339",
+  "rating": 4.9,
+  "count": 292,
+  "slug": "agnes-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Agnes+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=885+Progress+Ave+Ste+218%2C+Scarborough%2C+ON+M1H+3G3",
+  "website": "https://agneslaw.ca",
+  "blurb": "Family Law in Toronto. Rated 4.9 from 292 Google reviews.",
+  "type": "logo",
+  "about": "Agnes Law is a law firm in Toronto, Ontario that practises family law. Clients rate the firm 4.9 out of 5 from 292 public Google reviews. The office is at 885 Progress Ave Ste 218, Scarborough, ON M1H 3G3, and you can call (647) 554-6339 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/agnes-law-toronto.png"
+ },
+ {
+  "name": "Clivio Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6741189,
+  "lng": -79.3889545,
+  "address": "920 Yonge St Ste 510, Toronto, ON M4W 3C7",
+  "phone": "+14164772538",
+  "rating": 5,
+  "count": 286,
+  "slug": "clivio-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Clivio+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=920+Yonge+St+Ste+510%2C+Toronto%2C+ON+M4W+3C7",
+  "website": "https://www.cliviolaw.com",
+  "blurb": "Immigration in Toronto. Rated 5.0 from 286 Google reviews.",
+  "type": "logo",
+  "about": "Clivio Law Professional Corporation is a law firm in Toronto, Ontario that practises immigration. Clients rate the firm 5.0 out of 5 from 286 public Google reviews. The office is at 920 Yonge St Ste 510, Toronto, ON M4W 3C7, and you can call (416) 477-2538 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Boutique Toronto law firm handling Canadian immigration, refugee and citizenship matters since 2016. Multilingual team. Request a quote today.”",
+  "src": "images/logos/clivio-law-professional-corporation-toronto.webp"
+ },
+ {
+  "name": "Sondhi Defence Professional Corporation",
+  "city": "Aurora",
+  "featured": false,
+  "tags": [
+   "Criminal Defence",
+   "Civil Litigation",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "criminal",
+   "litigation",
+   "realestate"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 44.0062564,
+  "lng": -79.4683269,
+  "address": "15483 Yonge St Ste 9, Aurora, ON L4G 1P3",
+  "phone": "+18554766344",
+  "rating": 4.9,
+  "count": 287,
+  "slug": "sondhi-defence-professional-corporation-aurora",
+  "mapsUrl": "https://www.google.com/maps/search/Sondhi+Defence+Professional+Corporation+Aurora+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=15483+Yonge+St+Ste+9%2C+Aurora%2C+ON+L4G+1P3",
+  "website": "https://sondhidefence.ca",
+  "blurb": "Criminal Defence / Civil Litigation in Aurora. Rated 4.9 from 287 Google reviews.",
+  "type": "logo",
+  "about": "Sondhi Defence Professional Corporation is a law firm in Aurora, Ontario that practises criminal defence, civil litigation and real estate. Clients rate the firm 4.9 out of 5 from 287 public Google reviews. The office is at 15483 Yonge St Ste 9, Aurora, ON L4G 1P3, and you can call (855) 476-6344 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Charged in Newmarket or the GTA? Sondhi Defence criminal lawyers deliver strong, strategic representation. Protect your future. Call us for a free consultation!”",
+  "src": "images/logos/sondhi-defence-professional-corporation-aurora.png"
+ },
+ {
+  "name": "Naimark Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.648944,
+  "lng": -79.384424,
+  "address": "141 Adelaide St W #330, Toronto, ON M5H 3L5",
+  "phone": "+14163667246",
+  "rating": 4.7,
+  "count": 297,
+  "slug": "naimark-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Naimark+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=141+Adelaide+St+W+%23330%2C+Toronto%2C+ON+M5H+3L5",
+  "website": "https://www.naimarklaw.com",
+  "blurb": "Personal Injury in Toronto. Rated 4.7 from 297 Google reviews.",
+  "type": "logo",
+  "about": "Naimark Law is a law firm in Toronto, Ontario that practises personal injury. Clients rate the firm 4.7 out of 5 from 297 public Google reviews. The office is at 141 Adelaide St W #330, Toronto, ON M5H 3L5, and you can call (416) 366-7246 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/naimark-law-toronto.png"
+ },
+ {
+  "name": "Akrami & Associates",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5633203,
+  "lng": -79.5941491,
+  "address": "1440 Hurontario St, Mississauga, ON L5G 3H4",
+  "phone": "+14164772545",
+  "rating": 4.6,
+  "count": 691,
+  "slug": "akrami-and-associates-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Akrami+%26+Associates+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1440+Hurontario+St%2C+Mississauga%2C+ON+L5G+3H4",
+  "website": "https://thevisa.ca",
+  "blurb": "Immigration in Mississauga. Rated 4.6 from 691 Google reviews.",
+  "type": "logo",
+  "about": "Akrami & Associates is a law firm in Mississauga, Ontario. Clients rate the firm 4.6 out of 5 from 691 public Google reviews. The office is at 1440 Hurontario St, Mississauga, ON L5G 3H4, and you can call (416) 477-2545 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Explore Canadian immigration options with Akrami & Associates in Mississauga. Get help with work permits, sponsorship, visitor visas and permanent residence.”",
+  "src": "images/logos/akrami-and-associates-mississauga.webp"
+ },
+ {
+  "name": "John Cintosun Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6581503,
+  "lng": -79.3853727,
+  "address": "700 Bay St. #405, Toronto, ON M5G 1Z6",
+  "phone": "+14168248155",
+  "rating": 5,
+  "count": 266,
+  "slug": "john-cintosun-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/John+Cintosun+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=700+Bay+St.+%23405%2C+Toronto%2C+ON+M5G+1Z6",
+  "website": "https://www.cintosun.com",
+  "blurb": "General practice law firm in Toronto. Rated 5.0 from 266 Google reviews.",
+  "type": "logo",
+  "about": "John Cintosun Law Professional Corporation is a law firm in Toronto, Ontario. Clients rate the firm 5.0 out of 5 from 266 public Google reviews. The office is at 700 Bay St. #405, Toronto, ON M5G 1Z6, and you can call (416) 824-8155 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “At the law practice of John Cintosun, we are committed to providing clear, effective representation tailored to your unique legal needs. Contact Us.”",
+  "src": "images/logos/john-cintosun-law-professional-corporation-toronto.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "JCA Law Office Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7082826,
+  "lng": -79.3982462,
+  "address": "2323 Yonge St Ste 204, Toronto, ON M4P 2C9",
+  "phone": "+18555225290",
+  "rating": 4.8,
+  "count": 273,
+  "slug": "jca-law-office-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/JCA+Law+Office+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2323+Yonge+St+Ste+204%2C+Toronto%2C+ON+M4P+2C9",
+  "website": "https://jcalaw.ca",
+  "blurb": "Family Law / Immigration in Toronto. Rated 4.8 from 273 Google reviews.",
+  "type": "logo",
+  "about": "JCA Law Office Professional Corporation is a law firm in Toronto, Ontario. Clients rate the firm 4.8 out of 5 from 273 public Google reviews. The office is at 2323 Yonge St Ste 204, Toronto, ON M4P 2C9, and you can call (855) 522-5290 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Expert Filipino lawyers for immigration, family law, real estate & Philippine documents in Ontario, Canada. Serving since 2016.”",
+  "src": "images/logos/jca-law-office-professional-corporation-toronto.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Peter Robert Lindsay Professional Corporation",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7588493,
+  "lng": -79.4220287,
+  "address": "233 Sheppard Ave W, North York, ON M2N 1N2",
+  "phone": "+14167333313",
+  "rating": 5,
+  "count": 249,
+  "slug": "peter-robert-lindsay-professional-corporation-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Peter+Robert+Lindsay+Professional+Corporation+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=233+Sheppard+Ave+W%2C+North+York%2C+ON+M2N+1N2",
+  "website": "https://lindsaylaw.ca",
+  "blurb": "Criminal Defence in North York. Rated 5.0 from 249 Google reviews.",
+  "type": "logo",
+  "about": "Peter Robert Lindsay Professional Corporation is a law firm in North York, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 249 public Google reviews. The office is at 233 Sheppard Ave W, North York, ON M2N 1N2, and you can call (416) 733-3313 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/peter-robert-lindsay-professional-corporation-north-york.png"
+ },
+ {
+  "name": "Motevalli Law Group",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Criminal Defence",
+   "Family Law",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "criminal",
+   "family",
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6540056,
+  "lng": -79.3759036,
+  "address": "151 Church St, Toronto, ON M5C 2Z3",
+  "phone": "+16476922805",
+  "rating": 4.9,
+  "count": 253,
+  "slug": "motevalli-law-group-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Motevalli+Law+Group+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=151+Church+St%2C+Toronto%2C+ON+M5C+2Z3",
+  "website": "https://motevallicriminallawyers.com",
+  "blurb": "Criminal Defence / Family Law in Toronto. Rated 4.9 from 253 Google reviews.",
+  "type": "logo",
+  "about": "Motevalli Law Group is a law firm in Toronto, Ontario that practises criminal defence, family law and civil litigation. Clients rate the firm 4.9 out of 5 from 253 public Google reviews. The office is at 151 Church St, Toronto, ON M5C 2Z3, and you can call (647) 692-2805 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Need a Criminal Lawyer in Toronto? Motevalli Criminal Lawyers deliver proven trial wins, and strategic negotiation. Book a consult!”",
+  "src": "images/logos/motevalli-law-group-toronto.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Infinity Law Firm",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.7135716,
+  "lng": -79.6577477,
+  "address": "2798 Thamesgate Dr #1, Mississauga, ON L4T 4E8",
+  "phone": "+14169395457",
+  "rating": 5,
+  "count": 239,
+  "slug": "infinity-law-firm-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Infinity+Law+Firm+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2798+Thamesgate+Dr+%231%2C+Mississauga%2C+ON+L4T+4E8",
+  "website": "https://www.infinitylawfirm.ca",
+  "blurb": "General practice law firm in Mississauga. Rated 5.0 from 239 Google reviews.",
+  "type": "logo",
+  "about": "Infinity Law Firm is a law firm in Mississauga, Ontario. Clients rate the firm 5.0 out of 5 from 239 public Google reviews. The office is at 2798 Thamesgate Dr #1, Mississauga, ON L4T 4E8, and you can call (416) 939-5457 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/infinity-law-firm-mississauga.jpg"
+ },
+ {
+  "name": "Azimi Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7683002,
+  "lng": -79.3783652,
+  "address": "685 Sheppard Ave E Unit 508, North York, ON M2K 1B6",
+  "phone": "+14169004128",
+  "rating": 4.9,
+  "count": 237,
+  "slug": "azimi-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Azimi+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=685+Sheppard+Ave+E+Unit+508%2C+North+York%2C+ON+M2K+1B6",
+  "website": "https://www.azimilaw.ca",
+  "blurb": "Personal Injury in North York. Rated 4.9 from 237 Google reviews.",
+  "type": "logo",
+  "about": "Azimi Law is a law firm in North York, Ontario that practises personal injury. Clients rate the firm 4.9 out of 5 from 237 public Google reviews. The office is at 685 Sheppard Ave E Unit 508, North York, ON M2K 1B6, and you can call (416) 900-4128 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Toronto personal injury & immigration litigation firm. Car accidents, LTD,refugee appeals. No win no fee for PI. Free consultation: 416-900-4128.”",
+  "src": "images/logos/azimi-law-north-york.png"
+ },
+ {
+  "name": "Anton M. Katz, Barrister and Solicitor",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Business Law"
+  ],
+  "caseTypes": [
+   "business"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7721085,
+  "lng": -79.4131541,
+  "address": "5255 Yonge St, North York, ON M2N 6P4",
+  "phone": "+14166065099",
+  "rating": 4.9,
+  "count": 227,
+  "slug": "anton-m-katz-barrister-and-solicitor-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Anton+M.+Katz%2C+Barrister+and+Solicitor+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5255+Yonge+St%2C+North+York%2C+ON+M2N+6P4",
+  "website": "https://amklaw.ca",
+  "blurb": "Business Law in North York. Rated 4.9 from 227 Google reviews.",
+  "type": "logo",
+  "about": "Anton M. Katz, Barrister and Solicitor is a law firm in North York, Ontario. Clients rate the firm 4.9 out of 5 from 227 public Google reviews. The office is at 5255 Yonge St, North York, ON M2N 6P4, and you can call (416) 606-5099 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Anton M. Katz is a business lawyer based in Toronto. Established in 2001, Anton has vast experience helping small business clients. Call 416-606-5099 today.”",
+  "src": "images/logos/anton-m-katz-barrister-and-solicitor-north-york.png"
+ },
+ {
+  "name": "LawStop Criminal Lawyers",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "Criminal Defence",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "criminal",
+   "litigation"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.6815918,
+  "lng": -79.8047579,
+  "address": "80 Pertosa Dr Unit 12, Brampton, ON L6X 5E9",
+  "phone": "+19054550073",
+  "rating": 4.9,
+  "count": 226,
+  "slug": "lawstop-criminal-lawyers-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/LawStop+Criminal+Lawyers+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=80+Pertosa+Dr+Unit+12%2C+Brampton%2C+ON+L6X+5E9",
+  "website": "https://lawstop.ca",
+  "blurb": "Criminal Defence / Civil Litigation in Brampton. Rated 4.9 from 226 Google reviews.",
+  "type": "logo",
+  "about": "LawStop Criminal Lawyers is a law firm in Brampton, Ontario that practises criminal defence and civil litigation. Clients rate the firm 4.9 out of 5 from 226 public Google reviews. The office is at 80 Pertosa Dr Unit 12, Brampton, ON L6X 5E9, and you can call (905) 455-0073 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Facing criminal charges is overwhelming. Let our experienced lawyers handle the fight, so you can focus on what matters. Schedule a free case review today.”",
+  "src": "images/logos/lawstop-criminal-lawyers-brampton.png",
+  "hours": {
+   "1": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "2": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "3": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "4": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "5": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "6": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "7": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Inna Kogan Law Office",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7076991,
+  "lng": -79.394878,
+  "address": "120 Eglinton Ave E #1101, Toronto, ON M4P 1E2",
+  "phone": "+14163222914",
+  "rating": 4.8,
+  "count": 214,
+  "slug": "inna-kogan-law-office-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Inna+Kogan+Law+Office+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=120+Eglinton+Ave+E+%231101%2C+Toronto%2C+ON+M4P+1E2",
+  "website": "https://www.innakogan.com",
+  "blurb": "Family Law in Toronto. Rated 4.8 from 214 Google reviews.",
+  "type": "logo",
+  "about": "Inna Kogan Law Office is a law firm in Toronto, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 214 public Google reviews. The office is at 120 Eglinton Ave E #1101, Toronto, ON M4P 1E2, and you can call (416) 322-2914 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Toronto immigration lawyer Inna Kogan (BA, LL.B., MBA): Express Entry, PR, work & study permits, sponsorship, and Federal Court appeals — Mandamus & judicial review. 5.0★ from 144 reviews. Book a consultation.”",
+  "src": "images/logos/inna-kogan-law-office-toronto.png"
+ },
+ {
+  "name": "Ang Law Professional Corporation",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7621855,
+  "lng": -79.3569401,
+  "address": "150 Duncan Mill Rd Unit 2, North York, ON M3B 3M4",
+  "phone": "+16475981998",
+  "rating": 5,
+  "count": 193,
+  "slug": "ang-law-professional-corporation-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Ang+Law+Professional+Corporation+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=150+Duncan+Mill+Rd+Unit+2%2C+North+York%2C+ON+M3B+3M4",
+  "website": "https://anglawpc.com",
+  "blurb": "Real Estate in North York. Rated 5.0 from 193 Google reviews.",
+  "type": "logo",
+  "about": "Ang Law Professional Corporation is a law firm in North York, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 193 public Google reviews. The office is at 150 Duncan Mill Rd Unit 2, North York, ON M3B 3M4, and you can call (647) 598-1998 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Ang Law PC is a North York law firm for real estate, family law, wills and estates, immigration and business law. Book a free 30-minute consultation.”",
+  "src": "images/logos/ang-law-professional-corporation-north-york.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "DNG Law",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.3794101,
+  "lng": -75.6399428,
+  "address": "2378 Holly Ln, Ottawa, ON K1V 7P2",
+  "phone": "+16135236277",
+  "rating": 5,
+  "count": 192,
+  "slug": "dng-law-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/DNG+Law+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2378+Holly+Ln%2C+Ottawa%2C+ON+K1V+7P2",
+  "website": "https://www.dnglaw.ca",
+  "blurb": "General practice law firm in Ottawa. Rated 5.0 from 192 Google reviews.",
+  "type": "logo",
+  "about": "DNG Law is a law firm in Ottawa, Ontario. Clients rate the firm 5.0 out of 5 from 192 public Google reviews. The office is at 2378 Holly Ln, Ottawa, ON K1V 7P2, and you can call (613) 523-6277 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/dng-law-ottawa.png"
+ },
+ {
+  "name": "Vilkhov Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6502777,
+  "lng": -79.3841614,
+  "address": "121 Richmond St W Suite 1100, Toronto, ON M5H 2K1",
+  "phone": "+16479775852",
+  "rating": 5,
+  "count": 185,
+  "slug": "vilkhov-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Vilkhov+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=121+Richmond+St+W+Suite+1100%2C+Toronto%2C+ON+M5H+2K1",
+  "website": "https://vilkhovlaw.ca",
+  "blurb": "General practice law firm in Toronto. Rated 5.0 from 185 Google reviews.",
+  "type": "logo",
+  "about": "Vilkhov Law Professional Corporation is a law firm in Toronto, Ontario. Clients rate the firm 5.0 out of 5 from 185 public Google reviews. The office is at 121 Richmond St W Suite 1100, Toronto, ON M5H 2K1, and you can call (647) 977-5852 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/vilkhov-law-professional-corporation-toronto.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Horra Family Law",
+  "city": "Markham",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8322889,
+  "lng": -79.3303489,
+  "address": "500 Hood Rd Ste 400, Markham, ON L3R 9Z3",
+  "phone": "+14168401475",
+  "rating": 4.8,
+  "count": 186,
+  "slug": "horra-family-law-markham",
+  "mapsUrl": "https://www.google.com/maps/search/Horra+Family+Law+Markham+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=500+Hood+Rd+Ste+400%2C+Markham%2C+ON+L3R+9Z3",
+  "website": "https://www.horrafamilylaw.com",
+  "blurb": "Family Law in Markham. Rated 4.8 from 186 Google reviews.",
+  "type": "logo",
+  "about": "Horra Family Law is a law firm in Markham, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 186 public Google reviews. The office is at 500 Hood Rd Ste 400, Markham, ON L3R 9Z3, and you can call (416) 840-1475 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Family law firm in Markham, Ontario, focused on dispute resolution. offering legal guidance in divorce, separation, child custody & access, support matters, adoption & more.”",
+  "src": "images/logos/horra-family-law-markham.png"
+ },
+ {
+  "name": "Titan Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6704825,
+  "lng": -79.387325,
+  "address": "2 Bloor St W Ste 762, Toronto, ON M4W 3E2",
+  "phone": "+16476179754",
+  "rating": 4.7,
+  "count": 186,
+  "slug": "titan-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Titan+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2+Bloor+St+W+Ste+762%2C+Toronto%2C+ON+M4W+3E2",
+  "website": "https://www.titanlaw.ca",
+  "blurb": "Immigration in Toronto. Rated 4.7 from 186 Google reviews.",
+  "type": "logo",
+  "about": "Titan Law is a law firm in Toronto, Ontario. Clients rate the firm 4.7 out of 5 from 186 public Google reviews. The office is at 2 Bloor St W Ste 762, Toronto, ON M4W 3E2, and you can call (647) 617-9754 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Titan Law offers services for Visitor Visas, Study Permits, Work Visas, Family Sponsorship, Business Immigration, Permanent Residency, & Refugee Claims.”",
+  "src": "images/logos/titan-law-toronto.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "KMH Lawyers",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.385959,
+  "lng": -75.679521,
+  "address": "2323 Riverside Dr. b0001, Ottawa, ON K1H 7X6",
+  "phone": "+16137333000",
+  "rating": 4.7,
+  "count": 182,
+  "slug": "kmh-lawyers-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/KMH+Lawyers+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2323+Riverside+Dr.+b0001%2C+Ottawa%2C+ON+K1H+7X6",
+  "website": "https://www.kmhlawyers.ca",
+  "blurb": "Family Law / Real Estate in Ottawa. Rated 4.7 from 182 Google reviews.",
+  "type": "logo",
+  "about": "KMH Lawyers is a law firm in Ottawa, Ontario. Clients rate the firm 4.7 out of 5 from 182 public Google reviews. The office is at 2323 Riverside Dr. b0001, Ottawa, ON K1H 7X6, and you can call (613) 733-3000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “KMH Lawyers are a leading Ottawa law firm with a focus in real estate, commercial law, family law, will & estate planning, and civil & estate litigation.”",
+  "src": "images/logos/kmh-lawyers-ottawa.png"
+ },
+ {
+  "name": "Kalfa Law",
+  "city": "Markham",
+  "featured": false,
+  "tags": [
+   "Business Law"
+  ],
+  "caseTypes": [
+   "business"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8477676,
+  "lng": -79.3246478,
+  "address": "10 Aviva Way #200, Markham, ON L6G 0G1",
+  "phone": "+14166317227",
+  "rating": 4.9,
+  "count": 170,
+  "slug": "kalfa-law-markham",
+  "mapsUrl": "https://www.google.com/maps/search/Kalfa+Law+Markham+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10+Aviva+Way+%23200%2C+Markham%2C+ON+L6G+0G1",
+  "website": "https://www.kalfalaw.com",
+  "blurb": "Business Law in Markham. Rated 4.9 from 170 Google reviews.",
+  "type": "logo",
+  "about": "Kalfa Law is a law firm in Markham, Ontario. Clients rate the firm 4.9 out of 5 from 170 public Google reviews. The office is at 10 Aviva Way #200, Markham, ON L6G 0G1, and you can call (416) 631-7227 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Toronto's boutique corporate-commercial and private M&A firm. Bay Street expertise, transparent pricing, deep tax knowledge. Free consultation.”",
+  "src": "images/logos/kalfa-law-markham.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Angeles & De Jesus Law LLP",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "criminal"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7079739,
+  "lng": -79.3936422,
+  "address": "160 Eglinton Ave E Ste 406, Toronto, ON M4P 3B5",
+  "phone": "+14164095991",
+  "rating": 4.9,
+  "count": 168,
+  "slug": "angeles-and-de-jesus-law-llp-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Angeles+%26+De+Jesus+Law+LLP+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=160+Eglinton+Ave+E+Ste+406%2C+Toronto%2C+ON+M4P+3B5",
+  "website": "https://ajlawpartners.ca",
+  "blurb": "Family Law / Immigration in Toronto. Rated 4.9 from 168 Google reviews.",
+  "type": "logo",
+  "about": "Angeles & De Jesus Law LLP is a law firm in Toronto, Ontario. Clients rate the firm 4.9 out of 5 from 168 public Google reviews. The office is at 160 Eglinton Ave E Ste 406, Toronto, ON M4P 3B5, and you can call (416) 409-5991 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Filipino Lawyer Toronto - Angeles & De Jesus Law LLP. Immigration Law, Family Law, Criminal Law, Paralegal Services, Estate Lawyer & Wills, Civil Litigation”",
+  "src": "images/logos/angeles-and-de-jesus-law-llp-toronto.jpg",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "10:00",
+     "14:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Legal Solutions Law Firm",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7887857,
+  "lng": -79.2357006,
+  "address": "10 Milner Business Ct #300, Scarborough, ON M1B 3C6",
+  "phone": "+14162742222",
+  "rating": 4.7,
+  "count": 175,
+  "slug": "legal-solutions-law-firm-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Legal+Solutions+Law+Firm+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10+Milner+Business+Ct+%23300%2C+Scarborough%2C+ON+M1B+3C6",
+  "website": "https://legalsolutionslawfirm.ca",
+  "blurb": "Family Law in Toronto. Rated 4.7 from 175 Google reviews.",
+  "type": "logo",
+  "about": "Legal Solutions Law Firm is a law firm in Toronto, Ontario that practises family law. Clients rate the firm 4.7 out of 5 from 175 public Google reviews. The office is at 10 Milner Business Ct #300, Scarborough, ON M1B 3C6, and you can call (416) 274-2222 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Toronto lawyers with 15+ years at the Ontario Bar — criminal, family, traffic, small claims & civil litigation across the GTA. Free consultation: 416-274-2222.”",
+  "src": "images/logos/legal-solutions-law-firm-toronto.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Tailor Law Professional Corporation",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5923146,
+  "lng": -79.6381925,
+  "address": "77 City Centre Dr, Mississauga, ON L5B 1M5",
+  "phone": "+19053660202",
+  "rating": 4.6,
+  "count": 176,
+  "slug": "tailor-law-professional-corporation-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Tailor+Law+Professional+Corporation+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=77+City+Centre+Dr%2C+Mississauga%2C+ON+L5B+1M5",
+  "website": "https://tailorlaw.com",
+  "blurb": "Family Law in Mississauga. Rated 4.6 from 176 Google reviews.",
+  "type": "logo",
+  "about": "Tailor Law Professional Corporation is a law firm in Mississauga, Ontario that practises family law. Clients rate the firm 4.6 out of 5 from 176 public Google reviews. The office is at 77 City Centre Dr, Mississauga, ON L5B 1M5, and you can call (905) 366-0202 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Tailor Law Professional Corporation: Ontario family lawyers in Toronto & Mississauga for divorce, custody, support and property. Free 30-minute consultation.”",
+  "src": "images/logos/tailor-law-professional-corporation-mississauga.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Lee and Company",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7603396,
+  "lng": -79.4101047,
+  "address": "4773 Yonge St #3F, North York, ON M2N 0G2",
+  "phone": "+14163210100",
+  "rating": 4.8,
+  "count": 162,
+  "slug": "lee-and-company-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Lee+and+Company+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4773+Yonge+St+%233F%2C+North+York%2C+ON+M2N+0G2",
+  "website": "https://www.leecompany.ca",
+  "blurb": "Immigration in North York. Rated 4.8 from 162 Google reviews.",
+  "type": "logo",
+  "about": "Lee and Company is a law firm in North York, Ontario that practises immigration. Clients rate the firm 4.8 out of 5 from 162 public Google reviews. The office is at 4773 Yonge St #3F, North York, ON M2N 0G2, and you can call (416) 321-0100 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Lee & Company is a boutique Canadian immigration law firm, focused on immigration litigation and appeals. For well over a decade we have helped immigrants from all over the world resolve their Canadian immigration problems.”",
+  "src": "images/logos/lee-and-company-north-york.jpg"
+ },
+ {
+  "name": "Moyal Immigration Lawyers",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7807816,
+  "lng": -79.4175069,
+  "address": "7 Hendon Ave, North York, ON M2M 4G8",
+  "phone": "+14167333193",
+  "rating": 4.9,
+  "count": 154,
+  "slug": "moyal-immigration-lawyers-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Moyal+Immigration+Lawyers+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=7+Hendon+Ave%2C+North+York%2C+ON+M2M+4G8",
+  "website": "https://moyal.com",
+  "blurb": "Immigration in North York. Rated 4.9 from 154 Google reviews.",
+  "type": "logo",
+  "about": "Moyal Immigration Lawyers is a law firm in North York, Ontario that practises immigration. Clients rate the firm 4.9 out of 5 from 154 public Google reviews. The office is at 7 Hendon Ave, North York, ON M2M 4G8, and you can call (416) 733-3193 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Law Offices of Moyal & Moyal is one of the most popular & successful immigration law firms in Canada & abroad which offers overseas Canadian immigration services.”",
+  "src": "images/logos/moyal-immigration-lawyers-north-york.png"
+ },
+ {
+  "name": "Art of Law Professional Corporation",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7595989,
+  "lng": -79.4100391,
+  "address": "Procter and Gamble, Yonge and Sheppard, 4711 Yonge St 10th Floor, North York, ON M2N 7E4",
+  "phone": "+14168802400",
+  "rating": 5,
+  "count": 150,
+  "slug": "art-of-law-professional-corporation-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Art+of+Law+Professional+Corporation+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=Procter+and+Gamble%2C+Yonge+and+Sheppard%2C+4711+Yonge+St+10th+Floor%2C+North+York%2C+ON+M2N+7E4",
+  "website": "https://artoflaw.ca",
+  "blurb": "Real Estate in North York. Rated 5.0 from 150 Google reviews.",
+  "type": "logo",
+  "about": "Art of Law Professional Corporation is a law firm in North York, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 150 public Google reviews. The office is at Procter and Gamble, Yonge and Sheppard, 4711 Yonge St 10th Floor, North York, ON M2N 7E4, and you can call (416) 880-2400 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/art-of-law-professional-corporation-north-york.png"
+ },
+ {
+  "name": "Visa Law Group PC",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.766264,
+  "lng": -79.412998,
+  "address": "5000 Yonge St Ste 1901, North York, ON M2N 7E9",
+  "phone": "+12897244150",
+  "rating": 4.9,
+  "count": 153,
+  "slug": "visa-law-group-pc-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Visa+Law+Group+PC+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5000+Yonge+St+Ste+1901%2C+North+York%2C+ON+M2N+7E9",
+  "website": "https://www.myvisa.law",
+  "blurb": "Immigration in North York. Rated 4.9 from 153 Google reviews.",
+  "type": "logo",
+  "about": "Visa Law Group PC is a law firm in North York, Ontario that practises immigration. Clients rate the firm 4.9 out of 5 from 153 public Google reviews. The office is at 5000 Yonge St Ste 1901, North York, ON M2N 7E9, and you can call (289) 724-4150 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/visa-law-group-pc-north-york.jpg"
+ },
+ {
+  "name": "Bally Hundal",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.7238783,
+  "lng": -79.7173326,
+  "address": "104, 490 Bramalea Rd, Brampton, ON L6T 0G1",
+  "phone": "+14168880592",
+  "rating": 4.9,
+  "count": 152,
+  "slug": "bally-hundal-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Bally+Hundal+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=104%2C+490+Bramalea+Rd%2C+Brampton%2C+ON+L6T+0G1",
+  "website": "https://www.hundallawfirm.com",
+  "blurb": "Criminal Defence in Brampton. Rated 4.9 from 152 Google reviews.",
+  "type": "logo",
+  "about": "Bally Hundal is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 152 public Google reviews. The office is at 104, 490 Bramalea Rd, Brampton, ON L6T 0G1, and you can call (416) 888-0592 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Need a criminal defence lawyer in Brampton? Bally Hundal brings 24+ years of experience defending clients against criminal charges, including bail, assault, drugs and fraud.”",
+  "src": "images/logos/bally-hundal-brampton.png"
+ },
+ {
+  "name": "Ghasemi Law Professional Corporation",
+  "city": "Richmond Hill",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8499551,
+  "lng": -79.3843825,
+  "address": "9030 Leslie St #309, Richmond Hill, ON L4B 1G2",
+  "phone": "+14168879200",
+  "rating": 5,
+  "count": 145,
+  "slug": "ghasemi-law-professional-corporation-richmond-hill",
+  "mapsUrl": "https://www.google.com/maps/search/Ghasemi+Law+Professional+Corporation+Richmond+Hill+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=9030+Leslie+St+%23309%2C+Richmond+Hill%2C+ON+L4B+1G2",
+  "website": "https://www.ghasemilaw.com",
+  "blurb": "Immigration in Richmond Hill. Rated 5.0 from 145 Google reviews.",
+  "type": "logo",
+  "about": "Ghasemi Law Professional Corporation is a law firm in Richmond Hill, Ontario that practises immigration. Clients rate the firm 5.0 out of 5 from 145 public Google reviews. The office is at 9030 Leslie St #309, Richmond Hill, ON L4B 1G2, and you can call (416) 887-9200 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ghasemi-law-professional-corporation-richmond-hill.webp"
+ },
+ {
+  "name": "Mirian Law Firm",
+  "city": "Markham",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.803492,
+  "lng": -79.4209027,
+  "address": "7191 Yonge St Unit 709, Thornhill, ON L3T 0C4",
+  "phone": "+16479305112",
+  "rating": 4.8,
+  "count": 150,
+  "slug": "mirian-law-firm-markham",
+  "mapsUrl": "https://www.google.com/maps/search/Mirian+Law+Firm+Markham+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=7191+Yonge+St+Unit+709%2C+Thornhill%2C+ON+L3T+0C4",
+  "website": "https://mirianlaw.com",
+  "blurb": "Personal Injury in Markham. Rated 4.8 from 150 Google reviews.",
+  "type": "logo",
+  "about": "Mirian Law Firm is a law firm in Markham, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 150 public Google reviews. The office is at 7191 Yonge St Unit 709, Thornhill, ON L3T 0C4, and you can call (647) 930-5112 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our Toronto personal injury lawyers fight for the compensation you deserve. No fee unless we win. Free case review. Get expert legal support today.”",
+  "src": "images/logos/mirian-law-firm-markham.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Minken Employment Lawyers",
+  "city": "Markham",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8663051,
+  "lng": -79.3104433,
+  "address": "145 Main St Unionville, Unionville, ON L3R 2G7",
+  "phone": "+19054777011",
+  "rating": 4.6,
+  "count": 152,
+  "slug": "minken-employment-lawyers-markham",
+  "mapsUrl": "https://www.google.com/maps/search/Minken+Employment+Lawyers+Markham+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=145+Main+St+Unionville%2C+Unionville%2C+ON+L3R+2G7",
+  "website": "https://www.minkenemploymentlawyers.com",
+  "blurb": "Employment Law in Markham. Rated 4.6 from 152 Google reviews.",
+  "type": "logo",
+  "about": "Minken Employment Lawyers is a law firm in Markham, Ontario that practises employment law. Clients rate the firm 4.6 out of 5 from 152 public Google reviews. The office is at 145 Main St Unionville, Unionville, ON L3R 2G7, and you can call (905) 477-7011 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Minken Employment Lawyers is a law firm that provides expert legal services to Markham, York, Richmond Hill, the GTA on contracts and wrongful dismissal.”",
+  "src": "images/logos/minken-employment-lawyers-markham.png"
+ },
+ {
+  "name": "Smitiuch Injury Law",
+  "city": "Etobicoke",
+  "featured": false,
+  "tags": [
+   "Personal Injury",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "injury",
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6454726,
+  "lng": -79.5221911,
+  "address": "Centre, 3280 Bloor St W Tower, Suite 800, Etobicoke, ON M8X 2X3",
+  "phone": "+14166211551",
+  "rating": 4.9,
+  "count": 135,
+  "slug": "smitiuch-injury-law-etobicoke",
+  "mapsUrl": "https://www.google.com/maps/search/Smitiuch+Injury+Law+Etobicoke+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=Centre%2C+3280+Bloor+St+W+Tower%2C+Suite+800%2C+Etobicoke%2C+ON+M8X+2X3",
+  "website": "https://www.sil.lawyer",
+  "blurb": "Personal Injury / Civil Litigation in Etobicoke. Rated 4.9 from 135 Google reviews.",
+  "type": "logo",
+  "about": "Smitiuch Injury Law is a law firm in Etobicoke, Ontario that practises personal injury and civil litigation. Clients rate the firm 4.9 out of 5 from 135 public Google reviews. The office is at Centre, 3280 Bloor St W Tower, Suite 800, Etobicoke, ON M8X 2X3, and you can call (416) 621-1551 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Hurt in an accident in the GTA? Get the money you deserve. Contact Smitiuch Injury Law and talk to a Toronto lawyer about your injury claim or lawsuit.”",
+  "src": "images/logos/smitiuch-injury-law-etobicoke.webp"
+ },
+ {
+  "name": "Omar Hasan Al Zahid",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7098243,
+  "lng": -79.2481696,
+  "address": "2481 Kingston Rd Suite 201, Scarborough, ON M1N 1V4",
+  "phone": "+16473417877",
+  "rating": 4.9,
+  "count": 131,
+  "slug": "omar-hasan-al-zahid-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Omar+Hasan+Al+Zahid+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2481+Kingston+Rd+Suite+201%2C+Scarborough%2C+ON+M1N+1V4",
+  "website": "https://www.ozahidlaw.ca",
+  "blurb": "Real Estate in Toronto. Rated 4.9 from 131 Google reviews.",
+  "type": "logo",
+  "about": "Omar Hasan Al Zahid is a law firm in Toronto, Ontario that practises real estate. Clients rate the firm 4.9 out of 5 from 131 public Google reviews. The office is at 2481 Kingston Rd Suite 201, Scarborough, ON M1N 1V4, and you can call (647) 341-7877 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/omar-hasan-al-zahid-toronto.webp"
+ },
+ {
+  "name": "Bromwich+Smith",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7770317,
+  "lng": -79.2522848,
+  "address": "100 Consilium Pl Ste 315, Scarborough, ON M1H 3E3",
+  "phone": "+18558849243",
+  "rating": 4.9,
+  "count": 127,
+  "slug": "bromwich-smith-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Bromwich%2BSmith+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=100+Consilium+Pl+Ste+315%2C+Scarborough%2C+ON+M1H+3E3",
+  "website": "https://www.bromwichandsmith.com",
+  "blurb": "General practice law firm in Toronto. Rated 4.9 from 127 Google reviews.",
+  "type": "logo",
+  "about": "Bromwich+Smith is a law firm in Toronto, Ontario. Clients rate the firm 4.9 out of 5 from 127 public Google reviews. The office is at 100 Consilium Pl Ste 315, Scarborough, ON M1H 3E3, and you can call (855) 884-9243 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Connect with a Bromwich+Smith Licensed Insolvency Trustee in Canada. Find relief from debt and start rebuilding. Book a free consultation today.”",
+  "src": "images/logos/bromwich-smith-toronto.webp"
+ },
+ {
+  "name": "Beckett Personal Injury Lawyers",
+  "city": "London",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "southwestern",
+  "province": "ON",
+  "lat": 42.9916841,
+  "lng": -81.2508494,
+  "address": "630 Richmond St, London, ON N6A 3G6",
+  "phone": "+18666744994",
+  "rating": 4.8,
+  "count": 123,
+  "slug": "beckett-personal-injury-lawyers-london",
+  "mapsUrl": "https://www.google.com/maps/search/Beckett+Personal+Injury+Lawyers+London+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=630+Richmond+St%2C+London%2C+ON+N6A+3G6",
+  "website": "https://www.beckettinjurylawyers.com",
+  "blurb": "Personal Injury in London. Rated 4.8 from 123 Google reviews.",
+  "type": "logo",
+  "about": "Beckett Personal Injury Lawyers is a law firm in London, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 123 public Google reviews. The office is at 630 Richmond St, London, ON N6A 3G6, and you can call (866) 674-4994 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Beckett Personal Injury Lawyers in London Ontario provides professional legal services for survivors of sexual assault, injury, or motor vehicle accidents.”",
+  "src": "images/logos/beckett-personal-injury-lawyers-london.png"
+ },
+ {
+  "name": "Top Law Firm",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.771229,
+  "lng": -79.3237147,
+  "address": "4950 Yonge Street #2200, North York, ON M2J 4Z2",
+  "phone": "+14162254945",
+  "rating": 4.9,
+  "count": 120,
+  "slug": "top-law-firm-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Top+Law+Firm+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4950+Yonge+Street+%232200%2C+North+York%2C+ON+M2J+4Z2",
+  "website": "https://toplawfirm.ca",
+  "blurb": "General practice law firm in North York. Rated 4.9 from 120 Google reviews.",
+  "type": "logo",
+  "about": "Top Law Firm is a law firm in North York, Ontario. Clients rate the firm 4.9 out of 5 from 120 public Google reviews. The office is at 4950 Yonge Street #2200, North York, ON M2J 4Z2, and you can call (416) 225-4945 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/top-law-firm-north-york.png"
+ },
+ {
+  "name": "Gagan Law PC",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5829291,
+  "lng": -79.7144693,
+  "address": "8 Water St, Mississauga, ON L5M 1T9",
+  "phone": "+19059971666",
+  "rating": 4.8,
+  "count": 121,
+  "slug": "gagan-law-pc-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Gagan+Law+PC+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8+Water+St%2C+Mississauga%2C+ON+L5M+1T9",
+  "website": "https://gaganlaw.com",
+  "blurb": "Real Estate in Mississauga. Rated 4.8 from 121 Google reviews.",
+  "type": "logo",
+  "about": "Gagan Law PC is a law firm in Mississauga, Ontario that practises real estate. Clients rate the firm 4.8 out of 5 from 121 public Google reviews. The office is at 8 Water St, Mississauga, ON L5M 1T9, and you can call (905) 997-1666 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Gagan Law PC offers trusted legal services in Mississauga & Brampton. Our dedicated team provides sharp & smart solutions in Wills & Estate, Business Law, Real Estate, and Immigration Law.”",
+  "src": "images/logos/gagan-law-pc-mississauga.png"
+ },
+ {
+  "name": "Sarao Law Pro. Corp.",
+  "city": "Etobicoke",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7361458,
+  "lng": -79.6020794,
+  "address": "130 Westmore Dr Suite# 5, Etobicoke, ON M9V 5E2",
+  "phone": "+14164754002",
+  "rating": 4.8,
+  "count": 121,
+  "slug": "sarao-law-pro-corp-etobicoke",
+  "mapsUrl": "https://www.google.com/maps/search/Sarao+Law+Pro.+Corp.+Etobicoke+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=130+Westmore+Dr+Suite%23+5%2C+Etobicoke%2C+ON+M9V+5E2",
+  "website": "https://www.saraolaw.ca",
+  "blurb": "Real Estate / Wills & Estates in Etobicoke. Rated 4.8 from 121 Google reviews.",
+  "type": "logo",
+  "about": "Sarao Law Pro. Corp. is a law firm in Etobicoke, Ontario that practises real estate and wills and estates. Clients rate the firm 4.8 out of 5 from 121 public Google reviews. The office is at 130 Westmore Dr Suite# 5, Etobicoke, ON M9V 5E2, and you can call (416) 475-4002 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Saraolaw Real Estate Lawyer in Toronto, Sarao Law Professional Corporation provides superior service to homeowners.”",
+  "src": "images/logos/sarao-law-pro-corp-etobicoke.webp"
+ },
+ {
+  "name": "Landings LLP",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.65048,
+  "lng": -79.3773704,
+  "address": "25 Adelaide St E Ste 1414, Toronto, ON M5C 3A1",
+  "phone": "+14163631696",
+  "rating": 5,
+  "count": 116,
+  "slug": "landings-llp-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Landings+LLP+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=25+Adelaide+St+E+Ste+1414%2C+Toronto%2C+ON+M5C+3A1",
+  "website": "https://landingslaw.com",
+  "blurb": "Immigration in Toronto. Rated 5.0 from 116 Google reviews.",
+  "type": "logo",
+  "about": "Landings LLP is a law firm in Toronto, Ontario that practises immigration. Clients rate the firm 5.0 out of 5 from 116 public Google reviews. The office is at 25 Adelaide St E Ste 1414, Toronto, ON M5C 3A1, and you can call (416) 363-1696 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Toronto based refugee lawyers and immigration lawyers specializing in judicial reviews, appeals, complex litigation, sponsorships and visas”",
+  "src": "images/logos/landings-llp-toronto.png"
+ },
+ {
+  "name": "Posner Craig Stein LLP",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6679358,
+  "lng": -79.3691456,
+  "address": "603 1/2 Parliament St, Toronto, ON M4X 1P9",
+  "phone": "+14163912118",
+  "rating": 4.9,
+  "count": 118,
+  "slug": "posner-craig-stein-llp-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Posner+Craig+Stein+LLP+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=603+1%2F2+Parliament+St%2C+Toronto%2C+ON+M4X+1P9",
+  "website": "https://pcslaw.ca",
+  "blurb": "Criminal Defence in Toronto. Rated 4.9 from 118 Google reviews.",
+  "type": "logo",
+  "about": "Posner Craig Stein LLP is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 4.9 out of 5 from 118 public Google reviews. The office is at 603 1/2 Parliament St, Toronto, ON M4X 1P9, and you can call (416) 391-2118 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “We are a Toronto criminal law firm representing clients in serious criminal charges, including homicide, sexual assault, DUI, assault, fraud, and drug charges.”",
+  "src": "images/logos/posner-craig-stein-llp-toronto.png"
+ },
+ {
+  "name": "Grechi Carter Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7065792,
+  "lng": -79.3978503,
+  "address": "1 Eglinton Ave E #803, Toronto, ON M4P 3A1",
+  "phone": "+14169003865",
+  "rating": 4.6,
+  "count": 119,
+  "slug": "grechi-carter-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Grechi+Carter+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1+Eglinton+Ave+E+%23803%2C+Toronto%2C+ON+M4P+3A1",
+  "website": "https://gclaw.ca",
+  "blurb": "Real Estate in Toronto. Rated 4.6 from 119 Google reviews.",
+  "type": "logo",
+  "about": "Grechi Carter Professional Corporation is a law firm in Toronto, Ontario that practises real estate. Clients rate the firm 4.6 out of 5 from 119 public Google reviews. The office is at 1 Eglinton Ave E #803, Toronto, ON M4P 3A1, and you can call (416) 900-3865 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “At Grechi Carter, our focus is on providing you peace of mind and the comfort of knowing that your problems are in the hands of legal professionals who care about you and your concerns.”",
+  "src": "images/logos/grechi-carter-professional-corporation-toronto.png"
+ },
+ {
+  "name": "Borders Law Firm",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.708949,
+  "lng": -79.3981182,
+  "address": "2345 Yonge St #910, Toronto, ON M4P 1T7",
+  "phone": "+14164815689",
+  "rating": 4.7,
+  "count": 116,
+  "slug": "borders-law-firm-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Borders+Law+Firm+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2345+Yonge+St+%23910%2C+Toronto%2C+ON+M4P+1T7",
+  "website": "https://www.borderslawfirm.com",
+  "blurb": "Immigration in Toronto. Rated 4.7 from 116 Google reviews.",
+  "type": "logo",
+  "about": "Borders Law Firm is a law firm in Toronto, Ontario that practises immigration. Clients rate the firm 4.7 out of 5 from 116 public Google reviews. The office is at 2345 Yonge St #910, Toronto, ON M4P 1T7, and you can call (416) 481-5689 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/borders-law-firm-toronto.png"
+ },
+ {
+  "name": "Arrow Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7596707,
+  "lng": -79.4099442,
+  "address": "4711 Yonge St 10th Floor, North York, ON M2N 7E4",
+  "phone": "+16475350914",
+  "rating": 5,
+  "count": 108,
+  "slug": "arrow-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Arrow+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4711+Yonge+St+10th+Floor%2C+North+York%2C+ON+M2N+7E4",
+  "website": "https://www.arrowlaw.ca",
+  "blurb": "Family Law / Immigration in North York. Rated 5.0 from 108 Google reviews.",
+  "type": "logo",
+  "about": "Arrow Law is a law firm in North York, Ontario. Clients rate the firm 5.0 out of 5 from 108 public Google reviews. The office is at 4711 Yonge St 10th Floor, North York, ON M2N 7E4, and you can call (647) 535-0914 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “We are experienced lawyers who practice immigration, real estate, wills & estates and family law, serving clients in Toronto and Durham.”",
+  "src": "images/logos/arrow-law-north-york.png"
+ },
+ {
+  "name": "Stacey R. Ball",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6720652,
+  "lng": -79.3914511,
+  "address": "82 Scollard St, Toronto, ON M5R 1G2",
+  "phone": "+14169217997",
+  "rating": 4.9,
+  "count": 110,
+  "slug": "stacey-r-ball-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Stacey+R.+Ball+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=82+Scollard+St%2C+Toronto%2C+ON+M5R+1G2",
+  "website": "https://www.wrongfuldismissal.ca",
+  "blurb": "Employment Law in Toronto. Rated 4.9 from 110 Google reviews.",
+  "type": "logo",
+  "about": "Stacey R. Ball is a law firm in Toronto, Ontario. Clients rate the firm 4.9 out of 5 from 110 public Google reviews. The office is at 82 Scollard St, Toronto, ON M5R 1G2, and you can call (416) 921-7997 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Employment lawyer in Toronto you can trust. Extensive experience in all types of labour and employment law related matters. Call us now at 416-921-7997”",
+  "src": "images/logos/stacey-r-ball-toronto.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Imtiaz Ahmad Law Office",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6811257,
+  "lng": -79.3346725,
+  "address": "1100 Danforth Ave, Toronto, ON M4J 1M3",
+  "phone": "+14164614747",
+  "rating": 4.9,
+  "count": 110,
+  "slug": "imtiaz-ahmad-law-office-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Imtiaz+Ahmad+Law+Office+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1100+Danforth+Ave%2C+Toronto%2C+ON+M4J+1M3",
+  "website": "https://www.ialaw.ca",
+  "blurb": "Family Law in Toronto. Rated 4.9 from 110 Google reviews.",
+  "type": "logo",
+  "about": "Imtiaz Ahmad Law Office is a law firm in Toronto, Ontario that practises family law. Clients rate the firm 4.9 out of 5 from 110 public Google reviews. The office is at 1100 Danforth Ave, Toronto, ON M4J 1M3, and you can call (416) 461-4747 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/imtiaz-ahmad-law-office-toronto.jpg"
+ },
+ {
+  "name": "Surya Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7266907,
+  "lng": -79.2314918,
+  "address": "3090 Kingston Rd Unit 202, Scarborough, ON M1M 1P2",
+  "phone": "+19052150793",
+  "rating": 5,
+  "count": 107,
+  "slug": "surya-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Surya+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3090+Kingston+Rd+Unit+202%2C+Scarborough%2C+ON+M1M+1P2",
+  "website": "https://suryalaw.ca",
+  "blurb": "Real Estate in Toronto. Rated 5.0 from 107 Google reviews.",
+  "type": "logo",
+  "about": "Surya Law is a law firm in Toronto, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 107 public Google reviews. The office is at 3090 Kingston Rd Unit 202, Scarborough, ON M1M 1P2, and you can call (905) 215-0793 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Looking for a Real Estate lawyer, Immigration lawyer or family law lawyer in Scarborough, Brampton or GTA Canada? Surya Chakrabarti, an experienced family law lawyer, real estate lawyer and immigration lawyer in Scarborough, Canada, can help you to protect your legal rights. Visit our website to...”",
+  "src": "images/logos/surya-law-toronto.webp"
+ },
+ {
+  "name": "Lawpoint",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.776033,
+  "lng": -79.4141726,
+  "address": "5409 Yonge St #205, North York, ON M2N 5R6",
+  "phone": "+14162736646",
+  "rating": 4.9,
+  "count": 109,
+  "slug": "lawpoint-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Lawpoint+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5409+Yonge+St+%23205%2C+North+York%2C+ON+M2N+5R6",
+  "website": "https://lawpoint.ca",
+  "blurb": "Immigration in North York. Rated 4.9 from 109 Google reviews.",
+  "type": "logo",
+  "about": "Lawpoint is a law firm in North York, Ontario. Clients rate the firm 4.9 out of 5 from 109 public Google reviews. The office is at 5409 Yonge St #205, North York, ON M2N 5R6, and you can call (416) 273-6646 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Canadian immigration law firm serving clients worldwide: visa refusals, Federal Court reviews, inadmissibility, PR, work permits, sponsorships, and consultations.”",
+  "src": "images/logos/lawpoint-north-york.png"
+ },
+ {
+  "name": "Accord Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.784991,
+  "lng": -79.255334,
+  "address": "1457 McCowan Rd Ste 209, Scarborough, ON M1S 5K7",
+  "phone": "+14162888000",
+  "rating": 5,
+  "count": 106,
+  "slug": "accord-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Accord+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1457+McCowan+Rd+Ste+209%2C+Scarborough%2C+ON+M1S+5K7",
+  "website": "https://www.accordlaw.ca",
+  "blurb": "Real Estate / Wills & Estates in Toronto. Rated 5.0 from 106 Google reviews.",
+  "type": "logo",
+  "about": "Accord Law Professional Corporation is a law firm in Toronto, Ontario that practises real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 106 public Google reviews. The office is at 1457 McCowan Rd Ste 209, Scarborough, ON M1S 5K7, and you can call (416) 288-8000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/accord-law-professional-corporation-toronto.png"
+ },
+ {
+  "name": "NAV LAW FIRM",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "realestate"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.417836,
+  "lng": -75.690774,
+  "address": "185 Somerset St W Ste 202, Ottawa, ON K2P 1L9",
+  "phone": "+16138903183",
+  "rating": 4.9,
+  "count": 108,
+  "slug": "nav-law-firm-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/NAV+LAW+FIRM+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=185+Somerset+St+W+Ste+202%2C+Ottawa%2C+ON+K2P+1L9",
+  "website": "https://www.navlaw.ca",
+  "blurb": "Family Law / Immigration in Ottawa. Rated 4.9 from 108 Google reviews.",
+  "type": "logo",
+  "about": "NAV LAW FIRM is a law firm in Ottawa, Ontario. Clients rate the firm 4.9 out of 5 from 108 public Google reviews. The office is at 185 Somerset St W Ste 202, Ottawa, ON K2P 1L9, and you can call (613) 890-3183 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Nav Law Firm, giving your more than law. Delivering legal services at the highest level, on a personal basis, and with full understanding and commitment. Immigration, Family Law, Wills and Estates, Real Estates and Mortgage. Call Nav Law Firm today and get your case resolved. (613) 890 3183”",
+  "src": "images/logos/nav-law-firm-ottawa.png"
+ },
+ {
+  "name": "Deol & Nagpal Law Firm LLP",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.7479403,
+  "lng": -79.6990205,
+  "address": "80 Maritime Ontario Blvd, Brampton, ON L6S 0E7",
+  "phone": "+19057960911",
+  "rating": 4.6,
+  "count": 114,
+  "slug": "deol-and-nagpal-law-firm-llp-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Deol+%26+Nagpal+Law+Firm+LLP+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=80+Maritime+Ontario+Blvd%2C+Brampton%2C+ON+L6S+0E7",
+  "website": "https://www.dnlawfirm.ca",
+  "blurb": "General practice law firm in Brampton. Rated 4.6 from 114 Google reviews.",
+  "type": "logo",
+  "about": "Deol & Nagpal Law Firm LLP is a law firm in Brampton, Ontario. Clients rate the firm 4.6 out of 5 from 114 public Google reviews. The office is at 80 Maritime Ontario Blvd, Brampton, ON L6S 0E7, and you can call (905) 796-0911 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/deol-and-nagpal-law-firm-llp-brampton.png"
+ },
+ {
+  "name": "East Law",
+  "city": "Hamilton",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.2549489,
+  "lng": -79.8692775,
+  "address": "8 Main St E Ste 201, Hamilton, ON L8N 1E8",
+  "phone": "+18887197687",
+  "rating": 4.8,
+  "count": 109,
+  "slug": "east-law-hamilton",
+  "mapsUrl": "https://www.google.com/maps/search/East+Law+Hamilton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8+Main+St+E+Ste+201%2C+Hamilton%2C+ON+L8N+1E8",
+  "website": "https://www.eastlaw.ca",
+  "blurb": "Criminal Defence in Hamilton. Rated 4.8 from 109 Google reviews.",
+  "type": "logo",
+  "about": "East Law is a law firm in Hamilton, Ontario. Clients rate the firm 4.8 out of 5 from 109 public Google reviews. The office is at 8 Main St E Ste 201, Hamilton, ON L8N 1E8, and you can call (888) 719-7687 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “East Law Criminal Lawyer has earned a reputation as professional, highly competent, and effective. If you have been charged with a criminal offence, East Law will advance the best possible defence to protect your rights.”",
+  "src": "images/logos/east-law-hamilton.png"
+ },
+ {
+  "name": "​Victoria Xu Law Office",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7881972,
+  "lng": -79.2681072,
+  "address": "4438 Sheppard Ave E Unit 371,373,375, Scarborough, ON M1S 5V9",
+  "phone": "+16477485388",
+  "rating": 4.6,
+  "count": 111,
+  "slug": "victoria-xu-law-office-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/%E2%80%8BVictoria+Xu+Law+Office+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4438+Sheppard+Ave+E+Unit+371%2C373%2C375%2C+Scarborough%2C+ON+M1S+5V9",
+  "website": "https://www.victoriaxulaw.com",
+  "blurb": "Family Law in Toronto. Rated 4.6 from 111 Google reviews.",
+  "type": "logo",
+  "about": "​Victoria Xu Law Office is a law firm in Toronto, Ontario that practises family law. Clients rate the firm 4.6 out of 5 from 111 public Google reviews. The office is at 4438 Sheppard Ave E Unit 371,373,375, Scarborough, ON M1S 5V9, and you can call (647) 748-5388 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our team has experience handling family, immigration, and real estate cases in the GTA. We provide effective & accesible legal services.”",
+  "src": "images/logos/victoria-xu-law-office-toronto.png"
+ },
+ {
+  "name": "Satnam Grewal Criminal Defence and Immigration Lawyer",
+  "city": "Kitchener",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "immigration",
+   "criminal"
+  ],
+  "region": "waterloo-guelph",
+  "province": "ON",
+  "lat": 43.4533878,
+  "lng": -80.4890375,
+  "address": "53 Roy St, Kitchener, ON N2H 4B4",
+  "phone": "+15195840769",
+  "rating": 4.9,
+  "count": 103,
+  "slug": "satnam-grewal-criminal-defence-and-immigration-lawyer-kitchener",
+  "mapsUrl": "https://www.google.com/maps/search/Satnam+Grewal+Criminal+Defence+and+Immigration+Lawyer+Kitchener+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=53+Roy+St%2C+Kitchener%2C+ON+N2H+4B4",
+  "website": "https://satnamgrewal.ca",
+  "blurb": "Immigration / Criminal Defence in Kitchener. Rated 4.9 from 103 Google reviews.",
+  "type": "logo",
+  "about": "Satnam Grewal Criminal Defence and Immigration Lawyer is a law firm in Kitchener, Ontario that practises immigration and criminal defence. Clients rate the firm 4.9 out of 5 from 103 public Google reviews. The office is at 53 Roy St, Kitchener, ON N2H 4B4, and you can call (519) 584-0769 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/satnam-grewal-criminal-defence-and-immigration-lawyer-kitchener.png"
+ },
+ {
+  "name": "Mor Fisher LLP",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.3909999,
+  "lng": -79.6898659,
+  "address": "31 Clapperton St, Barrie, ON L4M 3E6",
+  "phone": "+17057216642",
+  "rating": 5,
+  "count": 99,
+  "slug": "mor-fisher-llp-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/Mor+Fisher+LLP+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=31+Clapperton+St%2C+Barrie%2C+ON+L4M+3E6",
+  "website": "https://morfisher.ca",
+  "blurb": "Criminal Defence in Barrie. Rated 5.0 from 99 Google reviews.",
+  "type": "logo",
+  "about": "Mor Fisher LLP is a law firm in Barrie, Ontario. Clients rate the firm 5.0 out of 5 from 99 public Google reviews. The office is at 31 Clapperton St, Barrie, ON L4M 3E6, and you can call (705) 721-6642 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Mor Fisher LLP — criminal defence lawyers in Barrie, Toronto, and across Ontario. Aggressive representation for serious criminal charges.”",
+  "src": "images/logos/mor-fisher-llp-barrie.png"
+ },
+ {
+  "name": "Hayher Vasan Litigation Lawyers",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7810076,
+  "lng": -79.2359326,
+  "address": "885 Progress Ave Unit 208, Scarborough, ON M1H 3G3",
+  "phone": "+19054611515",
+  "rating": 4.9,
+  "count": 100,
+  "slug": "hayher-vasan-litigation-lawyers-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Hayher+Vasan+Litigation+Lawyers+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=885+Progress+Ave+Unit+208%2C+Scarborough%2C+ON+M1H+3G3",
+  "website": "https://www.hvlaw.ca",
+  "blurb": "Civil Litigation in Toronto. Rated 4.9 from 100 Google reviews.",
+  "type": "logo",
+  "about": "Hayher Vasan Litigation Lawyers is a law firm in Toronto, Ontario that practises civil litigation. Clients rate the firm 4.9 out of 5 from 100 public Google reviews. The office is at 885 Progress Ave Unit 208, Scarborough, ON M1H 3G3, and you can call (905) 461-1515 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/hayher-vasan-litigation-lawyers-toronto.webp"
+ },
+ {
+  "name": "J Boskovic Law Firm",
+  "city": "Hamilton",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.2176845,
+  "lng": -79.7619355,
+  "address": "31 King St W, Stoney Creek, ON L8G 1H2",
+  "phone": "+19059308000",
+  "rating": 4.9,
+  "count": 100,
+  "slug": "j-boskovic-law-firm-hamilton",
+  "mapsUrl": "https://www.google.com/maps/search/J+Boskovic+Law+Firm+Hamilton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=31+King+St+W%2C+Stoney+Creek%2C+ON+L8G+1H2",
+  "website": "https://www.jboskoviclaw.com",
+  "blurb": "General practice law firm in Hamilton. Rated 4.9 from 100 Google reviews.",
+  "type": "logo",
+  "about": "J Boskovic Law Firm is a law firm in Hamilton, Ontario. Clients rate the firm 4.9 out of 5 from 100 public Google reviews. The office is at 31 King St W, Stoney Creek, ON L8G 1H2, and you can call (905) 930-8000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/j-boskovic-law-firm-hamilton.png"
+ },
+ {
+  "name": "Durno & Shea Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7620799,
+  "lng": -79.2950176,
+  "address": "505 Ellesmere Rd #3, Scarborough, ON M1R 4E5",
+  "phone": "+14167520720",
+  "rating": 4.8,
+  "count": 99,
+  "slug": "durno-and-shea-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Durno+%26+Shea+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=505+Ellesmere+Rd+%233%2C+Scarborough%2C+ON+M1R+4E5",
+  "website": "https://durnoandshea.ca",
+  "blurb": "Real Estate in Toronto. Rated 4.8 from 99 Google reviews.",
+  "type": "logo",
+  "about": "Durno & Shea Professional Corporation is a law firm in Toronto, Ontario that practises real estate. Clients rate the firm 4.8 out of 5 from 99 public Google reviews. The office is at 505 Ellesmere Rd #3, Scarborough, ON M1R 4E5, and you can call (416) 752-0720 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Durno and Shea Professional Corporation is a boutique law firm with a focus on residential Real Estate, Wills and Estate Law.”",
+  "src": "images/logos/durno-and-shea-professional-corporation-toronto.png"
+ },
+ {
+  "name": "Andrew Edgar Criminal Defence Counsel",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.7141956,
+  "lng": -79.6780124,
+  "address": "2565 Steeles Ave E #15, Brampton, ON L6T 4L6",
+  "phone": "+19055985000",
+  "rating": 5,
+  "count": 95,
+  "slug": "andrew-edgar-criminal-defence-counsel-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Andrew+Edgar+Criminal+Defence+Counsel+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2565+Steeles+Ave+E+%2315%2C+Brampton%2C+ON+L6T+4L6",
+  "website": "https://www.edgarlaw.ca",
+  "blurb": "Criminal Defence in Brampton. Rated 5.0 from 95 Google reviews.",
+  "type": "logo",
+  "about": "Andrew Edgar Criminal Defence Counsel is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 95 public Google reviews. The office is at 2565 Steeles Ave E #15, Brampton, ON L6T 4L6, and you can call (905) 598-5000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “20+ Years Exclusively Criminal Defence | Direct Access to Andrew | Ontario Court of Justice & Superior Court of Justice 20+ Years Exclusively Criminal Defence Direct Access to Andrew Ontario Court of Justice & Superior Court of Justice Being charged can leave you with more questions than answers....”",
+  "src": "images/logos/andrew-edgar-criminal-defence-counsel-brampton.png"
+ },
+ {
+  "name": "Lee & Associates",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7647984,
+  "lng": -79.4121983,
+  "address": "4950 Yonge St #2000, North York, ON M2N 6K1",
+  "phone": "+14167828168",
+  "rating": 4.8,
+  "count": 98,
+  "slug": "lee-and-associates-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Lee+%26+Associates+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4950+Yonge+St+%232000%2C+North+York%2C+ON+M2N+6K1",
+  "website": "https://www.leeassociates.ca",
+  "blurb": "Personal Injury in North York. Rated 4.8 from 98 Google reviews.",
+  "type": "logo",
+  "about": "Lee & Associates is a law firm in North York, Ontario. Clients rate the firm 4.8 out of 5 from 98 public Google reviews. The office is at 4950 Yonge St #2000, North York, ON M2N 6K1, and you can call (416) 782-8168 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our experienced personal injury lawyers and staff strive to treat every client with dignity, respect, and sensitivity. Call us at (416) 782-8168 or 1-888-682-8168.”",
+  "src": "images/logos/lee-and-associates-north-york.png"
+ },
+ {
+  "name": "Noohi Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.767389,
+  "lng": -79.3838863,
+  "address": "595 Sheppard Ave E Ste 209, North York, ON M2K 0G3",
+  "phone": "+16474928317",
+  "rating": 4.8,
+  "count": 96,
+  "slug": "noohi-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Noohi+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=595+Sheppard+Ave+E+Ste+209%2C+North+York%2C+ON+M2K+0G3",
+  "website": "https://noohilaw.com",
+  "blurb": "Personal Injury in North York. Rated 4.8 from 96 Google reviews.",
+  "type": "logo",
+  "about": "Noohi Law is a law firm in North York, Ontario that practises personal injury. Clients rate the firm 4.8 out of 5 from 96 public Google reviews. The office is at 595 Sheppard Ave E Ste 209, North York, ON M2K 0G3, and you can call (647) 492-8317 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Experienced Toronto personal injury lawyer at Noohi Law. Get expert legal representation for your injury claims. Contact us today!”",
+  "src": "images/logos/noohi-law-north-york.png"
+ },
+ {
+  "name": "Rohit Sharma Law",
+  "city": "Etobicoke",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7372207,
+  "lng": -79.5645469,
+  "address": "1058a Albion Rd #200, Etobicoke, ON M9V 1A7",
+  "phone": "+14167411115",
+  "rating": 4.7,
+  "count": 97,
+  "slug": "rohit-sharma-law-etobicoke",
+  "mapsUrl": "https://www.google.com/maps/search/Rohit+Sharma+Law+Etobicoke+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1058a+Albion+Rd+%23200%2C+Etobicoke%2C+ON+M9V+1A7",
+  "website": "https://www.rohitlaw.ca",
+  "blurb": "General practice law firm in Etobicoke. Rated 4.7 from 97 Google reviews.",
+  "type": "logo",
+  "about": "Rohit Sharma Law is a law firm in Etobicoke, Ontario. Clients rate the firm 4.7 out of 5 from 97 public Google reviews. The office is at 1058a Albion Rd #200, Etobicoke, ON M9V 1A7, and you can call (416) 741-1115 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/rohit-sharma-law-etobicoke.jpg"
+ },
+ {
+  "name": "Jing Zhang Law Firm",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5664045,
+  "lng": -79.6567525,
+  "address": "1100 Central Pkwy W Unit 4, Mississauga, ON L5C 4E5",
+  "phone": "+16477184239",
+  "rating": 5,
+  "count": 91,
+  "slug": "jing-zhang-law-firm-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Jing+Zhang+Law+Firm+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1100+Central+Pkwy+W+Unit+4%2C+Mississauga%2C+ON+L5C+4E5",
+  "website": "https://jzhanglaw.com",
+  "blurb": "Real Estate / Wills & Estates in Mississauga. Rated 5.0 from 91 Google reviews.",
+  "type": "logo",
+  "about": "Jing Zhang Law Firm is a law firm in Mississauga, Ontario. Clients rate the firm 5.0 out of 5 from 91 public Google reviews. The office is at 1100 Central Pkwy W Unit 4, Mississauga, ON L5C 4E5, and you can call (647) 718-4239 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Jing Zhang Law Firm provides English and Chinese legal services across Ontario in real estate, wills and estates, business and corporate law, and notarial services.”",
+  "src": "images/logos/jing-zhang-law-firm-mississauga.jpg"
+ },
+ {
+  "name": "Kamalie Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Civil Litigation",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "litigation",
+   "business"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7613082,
+  "lng": -79.3517784,
+  "address": "255 Duncan Mill Rd #609, North York, ON M3B 3H9",
+  "phone": "+14168061401",
+  "rating": 4.9,
+  "count": 90,
+  "slug": "kamalie-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Kamalie+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=255+Duncan+Mill+Rd+%23609%2C+North+York%2C+ON+M3B+3H9",
+  "website": "https://kamalielaw.ca",
+  "blurb": "Civil Litigation / Business Law in North York. Rated 4.9 from 90 Google reviews.",
+  "type": "logo",
+  "about": "Kamalie Law is a law firm in North York, Ontario. Clients rate the firm 4.9 out of 5 from 90 public Google reviews. The office is at 255 Duncan Mill Rd #609, North York, ON M3B 3H9, and you can call (416) 806-1401 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “At Kamalie Law, we deliver real results. Our law firm is exclusively dedicated to civil and commercial litigation – it’s all we do, and we do it well.”",
+  "src": "images/logos/kamalie-law-north-york.png"
+ },
+ {
+  "name": "Paciocco & Mellow",
+  "city": "Windsor",
+  "featured": false,
+  "tags": [
+   "Personal Injury",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "injury",
+   "litigation"
+  ],
+  "region": "southwestern",
+  "province": "ON",
+  "lat": 42.3117147,
+  "lng": -83.0264695,
+  "address": "995 Howard Ave, Windsor, ON N9A 1S4",
+  "phone": "+15199157673",
+  "rating": 4.8,
+  "count": 91,
+  "slug": "paciocco-and-mellow-windsor",
+  "mapsUrl": "https://www.google.com/maps/search/Paciocco+%26+Mellow+Windsor+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=995+Howard+Ave%2C+Windsor%2C+ON+N9A+1S4",
+  "website": "https://accidentlawyerswindsor.com",
+  "blurb": "Personal Injury / Civil Litigation in Windsor. Rated 4.8 from 91 Google reviews.",
+  "type": "logo",
+  "about": "Paciocco & Mellow is a law firm in Windsor, Ontario that practises personal injury and civil litigation. Clients rate the firm 4.8 out of 5 from 91 public Google reviews. The office is at 995 Howard Ave, Windsor, ON N9A 1S4, and you can call (519) 915-7673 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our trusted accident lawyers Windsor have decades of experience as personal injury lawyers in Windsor. Contact Us for a Free Consultation!”",
+  "src": "images/logos/paciocco-and-mellow-windsor.png"
+ },
+ {
+  "name": "Rohan Haté Litigation Lawyers",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Personal Injury",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "injury",
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6509787,
+  "lng": -79.3719728,
+  "address": "61 Jarvis St, Toronto, ON M5C 2H2",
+  "phone": "+14163063817",
+  "rating": 5,
+  "count": 87,
+  "slug": "rohan-hate-litigation-lawyers-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Rohan+Hat%C3%A9+Litigation+Lawyers+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=61+Jarvis+St%2C+Toronto%2C+ON+M5C+2H2",
+  "website": "https://www.rohanhate.ca",
+  "blurb": "Personal Injury / Civil Litigation in Toronto. Rated 5.0 from 87 Google reviews.",
+  "type": "logo",
+  "about": "Rohan Haté Litigation Lawyers is a law firm in Toronto, Ontario that practises personal injury and civil litigation. Clients rate the firm 5.0 out of 5 from 87 public Google reviews. The office is at 61 Jarvis St, Toronto, ON M5C 2H2, and you can call (416) 306-3817 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Rohan Haté is a Reputed & Best Personal Injury, Accident, Disability, Brain Injury, Car Accident Lawyer in Toronto, Mississauga. Let Our Highly Experienced Lawyer help you today. Call (416) 306-3817”",
+  "src": "images/logos/rohan-hate-litigation-lawyers-toronto.jpg",
+  "hours": {
+   "1": [
+    [
+     "08:00",
+     "18:00"
+    ]
+   ],
+   "2": [
+    [
+     "08:00",
+     "18:00"
+    ]
+   ],
+   "3": [
+    [
+     "08:00",
+     "18:00"
+    ]
+   ],
+   "4": [
+    [
+     "08:00",
+     "18:00"
+    ]
+   ],
+   "5": [
+    [
+     "08:00",
+     "18:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Sanctuary Lawyers",
+  "city": "Aurora",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.9989218,
+  "lng": -79.4670854,
+  "address": "15213 Yonge St #5, Aurora, ON L4G 1L8",
+  "phone": "+14163333529",
+  "rating": 5,
+  "count": 86,
+  "slug": "sanctuary-lawyers-aurora",
+  "mapsUrl": "https://www.google.com/maps/search/Sanctuary+Lawyers+Aurora+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=15213+Yonge+St+%235%2C+Aurora%2C+ON+L4G+1L8",
+  "website": "https://sanctuarylawyers.com",
+  "blurb": "Criminal Defence in Aurora. Rated 5.0 from 86 Google reviews.",
+  "type": "logo",
+  "about": "Sanctuary Lawyers is a law firm in Aurora, Ontario. Clients rate the firm 5.0 out of 5 from 86 public Google reviews. The office is at 15213 Yonge St #5, Aurora, ON L4G 1L8, and you can call (416) 333-3529 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trusted criminal defence lawyers serving Toronto and the GTA. Compassionate, strategic legal representation when it matters most.”",
+  "src": "images/logos/sanctuary-lawyers-aurora.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Jafari Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.761726,
+  "lng": -79.408064,
+  "address": "45 Sheppard Ave E Ste 900, North York, ON M2N 5W9",
+  "phone": "+14168250650",
+  "rating": 4.6,
+  "count": 92,
+  "slug": "jafari-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Jafari+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=45+Sheppard+Ave+E+Ste+900%2C+North+York%2C+ON+M2N+5W9",
+  "website": "https://jafarilaw.ca",
+  "blurb": "Immigration in North York. Rated 4.6 from 92 Google reviews.",
+  "type": "logo",
+  "about": "Jafari Law is a law firm in North York, Ontario that practises immigration. Clients rate the firm 4.6 out of 5 from 92 public Google reviews. The office is at 45 Sheppard Ave E Ste 900, North York, ON M2N 5W9, and you can call (416) 825-0650 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Welcome to Jafari Law where we offer customized legal representation for your differing legal needs. We speak English, Spanish and Farsi + Turkish.”",
+  "src": "images/logos/jafari-law-north-york.png"
+ },
+ {
+  "name": "Olena Chepil & Lawyers",
+  "city": "Etobicoke",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6283347,
+  "lng": -79.5231515,
+  "address": "68 Jutland Rd Ste 2, Etobicoke, ON M8Z 0G7",
+  "phone": "+14162334631",
+  "rating": 4.7,
+  "count": 90,
+  "slug": "olena-chepil-and-lawyers-etobicoke",
+  "mapsUrl": "https://www.google.com/maps/search/Olena+Chepil+%26+Lawyers+Etobicoke+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=68+Jutland+Rd+Ste+2%2C+Etobicoke%2C+ON+M8Z+0G7",
+  "website": "https://terralaw.ca",
+  "blurb": "General practice law firm in Etobicoke. Rated 4.7 from 90 Google reviews.",
+  "type": "logo",
+  "about": "Olena Chepil & Lawyers is a law firm in Etobicoke, Ontario. Clients rate the firm 4.7 out of 5 from 90 public Google reviews. The office is at 68 Jutland Rd Ste 2, Etobicoke, ON M8Z 0G7, and you can call (416) 233-4631 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/olena-chepil-and-lawyers-etobicoke.png"
+ },
+ {
+  "name": "Mansoor Law",
+  "city": "Oakville",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.481744,
+  "lng": -79.716074,
+  "address": "216 Oak Park Blvd #114, Oakville, ON L6H 0T8",
+  "phone": "+19052871323",
+  "rating": 5,
+  "count": 84,
+  "slug": "mansoor-law-oakville",
+  "mapsUrl": "https://www.google.com/maps/search/Mansoor+Law+Oakville+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=216+Oak+Park+Blvd+%23114%2C+Oakville%2C+ON+L6H+0T8",
+  "website": "https://www.mansoorlaw.ca",
+  "blurb": "Real Estate in Oakville. Rated 5.0 from 84 Google reviews.",
+  "type": "logo",
+  "about": "Mansoor Law is a law firm in Oakville, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 84 public Google reviews. The office is at 216 Oak Park Blvd #114, Oakville, ON L6H 0T8, and you can call (905) 287-1323 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Mansoor Law Office provides expert legal services in Canada, specializing in wills, probate, real estate, and more.”",
+  "src": "images/logos/mansoor-law-oakville.png"
+ },
+ {
+  "name": "Prestige Law",
+  "city": "Richmond Hill",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Personal Injury",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "immigration",
+   "injury",
+   "realestate"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8630314,
+  "lng": -79.3822362,
+  "address": "100 Mural St Ste 100, Richmond Hill, ON L4B 1J3",
+  "phone": "+16479252222",
+  "rating": 4.9,
+  "count": 85,
+  "slug": "prestige-law-richmond-hill",
+  "mapsUrl": "https://www.google.com/maps/search/Prestige+Law+Richmond+Hill+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=100+Mural+St+Ste+100%2C+Richmond+Hill%2C+ON+L4B+1J3",
+  "website": "https://www.prestigelaw.ca",
+  "blurb": "Immigration / Personal Injury in Richmond Hill. Rated 4.9 from 85 Google reviews.",
+  "type": "logo",
+  "about": "Prestige Law is a law firm in Richmond Hill, Ontario that practises immigration, personal injury and real estate. Clients rate the firm 4.9 out of 5 from 85 public Google reviews. The office is at 100 Mural St Ste 100, Richmond Hill, ON L4B 1J3, and you can call (647) 925-2222 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Experienced Immigration Lawyer Toronto offering expert legal advice and support for visas, permanent residency, and citizenship applications.”",
+  "src": "images/logos/prestige-law-richmond-hill.png"
+ },
+ {
+  "name": "Vo Law",
+  "city": "Etobicoke",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6456374,
+  "lng": -79.5210644,
+  "address": "East Tower, 3250 Bloor St W #600, Etobicoke, ON M8X 2X9",
+  "phone": "+14162917224",
+  "rating": 5,
+  "count": 83,
+  "slug": "vo-law-etobicoke",
+  "mapsUrl": "https://www.google.com/maps/search/Vo+Law+Etobicoke+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=East+Tower%2C+3250+Bloor+St+W+%23600%2C+Etobicoke%2C+ON+M8X+2X9",
+  "website": "https://www.volaw.ca",
+  "blurb": "Real Estate / Wills & Estates in Etobicoke. Rated 5.0 from 83 Google reviews.",
+  "type": "logo",
+  "about": "Vo Law is a law firm in Etobicoke, Ontario. Clients rate the firm 5.0 out of 5 from 83 public Google reviews. The office is at East Tower, 3250 Bloor St W #600, Etobicoke, ON M8X 2X9, and you can call (416) 291-7224 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Vo Law is a Toronto firm that attends to matters in real estate and wills & estates. Our firm is committed to delivering top-notch traditional and non-traditional legal services tailored to clients of all financial abilities. We take our time to listen to and understand our clients’ concerns and...”",
+  "src": "images/logos/vo-law-etobicoke.jpg"
+ },
+ {
+  "name": "Prouse Dash Crouch LLP",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.6864356,
+  "lng": -79.7591045,
+  "address": "29 Queen St E, Brampton, ON L6W 2A7",
+  "phone": "+19054516610",
+  "rating": 4.6,
+  "count": 90,
+  "slug": "prouse-dash-crouch-llp-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Prouse+Dash+Crouch+LLP+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=29+Queen+St+E%2C+Brampton%2C+ON+L6W+2A7",
+  "website": "https://www.pdclawyers.ca",
+  "blurb": "General practice law firm in Brampton. Rated 4.6 from 90 Google reviews.",
+  "type": "logo",
+  "about": "Prouse Dash Crouch LLP is a law firm in Brampton, Ontario. Clients rate the firm 4.6 out of 5 from 90 public Google reviews. The office is at 29 Queen St E, Brampton, ON L6W 2A7, and you can call (905) 451-6610 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/prouse-dash-crouch-llp-brampton.png"
+ },
+ {
+  "name": "Adam Miller Kelly Law Firm",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.3354736,
+  "lng": -75.9056189,
+  "address": "300 March Rd #601, Kanata, ON K2K 2E2",
+  "phone": "+16135926290",
+  "rating": 4.8,
+  "count": 85,
+  "slug": "adam-miller-kelly-law-firm-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Adam+Miller+Kelly+Law+Firm+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=300+March+Rd+%23601%2C+Kanata%2C+ON+K2K+2E2",
+  "website": "https://amk-law.ca",
+  "blurb": "Real Estate / Wills & Estates in Ottawa. Rated 4.8 from 85 Google reviews.",
+  "type": "logo",
+  "about": "Adam Miller Kelly Law Firm is a law firm in Ottawa, Ontario. Clients rate the firm 4.8 out of 5 from 85 public Google reviews. The office is at 300 March Rd #601, Kanata, ON K2K 2E2, and you can call (613) 592-6290 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Adam Miller Kelly is a long standing multi-service law firm found in Ottawa / Kanata. Our lawyers can assist you in real estate, wills, estates, and notarizations.”",
+  "src": "images/logos/adam-miller-kelly-law-firm-ottawa.webp"
+ },
+ {
+  "name": "KS Law Professional Corporation",
+  "city": "Etobicoke",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7507118,
+  "lng": -79.633866,
+  "address": "7003 Steeles Ave W, Etobicoke, ON M9W 0A2",
+  "phone": "+14166757002",
+  "rating": 4.8,
+  "count": 82,
+  "slug": "ks-law-professional-corporation-etobicoke",
+  "mapsUrl": "https://www.google.com/maps/search/KS+Law+Professional+Corporation+Etobicoke+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=7003+Steeles+Ave+W%2C+Etobicoke%2C+ON+M9W+0A2",
+  "website": "https://www.kslawoffice.ca",
+  "blurb": "Real Estate in Etobicoke. Rated 4.8 from 82 Google reviews.",
+  "type": "logo",
+  "about": "KS Law Professional Corporation is a law firm in Etobicoke, Ontario that practises real estate. Clients rate the firm 4.8 out of 5 from 82 public Google reviews. The office is at 7003 Steeles Ave W, Etobicoke, ON M9W 0A2, and you can call (416) 675-7002 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ks-law-professional-corporation-etobicoke.png"
+ },
+ {
+  "name": "Chsherbinin Litigation Barristers",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7609464,
+  "lng": -79.4100759,
+  "address": "4789 Yonge St Suite 419 4th Floor, North York, ON M2N 0G3",
+  "phone": "+14169072587",
+  "rating": 5,
+  "count": 78,
+  "slug": "chsherbinin-litigation-barristers-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Chsherbinin+Litigation+Barristers+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4789+Yonge+St+Suite+419+4th+Floor%2C+North+York%2C+ON+M2N+0G3",
+  "website": "https://nclaw.ca",
+  "blurb": "Civil Litigation in North York. Rated 5.0 from 78 Google reviews.",
+  "type": "logo",
+  "about": "Chsherbinin Litigation Barristers is a law firm in North York, Ontario that practises civil litigation. Clients rate the firm 5.0 out of 5 from 78 public Google reviews. The office is at 4789 Yonge St Suite 419 4th Floor, North York, ON M2N 0G3, and you can call (416) 907-2587 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our practice focuses on civil litigation at the trial and appellate levels in both provincial and federal courts. We are specializing in wrongful dismissal lawsuits, as well as complex civil and immigration disputes.”",
+  "src": "images/logos/chsherbinin-litigation-barristers-north-york.png"
+ },
+ {
+  "name": "Vilma Radfar Barrister & Solicitor",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7610015,
+  "lng": -79.410212,
+  "address": "4789 Yonge St Ste 805, North York, ON M2N 0G3",
+  "phone": "+14168352636",
+  "rating": 4.8,
+  "count": 80,
+  "slug": "vilma-radfar-barrister-and-solicitor-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Vilma+Radfar+Barrister+%26+Solicitor+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4789+Yonge+St+Ste+805%2C+North+York%2C+ON+M2N+0G3",
+  "website": "https://vilmaradfarlaw.com",
+  "blurb": "Family Law in North York. Rated 4.8 from 80 Google reviews.",
+  "type": "logo",
+  "about": "Vilma Radfar Barrister & Solicitor is a law firm in North York, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 80 public Google reviews. The office is at 4789 Yonge St Ste 805, North York, ON M2N 0G3, and you can call (416) 835-2636 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trusted Ontario lawyer, Vilma Radfar, offers expert legal services in family law, real estate, and more. Contact us for a free consultation today!”",
+  "src": "images/logos/vilma-radfar-barrister-and-solicitor-north-york.jpg"
+ },
+ {
+  "name": "Kreindler Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6515515,
+  "lng": -79.3822687,
+  "address": "65 Queen St W #1505, Toronto, ON M5H 2M5",
+  "phone": "+14166494550",
+  "rating": 4.9,
+  "count": 75,
+  "slug": "kreindler-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Kreindler+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=65+Queen+St+W+%231505%2C+Toronto%2C+ON+M5H+2M5",
+  "website": "https://kreindlerlaw.com",
+  "blurb": "Immigration in Toronto. Rated 4.9 from 75 Google reviews.",
+  "type": "logo",
+  "about": "Kreindler Law is a law firm in Toronto, Ontario that practises immigration. Clients rate the firm 4.9 out of 5 from 75 public Google reviews. The office is at 65 Queen St W #1505, Toronto, ON M5H 2M5, and you can call (416) 649-4550 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Kreindler Law has over 25 years of proven experience in delivering timely and effective Canadian immigration legal solutions and services for our clients from around the world.”",
+  "src": "images/logos/kreindler-law-toronto.png"
+ },
+ {
+  "name": "Bola Akinnusi",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.390117,
+  "lng": -79.687961,
+  "address": "28 Owen St Ste 203, Barrie, ON L4M 3G7",
+  "phone": "+17057927818",
+  "rating": 4.9,
+  "count": 75,
+  "slug": "bola-akinnusi-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/Bola+Akinnusi+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=28+Owen+St+Ste+203%2C+Barrie%2C+ON+L4M+3G7",
+  "website": "https://www.bolalawfirm.com",
+  "blurb": "Immigration in Barrie. Rated 4.9 from 75 Google reviews.",
+  "type": "logo",
+  "about": "Bola Akinnusi is a law firm in Barrie, Ontario that practises immigration. Clients rate the firm 4.9 out of 5 from 75 public Google reviews. The office is at 28 Owen St Ste 203, Barrie, ON L4M 3G7, and you can call (705) 792-7818 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Bola Akinnusi is an experienced Barrie and GTA Immigration Lawyer. We also offer solutions for criminal, real estate, family matters & more. Learn More.”",
+  "src": "images/logos/bola-akinnusi-barrie.jpg"
+ },
+ {
+  "name": "Das Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7813008,
+  "lng": -79.4164206,
+  "address": "200, 5700 Yonge St 2nd Floor, North York, ON M2M 7K2",
+  "phone": "+16476732543",
+  "rating": 5,
+  "count": 73,
+  "slug": "das-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Das+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=200%2C+5700+Yonge+St+2nd+Floor%2C+North+York%2C+ON+M2M+7K2",
+  "website": "https://daslaw.ca",
+  "blurb": "General practice law firm in North York. Rated 5.0 from 73 Google reviews.",
+  "type": "logo",
+  "about": "Das Law is a law firm in North York, Ontario. Clients rate the firm 5.0 out of 5 from 73 public Google reviews. The office is at 200, 5700 Yonge St 2nd Floor, North York, ON M2M 7K2, and you can call (647) 673-2543 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/das-law-north-york.png"
+ },
+ {
+  "name": "Pinto Shekib LLP",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7648261,
+  "lng": -79.4128023,
+  "address": "4950 Yonge St SUITE 2200, North York, ON M2N 6K1",
+  "phone": "+14169019984",
+  "rating": 4.8,
+  "count": 75,
+  "slug": "pinto-shekib-llp-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Pinto+Shekib+LLP+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4950+Yonge+St+SUITE+2200%2C+North+York%2C+ON+M2N+6K1",
+  "website": "https://www.pintoshekib.ca",
+  "blurb": "Real Estate in North York. Rated 4.8 from 75 Google reviews.",
+  "type": "logo",
+  "about": "Pinto Shekib LLP is a law firm in North York, Ontario that practises real estate. Clients rate the firm 4.8 out of 5 from 75 public Google reviews. The office is at 4950 Yonge St SUITE 2200, North York, ON M2N 6K1, and you can call (416) 901-9984 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Expert litigators providing strategic and practical advice in commercial, estates and employment disputes. We act for individuals and businesses, delivering results through strong advocacy, negotiation, and dispute resolution.”",
+  "src": "images/logos/pinto-shekib-llp-north-york.png"
+ },
+ {
+  "name": "Patricia Brown Barrister and Solicitor",
+  "city": "Windsor",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "southwestern",
+  "province": "ON",
+  "lat": 42.3161687,
+  "lng": -83.0399495,
+  "address": "140 Park St W, Windsor, ON N9A 6V7",
+  "phone": "+15199972777",
+  "rating": 4.8,
+  "count": 74,
+  "slug": "patricia-brown-barrister-and-solicitor-windsor",
+  "mapsUrl": "https://www.google.com/maps/search/Patricia+Brown+Barrister+and+Solicitor+Windsor+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=140+Park+St+W%2C+Windsor%2C+ON+N9A+6V7",
+  "website": "https://patriciabrownlawyer.com",
+  "blurb": "Criminal Defence in Windsor. Rated 4.8 from 74 Google reviews.",
+  "type": "logo",
+  "about": "Patricia Brown Barrister and Solicitor is a law firm in Windsor, Ontario that practises criminal defence. Clients rate the firm 4.8 out of 5 from 74 public Google reviews. The office is at 140 Park St W, Windsor, ON N9A 6V7, and you can call (519) 997-2777 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/patricia-brown-barrister-and-solicitor-windsor.png"
+ },
+ {
+  "name": "LawyerRealtor.ca",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6374886,
+  "lng": -79.4242819,
+  "address": "147 E Liberty St, Toronto, ON M6K 3G3",
+  "phone": "+16472370669",
+  "rating": 4.7,
+  "count": 75,
+  "slug": "lawyerrealtor-ca-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/LawyerRealtor.ca+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=147+E+Liberty+St%2C+Toronto%2C+ON+M6K+3G3",
+  "website": "https://lawyerrealtor.ca",
+  "blurb": "Real Estate in Toronto. Rated 4.7 from 75 Google reviews.",
+  "type": "logo",
+  "about": "LawyerRealtor.ca is a law firm in Toronto, Ontario that practises real estate. Clients rate the firm 4.7 out of 5 from 75 public Google reviews. The office is at 147 E Liberty St, Toronto, ON M6K 3G3, and you can call (647) 237-0669 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Real Estate, Immigration, Wills and Estates, Family Law Contracts, Small Business Contracts, and much more!”",
+  "src": "images/logos/lawyerrealtor-ca-toronto.png"
+ },
+ {
+  "name": "Nirwal Law",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.6826551,
+  "lng": -79.7164914,
+  "address": "104-350 Rutherford Rd S, Plaza, 2, Brampton, ON L6W 3M2",
+  "phone": "+14169093735",
+  "rating": 5,
+  "count": 70,
+  "slug": "nirwal-law-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Nirwal+Law+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=104-350+Rutherford+Rd+S%2C+Plaza%2C+2%2C+Brampton%2C+ON+L6W+3M2",
+  "website": "https://nirwallaw.com",
+  "blurb": "Criminal Defence in Brampton. Rated 5.0 from 70 Google reviews.",
+  "type": "logo",
+  "about": "Nirwal Law is a law firm in Brampton, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 70 public Google reviews. The office is at 104-350 Rutherford Rd S, Plaza, 2, Brampton, ON L6W 3M2, and you can call (416) 909-3735 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Nirwal Law is located in Brampton and led by criminal defence lawyer Manbir Nirwal. The law firm focuses exclusively on safeguarding your rights and”",
+  "src": "images/logos/nirwal-law-brampton.png",
+  "hours": {
+   "1": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "2": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "3": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "4": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "5": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "6": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "7": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "PKC Law Professional Corporation",
+  "city": "Oakville",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.4934074,
+  "lng": -79.6786438,
+  "address": "1939 Ironoak Wy #207, Oakville, ON L6H 3V7",
+  "phone": "+12893161723",
+  "rating": 5,
+  "count": 69,
+  "slug": "pkc-law-professional-corporation-oakville",
+  "mapsUrl": "https://www.google.com/maps/search/PKC+Law+Professional+Corporation+Oakville+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1939+Ironoak+Wy+%23207%2C+Oakville%2C+ON+L6H+3V7",
+  "website": "https://pkclaw.ca",
+  "blurb": "Real Estate in Oakville. Rated 5.0 from 69 Google reviews.",
+  "type": "logo",
+  "about": "PKC Law Professional Corporation is a law firm in Oakville, Ontario. Clients rate the firm 5.0 out of 5 from 69 public Google reviews. The office is at 1939 Ironoak Wy #207, Oakville, ON L6H 3V7, and you can call (289) 316-1723 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “PKC Law Professional Corporation provides expert real estate legal services in Ontario including home purchases, sales, refinancing, private mortgages, title transfers, and notary services. Free consultation: (289) 316-1723.”",
+  "src": "images/logos/pkc-law-professional-corporation-oakville.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "MO'S LAW OFFICE",
+  "city": "London",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "southwestern",
+  "province": "ON",
+  "lat": 42.984244,
+  "lng": -81.244236,
+  "address": "380 Wellington St Tower B, 6th Floor, London, ON N6A 5B5",
+  "phone": "+15197831455",
+  "rating": 5,
+  "count": 69,
+  "slug": "mo-s-law-office-london",
+  "mapsUrl": "https://www.google.com/maps/search/MO%27S+LAW+OFFICE+London+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=380+Wellington+St+Tower+B%2C+6th+Floor%2C+London%2C+ON+N6A+5B5",
+  "website": "https://moslawoffice.com",
+  "blurb": "Immigration in London. Rated 5.0 from 69 Google reviews.",
+  "type": "logo",
+  "about": "MO'S LAW OFFICE is a law firm in London, Ontario. Clients rate the firm 5.0 out of 5 from 69 public Google reviews. The office is at 380 Wellington St Tower B, 6th Floor, London, ON N6A 5B5, and you can call (519) 783-1455 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Compassionate, competent legal counsel in immigration, mental health law and notary public services in London, Ontario. At Mo’s Law Office, you are a person, not a file number.”",
+  "src": "images/logos/mo-s-law-office-london.webp"
+ },
+ {
+  "name": "Keyork Immigration Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.766264,
+  "lng": -79.412998,
+  "address": "5000 Yonge St Ste 1901, North York, ON M2N 7E9",
+  "phone": "+14164793632",
+  "rating": 4.9,
+  "count": 69,
+  "slug": "keyork-immigration-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Keyork+Immigration+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5000+Yonge+St+Ste+1901%2C+North+York%2C+ON+M2N+7E9",
+  "website": "https://immigrating-to-canada.com",
+  "blurb": "Immigration in North York. Rated 4.9 from 69 Google reviews.",
+  "type": "logo",
+  "about": "Keyork Immigration Law is a law firm in North York, Ontario that practises immigration. Clients rate the firm 4.9 out of 5 from 69 public Google reviews. The office is at 5000 Yonge St Ste 1901, North York, ON M2N 7E9, and you can call (416) 479-3632 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Legal consultation, recommendations and advice regarding complex Canadian immigration cases, applications and hearings.”",
+  "src": "images/logos/keyork-immigration-law-north-york.png"
+ },
+ {
+  "name": "Godinho Zager Kraska LLP",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5995714,
+  "lng": -79.6418063,
+  "address": "4310 Sherwoodtowne Blvd #104, Mississauga, ON L4Z 2G6",
+  "phone": "+14167820056",
+  "rating": 5,
+  "count": 67,
+  "slug": "godinho-zager-kraska-llp-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Godinho+Zager+Kraska+LLP+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4310+Sherwoodtowne+Blvd+%23104%2C+Mississauga%2C+ON+L4Z+2G6",
+  "website": "https://www.gzdefence.ca",
+  "blurb": "Criminal Defence in Mississauga. Rated 5.0 from 67 Google reviews.",
+  "type": "logo",
+  "about": "Godinho Zager Kraska LLP is a law firm in Mississauga, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 67 public Google reviews. The office is at 4310 Sherwoodtowne Blvd #104, Mississauga, ON L4Z 2G6, and you can call (416) 782-0056 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/godinho-zager-kraska-llp-mississauga.webp"
+ },
+ {
+  "name": "Steven Tress, Barrister & Solicitor",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "immigration",
+   "criminal"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6542327,
+  "lng": -79.3876639,
+  "address": "425 University Ave #601, Toronto, ON M5G 1T6",
+  "phone": "+14169773657",
+  "rating": 4.7,
+  "count": 71,
+  "slug": "steven-tress-barrister-and-solicitor-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Steven+Tress%2C+Barrister+%26+Solicitor+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=425+University+Ave+%23601%2C+Toronto%2C+ON+M5G+1T6",
+  "website": "https://steventress.com",
+  "blurb": "Immigration / Criminal Defence in Toronto. Rated 4.7 from 71 Google reviews.",
+  "type": "logo",
+  "about": "Steven Tress, Barrister & Solicitor is a law firm in Toronto, Ontario that practises immigration and criminal defence. Clients rate the firm 4.7 out of 5 from 71 public Google reviews. The office is at 425 University Ave #601, Toronto, ON M5G 1T6, and you can call (416) 977-3657 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trusted Immigration Lawyer in Toronto for over 35 years. Experienced in Complex Immigration Cases: Criminal and Medical Inadmissibility, Misrepresentation, Sponsorship and Residency Appeals, Federal Court Judicial Review.”",
+  "src": "images/logos/steven-tress-barrister-and-solicitor-toronto.webp"
+ },
+ {
+  "name": "Fine & Associates",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6503224,
+  "lng": -79.386983,
+  "address": "250 University Ave Ste 200, Toronto, ON M5H 3E5",
+  "phone": "+16474926865",
+  "rating": 5,
+  "count": 66,
+  "slug": "fine-and-associates-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Fine+%26+Associates+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=250+University+Ave+Ste+200%2C+Toronto%2C+ON+M5H+3E5",
+  "website": "https://www.torontodivorcelaw.com",
+  "blurb": "Family Law in Toronto. Rated 5.0 from 66 Google reviews.",
+  "type": "logo",
+  "about": "Fine & Associates is a law firm in Toronto, Ontario that practises family law. Clients rate the firm 5.0 out of 5 from 66 public Google reviews. The office is at 250 University Ave Ste 200, Toronto, ON M5H 3E5, and you can call (647) 492-6865 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Need expert family law advice in Toronto? Fine & Associates offers compassionate legal support for divorce, child custody. ☎️ Call Us: (437) 494-8455”",
+  "src": "images/logos/fine-and-associates-toronto.png"
+ },
+ {
+  "name": "BAIG LAW FIRM",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Personal Injury",
+   "Immigration",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "injury",
+   "immigration",
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5821636,
+  "lng": -79.7147296,
+  "address": "168 Queen St S Unit 215, Mississauga, ON L5M 1K8",
+  "phone": "+19055674000",
+  "rating": 4.9,
+  "count": 67,
+  "slug": "baig-law-firm-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/BAIG+LAW+FIRM+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=168+Queen+St+S+Unit+215%2C+Mississauga%2C+ON+L5M+1K8",
+  "website": "https://www.baiglawfirm.ca",
+  "blurb": "Personal Injury / Immigration in Mississauga. Rated 4.9 from 67 Google reviews.",
+  "type": "logo",
+  "about": "BAIG LAW FIRM is a law firm in Mississauga, Ontario that practises personal injury, immigration and real estate. Clients rate the firm 4.9 out of 5 from 67 public Google reviews. The office is at 168 Queen St S Unit 215, Mississauga, ON L5M 1K8, and you can call (905) 567-4000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “BAIG LAW FIRM- Full-Service Law Firm in Mississauga, ON helps clients with Civil Litigation, Personal Injury Law, Real Estate Law, Immigration Law, Business Law & more!”",
+  "src": "images/logos/baig-law-firm-mississauga.jpg"
+ },
+ {
+  "name": "Workly Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6499932,
+  "lng": -79.3811834,
+  "address": "330 Bay St. Ste 1304, Toronto, ON M5H 2S8",
+  "phone": "+16473709787",
+  "rating": 4.8,
+  "count": 68,
+  "slug": "workly-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Workly+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=330+Bay+St.+Ste+1304%2C+Toronto%2C+ON+M5H+2S8",
+  "website": "https://worklylaw.com",
+  "blurb": "Employment Law in Toronto. Rated 4.8 from 68 Google reviews.",
+  "type": "logo",
+  "about": "Workly Law is a law firm in Toronto, Ontario that practises employment law. Clients rate the firm 4.8 out of 5 from 68 public Google reviews. The office is at 330 Bay St. Ste 1304, Toronto, ON M5H 2S8, and you can call (647) 370-9787 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Toronto's most reputable employment, labour & HR law firm, led by Sunira Chaudhri. Expert advice for employees and employers. Book a consultation today”",
+  "src": "images/logos/workly-law-toronto.png"
+ }
+]

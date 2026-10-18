@@ -42,6 +42,9 @@ live list in on the way out (`src/routes/dynamic.js`):
   the map's opening hours and the blog lists).
 - `/find-lawyers`, the province hubs (`/alberta/`, `/manitoba/`) and every city hub (`/<province>/<city>/`) carry the
   whole firm list in an inline `<script>`. The Worker replaces that one line with the database's list.
+- The results panel (list beside the map, bottom sheet on phones) is drawn by `lawdb-map.js` / `lawdb-map.css`, one shared file for every location page.
+  It shows 10 firms a page with a dark page bar (`PER` in `lawdb-map.js`); the map keeps every pin. The bar goes back to page 1 whenever the
+  list changes (filter, sort, area, new search) and a pin on another page opens that page. Bump the `?v=` on both files in every page when either changes.
 - Responses are cached at the edge for 60 seconds (`PUBLIC_CACHE_TTL`, seconds; 0 disables), so a busy site reads the
   database about once a minute per location, not once per visitor.
 - **Safety net:** if the database cannot be read, or a page does not contain exactly one inline list, the original

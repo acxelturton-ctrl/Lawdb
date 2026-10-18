@@ -124,7 +124,7 @@
     var oi = openInfo(f), dist = userPos ? ' · ' + fmtKm(km(userPos.lat, userPos.lng, f.lat, f.lng)) : '';
     var pct = Math.max(0, Math.min(100, (f.rating || 0) / 5 * 100));
     var prof = ROOT + 'firms/' + f.slug;
-    return '<article class="gm-item' + (f.featured ? ' is-feat' : '') + (sel && sel.slug === f.slug && !detail ? ' is-sel' : '') + '" data-slug="' + esc(f.slug) + '" tabindex="0">' +
+    return '<article class="gm-item' + (f.featured ? ' is-feat' : '') + (sel && sel.slug === f.slug && !detail ? ' is-sel' : '') + '" data-slug="' + esc(f.slug) + '">' +
       '<div class="gm-i-main">' +
         (f.featured ? '<span class="gm-i-badge"><i>' + IC.tick + '</i>Featured</span>' : '') +
         '<h3 class="gm-i-name"><a href="' + esc(prof) + '">' + esc(f.name) + '</a></h3>' +
@@ -136,8 +136,7 @@
       '<div class="gm-i-acts">' +
         (f.phone ? '<a class="gm-act pri" href="tel:' + esc(f.phone) + '">' + IC.call + 'Call</a>' : '') +
         '<a class="gm-act" href="' + esc(f.dirUrl) + '" target="_blank" rel="noopener">' + IC.dir + 'Directions</a>' +
-        (detail && f.website ? '<a class="gm-act" href="' + esc(f.website) + '" target="_blank" rel="noopener">' + IC.web + 'Website</a>' : '') +
-        '<a class="gm-act" href="' + esc(prof) + '">' + IC.prof + 'Profile</a>' +
+        (f.website ? '<a class="gm-act" href="' + esc(f.website) + '" target="_blank" rel="noopener">' + IC.web + 'Website</a>' : '') +
       '</div></article>';
   }
   function detailHtml(f){
@@ -184,7 +183,7 @@
   }
   function pageSlots(){
     var w = listEl ? listEl.clientWidth : 0;
-    return w ? Math.max(5, Math.min(10, Math.floor((w - 48) / 33) - 2)) : 7;
+    return w ? Math.max(5, Math.min(10, Math.floor((w - 48) / (isMobile() ? 37 : 33)) - 2)) : 7;
   }
   function pagerHtml(pages){
     if(pages < 2) return '';
@@ -949,15 +948,8 @@
         return;
       }
       if(e.target.closest('#gmAll')){ areaB = null; apply(true); return; }
-      if(e.target.closest('a, button')) return;
-      var it = e.target.closest('.gm-item'); if(!it) return;
-      var f = (view.filter(function(x){ return x.slug === it.dataset.slug; })[0]) || (base.filter(function(x){ return x.slug === it.dataset.slug; })[0]);
-      if(f && !(sel && sel.slug === f.slug && selEl.contains(it))) select(f);
     }
     panel.addEventListener('click', onItem);
-    panel.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' && e.target.classList && e.target.classList.contains('gm-item')) onItem({ target: e.target });
-    });
 
     setupSheet();
     var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ sizeApp(false); if(mapOK) map.resize(); if(view.length > PER && pageSlots() !== lastSlots) renderPanel(); }, 120); });

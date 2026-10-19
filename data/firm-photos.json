@@ -4,17 +4,6 @@
   "src": "images/hero/a-s-law-office-winnipeg.webp",
   "from": "https://img1.wsimg.com/isteam/stock/8072"
  },
- "abramovich-immigration-law-toronto": {
-  "kind": "cover",
-  "src": "images/hero/abramovich-immigration-law-toronto.webp",
-  "from": "https://atimmigrationlaw.com/wp-content/uploads/2024/08/home-hero.jpg",
-  "bio": "images/bio/abramovich-immigration-law-toronto.webp"
- },
- "ads-law-professional-corporation-mississauga": {
-  "kind": "cover",
-  "src": "images/hero/ads-law-professional-corporation-mississauga.webp",
-  "from": "https://adslaw.ca/wp-content/uploads/2025/01/Mississauga-2.webp"
- },
  "agp-llp-ottawa-criminal-lawyers-ottawa": {
   "kind": "cover",
   "src": "images/hero/agp-llp-ottawa-criminal-lawyers-ottawa.webp",
@@ -30,17 +19,6 @@
   "kind": "cover",
   "src": "images/hero/alexander-hu-professional-corporation-toronto.webp",
   "from": "https://alexhulaw.ca/wp-content/uploads/2025/02/963-2160w-1024x621.jpg"
- },
- "andrew-edgar-criminal-defence-counsel-brampton": {
-  "kind": "cover",
-  "src": "images/hero/andrew-edgar-criminal-defence-counsel-brampton.webp",
-  "from": "https://www.edgarlaw.ca/wp-content/uploads/2026/10/edgar-law-hero-v2.webp"
- },
- "angeles-and-de-jesus-law-llp-toronto": {
-  "kind": "cover",
-  "src": "images/hero/angeles-and-de-jesus-law-llp-toronto.webp",
-  "from": "https://www.ajlawpartners.ca/wp-content/uploads/2020/07/law-firm-18.jpg",
-  "bio": "images/bio/angeles-and-de-jesus-law-llp-toronto.webp"
  },
  "annette-lefebvre-avocats-montreal": {
   "kind": "cover",
@@ -60,17 +38,6 @@
   "from": "https://avocatcriminelmtl.ca/assets/mirror/cdn.prod.website-files.com/69671d58007625538359cf3c/69ce1046b664213e2072d5bd_wmremove-transformed.seo.webp",
   "bio": "images/bio/avocat-criminel-montreal-montreal.webp"
  },
- "avocat-droit-criminel-montreal-montreal": {
-  "kind": "cover",
-  "src": "images/hero/avocat-droit-criminel-montreal-montreal.webp",
-  "from": "https://solutionavocat.com/wp-content/uploads/2021/11/Me-Marie-Joelle-Demers-Avocat-Criminaliste-chez-Solution-Avocat-1.jpg",
-  "bio": "images/bio/avocat-droit-criminel-montreal-montreal.webp"
- },
- "bagga-and-associates-calgary": {
-  "kind": "cover",
-  "src": "images/hero/bagga-and-associates-calgary.webp",
-  "from": "https://www.baggalawyers.ca/social-preview.jpg"
- },
  "balance-law-professional-corporation": {
   "kind": "cover",
   "src": "images/hero/balance-law-professional-corporation.webp",
@@ -81,12 +48,6 @@
   "src": "images/hero/bartlaw-llp.webp",
   "from": "https://bartlaw.ca/wp-content/uploads/2016/09/slide2.jpg",
   "bio": "images/bio/bartlaw-llp.webp"
- },
- "bay-view-law-employment-lawyers-kelowna": {
-  "kind": "cover",
-  "src": "images/hero/bay-view-law-employment-lawyers-kelowna.webp",
-  "from": "https://bvlaw.ca/wp-content/uploads/2021/07/brown-concrete-pillar-indoor.jpg",
-  "bio": "images/bio/bay-view-law-employment-lawyers-kelowna.webp"
  },
  "bcf-business-law": {
   "kind": "cover",
@@ -125,18 +86,6 @@
   "src": "images/bio/bernstein-law-group-personal-injury-lawyers-hamilton.webp",
   "from": "https://bernsteinlawgroup.ca/wp-content/uploads/2013/03/Bernstein-Law-Group-Staff-333.png.jpg"
  },
- "bickhram-litigation-mississauga": {
-  "kind": "cover",
-  "src": "images/hero/bickhram-litigation-mississauga.webp",
-  "from": "https://bickhramlitigation.com/wp-content/uploads/elementor/thumbs/shutterstock_552619267-scaled-p3fv90al28mb8cwoci0x5g310xyqr2g26y7e9ff3g0.jpg",
-  "bio": "images/bio/bickhram-litigation-mississauga.webp"
- },
- "birdsell-grant-llp-edmonton": {
-  "kind": "cover",
-  "src": "images/hero/birdsell-grant-llp-edmonton.webp",
-  "from": "https://birdsell.ca/wp-content/uploads/2023/06/DSC00008-Edit.jpg",
-  "bio": "images/bio/birdsell-grant-llp-edmonton.webp"
- },
  "blottman-legal-services": {
   "kind": "cover",
   "src": "images/hero/blottman-legal-services.webp",
@@ -170,22 +119,10 @@
   "src": "images/hero/broderick-partners-llp.webp",
   "from": "https://img1.wsimg.com/isteam/ip/2ee1f96d-9b57-4f3e-956b-e78a655a235c/Falls%20lights%20long%20exposure.jpg"
  },
- "brown-family-law-guelph": {
-  "kind": "cover",
-  "src": "images/hero/brown-family-law-guelph.webp",
-  "from": "https://brownfamilylaw.ca/wp-content/uploads/2024/04/Brown-Family-Law-and-Mediation-in-Guelph.jpg",
-  "bio": "images/bio/brown-family-law-guelph.webp"
- },
  "bryan-and-company-llp": {
   "kind": "cover",
   "src": "images/hero/bryan-and-company-llp.webp",
   "from": "https://bryanco.com/wp-content/uploads/2024/10/edmonton-law-offices-downtown-cropped-1.jpg"
- },
- "brykman-lefler-lawyers-north-york": {
-  "kind": "cover",
-  "src": "images/hero/brykman-lefler-lawyers-north-york.webp",
-  "from": "https://bllawyers.ca/wp-content/uploads/2024/06/Title-Insurance.webp",
-  "bio": "images/bio/brykman-lefler-lawyers-north-york.webp"
  },
  "cain-lamarre-chicoutimi": {
   "kind": "cover",
@@ -193,32 +130,10 @@
   "from": "https://cainlamarre.ca/wp-content/uploads/2024/07/alma_cain_lamarre_bureaux_015_web.jpg",
   "bio": "images/bio/cain-lamarre-chicoutimi.webp"
  },
- "centre-pointe-law-calgary": {
-  "kind": "cover",
-  "src": "images/hero/centre-pointe-law-calgary.webp",
-  "from": "https://img1.wsimg.com/isteam/stock/8075",
-  "bio": "images/bio/centre-pointe-law-calgary.webp"
- },
- "chakib-benhadji-serradj-montreal": {
-  "kind": "cover",
-  "src": "images/hero/chakib-benhadji-serradj-montreal.webp",
-  "from": "https://cblegal.ca/wp-content/uploads/2024/09/Immigrer-au-canada-1.jpg"
- },
- "clivio-law-professional-corporation-toronto": {
-  "kind": "cover",
-  "src": "images/hero/clivio-law-professional-corporation-toronto.webp",
-  "from": "https://www.cliviolaw.com/wp-content/uploads/2024/12/immigration-assessment-1024x683.jpg",
-  "bio": "images/bio/clivio-law-professional-corporation-toronto.webp"
- },
  "dabros-law-ottawa": {
   "kind": "bio",
   "src": "images/bio/dabros-law-ottawa.webp",
   "from": "https://www.dabroslaw.com/wp-content/uploads/2024/07/IMG_1439-scaled.jpg"
- },
- "daniel-brown-law-llp": {
-  "kind": "cover",
-  "src": "images/daniel-brown-office.jpg",
-  "from": "the hand-built page (cover picture already on it)"
  },
  "david-hollingsworth-and-associates-ottawa": {
   "kind": "cover",
@@ -226,28 +141,11 @@
   "from": "https://ottawainjury.ca/wp-content/uploads/2021/09/banner-team-david-2020-home_opt.jpeg",
   "bio": "images/bio/david-hollingsworth-and-associates-ottawa.webp"
  },
- "davylaw-north-york": {
-  "kind": "cover",
-  "src": "images/hero/davylaw-north-york.webp",
-  "from": "https://davylaw.ca/wp-content/uploads/2022/10/davylaw-real-estate-law-001-1024x523.webp"
- },
- "day-borg-llp-mississauga": {
-  "kind": "cover",
-  "src": "images/hero/day-borg-llp-mississauga.webp",
-  "from": "https://dayborg.com/wp-content/uploads/Casual-2.jpg",
-  "bio": "images/bio/day-borg-llp-mississauga.webp"
- },
  "derek-wilson-hamilton-personal-injury-and-disability-lawyer-hamilton": {
   "kind": "cover",
   "src": "images/hero/derek-wilson-hamilton-personal-injury-and-disability-lawyer-hamilton.webp",
   "from": "https://derekwilsonlaw.ca/wp-content/uploads/2021/11/watch-the-story-back-1.jpg",
   "bio": "images/bio/derek-wilson-hamilton-personal-injury-and-disability-lawyer-hamilton.webp"
- },
- "dionne-avocats-boucherville-brossard": {
-  "kind": "cover",
-  "src": "images/hero/dionne-avocats-boucherville-brossard.webp",
-  "from": "https://www.dionneavocats.com/wp-content/uploads/2019/05/Accueil.jpg",
-  "bio": "images/bio/dionne-avocats-boucherville-brossard.webp"
  },
  "dlegal-law-office-wills-calgary": {
   "kind": "cover",
@@ -277,11 +175,6 @@
   "src": "images/hero/fortier-law-firm.webp",
   "from": "https://cdn.prod.website-files.com/5fc30df40f3f8108d9fc2d4e/5fc6afd23efd63175670f00d_services-header-library.jpeg"
  },
- "fosters-law-llp-london": {
-  "kind": "cover",
-  "src": "images/hero/fosters-law-llp-london.webp",
-  "from": "https://fosterslaw.ca/wp-content/uploads/2021/12/video-cta-image.jpg"
- },
  "fraese-aymont-family-lawyers-calgary-calgary": {
   "kind": "cover",
   "src": "images/hero/fraese-aymont-family-lawyers-calgary-calgary.webp",
@@ -292,33 +185,11 @@
   "src": "images/bio/freedom-family-law.webp",
   "from": "https://freedomfamilylaw.ca/wp-content/uploads/2026/06/mathais-sarrazin-portrait.png"
  },
- "gale-law-professional-corporation-toronto": {
-  "kind": "cover",
-  "src": "images/hero/gale-law-professional-corporation-toronto.webp",
-  "from": "https://galelaw.ca/wp-content/uploads/2025/04/Kim-Gale-086edited-Louboutin-hee-new-crop-1-scaled-square.jpg",
-  "bio": "images/bio/gale-law-professional-corporation-toronto.webp"
- },
- "galileo-partners-montreal": {
-  "kind": "cover",
-  "src": "images/hero/galileo-partners-montreal.webp",
-  "from": "https://galileopartners.ca/wp-content/uploads/2023/03/Renard_Flare-2423-1-1024x683.jpg",
-  "bio": "images/bio/galileo-partners-montreal.webp"
- },
  "gauthier-and-mines-criminal-lawyers-vancouver": {
   "kind": "cover",
   "src": "images/hero/gauthier-and-mines-criminal-lawyers-vancouver.webp",
   "from": "https://mineslaw.com/wp-content/uploads/2026/08/ian-guather-michael-mines-patrick-johnston-1.jpg",
   "bio": "images/bio/gauthier-and-mines-criminal-lawyers-vancouver.webp"
- },
- "gbv-avocats-quebec-city": {
-  "kind": "cover",
-  "src": "images/hero/gbv-avocats-quebec-city.webp",
-  "from": "https://static.wixstatic.com/media/b3055a_a9cf2379795d420da8d9f8e9d7ea2c49~mv2_d_3064_1722_s_2.jpg/v1/fill/w_2500,h_1405,al_c/b3055a_a9cf2379795d420da8d9f8e9d7ea2c49~mv2_d_3064_1722_s_2.jpg"
- },
- "gertsoyg-and-company-burnaby": {
-  "kind": "cover",
-  "src": "images/hero/gertsoyg-and-company-burnaby.webp",
-  "from": "https://www.yglaw.ca/wp-content/uploads/2021/11/Gertsoyg-Company-Vancouver-Home-Team.jpg"
  },
  "girard-avocats-inc": {
   "kind": "cover",
@@ -343,11 +214,6 @@
   "src": "images/hero/guberman-appleby-immigration-lawyers-toronto.webp",
   "from": "https://gaimmigrationlawyers.com/wp-content/uploads/2025/05/Temporary-Resident-Visa-Canada.webp"
  },
- "gupta-law-firm": {
-  "kind": "cover",
-  "src": "images/gupta-law-banner.jpg",
-  "from": "the hand-built page (cover picture already on it)"
- },
  "hammerco-lawyers-llp-vancouver": {
   "kind": "bio",
   "src": "images/bio/hammerco-lawyers-llp-vancouver.webp",
@@ -358,26 +224,10 @@
   "src": "images/hero/hara-company.webp",
   "from": "https://haraco.ca/wp-content/uploads/2024/08/Van-Couver-Sc-World.jpg"
  },
- "harsimran-makkar-law-professional-corporation-brampton": {
-  "kind": "cover",
-  "src": "images/hero/harsimran-makkar-law-professional-corporation-brampton.webp",
-  "from": "https://www.hmakkarlaw.ca/wp-content/uploads/2020/10/DSC_9340-Harsimran-Makkar-819x1024.jpg",
-  "bio": "images/bio/harsimran-makkar-law-professional-corporation-brampton.webp"
- },
  "henderson-family-law-thunder-bay": {
   "kind": "bio",
   "src": "images/bio/henderson-family-law-thunder-bay.webp",
   "from": "https://hendersonfamilylaw.ca/wp-content/uploads/2021/04/Lawyers-Outside-scaled.jpg"
- },
- "hoffman-law-toronto": {
-  "kind": "cover",
-  "src": "images/hero/hoffman-law-toronto.webp",
-  "from": "https://hoffmanlaw.ca/wp-content/uploads/2026/01/personal-injury-lawyer-ontario-hoffman-law.jpg"
- },
- "horra-family-law-markham": {
-  "kind": "cover",
-  "src": "images/hero/horra-family-law-markham.webp",
-  "from": "https://horrafamilylaw.com/wp-content/uploads/2022/02/weput-families-pic.jpg"
  },
  "incorporation-gatineau": {
   "kind": "cover",
@@ -385,23 +235,11 @@
   "from": "https://avocatsgatineau.ca/wp-content/uploads/2025/04/Decarie-Stephenson.jpg",
   "bio": "images/bio/incorporation-gatineau.webp"
  },
- "inna-kogan-law-office-toronto": {
-  "kind": "cover",
-  "src": "images/hero/inna-kogan-law-office-toronto.webp",
-  "from": "https://innakogan.com/assets/img/hero.jpg",
-  "bio": "images/bio/inna-kogan-law-office-toronto.webp"
- },
  "isenberg-and-shuman-north-york": {
   "kind": "cover",
   "src": "images/hero/isenberg-and-shuman-north-york.webp",
   "from": "https://shumanlaw.ca/wp-content/uploads/2014/10/download-10.jpg",
   "bio": "images/bio/isenberg-and-shuman-north-york.webp"
- },
- "jag-virk-lawyers-hamilton": {
-  "kind": "cover",
-  "src": "images/hero/jag-virk-lawyers-hamilton.webp",
-  "from": "https://jagvirklawyers.com/wp-content/uploads/2026/02/jag-virk-photo-1.jpg",
-  "bio": "images/bio/jag-virk-lawyers-hamilton.webp"
  },
  "jahanshahi-business-law-firm-north-york": {
   "kind": "cover",
@@ -453,64 +291,21 @@
   "from": "https://karapancevlaw.ca/wp-content/uploads/2024/11/criminal-lawyer-toronto-criminal-law-firm-1.jpg",
   "bio": "images/bio/karapancev-law-toronto.webp"
  },
- "keyork-immigration-law-north-york": {
-  "kind": "cover",
-  "src": "images/hero/keyork-immigration-law-north-york.webp",
-  "from": "https://immigrating-to-canada.com/wp-content/uploads/2024/10/Banner-home-page.jpg"
- },
- "kinza-law-office-professional-corporation-north-york": {
-  "kind": "cover",
-  "src": "images/hero/kinza-law-office-professional-corporation-north-york.webp",
-  "from": "https://static.wixstatic.com/media/01a33f_01e6eeaf60994f659d0215a656a2c599~mv2.jpg/v1/fill/w_766,h_604,al_c/01a33f_01e6eeaf60994f659d0215a656a2c599~mv2.jpg",
-  "bio": "images/bio/kinza-law-office-professional-corporation-north-york.webp"
- },
- "kmmg-law-winnipeg": {
-  "kind": "cover",
-  "src": "images/hero/kmmg-law-winnipeg.webp",
-  "from": "https://kmmglaw.ca/wp-content/uploads/2023/03/accountant-hero.jpg"
- },
  "kooner-priddle-law-group-kamloops": {
   "kind": "cover",
   "src": "images/hero/kooner-priddle-law-group-kamloops.webp",
   "from": "https://koonerpriddlelaw.ca/wp-content/uploads/2024/03/2024-Priddle-Law-Group-0006-1-e1710522712879.jpg",
   "bio": "images/bio/kooner-priddle-law-group-kamloops.webp"
  },
- "lafreniere-sanna-estate-law-ottawa": {
-  "kind": "cover",
-  "src": "images/hero/lafreniere-sanna-estate-law-ottawa.webp",
-  "from": "https://estatelawboutique.com/wp-content/uploads/2019/11/pen-signing-document.jpg",
-  "bio": "images/bio/lafreniere-sanna-estate-law-ottawa.webp"
- },
- "lakhan-tram-llp-mississauga": {
-  "kind": "cover",
-  "src": "images/hero/lakhan-tram-llp-mississauga.webp",
-  "from": "https://ltllp.ca/wp-content/uploads/2022/04/Neues-Projekt5.png",
-  "bio": "images/bio/lakhan-tram-llp-mississauga.webp"
- },
  "lalande-personal-injury-long-term-disability-lawyers": {
   "kind": "bio",
   "src": "images/bio/lalande-personal-injury-long-term-disability-lawyers.webp",
   "from": "https://injured.ca/wp-content/uploads/2026/09/matt-lalande-lalande-personal-injur-disability-lawyers.jpg"
  },
- "landings-llp-toronto": {
-  "kind": "cover",
-  "src": "images/hero/landings-llp-toronto.webp",
-  "from": "https://landingslaw.com/wp-content/uploads/share-image.jpg"
- },
- "lawstop-criminal-lawyers-brampton": {
-  "kind": "bio",
-  "src": "images/bio/lawstop-criminal-lawyers-brampton.webp",
-  "from": "https://lawstop.ca/wp-content/uploads/2024/03/criminal-lawyer-ishan-sharma.webp"
- },
  "lewis-et-associes-sencrl": {
   "kind": "cover",
   "src": "images/hero/lewis-et-associes-sencrl.webp",
   "from": "https://lewislegal.ca/wp-content/uploads/2023/03/canada-work-permit.jpg"
- },
- "li-cheng-business-and-real-estate-law-hamilton": {
-  "kind": "bio",
-  "src": "images/bio/li-cheng-business-and-real-estate-law-hamilton.webp",
-  "from": "https://lcheng.ca/wp-content/uploads/2019/10/GSLG_sept2019-20-cropped.jpg"
  },
  "lou-vadala": {
   "kind": "cover",
@@ -586,11 +381,6 @@
   "from": "https://www.miskinlaw.ca/wp-content/uploads/2025/11/miskinlaw-home.jpg",
   "bio": "images/bio/miskin-law-peterborough.webp"
  },
- "monique-j-charlebois-oakville": {
-  "kind": "bio",
-  "src": "images/bio/monique-j-charlebois-oakville.webp",
-  "from": "https://moniquecharlebois.ca/wp-content/uploads/2023/04/monique-charlebois2.jpg"
- },
  "monkhouse-law-employment-lawyers": {
   "kind": "cover",
   "src": "images/hero/monkhouse-law-employment-lawyers.webp",
@@ -602,22 +392,11 @@
   "src": "images/hero/nanda-family-and-divorce-lawyers-mississauga.webp",
   "from": "https://familylawyersmississauga.com/wp-content/uploads/2025/03/Banner-Pic-1.jpg"
  },
- "nelligan-law": {
-  "kind": "cover",
-  "src": "images/nelligan-team.png",
-  "from": "the hand-built page (cover picture already on it)",
-  "pos": "center 25%"
- },
  "nichols-law-professional-corporation-markham": {
   "kind": "cover",
   "src": "images/hero/nichols-law-professional-corporation-markham.webp",
   "from": "https://markhamlaw.com/wp-content/uploads/IMG_4644-1-1024x683.jpg",
   "bio": "images/bio/nichols-law-professional-corporation-markham.webp"
- },
- "nirwan-law-corporation-surrey": {
-  "kind": "cover",
-  "src": "images/hero/nirwan-law-corporation-surrey.webp",
-  "from": "https://nirwanlawcorp.com/wp-content/uploads/2025/12/nirwan-law-sign.webp"
  },
  "nuraney-law-group-vancouver": {
   "kind": "cover",
@@ -629,17 +408,6 @@
   "kind": "bio",
   "src": "images/bio/nyota-avocate.webp",
   "from": "https://irp.cdn-website.com/md/pexels/dms3rep/multi/opt/pexels-photo-6077123-1920w.jpeg"
- },
- "oatley-vigmond-personal-injury-lawyers-llp": {
-  "kind": "cover",
-  "src": "images/oatley-vigmond-building.jpg",
-  "from": "the hand-built page (cover picture already on it)"
- },
- "odele-law-group-ottawa": {
-  "kind": "cover",
-  "src": "images/hero/odele-law-group-ottawa.webp",
-  "from": "https://odelelaw.ca/wp-content/uploads/2024/03/Gavel-with-people.jpg",
-  "bio": "images/bio/odele-law-group-ottawa.webp"
  },
  "onyx-law-group-vancouver": {
   "kind": "cover",
@@ -672,11 +440,6 @@
   "kind": "bio",
   "src": "images/bio/pathway-legal-family-lawyers.webp",
   "from": "https://www.pathwaylegal.ca/images/val-hemminger-b.webp"
- },
- "patrick-jacques-avocat-droit-criminel-quebec-city": {
-  "kind": "cover",
-  "src": "images/hero/patrick-jacques-avocat-droit-criminel-quebec-city.webp",
-  "from": "https://pjavocatcriminel.com/assets/Hero/patrick-jacques-home-banner.jpg"
  },
  "pav-singh-criminal-lawyer-mississauga": {
   "kind": "cover",
@@ -737,11 +500,6 @@
   "from": "https://zsavocats.com/wp-content/uploads/2024/12/Photo-assermentation.jpeg",
   "bio": "images/bio/samy-ziada-avocat-montreal.webp"
  },
- "sanctuary-lawyers-aurora": {
-  "kind": "cover",
-  "src": "images/hero/sanctuary-lawyers-aurora.webp",
-  "from": "https://sanctuarylawyers.com/og-image.jpg"
- },
  "sean-fagan-criminal-defence-lawyer-calgary": {
   "kind": "cover",
   "src": "images/hero/sean-fagan-criminal-defence-lawyer-calgary.webp",
@@ -764,17 +522,6 @@
   "src": "images/bio/shimon-segal-criminal-lawyer-winnipeg.webp",
   "from": "https://gindinsegal.ca/wp-content/uploads/2021/10/Asset-8.png"
  },
- "shory-law-llp-calgary": {
-  "kind": "cover",
-  "src": "images/hero/shory-law-llp-calgary.webp",
-  "from": "https://shorylaw.com/wp-content/uploads/2025/08/Shory-Law-LLP-Reception.jpg"
- },
- "siddiky-law-montreal": {
-  "kind": "cover",
-  "src": "images/hero/siddiky-law-montreal.webp",
-  "from": "https://siddikylaw.com/wp-content/uploads/2023/10/nastuh-abootalebi-rspmla5rita-unsplash.jpg",
-  "bio": "images/bio/siddiky-law-montreal.webp"
- },
  "soloway-wright-llp": {
   "kind": "cover",
   "src": "images/hero/soloway-wright-llp.webp",
@@ -785,32 +532,11 @@
   "src": "images/bio/stayshyn-law-offices-hamilton.webp",
   "from": "https://tslawoffice.ca/wp-content/uploads/2022/09/contact-page-banner-2022-1200x630.jpg"
  },
- "stern-shapray-criminal-lawyers-surrey": {
-  "kind": "cover",
-  "src": "images/hero/stern-shapray-criminal-lawyers-surrey.webp",
-  "from": "https://sternshapraylaw.ca/wp-content/uploads/2026/03/criminal-lawyer-in-surrey-british-columbia.jpg"
- },
- "steven-tress-barrister-and-solicitor-toronto": {
-  "kind": "cover",
-  "src": "images/hero/steven-tress-barrister-and-solicitor-toronto.webp",
-  "from": "https://steventress.com/wp-content/uploads/2023/04/Canadian-Immigration.jpg",
-  "bio": "images/bio/steven-tress-barrister-and-solicitor-toronto.webp"
- },
- "surya-law-toronto": {
-  "kind": "cover",
-  "src": "images/hero/surya-law-toronto.webp",
-  "from": "https://suryalaw.ca/wp-content/uploads/2026/09/surya-chakrabarti-canada.jpeg"
- },
  "sv-law": {
   "kind": "cover",
   "src": "images/hero/sv-law.webp",
   "from": "https://svlaw.ca/wp-content/uploads/2026/06/01-SV-Law-Firm-Photo-June-2026-1-1-copy.jpg",
   "bio": "images/bio/sv-law.webp"
- },
- "taerk-family-law-toronto": {
-  "kind": "bio",
-  "src": "images/bio/taerk-family-law-toronto.webp",
-  "from": "https://taerkfamilylaw.com/media/Amanda-Taerk-2026.webp"
  },
  "tapper-cuddy-llp-winnipeg": {
   "kind": "bio",
@@ -826,17 +552,6 @@
   "kind": "cover",
   "src": "images/hero/taylor-mccaffrey-llp-winnipeg.webp",
   "from": "https://www.tmlawyers.com/wp-content/uploads/shutterstock_1404089531-scaled-e1629138621875.jpg"
- },
- "team-law-group-llp-edmonton": {
-  "kind": "bio",
-  "src": "images/bio/team-law-group-llp-edmonton.webp",
-  "from": "https://teamlawgroup.ca/wp-content/uploads/2024/01/Rectangle-96.png"
- },
- "tevlin-gleadle-curtis-vancouver": {
-  "kind": "cover",
-  "src": "images/hero/tevlin-gleadle-curtis-vancouver.webp",
-  "from": "https://tevlingleadle.com/wp-content/uploads/2026/03/City4.jpg",
-  "bio": "images/bio/tevlin-gleadle-curtis-vancouver.webp"
  },
  "the-myers-law-company-vancouver": {
   "kind": "cover",
@@ -855,12 +570,6 @@
   "from": "https://timlouislaw.com/wp-content/uploads/2022/03/tim_louis-4.jpg",
   "bio": "images/bio/tim-louis-and-company-law-firm-vancouver.webp"
  },
- "titan-law-toronto": {
-  "kind": "cover",
-  "src": "images/hero/titan-law-toronto.webp",
-  "from": "https://www.titanlaw.ca/wp-content/uploads/2026/05/Titan-Law-Canada-Immigration-Lawyers.jpeg",
-  "bio": "images/bio/titan-law-toronto.webp"
- },
  "traxler-haines": {
   "kind": "cover",
   "src": "images/hero/traxler-haines.webp",
@@ -876,11 +585,6 @@
   "src": "images/hero/turbide-avocat.webp",
   "from": "https://turbideavocat.com/assets/chateau-frontenac-hero.jpeg"
  },
- "twin-lisbet-avocats-and-fiscalistes-montreal": {
-  "kind": "cover",
-  "src": "images/hero/twin-lisbet-avocats-and-fiscalistes-montreal.webp",
-  "from": "https://twinlisbet.com/wp-content/uploads/2025/05/Montreal-QC-office.webp"
- },
  "tz-law-calgary": {
   "kind": "cover",
   "src": "images/hero/tz-law-calgary.webp",
@@ -893,22 +597,10 @@
   "from": "https://vpavocats.ca/__l5e/assets-v1/f5d2312d-f6ee-4c97-860b-55dab9ef5c6a/PAT_2421-v2.jpg",
   "bio": "images/bio/velandia-pouyes-avocats.webp"
  },
- "velletta-pedersen-christie-lawyers-victoria": {
-  "kind": "cover",
-  "src": "images/hero/velletta-pedersen-christie-lawyers-victoria.webp",
-  "from": "https://victorialaw.ca/wp-content/uploads/veletta-2026.webp",
-  "bio": "images/bio/velletta-pedersen-christie-lawyers-victoria.webp"
- },
  "verreau-dufresne-avocats": {
   "kind": "cover",
   "src": "images/hero/verreau-dufresne-avocats.webp",
   "from": "https://www.verreaudufresneavocats.com/wp-content/uploads/2020/03/runner-web_recrop_v2.jpg"
- },
- "vick-hundal-brampton": {
-  "kind": "cover",
-  "src": "images/hero/vick-hundal-brampton.webp",
-  "from": "https://vickhundallaw.ca/wp-content/uploads/2024/02/1a-scaled-1.jpg",
-  "bio": "images/bio/vick-hundal-brampton.webp"
  },
  "waseer-law-office-london": {
   "kind": "bio",
@@ -921,16 +613,213 @@
   "from": "https://watchmakerlaw.com/wp-content/uploads/2024/11/Accident-Lawyers-in-Edmonton-Watch-Maker-Law-1024x776.jpg",
   "bio": "images/bio/watchmaker-law-car-accident-and-personal-injury-lawyers-edmonton.webp"
  },
+ "williams-litigation-north-north-bay": {
+  "kind": "cover",
+  "src": "images/hero/williams-litigation-north-north-bay.webp",
+  "from": "https://williamslitigationnorth.ca/wp-content/uploads/North-Bay-2.jpg"
+ },
+ "zoom-law-calgary": {
+  "kind": "cover",
+  "src": "images/hero/zoom-law-calgary.webp",
+  "from": "https://zoomlawyers.ca/og.jpg"
+ },
+ "abramovich-immigration-law-toronto": {
+  "kind": "cover",
+  "src": "images/hero/abramovich-immigration-law-toronto.webp",
+  "from": "https://atimmigrationlaw.com/wp-content/uploads/2024/08/home-hero.jpg",
+  "bio": "images/bio/abramovich-immigration-law-toronto.webp"
+ },
+ "clivio-law-professional-corporation-toronto": {
+  "kind": "cover",
+  "src": "images/hero/clivio-law-professional-corporation-toronto.webp",
+  "from": "https://www.cliviolaw.com/wp-content/uploads/2024/12/immigration-assessment-1024x683.jpg",
+  "bio": "images/bio/clivio-law-professional-corporation-toronto.webp"
+ },
+ "lawstop-criminal-lawyers-brampton": {
+  "kind": "bio",
+  "src": "images/bio/lawstop-criminal-lawyers-brampton.webp",
+  "from": "https://lawstop.ca/wp-content/uploads/2024/03/criminal-lawyer-ishan-sharma.webp"
+ },
+ "inna-kogan-law-office-toronto": {
+  "kind": "cover",
+  "src": "images/hero/inna-kogan-law-office-toronto.webp",
+  "from": "https://innakogan.com/assets/img/hero.jpg",
+  "bio": "images/bio/inna-kogan-law-office-toronto.webp"
+ },
+ "titan-law-toronto": {
+  "kind": "cover",
+  "src": "images/hero/titan-law-toronto.webp",
+  "from": "https://www.titanlaw.ca/wp-content/uploads/2026/05/Titan-Law-Canada-Immigration-Lawyers.jpeg",
+  "bio": "images/bio/titan-law-toronto.webp"
+ },
+ "angeles-and-de-jesus-law-llp-toronto": {
+  "kind": "cover",
+  "src": "images/hero/angeles-and-de-jesus-law-llp-toronto.webp",
+  "from": "https://www.ajlawpartners.ca/wp-content/uploads/2020/07/law-firm-18.jpg",
+  "bio": "images/bio/angeles-and-de-jesus-law-llp-toronto.webp"
+ },
+ "surya-law-toronto": {
+  "kind": "cover",
+  "src": "images/hero/surya-law-toronto.webp",
+  "from": "https://suryalaw.ca/wp-content/uploads/2026/09/surya-chakrabarti-canada.jpeg"
+ },
+ "zinati-kay-toronto": {
+  "kind": "cover",
+  "src": "images/hero/zinati-kay-toronto.webp",
+  "from": "https://zinatikay.com/wp-content/uploads/2016/06/banner.jpg"
+ },
+ "horra-family-law-markham": {
+  "kind": "cover",
+  "src": "images/hero/horra-family-law-markham.webp",
+  "from": "https://horrafamilylaw.com/wp-content/uploads/2022/02/weput-families-pic.jpg"
+ },
+ "landings-llp-toronto": {
+  "kind": "cover",
+  "src": "images/hero/landings-llp-toronto.webp",
+  "from": "https://landingslaw.com/wp-content/uploads/share-image.jpg"
+ },
+ "andrew-edgar-criminal-defence-counsel-brampton": {
+  "kind": "cover",
+  "src": "images/hero/andrew-edgar-criminal-defence-counsel-brampton.webp",
+  "from": "https://www.edgarlaw.ca/wp-content/uploads/2026/10/edgar-law-hero-v2.webp"
+ },
+ "sanctuary-lawyers-aurora": {
+  "kind": "cover",
+  "src": "images/hero/sanctuary-lawyers-aurora.webp",
+  "from": "https://sanctuarylawyers.com/og-image.jpg"
+ },
+ "keyork-immigration-law-north-york": {
+  "kind": "cover",
+  "src": "images/hero/keyork-immigration-law-north-york.webp",
+  "from": "https://immigrating-to-canada.com/wp-content/uploads/2024/10/Banner-home-page.jpg"
+ },
+ "harsimran-makkar-law-professional-corporation-brampton": {
+  "kind": "cover",
+  "src": "images/hero/harsimran-makkar-law-professional-corporation-brampton.webp",
+  "from": "https://www.hmakkarlaw.ca/wp-content/uploads/2020/10/DSC_9340-Harsimran-Makkar-819x1024.jpg",
+  "bio": "images/bio/harsimran-makkar-law-professional-corporation-brampton.webp"
+ },
+ "hoffman-law-toronto": {
+  "kind": "cover",
+  "src": "images/hero/hoffman-law-toronto.webp",
+  "from": "https://hoffmanlaw.ca/wp-content/uploads/2026/01/personal-injury-lawyer-ontario-hoffman-law.jpg"
+ },
+ "kinza-law-office-professional-corporation-north-york": {
+  "kind": "cover",
+  "src": "images/hero/kinza-law-office-professional-corporation-north-york.webp",
+  "from": "https://static.wixstatic.com/media/01a33f_01e6eeaf60994f659d0215a656a2c599~mv2.jpg/v1/fill/w_766,h_604,al_c/01a33f_01e6eeaf60994f659d0215a656a2c599~mv2.jpg",
+  "bio": "images/bio/kinza-law-office-professional-corporation-north-york.webp"
+ },
+ "brykman-lefler-lawyers-north-york": {
+  "kind": "cover",
+  "src": "images/hero/brykman-lefler-lawyers-north-york.webp",
+  "from": "https://bllawyers.ca/wp-content/uploads/2024/06/Title-Insurance.webp",
+  "bio": "images/bio/brykman-lefler-lawyers-north-york.webp"
+ },
+ "day-borg-llp-mississauga": {
+  "kind": "cover",
+  "src": "images/hero/day-borg-llp-mississauga.webp",
+  "from": "https://dayborg.com/wp-content/uploads/Casual-2.jpg",
+  "bio": "images/bio/day-borg-llp-mississauga.webp"
+ },
+ "li-cheng-business-and-real-estate-law-hamilton": {
+  "kind": "bio",
+  "src": "images/bio/li-cheng-business-and-real-estate-law-hamilton.webp",
+  "from": "https://lcheng.ca/wp-content/uploads/2019/10/GSLG_sept2019-20-cropped.jpg"
+ },
+ "lakhan-tram-llp-mississauga": {
+  "kind": "cover",
+  "src": "images/hero/lakhan-tram-llp-mississauga.webp",
+  "from": "https://ltllp.ca/wp-content/uploads/2022/04/Neues-Projekt5.png",
+  "bio": "images/bio/lakhan-tram-llp-mississauga.webp"
+ },
+ "lafreniere-sanna-estate-law-ottawa": {
+  "kind": "cover",
+  "src": "images/hero/lafreniere-sanna-estate-law-ottawa.webp",
+  "from": "https://estatelawboutique.com/wp-content/uploads/2019/11/pen-signing-document.jpg",
+  "bio": "images/bio/lafreniere-sanna-estate-law-ottawa.webp"
+ },
+ "bickhram-litigation-mississauga": {
+  "kind": "cover",
+  "src": "images/hero/bickhram-litigation-mississauga.webp",
+  "from": "https://bickhramlitigation.com/wp-content/uploads/elementor/thumbs/shutterstock_552619267-scaled-p3fv90al28mb8cwoci0x5g310xyqr2g26y7e9ff3g0.jpg",
+  "bio": "images/bio/bickhram-litigation-mississauga.webp"
+ },
+ "davylaw-north-york": {
+  "kind": "cover",
+  "src": "images/hero/davylaw-north-york.webp",
+  "from": "https://davylaw.ca/wp-content/uploads/2022/10/davylaw-real-estate-law-001-1024x523.webp"
+ },
+ "brown-family-law-guelph": {
+  "kind": "cover",
+  "src": "images/hero/brown-family-law-guelph.webp",
+  "from": "https://brownfamilylaw.ca/wp-content/uploads/2024/04/Brown-Family-Law-and-Mediation-in-Guelph.jpg",
+  "bio": "images/bio/brown-family-law-guelph.webp"
+ },
+ "ads-law-professional-corporation-mississauga": {
+  "kind": "cover",
+  "src": "images/hero/ads-law-professional-corporation-mississauga.webp",
+  "from": "https://adslaw.ca/wp-content/uploads/2025/01/Mississauga-2.webp"
+ },
+ "jag-virk-lawyers-hamilton": {
+  "kind": "cover",
+  "src": "images/hero/jag-virk-lawyers-hamilton.webp",
+  "from": "https://jagvirklawyers.com/wp-content/uploads/2026/02/jag-virk-photo-1.jpg",
+  "bio": "images/bio/jag-virk-lawyers-hamilton.webp"
+ },
+ "vick-hundal-brampton": {
+  "kind": "cover",
+  "src": "images/hero/vick-hundal-brampton.webp",
+  "from": "https://vickhundallaw.ca/wp-content/uploads/2024/02/1a-scaled-1.jpg",
+  "bio": "images/bio/vick-hundal-brampton.webp"
+ },
+ "monique-j-charlebois-oakville": {
+  "kind": "bio",
+  "src": "images/bio/monique-j-charlebois-oakville.webp",
+  "from": "https://moniquecharlebois.ca/wp-content/uploads/2023/04/monique-charlebois2.jpg"
+ },
  "weng-law-firm-toronto": {
   "kind": "cover",
   "src": "images/hero/weng-law-firm-toronto.webp",
   "from": "https://wenglawfirm.ca/wp-content/uploads/2019/12/photo-of-people-doing-handshakes-3183197-1024x683.jpg",
   "bio": "images/bio/weng-law-firm-toronto.webp"
  },
- "williams-litigation-north-north-bay": {
+ "gale-law-professional-corporation-toronto": {
   "kind": "cover",
-  "src": "images/hero/williams-litigation-north-north-bay.webp",
-  "from": "https://williamslitigationnorth.ca/wp-content/uploads/North-Bay-2.jpg"
+  "src": "images/hero/gale-law-professional-corporation-toronto.webp",
+  "from": "https://galelaw.ca/wp-content/uploads/2025/04/Kim-Gale-086edited-Louboutin-hee-new-crop-1-scaled-square.jpg",
+  "bio": "images/bio/gale-law-professional-corporation-toronto.webp"
+ },
+ "taerk-family-law-toronto": {
+  "kind": "bio",
+  "src": "images/bio/taerk-family-law-toronto.webp",
+  "from": "https://taerkfamilylaw.com/media/Amanda-Taerk-2026.webp"
+ },
+ "fosters-law-llp-london": {
+  "kind": "cover",
+  "src": "images/hero/fosters-law-llp-london.webp",
+  "from": "https://fosterslaw.ca/wp-content/uploads/2021/12/video-cta-image.jpg"
+ },
+ "odele-law-group-ottawa": {
+  "kind": "cover",
+  "src": "images/hero/odele-law-group-ottawa.webp",
+  "from": "https://odelelaw.ca/wp-content/uploads/2024/03/Gavel-with-people.jpg",
+  "bio": "images/bio/odele-law-group-ottawa.webp"
+ },
+ "shory-law-llp-calgary": {
+  "kind": "cover",
+  "src": "images/hero/shory-law-llp-calgary.webp",
+  "from": "https://shorylaw.com/wp-content/uploads/2025/08/Shory-Law-LLP-Reception.jpg"
+ },
+ "bagga-and-associates-calgary": {
+  "kind": "cover",
+  "src": "images/hero/bagga-and-associates-calgary.webp",
+  "from": "https://www.baggalawyers.ca/social-preview.jpg"
+ },
+ "team-law-group-llp-edmonton": {
+  "kind": "bio",
+  "src": "images/bio/team-law-group-llp-edmonton.webp",
+  "from": "https://teamlawgroup.ca/wp-content/uploads/2024/01/Rectangle-96.png"
  },
  "williamson-law-calgary": {
   "kind": "cover",
@@ -938,14 +827,119 @@
   "from": "https://static.wixstatic.com/media/328551_fc4df4d48971447489c6e77ce6ced40d%7Emv2_d_3600_2403_s_4_2.jpeg/v1/fit/w_2500,h_1330,al_c/328551_fc4df4d48971447489c6e77ce6ced40d%7Emv2_d_3600_2403_s_4_2.jpeg",
   "bio": "images/bio/williamson-law-calgary.webp"
  },
- "zinati-kay-toronto": {
+ "birdsell-grant-llp-edmonton": {
   "kind": "cover",
-  "src": "images/hero/zinati-kay-toronto.webp",
-  "from": "https://zinatikay.com/wp-content/uploads/2016/06/banner.jpg"
+  "src": "images/hero/birdsell-grant-llp-edmonton.webp",
+  "from": "https://birdsell.ca/wp-content/uploads/2023/06/DSC00008-Edit.jpg",
+  "bio": "images/bio/birdsell-grant-llp-edmonton.webp"
  },
- "zoom-law-calgary": {
+ "centre-pointe-law-calgary": {
   "kind": "cover",
-  "src": "images/hero/zoom-law-calgary.webp",
-  "from": "https://zoomlawyers.ca/og.jpg"
+  "src": "images/hero/centre-pointe-law-calgary.webp",
+  "from": "https://img1.wsimg.com/isteam/stock/8075",
+  "bio": "images/bio/centre-pointe-law-calgary.webp"
+ },
+ "stern-shapray-criminal-lawyers-surrey": {
+  "kind": "cover",
+  "src": "images/hero/stern-shapray-criminal-lawyers-surrey.webp",
+  "from": "https://sternshapraylaw.ca/wp-content/uploads/2026/03/criminal-lawyer-in-surrey-british-columbia.jpg"
+ },
+ "tevlin-gleadle-curtis-vancouver": {
+  "kind": "cover",
+  "src": "images/hero/tevlin-gleadle-curtis-vancouver.webp",
+  "from": "https://tevlingleadle.com/wp-content/uploads/2026/03/City4.jpg",
+  "bio": "images/bio/tevlin-gleadle-curtis-vancouver.webp"
+ },
+ "nirwan-law-corporation-surrey": {
+  "kind": "cover",
+  "src": "images/hero/nirwan-law-corporation-surrey.webp",
+  "from": "https://nirwanlawcorp.com/wp-content/uploads/2025/12/nirwan-law-sign.webp"
+ },
+ "gertsoyg-and-company-burnaby": {
+  "kind": "cover",
+  "src": "images/hero/gertsoyg-and-company-burnaby.webp",
+  "from": "https://www.yglaw.ca/wp-content/uploads/2021/11/Gertsoyg-Company-Vancouver-Home-Team.jpg"
+ },
+ "bay-view-law-employment-lawyers-kelowna": {
+  "kind": "cover",
+  "src": "images/hero/bay-view-law-employment-lawyers-kelowna.webp",
+  "from": "https://bvlaw.ca/wp-content/uploads/2021/07/brown-concrete-pillar-indoor.jpg",
+  "bio": "images/bio/bay-view-law-employment-lawyers-kelowna.webp"
+ },
+ "velletta-pedersen-christie-lawyers-victoria": {
+  "kind": "cover",
+  "src": "images/hero/velletta-pedersen-christie-lawyers-victoria.webp",
+  "from": "https://victorialaw.ca/wp-content/uploads/veletta-2026.webp",
+  "bio": "images/bio/velletta-pedersen-christie-lawyers-victoria.webp"
+ },
+ "chakib-benhadji-serradj-montreal": {
+  "kind": "cover",
+  "src": "images/hero/chakib-benhadji-serradj-montreal.webp",
+  "from": "https://cblegal.ca/wp-content/uploads/2024/09/Immigrer-au-canada-1.jpg"
+ },
+ "twin-lisbet-avocats-and-fiscalistes-montreal": {
+  "kind": "cover",
+  "src": "images/hero/twin-lisbet-avocats-and-fiscalistes-montreal.webp",
+  "from": "https://twinlisbet.com/wp-content/uploads/2025/05/Montreal-QC-office.webp"
+ },
+ "siddiky-law-montreal": {
+  "kind": "cover",
+  "src": "images/hero/siddiky-law-montreal.webp",
+  "from": "https://siddikylaw.com/wp-content/uploads/2023/10/nastuh-abootalebi-rspmla5rita-unsplash.jpg",
+  "bio": "images/bio/siddiky-law-montreal.webp"
+ },
+ "dionne-avocats-boucherville-brossard": {
+  "kind": "cover",
+  "src": "images/hero/dionne-avocats-boucherville-brossard.webp",
+  "from": "https://www.dionneavocats.com/wp-content/uploads/2019/05/Accueil.jpg",
+  "bio": "images/bio/dionne-avocats-boucherville-brossard.webp"
+ },
+ "patrick-jacques-avocat-droit-criminel-quebec-city": {
+  "kind": "cover",
+  "src": "images/hero/patrick-jacques-avocat-droit-criminel-quebec-city.webp",
+  "from": "https://pjavocatcriminel.com/assets/Hero/patrick-jacques-home-banner.jpg"
+ },
+ "avocat-droit-criminel-montreal-montreal": {
+  "kind": "cover",
+  "src": "images/hero/avocat-droit-criminel-montreal-montreal.webp",
+  "from": "https://solutionavocat.com/wp-content/uploads/2021/11/Me-Marie-Joelle-Demers-Avocat-Criminaliste-chez-Solution-Avocat-1.jpg",
+  "bio": "images/bio/avocat-droit-criminel-montreal-montreal.webp"
+ },
+ "galileo-partners-montreal": {
+  "kind": "cover",
+  "src": "images/hero/galileo-partners-montreal.webp",
+  "from": "https://galileopartners.ca/wp-content/uploads/2023/03/Renard_Flare-2423-1-1024x683.jpg",
+  "bio": "images/bio/galileo-partners-montreal.webp"
+ },
+ "gbv-avocats-quebec-city": {
+  "kind": "cover",
+  "src": "images/hero/gbv-avocats-quebec-city.webp",
+  "from": "https://static.wixstatic.com/media/b3055a_a9cf2379795d420da8d9f8e9d7ea2c49~mv2_d_3064_1722_s_2.jpg/v1/fill/w_2500,h_1405,al_c/b3055a_a9cf2379795d420da8d9f8e9d7ea2c49~mv2_d_3064_1722_s_2.jpg"
+ },
+ "kmmg-law-winnipeg": {
+  "kind": "cover",
+  "src": "images/hero/kmmg-law-winnipeg.webp",
+  "from": "https://kmmglaw.ca/wp-content/uploads/2023/03/accountant-hero.jpg"
+ },
+ "daniel-brown-law-llp": {
+  "kind": "cover",
+  "src": "images/daniel-brown-office.jpg",
+  "from": "the hand-built page (cover picture already on it)"
+ },
+ "oatley-vigmond-personal-injury-lawyers-llp": {
+  "kind": "cover",
+  "src": "images/oatley-vigmond-building.jpg",
+  "from": "the hand-built page (cover picture already on it)"
+ },
+ "nelligan-law": {
+  "kind": "cover",
+  "src": "images/nelligan-team.png",
+  "from": "the hand-built page (cover picture already on it)",
+  "pos": "center 25%"
+ },
+ "gupta-law-firm": {
+  "kind": "cover",
+  "src": "images/gupta-law-banner.jpg",
+  "from": "the hand-built page (cover picture already on it)"
  }
 }

@@ -494,7 +494,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/watchmaker-law-car-accident-and-personal-injury-lawyers-edmonton.webp",
   "details": {
    "lawyers": [
     {
@@ -517,7 +516,8 @@
     "Edmonton",
     "Alberta"
    ]
-  }
+  },
+  "heroImage": "images/hero/watchmaker-law-car-accident-and-personal-injury-lawyers-edmonton.webp"
  },
  {
   "name": "Shore & Johnston, Barristers-at-Law",
@@ -774,7 +774,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/sean-fagan-criminal-defence-lawyer-calgary.webp",
   "details": {
    "lawyers": [
     {
@@ -792,7 +791,8 @@
     "Firearms offences",
     "Murder"
    ]
-  }
+  },
+  "heroImage": "images/hero/sean-fagan-criminal-defence-lawyer-calgary.webp"
  },
  {
   "name": "Diamond and Diamond Lawyers",
@@ -1086,7 +1086,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/derek-wilson-hamilton-personal-injury-and-disability-lawyer-hamilton.webp",
   "details": {
    "lawyers": [
     {
@@ -1108,7 +1107,8 @@
    "serving": [
     "Hamilton"
    ]
-  }
+  },
+  "heroImage": "images/hero/derek-wilson-hamilton-personal-injury-and-disability-lawyer-hamilton.webp"
  },
  {
   "name": "Ellis Criminal Law Professional Corporation",
@@ -2048,7 +2048,6 @@
   "type": "logo",
   "about": "Apna Law LLP is a Burnaby firm of trial and appellate lawyers handling family, estate, personal injury and civil disputes.\n\nThe firm opened in 2018 and serves British Columbia and Alberta, and its lawyers have more than 40 years of combined experience inside and outside the courtroom. Its name is a Punjabi word loosely meaning ours, which the firm links to community and collaboration. The family law team includes James Gill, Amanda James, Hannah Gowans and Ingrid Lee, and an appeal to the Court of Appeal is not a re-hearing of the case. It also publishes articles, including one on international students and immigration consultants.",
   "src": "images/logos/apna-law-llp-burnaby.png",
-  "bioImage": "images/bio/apna-law-llp-burnaby.webp",
   "details": {
    "founded": 2018,
    "areas": [
@@ -2058,7 +2057,8 @@
     "Personal injury law",
     "Mediation and dispute resolution"
    ]
-  }
+  },
+  "heroImage": "images/hero/apna-law-llp-burnaby.webp"
  },
  {
   "name": "The Myers Law Company",
@@ -2086,7 +2086,6 @@
   "type": "logo",
   "about": "The Myers Law Company is a Vancouver criminal defence firm led by Justin Myers and Zack Myers, with traffic and family matters also covered.\n\nThe lawyers appear in Youth Court, Provincial Court, BC Supreme Court, the Court of Appeal and the Supreme Court of Canada, and can attend in Alberta, Ontario and other jurisdictions on request. Serious matters include murder, drug importation, firearms, theft, trafficking and arson. The approach is detail-oriented and transparent, with lawyers who often write detailed legal arguments and who collaborate on strategy and trials without raising the cost to the client. The office is on West Pender Street.",
   "src": "images/logos/the-myers-law-company-vancouver.png",
-  "bioImage": "images/bio/the-myers-law-company-vancouver.webp",
   "details": {
    "lawyers": [
     {
@@ -2106,7 +2105,8 @@
    "serving": [
     "Vancouver"
    ]
-  }
+  },
+  "heroImage": "images/hero/the-myers-law-company-vancouver.webp"
  },
  {
   "name": "Fraese Aymont Family Lawyers Calgary",
@@ -3126,7 +3126,6 @@
   "type": "logo",
   "about": "Gauthier & Mines Criminal Lawyers is a Vancouver firm that has defended criminal charges across British Columbia since 1993.\n\nFormerly Mines & Company, the firm includes Michael Mines, Ian Gauthier, Patrick Johnston, Courtney McLaughlin and Ishnoor Dhillon, whose practice is focused solely on criminal law, civil forfeiture and Motor Vehicle Act defence. Charges handled include assault, driving, drug, sexual assault, theft and fraud, weapons, murder and other serious offences, plus driving prohibitions and professional discipline. The firm appears in courts throughout Metro Vancouver and the rest of the province, has conducted cases in Alberta, Ontario, Quebec and the Yukon, and uses Alternative Measures programs that can end a prosecution without a criminal record.",
   "src": "images/logos/gauthier-and-mines-criminal-lawyers-vancouver.png",
-  "bioImage": "images/bio/gauthier-and-mines-criminal-lawyers-vancouver.webp",
   "details": {
    "founded": 1993,
    "areas": [
@@ -3141,7 +3140,8 @@
     "British Columbia",
     "Vancouver"
    ]
-  }
+  },
+  "heroImage": "images/hero/gauthier-and-mines-criminal-lawyers-vancouver.webp"
  },
  {
   "name": "Jérémie John Martin",

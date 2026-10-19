@@ -166,7 +166,7 @@ for (const [dirName, code] of Object.entries(PROV)) {
   const counts = new Map();
   for (const f of firms) counts.set(`${f.province}|${f.city}`, (counts.get(`${f.province}|${f.city}`) || 0) + 1);
   const top = [...counts].filter(([k]) => cityHref.has(k)).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 12);
-  const chipsHtml = top.map(([k, n]) => `<a class="cc" href="${cityHref.get(k)}">${esc(k.split('|')[1])}<span>${n}</span></a>`).join('');
+  const chipsHtml = top.map(([k, n]) => `<a class="cc" href="${cityHref.get(k)}">${esc(k.split('|')[1])}<span data-live="city:${esc(k)}">${n}</span></a>`).join('');
   save('index.html', home.replace(/(<div class="cs-chips">)[\s\S]*?(<\/div>)/, (_, a, b) => a + chipsHtml + b), home);
 }
 if (CHECK) { if (stale) process.exit(1); console.log('hub page counts are up to date'); } else console.log('hub page counts refreshed');

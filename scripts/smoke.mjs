@@ -98,6 +98,19 @@ for (const path of ['/find-lawyers', '/ontario/ottawa/', '/manitoba/', '/quebec/
   ok(isDeepStrictEqual(inlineFirms(r.text), want), PROV[path] ? `${path} carries only its own province's firms` : `${path} carries every firm`);
   ok(r.text.includes('f.dirUrl = ') && (PROV[path] ? r.text.includes(`var LAWDB_SCOPE = "${PROV[path]}";`) : !r.text.includes('var LAWDB_SCOPE')), `${path} rebuilds Directions links and ${PROV[path] ? 'knows it is scoped to ' + PROV[path] : 'is not scoped'}`);
 }
+// the totals typed into the home page and For Law Firms (and the Browse-by-city counts) are today's numbers from the database, not the typed ones
+{
+  const live = JSON.parse((await getRaw('/firms_data.json')).text);
+  const num = (v) => v.toLocaleString('en-CA');
+  const cityCount = new Set(live.map((f) => f.province + '|' + f.city)).size;
+  for (const path of ['/', '/for-firms']) {
+    const r = await getRaw(path);
+    ok(r.status === 200 && r.headers.get('x-lawdb-source') === 'database', `${path} is rendered from the database`);
+    ok(r.text.includes(`data-live="firms">${num(live.length)}<`) && r.text.includes(`data-live="cities">${num(cityCount)}<`), `${path} shows today's firm and city totals`);
+  }
+  const tor = live.filter((f) => f.province === 'ON' && f.city === 'Toronto').length;
+  ok((await getRaw('/')).text.includes(`data-live="city:ON|Toronto">${tor}<`), 'the Browse-by-city counts are live too');
+}
 ok(sizes['/manitoba/'] < sizes['/find-lawyers'] * 0.6 && sizes['/ontario/ottawa/'] < sizes['/find-lawyers'], 'a province page is lighter than Find Lawyers');
 const plain = await getRaw('/ontario/toronto/business-lawyers');
 ok(plain.status === 200 && !plain.headers.get('x-lawdb-source'), 'pages without a firm list pass through untouched');
@@ -237,6 +250,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const list = JSON.parse((await getRaw('/firms_data.json')).text);
   ok(list.some((f) => f.slug === slug2 && f.rating === 0), 'new firm appears in the directory data');
   ok(inlineFirms((await getRaw('/find-lawyers')).text).some((f) => f.slug === slug2), 'new firm appears on the Find Lawyers page');
+  ok((await getRaw('/')).text.includes(`data-live="firms">${list.length.toLocaleString('en-CA')}<`), 'a new listing moves the home page total at once');
   // a profile with no real description is a thin page: noindex and out of the sitemap until it has one
   const thin = await getRaw('/firms/' + slug2);
   ok(/x-robots-tag/i.test([...thin.headers.keys()].join(' ')) && thin.headers.get('x-robots-tag').startsWith('noindex') && /<meta name="robots" content="noindex,follow">/.test(thin.text), 'a firm with a two-line description is marked noindex');

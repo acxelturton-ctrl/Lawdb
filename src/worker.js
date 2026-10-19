@@ -148,11 +148,11 @@ const ROUTES = [
 ];
 
 export default {
-  // Cloudflare cron triggers: 07:17 UTC housekeeping, blogs and backup; 07:37 UTC Google Search Console (sitemap and page checks).
+  // Cloudflare cron triggers: 07:17 UTC housekeeping, blogs and backup; 07:37 UTC Google Search Console (sitemap and page checks); every 5 minutes the blog finder.
   // They are separate runs so each stays within the platform's limit on outgoing requests.
   async scheduled(event, env, ctx) {
     ctx.waitUntil(event.cron === '37 7 * * *' ? searchNightly(env).catch((err) => console.error('search console run failed', err))
-      : event.cron === '*/15 * * * *' ? feedBatch(env).catch((err) => console.error('blog finder run failed', err))
+      : event.cron === '*/5 * * * *' ? feedBatch(env).catch((err) => console.error('blog finder run failed', err))
       : nightly(env));
   },
 

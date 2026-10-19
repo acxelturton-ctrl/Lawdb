@@ -23,6 +23,9 @@ const ok = (cond, label) => {
 let cookie = '';
 // Every request comes from a made-up address per run, so rate limits never interfere between reruns.
 const RUN_IP = `192.0.2.${1 + Math.floor(Math.random() * 250)}`;
+// The sign-up limits count per address, so two tests that happen to draw the same made-up address would make a limit test fail by chance: every draw is new.
+const usedIps = new Set();
+const freshIp = () => { let a; do { a = `203.0.113.${1 + Math.floor(Math.random() * 250)}`; } while (usedIps.has(a)); usedIps.add(a); return a; };
 const call = async (method, path, body, extraHeaders = {}) => {
   const res = await fetch(BASE + path, {
     method,
@@ -1166,7 +1169,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const sp = (await getRaw(fd.data.stories[0].href)).text;
     ok(sp.includes(`data-follow="${F}"`) && sp.includes(`data-save="${sid}"`), 'story pages carry Follow and Save');
     // limits: a new person cannot follow endlessly
-    const robot = await signUp(`social-${run}@example.com`, `203.0.113.${1 + Math.floor(Math.random() * 250)}`);
+    const robot = await signUp(`social-${run}@example.com`, freshIp());
     as(adminJar);
     const many = (await call('GET', '/api/admin/firms?limit=100')).data.firms.map((x) => x.slug).filter((x) => x !== F).slice(0, 62);
     as(robot.jar);
@@ -1183,6 +1186,8 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
       req.on('data', (c) => (raw += c));
       req.on('end', () => {
         const send = (code, body) => { res.writeHead(code, { 'content-type': 'application/json' }); res.end(JSON.stringify(body)); };
+        if (req.url === '/pic.png') { res.writeHead(200, { 'content-type': 'image/png' }); return res.end(makePng(200, 200, 77)); }
+        if (req.url === '/pic.bad') { res.writeHead(200, { 'content-type': 'image/png' }); return res.end('this is only text, not a picture, long enough to look like a file'); }
         const m = /^\/(google|linkedin)\/(token|userinfo)$/.exec(req.url);
         if (!m) return send(404, {});
         if (m[2] === 'token') {
@@ -1192,7 +1197,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
           rec.used = true; return send(200, { access_token: 'at-' + f.get('code') });
         }
         const rec = codes.get((req.headers.authorization || '').replace('Bearer at-', ''));
-        return rec ? send(200, { sub: 'sub-' + rec.email, email: rec.email, email_verified: rec.verified, name: rec.name }) : send(401, {});
+        return rec ? send(200, { sub: 'sub-' + rec.email, email: rec.email, email_verified: rec.verified, name: rec.name, picture: rec.picture }) : send(401, {});
       });
     });
     await new Promise((r, rej) => { provider.once('error', rej); provider.listen(8797, '127.0.0.1', r); });
@@ -1202,7 +1207,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
       const start = await fetch(`${BASE}/api/auth/${key}/start`, { redirect: 'manual' });
       const loc = new URL(start.headers.get('location'));
       const id = `c${++seq}`;
-      codes.set(id, { email: who.email, verified: who.verified !== false, name: who.name || '', challenge: loc.searchParams.get('code_challenge') });
+      codes.set(id, { email: who.email, verified: who.verified !== false, name: who.name || '', picture: who.picture, challenge: loc.searchParams.get('code_challenge') });
       const cb = await fetch(`${BASE}/api/auth/${key}/callback?code=${code ?? id}&state=${state ?? loc.searchParams.get('state')}`, { redirect: 'manual' });
       return { start, loc, cb, state: loc.searchParams.get('state'), code: id };
     };
@@ -1323,13 +1328,55 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(acctJs.includes('Continue with Google') && acctJs.includes('Continue with LinkedIn') && acctJs.includes('social.length ? null : form') && acctJs.includes('/api/auth/${k}/start'), 'the sign-in card offers Google and LinkedIn, and shows the e-mail form only when neither is set up');
     const home = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
     ok(home.indexOf('class="citystrip"') > 0 && home.indexOf('class="citystrip"') < home.indexOf('<section class="feat-swipe">') && !/<h2>Featured Partners<\/h2>/.test(home) && home.includes('<h2>Firms to explore</h2>') && /lc-feat">Featured</.test(home), 'the homepage no longer opens with paid partners: cities come first and the strip is "Firms to explore", with each Featured firm still clearly marked');
+
+    // "Use your LinkedIn photo?": the provider's profile picture is offered once, and only copied when the person says yes
+    {
+      const pic = 'http://127.0.0.1:8797/pic.png';
+      cookie = '';
+      const lp = await dance('linkedin', { email: `pic-${run}@example.com`, name: 'Pia Picture', picture: pic });
+      cookie = sessionOf(lp.cb);
+      const offer = (await call('GET', '/api/account/me')).data.user;
+      ok(offer.avatar === '' && offer.photoOffer && offer.photoOffer.provider === 'linkedin' && offer.photoOffer.name === 'LinkedIn' && offer.photoOffer.url === pic, 'signing in with LinkedIn offers the LinkedIn profile photo');
+      ok((await fetch(BASE + '/api/account/avatar', { headers: { cookie } })).status === 404, 'nothing is copied until the person says yes');
+      const yes = await call('POST', '/api/account/photo-offer', { accept: true });
+      ok(yes.status === 200 && /^\/api\/account\/avatar\?v=\d+$/.test(yes.data.profile.avatar) && yes.data.profile.photoOffer === null, 'saying yes copies the photo into the profile and clears the offer');
+      const got = await fetch(BASE + '/api/account/avatar', { headers: { cookie } });
+      ok(got.status === 200 && Buffer.from(await got.arrayBuffer()).equals(makePng(200, 200, 77)), 'LawDB keeps its own copy, byte for byte');
+      ok((await call('POST', '/api/account/photo-offer', { accept: true })).status === 404, 'once answered there is nothing left to answer');
+      cookie = '';
+      const lp2 = await dance('linkedin', { email: `pic-${run}@example.com`, picture: pic });
+      cookie = sessionOf(lp2.cb);
+      ok((await call('GET', '/api/account/me')).data.user.photoOffer === null, 'someone who already has a photo is not offered another');
+      cookie = '';
+      const lp3 = await dance('google', { email: `pic2-${run}@example.com`, name: 'Nora No', picture: pic });
+      cookie = sessionOf(lp3.cb);
+      ok((await call('GET', '/api/account/me')).data.user.photoOffer?.name === 'Google', 'Google offers its photo the same way');
+      const no = await call('POST', '/api/account/photo-offer', { accept: false });
+      ok(no.status === 200 && no.data.profile.photoOffer === null && no.data.profile.avatar === '' && (await fetch(BASE + '/api/account/avatar', { headers: { cookie } })).status === 404, 'saying no keeps the account without a photo');
+      cookie = '';
+      const lp4 = await dance('google', { email: `pic2-${run}@example.com`, picture: pic });
+      cookie = sessionOf(lp4.cb);
+      ok((await call('GET', '/api/account/me')).data.user.photoOffer === null, 'after a no, the photo is never offered again');
+      cookie = '';
+      const lp5 = await dance('linkedin', { email: `pic3-${run}@example.com`, picture: 'https://evil.example.com/x.png' });
+      cookie = sessionOf(lp5.cb);
+      ok((await call('GET', '/api/account/me')).data.user.photoOffer === null, 'a picture address that is not the provider\'s own host is ignored');
+      cookie = '';
+      const lp6 = await dance('linkedin', { email: `pic4-${run}@example.com`, picture: 'http://127.0.0.1:8797/pic.bad' });
+      cookie = sessionOf(lp6.cb);
+      const bad = await call('POST', '/api/account/photo-offer', { accept: true });
+      const after = (await call('GET', '/api/account/me')).data.user;
+      ok(bad.status === 422 && /could not copy/i.test(bad.data.error) && after.photoOffer === null && after.avatar === '', 'a picture that is not a real picture is refused, the offer goes away and the person can upload one instead');
+      cookie = '';
+      ok((await call('POST', '/api/account/photo-offer', { accept: true })).status === 401, 'answering needs a signed-in account');
+    }
     provider.close();
   }
 
   // member ratings
   {
     const R = 'torys-llp';
-    const ip = () => `203.0.113.${1 + Math.floor(Math.random() * 250)}`;
+    const ip = () => freshIp();
     cookie = '';
     const r0 = await call('GET', `/api/firms/${R}/ratings`);
     ok(r0.status === 200 && r0.data.count === 0 && r0.data.average === null && r0.data.signedIn === false && r0.data.canRate === false && r0.data.comments.length === 0, 'anyone can read a firm\'s member ratings (none yet)');
@@ -1440,7 +1487,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static', phone: origFirm.phone || '', about: origFirm.about || '' });
 
   // sign-up has its own brake, so strangers cannot use us to send mail
-  const flood = `203.0.113.${1 + Math.floor(Math.random() * 250)}`;
+  const flood = freshIp();
   let linked = 0;
   for (let i = 0; i < 8; i++) if (await signUp(`flood${i}-${run}@example.com`, flood)) linked++;
   ok(linked === 6, 'sign-up links are limited per requester (6 an hour)');

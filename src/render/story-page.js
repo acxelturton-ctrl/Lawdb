@@ -61,7 +61,7 @@ export function storyBody({ post, firm, more, nearby }) {
     `</article>`;
 }
 
-export function renderStoryPage({ post, firm, more, nearby, origin = 'https://lawdb.ca' }) {
+export function renderStoryPage({ post, firm, more, nearby, origin = 'https://lawdb.ca', indexable = true }) {
   const url = origin + storyPath(firm.slug, post.id, post.title);
   const desc = (post.excerpt || post.title).slice(0, 155);
   const ld = JSON.stringify({
@@ -72,7 +72,7 @@ export function renderStoryPage({ post, firm, more, nearby, origin = 'https://la
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n' + C.FAVICONS + '\n<meta name="viewport" content="width=device-width, initial-scale=1.0">',
     `<title>${esc(post.title)} | ${esc(firm.name)} | LawDB News</title>`,
     `<meta name="description" content="${esc(desc)}">`,
-    `<link rel="canonical" href="${esc(url)}">`,
+    `<link rel="canonical" href="${esc(url)}">` + (indexable ? '' : '<meta name="robots" content="noindex,follow">'),
     `<meta property="og:title" content="${esc(post.title)}"><meta property="og:type" content="article"><meta property="og:url" content="${esc(url)}"><meta property="og:description" content="${esc(desc)}">` +
       (post.image && safePostUrl(post.image) ? `<meta property="og:image" content="${esc(post.image)}">` : '') +
       (isoDay(post.publishedAt) ? `<meta property="article:published_time" content="${isoDay(post.publishedAt)}">` : ''),

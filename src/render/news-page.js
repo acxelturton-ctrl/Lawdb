@@ -37,9 +37,12 @@ const CSS = `<style>
 .news-people a{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#1f2328;font-weight:600;font-size:clamp(14px,1.1vw,16px)}
 .news-people .lw-av{width:44px;height:44px;border-radius:50%;background:#f0ede5;border:1px solid #e3dfd5;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:700;color:#5d5f63}
 .news-people .lw-av img{width:100%;height:100%;object-fit:contain;background:#fff}
-.news-chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 clamp(16px,2vw,28px)}
-.news-chips a{padding:10px 18px;border-radius:999px;border:1px solid #e3dfd5;background:#fff;color:#3f444b;font-size:clamp(14px,1.05vw,16px);font-weight:600;text-decoration:none}
-.news-chips a[aria-current="true"]{background:#1f2328;color:#fff;border-color:#1f2328}
+@media(max-width:640px){.news-people{flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}.news-people>*{flex:none;white-space:nowrap}}
+.news-filter{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 clamp(16px,2vw,28px)}
+.news-filter label{font-weight:600;color:#3f444b;font-size:clamp(14px,1.05vw,16px)}
+.news-filter select{max-width:100%;padding:11px 16px;border-radius:999px;border:1px solid #e3dfd5;background:#fff;color:#1f2328;font:600 clamp(14px,1.05vw,16px) 'Inter',sans-serif}
+.news-filter a{color:#3f444b;font-weight:600;font-size:14px}
+.news-people .news-more{white-space:nowrap;color:#636870;font-weight:600;font-size:clamp(14px,1.1vw,16px)}
 .lw-by{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#1f2328}
 .lw-by a{color:inherit;text-decoration:none}.lw-by a:hover{text-decoration:underline}
 .lw-by .lw-ft{background:#b45309;color:#fff;border-radius:999px;padding:1px 7px;font-size:10.5px;letter-spacing:.03em}
@@ -108,15 +111,16 @@ const fmtDay = (d) => {
 
 // posts: [{ firmSlug, firmName, featured, logo, title, url, publishedAt, excerpt, image }]; firms: [{ slug, name, logo }] (people strip and filter chips)
 // stats: { firms, articles, latest } for the whole page (not just the filtered view)
-export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
+export function renderNewsPage({ posts, firms, people: strip = null, selected = '', stats = null }) {
   const shown = posts.filter((p) => safePostUrl(p.url));
   const st = stats || { firms: firms.length, articles: shown.length, latest: shown[0]?.publishedAt || null };
   const chips = firms.length > 1
-    ? `<nav class="news-chips" aria-label="Filter by firm"><a href="/news"${selected ? '' : ' aria-current="true"'}>All firms</a>${firms.map((f) =>
-        `<a href="/news?firm=${esc(f.slug)}"${selected === f.slug ? ' aria-current="true"' : ''}>${esc(f.name)}</a>`).join('')}</nav>`
+    ? `<form class="news-filter" method="get" action="/news" aria-label="Filter by firm"><label for="news-firm">Show articles from</label><select id="news-firm" name="firm" onchange="this.form.submit()"><option value="">All ${firms.length} firms</option>${firms.map((f) =>
+        `<option value="${esc(f.slug)}"${selected === f.slug ? ' selected' : ''}>${esc(f.name)}</option>`).join('')}</select><noscript><button type="submit">Show</button></noscript>${selected ? '<a href="/news">Show all firms</a>' : ''}</form>`
     : '';
-  const people = firms.length
-    ? `<div class="news-people"><h2>The firms writing here</h2>${firms.map((f) => `<a href="/news?firm=${esc(f.slug)}"><span class="lw-av">${avatarOf(f.logo, f.name)}</span>${esc(f.name)}</a>`).join('')}</div>`
+  const faces = strip || firms.slice(0, 16);
+  const people = faces.length
+    ? `<div class="news-people"><h2>The firms writing here</h2>${faces.map((f) => `<a href="/news?firm=${esc(f.slug)}"><span class="lw-av">${avatarOf(f.logo, f.name)}</span>${esc(f.name)}</a>`).join('')}${firms.length > faces.length ? `<span class="news-more">and ${firms.length - faces.length} more</span>` : ''}</div>`
     : '';
   const headOf = (p) => ({
     avatar: avatarOf(p.logo, p.firmName),
@@ -129,25 +133,25 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
     .concat(shown.filter((p) => p !== lead).map((p) => cardHtml(p, { head: headOf(p) }))).join('');
   const body = shown.length
     ? `<div class="lw-bc-grid lw-feed">${cards}</div>`
-    : '<div class="news-empty"><b>LawDB News is filling up.</b><br>Articles from our Featured members appear here as soon as their blogs are connected. Check back soon.</div>';
+    : '<div class="news-empty"><b>LawDB News is filling up.</b><br>Articles from the firms listed on LawDB appear here as soon as their blogs are found. Check back soon.</div>';
   const latest = fmtDay(st.latest);
   const stats3 = st.articles
     ? `<div class="news-stats"><div><b>${st.firms}</b><span>${st.firms === 1 ? 'FIRM WRITING' : 'FIRMS WRITING'}</span></div><div><b>${st.articles}</b><span>RECENT ARTICLES</span></div>${latest ? `<div><b>${esc(latest)}</b><span>LATEST STORY</span></div>` : ''}</div>`
     : '';
   const steps = `<div class="news-steps">
-      <div class="news-step"><i>1</i><h2>The firms write</h2><p>Our Featured members publish on their own websites, in their own words. These are real lawyers explaining real situations.</p></div>
+      <div class="news-step"><i>1</i><h2>The firms write</h2><p>Law firms listed on LawDB publish on their own websites, in their own words. These are real lawyers explaining real situations.</p></div>
       <div class="news-step"><i>2</i><h2>We bring it together</h2><p>LawDB collects each new headline, date and short preview and keeps them in one feed, so you don't have to visit ten websites.</p></div>
       <div class="news-step"><i>3</i><h2>You read the real thing</h2><p>Tap any story to read the full article on the firm's own site, and contact the firm directly if it speaks to your situation.</p></div>
     </div>`;
-  const desc = 'Articles from Featured law firms on LawDB: short previews with a link to read the full article on each firm\'s own website.';
+  const desc = 'Articles from Canadian law firms listed on LawDB: short previews with a link to read the full article on each firm\'s own website.';
   const ld = {
     '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'LawDB News', url: 'https://lawdb.ca/news', description: desc,
     isPartOf: { '@type': 'WebSite', name: 'LawDB', url: 'https://lawdb.ca/' },
-    mainEntity: { '@type': 'ItemList', itemListElement: shown.filter((p) => p.storyHref).slice(0, 20).map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://lawdb.ca${p.storyHref}`, name: p.title })) },
+    mainEntity: { '@type': 'ItemList', itemListElement: shown.filter((p) => p.storyHref && p.indexable !== false).slice(0, 20).map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://lawdb.ca${p.storyHref}`, name: p.title })) },
   };
   return [
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n' + C.FAVICONS + '\n<meta name="viewport" content="width=device-width, initial-scale=1.0">',
-    '<title>LawDB News | Articles from Featured Law Firms | LawDB.ca</title>',
+    '<title>LawDB News | Articles from Canadian Law Firms | LawDB.ca</title>',
     `<meta name="description" content="${esc(desc)}">`,
     '<link rel="canonical" href="https://lawdb.ca/news">',
     '<meta property="og:title" content="LawDB News"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/news">' + `<meta property="og:description" content="${esc(desc)}">`,
@@ -162,7 +166,7 @@ export function renderNewsPage({ posts, firms, selected = '', stats = null }) {
     '    ' + chips,
     '    ' + body,
     '  </main>',
-    '  <div class="news-cta"><div><b>Run a law firm?</b><span>Featured members\' blogs appear on this page, with their logo and a link back to their site.</span></div><a href="/for-firms">See how Featured works &rarr;</a></div>',
+    '  <div class="news-cta"><div><b>Run a law firm?</b><span>If your website has a blog, LawDB finds it and shows your latest articles here, free, with your logo and a link back to your site. Featured members also get a badge on every story.</span></div><a href="/for-firms">For law firms &rarr;</a></div>',
     '  <p class="news-foot">Headlines and short excerpts come from each firm\'s public blog. The articles belong to the firms that wrote them, and the full text is on their websites. LawDB is an independent directory and does not endorse any article or firm.</p>',
     '  <dialog id="story-dlg" class="st-dlg" aria-label="Story"><button class="st-x" type="button" aria-label="Close">&times;</button><div id="story-body"></div></dialog>',
     '  ' + C.FOOTER,

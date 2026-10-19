@@ -61,9 +61,12 @@ function logoSpan(f) {
   return `<span class="li-logo">${monogram(f)}</span>`;
 }
 
+// Which part of a picture the banner shows, e.g. "center 25%" (default: the middle).
+const coverPos = (p) => (/^(?:center|\d{1,3}%)(?: (?:center|top|bottom|\d{1,3}%))?$/.test(p || '') ? p : 'center');
+
 function coverDiv(f) {
   const hero = safeUrl(f.heroImage);
-  if (hero) return `<div class="li-cover"><img src="${esc(localImg(hero))}" alt="${esc(f.name)}" style="object-position:center;"></div>`;
+  if (hero) return `<div class="li-cover"><img src="${esc(localImg(hero))}" alt="${esc(f.name)}" style="object-position:${coverPos(f.heroPos)};"></div>`;
   return `<div class="li-cover gen"><span class="li-cover-city">${esc(f.city)}, ${esc(f.province)}</span></div>`;
 }
 
@@ -118,6 +121,41 @@ function description(f) {
 }
 
 const PHOTO_CSS = '<style>.photos{margin:22px 0}.photos h2{font-size:18px;margin:0 0 10px}.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.photo-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block;background:#eee}</style>';
+const BLOCK_CSS = '<style>.article-photo{width:100%;height:auto;border-radius:6px;margin:12px 0;display:block}</style>';
+
+// A small hand-written block under the description ("From the Firm", "Related reading"): headline, teaser, optional picture, one link.
+// It comes from the hand-built page this firm used to have (data/firm-blocks.json); every part is checked before it is shown.
+const okLink = (u) => typeof u === 'string' && (/^https:\/\/[^\s"'<>]+$/.test(u) || /^\/[A-Za-z0-9_\-./]*$/.test(u));
+function blockHtml(b) {
+  if (!b || typeof b !== 'object' || !b.title || !b.teaser || !okLink(b.href)) return '';
+  const img = safeUrl(b.image);
+  const ext = /^https:/.test(b.href);
+  return `\n    <div class="from-firm"><h2>${esc(String(b.heading || 'From the Firm').slice(0, 60))}</h2><div class="post-title">${esc(String(b.title).slice(0, 220))}</div>` +
+    (img ? `<img class="article-photo" src="${esc(localImg(img))}" alt="${esc(String(b.alt || '').slice(0, 200))}" loading="lazy">` : '') +
+    `<p class="article-teaser">${esc(String(b.teaser).slice(0, 500))}</p><a class="read-link" href="${esc(b.href)}"${ext ? ' target="_blank" rel="noopener"' : ''}>${esc(String(b.linkText || 'Read more').slice(0, 120))}</a></div>`;
+}
+
+const RANK_CSS = '<style>.rank-panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;margin-bottom:20px}.rank-panel h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 12px}.rank-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:10px}.rank-cell{background:var(--cream);border-radius:8px;padding:12px 12px 10px}.rank-cell.main{background:linear-gradient(135deg,#f6dc9a,#e8a91f 60%,#b98a2c)}.rank-big{font-family:\'Source Serif 4\',serif;font-weight:700;font-size:30px;line-height:1;color:var(--ink)}.rank-cell.main .rank-big{color:#2d1f05}.rank-big small{font-size:14px;font-weight:600;opacity:.7}.rank-lab{font-size:11.5px;line-height:1.35;color:var(--ink-soft);margin-top:6px}.rank-cell.main .rank-lab{color:#1f2328}.rank-delta{display:inline-block;font-size:11px;font-weight:700;color:#1f6f6b;background:#e1f0ee;border-radius:10px;padding:2px 7px;margin-top:6px}.rank-delta.neutral,.rank-delta.down{color:var(--ink-soft);background:#ebe8df}.rank-note{font-size:11px;color:#8d9197;margin:10px 0 0;line-height:1.5}.pa-wrap{margin-bottom:20px}.pa-wrap h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 10px}.pa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.pa-card{display:block;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--ink)}.pa-card:hover{border-color:var(--brass);box-shadow:0 2px 10px rgba(31,35,40,.08)}.pa-card b{display:block;font-size:15px;margin-bottom:4px}.pa-card span{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.45}.pa-card em{display:block;font-style:normal;font-size:12.5px;font-weight:700;color:var(--brass-deep);margin-top:8px}@media(max-width:640px){.rank-grid{grid-template-columns:1fr 1fr}.rank-cell.main{grid-column:1/-1}}</style>';
+
+// Where the firm stands among the firms LawDB lists in its city (see src/lib/firm-stats.js): a ranking by Google rating, the city's average rating,
+// and the review count against the province. Left out when too few firms are listed there to say anything.
+function rankHtml(f, r) {
+  if (!r) return '';
+  const type = r.byType ? `<div class="rank-lab" style="margin-top:8px;">#${r.byType.rank} of ${r.byType.of} ${esc(r.byType.label)} firms here</div>` : '';
+  return `\n    <div class="rank-panel">\n      <h2>How ${esc(f.name)} ranks in ${esc(f.city)}</h2>\n      <div class="rank-grid">` +
+    `<div class="rank-cell main"><div class="rank-big">#${r.rank} <small>of ${r.of}</small></div><div class="rank-lab">LawDB-listed firms in ${esc(f.city)}, ranked by Google rating</div>${type}</div>` +
+    `<div class="rank-cell"><div class="rank-big">${num(r.rating).toFixed(1)}<small> &#9733;</small></div><div class="rank-lab">Area average ${r.avg.toFixed(1)}</div><span class="rank-delta${r.delta.tone === 'up' ? '' : ' neutral'}">${esc(r.delta.text)}</span></div>` +
+    `<div class="rank-cell"><div class="rank-big">${num(r.count)}</div><div class="rank-lab">Google reviews</div><span class="rank-delta neutral">${esc(r.reviews)}</span></div></div>\n` +
+    '      <p class="rank-note">Based on public Google ratings for the firms listed on LawDB. Rankings are not endorsements and change as ratings change.</p>\n    </div>';
+}
+
+// Cards to the province practice pages for the firm's case types (only pages that exist), with how many firms each page compares.
+function practiceHtml(f, cards) {
+  if (!cards.length) return '';
+  const prov = PROVINCES[f.province] || f.province;
+  return `\n    <div class="pa-wrap"><h2>Practice areas</h2><div class="pa-grid">${cards.map((c) => `<a class="pa-card" href="${esc(c.href)}"><b>${esc(c.label)}</b><span>${c.count} ${c.count === 1 ? 'firm' : 'firms'} listed across ${esc(prov)}, compared by real Google ratings.</span><em>Compare all &rarr;</em></a>`).join('')}</div></div>`;
+}
+
 const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#4a4f56}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
 const IMG_ID = /^[0-9a-f]{24}$/;
 
@@ -136,7 +174,15 @@ function glanceHtml(f) {
   return rows.length ? `\n    <section class="glance" aria-label="${esc(f.name)} at a glance"><h2>At a glance</h2><dl>${rows.join('')}</dl></section>` : '';
 }
 
-export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], origin = 'https://lawdb.ca' }) {
+// "199 Bay St #5300, Toronto, ON M5L 1B9" -> street, and postal code, the way schema.org wants them.
+function postal(f) {
+  const a = String(f.address || '');
+  const m = a.match(/^(.*?),\s*([^,]+?),\s*([A-Z]{2})\s+([A-Z]\d[A-Z][ -]?\d[A-Z]\d)\s*$/i);
+  const street = m && m[3].toUpperCase() === f.province ? m[1] : a;
+  return { '@type': 'PostalAddress', streetAddress: street, addressLocality: f.city, addressRegion: f.province, ...(m && m[3].toUpperCase() === f.province ? { postalCode: m[4].toUpperCase().replace(/^(\w{3})-?(\w{3})$/, '$1 $2') } : {}), addressCountry: 'CA' };
+}
+
+export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], origin = 'https://lawdb.ca', stats = null }) {
   const prov = PROVINCES[f.province] || f.province;
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
   const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-default.jpg`;
@@ -156,7 +202,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     '@type': 'LegalService',
     name: f.name,
     description: about || desc,
-    address: { '@type': 'PostalAddress', streetAddress: f.address || '', addressLocality: f.city, addressRegion: f.province, addressCountry: 'CA' },
+    address: postal(f),
     ...(f.phone ? { telephone: f.phone } : {}),
     ...(num(f.lat) && num(f.lng) && !f.approxCoords ? { geo: { '@type': 'GeoCoordinates', latitude: f.lat, longitude: f.lng } } : {}),
     ...(rated ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: f.rating, reviewCount: f.count } } : {}),
@@ -189,7 +235,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const photoTags = images.filter((i) => IMG_ID.test(i.id)).map((i) => `<img src="/img/${i.id}" alt="${esc(i.alt || `${f.name} photo`)}" loading="lazy" width="320" height="240">`);
   const photosHtml = photoTags.length ? `\n    <div class="photos"><h2>Photos</h2><div class="photo-grid">${photoTags.join('')}</div></div>` : '';
   const tags = (f.tags || []).filter(Boolean);
-  const services = tags.length ? `\n    <div class="services">\n      <h2>Practice areas</h2>\n      <ul>${tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>\n    </div>` : '';
+  const cards = stats?.practice || [];
+  const services = tags.length ? `\n    <div class="services">\n      <h2>${cards.length ? 'Services' : 'Practice areas'}</h2>\n      <ul>${tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>\n    </div>` : '';
   const hoursHtml = hoursCard(hours, f.province);
   // Same text on every firm of a case type, so only Featured firms show it (see also the Worker, which does the same for hand-built pages).
   const guide = f.featured ? (C.GUIDES[(f.caseTypes || [])[0]] || '') : '';
@@ -219,9 +266,9 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
     `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
-    C.STYLE + PHOTO_CSS + GLANCE_CSS + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
+    C.STYLE + PHOTO_CSS + GLANCE_CSS + (f.block && f.block.image ? BLOCK_CSS : '') + (stats?.rank || (stats?.practice || []).length ? RANK_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm">\n  ' + C.HEADER,
-    '  <div class="wrap">\n    ' + card + aboutHtml + bioHtml + glanceHtml(f) + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap">\n    ' + card + rankHtml(f, stats?.rank) + aboutHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + practiceHtml(f, cards) + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     '    ' + fill(C.LEAD_SLIM, toks),
     carousel(f, nearby),
     '\n\n    ' + leadScript,

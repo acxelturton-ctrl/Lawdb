@@ -263,7 +263,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const fsm = await getRaw('/sitemap-firms.xml');
   ok(fsm.status === 200 && fsm.text.includes(`/firms/${slug2}</loc>`) && !fsm.text.includes('/firms/achkar-law</loc>'), 'a new database-built firm with a description is in the firms sitemap and hand-built pages are not');
   const held = (await call('GET', '/api/admin/search')).data.heldBack;
-  ok(held && held.minWords === 60 && typeof held.count === 'number', 'the admin Search tab knows how many profiles are held back');
+  ok(held && held.minWords === 40 && typeof held.count === 'number', 'the admin Search tab knows how many profiles are held back');
   await call('PATCH', '/api/admin/firms/' + slug2, { about: body.about });
   ok(/Sitemap: https:\/\/lawdb.ca\/sitemap-firms.xml/.test(readFileSync(new URL('../robots.txt', import.meta.url), 'utf8')), 'robots.txt announces the firms sitemap');
 
@@ -273,6 +273,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'dynamic' })).status === 200, 'switch an existing firm to the database page');
   const sw = await getRaw('/firms/achkar-law');
   ok(sw.headers.get('x-lawdb-source') === 'database' && sw.text.includes('Achkar Law') && sw.text.includes('North York employment law firm acting for employees and employers'), 'switched firm now renders from the database and keeps its written description');
+  ok(/<div class="rank-panel">[\s\S]*How Achkar Law ranks in North York/.test(sw.text) === /<div class="rank-panel">/.test(sw.text) && /<a class="pa-card" href="\/ontario\/employment-lawyers">/.test(sw.text), 'the database page links to the practice-area page, and shows a ranking when enough firms are listed in the city');
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' })).status === 200, 'switch it back');
   ok(!(await getRaw('/firms/achkar-law')).headers.get('x-lawdb-source'), 'firm is back on its original page');
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'weird' })).status === 422, 'invalid page style refused');

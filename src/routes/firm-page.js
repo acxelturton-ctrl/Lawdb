@@ -5,6 +5,7 @@ import { renderBlogCards } from '../render/blog-cards.js';
 import { storyPath } from '../lib/stories.js';
 import { renderFirmPage } from '../render/firm-page.js';
 import { isIndexable } from '../lib/indexing.js';
+import { firmStats } from '../lib/firm-stats.js';
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -108,7 +109,7 @@ export async function firmPage({ request, env, ctx }) {
     const firm = { ...JSON.parse(row.data), about: row.about || '' };
     const hours = row.hours ? JSON.parse(row.hours) : null;
     const photos = (await env.DB.prepare("SELECT id, alt FROM firm_images WHERE firm_slug = ? AND kind = 'photo' ORDER BY created_at, id").bind(m[1]).all()).results;
-    html = renderFirmPage({ firm, hours, images: photos, posts: await feedPosts(env, m[1]), nearby: await nearbyFirms(env, firm), origin: env.SITE_ORIGIN || url.origin });
+    html = renderFirmPage({ firm, hours, images: photos, posts: await feedPosts(env, m[1]), nearby: await nearbyFirms(env, firm), stats: await firmStats(env, firm), origin: env.SITE_ORIGIN || url.origin });
   } catch (err) {
     console.error('profile render failed', m[1], err);
     return env.ASSETS.fetch(request);

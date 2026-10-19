@@ -207,7 +207,13 @@
     "Airdrie"
    ]
   },
-  "heroImage": "images/hero/bulwark-law-criminal-defence-lawyer-calgary.webp"
+  "heroImage": "images/hero/bulwark-law-criminal-defence-lawyer-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/BulwarkLaw",
+   "instagram": "https://www.instagram.com/bulwark_law",
+   "linkedin": "https://www.linkedin.com/company/bulwark-law",
+   "x": "https://x.com/bulwark_law"
+  }
  },
  {
   "name": "Gurpreet Ghag Law Group",
@@ -252,6 +258,11 @@
     "Family law",
     "Criminal law"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/ghaglaw",
+   "instagram": "https://www.instagram.com/gurpreetghagrealtor",
+   "linkedin": "https://www.linkedin.com/in/gurpreet-ghag-b914081a2"
   }
  },
  {
@@ -344,7 +355,13 @@
     "Kitchener-Waterloo"
    ]
   },
-  "heroImage": "images/hero/campbell-litigation-waterloo.webp"
+  "heroImage": "images/hero/campbell-litigation-waterloo.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/campbelllitigation",
+   "instagram": "https://www.instagram.com/campbelllitigation",
+   "linkedin": "https://www.linkedin.com/company/campbelllitigation",
+   "x": "https://x.com/WaterlooLawyer"
+  }
  },
  {
   "name": "Hoogbruin & Company",
@@ -400,6 +417,12 @@
     "Vancouver",
     "British Columbia"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/hoogbruinandco",
+   "instagram": "https://www.instagram.com/hoogbruinlawyers",
+   "linkedin": "https://www.linkedin.com/company/36086380",
+   "x": "https://x.com/hoogbruinandco"
   }
  },
  {
@@ -486,6 +509,12 @@
     "Red Deer",
     "Alberta"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/whitejeetlaw",
+   "instagram": "https://www.instagram.com/whitejeetlaw",
+   "linkedin": "https://www.linkedin.com/company/white-jeet-law",
+   "youtube": "https://www.youtube.com/@GregWhiteDefence"
   }
  },
  {
@@ -693,6 +722,10 @@
    "serving": [
     "Laval"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61556218772888",
+   "instagram": "https://www.instagram.com/osraavocats"
   }
  },
  {
@@ -739,6 +772,9 @@
    "serving": [
     "Vancouver"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/oraclelaw"
   }
  },
  {
@@ -865,6 +901,11 @@
    "serving": [
     "Calgary"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/CarbertWaiteLLP",
+   "linkedin": "https://www.linkedin.com/company/carbert-waite-llp",
+   "x": "https://x.com/calgary_lawyers"
   }
  },
  {
@@ -974,7 +1015,10 @@
     "Produits défectueux"
    ]
   },
-  "heroImage": "images/hero/annette-lefebvre-avocats-montreal.webp"
+  "heroImage": "images/hero/annette-lefebvre-avocats-montreal.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/annette-lefebvre-avocats"
+  }
  },
  {
   "name": "Purves-Smith Law",
@@ -1023,6 +1067,10 @@
     "Guelph",
     "Kitchener-Waterloo"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/Familylawguelph",
+   "linkedin": "https://www.linkedin.com/company/purves-smith-law"
   }
  },
  {
@@ -1082,6 +1130,10 @@
    "serving": [
     "Windsor"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/colauttilandrypartnerslaw",
+   "x": "https://x.com/CLPLawfirm"
   }
  },
  {
@@ -1383,6 +1435,12 @@
    "serving": [
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/gubermanappleby",
+   "instagram": "https://www.instagram.com/gubermanappleby",
+   "linkedin": "https://www.linkedin.com/company/guberman-appleby-immigration-lawyers",
+   "x": "https://x.com/GubermanAppleby"
   }
  },
  {
@@ -1478,7 +1536,11 @@
     "Estate planning"
    ]
   },
-  "heroImage": "images/hero/laredo-law-toronto.webp"
+  "heroImage": "images/hero/laredo-law-toronto.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Laredo-Law-180769972022977",
+   "linkedin": "https://www.linkedin.com/in/lisa-laredo-027842a"
+  }
  },
  {
   "name": "H&H Law Group",
@@ -1556,6 +1618,12 @@
     "Greater Toronto Area",
     "Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/handhlawgroup",
+   "instagram": "https://www.instagram.com/hhlawgroup",
+   "linkedin": "https://www.linkedin.com/company/hhlawgroup",
+   "x": "https://x.com/hh_law_group"
   }
  },
  {
@@ -1601,7 +1669,10 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/browne-criminal-defence-calgary.webp"
+  "heroImage": "images/hero/browne-criminal-defence-calgary.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/matthew-browne-01563722"
+  }
  },
  {
   "name": "Reich Law",
@@ -1797,6 +1868,11 @@
     "Richmond",
     "Vancouver"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/VancityCrimLaw",
+   "linkedin": "https://www.linkedin.com/in/jason-tarnow-abb73b8",
+   "x": "https://x.com/vancitycrimlaw"
   }
  },
  {
@@ -1897,7 +1973,12 @@
     "British Columbia"
    ]
   },
-  "heroImage": "images/hero/tz-law-calgary.webp"
+  "heroImage": "images/hero/tz-law-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61566938499076",
+   "linkedin": "https://www.linkedin.com/in/tjzhang1",
+   "x": "https://x.com/TZLaw_AB_BC"
+  }
  },
  {
   "name": "Dolgin Family Law",
@@ -2044,7 +2125,11 @@
     "Montreal"
    ]
   },
-  "heroImage": "images/hero/eidelmann-law-inc-montreal.webp"
+  "heroImage": "images/hero/eidelmann-law-inc-montreal.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/adam.eidl",
+   "linkedin": "https://www.linkedin.com/in/adam-eidelmann-b8563620"
+  }
  },
  {
   "name": "Szakacs Law Injury Lawyers Calgary",
@@ -2127,6 +2212,11 @@
     "Edmonton",
     "Alberta"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/SzakacsLaw",
+   "linkedin": "https://www.linkedin.com/company/szakacs-law",
+   "x": "https://x.com/szakacslaw"
   }
  },
  {
@@ -2264,6 +2354,10 @@
     "Mississauga",
     "GTA"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/jasminsandhulaw",
+   "linkedin": "https://www.linkedin.com/in/jasmin-sandhu-6b8b21161"
   }
  },
  {
@@ -2345,7 +2439,13 @@
     "Alberta"
    ]
   },
-  "heroImage": "images/hero/dunlap-criminal-defence-lawyer-edmonton-edmonton.webp"
+  "heroImage": "images/hero/dunlap-criminal-defence-lawyer-edmonton-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/dunlaplawfirm.ca",
+   "linkedin": "https://www.linkedin.com/company/dunlap-law",
+   "x": "https://x.com/dunlap_law",
+   "youtube": "https://www.youtube.com/@dunlaplaw"
+  }
  },
  {
   "name": "Vallillee Family Lawyers",
@@ -2398,7 +2498,11 @@
     "Southwestern Ontario"
    ]
   },
-  "heroImage": "images/hero/vallillee-family-lawyers-london.webp"
+  "heroImage": "images/hero/vallillee-family-lawyers-london.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/LondonOntarioFamilyLaw",
+   "linkedin": "https://www.linkedin.com/in/ericvallillee"
+  }
  },
  {
   "name": "Nichols Law Professional Corporation",
@@ -2563,6 +2667,10 @@
     "London",
     "Southwestern Ontario"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/noralawcorp",
+   "linkedin": "https://www.linkedin.com/company/noralaw"
   }
  },
  {
@@ -2653,6 +2761,9 @@
     "Guelph",
     "Southwestern Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/dominioncd.ca"
   }
  },
  {
@@ -2696,6 +2807,9 @@
     "Elder abuse prevention",
     "Notarization services"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/MAAM-LAW-101407731943854"
   }
  },
  {
@@ -2751,7 +2865,11 @@
     "Chilliwack"
    ]
   },
-  "heroImage": "images/hero/pathfinder-law-abbotsford.webp"
+  "heroImage": "images/hero/pathfinder-law-abbotsford.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Pathfinder-Law-100559851841834",
+   "instagram": "https://www.instagram.com/pathfinder_law_abbotsford"
+  }
  },
  {
   "name": "Sirois Avocat",
@@ -2914,6 +3032,9 @@
     "Kelowna",
     "British Columbia"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/markj.chiulawcorporation"
   }
  },
  {
@@ -3069,6 +3190,10 @@
     "Vanier",
     "Gatineau"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/brettmcgarrycriminaldefencelaw",
+   "x": "https://x.com/McGarryLawyer"
   }
  },
  {
@@ -3274,7 +3399,10 @@
     "Greater Toronto Area"
    ]
   },
-  "heroImage": "images/hero/modern-family-law-llp-toronto.webp"
+  "heroImage": "images/hero/modern-family-law-llp-toronto.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/modern-family-law-llp"
+  }
  },
  {
   "name": "Nuraney Law Group",
@@ -3354,7 +3482,12 @@
     "Metro Vancouver"
    ]
   },
-  "heroImage": "images/hero/nuraney-law-group-vancouver.webp"
+  "heroImage": "images/hero/nuraney-law-group-vancouver.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Nuraney-Law-Group-1222223667831217",
+   "instagram": "https://www.instagram.com/nuraneylawgroup",
+   "linkedin": "https://www.linkedin.com/in/arif-s-nuraney-ll-b-jd-20530b48"
+  }
  },
  {
   "name": "Pacific Legal Professional Corporation",
@@ -3404,6 +3537,12 @@
     "Toronto",
     "Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/PacificLegal",
+   "instagram": "https://www.instagram.com/_pacificlegal",
+   "linkedin": "https://www.linkedin.com/company/77640929",
+   "x": "https://x.com/_PacificLegal"
   }
  },
  {
@@ -3643,7 +3782,12 @@
     "Ontario"
    ]
   },
-  "heroImage": "images/hero/ayoun-law-mississauga.webp"
+  "heroImage": "images/hero/ayoun-law-mississauga.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/ayounlawoffice",
+   "instagram": "https://www.instagram.com/ayounlaw",
+   "linkedin": "https://www.linkedin.com/in/ayoun-and-s-b3a368190"
+  }
  },
  {
   "name": "Hansra Law",
@@ -3728,6 +3872,12 @@
     "Toronto",
     "Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/hansrabusinesslaw",
+   "instagram": "https://www.instagram.com/techlawyertoronto",
+   "linkedin": "https://www.linkedin.com/company/hansra-law",
+   "x": "https://x.com/hansra_law"
   }
  },
  {
@@ -3783,7 +3933,11 @@
     "Ontario"
    ]
   },
-  "heroImage": "images/hero/pelsmakher-law-toronto.webp"
+  "heroImage": "images/hero/pelsmakher-law-toronto.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/pelsmakherlaw",
+   "linkedin": "https://www.linkedin.com/company/pelsmakher-law"
+  }
  },
  {
   "name": "Robert Légal",
@@ -3874,6 +4028,10 @@
    "serving": [
     "Montréal"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/meannegenevieverobert",
+   "linkedin": "https://www.linkedin.com/company/robertlegal"
   }
  },
  {
@@ -3952,6 +4110,9 @@
    "serving": [
     "Edmonton"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/onefamilylaw"
   }
  },
  {
@@ -4024,6 +4185,11 @@
     "Droit des affaires",
     "Incorporation"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/Tenouri",
+   "instagram": "https://www.instagram.com/mtl_avocats",
+   "linkedin": "https://www.linkedin.com/in/mehdi-tenouri-70a77669"
   }
  },
  {
@@ -4075,6 +4241,9 @@
     "Wills and powers of attorney",
     "Ontario Review Board"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/nicolacircelli"
   }
  },
  {
@@ -4202,7 +4371,12 @@
     "Mississauga"
    ]
   },
-  "heroImage": "images/hero/maana-law-mississauga.webp"
+  "heroImage": "images/hero/maana-law-mississauga.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/lawyerkalra",
+   "linkedin": "https://www.linkedin.com/in/amankalra90",
+   "youtube": "https://www.youtube.com/@MaanaLaw-vv9hw"
+  }
  },
  {
   "name": "Lions Gate Law Corporation",
@@ -4240,6 +4414,10 @@
     "Commercial transactions",
     "Notarial services"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/lionsgatelawyers",
+   "x": "https://x.com/lionsgatelaw"
   }
  },
  {
@@ -4340,6 +4518,10 @@
     "Ontario",
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/athwallaw",
+   "linkedin": "https://www.linkedin.com/company/athwal-law"
   }
  },
  {
@@ -4523,6 +4705,9 @@
     "Consulting for lawyers",
     "Jury charge reviews"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/peter-sankoff-19a11a262"
   }
  },
  {
@@ -4603,7 +4788,11 @@
     "Business law"
    ]
   },
-  "heroImage": "images/hero/holmes-stephen-a-brampton.webp"
+  "heroImage": "images/hero/holmes-stephen-a-brampton.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/stephen-holmes-89265316",
+   "youtube": "https://www.youtube.com/channel/UClIzT-_LEbMlDY1o2JJpGTA"
+  }
  },
  {
   "name": "Jason Wuttunee Criminal Defence Lawyer",
@@ -4652,7 +4841,10 @@
     "Vancouver"
    ]
   },
-  "heroImage": "images/hero/jason-wuttunee-criminal-defence-lawyer-calgary.webp"
+  "heroImage": "images/hero/jason-wuttunee-criminal-defence-lawyer-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Jason-Wuttunee-Criminal-Defence-Lawyer-104832074804949"
+  }
  },
  {
   "name": "Brass Law Office",
@@ -4697,7 +4889,11 @@
     "Ottawa"
    ]
   },
-  "heroImage": "images/hero/brass-law-office-ottawa.webp"
+  "heroImage": "images/hero/brass-law-office-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/BrassLawOffice",
+   "x": "https://x.com/brasslawyers"
+  }
  },
  {
   "name": "Samy Ziada Avocat",
@@ -4790,7 +4986,12 @@
     "Québec"
    ]
   },
-  "heroImage": "images/hero/samy-ziada-avocat-montreal.webp"
+  "heroImage": "images/hero/samy-ziada-avocat-montreal.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/zsavocats",
+   "instagram": "https://www.instagram.com/zsavocats",
+   "linkedin": "https://www.linkedin.com/in/samy-ziada-9386121bb"
+  }
  },
  {
   "name": "Kraska Law",
@@ -4891,6 +5092,13 @@
     "Oakville",
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/FamilyLawyerMississauga",
+   "instagram": "https://www.instagram.com/divorcelawyer786",
+   "linkedin": "https://www.linkedin.com/company/79894243",
+   "x": "https://x.com/ILPC786",
+   "youtube": "https://www.youtube.com/@DivorceLawyer786"
   }
  },
  {
@@ -5260,7 +5468,10 @@
     "Southwestern Ontario"
    ]
   },
-  "heroImage": "images/hero/snow-lawyers-professional-corporation-london.webp"
+  "heroImage": "images/hero/snow-lawyers-professional-corporation-london.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/geoff-snow-10042a29"
+  }
  },
  {
   "name": "Lakeshore Law",
@@ -5314,6 +5525,10 @@
     "Toronto",
     "Halton Hills"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/lakeshore.law",
+   "linkedin": "https://www.linkedin.com/in/arjuncsekhon"
   }
  },
  {
@@ -5359,6 +5574,10 @@
     "Windsor"
    ]
   },
-  "heroImage": "images/hero/fox-mcnevin-mackay-llp-lawyers-windsor.webp"
+  "heroImage": "images/hero/fox-mcnevin-mackay-llp-lawyers-windsor.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/FoxMcNevinMacKay",
+   "x": "https://x.com/fmmlawyers"
+  }
  }
 ]

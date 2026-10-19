@@ -59,7 +59,11 @@
     "Ontario"
    ]
   },
-  "heroImage": "images/hero/pollack-tsimerman-llp-north-york.webp"
+  "heroImage": "images/hero/pollack-tsimerman-llp-north-york.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/ptlitigators",
+   "x": "https://x.com/PTlitigator"
+  }
  },
  {
   "name": "StepUp Immigration Inc.",
@@ -139,7 +143,12 @@
     "Mortgage transactions"
    ]
   },
-  "heroImage": "images/hero/amer-ali-law-ottawa.webp"
+  "heroImage": "images/hero/amer-ali-law-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/AmerAliLaw",
+   "instagram": "https://www.instagram.com/AmerAliLaw",
+   "youtube": "https://www.youtube.com/@AmerAliLaw"
+  }
  },
  {
   "name": "Isenberg & Shuman",
@@ -180,7 +189,12 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/isenberg-and-shuman-north-york.webp"
+  "heroImage": "images/hero/isenberg-and-shuman-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/pages/Isenberg-Shuman/181620301889035",
+   "linkedin": "https://www.linkedin.com/in/bonnie-shuman-6b150712",
+   "x": "https://x.com/IsenbergShuman"
+  }
  },
  {
   "name": "Chaudhary Law Office",
@@ -337,6 +351,13 @@
    "serving": [
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/TorontoEmploymentLawyer",
+   "instagram": "https://www.instagram.com/leckerslaw",
+   "linkedin": "https://www.linkedin.com/company/leckerslaw",
+   "x": "https://x.com/leckerslaw",
+   "youtube": "https://www.youtube.com/channel/UCsTGMoNr1xHWqAhPY4vDMnA"
   }
  },
  {
@@ -436,7 +457,12 @@
     "Hamilton"
    ]
   },
-  "heroImage": "images/hero/toronto-civil-litigation-lawyers-toronto.webp"
+  "heroImage": "images/hero/toronto-civil-litigation-lawyers-toronto.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61591818994954",
+   "instagram": "https://www.instagram.com/powelllitigation",
+   "linkedin": "https://www.linkedin.com/company/powelllitigation"
+  }
  },
  {
   "name": "Property Law Firm CB LLP",
@@ -532,6 +558,10 @@
     "Refinancing & second mortgages",
     "Mortgage registration & discharges"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/propertylawfirm",
+   "linkedin": "https://www.linkedin.com/company/the-property-law-firm-llp"
   }
  },
  {
@@ -586,7 +616,11 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/clark-and-clark-lawyers-calgary.webp"
+  "heroImage": "images/hero/clark-and-clark-lawyers-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/clarklegalyyc",
+   "instagram": "https://www.instagram.com/clark_legal"
+  }
  },
  {
   "name": "Summit Legal Group",
@@ -641,6 +675,12 @@
     "Probate & estate administration",
     "Executor advisor services"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/SummitLegalGroupCalgary",
+   "instagram": "https://www.instagram.com/summitlegalgroupcalgary",
+   "linkedin": "https://www.linkedin.com/company/summit-legal-group-calgary",
+   "youtube": "https://www.youtube.com/channel/UCO3yG5IXcXN4MkTfx1vh2PQ"
   }
  },
  {
@@ -686,7 +726,11 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/shivji-law-calgary.webp"
+  "heroImage": "images/hero/shivji-law-calgary.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/faroukshivji",
+   "x": "https://x.com/shivjilaw"
+  }
  },
  {
   "name": "PassGo Real Estate Law",
@@ -732,6 +776,10 @@
     "British Columbia",
     "Ontario"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/passgorealestatelaw",
+   "linkedin": "https://www.linkedin.com/company/passgo-law"
   }
  },
  {
@@ -878,7 +926,12 @@
     "Alberta"
    ]
   },
-  "heroImage": "images/hero/james-h-brown-and-associates-edmonton.webp"
+  "heroImage": "images/hero/james-h-brown-and-associates-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/AlbertaInjuryLawyers",
+   "instagram": "https://www.instagram.com/jameshbrowninjurylawyers",
+   "linkedin": "https://www.linkedin.com/company/james-h-brown-associates-alberta-injury-lawyers"
+  }
  },
  {
   "name": "Snowdrop Immigration Services Ltd",
@@ -969,7 +1022,10 @@
     "Alberta"
    ]
   },
-  "heroImage": "images/hero/preferred-immigration-services-edmonton.webp"
+  "heroImage": "images/hero/preferred-immigration-services-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/immigrationedmonton"
+  }
  },
  {
   "name": "Olalere Law Office",
@@ -1050,6 +1106,11 @@
    "serving": [
     "Ottawa"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/olalerelawoffice",
+   "instagram": "https://www.instagram.com/olalerelaw",
+   "youtube": "https://www.youtube.com/@olalerelawoffice4499"
   }
  },
  {
@@ -1094,6 +1155,11 @@
     "Mississauga",
     "Greater Toronto Area"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/jsmlaw",
+   "instagram": "https://www.instagram.com/jsmlaw",
+   "linkedin": "https://www.linkedin.com/company/jsmlaw"
   }
  },
  {
@@ -1123,7 +1189,11 @@
   "blurb": "Family Law / Real Estate in Mississauga. Rated 4.9 from 297 Google reviews.",
   "type": "logo",
   "about": "Dhillon Murthi Law is a Mississauga, Ontario practice listed for family law and real estate matters.\n\nIts office is on Tranmere Drive in Mississauga, and the firm is recorded in Ontario as a professional corporation. Its practice areas are family law and real estate, and no further detail about its lawyers, services or approach is available.",
-  "src": "images/logos/dhillon-murthi-law-p-c-mississauga.png"
+  "src": "images/logos/dhillon-murthi-law-p-c-mississauga.png",
+  "social": {
+   "facebook": "https://www.facebook.com/dhillonlawpc",
+   "x": "https://x.com/DhillonLawyers"
+  }
  },
  {
   "name": "MacIsaac Gow LLP",
@@ -1198,7 +1268,11 @@
     "Burlington"
    ]
   },
-  "heroImage": "images/hero/macisaac-gow-llp-oakville.webp"
+  "heroImage": "images/hero/macisaac-gow-llp-oakville.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/macisaacgow",
+   "x": "https://x.com/macisaacgow"
+  }
  },
  {
   "name": "Korman & Company",
@@ -1269,7 +1343,10 @@
     "Real estate"
    ]
   },
-  "heroImage": "images/hero/korman-and-company-toronto.webp"
+  "heroImage": "images/hero/korman-and-company-toronto.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/mitch-korman-694585"
+  }
  },
  {
   "name": "Neinstein Personal Injury Lawyers",
@@ -1296,7 +1373,13 @@
   "blurb": "Personal Injury in Toronto. Rated 4.8 from 592 Google reviews.",
   "type": "logo",
   "about": "Neinstein Personal Injury Lawyers is a Toronto firm that represents seriously and catastrophically injured people across Ontario.\n\nIts lawyers have practised personal injury law in Ontario since 1970, a span of more than 55 years. Matters include serious car accidents, motorcycle accidents, long-term disability insurance disputes and slip and fall injuries. The firm has argued complex trials in courts across the country and negotiated multi-million dollar settlements, and it works with clients on a contingency basis. Areas served are Toronto, Ontario and Canada.",
-  "src": "images/logos/neinstein-personal-injury-lawyers-toronto.png"
+  "src": "images/logos/neinstein-personal-injury-lawyers-toronto.png",
+  "social": {
+   "facebook": "https://www.facebook.com/NeinsteinPersonalInjuryLawyers",
+   "linkedin": "https://www.linkedin.com/company/neinstein-personal-injury-lawyers",
+   "x": "https://x.com/neinsteinlaw",
+   "youtube": "https://www.youtube.com/c/NeinsteinPersonalInjuryLawyers"
+  }
  },
  {
   "name": "Green and Spiegel LLP",
@@ -1380,6 +1463,12 @@
     "Vail",
     "Amsterdam"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/GreenAndSpiegelLLP",
+   "instagram": "https://www.instagram.com/greenandspiegel",
+   "x": "https://x.com/GreenAndSpiegel",
+   "youtube": "https://www.youtube.com/@greenandspiegelllp7817"
   }
  },
  {
@@ -1476,6 +1565,13 @@
    "serving": [
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/unifiedimmigrationlawyers",
+   "instagram": "https://www.instagram.com/unifiedimmigrationlawyers",
+   "linkedin": "https://www.linkedin.com/company/unified-immigration-lawyers",
+   "x": "https://x.com/UniImmigration",
+   "youtube": "https://www.youtube.com/@UnifiedImmigrationLawyers"
   }
  },
  {
@@ -1600,6 +1696,12 @@
     "Toronto",
     "Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/employment.lawyers.toronto.humanrightslaw",
+   "linkedin": "https://www.linkedin.com/company/randy-ai-law-office-toronto-employment-lawyers",
+   "x": "https://x.com/randyai",
+   "youtube": "https://www.youtube.com/channel/UCkcrgVvQpkptrr8n6_2dcGQ"
   }
  },
  {
@@ -1703,6 +1805,9 @@
    "serving": [
     "Toronto"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/divorcelawyertoronto_jose"
   }
  },
  {
@@ -1791,6 +1896,13 @@
     "Chilliwack",
     "Surrey"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/ylgfamilylaw",
+   "instagram": "https://www.instagram.com/ylaw.firm",
+   "linkedin": "https://www.linkedin.com/company/ylaw-group",
+   "x": "https://x.com/ylawfamilylaw",
+   "youtube": "https://www.youtube.com/c/YLawGroupVancouver"
   }
  },
  {
@@ -1826,6 +1938,13 @@
    "serving": [
     "Ottawa"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/immilandcanada",
+   "instagram": "https://www.instagram.com/immilandcanada",
+   "linkedin": "https://www.linkedin.com/company/immiland-canada",
+   "x": "https://x.com/immilandcanada",
+   "youtube": "https://www.youtube.com/@Immiland"
   }
  },
  {
@@ -1971,6 +2090,10 @@
    "serving": [
     "Edmonton"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/Gogna-Immigration-Inc-108703088139775",
+   "linkedin": "https://www.linkedin.com/company/gogna-immigration-inc"
   }
  },
  {
@@ -1998,7 +2121,11 @@
   "blurb": "Real Estate in North York. Rated 4.7 from 446 Google reviews.",
   "type": "logo",
   "about": "Shapiro LLP is a North York law firm serving the Greater Toronto Area in residential and commercial real estate, business law, and wills and estates.\n\nThe firm's work also includes commercial matters and private mortgages, and it provides legal services across Canada. The practice is at Sheppard Avenue East in North York. Its practice areas are grouped under real estate, business and commercial law, private mortgage work and wills, estates and trusts.",
-  "src": "images/logos/shapiro-llp-north-york.png"
+  "src": "images/logos/shapiro-llp-north-york.png",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61574482603340",
+   "instagram": "https://www.instagram.com/shapirollp"
+  }
  },
  {
   "name": "Bellissimo Immigration Law Group PC",
@@ -2036,6 +2163,12 @@
     "Calgary",
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/bellissimolawgroup",
+   "instagram": "https://www.instagram.com/bellissimolaw",
+   "linkedin": "https://www.linkedin.com/company/bellissimo-law-group",
+   "x": "https://x.com/bellissimolaw"
   }
  },
  {
@@ -2113,7 +2246,12 @@
     "Edmonton"
    ]
   },
-  "heroImage": "images/hero/choice-immigration-services-edmonton.webp"
+  "heroImage": "images/hero/choice-immigration-services-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/choiceimmigration.ca",
+   "instagram": "https://www.instagram.com/choiceimmigration",
+   "x": "https://x.com/choiceimmigrat"
+  }
  },
  {
   "name": "Lambert Avocats",
@@ -2164,7 +2302,12 @@
     "Montréal"
    ]
   },
-  "heroImage": "images/hero/lambert-avocats-montreal.webp"
+  "heroImage": "images/hero/lambert-avocats-montreal.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/lambertavocats",
+   "instagram": "https://www.instagram.com/lambertavocats",
+   "linkedin": "https://www.linkedin.com/company/lambert-avocats"
+  }
  },
  {
   "name": "Barrou Nadia",
@@ -2287,7 +2430,13 @@
     "Montreal"
    ]
   },
-  "heroImage": "images/hero/lmrt-immigration-services-montreal.webp"
+  "heroImage": "images/hero/lmrt-immigration-services-montreal.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/LMRTimmigration",
+   "instagram": "https://www.instagram.com/lmrt.immigration",
+   "linkedin": "https://www.linkedin.com/company/lmrt-immigration-services-inc",
+   "youtube": "https://www.youtube.com/c/LMRTimmigrationLoujinKhalil"
+  }
  },
  {
   "name": "Diversitas Law Group",
@@ -2413,7 +2562,11 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/ronen-kurzfeld-immigration-lawyer-toronto-north-york.webp"
+  "heroImage": "images/hero/ronen-kurzfeld-immigration-lawyer-toronto-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/ImmigrationLawOfficeofRonenKurzfeld",
+   "youtube": "https://www.youtube.com/channel/UC7AKwN-u1N1T7AdAp56g9aA"
+  }
  },
  {
   "name": "Randhawa Law Centre",
@@ -2494,6 +2647,11 @@
    "serving": [
     "Surrey"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/honveer.randhawa",
+   "instagram": "https://www.instagram.com/honveer_singh_randhawa",
+   "x": "https://x.com/Honveer_R"
   }
  },
  {
@@ -2615,6 +2773,11 @@
     "Calgary",
     "Alberta"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/Crossroadslaw",
+   "instagram": "https://www.instagram.com/crossroadslaw",
+   "linkedin": "https://www.linkedin.com/company/crossroadslaw"
   }
  },
  {
@@ -2659,6 +2822,9 @@
     "Real estate",
     "Enduring power of attorney"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/albertarealestatelawyers"
   }
  },
  {
@@ -2749,7 +2915,13 @@
     "Immigration and refugee law"
    ]
   },
-  "heroImage": "images/hero/lm-law-group-toronto.webp"
+  "heroImage": "images/hero/lm-law-group-toronto.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/lmlawgroupcanada",
+   "instagram": "https://www.instagram.com/lmlawgroup",
+   "linkedin": "https://www.linkedin.com/company/lmlawgroupcanada",
+   "youtube": "https://www.youtube.com/@lmlawgroupcanada"
+  }
  },
  {
   "name": "Seif Law Firm",
@@ -2809,7 +2981,11 @@
     "Greater Toronto Area"
    ]
   },
-  "heroImage": "images/hero/seif-law-firm-richmond-hill.webp"
+  "heroImage": "images/hero/seif-law-firm-richmond-hill.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/seiflawfirm",
+   "instagram": "https://www.instagram.com/seiflawteam"
+  }
  },
  {
   "name": "Dimitri Trofimoff Lawyer",
@@ -2896,6 +3072,10 @@
    "serving": [
     "Calgary"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/lawyerg.ca",
+   "linkedin": "https://www.linkedin.com/company/lawyerg"
   }
  },
  {
@@ -3082,7 +3262,12 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/dlegal-law-office-wills-calgary.webp"
+  "heroImage": "images/hero/dlegal-law-office-wills-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Dlegal.ca",
+   "instagram": "https://www.instagram.com/dlegal.law",
+   "linkedin": "https://www.linkedin.com/company/dlegal-law-office"
+  }
  },
  {
   "name": "Hammerco Lawyers LLP",
@@ -3166,7 +3351,12 @@
     "London"
    ]
   },
-  "heroImage": "images/hero/hammerco-lawyers-llp-vancouver.webp"
+  "heroImage": "images/hero/hammerco-lawyers-llp-vancouver.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/HammercoLawyers",
+   "instagram": "https://www.instagram.com/hammercolawyers",
+   "linkedin": "https://www.linkedin.com/company/hammercolawyersllp"
+  }
  },
  {
   "name": "Bottos Law Group",
@@ -3254,6 +3444,10 @@
     "Central Alberta",
     "Southern Alberta"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/bottoslawgroup",
+   "linkedin": "https://www.linkedin.com/company/bottos-law-group"
   }
  },
  {
@@ -3400,7 +3594,13 @@
     "Vancouver"
    ]
   },
-  "heroImage": "images/hero/tim-louis-and-company-law-firm-vancouver.webp"
+  "heroImage": "images/hero/tim-louis-and-company-law-firm-vancouver.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/TimLouisLaw",
+   "instagram": "https://www.instagram.com/timlouislaw",
+   "linkedin": "https://www.linkedin.com/in/tim-louis-a883ba13",
+   "x": "https://x.com/timlouislawco"
+  }
  },
  {
   "name": "Aviron Law Professional Corporation",
@@ -3448,6 +3648,11 @@
    "serving": [
     "Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/avironlaw",
+   "instagram": "https://www.instagram.com/aviron_law",
+   "linkedin": "https://www.linkedin.com/in/dilvir-tatter-b00347a2"
   }
  },
  {
@@ -3518,7 +3723,12 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/kh-dunkley-law-group-calgary.webp"
+  "heroImage": "images/hero/kh-dunkley-law-group-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/KHLawYYC",
+   "instagram": "https://www.instagram.com/khlawyyc",
+   "linkedin": "https://www.linkedin.com/company/kh-dunkley-law-group"
+  }
  },
  {
   "name": "Cangaly",
@@ -3686,6 +3896,13 @@
     "West Vancouver",
     "Vancouver"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/MacleanLawGroup",
+   "instagram": "https://www.instagram.com/maclean_law",
+   "linkedin": "https://www.linkedin.com/company/maclean-family-law-group",
+   "x": "https://x.com/bcfamilylaw",
+   "youtube": "https://www.youtube.com/user/BCFamilyLaw"
   }
  },
  {
@@ -3725,7 +3942,12 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/cougle-co-real-estate-business-law-calgary.webp"
+  "heroImage": "images/hero/cougle-co-real-estate-business-law-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/cougleandco",
+   "instagram": "https://www.instagram.com/cougleandco",
+   "linkedin": "https://www.linkedin.com/company/cougle-company-real-estate-law-and-business-law"
+  }
  },
  {
   "name": "De Krupe Law",
@@ -3771,7 +3993,11 @@
     "Simcoe County"
    ]
   },
-  "heroImage": "images/hero/de-krupe-law-north-york.webp"
+  "heroImage": "images/hero/de-krupe-law-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/dekrupelaw",
+   "linkedin": "https://www.linkedin.com/company/de-krupe-law"
+  }
  },
  {
   "name": "Ronalee Carey Law",
@@ -3818,6 +4044,11 @@
    "serving": [
     "Gloucester"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/Ronalee-Carey-Canadian-Immigration-Lawyer-1642696155983326",
+   "linkedin": "https://www.linkedin.com/in/ronalee-carey-0119593a",
+   "x": "https://x.com/RonaleeCarey"
   }
  },
  {
@@ -3857,6 +4088,9 @@
     "Family law",
     "Civil litigation"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/michael-emeka-dibua-44801622"
   }
  },
  {
@@ -3895,6 +4129,9 @@
     "Toronto",
     "GTA"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/kahlonlaw"
   }
  },
  {
@@ -4054,6 +4291,11 @@
    "serving": [
     "Lower Mainland"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/ngsidhu",
+   "linkedin": "https://www.linkedin.com/in/shawn-sidhu-b69059a7",
+   "x": "https://x.com/SidhuInjuryLaw"
   }
  },
  {
@@ -4144,6 +4386,11 @@
     "Construction lien actions",
     "Probate applications"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/Sabiollp",
+   "instagram": "https://www.instagram.com/sabiollp",
+   "linkedin": "https://www.linkedin.com/company/sabiollp"
   }
  },
  {
@@ -4199,7 +4446,11 @@
     "Alberta"
    ]
   },
-  "heroImage": "images/hero/md-law-group-edmonton.webp"
+  "heroImage": "images/hero/md-law-group-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/MD-Criminal-Defence-107584628167536",
+   "linkedin": "https://www.linkedin.com/in/daniel-murphy-criminal-lawyer-573186a3"
+  }
  },
  {
   "name": "Avanessy Giordano LLP",
@@ -4241,7 +4492,13 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/avanessy-giordano-llp-north-york.webp"
+  "heroImage": "images/hero/avanessy-giordano-llp-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/avagiolaw",
+   "instagram": "https://www.instagram.com/avanessygiordano",
+   "linkedin": "https://www.linkedin.com/company/avanessy-giordano-llp",
+   "x": "https://x.com/avagiolaw"
+  }
  },
  {
   "name": "B.Kay Law Office",
@@ -4284,7 +4541,11 @@
     "Edmonton"
    ]
   },
-  "heroImage": "images/hero/b-kay-law-office-edmonton.webp"
+  "heroImage": "images/hero/b-kay-law-office-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/B.KayLawOffice",
+   "instagram": "https://www.instagram.com/canadian_immigration_lawyer"
+  }
  },
  {
   "name": "Jahanshahi Business Law Firm",
@@ -4325,7 +4586,13 @@
     "Corporate and commercial"
    ]
   },
-  "heroImage": "images/hero/jahanshahi-business-law-firm-north-york.webp"
+  "heroImage": "images/hero/jahanshahi-business-law-firm-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100057584073755",
+   "instagram": "https://www.instagram.com/jahanshahilaw",
+   "linkedin": "https://www.linkedin.com/company/18782605",
+   "x": "https://x.com/jahanlaw"
+  }
  },
  {
   "name": "Siu Law Professional Corporation",
@@ -4372,6 +4639,11 @@
     "Alberta",
     "Richmond Hill"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/siulawprofcorp",
+   "instagram": "https://www.instagram.com/siulawprofcorp",
+   "linkedin": "https://www.linkedin.com/in/andreasiu"
   }
  },
  {
@@ -4442,7 +4714,10 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/taylor-law-calgary.webp"
+  "heroImage": "images/hero/taylor-law-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Taylor-Law-289786387802529"
+  }
  },
  {
   "name": "Susan Karpa",
@@ -4538,7 +4813,12 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/susan-karpa-calgary.webp"
+  "heroImage": "images/hero/susan-karpa-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/SusanKarpa",
+   "linkedin": "https://www.linkedin.com/in/susankarpa",
+   "x": "https://x.com/SusanKarpa"
+  }
  },
  {
   "name": "Lawyer UP Canada",
@@ -4582,6 +4862,11 @@
    "serving": [
     "Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100092155758460",
+   "instagram": "https://www.instagram.com/lawyerupcanada",
+   "linkedin": "https://www.linkedin.com/in/lawyer-up-canada-criminal-law-firm-6632b2278"
   }
  },
  {
@@ -4633,7 +4918,12 @@
     "Central and northern Alberta"
    ]
   },
-  "heroImage": "images/hero/joseph-a-nagy-injury-law-edmonton.webp"
+  "heroImage": "images/hero/joseph-a-nagy-injury-law-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/edmontoninjurylawyer",
+   "linkedin": "https://www.linkedin.com/in/joseph-a-nagy-473a8734",
+   "x": "https://x.com/JosephANagy1"
+  }
  },
  {
   "name": "Dale Streiman Law",
@@ -4740,7 +5030,14 @@
     "LGBTQ law"
    ]
   },
-  "heroImage": "images/hero/erikson-law-firm-ottawa.webp"
+  "heroImage": "images/hero/erikson-law-firm-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/EriksonLawFirm",
+   "instagram": "https://www.instagram.com/eriksonlawfirm",
+   "linkedin": "https://www.linkedin.com/in/valentinerikson",
+   "x": "https://x.com/EriksonLawFirm",
+   "youtube": "https://www.youtube.com/channel/UCnz3bnyJ_wJIa9DOjVGFAmg"
+  }
  },
  {
   "name": "West Legal",
@@ -4821,7 +5118,10 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/west-legal-calgary.webp"
+  "heroImage": "images/hero/west-legal-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/westlegalcalgary"
+  }
  },
  {
   "name": "Edmonton Criminal Lawyer Ziv",
@@ -4879,7 +5179,14 @@
     "Leduc"
    ]
   },
-  "heroImage": "images/hero/edmonton-criminal-lawyer-ziv-edmonton.webp"
+  "heroImage": "images/hero/edmonton-criminal-lawyer-ziv-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/edmontoncriminallawyerziv",
+   "instagram": "https://www.instagram.com/edmontoncriminallawyerziv",
+   "linkedin": "https://www.linkedin.com/in/rory-ziv-29711a140",
+   "x": "https://x.com/edmontonz",
+   "youtube": "https://www.youtube.com/channel/UCSDvCxAhJs_W5kbeJpQjJYw"
+  }
  },
  {
   "name": "Silver Immigration",
@@ -4929,6 +5236,10 @@
    "serving": [
     "Montreal"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/silverimmigration",
+   "x": "https://x.com/SilverImm"
   }
  },
  {
@@ -5052,6 +5363,11 @@
     "Refusal appeals",
     "Study and work"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/Mawaziniimmigrationvisa",
+   "instagram": "https://www.instagram.com/mawazini_immigration",
+   "x": "https://x.com/Mawazini_visa"
   }
  },
  {
@@ -5154,7 +5470,12 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/laws-and-beyond-calgary.webp"
+  "heroImage": "images/hero/laws-and-beyond-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/lawsnbeyond",
+   "instagram": "https://www.instagram.com/lawsnbeyond",
+   "youtube": "https://www.youtube.com/@lawsnbeyond"
+  }
  },
  {
   "name": "Pacific Point Law Corporation",
@@ -5246,6 +5567,11 @@
     "South Surrey",
     "Lower Mainland"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/pacificpointlaw",
+   "instagram": "https://www.instagram.com/pacificpointlaw",
+   "linkedin": "https://www.linkedin.com/company/pacific-point-law-corporation"
   }
  },
  {
@@ -5323,6 +5649,9 @@
     "Ottawa",
     "Eastern Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/rpblaw"
   }
  },
  {
@@ -5397,6 +5726,9 @@
    "serving": [
     "Ontario"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/knlawpc"
   }
  },
  {
@@ -5479,7 +5811,11 @@
     "Oakville"
    ]
   },
-  "heroImage": "images/hero/hsp-law-north-york.webp"
+  "heroImage": "images/hero/hsp-law-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/HSPLawPersonalInjuryLawyers",
+   "linkedin": "https://www.linkedin.com/company/hsp-law"
+  }
  },
  {
   "name": "Gerami Law PC",
@@ -5537,7 +5873,12 @@
     "Vancouver"
    ]
   },
-  "heroImage": "images/hero/gerami-law-pc-ottawa.webp"
+  "heroImage": "images/hero/gerami-law-pc-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/GeramiLawPC",
+   "linkedin": "https://www.linkedin.com/in/arghavan-gerami-ba776519",
+   "x": "https://x.com/ArghavanGerami"
+  }
  },
  {
   "name": "Leiter Rahme Attorneys Inc.",
@@ -5588,6 +5929,10 @@
     "Middle East"
    ]
   },
-  "heroImage": "images/hero/leiter-rahme-attorneys-inc-montreal.webp"
+  "heroImage": "images/hero/leiter-rahme-attorneys-inc-montreal.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/LeiterRahmeAttorneys",
+   "linkedin": "https://www.linkedin.com/in/gissa-rahme-68a94935"
+  }
  }
 ]

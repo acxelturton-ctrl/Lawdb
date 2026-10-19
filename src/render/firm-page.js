@@ -1,5 +1,6 @@
 // Renders a firm profile page from a database record. Built from the same chunks as the hand-built pages
 // (see scripts/extract-firm-template.mjs), so a rendered page looks like the originals.
+import { cleanDetails } from '../lib/details.js';
 import * as C from './firm-chunks.generated.js';
 import { renderBlogCards } from './blog-cards.js';
 
@@ -117,7 +118,23 @@ function description(f) {
 }
 
 const PHOTO_CSS = '<style>.photos{margin:22px 0}.photos h2{font-size:18px;margin:0 0 10px}.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.photo-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block;background:#eee}</style>';
+const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#4a4f56}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
 const IMG_ID = /^[0-9a-f]{24}$/;
+
+// Facts the firm's own website states (see src/lib/details.js): shown as a plain list, never as claims of our own.
+function glanceHtml(f) {
+  const d = cleanDetails(f.details);
+  if (!d) return '';
+  const row = (label, html) => `<dt>${label}</dt><dd>${html}</dd>`;
+  const rows = [
+    d.founded ? row('Founded', String(d.founded)) : '',
+    d.lawyers ? row('Lawyers named by the firm', `<ul>${d.lawyers.map((l) => `<li>${esc(l.name)}${l.title ? ` <span style="color:#636870">(${esc(l.title)})</span>` : ''}</li>`).join('')}</ul>`) : '',
+    d.languages ? row('Languages', esc(d.languages.join(', '))) : '',
+    d.serving ? row('Places served', esc(d.serving.join(', '))) : '',
+    d.areas ? row('Areas of law listed', `<ul>${d.areas.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>`) : '',
+  ].filter(Boolean);
+  return rows.length ? `\n    <section class="glance" aria-label="${esc(f.name)} at a glance"><h2>At a glance</h2><dl>${rows.join('')}</dl></section>` : '';
+}
 
 export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], origin = 'https://lawdb.ca' }) {
   const prov = PROVINCES[f.province] || f.province;
@@ -133,6 +150,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const mapsSearch = `https://www.google.com/maps/search/${q}`;
   const dir = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(f.address || `${f.name} ${f.city}`).replace(/%20/g, '+')}`;
 
+  const glance = cleanDetails(f.details);
   const ld = {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
@@ -145,6 +163,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     url,
     ...(customCover ? { image: ogImage } : {}),
     ...(website ? { sameAs: [website] } : {}),
+    ...(glance ? { ...(glance.founded ? { foundingDate: String(glance.founded) } : {}), ...(glance.languages ? { knowsLanguage: glance.languages } : {}), ...(glance.serving ? { areaServed: glance.serving } : {}) } : {}),
   };
 
   const actions =
@@ -200,9 +219,9 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
     `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
-    C.STYLE + PHOTO_CSS + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
+    C.STYLE + PHOTO_CSS + GLANCE_CSS + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm">\n  ' + C.HEADER,
-    '  <div class="wrap">\n    ' + card + aboutHtml + bioHtml + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap">\n    ' + card + aboutHtml + bioHtml + glanceHtml(f) + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     '    ' + fill(C.LEAD_SLIM, toks),
     carousel(f, nearby),
     '\n\n    ' + leadScript,

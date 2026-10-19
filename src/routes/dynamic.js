@@ -14,7 +14,7 @@ const cacheSeconds = (env) => {
 // What the browser needs to list and map a firm. These stay in the database (and on the firm's own page) but are not sent with the
 // directory list: a Maps link nobody reads, a one-line blurb, the picture files of the firm's own page, and the Directions link, which the
 // page rebuilds from the address (see SHIM). Together they were about a third of the list.
-export const DROPPED_FIELDS = ['mapsUrl', 'blurb', 'dirUrl', 'heroImage', 'bioImage'];
+export const DROPPED_FIELDS = ['mapsUrl', 'blurb', 'dirUrl', 'heroImage', 'bioImage', 'details'];
 const slimRow = (json) => {
   const o = JSON.parse(json);
   for (const k of DROPPED_FIELDS) delete o[k];

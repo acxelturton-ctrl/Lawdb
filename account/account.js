@@ -381,6 +381,32 @@ function storyRow(s, onChange) {
     h('div', { class: 'row' }, h('a', { href: s.href }, 'Read the story'), save));
 }
 
+// "Use your LinkedIn photo?" Shown once after signing in with LinkedIn or Google (the server keeps the picture's address until the person answers).
+// Yes: LawDB copies the picture into the person's own profile photo. No: remembered, never asked again.
+function photoOfferCard() {
+  const o = user.photoOffer;
+  const msg = h('div');
+  const card = h('div', { class: 'card pf-offer' });
+  const answer = async (accept) => {
+    msg.replaceChildren(note('msg-ok', accept ? 'Copying your photo…' : 'OK.'));
+    try {
+      const data = await api('POST', '/api/account/photo-offer', { accept });
+      user.avatar = data.profile.avatar; user.photoOffer = data.profile.photoOffer;
+      try { sessionStorage.removeItem('lawdb_me'); } catch (e) {}
+      card.replaceChildren(h('p', null, h('b', null, accept ? 'Done. Your photo is on your profile.' : 'No problem, we will not ask again.')));
+      if (accept && window.lawdbRefresh) window.lawdbRefresh();
+    } catch (err) { msg.replaceChildren(note('msg-err', err.message)); }
+  };
+  card.append(
+    h('img', { class: 'pf-offer-img', src: o.url, alt: `Your ${o.name} photo`, referrerpolicy: 'no-referrer', width: 84, height: 84 }),
+    h('div', null,
+      h('p', null, h('b', null, `Use your ${o.name} photo?`)),
+      h('p', { class: 'muted' }, `You signed in with ${o.name}. We can use the same profile photo here. Only you can see it for now.` + (o.provider === 'linkedin' ? ' LinkedIn does not share cover photos with other sites, so you can add a cover yourself on your profile.' : '')),
+      h('div', { class: 'row' }, h('button', { class: 'primary', type: 'button', onclick: () => answer(true) }, 'Yes, use it'), h('button', { type: 'button', onclick: () => answer(false) }, 'No thanks')),
+      msg));
+  return card;
+}
+
 async function viewFeed() {
   const { stories } = await api('GET', '/api/account/feed');
   api('POST', '/api/account/feed/seen', {}).then(() => { try { sessionStorage.removeItem('lawdb_notif'); } catch (e) {} if (window.lawdbDot) window.lawdbDot(0); }).catch(() => {});
@@ -388,7 +414,8 @@ async function viewFeed() {
   const first = (user.name || '').split(/\s+/)[0];
   return h('div', null, h('h1', null, first ? `Welcome, ${first}!` : 'Your feed'),
     (!user.name || !user.kind) && h('div', { class: 'card' }, h('p', null, h('b', null, 'Finish your profile')), h('p', { class: 'muted' }, 'Add your name and tell us who you are. It takes a few seconds.'), h('a', { href: '#profile' }, h('button', { class: 'primary', type: 'button' }, 'Continue setting up your profile'))),
-    user.name && !user.avatar && h('div', { class: 'card' }, h('p', null, h('b', null, 'Add a profile photo')), h('p', { class: 'muted' }, 'A photo makes your account feel like yours. It takes a few seconds.'), h('a', { href: '#profile' }, h('button', { type: 'button' }, 'Add a photo'))),
+    user.photoOffer && !user.avatar && photoOfferCard(),
+    user.name && !user.avatar && !user.photoOffer && h('div', { class: 'card' }, h('p', null, h('b', null, 'Add a profile photo')), h('p', { class: 'muted' }, 'A photo makes your account feel like yours. It takes a few seconds.'), h('a', { href: '#profile' }, h('button', { type: 'button' }, 'Add a photo'))),
     h('p', { class: 'muted' }, 'The latest stories from the firms you follow.'),
     nF === 0
       ? h('div', { class: 'card' }, h('p', null, 'You are not following any firms yet.'), h('p', { class: 'muted' }, 'Follow firms to see their new articles here. You can follow any firm from its profile page, from LawDB News, or search for firms below.'), h('a', { href: '#network' }, h('button', { class: 'primary', type: 'button' }, 'Find firms to follow')))

@@ -24,6 +24,19 @@ const PROVIDERS = {
 const MAX_NEW_ACCOUNTS_PER_DAY = 150;
 const dev = (env) => env.DEV_ECHO_LINK === '1';
 
+// The profile picture a provider sends with the sign-in. Only the provider's own picture hosts, https, nothing with a password or a port;
+// a local test provider is allowed in dev only. Returns the address to keep, or null.
+const PICTURE_HOST = { linkedin: /(^|\.)licdn\.com$/i, google: /^lh\d\.googleusercontent\.com$/i };
+export function providerPicture(key, raw, env) {
+  if (typeof raw !== 'string' || raw.length > 1500) return null;
+  let u;
+  try { u = new URL(raw); } catch { return null; }
+  if (u.username || u.password) return null;
+  if (dev(env) && u.protocol === 'http:' && u.hostname === '127.0.0.1') return u.href;
+  if (u.protocol !== 'https:' || u.port || !PICTURE_HOST[key]?.test(u.hostname)) return null;
+  return u.href;
+}
+
 function config(env, key) {
   const p = PROVIDERS[key];
   const id = String(env[p?.idVar] ?? '').trim(), secret = String(env[p?.secretVar] ?? '').trim(); // a stray space or line break from pasting must not break the sign-in
@@ -94,13 +107,13 @@ export async function finishOAuth(env, request, url, exec, key) {
   if (!isEmail(email) || !(p.email_verified === true || p.email_verified === 'true')) return fail('no verified e-mail address');
 
   const isAdmin = adminEmails(env).has(email);
-  let user = await env.DB.prepare('SELECT id, email, role, disabled, name FROM users WHERE email = ?').bind(email).first();
+  let user = await env.DB.prepare('SELECT id, email, role, disabled, name, avatar_at, photo_offer_declined FROM users WHERE email = ?').bind(email).first();
   if (user?.disabled) return fail('account disabled');
   let isNew = false;
   if (!user) {
     const today = await env.DB.prepare("SELECT COUNT(*) AS n FROM audit_log WHERE action = 'signup.oauth' AND at > datetime('now', '-1 day')").first();
     if (today.n >= MAX_NEW_ACCOUNTS_PER_DAY) return fail('too many new accounts today');
-    user = await env.DB.prepare('INSERT INTO users (email, role, provider) VALUES (?, ?, ?) RETURNING id, email, role, name').bind(email, isAdmin ? 'admin' : 'member', key).first();
+    user = await env.DB.prepare('INSERT INTO users (email, role, provider) VALUES (?, ?, ?) RETURNING id, email, role, name, avatar_at, photo_offer_declined').bind(email, isAdmin ? 'admin' : 'member', key).first();
     isNew = true;
     await audit(env, user, 'signup.oauth', 'user', user.id, { provider: key });
   } else if (isAdmin && user.role !== 'admin') {
@@ -110,6 +123,11 @@ export async function finishOAuth(env, request, url, exec, key) {
   }
   const name = typeof p.name === 'string' ? p.name.replace(/[<>]/g, '').trim().slice(0, 80) : '';
   if (name && !user.name) await env.DB.prepare('UPDATE users SET name = ? WHERE id = ?').bind(name, user.id).run();
+  // Offer the provider's picture as their profile photo, once: not when they already have a photo or have said no before. They decide on the account page.
+  const picture = providerPicture(key, p.picture, env);
+  if (picture && !user.avatar_at && !user.photo_offer_declined) {
+    await env.DB.prepare('UPDATE users SET photo_offer_url = ?, photo_offer_provider = ? WHERE id = ?').bind(picture, key, user.id).run();
+  }
   await env.DB.prepare("UPDATE users SET last_login_at = datetime('now') WHERE id = ?").bind(user.id).run();
   await welcomeOnce(env, exec, origin, user, user.name || name);
 

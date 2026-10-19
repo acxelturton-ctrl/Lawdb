@@ -157,3 +157,5 @@ textarea.tall { min-height: 150px; }
 .welcome{text-align:center}.welcome h1{font:700 24px/1.25 'Source Serif 4',Georgia,serif;margin:6px 0 10px}.welcome-row{justify-content:center}.welcome .small{margin-top:16px}
 .signin-check h3{margin:12px 0 4px;font-size:15px}.signin-check dl{margin:6px 0;font-size:14px;display:grid;grid-template-columns:max-content 1fr;gap:2px 12px}.signin-check dt{color:var(--muted)}.signin-check dd{margin:0;overflow-wrap:anywhere}
 .logo-opts{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px}.logo-opt{display:flex;flex-direction:column;gap:6px;align-items:flex-start;max-width:140px}.logo-opt img{width:96px;height:96px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:8px}
+
+.pf-offer{display:flex;gap:16px;align-items:center}.pf-offer-img{flex:none;width:84px;height:84px;border-radius:50%;object-fit:cover;border:1px solid var(--line);background:#f0ede5}.pf-offer p{margin:0 0 8px}@media(max-width:520px){.pf-offer{flex-direction:column;align-items:flex-start}}

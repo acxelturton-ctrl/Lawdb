@@ -13,6 +13,7 @@ import { isFeatured, leadSummary, leadsCsv } from '../lib/leads.js';
 import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
 import { planInfo } from '../lib/stripe.js';
 import { addImage, removeImage, listImages, imageInfo } from '../lib/images.js';
+import { providerPicture } from '../lib/oauth.js';
 
 const reply = (body, status = 200) => json(body, status, NO_STORE);
 
@@ -46,8 +47,10 @@ export const GOALS = ['find', 'clients', 'staff', 'follow', 'study', 'other'];
 const PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
 const KIND_OF_GOAL = { find: 'public', clients: 'lawyer', staff: 'staff', follow: 'lawyer', study: 'other', other: 'other' };
 const profileOf = async (env, id) => {
-  const p = await env.DB.prepare('SELECT name, kind, city, province, job_title AS jobTitle, employer, goal, onboarded_at, avatar_at, cover_at FROM users WHERE id = ?').bind(id).first();
-  return { name: p?.name || '', kind: p?.kind || '', city: p?.city || '', province: p?.province || '', jobTitle: p?.jobTitle || '', employer: p?.employer || '', goal: p?.goal || '', onboarded: !!p?.onboarded_at, avatar: p?.avatar_at ? `/api/account/avatar?v=${p.avatar_at.replace(/\D/g, '')}` : '', cover: p?.cover_at ? `/api/account/cover?v=${p.cover_at.replace(/\D/g, '')}` : '' };
+  const p = await env.DB.prepare('SELECT name, kind, city, province, job_title AS jobTitle, employer, goal, onboarded_at, avatar_at, cover_at, photo_offer_url AS offerUrl, photo_offer_provider AS offerProvider FROM users WHERE id = ?').bind(id).first();
+  return { name: p?.name || '', kind: p?.kind || '', city: p?.city || '', province: p?.province || '', jobTitle: p?.jobTitle || '', employer: p?.employer || '', goal: p?.goal || '', onboarded: !!p?.onboarded_at, avatar: p?.avatar_at ? `/api/account/avatar?v=${p.avatar_at.replace(/\D/g, '')}` : '', cover: p?.cover_at ? `/api/account/cover?v=${p.cover_at.replace(/\D/g, '')}` : '',
+    // a picture LinkedIn or Google sent at sign-in that the person has not answered yet
+    photoOffer: p?.offerUrl && !p?.avatar_at ? { provider: p.offerProvider, name: p.offerProvider === 'linkedin' ? 'LinkedIn' : 'Google', url: p.offerUrl } : null };
 };
 const plain = (v, label, max) => {
   const t = typeof v === 'string' ? v.replace(/\s+/g, ' ').trim() : '';
@@ -305,16 +308,15 @@ const MEDIA = {
 export const AVATAR_RULES = { perHour: 10 };
 const MIME = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
 
-async function mediaSet(kind, { request, env }) {
-  const m = MEDIA[kind];
-  const user = await requireUser(env, request);
-  if (!env.IMAGES) throw new HttpError(503, 'Picture storage is not available right now.');
+async function mediaLimit(env, user) {
   const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM audit_log WHERE actor_user_id = ? AND action IN ('avatar.set','cover.set') AND at > datetime('now','-1 hour')").bind(user.id).first();
   if (recent.n >= AVATAR_RULES.perHour) throw new HttpError(429, 'Too many picture changes this hour. Please try again later.');
+}
+
+// Checks the real file (type, size, shape) and keeps it as the person's photo or cover.
+async function storeMedia(kind, env, user, body, detail = null) {
+  const m = MEDIA[kind];
   const kb = Math.round(m.maxBytes / 1024);
-  const declared = Number(request.headers.get('content-length'));
-  if (declared && declared > m.maxBytes + 1024) throw new HttpError(413, `${m.label}s can be up to ${kb} KB. The page shrinks it for you; try another picture.`);
-  const body = new Uint8Array(await request.arrayBuffer());
   if (!body.length) throw new HttpError(422, 'No picture was sent.');
   if (body.length > m.maxBytes) throw new HttpError(413, `${m.label}s can be up to ${kb} KB. Try another picture.`);
   const info = imageInfo(body);
@@ -323,7 +325,56 @@ async function mediaSet(kind, { request, env }) {
   if (info.width > m.maxSide || info.height > m.maxSide) throw new HttpError(422, `The picture is too large. Each side can be at most ${m.maxSide} pixels.`);
   await env.IMAGES.put(`${m.prefix}/${user.id}`, body, { httpMetadata: { contentType: MIME[info.format] } });
   await env.DB.prepare(`UPDATE users SET ${m.type} = ?, ${m.at} = strftime('%Y-%m-%d %H:%M:%f', 'now') WHERE id = ?`).bind(MIME[info.format], user.id).run();
-  await audit(env, user, `${kind}.set`, 'user', user.id, { bytes: body.length, width: info.width, height: info.height });
+  await audit(env, user, `${kind}.set`, 'user', user.id, { bytes: body.length, width: info.width, height: info.height, ...detail });
+}
+
+async function mediaSet(kind, { request, env }) {
+  const m = MEDIA[kind];
+  const user = await requireUser(env, request);
+  if (!env.IMAGES) throw new HttpError(503, 'Picture storage is not available right now.');
+  await mediaLimit(env, user);
+  const kb = Math.round(m.maxBytes / 1024);
+  const declared = Number(request.headers.get('content-length'));
+  if (declared && declared > m.maxBytes + 1024) throw new HttpError(413, `${m.label}s can be up to ${kb} KB. The page shrinks it for you; try another picture.`);
+  await storeMedia(kind, env, user, new Uint8Array(await request.arrayBuffer()));
+  return reply({ ok: true, profile: await profileOf(env, user.id) });
+}
+
+// "Use your LinkedIn photo?" The person's answer to the offer made at sign-in (migration 0027). Yes: LawDB fetches the picture from the provider
+// once, checks it like any upload and keeps its own copy as the profile photo (provider addresses expire, and we never hot-link). No: remembered, never asked again.
+// LinkedIn does not hand cover photos, job titles or employers to ordinary sign-in apps, so only the profile photo is offered.
+const PICTURE_MAX_BYTES = 3 * 1024 * 1024;
+export async function photoOffer({ request, env }) {
+  const user = await requireUser(env, request);
+  const body = await readJson(request, 200);
+  const row = await env.DB.prepare('SELECT photo_offer_url AS url, photo_offer_provider AS provider, avatar_at AS avatarAt FROM users WHERE id = ?').bind(user.id).first();
+  if (!row?.url) throw new HttpError(404, 'There is no photo waiting for an answer.');
+  const settle = (declined) => env.DB.prepare('UPDATE users SET photo_offer_url = NULL, photo_offer_provider = NULL, photo_offer_declined = ? WHERE id = ?').bind(declined ? 1 : 0, user.id).run();
+  if (body.accept !== true) {
+    await settle(true);
+    await audit(env, user, 'photo_offer.declined', 'user', user.id, { provider: row.provider });
+    return reply({ ok: true, profile: await profileOf(env, user.id) });
+  }
+  if (row.avatarAt) { await settle(false); return reply({ ok: true, profile: await profileOf(env, user.id) }); }
+  if (!env.IMAGES) throw new HttpError(503, 'Picture storage is not available right now.');
+  await mediaLimit(env, user);
+  const url = providerPicture(row.provider, row.url, env);
+  const failed = async (why) => { await settle(false); throw new HttpError(422, `We could not copy that photo from ${row.provider === 'linkedin' ? 'LinkedIn' : 'Google'} (${why}). You can add a photo from your own files instead.`); };
+  if (!url) return failed('the address is not valid');
+  let bytes;
+  try {
+    const res = await fetch(url, { redirect: 'follow', headers: { accept: 'image/*', 'user-agent': 'LawDB/1.0 (+https://lawdb.ca)' }, signal: AbortSignal.timeout(8000) });
+    if (!res.ok) return failed(`it answered ${res.status}`);
+    if (!providerPicture(row.provider, res.url, env)) return failed('it moved somewhere else');
+    if (Number(res.headers.get('content-length') || 0) > PICTURE_MAX_BYTES) return failed('it is too big');
+    bytes = new Uint8Array(await res.arrayBuffer());
+    if (bytes.length > PICTURE_MAX_BYTES) return failed('it is too big');
+  } catch (err) {
+    if (err instanceof HttpError) throw err;
+    return failed('it could not be reached');
+  }
+  try { await storeMedia('avatar', env, user, bytes, { from: row.provider }); } catch (err) { if (err instanceof HttpError) return failed(err.message.replace(/\.$/, '').toLowerCase()); throw err; }
+  await settle(false);
   return reply({ ok: true, profile: await profileOf(env, user.id) });
 }
 

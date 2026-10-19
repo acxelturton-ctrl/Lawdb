@@ -122,6 +122,7 @@ const ROUTES = [
   route('GET', '/api/account/avatar', account.avatarGet),
   route('PUT', '/api/account/avatar', account.avatarSet),
   route('DELETE', '/api/account/avatar', account.avatarRemove),
+  route('POST', '/api/account/photo-offer', account.photoOffer),
   route('GET', '/api/account/cover', account.coverGet),
   route('PUT', '/api/account/cover', account.coverSet),
   route('DELETE', '/api/account/cover', account.coverRemove),

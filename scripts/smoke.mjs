@@ -620,6 +620,17 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(news.text.includes('data-story') && news.text.includes('<dialog id="story-dlg"') && news.text.includes('partial=1') && /href="\/news\/daniel-brown-law-llp\/[a-z0-9-]+-\d+"/.test(news.text) && !news.text.includes(`href="${origin}/blog/impaired"`) && !news.text.includes('evil.example') && !news.text.includes('<script>alert') && !news.text.includes('onerror=alert'), 'cards open the story over the page (its own address, Back closes it), and nothing unsafe gets in');
   ok(news.text.includes(`<img src="${origin}/img/a.jpg"`) && news.text.includes('aspect-ratio:16/9'), 'LawDB News cards carry the article pictures');
   ok(news.text.includes('<select id="news-firm" name="firm"') && news.text.includes('<option value="achkar-law"') && news.text.includes('<option value="">All 2 firms</option>') && news.text.includes('/news?firm=achkar-law'), 'there is a drop-down to filter by firm (it stays short however many firms write)');
+  // the home page carries a LawDB News feed: strongest firms first, loaded in slices, filterable by practice area
+  const home = await getRaw('/');
+  ok(/<section class="hn" id="homeNews"(?! hidden)/.test(home.text) && /<div class="lw-bc-grid lw-feed" id="homeNewsGrid"[^>]*data-next="[^"]*">\s*<article class="lw-bc/.test(home.text), 'the home page shows the news feed under the search bar (the section is un-hidden once there are articles)');
+  ok(home.text.indexOf('id="homeNews"') > home.text.indexOf('id="heroForm"') && home.text.indexOf('id="homeNews"') < home.text.indexOf('id="cities"'), 'it sits between the search bar and the city strip');
+  ok(!home.text.includes('Find a lawyer with real reviews') && !home.text.includes('lawdb-banner'), 'the old banner is gone');
+  const slice = JSON.parse((await getRaw('/api/home-news?offset=0')).text);
+  ok(typeof slice.html === 'string' && slice.html.includes('<article class="lw-bc') && 'next' in slice && typeof slice.total === 'number', 'the feed slices come from /api/home-news');
+  ok(slice.html.indexOf('Daniel Brown Law LLP') > -1 && (slice.html.indexOf('Achkar Law') === -1 || slice.html.indexOf('Daniel Brown Law LLP') < slice.html.indexOf('Achkar Law')), 'the Featured, five-star firm\'s article comes before the Basic firm\'s');
+  const none = JSON.parse((await getRaw('/api/home-news?offset=0&type=immigration')).text);
+  const emp = JSON.parse((await getRaw('/api/home-news?offset=0&type=employment')).text);
+  ok(none.html === '' && none.next === null && emp.html.includes('Achkar Law') && !emp.html.includes('Daniel Brown Law LLP') && JSON.parse((await getRaw('/api/home-news?offset=0&type=__proto__')).text).total === slice.total, 'the practice-area filter keeps only that area (empty when there is none), and an unknown area is ignored');
   const only = await getRaw('/news?firm=achkar-law');
   ok((only.text.match(/<article class="lw-bc[ "]/g) || []).length === 5 && !only.text.includes('Daniel Brown Law LLP</a><span'), 'a firm filter shows only that firm\'s cards');
   as(adminJar);

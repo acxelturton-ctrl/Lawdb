@@ -3,6 +3,7 @@
 // src/lib/      shared helpers (http, crypto, auth, email, audit, firm-edit)
 // src/routes/   public.js (no login), auth.js (sign in/out), account.js (firm owners), admin.js (admins only)
 
+import * as homeNews from './routes/home-news.js';
 import { json, HttpError, assertSameOrigin } from './lib/http.js';
 import * as pub from './routes/public.js';
 import * as auth from './routes/auth.js';
@@ -52,6 +53,7 @@ const ROUTES = [
   route('GET', '/api/firms', pub.listFirms),
   route('GET', '/api/firms/:slug', pub.getFirm),
   route('GET', '/api/blog', pub.listBlog),
+  route('GET', '/api/home-news', homeNews.homeNewsApi),
   route('POST', '/api/leads', pub.createLead),
 
   route('POST', '/api/stripe/webhook', stripe.webhook),

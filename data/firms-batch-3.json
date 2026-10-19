@@ -56,6 +56,32 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Daniel La Gamba"
+    },
+    {
+     "name": "Michael Almeida"
+    }
+   ],
+   "areas": [
+    "Real estate law",
+    "Wills and estate planning",
+    "Family law",
+    "Business law",
+    "Commercial real estate",
+    "Commercial leasing",
+    "Franchise legal representation",
+    "Trademarks and copyright",
+    "Municipal and land use planning",
+    "Shareholder and partnership agreements"
+   ],
+   "serving": [
+    "Toronto",
+    "Ontario"
+   ]
   }
  },
  {
@@ -83,7 +109,32 @@
   "blurb": "Real Estate in Richmond. Rated 4.9 from 128 Google reviews.",
   "type": "logo",
   "about": "Based in Richmond, BC, this boutique firm led by Bernard Lau handles real estate conveyancing, civil litigation, builder's liens and wills and estates.\n\nThe firm, Bernard Lau and Co. Law Office, also handles defamation and notarization work and serves Richmond and Metro Vancouver. Its team is fluent in English, Mandarin and Cantonese, and a network of legal professionals overseas supports out-of-town signings in China, Hong Kong and the wider Asia-Pacific region. It works with the major chartered banks on mortgages and helps with closing disputes such as home deficiencies, oil tank discoveries and collapsing deals.",
-  "src": "images/logos/bernard-lau-and-co-law-office-richmond.png"
+  "src": "images/logos/bernard-lau-and-co-law-office-richmond.png",
+  "details": {
+   "languages": [
+    "Cantonese",
+    "Mandarin",
+    "English"
+   ],
+   "lawyers": [
+    {
+     "name": "Bernard Lau"
+    }
+   ],
+   "areas": [
+    "Real estate and conveyancing",
+    "Civil litigation",
+    "Wills, probate and estate planning",
+    "Notarization services",
+    "Real estate disputes and litigation",
+    "Builder's liens",
+    "Defamation"
+   ],
+   "serving": [
+    "Richmond",
+    "Metro Vancouver"
+   ]
+  }
  },
  {
   "name": "Merovitz Potechin LLP",
@@ -110,7 +161,31 @@
   "blurb": "Real Estate in Ottawa. Rated 4.7 from 133 Google reviews.",
   "type": "logo",
   "about": "Merovitz Potechin LLP is an Ottawa firm serving personal and business clients in litigation, business law, real estate, and wills and estates.\n\nChuck Merovitz started the firm in April 1976 and Bram Potechin joined as a partner in 1978. The firm marks its 50th anniversary in 2026 and had grown to 19 lawyers and over 40 support staff by 2025. Robert De Toni, Timothy Grieve, Eli Udell, Yasmin Vinograd and Mitchell Besner were later additions, and the firm supports community causes such as CHEO and the Ottawa Regional Cancer Foundation.",
-  "src": "images/logos/merovitz-potechin-llp-ottawa.png"
+  "src": "images/logos/merovitz-potechin-llp-ottawa.png",
+  "details": {
+   "founded": 1976,
+   "languages": [
+    "English",
+    "Hebrew"
+   ],
+   "lawyers": [
+    {
+     "name": "Yasmin M. Vinograd"
+    }
+   ],
+   "areas": [
+    "Real estate transactions",
+    "Business disputes",
+    "Insolvency and collection",
+    "Litigation",
+    "Corporate and business",
+    "Will preparation",
+    "Estate litigation"
+   ],
+   "serving": [
+    "Ottawa"
+   ]
+  }
  },
  {
   "name": "Droit Ouimet-McPherson Law",
@@ -137,7 +212,28 @@
   "blurb": "Real Estate in Ottawa. Rated 5.0 from 125 Google reviews.",
   "type": "logo",
   "about": "Droit Ouimet-McPherson Law is an Ottawa boutique firm offering real estate, business law, estate planning and estate administration in English and French.\n\nIts owner, Marc, was raised in Ottawa, holds an LL.B. from the University of Ottawa's French common law program and founded the firm in 2020 after practising in Orléans and Rockland. The firm limits itself to no more than 25 transactions a month, uses secure online forms alongside virtual and in-person meetings, and prepares documents for probate applications. It also offers executor services at 4.0 percent of the estate value, subject to a minimum.",
-  "src": "images/logos/droit-ouimet-mcpherson-law-ottawa.png"
+  "src": "images/logos/droit-ouimet-mcpherson-law-ottawa.png",
+  "details": {
+   "founded": 2020,
+   "lawyers": [
+    {
+     "name": "Marc Ouimet-McPherson"
+    }
+   ],
+   "areas": [
+    "Real estate",
+    "Commercial real estate",
+    "Business law",
+    "Estate planning",
+    "Estates"
+   ],
+   "serving": [
+    "Ontario",
+    "Ottawa",
+    "Rockland",
+    "Hawkesbury"
+   ]
+  }
  },
  {
   "name": "Travers Law",
@@ -168,7 +264,21 @@
   "blurb": "Real Estate / Wills & Estates in Guelph. Rated 4.7 from 132 Google reviews.",
   "type": "logo",
   "about": "Travers Law is a Guelph firm with a high-volume real estate, wills and estates, and business law practice across four Ontario offices.\n\nThe offices are in Kitchener-Waterloo, Cambridge, Guelph and Milton. Don Travers, admitted to the bar in 1974, founded the firm in 1981 under the name Paquette Travers and served on Kitchener council and Waterloo Regional Council. The firm has worked in real estate law for over 40 years, offers evening appointments, remote and virtual meetings and fixed fees, and serves Waterloo, Kitchener, Cambridge, Fergus, Elora, Puslinch and Wellington County. Bryan Mayes and Robert A. Sheldon are also with the firm, and family law is a secondary area.",
-  "src": "images/logos/travers-law-guelph.webp"
+  "src": "images/logos/travers-law-guelph.webp",
+  "details": {
+   "areas": [
+    "Real estate",
+    "Wills and estates",
+    "Business law",
+    "Family law"
+   ],
+   "serving": [
+    "Kitchener-Waterloo",
+    "Cambridge",
+    "Guelph",
+    "Milton"
+   ]
+  }
  },
  {
   "name": "Capelle Kane Immigration Lawyers",
@@ -195,7 +305,25 @@
   "blurb": "Immigration in Ottawa. Rated 5.0 from 123 Google reviews.",
   "type": "logo",
   "about": "Capelle Kane Immigration Lawyers is an Ottawa firm advising on Canadian citizenship and immigration, with corporate immigration work for employers.\n\nThe firm has given legal advice on these laws since 1994, and two of its lawyers hold Law Society of Ontario certification in citizenship and immigration law, which is unique among Ottawa firms. Its work covers bringing international talent to Canada for Canadian and multinational companies, reuniting families, and reducing delays in visa processing. Betsy Kane, a founding partner, began her career with Citizenship and Immigration Canada at national headquarters in Ottawa.",
-  "src": "images/logos/capelle-kane-immigration-lawyers-ottawa.png"
+  "src": "images/logos/capelle-kane-immigration-lawyers-ottawa.png",
+  "details": {
+   "founded": 1994,
+   "lawyers": [
+    {
+     "name": "Betsy Kane"
+    }
+   ],
+   "areas": [
+    "Corporate immigration",
+    "Citizenship and immigration",
+    "Visitor visas",
+    "Study permits",
+    "Work permits",
+    "Express Entry",
+    "Family class sponsorship",
+    "Spousal sponsorship"
+   ]
+  }
  },
  {
   "name": "S. Zalman Haouzi Avocat",
@@ -223,7 +351,31 @@
   "type": "logo",
   "about": "Zalman Haouzi Avocat is a Montreal boutique handling criminal defence for clients in Longueuil, Laval, Valleyfield and surrounding areas.\n\nFounded in 2011, the practice treats a criminal charge as a problem to be solved and works with first-time offenders to avoid a criminal record. It assists from the first interaction with police through to resolution of the file, and prefers negotiated outcomes over trial where possible. Zalman Haouzi, who has practised in Montreal for more than a decade, is the lawyer behind the firm, and the work centres on minimizing the consequences of an accusation.",
   "src": "images/logos/s-zalman-haouzi-avocat-montreal.png",
-  "heroImage": "images/hero/s-zalman-haouzi-avocat-montreal.webp"
+  "heroImage": "images/hero/s-zalman-haouzi-avocat-montreal.webp",
+  "details": {
+   "founded": 2011,
+   "lawyers": [
+    {
+     "name": "S. Zalman Haouzi"
+    }
+   ],
+   "areas": [
+    "Criminal defence",
+    "DUI",
+    "Traffic ticket",
+    "Sexual assault",
+    "Domestic violence",
+    "Fraud",
+    "Drug trafficking"
+   ],
+   "serving": [
+    "Montreal",
+    "Longueuil",
+    "Laval",
+    "Valleyfield",
+    "St. Jerome"
+   ]
+  }
  },
  {
   "name": "Hughes Law Corporation",
@@ -250,7 +402,25 @@
   "blurb": "Real Estate in Vancouver. Rated 4.8 from 127 Google reviews.",
   "type": "logo",
   "about": "Hughes Law Corporation is a Vancouver firm handling real estate conveyancing, mortgage refinancing and landlord and tenant disputes.\n\nThe firm has been in business for close to 30 years, and its conveyancing covers residential and commercial property. Its other areas include wills and estates and business acquisitions and sales. Principal lawyer Cedric Hughes is a University of British Columbia graduate and a member of the Law Society of British Columbia. Many clients live outside Vancouver, and meeting offices around the Lower Mainland, including North Vancouver and Surrey/Delta, allow the lawyers to come to the client.",
-  "src": "images/logos/hughes-law-corporation-vancouver.png"
+  "src": "images/logos/hughes-law-corporation-vancouver.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Cedric Hughes",
+     "title": "Principal Lawyer"
+    }
+   ],
+   "areas": [
+    "Commercial and residential conveyancing",
+    "Landlord and tenant disputes",
+    "Mortgage refinancing",
+    "Wills and estates",
+    "Business acquisitions and sales"
+   ],
+   "serving": [
+    "Lower Mainland"
+   ]
+  }
  },
  {
   "name": "Watchmaker Law Car Accident and Personal Injury Lawyers",
@@ -324,6 +494,29 @@
     ]
    ]
   },
+  "details": {
+   "lawyers": [
+    {
+     "name": "David Sowemimo"
+    }
+   ],
+   "areas": [
+    "Accident law",
+    "Personal injury law",
+    "Human rights law",
+    "Employment law",
+    "Civil litigation",
+    "Whiplash injuries",
+    "Traumatic brain injuries",
+    "Spinal cord injury",
+    "Burn injury",
+    "Soft tissue injuries"
+   ],
+   "serving": [
+    "Edmonton",
+    "Alberta"
+   ]
+  },
   "heroImage": "images/hero/watchmaker-law-car-accident-and-personal-injury-lawyers-edmonton.webp"
  },
  {
@@ -353,7 +546,20 @@
   "blurb": "Criminal Defence / Family Law in Ottawa. Rated 5.0 from 119 Google reviews.",
   "type": "logo",
   "about": "Shore & Johnston, Barristers-at-Law is an Ottawa criminal defence firm handling bail, driving, drug, domestic, sexual and homicide charges.\n\nThe firm has helped clients through criminal charges in Ontario for fifty years under the Criminal Code and the Controlled Drugs and Substances Act, and has also acted in regulatory prosecutions ranging from the Ontario Highway Traffic Act to the Canadian Lobbying Act. Its lawyers appear at bail hearings, on guilty pleas and sentencing, in judge-alone and jury trials, and on appeal. Michael Johnston is among its lawyers, and the practice addresses Charter rights, including the presumption of innocence.",
-  "src": "images/logos/shore-and-johnston-barristers-at-law-ottawa.png"
+  "src": "images/logos/shore-and-johnston-barristers-at-law-ottawa.png",
+  "details": {
+   "areas": [
+    "Domestic assault and mischief",
+    "Criminal harassment",
+    "Sexual assault",
+    "Sexual offences involving minors",
+    "Pornography-based offences",
+    "Criminal defence"
+   ],
+   "serving": [
+    "Ottawa"
+   ]
+  }
  },
  {
   "name": "Oakley Family Law",
@@ -380,7 +586,26 @@
   "blurb": "Family Law in Calgary. Rated 4.6 from 127 Google reviews.",
   "type": "logo",
   "about": "Oakley Family Law is a Calgary firm that supports clients through divorce, starting a new family and estate planning.\n\nThe firm marks its 10th anniversary, and founding lawyer Melissa Oakley notes that the practice has worked with thousands of individuals through major life transitions over the decade. Its core values are honesty and transparency, collaboration, integrity, client service and respect for differences, and everyone is welcome. The firm identifies as a Calgary family lawyer and Calgary divorce lawyer, and the office is in southeast Calgary.",
-  "src": "images/logos/oakley-family-law-calgary.png"
+  "src": "images/logos/oakley-family-law-calgary.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Melissa Oakley",
+     "title": "Founding Lawyer"
+    }
+   ],
+   "areas": [
+    "Family law",
+    "Divorce and separation",
+    "Financial disclosure",
+    "Property division",
+    "Child support",
+    "Mediation",
+    "Protection orders",
+    "Arbitration",
+    "Legal coaching"
+   ]
+  }
  },
  {
   "name": "Smith Employment Law",
@@ -407,7 +632,35 @@
   "blurb": "Employment Law in Toronto. Rated 5.0 from 112 Google reviews.",
   "type": "logo",
   "about": "Smith Employment Law is a Toronto practice that acts for both employees and employers in employment law matters.\n\nThe firm is led by Waheeda Ekhlas Smith, who practises as WES Law Professional Corporation and worked as a legal assistant for many years, beginning at age 18, before becoming a lawyer. The practice handles severance negotiations and assessments of job offers and employment contracts, and seeks early resolution before matters reach court while staying ready to advance or defend a client's position when necessary. Community involvement, education, representative work and speaking engagements are also part of Ms. Smith's profile.",
-  "src": "images/logos/smith-employment-law-toronto.webp"
+  "src": "images/logos/smith-employment-law-toronto.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Waheeda Ekhlas Smith"
+    }
+   ],
+   "areas": [
+    "Wrongful dismissal",
+    "Severance packages",
+    "Constructive dismissal",
+    "Workplace harassment and bullying",
+    "Human rights and workplace discrimination",
+    "Disability leave of absence",
+    "Parental and maternity leave",
+    "Just cause dismissal",
+    "Employment contracts",
+    "Workplace investigations"
+   ],
+   "serving": [
+    "Toronto",
+    "Mississauga",
+    "Oakville",
+    "Oshawa",
+    "Barrie",
+    "Vaughan",
+    "Halton Hills"
+   ]
+  }
  },
  {
   "name": "Gad Pariente",
@@ -434,7 +687,22 @@
   "blurb": "Immigration in Montreal. Rated 4.8 from 115 Google reviews.",
   "type": "logo",
   "about": "Gad Pariente is a Montreal immigration lawyer who handles spousal and common-law partner sponsorship applications for clients across Canada.\n\nLicensed by the Barreau du Québec since 2006, he practises as a sole practitioner through Gad Pariente Avocat Inc. and spent years in public relations and communications before law. His work covers both inland and outland sponsorship files, with posted flat fees and a federal-only path. All client work is conducted remotely, with office visits by appointment for Montreal-area clients. Service is offered in English or French to clients in Quebec, Ontario, British Columbia, Alberta and the U.S.",
-  "src": "images/logos/gad-pariente-montreal.png"
+  "src": "images/logos/gad-pariente-montreal.png",
+  "details": {
+   "languages": [
+    "English",
+    "French"
+   ],
+   "lawyers": [
+    {
+     "name": "Gad Pariente"
+    }
+   ],
+   "areas": [
+    "Spousal sponsorship",
+    "Family sponsorship"
+   ]
+  }
  },
  {
   "name": "Sean Fagan Criminal Defence Lawyer",
@@ -506,6 +774,24 @@
     ]
    ]
   },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Sean Fagan"
+    },
+    {
+     "name": "Devlin Gavigan",
+     "title": "Associate"
+    }
+   ],
+   "areas": [
+    "Criminal defence",
+    "Assault",
+    "Drug trafficking",
+    "Firearms offences",
+    "Murder"
+   ]
+  },
   "heroImage": "images/hero/sean-fagan-criminal-defence-lawyer-calgary.webp"
  },
  {
@@ -533,7 +819,25 @@
   "blurb": "Personal Injury in Edmonton. Rated 4.7 from 114 Google reviews.",
   "type": "logo",
   "about": "Diamond and Diamond Lawyers runs an Edmonton office for personal injury cases, from motor vehicle accidents to medical malpractice.\n\nThe firm has experience across the full range of personal injury matters, including other accidents, injuries, misdiagnosis and diagnostic errors, birth and obstetric injury, and treatment errors. It also helps families with estate administration, applications and litigation. The firm has offices in Ontario, including Toronto, Barrie, Kitchener, London, Ottawa, Sudbury, Timmins and Windsor, as well as in Alberta.",
-  "src": "images/logos/diamond-and-diamond-lawyers-edmonton.webp"
+  "src": "images/logos/diamond-and-diamond-lawyers-edmonton.webp",
+  "details": {
+   "areas": [
+    "Personal injury",
+    "Motor vehicle accidents",
+    "Misdiagnosis and diagnostic errors",
+    "Birth and obstetric injury",
+    "Treatment errors",
+    "Hospital and nursing negligence",
+    "Medication and prescription errors",
+    "Estate administration",
+    "Wills and estate planning"
+   ],
+   "serving": [
+    "Edmonton",
+    "Toronto",
+    "Vancouver"
+   ]
+  }
  },
  {
   "name": "Rana U. Hameed Criminal Law",
@@ -561,7 +865,29 @@
   "type": "logo",
   "about": "Criminal defence lawyer Umer Hameed leads Rana U Hameed Criminal Law in Mississauga, defending people charged with offences across Ontario.\n\nThe firm handles offences against the person, sexual and weapons offences, driving and drug offences, property and financial offences, and bail hearings at both the Ontario Court of Justice and the Superior Court of Justice. Umer Hameed holds BScN, LL.B. and LL.M. degrees, articled at a boutique Toronto defence firm and later worked as an associate at another Toronto criminal firm. His experience includes matters before the Ontario Court of Justice, the Superior Court of Justice and the Court of Appeal for Ontario, and flexible payment plans are available.",
   "src": "images/logos/rana-u-hameed-criminal-law-mississauga.webp",
-  "heroImage": "images/hero/rana-u-hameed-criminal-law-mississauga.webp"
+  "heroImage": "images/hero/rana-u-hameed-criminal-law-mississauga.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Rana Umer Hameed",
+     "title": "Barrister & Solicitor"
+    }
+   ],
+   "areas": [
+    "Criminal defence",
+    "Offences against the person",
+    "Sexual offences",
+    "Driving offences",
+    "Drug offences",
+    "Financial offences",
+    "Property offences",
+    "Weapons offences",
+    "Bail hearing"
+   ],
+   "serving": [
+    "Ontario"
+   ]
+  }
  },
  {
   "name": "TAS Law Firm",
@@ -588,7 +914,17 @@
   "blurb": "Family Law in Mississauga. Rated 5.0 from 101 Google reviews.",
   "type": "logo",
   "about": "TAS Law Firm is a Mississauga family law practice offering uncontested divorce, separation agreements and child custody matters on flat fees.\n\nThe firm serves clients across the GTA and Ontario, including Milton and Brampton, and works with clients in person and online. Its simple divorce service is aimed at spouses who agree on the terms, requires no court appearances, and includes a mobile service in the GTA. Pricing is simple flat-rate without hidden fees, and the firm aims to keep clients informed about their rights and obligations during the divorce process.",
-  "src": "images/logos/tas-law-firm-mississauga.webp"
+  "src": "images/logos/tas-law-firm-mississauga.webp",
+  "details": {
+   "areas": [
+    "Uncontested divorce",
+    "Separation agreements",
+    "Court filing and process serving"
+   ],
+   "serving": [
+    "GTA"
+   ]
+  }
  },
  {
   "name": "Traffic Tickets Toronto",
@@ -615,7 +951,20 @@
   "blurb": "Criminal Defence in Toronto. Rated 4.9 from 103 Google reviews.",
   "type": "logo",
   "about": "Traffic Tickets Toronto defends drivers charged with speeding, stunt driving, careless driving and other traffic offences in Ontario and Manitoba.\n\nThe business traces to Shelina Lalji, who joined POINTTS in 2008, became its master franchisee in 2015 and later launched the JUSTICEJOLT Legal Defence for Drivers brand. The team has more than 17 years of experience and offers paralegal-led defence aimed at protecting licences, records and insurance costs. Services include demerit point matters, handheld device violations, dangerous driving and related criminal charges, appeals, licence reinstatement and CVOR defence for commercial operators.",
-  "src": "images/logos/traffic-tickets-toronto-toronto.webp"
+  "src": "images/logos/traffic-tickets-toronto-toronto.webp",
+  "details": {
+   "areas": [
+    "Speeding tickets",
+    "Stunt driving",
+    "Dangerous driving",
+    "Licence reinstatement",
+    "Traffic violations defence"
+   ],
+   "serving": [
+    "Ontario",
+    "Manitoba"
+   ]
+  }
  },
  {
   "name": "Bernstein Law Group Personal Injury Lawyers",
@@ -647,7 +996,37 @@
   "type": "logo",
   "about": "Bernstein Law Group is a Hamilton firm handling criminal defence, personal injury and mental health law matters from an office near the courthouse.\n\nFounding lawyer Stephen Bernstein has more than 30 years of trial experience, and Robert Bernstein is also a lawyer at the firm. The James Street office is close to the courthouse and the firm accepts Legal Aid. Its criminal work covers domestic violence, drug and youth offences and bail hearings, while its injury work covers motor vehicle accidents, wrongful death, slip and falls, spinal injuries and truck accidents. The firm represents clients throughout Hamilton and surrounding areas, including Burlington.",
   "src": "images/logos/bernstein-law-group-personal-injury-lawyers-hamilton.png",
-  "bioImage": "images/bio/bernstein-law-group-personal-injury-lawyers-hamilton.webp"
+  "bioImage": "images/bio/bernstein-law-group-personal-injury-lawyers-hamilton.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Stephen Bernstein",
+     "title": "Founding lawyer"
+    }
+   ],
+   "areas": [
+    "Domestic violence",
+    "Drug offences",
+    "Youth offences",
+    "Bail hearings",
+    "Sexual assault",
+    "Weapons offences",
+    "Personal injury",
+    "Real estate law",
+    "Criminal law",
+    "Mental health and capacity law"
+   ],
+   "serving": [
+    "Hamilton",
+    "Burlington",
+    "Ancaster",
+    "Oakville",
+    "Brantford",
+    "Cayuga",
+    "Stoney Creek",
+    "Milton"
+   ]
+  }
  },
  {
   "name": "Derek Wilson Hamilton Personal Injury & Disability Lawyer",
@@ -707,6 +1086,28 @@
     ]
    ]
   },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Derek Wilson"
+    }
+   ],
+   "areas": [
+    "Car accidents",
+    "Disability benefits",
+    "Brain injury",
+    "Truck accidents",
+    "Slip and fall accidents",
+    "Pedestrian accidents",
+    "Motorcycle accidents",
+    "Spinal cord injuries",
+    "Bicycle accidents",
+    "Wrongful death"
+   ],
+   "serving": [
+    "Hamilton"
+   ]
+  },
   "heroImage": "images/hero/derek-wilson-hamilton-personal-injury-and-disability-lawyer-hamilton.webp"
  },
  {
@@ -734,7 +1135,19 @@
   "blurb": "Criminal Defence in London. Rated 4.9 from 102 Google reviews.",
   "type": "logo",
   "about": "Ellis Criminal Law Professional Corporation is a London, Ontario firm that limits its practice to criminal defence.\n\nThe firm has practised only criminal defence since 2006, after earlier work in civil litigation and education, and has appeared at all levels of court in Ontario. Laura Ellis, Ron Ellis and Stephen Troyer are the lawyers, with Kholood Ghenniwa as paralegal and office manager. Its services include cyber crime, preliminary hearings, trials, first-time offenders, young offenders, and corporate, property and driving offences. The team stresses Charter protections and is reachable around the clock, every day of the week.",
-  "src": "images/logos/ellis-criminal-law-professional-corporation-london.webp"
+  "src": "images/logos/ellis-criminal-law-professional-corporation-london.webp",
+  "details": {
+   "areas": [
+    "Cyber crime",
+    "Preliminary hearings",
+    "First time offenders",
+    "Young offenders",
+    "Corporate offences",
+    "Property offences",
+    "Driving offences",
+    "Sexual offences"
+   ]
+  }
  },
  {
   "name": "MM Family & Divorce Lawyers",
@@ -795,6 +1208,31 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Miguel Mejia"
+    },
+    {
+     "name": "Dan Aburto"
+    },
+    {
+     "name": "Zihao Guo"
+    }
+   ],
+   "areas": [
+    "Divorce law",
+    "Child support",
+    "Family law agreements",
+    "Property division",
+    "Mediation and arbitration",
+    "Parenting and child custody",
+    "Spousal and partner support"
+   ],
+   "serving": [
+    "Calgary"
+   ]
   }
  },
  {
@@ -822,7 +1260,16 @@
   "blurb": "Real Estate in Ottawa. Rated 4.8 from 103 Google reviews.",
   "type": "logo",
   "about": "Ken Hoyt Law is an Ottawa firm handling residential real estate purchases and sales, wills, powers of attorney and estate matters.\n\nThe firm has served its real estate community for 30 years and approaches its work with professionalism and a touch of humour. Once a deal becomes unconditional, it meets the client for about 25 minutes to explain the closing process, work through the financial costs of the transaction and list what must be done beforehand. Further services include estate administration, business and corporate work, mortgage refinancing, and notarial and commissioning services.",
-  "src": "images/logos/ken-hoyt-law-ottawa.webp"
+  "src": "images/logos/ken-hoyt-law-ottawa.webp",
+  "details": {
+   "areas": [
+    "Real estate matters",
+    "Wills, powers of attorney and estate planning",
+    "Estate administration",
+    "Business and corporate services",
+    "Notarial and commissioning services"
+   ]
+  }
  },
  {
   "name": "Zomorodi Law PC",
@@ -851,7 +1298,26 @@
   "blurb": "Real Estate / Business Law in Richmond Hill. Rated 4.7 from 105 Google reviews.",
   "type": "logo",
   "about": "Zomorodi Law PC is a Richmond Hill firm offering real estate transactions, business law, civil and commercial litigation, and wills and estates.\n\nIts real estate practice covers purchase, sale and mortgage closings for urban and cottage properties, condominiums and vacant land, both residential and commercial. Business services include articles of incorporation, shareholder agreements and the sale or acquisition of franchised businesses, and notary public services are also offered. The firm serves newcomers, business owners, young entrepreneurs, other professionals, international investors and diverse communities, and its litigation experience lets it handle disputes that arise during a closing in house.",
-  "src": "images/logos/zomorodi-law-pc-richmond-hill.png"
+  "src": "images/logos/zomorodi-law-pc-richmond-hill.png",
+  "details": {
+   "languages": [
+    "English",
+    "Farsi",
+    "Greek",
+    "Japanese",
+    "Korean"
+   ],
+   "areas": [
+    "Real estate transactions",
+    "Business law",
+    "Civil and commercial litigation",
+    "Wills and estates",
+    "Notary public services"
+   ],
+   "serving": [
+    "Ontario"
+   ]
+  }
  },
  {
   "name": "Dhiman Law Professional Corporation",
@@ -878,7 +1344,22 @@
   "blurb": "Family Law in Ottawa. Rated 5.0 from 96 Google reviews.",
   "type": "logo",
   "about": "Dhiman Law Professional Corporation is an Ottawa general practice firm handling family law and real estate matters.\n\nFounder and principal lawyer Inderjit Dhiman is qualified to practise in both India and Canada and is a member of the Law Society of Ontario. The firm serves Barrhaven, Kanata, Nepean, Manotick, Orleans, Greely, Osgoode and Riverside South, along with Brampton and Mississauga, offers virtual meetings, and speaks Punjabi and Hindi. Its family law practice concerns separation and the interests of families, and its real estate practice the careful handling of closings for buyers moving into a new home.",
-  "src": "images/logos/dhiman-law-professional-corporation-ottawa.webp"
+  "src": "images/logos/dhiman-law-professional-corporation-ottawa.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Inderjit Dhiman",
+     "title": "Founder"
+    }
+   ],
+   "areas": [
+    "Family law",
+    "Real estate law"
+   ],
+   "serving": [
+    "Ottawa"
+   ]
+  }
  },
  {
   "name": "Porcelli D'Angela LLP",
@@ -907,7 +1388,22 @@
   "blurb": "Personal Injury / Civil Litigation in Mississauga. Rated 5.0 from 96 Google reviews.",
   "type": "logo",
   "about": "Porcelli D'Angela LLP is a Mississauga personal injury firm handling motor vehicle accidents, bicycle accidents and long-term disability matters.\n\nVince Porcelli and Tullio A. D'Angela bring over 50 years of combined legal experience. Vince is a senior licensed paralegal in Ontario who has worked on motor vehicle accident benefit matters for over 25 years, and Tullio is the firm's lawyer. The firm helps clients understand their rights and what to expect during a lawsuit, and no fees are owed unless money is recovered on an injury or disability matter.",
-  "src": "images/logos/porcelli-d-angela-llp-mississauga.webp"
+  "src": "images/logos/porcelli-d-angela-llp-mississauga.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Vince Porcelli"
+    },
+    {
+     "name": "Tullio A. D’Angela"
+    }
+   ],
+   "areas": [
+    "Motor vehicle accidents",
+    "Long term disability claims",
+    "Bicycle accidents"
+   ]
+  }
  },
  {
   "name": "HIMPRO Personal Injury and Long-Term Disability Lawyers",
@@ -938,7 +1434,18 @@
   "blurb": "Personal Injury / Civil Litigation in Toronto. Rated 4.8 from 99 Google reviews.",
   "type": "logo",
   "about": "HIMPRO is a Toronto firm handling personal injury, car accident, medical malpractice and long-term disability matters across the GTA.\n\nHIMPRO is the personal injury division of Himelfarb Proszanski, whose wider practice includes business, corporate commercial, real estate and litigation work. HIMPRO lawyers focus on personal injury, disability and insurance law and act for clients in Toronto, Brampton, Hamilton, Kitchener, Oshawa and surrounding areas. The firm has helped individuals, families and businesses for over 30 years, and its fees depend on the outcome of the case.",
-  "src": "images/logos/himpro-personal-injury-and-long-term-disability-lawyers-toronto.png"
+  "src": "images/logos/himpro-personal-injury-and-long-term-disability-lawyers-toronto.png",
+  "details": {
+   "areas": [
+    "Personal injury",
+    "Long-term disability",
+    "Car accident",
+    "Motor vehicle accidents"
+   ],
+   "serving": [
+    "Toronto"
+   ]
+  }
  },
  {
   "name": "Lamont Law",
@@ -965,7 +1472,34 @@
   "blurb": "Personal Injury in Hamilton. Rated 4.8 from 93 Google reviews.",
   "type": "logo",
   "about": "Lamont Law is a Hamilton personal injury firm that focuses on serious and catastrophic injuries, accident benefits and long-term disability denials.\n\nCases for Hamilton and the GTA include motor vehicle accidents, dog attacks, slip and falls, medical and nursing home negligence, wrongful death, brain injuries and spinal cord injuries, and the firm only takes catastrophic injury matters with an estimated value above $50,000. Erica Lamont, who was born in Hamilton, studied at the University of Waterloo and the University of Calgary and was admitted to the Law Society of Ontario in 2014. She is joined by lawyer Braden Adsett and paralegals Carrie Stewart and Phil Vivian.",
-  "src": "images/logos/lamont-law-hamilton.png"
+  "src": "images/logos/lamont-law-hamilton.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Erica Lamont",
+     "title": "Lawyer"
+    },
+    {
+     "name": "Braden Adsett",
+     "title": "Lawyer"
+    }
+   ],
+   "areas": [
+    "Brain injuries",
+    "Car accidents",
+    "Spinal cord injuries",
+    "Pedestrian accidents",
+    "Bicycle accidents",
+    "Slip and falls",
+    "Dog attacks",
+    "Wrongful death",
+    "Long-term disability denials",
+    "Medical negligence"
+   ],
+   "serving": [
+    "Hamilton"
+   ]
+  }
  },
  {
   "name": "Ndiaye Enokou Avocats",
@@ -996,7 +1530,20 @@
   "blurb": "Immigration / Criminal Defence in Gatineau. Rated 4.6 from 97 Google reviews.",
   "type": "logo",
   "about": "Ndiaye Enokou Avocats is a Gatineau firm handling immigration, criminal, family and business law in French and English.\n\nThe firm, which also uses the name N&E Avocats, operates three offices in Quebec, in Gatineau, Trois-Rivières and Sherbrooke. Immigration work covers temporary and permanent residence, study and work permits, family sponsorship and asylum applications for individuals, families, students and professionals who want to settle in Canada or bring relatives. The firm represents clients before the competent courts and tailors its approach to each situation.",
-  "src": "images/logos/ndiaye-enokou-avocats-gatineau.png"
+  "src": "images/logos/ndiaye-enokou-avocats-gatineau.png",
+  "details": {
+   "areas": [
+    "Droit de l'immigration",
+    "Droit criminel",
+    "Droit de la famille",
+    "Droit des affaires"
+   ],
+   "serving": [
+    "Gatineau",
+    "Trois-Rivières",
+    "Sherbrooke"
+   ]
+  }
  },
  {
   "name": "Manbir Sodhi",
@@ -1023,7 +1570,22 @@
   "blurb": "Criminal Defence in Brampton. Rated 4.8 from 88 Google reviews.",
   "type": "logo",
   "about": "Manbir Sodhi is a Brampton criminal defence lawyer who represents people charged with offences, including impaired driving.\n\nHe practises exclusively in criminal law and offers representation at each stage, from a police request to turn oneself in through arrest, bail hearings, pre-trial and trial. Practice areas include domestic and sexual assault, weapons, drug and criminal driving offences, traffic and bylaw matters, search warrants, theft, fraud and shoplifting, youth criminal offences and professional disciplinary proceedings. The office is on George Street North in Brampton and the firm serves clients across the GTA and Ontario.",
-  "src": "images/logos/manbir-sodhi-brampton.png"
+  "src": "images/logos/manbir-sodhi-brampton.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Manbir Singh Sodhi",
+     "title": "Criminal Defence Lawyer"
+    }
+   ],
+   "areas": [
+    "Criminal defence",
+    "Impaired driving offences"
+   ],
+   "serving": [
+    "Brampton"
+   ]
+  }
  },
  {
   "name": "Harvey Katz Law Office",
@@ -1050,7 +1612,33 @@
   "blurb": "Personal Injury in Hamilton. Rated 4.6 from 91 Google reviews.",
   "type": "logo",
   "about": "Harvey Katz Law Office is a Hamilton firm handling personal injury, civil litigation, wills and estates, and real estate matters.\n\nThe firm has represented the Hamilton community for over 45 years and has a team of four lawyers: partners Harvey Katz and Eli Jakubovic, plus Michael Bishop and Bianca Zimperi. Harvey Katz was born and raised in the Hamilton area. Its personal injury work includes accident benefits and disability matters, civil litigation covers property disputes, contract disputes and debt collection, and estates work spans estate planning, probate administration, trusts and guardianships.",
-  "src": "images/logos/harvey-katz-law-office-hamilton.png"
+  "src": "images/logos/harvey-katz-law-office-hamilton.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Harvey Katz",
+     "title": "Partner"
+    },
+    {
+     "name": "Eli Jakubovic",
+     "title": "Partner"
+    },
+    {
+     "name": "Michael Bishop"
+    }
+   ],
+   "areas": [
+    "Personal injury law",
+    "Real estate transactions",
+    "Wills and estate planning",
+    "Motor vehicle accidents",
+    "Slip-and-falls",
+    "Long-term disability claims"
+   ],
+   "serving": [
+    "Hamilton"
+   ]
+  }
  },
  {
   "name": "MRK Law Professional Corporation",
@@ -1079,7 +1667,27 @@
   "blurb": "Criminal Defence / Civil Litigation in Mississauga. Rated 4.9 from 85 Google reviews.",
   "type": "logo",
   "about": "MRK Law Professional Corporation is a Mississauga boutique firm covering criminal defence, civil litigation, solicitor services and family law.\n\nMina R. Khalil is the lawyer and principal, and the firm is rooted in Peel and Halton Region while serving clients across Ontario, including Brampton, Milton and Oakville. Civil work includes employment disputes, wrongful and constructive dismissal and mediation. Solicitor services cover commercial leases, partnership, joint venture and shareholder agreements, and employment or contractor agreements, while family work includes marriage contracts. The firm accepts legal aid certificates for most criminal matters.",
-  "src": "images/logos/mrk-law-professional-corporation-mississauga.jpg"
+  "src": "images/logos/mrk-law-professional-corporation-mississauga.jpg",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Mina R. Khalil",
+     "title": "Barrister & Solicitor"
+    }
+   ],
+   "areas": [
+    "Criminal defence",
+    "Civil litigation",
+    "Solicitor services",
+    "Family law",
+    "Wills and powers of attorney",
+    "Wrongful and constructive dismissal",
+    "Commercial leasing disputes",
+    "Shareholder and partnership disputes",
+    "Property division and equalization",
+    "Incorporation and business formation"
+   ]
+  }
  },
  {
   "name": "Lama Law Real Estate Lawyer",
@@ -1108,7 +1716,27 @@
   "blurb": "Real Estate / Wills & Estates in Oakville. Rated 5.0 from 83 Google reviews.",
   "type": "logo",
   "about": "Lama Law Real Estate Lawyer is an Oakville firm helping clients buy, sell and refinance homes across the Greater Toronto Area.\n\nPav Lama earned a bachelor's degree at York University and a law degree at the University of Birmingham in the UK, and was admitted to the Ontario bar in 2016. The firm also handles corporate law, commercial law, notary services, and wills and powers of attorney. It offers fixed fee closings, and the office is on Speers Road in Oakville.",
-  "src": "images/logos/lama-law-real-estate-lawyer-oakville.png"
+  "src": "images/logos/lama-law-real-estate-lawyer-oakville.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Pav Lama"
+    }
+   ],
+   "areas": [
+    "Residential purchase and sale",
+    "Condominium purchase and sale",
+    "Mortgage refinancing",
+    "Wills and powers of attorney",
+    "Corporate law",
+    "Commercial law",
+    "Notary services"
+   ],
+   "serving": [
+    "Oakville",
+    "Greater Toronto Area"
+   ]
+  }
  },
  {
   "name": "RJA Law",
@@ -1135,7 +1763,33 @@
   "blurb": "Immigration in Edmonton. Rated 4.9 from 84 Google reviews.",
   "type": "logo",
   "about": "RJA Law is an Edmonton immigration practice handling appeals, refugee matters, work and visit permits and permanent residence applications.\n\nThe firm has decades of exclusive focus on immigration and refugee law. Its work includes entry for tourists, business visitors and workers, rehabilitation applications and temporary resident permits for criminal inadmissibility, provincial nominee programs, business immigration, Express Entry, spousal and common-law sponsorship, and family class applications. The team can communicate in English, French, Mandarin, Punjabi, Hindi and Spanish, and the office is in Sun Life Place.",
-  "src": "images/logos/rja-law-edmonton.png"
+  "src": "images/logos/rja-law-edmonton.png",
+  "details": {
+   "languages": [
+    "English",
+    "French",
+    "Mandarin",
+    "Punjabi",
+    "Hindi",
+    "Spanish"
+   ],
+   "lawyers": [
+    {
+     "name": "Rachael J. Anderson",
+     "title": "Principal Lawyer"
+    }
+   ],
+   "areas": [
+    "Immigration and refugee law",
+    "Express Entry",
+    "PR card renewals",
+    "Citizenship applications",
+    "Temporary Resident Permits",
+    "Judicial review",
+    "Removal order appeals",
+    "Family class applications"
+   ]
+  }
  },
  {
   "name": "Alam Real Estate Law",
@@ -1196,6 +1850,32 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "languages": [
+    "English",
+    "Urdu",
+    "Hindi"
+   ],
+   "lawyers": [
+    {
+     "name": "Jawaid Alam"
+    }
+   ],
+   "areas": [
+    "Real estate litigation",
+    "Construction litigation",
+    "Buying and selling transactions",
+    "Registering and removing liens",
+    "Commercial property development litigation",
+    "Mortgage refinance"
+   ],
+   "serving": [
+    "Mississauga",
+    "GTA",
+    "Halton",
+    "Ontario"
+   ]
   }
  },
  {
@@ -1223,7 +1903,23 @@
   "blurb": "Employment Law in Calgary. Rated 4.6 from 89 Google reviews.",
   "type": "logo",
   "about": "JSB Calgary Employment Law is a Calgary firm handling terminations, severance packages and constructive dismissal for employees and executives.\n\nThe firm mainly acts for people whose employment has ended, whether with or without cause, and also works with employers on employment agreements, workplace investigations, workplace conflict and employment standards compliance. Its services extend to human rights complaints, discrimination and harassment, disability, maternity and other job-protected leaves, layoffs, independent contractor classification, and non-competition and non-solicitation covenants. Most of its files settle out of court, and its office is on 4 Avenue SW.",
-  "src": "images/logos/jsb-calgary-employment-law-calgary.webp"
+  "src": "images/logos/jsb-calgary-employment-law-calgary.webp",
+  "details": {
+   "areas": [
+    "Severance pay",
+    "Constructive dismissal",
+    "Wrongful termination",
+    "Workplace harassment",
+    "Employment agreements",
+    "Workplace investigations",
+    "Employment standards compliance",
+    "Human rights complaints"
+   ],
+   "serving": [
+    "Calgary",
+    "Alberta"
+   ]
+  }
  },
  {
   "name": "JK Law",
@@ -1250,7 +1946,28 @@
   "blurb": "Real Estate in Calgary. Rated 5.0 from 81 Google reviews.",
   "type": "logo",
   "about": "JK Law is a Calgary firm covering real estate, corporate and commercial, wills and estates, immigration, personal injury and child welfare law.\n\nIts lawyers have more than three decades of combined experience serving clients in Canada and abroad, and the firm acts for people in Calgary and surrounding areas. The team includes Jide Kupoluyi and Ola Ogbonna. Real estate work covers residential and commercial purchases and sales, while the business practice is aimed at owners and entrepreneurs, whom the lawyers understand because they run businesses themselves. Immigration work covers temporary visas, permanent residence and citizenship, and the office also offers notary public and commissioner for oaths services.",
-  "src": "images/logos/jk-law-calgary.webp"
+  "src": "images/logos/jk-law-calgary.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Jide Kupoluyi"
+    },
+    {
+     "name": "Ola Ogbonna"
+    }
+   ],
+   "areas": [
+    "Wills and estates",
+    "Personal injury",
+    "Immigration",
+    "Child welfare",
+    "Real estate law",
+    "Business law"
+   ],
+   "serving": [
+    "Calgary"
+   ]
+  }
  },
  {
   "name": "Kirk Law Office",
@@ -1277,7 +1994,31 @@
   "blurb": "Real Estate in Ottawa. Rated 4.9 from 81 Google reviews.",
   "type": "logo",
   "about": "Kirk Law Office is an Ottawa practice handling residential real estate, wills, powers of attorney and estate administration.\n\nTeam members are fluent in English, French, Ukrainian, Polish and Russian. On the real estate side the office acts for private lenders and for buyers and sellers of new and resale properties, including condominiums, recreational properties, vacant or development land and investment properties, and it drafts leases and agreements of purchase and sale. Leslie J. Kirk, an Ottawa native, was admitted to the Ontario bar in 2009 after articling with the City of Ottawa's legal department; her work includes rent-to-own transactions, multi-unit residential sales and RRSP-funded mortgages. Iuliia Shulakewych, who holds the TEP designation, is also on the team.",
-  "src": "images/logos/kirk-law-office-ottawa.png"
+  "src": "images/logos/kirk-law-office-ottawa.png",
+  "details": {
+   "languages": [
+    "English",
+    "French",
+    "Ukrainian",
+    "Polish",
+    "Russian"
+   ],
+   "lawyers": [
+    {
+     "name": "Leslie J. Kirk"
+    },
+    {
+     "name": "Iuliia Shulakewych"
+    }
+   ],
+   "areas": [
+    "Residential real estate",
+    "Wills",
+    "Powers of attorney",
+    "Estate administration",
+    "Estate planning"
+   ]
+  }
  },
  {
   "name": "Apna Law LLP",
@@ -1307,6 +2048,16 @@
   "type": "logo",
   "about": "Apna Law LLP is a Burnaby firm of trial and appellate lawyers handling family, estate, personal injury and civil disputes.\n\nThe firm opened in 2018 and serves British Columbia and Alberta, and its lawyers have more than 40 years of combined experience inside and outside the courtroom. Its name is a Punjabi word loosely meaning ours, which the firm links to community and collaboration. The family law team includes James Gill, Amanda James, Hannah Gowans and Ingrid Lee, and an appeal to the Court of Appeal is not a re-hearing of the case. It also publishes articles, including one on international students and immigration consultants.",
   "src": "images/logos/apna-law-llp-burnaby.png",
+  "details": {
+   "founded": 2018,
+   "areas": [
+    "Family law",
+    "Estate litigation",
+    "Civil litigation",
+    "Personal injury law",
+    "Mediation and dispute resolution"
+   ]
+  },
   "heroImage": "images/hero/apna-law-llp-burnaby.webp"
  },
  {
@@ -1335,6 +2086,26 @@
   "type": "logo",
   "about": "The Myers Law Company is a Vancouver criminal defence firm led by Justin Myers and Zack Myers, with traffic and family matters also covered.\n\nThe lawyers appear in Youth Court, Provincial Court, BC Supreme Court, the Court of Appeal and the Supreme Court of Canada, and can attend in Alberta, Ontario and other jurisdictions on request. Serious matters include murder, drug importation, firearms, theft, trafficking and arson. The approach is detail-oriented and transparent, with lawyers who often write detailed legal arguments and who collaborate on strategy and trials without raising the cost to the client. The office is on West Pender Street.",
   "src": "images/logos/the-myers-law-company-vancouver.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Justin V. Myers"
+    },
+    {
+     "name": "Zack Myers"
+    }
+   ],
+   "areas": [
+    "Traffic offences",
+    "Criminal law",
+    "Immediate roadside prohibitions",
+    "License suspensions",
+    "Driving while prohibited"
+   ],
+   "serving": [
+    "Vancouver"
+   ]
+  },
   "heroImage": "images/hero/the-myers-law-company-vancouver.webp"
  },
  {
@@ -1365,7 +2136,19 @@
   "type": "logo",
   "about": "Fraese Aymont is a boutique family law firm in Calgary handling divorce, separation, parenting, support and property division.\n\nFamily law is all the firm does. Its downtown Calgary office serves Calgary, Airdrie, Cochrane, Okotoks and Chestermere, and its services also include family agreements such as separation and cohabitation agreements, mediation, arbitration and court proceedings. Brandi Aymont works with her paralegal Devonna McFarlane. The firm offers child support and spousal support calculators along with a guide to divorce and separation in Alberta that discusses negotiation, mediation, arbitration and court procedure.",
   "src": "images/logos/fraese-aymont-family-lawyers-calgary-calgary.png",
-  "heroImage": "images/hero/fraese-aymont-family-lawyers-calgary-calgary.webp"
+  "heroImage": "images/hero/fraese-aymont-family-lawyers-calgary-calgary.webp",
+  "details": {
+   "areas": [
+    "Divorce and separation",
+    "Family property division",
+    "Separation agreements",
+    "Parenting arrangements",
+    "Family law"
+   ],
+   "serving": [
+    "Calgary"
+   ]
+  }
  },
  {
   "name": "Jim Dean Law Professional Corporation",
@@ -1392,7 +2175,30 @@
   "blurb": "Criminal Defence in London. Rated 4.7 from 83 Google reviews.",
   "type": "logo",
   "about": "Jim Dean Law Professional Corporation is a London, Ontario firm focused on criminal law and wills and estate planning.\n\nJim Dean founded the firm in 2011 after about two decades as a police officer, and it has since grown to four full-time employees. The team includes lawyers Chris Marquis and Victoria Heppenheimer and senior law clerk Tammy Courage alongside Dean, who is a barrister, solicitor and notary public. The firm is based at the Hamilton Road Legal Centre, is available after hours for clients in custody, and also assists other lawyers and professionals.",
-  "src": "images/logos/jim-dean-law-professional-corporation-london.png"
+  "src": "images/logos/jim-dean-law-professional-corporation-london.png",
+  "details": {
+   "founded": 2011,
+   "lawyers": [
+    {
+     "name": "Jim Dean"
+    },
+    {
+     "name": "Chris Marquis",
+     "title": "Barrister & Solicitor"
+    },
+    {
+     "name": "Victoria Heppenheimer",
+     "title": "Barrister & Solicitor"
+    }
+   ],
+   "areas": [
+    "Criminal law",
+    "Wills and estate planning"
+   ],
+   "serving": [
+    "London"
+   ]
+  }
  },
  {
   "name": "Wahab Law",
@@ -1467,6 +2273,24 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "areas": [
+    "Real estate law",
+    "Family law",
+    "Employment law",
+    "Wills and estates",
+    "Civil litigation",
+    "Notary services",
+    "Independent legal advice",
+    "Immigration law"
+   ],
+   "serving": [
+    "Kitchener",
+    "Waterloo",
+    "Cambridge",
+    "Greater Toronto Area"
+   ]
   }
  },
  {
@@ -1496,7 +2320,31 @@
   "blurb": "Family Law / Real Estate in Brampton. Rated 4.7 from 81 Google reviews.",
   "type": "logo",
   "about": "Kalia Law Firm is a Brampton practice offering family law, real estate, wills and estates, notary and independent legal advice services.\n\nThe firm serves Brampton and nearby communities including Mississauga, Guelph, Georgetown, Caledon and Milton. Tulika Kalia is licensed as a barrister and solicitor in Ontario and handles family and real estate matters, and her network of lawyers extends the firm's reach to more than four jurisdictions worldwide. The notary practice covers statutory declarations, affidavits, invitation letters, powers of attorney, name change applications and certified true copies, and the firm also handles probate, travel documents and immigration services.",
-  "src": "images/logos/kalia-law-firm-brampton.png"
+  "src": "images/logos/kalia-law-firm-brampton.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Tulika Kalia",
+     "title": "Lawyer"
+    }
+   ],
+   "areas": [
+    "Family law",
+    "Real estate law",
+    "Wills and estate planning",
+    "Independent legal advice",
+    "Notary public services",
+    "Immigration"
+   ],
+   "serving": [
+    "Brampton",
+    "Georgetown",
+    "Caledon",
+    "Guelph",
+    "Mississauga",
+    "Milton"
+   ]
+  }
  },
  {
   "name": "TSF Law",
@@ -1524,7 +2372,32 @@
   "type": "logo",
   "about": "TSF Law is a Mississauga personal injury firm acting for people with denied long term disability benefits and injuries from car accidents and falls.\n\nThe firm practises personal injury law exclusively and acts for clients from across Ontario. Partner Terio Francis grew up in Toronto, studied at Dalhousie's Schulich School of Law, and has appeared before the Superior Court of Justice and the License Appeal Tribunal and arbitrated at the Financial Services Commission of Ontario. The team also includes associate KristoFer Angle, licensed paralegal Licia Lionessa, Andrea Seecharan and Andreea Savin, and the head office is on Traders Boulevard East.",
   "src": "images/logos/tsf-law-mississauga.png",
-  "bioImage": "images/bio/tsf-law-mississauga.webp"
+  "bioImage": "images/bio/tsf-law-mississauga.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Terio Francis"
+    },
+    {
+     "name": "Kristofer Angle"
+    },
+    {
+     "name": "Andrea Seecharan",
+     "title": "Associate"
+    }
+   ],
+   "areas": [
+    "Long term disability claims",
+    "Personal injury",
+    "Motor vehicle accidents",
+    "Slip and fall claims",
+    "Dog bite incidents"
+   ],
+   "serving": [
+    "Mississauga",
+    "Ontario"
+   ]
+  }
  },
  {
   "name": "Zamani Law",
@@ -1551,7 +2424,24 @@
   "blurb": "Criminal Defence in Toronto. Rated 4.9 from 77 Google reviews.",
   "type": "logo",
   "about": "Zamani Law is a Toronto criminal defence firm that represents people facing criminal allegations across the Greater Toronto Area.\n\nPractice areas include bail hearings and domestic violence charges, and the firm's priority is protecting clients' rights while seeking a reasonable resolution or withdrawal of charges. For family law, wills and estate planning and real estate, it has alliances with other practitioners to whom it directs clients, since family disputes are often linked to criminal proceedings. Founder Farid Zamani is a co-founder of Children without Borders, a non-profit that raises awareness of child labour and sponsors education for children in Afghan communities. The office is on Richmond Street West.",
-  "src": "images/logos/zamani-law-toronto.png"
+  "src": "images/logos/zamani-law-toronto.png",
+  "details": {
+   "areas": [
+    "Bail hearing",
+    "Domestic violence",
+    "Youth offences",
+    "Driving offences and DUI",
+    "Drug crimes",
+    "Assault and threats",
+    "Weapon charges",
+    "Theft and fraud",
+    "Sexual assault",
+    "Criminal harassment"
+   ],
+   "serving": [
+    "Toronto"
+   ]
+  }
  },
  {
   "name": "Badesha Law Criminal Lawyer Brampton",
@@ -1624,6 +2514,21 @@
      "23:59"
     ]
    ]
+  },
+  "details": {
+   "areas": [
+    "Criminal defence",
+    "Domestic assault",
+    "Impaired driving and DUI",
+    "Drug offences",
+    "Weapons charges",
+    "Uttering threats",
+    "Bail matters"
+   ],
+   "serving": [
+    "Brampton",
+    "GTA"
+   ]
   }
  },
  {
@@ -1651,7 +2556,18 @@
   "blurb": "Wills & Estates in Calgary. Rated 4.9 from 75 Google reviews.",
   "type": "logo",
   "about": "Swift Law is a Calgary real estate law practice, also called Swift LLP, handling residential purchases, sales and refinances.\n\nThe firm is a mobile practice based in Marda Loop, with flexible appointment options. Paul Kennett and Angela Mouton are named with the firm, which has more than 20 years of experience, and the practice also offers wills and estates, mediation, and notary and commissioner for oaths services alongside real estate. It prepares custom fee estimates, gives direct access to the lawyer, and sets out how the lawyer's role differs from that of the realtor and mortgage broker in getting a deal to close.",
-  "src": "images/logos/swift-law-calgary.webp"
+  "src": "images/logos/swift-law-calgary.webp",
+  "details": {
+   "areas": [
+    "Residential real estate",
+    "Wills and estates",
+    "Mediation",
+    "Commissioner for oaths services"
+   ],
+   "serving": [
+    "Calgary"
+   ]
+  }
  },
  {
   "name": "Conron Law Professional Corporation",
@@ -1678,7 +2594,29 @@
   "blurb": "Criminal Defence in London. Rated 5.0 from 73 Google reviews.",
   "type": "logo",
   "about": "Conron Law Professional Corporation is a London, Ontario criminal defence firm covering charges from assault to drug trafficking.\n\nThe firm handles all criminal charges, including domestic and non-domestic assault, aggravated and sexual assault, impaired driving, dangerous operation, theft and property crimes, drug possession and trafficking, firearm offences and breaches of court orders. Carolynn V. Conron, who holds an LL.M., heads the practice and has more than a decade in practice, with associate Katie Gosen and licensed paralegal Ashley Bates on the team. The office is on the mezzanine level at Fullarton Street.",
-  "src": "images/logos/conron-law-professional-corporation-london.png"
+  "src": "images/logos/conron-law-professional-corporation-london.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Carolynn V. Conron"
+    },
+    {
+     "name": "Katie Gosen"
+    }
+   ],
+   "areas": [
+    "Domestic and non-domestic assault",
+    "Aggravated assault",
+    "Sexual assault",
+    "Sexual interference",
+    "Impaired driving",
+    "Dangerous operation",
+    "Theft and property crimes",
+    "Drug possession",
+    "Drug trafficking",
+    "Sentencing"
+   ]
+  }
  },
  {
   "name": "Frenkel Tobin LLP",
@@ -1705,7 +2643,22 @@
   "blurb": "Family Law in Toronto. Rated 4.9 from 73 Google reviews.",
   "type": "logo",
   "about": "Frenkel Tobin LLP is a downtown Toronto boutique firm focused exclusively on family and divorce law.\n\nIts lawyers act for clients in Ontario, across Canada and internationally, including mothers, fathers, grandparents, seniors, LGBTQ clients, people with limited finances and those with high net worth. Areas include separation, parenting schedules and decision-making for children, child support and spousal support. David Frenkel has practised only family law since 2008, has published in the Canadian Family Law Quarterly, Law Times and the Globe and Mail, and has spoken at the Law Society of Ontario's Family Law Summit; David Tobin and several other lawyers also practise with the firm.",
-  "src": "images/logos/frenkel-tobin-llp-toronto.png"
+  "src": "images/logos/frenkel-tobin-llp-toronto.png",
+  "details": {
+   "areas": [
+    "Separation agreements",
+    "Child support",
+    "Spousal support",
+    "Property division",
+    "Prenups and marriage contracts",
+    "Divorce",
+    "Common-law spouses",
+    "Financial statements and disclosure"
+   ],
+   "serving": [
+    "Toronto"
+   ]
+  }
  },
  {
   "name": "M.J. O'Nions",
@@ -1734,7 +2687,23 @@
   "blurb": "Family Law / Wills & Estates in Vancouver. Rated 4.8 from 74 Google reviews.",
   "type": "logo",
   "about": "MJ O'Nions, now Stride Law, is a Vancouver firm practising family law, mediation, wills and estates and business law.\n\nThe firm operates as Stride Law, formerly M.J. O'Nions Lawyers & Mediators, a British Columbia practice whose areas include mediation, collaborative divorce, family law agreements, wills and estates, business law and notary services. On estates it handles litigation over unfair wills and the defence of estates against challenges, along with probate, letters of administration and flat-rate estate plans covering a will, power of attorney and advance health care directive. It does not charge for photocopying, faxing or secretarial time.",
-  "src": "images/logos/m-j-o-nions-vancouver.jpg"
+  "src": "images/logos/m-j-o-nions-vancouver.jpg",
+  "details": {
+   "areas": [
+    "Mediation",
+    "Family law agreements",
+    "Divorce",
+    "Business law",
+    "Wills and estates",
+    "Notary services",
+    "Estate litigation",
+    "Enduring power of attorney"
+   ],
+   "serving": [
+    "Vancouver",
+    "British Columbia"
+   ]
+  }
  },
  {
   "name": "Lazar Law Firm",
@@ -1793,6 +2762,26 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Bassam Lazar"
+    }
+   ],
+   "areas": [
+    "Real estate law",
+    "Business law",
+    "Paralegal and civil law services",
+    "Wills and estates",
+    "Family law",
+    "Landlord and tenant board matters"
+   ],
+   "serving": [
+    "London",
+    "Windsor",
+    "Kitchener"
+   ]
   }
  },
  {
@@ -1820,7 +2809,19 @@
   "blurb": "Immigration in Ottawa. Rated 5.0 from 70 Google reviews.",
   "type": "logo",
   "about": "Slipacoff Immigration Law is an Ottawa-area practice handling immigration refusals, appeals, study permits, visitor visas and sponsorships.\n\nAdam Slipacoff, a fourth-generation Canadian and Ottawa native, studied at Carleton University and Osgoode Hall Law School. The firm serves Toronto and Ottawa and represents clients challenging refusals through appeals and judicial applications to court, responds to procedural fairness letters and works on inadmissibility. Other services are Express Entry, spousal sponsorship, citizenship applications and PR card renewals. The office address is in Kanata, and the firm also provides guidance on settlement services for newcomers.",
-  "src": "images/logos/slipacoff-immigration-law-ottawa.png"
+  "src": "images/logos/slipacoff-immigration-law-ottawa.png",
+  "details": {
+   "areas": [
+    "Appealing refusals",
+    "Procedural fairness",
+    "Inadmissibility",
+    "Study permits",
+    "Express Entry",
+    "Spousal sponsorship",
+    "Citizenship applications",
+    "PR card renewals"
+   ]
+  }
  },
  {
   "name": "Dabros Law",
@@ -1880,7 +2881,27 @@
     ]
    ]
   },
-  "bioImage": "images/bio/dabros-law-ottawa.webp"
+  "bioImage": "images/bio/dabros-law-ottawa.webp",
+  "details": {
+   "areas": [
+    "Wills and powers of attorney",
+    "Real estate",
+    "Personal injury",
+    "Probate law",
+    "Estate litigation and disputes",
+    "Estate planning"
+   ],
+   "serving": [
+    "Ottawa",
+    "Nepean",
+    "Barrhaven",
+    "South Keys",
+    "Findlay Creek",
+    "Orleans",
+    "Greely",
+    "Manotick"
+   ]
+  }
  },
  {
   "name": "Boghossian Morais LLP",
@@ -1907,7 +2928,33 @@
   "blurb": "Immigration in Ottawa. Rated 4.9 from 71 Google reviews.",
   "type": "logo",
   "about": "Boghossian Morais LLP is an Ottawa firm whose two lawyers and support staff work exclusively in immigration and refugee law.\n\nThe firm offers services in English, French, Armenian and Brazilian Portuguese. Its work includes Express Entry applications under the Canadian Experience Class and Federal Skilled Worker and Trades programs, provincial nominee applications, visitor and study permits, business immigration, intra-company transfers, work permits, hiring temporary foreign workers and family sponsorship. A founding member of the Canadian Immigration Lawyers Association is on the team, and appointments by Skype are available for clients outside the National Capital Region.",
-  "src": "images/logos/boghossian-morais-llp-ottawa.png"
+  "src": "images/logos/boghossian-morais-llp-ottawa.png",
+  "details": {
+   "languages": [
+    "English",
+    "French",
+    "Portuguese"
+   ],
+   "lawyers": [
+    {
+     "name": "Tamar Boghossian",
+     "title": "Founding partner"
+    }
+   ],
+   "areas": [
+    "Immigration and refugee law",
+    "Express Entry",
+    "Family sponsorship",
+    "Business immigration",
+    "Work permits",
+    "Provincial nomination applications",
+    "Judicial review",
+    "Study permits"
+   ],
+   "serving": [
+    "Ottawa"
+   ]
+  }
  },
  {
   "name": "Matthew Feehan Estate Lawyer",
@@ -1934,7 +2981,27 @@
   "blurb": "Wills & Estates in Edmonton. Rated 4.7 from 74 Google reviews.",
   "type": "logo",
   "about": "Matthew Feehan Estate Lawyer is an Edmonton practice dealing with wills, probate and estate administration.\n\nF.M. (Ned) Feehan QC, Mark E. Feehan and Matthew F. Feehan are the lawyers, and the practice serves clients across Canada from offices in Alberta and British Columbia. Its guidance covers what probate is and when it is required, how applications and grants of administration work, why a person should have a will and what naming an executor involves.",
-  "src": "images/logos/matthew-feehan-estate-lawyer-edmonton.jpg"
+  "src": "images/logos/matthew-feehan-estate-lawyer-edmonton.jpg",
+  "details": {
+   "founded": 1950,
+   "lawyers": [
+    {
+     "name": "Matthew F. Feehan",
+     "title": "Lawyer"
+    }
+   ],
+   "areas": [
+    "Wills and estates",
+    "Probate applications",
+    "Grants of administration",
+    "Personal directive",
+    "Power of attorney",
+    "Real estate"
+   ],
+   "serving": [
+    "Edmonton"
+   ]
+  }
  },
  {
   "name": "AGP LLP Ottawa Criminal Lawyers",
@@ -1994,7 +3061,44 @@
     ]
    ]
   },
-  "heroImage": "images/hero/agp-llp-ottawa-criminal-lawyers-ottawa.webp"
+  "heroImage": "images/hero/agp-llp-ottawa-criminal-lawyers-ottawa.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Howard Krongold"
+    },
+    {
+     "name": "Michael Spratt"
+    },
+    {
+     "name": "Keara Lundrigan"
+    },
+    {
+     "name": "Josh Morency"
+    },
+    {
+     "name": "Hanna Colbert"
+    },
+    {
+     "name": "Kathleen Ferrell"
+    }
+   ],
+   "areas": [
+    "Appeals",
+    "Assault",
+    "Bail hearings",
+    "Domestic assaults",
+    "Drinking and driving",
+    "Drug offences",
+    "Homicide",
+    "Sexual assault",
+    "Supreme Court of Canada appeals",
+    "White collar crimes"
+   ],
+   "serving": [
+    "Ottawa"
+   ]
+  }
  },
  {
   "name": "Gauthier & Mines Criminal Lawyers",
@@ -2022,6 +3126,21 @@
   "type": "logo",
   "about": "Gauthier & Mines Criminal Lawyers is a Vancouver firm that has defended criminal charges across British Columbia since 1993.\n\nFormerly Mines & Company, the firm includes Michael Mines, Ian Gauthier, Patrick Johnston, Courtney McLaughlin and Ishnoor Dhillon, whose practice is focused solely on criminal law, civil forfeiture and Motor Vehicle Act defence. Charges handled include assault, driving, drug, sexual assault, theft and fraud, weapons, murder and other serious offences, plus driving prohibitions and professional discipline. The firm appears in courts throughout Metro Vancouver and the rest of the province, has conducted cases in Alberta, Ontario, Quebec and the Yukon, and uses Alternative Measures programs that can end a prosecution without a criminal record.",
   "src": "images/logos/gauthier-and-mines-criminal-lawyers-vancouver.png",
+  "details": {
+   "founded": 1993,
+   "areas": [
+    "Assault charges",
+    "Driving charges",
+    "Drug charges",
+    "Sexual assault charges",
+    "Theft and fraud charges",
+    "Weapons charges"
+   ],
+   "serving": [
+    "British Columbia",
+    "Vancouver"
+   ]
+  },
   "heroImage": "images/hero/gauthier-and-mines-criminal-lawyers-vancouver.webp"
  },
  {
@@ -2049,7 +3168,13 @@
   "blurb": "Civil Litigation in Montreal. Rated 4.8 from 71 Google reviews.",
   "type": "logo",
   "about": "Jérémie John Martin is a bilingual Montreal litigation lawyer who practises and pleads in both French and English.\n\nMe Martin is originally from Quebec, now lives on the Island of Montreal and serves all judicial districts of Quebec. He favours a diplomatic approach aimed at settling files out of court, while remaining ready to plead. In 2006 he took the national inter-university debating championship Face à Face in Sherbrooke with colleague Yves Tanguay, and also earned the individual pleader's bursary. His practice information covers his services, fees, the courthouses he serves, his partners and associates, and media appearances.",
-  "src": "images/logos/jeremie-john-martin-montreal.png"
+  "src": "images/logos/jeremie-john-martin-montreal.png",
+  "details": {
+   "areas": [
+    "Droit familial",
+    "Droit civil"
+   ]
+  }
  },
  {
   "name": "Hum Employment Law Firm",
@@ -2076,7 +3201,19 @@
   "blurb": "Employment Law in Toronto. Rated 4.7 from 72 Google reviews.",
   "type": "logo",
   "about": "Hum Employment Law Firm is a Toronto firm focused on workplace and employment law, human rights, investigations and mediation.\n\nThe firm practises in Ontario and Quebec, in English and French, for employers and employees and for plaintiffs and defendants. Its main office is in downtown Toronto, with additional offices in Markham, Mississauga, Richmond Hill and Scarborough and appointments also held in London, Ontario and Montreal. Services include workplace investigations, shareholder disputes, professional regulation matters and litigation, and employer guidance on contracts, policies, risk management and compliance. The firm publishes articles on topics such as constructive dismissal, medical leave and AI use in the workplace.",
-  "src": "images/logos/hum-employment-law-firm-toronto.webp"
+  "src": "images/logos/hum-employment-law-firm-toronto.webp",
+  "details": {
+   "areas": [
+    "Employment law",
+    "Workplace investigations",
+    "Shareholder disputes",
+    "Business partnership disputes",
+    "Professional regulation"
+   ],
+   "serving": [
+    "Toronto"
+   ]
+  }
  },
  {
   "name": "Z Legal Litigation Lawyer",
@@ -2109,7 +3246,23 @@
   "blurb": "Civil Litigation / Employment Law in Toronto. Rated 4.9 from 69 Google reviews.",
   "type": "logo",
   "about": "Z Legal is a Toronto litigation firm handling estate, employment, commercial and family disputes and professional misconduct matters.\n\nFounder Martin Zatovkanuk is a litigation lawyer with more than a decade of experience before all levels of Ontario courts. The firm represents clients from the outset of a matter to its end, whether it resolves by settlement, mediation, arbitration or trial. Its employment practice acts for employees and employers on wrongful dismissal, severance pay, constructive dismissal and workplace harassment across Toronto and the GTA, while the firm also covers real estate litigation and will challenges. Flat-rate and contingency fee options are available.",
-  "src": "images/logos/z-legal-litigation-lawyer-toronto.png"
+  "src": "images/logos/z-legal-litigation-lawyer-toronto.png",
+  "details": {
+   "areas": [
+    "Employment law",
+    "Commercial litigation",
+    "Estate disputes",
+    "Family law",
+    "Real estate litigation",
+    "Professional misconduct defense",
+    "Mediation"
+   ],
+   "serving": [
+    "Toronto",
+    "Greater Toronto Area",
+    "Ontario"
+   ]
+  }
  },
  {
   "name": "Muenz Criminal Law",
@@ -2180,6 +3333,23 @@
      "21:00"
     ]
    ]
+  },
+  "details": {
+   "areas": [
+    "Sexual assault",
+    "Domestic assault",
+    "Drinking and driving",
+    "Drugs and trafficking",
+    "Theft and fraud",
+    "Assaults and threats",
+    "Youth crimes",
+    "Warrant checks",
+    "Bail hearings",
+    "Appeals"
+   ],
+   "serving": [
+    "Calgary"
+   ]
   }
  },
  {
@@ -2239,6 +3409,38 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "languages": [
+    "English",
+    "French",
+    "Farsi"
+   ],
+   "lawyers": [
+    {
+     "name": "Mash Frouhar"
+    },
+    {
+     "name": "Connie D’Angelo"
+    }
+   ],
+   "areas": [
+    "Assault charges",
+    "DUI and impaired driving",
+    "Drug charges",
+    "Sexual assault",
+    "Homicide and murder",
+    "Manslaughter",
+    "Fraud and white collar crime",
+    "Firearms and weapons offences",
+    "Property crime and theft",
+    "Robbery and extortion"
+   ],
+   "serving": [
+    "Ottawa",
+    "Brockville",
+    "Eastern Ontario"
+   ]
   }
  },
  {
@@ -2266,7 +3468,41 @@
   "blurb": "Personal Injury in Ottawa. Rated 4.9 from 67 Google reviews.",
   "type": "logo",
   "about": "WVGB Personal Injury Lawyers is an Ottawa firm acting for people hurt in car crashes, falls, brain injuries and other accidents.\n\nWVGB Law Group was established in 2021 through a partnership between Villeneuve Litigation P.C. and Wolfe Lawyers P.C., and serves English and French speaking communities in Ottawa and the Ottawa Valley. Clients work directly with a partner who oversees the case personally. Practice areas cover car accidents, slip and trip and falls, brain injuries, animal attacks and rideshare and taxi accidents, along with wills and estates, and the time limits that apply to injury cases are explained.",
-  "src": "images/logos/wvgb-personal-injury-lawyers-ottawa.png"
+  "src": "images/logos/wvgb-personal-injury-lawyers-ottawa.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Bianca Bielecki"
+    },
+    {
+     "name": "Charles Genest"
+    },
+    {
+     "name": "Justin A. Villeneuve"
+    },
+    {
+     "name": "J.A. Michael Wolfe"
+    },
+    {
+     "name": "William C. Wolfe"
+    }
+   ],
+   "areas": [
+    "Car accidents",
+    "Slip and falls",
+    "Brain injuries",
+    "Dog bites",
+    "Burn injuries",
+    "Truck accidents",
+    "Motorcycle accidents",
+    "Long-term disability claims",
+    "Medical malpractice",
+    "Wrongful death"
+   ],
+   "serving": [
+    "Ottawa"
+   ]
+  }
  },
  {
   "name": "Hammer Injury Law",
@@ -2293,7 +3529,27 @@
   "blurb": "Personal Injury in Edmonton. Rated 5.0 from 65 Google reviews.",
   "type": "logo",
   "about": "Hammer Injury Law is an Edmonton personal injury firm focused on motor vehicle accident injuries, serious injury and wrongful death.\n\nRichard J. Mallett graduated from the University of Alberta in 1989, was admitted to the Alberta Bar in 1990 and spent his first ten years in insurance defence and corporate law before acting exclusively for injured people from 1999. He established the firm in 2023 and has appeared in Alberta courts, the Supreme Courts of the Northwest Territories and the Yukon, the CPP Appeal Tribunal and the WCB Appeals Commission. The firm serves Alberta, British Columbia, the Yukon and the Northwest Territories, and it also handles class actions.",
-  "src": "images/logos/hammer-injury-law-edmonton.png"
+  "src": "images/logos/hammer-injury-law-edmonton.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Rick Mallett"
+    }
+   ],
+   "areas": [
+    "Motorcycle accidents",
+    "Spinal cord injury",
+    "Brain injury",
+    "Wrongful death",
+    "Class actions",
+    "Serious injury and fatality claims"
+   ],
+   "serving": [
+    "Alberta",
+    "Northwest Territories",
+    "Yukon"
+   ]
+  }
  },
  {
   "name": "Lambert Law",
@@ -2320,7 +3576,18 @@
   "blurb": "Personal Injury in Victoria. Rated 4.6 from 70 Google reviews.",
   "type": "logo",
   "about": "Lambert Law is a Victoria firm handling personal injury, medical malpractice, motor vehicle tribunal matters and general litigation.\n\nRory Lambert and his legal team have represented members of the Victoria community for more than 30 years. On medical malpractice, the firm works with doctors, nurses and other medical professionals who assess a case before a decision to sue, and litigation against medical professionals can be costly and take several years. In British Columbia a general two-year limitation period applies, measured from the last date of the treatment alleged to be negligent.",
-  "src": "images/logos/lambert-law-victoria.png"
+  "src": "images/logos/lambert-law-victoria.png",
+  "details": {
+   "areas": [
+    "Personal injury",
+    "Motor vehicle CRT claims",
+    "Medical malpractice",
+    "General litigation"
+   ],
+   "serving": [
+    "Victoria"
+   ]
+  }
  },
  {
   "name": "Nanda Family and Divorce Lawyers",
@@ -2348,7 +3615,21 @@
   "type": "logo",
   "about": "Nanda Family and Divorce Lawyers is a Mississauga firm handling divorce, child custody, child support and financial issues after separation.\n\nThe family law team guides clients through the legal steps of ending a marriage, sets up child arrangement orders on where children live and how decisions about their upbringing are made, and addresses financial adjustments after separation. Its Mississauga family lawyers aim for fair resolutions and keep the well-being of children in focus. The office is on Robert Speck Parkway.",
   "src": "images/logos/nanda-family-and-divorce-lawyers-mississauga.png",
-  "heroImage": "images/hero/nanda-family-and-divorce-lawyers-mississauga.webp"
+  "heroImage": "images/hero/nanda-family-and-divorce-lawyers-mississauga.webp",
+  "details": {
+   "founded": 2003,
+   "areas": [
+    "Family and divorce law",
+    "Child support and section 7 expenses",
+    "Property, asset division and equalization",
+    "Child arrangement orders",
+    "Special guardianship order",
+    "Corporate law"
+   ],
+   "serving": [
+    "Mississauga"
+   ]
+  }
  },
  {
   "name": "Dhasi Law Family Lawyer Brampton",
@@ -2375,7 +3656,17 @@
   "blurb": "Family Law in Brampton. Rated 4.9 from 65 Google reviews.",
   "type": "logo",
   "about": "Dhasi Law is a Brampton firm serving Ontario clients in personal injury, immigration, criminal law, civil litigation, estates and real estate.\n\nPractice areas are personal injury, immigration, criminal law, civil litigation, notary public, wills, estates and trusts, real estate, corporate law and family law. For injuries caused by negligence, the firm pursues compensation for medical expenses and lost income. Immigration work covers applications, permits and sponsorships for individuals and families, and the criminal practice supports clients facing charges through the court process. The office is on Mayfield Road in Brampton.",
-  "src": "images/logos/dhasi-law-family-lawyer-brampton-brampton.webp"
+  "src": "images/logos/dhasi-law-family-lawyer-brampton-brampton.webp",
+  "details": {
+   "areas": [
+    "Personal injury",
+    "Immigration law",
+    "Criminal law"
+   ],
+   "serving": [
+    "Ontario"
+   ]
+  }
  },
  {
   "name": "LT Lawyers LLP",
@@ -2404,7 +3695,33 @@
   "blurb": "Personal Injury / Civil Litigation in Calgary. Rated 5.0 from 63 Google reviews.",
   "type": "logo",
   "about": "LT Lawyers LLP is a Calgary boutique firm representing injured people and those denied long-term disability benefits in Alberta and British Columbia.\n\nCo-founders Ryan Lee and Peter Trieu lead the firm; Lee previously acted for insurance companies in personal injury cases and has appeared before the Alberta Court of King's Bench and the Supreme Court of British Columbia. Two of its lawyers are former criminal prosecutors, and Daniel Gelb, Faye Gelb and Bridget Belsher are also on the team. Matters include car crashes, injuries caused by negligence and long-term disability denials and terminations, with strategies ranging from settlement to trial.",
-  "src": "images/logos/lt-lawyers-llp-calgary.png"
+  "src": "images/logos/lt-lawyers-llp-calgary.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Ryan Lee"
+    },
+    {
+     "name": "Peter Trieu"
+    },
+    {
+     "name": "Daniel Gelb"
+    },
+    {
+     "name": "Faye Gelb"
+    },
+    {
+     "name": "Bridget Belsher"
+    }
+   ],
+   "areas": [
+    "Personal injury",
+    "Long-term disability"
+   ],
+   "serving": [
+    "Alberta"
+   ]
+  }
  },
  {
   "name": "Nanuq Law",
@@ -2466,6 +3783,29 @@
      "09:00",
      "17:00"
     ]
+   ]
+  },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Marlisa H. Martin"
+    }
+   ],
+   "areas": [
+    "Motor vehicle accidents",
+    "Real estate law",
+    "Personal injury",
+    "Medical malpractice",
+    "Slip and fall injury",
+    "Wills and power of attorney",
+    "Injury at work",
+    "Pedestrian and bike injury",
+    "Estate litigation",
+    "Employment law"
+   ],
+   "serving": [
+    "Victoria",
+    "British Columbia"
    ]
   }
  },
@@ -2538,6 +3878,18 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "areas": [
+    "Real estate",
+    "Estate administration",
+    "Business law",
+    "Estate planning"
+   ],
+   "serving": [
+    "GTA",
+    "Ontario"
+   ]
   }
  },
  {
@@ -2565,7 +3917,30 @@
   "blurb": "Family Law in Montreal. Rated 4.9 from 63 Google reviews.",
   "type": "logo",
   "about": "Mikhael Avocat is a Montreal law firm handling immigration and joint divorce matters, with offices in Montreal and Outaouais.\n\nThe firm was founded by Me Marianne Mikhael, who holds a Licentiate in Law from the University of Ottawa, has been a member of the Québec Bar since 2020 and belongs to the Québec Association of Immigration Lawyers and the Canadian Association of Refugee Lawyers. The firm helps individuals and families with Canadian immigration matters, handles joint divorces by encouraging open dialogue between spouses, and offers translation services to overcome language barriers. Business law and the Gatineau area are also part of its work.",
-  "src": "images/logos/mikhael-avocat-inc-montreal.png"
+  "src": "images/logos/mikhael-avocat-inc-montreal.png",
+  "details": {
+   "languages": [
+    "Arabic",
+    "Spanish",
+    "Turkish",
+    "Punjabi",
+    "Hindi"
+   ],
+   "areas": [
+    "Immigration",
+    "Joint divorce",
+    "Family sponsorship",
+    "Temporary visa",
+    "Refugees and asylum seekers",
+    "Denials and appeals",
+    "Permanent immigration",
+    "Canadian citizenship"
+   ],
+   "serving": [
+    "Montreal",
+    "Outaouais"
+   ]
+  }
  },
  {
   "name": "Whitestone Law",
@@ -2596,7 +3971,17 @@
   "blurb": "Real Estate / Wills & Estates in Ottawa. Rated 5.0 from 61 Google reviews.",
   "type": "logo",
   "about": "Whitestone Law is an Ottawa firm providing corporate and commercial law, real estate transactions and estate planning for clients across Ontario.\n\nThe firm acts for businesses, individuals and families, and clients work directly with their lawyer for continuity and clear communication. Corporate work covers mergers and acquisitions, incorporations, restructuring, contract drafting and regulatory compliance, with ongoing advisory and general counsel services available. Real estate files include buying, selling and refinancing, and estate planning centres on wills and inheritance planning. Costs are explained before work starts, and every lawyer on the team is licensed in Ontario.",
-  "src": "images/logos/whitestone-law-ottawa.png"
+  "src": "images/logos/whitestone-law-ottawa.png",
+  "details": {
+   "areas": [
+    "Corporate and commercial law",
+    "Real estate transactions",
+    "Estate planning"
+   ],
+   "serving": [
+    "Ontario"
+   ]
+  }
  },
  {
   "name": "Malina A. Roshan",
@@ -2623,7 +4008,24 @@
   "blurb": "Family Law in Mississauga. Rated 4.9 from 62 Google reviews.",
   "type": "logo",
   "about": "Malina Roshan runs Roshan Law, a Mississauga practice handling family and divorce law as well as criminal defence matters.\n\nMalina Roshan founded the firm in 2010 and has more than 15 years as a family and criminal lawyer, regularly appearing in the Superior Court of Justice. The firm serves the Greater Toronto Area and communities including Brampton, Etobicoke, North York, Hamilton, Milton, Guelph, Kitchener, Waterloo, Vaughan, Newmarket, Oakville, Burlington, Oshawa and Orangeville. It offers clear pricing, regular updates on the file and a process that starts with booking a meeting.",
-  "src": "images/logos/malina-a-roshan-mississauga.webp"
+  "src": "images/logos/malina-a-roshan-mississauga.webp",
+  "details": {
+   "founded": 2010,
+   "lawyers": [
+    {
+     "name": "Malina A. Roshan"
+    }
+   ],
+   "areas": [
+    "Family law",
+    "Criminal law",
+    "Wills and notary",
+    "Marriage (pre-nuptial) agreements"
+   ],
+   "serving": [
+    "Mississauga"
+   ]
+  }
  },
  {
   "name": "Hergott Law",
@@ -2650,7 +4052,25 @@
   "blurb": "Wills & Estates in Kelowna. Rated 4.8 from 63 Google reviews.",
   "type": "logo",
   "about": "Hergott Law is a Kelowna boutique firm focused on estate planning and estate administration, including probate and executor support.\n\nPaul Hergott leads the firm, which he and his wife Terri opened in 2007 to serve Kelowna and West Kelowna; Terri provides administrative support, making it a team of two. Paul moved from litigation and defending injured people's rights to practising exclusively in estate administration. Services include obtaining probate or letters of administration, supporting executors, seeking compensation for executors' work and will curing. The firm also advises on wills, powers of attorney and representation agreements, and has served the Okanagan since 1995.",
-  "src": "images/logos/hergott-law-kelowna.webp"
+  "src": "images/logos/hergott-law-kelowna.webp",
+  "details": {
+   "founded": 2007,
+   "lawyers": [
+    {
+     "name": "Paul Hergott"
+    }
+   ],
+   "areas": [
+    "Estate planning",
+    "Estate administration",
+    "Executor services"
+   ],
+   "serving": [
+    "Kelowna",
+    "West Kelowna",
+    "Okanagan"
+   ]
+  }
  },
  {
   "name": "Just Done Law Office",
@@ -2677,7 +4097,22 @@
   "blurb": "Real Estate in Toronto. Rated 4.8 from 62 Google reviews.",
   "type": "logo",
   "about": "Just Done Law Office is a Toronto firm focused on real estate transactions including home purchases, sales, title transfers and mortgage refinances.\n\nPrincipal lawyer Julian Prieto practises real estate transactions and real estate litigation, has overseen more than $300 million in transaction volume and holds a JD from McGill University. He has represented clients at the Superior Court of Ontario and administrative tribunals. The service can be completed remotely, and its steps include examining the agreement of purchase and sale and status certificates, checking title for liens and mortgages, advising on land transfer tax and arranging title insurance. Fixed prices are published for each service.",
-  "src": "images/logos/just-done-law-office-toronto.png"
+  "src": "images/logos/just-done-law-office-toronto.png",
+  "details": {
+   "languages": [
+    "Spanish",
+    "French",
+    "Mandarin",
+    "English"
+   ],
+   "areas": [
+    "Buying a home",
+    "Selling a home",
+    "Title transfer",
+    "Mortgage refinance",
+    "Independent legal advice"
+   ]
+  }
  },
  {
   "name": "Jeffrey R. Horricks Law Corporation",
@@ -2705,7 +4140,28 @@
   "type": "logo",
   "about": "Jeffrey Horricks Law Corporation is a Vancouver practice handling real estate, corporate and estate law.\n\nJeffrey Horricks was born and raised in Vancouver, studied at the University of Victoria and earned his Juris Doctor from Bond University in Australia. After returning in 2012 he worked at a corporate and securities firm and then at a boutique criminal law practice, and he established Horricks Law in 2014. The firm serves individuals, families and businesses across Vancouver and the Lower Mainland, with real estate work covering strata properties, mortgages and financing, and development and investment deals. Clients speak directly with the lawyer, and flat-fee options are offered.",
   "src": "images/logos/jeffrey-r-horricks-law-corporation-vancouver.png",
-  "heroImage": "images/hero/jeffrey-r-horricks-law-corporation-vancouver.webp"
+  "heroImage": "images/hero/jeffrey-r-horricks-law-corporation-vancouver.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Jeffrey Horricks"
+    }
+   ],
+   "areas": [
+    "Real estate law",
+    "General corporate law",
+    "Commercial lease drafting and negotiation",
+    "Real estate development and financing",
+    "Incorporation and corporate structuring",
+    "Mergers and acquisitions",
+    "Shareholder agreements and partnership contracts",
+    "Corporate reorganizations and asset transfers"
+   ],
+   "serving": [
+    "Vancouver",
+    "British Columbia"
+   ]
+  }
  },
  {
   "name": "Bin Xia Zhang",
@@ -2732,7 +4188,26 @@
   "blurb": "Immigration in Montreal. Rated 5.0 from 58 Google reviews.",
   "type": "logo",
   "about": "Bin Xia Zhang is a Montreal immigration lawyer who helps international students and temporary foreign workers seek permanent residence.\n\nThe practice has run since 2016 and works mainly on temporary residence, permanent residence and Canadian citizenship applications. Bin Xia Zhang immigrated to Canada from China at age 9, and later worked in a college's international students department helping with temporary residence applications. The practice assesses eligibility, plans a route to permanent residence where a client is eligible, guides clients toward eligibility where not, and helps prepare and assemble applications. It works in English and French, and the office is on rue Saint-Jean.",
-  "src": "images/logos/bin-xia-zhang-montreal.png"
+  "src": "images/logos/bin-xia-zhang-montreal.png",
+  "details": {
+   "founded": 2016,
+   "languages": [
+    "French",
+    "English"
+   ],
+   "lawyers": [
+    {
+     "name": "Bin Xia Zhang"
+    }
+   ],
+   "areas": [
+    "Temporary residence",
+    "Permanent residence",
+    "Canadian citizenship",
+    "Quebec acceptance certificate",
+    "Quebec selection certificate"
+   ]
+  }
  },
  {
   "name": "VML Family Law LLP",
@@ -2790,7 +4265,21 @@
   "blurb": "Real Estate / Civil Litigation in Montreal. Rated 4.7 from 61 Google reviews.",
   "type": "logo",
   "about": "Bérard Avocats is a Montreal firm handling civil, commercial, real estate and construction law disputes, established in the city in 2016.\n\nCommercial disputes it handles include unpaid invoices and debts, missed deliveries by suppliers, difficulties with commercial leases and whether to incorporate, and early legal advice can reduce the impact of such problems on a business. Its practice areas are civil law, real estate law, construction law and commercial law, and it supports clients from diagnosis through to resolution of a file. The firm also maintains a YouTube channel, and Me Bérard is the lawyer named.",
-  "src": "images/logos/berard-avocats-montreal.png"
+  "src": "images/logos/berard-avocats-montreal.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Me Julien Bérard"
+    }
+   ],
+   "areas": [
+    "Droit civil",
+    "Droit immobilier",
+    "Droit de la construction",
+    "Droit commercial",
+    "Litige civil et commercial"
+   ]
+  }
  },
  {
   "name": "J. Kalirai Law Firm",
@@ -2817,7 +4306,21 @@
   "blurb": "Criminal Defence in Mississauga. Rated 4.8 from 59 Google reviews.",
   "type": "logo",
   "about": "Kalirai Law Firm is a Mississauga criminal defence firm covering drug, driving, assault and other offences, founded by lawyer Jeevan Kalirai.\n\nThe firm handles arson, assault and related charges, drug offences under the Controlled Drugs and Substances Act and the Cannabis Act, impaired and dangerous driving, driving while disqualified, criminal harassment and criminal negligence causing death. Jeevan Kalirai holds an LL.B. (Honours) and a B.A. in Biomedical Sciences (Honours). The firm works at every level of court and offers flat fee pricing and flexible payment plans. The office is on Burnhamthorpe Road West.",
-  "src": "images/logos/j-kalirai-law-firm-mississauga.png"
+  "src": "images/logos/j-kalirai-law-firm-mississauga.png",
+  "details": {
+   "areas": [
+    "Assault and related charges",
+    "Drug offences",
+    "Driving related offences",
+    "Criminal harassment",
+    "Criminal negligence",
+    "Firearm and weapons offences",
+    "Robbery and theft offences",
+    "Sexual assault related offences",
+    "Utter threats",
+    "Traffic tickets"
+   ]
+  }
  },
  {
   "name": "Stephane Cote Real Estate Lawyer/Avocat",
@@ -2846,7 +4349,28 @@
   "blurb": "Real Estate / Wills & Estates in Ottawa. Rated 4.7 from 60 Google reviews.",
   "type": "logo",
   "about": "Stephane Cote Real Estate Lawyer/Avocat is a legal practice in Ottawa, Ontario, listed under real estate and wills and estates.\n\nThe office is at 2052 St Joseph Boulevard, and the practice name pairs the English word lawyer with the French avocat. Further detail about its lawyers, languages or services is not provided in this entry, which is limited to the name, address, city and listed practice areas.",
-  "src": "images/logos/stephane-cote-real-estate-lawyer-avocat-ottawa.png"
+  "src": "images/logos/stephane-cote-real-estate-lawyer-avocat-ottawa.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Stéphane Côté"
+    }
+   ],
+   "areas": [
+    "Real estate purchases",
+    "Real estate sales",
+    "Real estate refinance",
+    "Military relocation real estate",
+    "Condominium status certificate review",
+    "Title search and insurance"
+   ],
+   "serving": [
+    "Ottawa",
+    "Kanata",
+    "Barrhaven",
+    "Orleans"
+   ]
+  }
  },
  {
   "name": "Chandler Law",
@@ -2873,7 +4397,26 @@
   "blurb": "Family Law in Kelowna. Rated 4.9 from 57 Google reviews.",
   "type": "logo",
   "about": "Chandler Law is a Kelowna family law firm advising on separation, divorce, parenting, support and property division.\n\nJohn Chandler, the founding partner, holds a B.A. and LL.B. and represents clients throughout the Okanagan and across British Columbia, preferring resolution where possible but prepared to go to trial. The firm also prepares cohabitation, prenuptial or marriage, and separation agreements and assists with mediation and negotiated settlements. Parenting arrangements, child and spousal support, and division of property and debt are among the issues it handles. Chantelle A., a legal assistant and office manager who has worked in the legal field since 2018, keeps the office running.",
-  "src": "images/logos/chandler-law-kelowna.png"
+  "src": "images/logos/chandler-law-kelowna.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "John Chandler"
+    }
+   ],
+   "areas": [
+    "Family law",
+    "Cohabitation agreements",
+    "Prenuptial and marriage agreements",
+    "Separation agreements",
+    "Divorce litigation",
+    "Mediation"
+   ],
+   "serving": [
+    "Okanagan",
+    "British Columbia"
+   ]
+  }
  },
  {
   "name": "Brum Immigration",
@@ -2900,7 +4443,12 @@
   "blurb": "Immigration in Ottawa. Rated 5.0 from 55 Google reviews.",
   "type": "logo",
   "about": "Brum Immigration is an Ottawa immigration and citizenship practice led by Renata Brum, a former Senior Citizenship Judge of Canada.\n\nBrum is also a Regulated Canadian Immigration Consultant. She served for 11 years as a citizenship judge, was born in the Azores, Portugal, and limits the practice to a select number of clients so that every case is managed personally. Applications handled include provincial nominee programs, Canadian citizenship, citizenship waivers on compassionate grounds and the Citizenship Act subsection 5(4) route. The firm also serves business clients moving workers to Canada and has begun offering US immigration services.",
-  "src": "images/logos/brum-immigration-ottawa.png"
+  "src": "images/logos/brum-immigration-ottawa.png",
+  "details": {
+   "areas": [
+    "US immigration"
+   ]
+  }
  },
  {
   "name": "Sunny Kaler Law",
@@ -3002,6 +4550,32 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "founded": 2017,
+   "lawyers": [
+    {
+     "name": "Lynsey Mincher"
+    },
+    {
+     "name": "Andrew Koeman"
+    }
+   ],
+   "areas": [
+    "Family law",
+    "Mediation and arbitration",
+    "Parenting and guardianship",
+    "Fertility and surrogacy",
+    "Real estate law",
+    "Wills and estates",
+    "Indigenous law",
+    "Criminal law",
+    "Divorce"
+   ],
+   "serving": [
+    "Calgary",
+    "Canmore"
+   ]
   }
  },
  {
@@ -3073,6 +4647,33 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "languages": [
+    "Vietnamese",
+    "English"
+   ],
+   "lawyers": [
+    {
+     "name": "Hai Tran"
+    }
+   ],
+   "areas": [
+    "Real estate law",
+    "Wills and estate law",
+    "Estate tax planning",
+    "Power of attorney",
+    "Probate litigation",
+    "Will creation",
+    "Business succession",
+    "Living trust",
+    "Estate administration",
+    "Notary public"
+   ],
+   "serving": [
+    "Guelph",
+    "Ontario"
+   ]
   }
  },
  {
@@ -3134,6 +4735,28 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Randy Norris"
+    }
+   ],
+   "areas": [
+    "Criminal defence",
+    "Sexual offences",
+    "Domestic assault",
+    "Child pornography charges",
+    "Theft and fraud",
+    "Youth charges",
+    "DUI impaired driving",
+    "Drug charges"
+   ],
+   "serving": [
+    "Mississauga",
+    "Peel Region",
+    "Brampton"
+   ]
   }
  },
  {
@@ -3162,7 +4785,17 @@
   "type": "logo",
   "about": "Share Lawyers, listed in Calgary, is a long-term disability insurance practice with a Toronto base and service across Canada.\n\nThe firm opened in 1987 and has focused on denied and delayed disability benefits, both employee group benefits and privately purchased coverage. It deals with insurers such as Manulife, Sun Life, Canada Life, OTIP, Desjardins and Blue Cross, and has helped more than 10,000 people pursue benefits. Co-founder David Share has practised since 1985 and taught trial advocacy at Osgoode Hall Law School. Other lawyers include Steven Muller, Samantha Share and Janice E. Grevler.",
   "src": "images/logos/share-lawyers-calgary-calgary.png",
-  "heroImage": "images/hero/share-lawyers-calgary-calgary.webp"
+  "heroImage": "images/hero/share-lawyers-calgary-calgary.webp",
+  "details": {
+   "areas": [
+    "Long term disability",
+    "Disability insurance",
+    "Employment law"
+   ],
+   "serving": [
+    "Toronto"
+   ]
+  }
  },
  {
   "name": "Kaysi Fagan",
@@ -3189,6 +4822,19 @@
   "blurb": "Criminal Defence in Calgary. Rated 4.9 from 53 Google reviews.",
   "type": "logo",
   "about": "Kaysi Fagan is a Calgary criminal defence lawyer who represents people charged with offences ranging from minor theft to first-degree murder.\n\nShe has defended prosecutions at every level of court in Alberta and across Canada, including the Supreme Court of Canada. Her credentials are a Master of Laws, a Juris Doctor and an honours Bachelor of Arts, and she was formerly based at the headquarters of the International Police organization, INTERPOL. The office is on First Street SW in downtown Calgary, and she practises as a sole practitioner.",
-  "src": "images/logos/kaysi-fagan-calgary.webp"
+  "src": "images/logos/kaysi-fagan-calgary.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Kaysi Fagan"
+    }
+   ],
+   "areas": [
+    "Criminal defence"
+   ],
+   "serving": [
+    "Calgary"
+   ]
+  }
  }
 ]

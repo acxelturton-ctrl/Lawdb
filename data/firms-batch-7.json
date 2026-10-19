@@ -1,0 +1,3400 @@
+[
+ {
+  "name": "Licata Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "business"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7609464,
+  "lng": -79.4100759,
+  "address": "4789 Yonge St Unit 1001, North York, ON M2N 0G3",
+  "phone": "+16474050470",
+  "rating": 4.9,
+  "count": 66,
+  "slug": "licata-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Licata+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4789+Yonge+St+Unit+1001%2C+North+York%2C+ON+M2N+0G3",
+  "website": "https://licatalawoffice.com",
+  "blurb": "Real Estate / Business Law in North York. Rated 4.9 from 66 Google reviews.",
+  "type": "logo",
+  "about": "Licata Law is a boutique firm in North York handling real estate, family, commercial and mining law matters. Its fertility work covers surrogacy and IVF agreements.\n\nReal estate services cover residential and commercial properties and power of sale procedures, while the family practice covers contracts and litigation. In mining, the firm acts for small, medium-sized and large businesses in the mining and natural resources sector in South America. Caterina Licata founded the firm, which serves clients across Toronto from its Yonge Street office. Most of its business comes from existing clients and referrals.",
+  "src": "images/logos/licata-law-north-york.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Vey Willetts LLP",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.4202825,
+  "lng": -75.7010451,
+  "address": "222 Queen St Ste 1023, Ottawa, ON K1P 5E4",
+  "phone": "+18002967989",
+  "rating": 4.9,
+  "count": 66,
+  "slug": "vey-willetts-llp-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Vey+Willetts+LLP+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=222+Queen+St+Ste+1023%2C+Ottawa%2C+ON+K1P+5E4",
+  "website": "https://www.vwlawyers.ca",
+  "blurb": "Employment Law in Ottawa. Rated 4.9 from 66 Google reviews.",
+  "type": "logo",
+  "about": "Employment law is the sole focus of Vey Willetts LLP, an Ottawa firm acting for both employers and employees in workplace disputes.\n\nIts lawyers are Andrew N. Vey, Paul J. Willetts, Maureen Carlos and R. Ross Dunsmore. They have appeared before the Ontario Court of Justice, the Superior Court of Justice, the Court of Appeal for Ontario, the Human Rights Tribunal of Ontario, the Ontario Labour Relations Board and the Canada Industrial Relations Board, as well as in arbitrations and mediations. The downtown Ottawa office serves the National Capital Region and communities including Brockville, Cornwall, Kingston, Pembroke, Petawawa and Carleton Place.",
+  "src": "images/logos/vey-willetts-llp-ottawa.webp"
+ },
+ {
+  "name": "RPC Personal Injury Lawyer",
+  "city": "Richmond Hill",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.844475,
+  "lng": -79.385304,
+  "address": "15 Wertheim Ct, Richmond Hill, ON L4B 3H7",
+  "phone": "+12898092817",
+  "rating": 4.9,
+  "count": 61,
+  "slug": "rpc-personal-injury-lawyer-richmond-hill",
+  "mapsUrl": "https://www.google.com/maps/search/RPC+Personal+Injury+Lawyer+Richmond+Hill+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=15+Wertheim+Ct%2C+Richmond+Hill%2C+ON+L4B+3H7",
+  "website": "https://rpclaw.ca",
+  "blurb": "Personal Injury in Richmond Hill. Rated 4.9 from 61 Google reviews.",
+  "type": "logo",
+  "about": "Based in Richmond Hill, RPC Personal Injury Lawyer handles car accidents, slip and falls and other personal injury cases.\n\nThe practice also covers pedestrian and motorcycle accidents, dog bite incidents, public transit accidents, orthopaedic injuries and traumatic brain injuries. Operating as RPC Law, it has offices in Richmond Hill, Vaughan and Georgetown and belongs to the BARAPP Law Alliance. Its staff are multilingual, and its lawyers deal with insurance adjusters on behalf of injured people.",
+  "src": "images/logos/rpc-personal-injury-lawyer-richmond-hill.png"
+ },
+ {
+  "name": "S & S LEX PC",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Criminal Defence",
+   "Real Estate",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "immigration",
+   "criminal",
+   "realestate",
+   "litigation"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.591005,
+  "lng": -79.636756,
+  "address": "90 Burnhamthorpe Rd W Ste 1501, Mississauga, ON L5B 3C3",
+  "phone": "+16476769745",
+  "rating": 5,
+  "count": 59,
+  "slug": "s-and-s-lex-pc-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/S+%26+S+LEX+PC+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=90+Burnhamthorpe+Rd+W+Ste+1501%2C+Mississauga%2C+ON+L5B+3C3",
+  "website": "https://sslex.ca",
+  "blurb": "Immigration / Criminal Defence in Mississauga. Rated 5.0 from 59 Google reviews.",
+  "type": "logo",
+  "about": "Immigration, real estate and criminal defence matters across Ontario are handled by S & S LEX PC, a Mississauga law firm.\n\nDirectors Shivangi Bansal and Shubham Bansal bring backgrounds in both Canadian and international law. Real estate work covers residential and commercial transactions, title transfers, mortgage refinancing and contract drafting. Immigration work covers visa processing, sponsorship, citizenship and permanent residence applications and appeals, and Shivangi Bansal has taken challenges to IRCC decisions to the Federal Court. The firm also prepares powers of attorney and defends criminal charges in the Ontario justice system.",
+  "src": "images/logos/s-and-s-lex-pc-mississauga.webp"
+ },
+ {
+  "name": "Harsimran Makkar Law Professional Corporation",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Family Law"
+  ],
+  "caseTypes": [
+   "immigration",
+   "family"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.6816981,
+  "lng": -79.7648438,
+  "address": "180 Queen St W, Brampton, ON L6X 1A8",
+  "phone": "+14168981313",
+  "rating": 5,
+  "count": 59,
+  "slug": "harsimran-makkar-law-professional-corporation-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Harsimran+Makkar+Law+Professional+Corporation+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=180+Queen+St+W%2C+Brampton%2C+ON+L6X+1A8",
+  "website": "https://hmakkarlaw.ca",
+  "blurb": "Immigration / Family Law in Brampton. Rated 5.0 from 59 Google reviews.",
+  "type": "logo",
+  "about": "In Brampton, Harsimran Makkar Law Professional Corporation handles immigration, family and civil litigation matters.\n\nHarsimran Makkar takes the time to listen to each client, assess the available legal options and give strategic guidance tailored to the client's situation. The practice works within Ontario's laws and regulations and takes a proactive approach to each file. Its family law work looks at the rights and obligations people hold before they make significant decisions about their family. The office is on Queen Street West.",
+  "src": "images/logos/harsimran-makkar-law-professional-corporation-brampton.png",
+  "bioImage": "images/bio/harsimran-makkar-law-professional-corporation-brampton.webp"
+ },
+ {
+  "name": "Hoffman Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7323261,
+  "lng": -79.4188601,
+  "address": "193 Roe Ave, Toronto, ON M5M 2J1",
+  "phone": "+14166310000",
+  "rating": 4.9,
+  "count": 60,
+  "slug": "hoffman-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Hoffman+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=193+Roe+Ave%2C+Toronto%2C+ON+M5M+2J1",
+  "website": "https://www.hoffmanlaw.ca",
+  "blurb": "Personal Injury in Toronto. Rated 4.9 from 60 Google reviews.",
+  "type": "logo",
+  "about": "Toronto personal injury and disability lawyers at Hoffman Law handle accident benefits, motor vehicle cases and long-term disability denials. The firm also deals with life insurance disputes.\n\nJennifer Hoffman has nearly a decade of experience at personal injury practices in Toronto, and the team includes Angela Broccolini, Anastasia Aivalis and Eli Yufest. Hoffman Law serves clients in Toronto and North York as well as throughout Ontario from its office on Roe Avenue, and it addresses who may be responsible after impaired-driving and motorcycle collisions and how accident benefits differ from an injury lawsuit.",
+  "src": "images/logos/hoffman-law-toronto.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  },
+  "heroImage": "images/hero/hoffman-law-toronto.webp"
+ },
+ {
+  "name": "Dudzic, Peter",
+  "city": "Hamilton",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.2204865,
+  "lng": -79.8624978,
+  "address": "883 Upper Wentworth St, Hamilton, ON L9A 4Y6",
+  "phone": "+19053184441",
+  "rating": 4.8,
+  "count": 61,
+  "slug": "dudzic-peter-hamilton",
+  "mapsUrl": "https://www.google.com/maps/search/Dudzic%2C+Peter+Hamilton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=883+Upper+Wentworth+St%2C+Hamilton%2C+ON+L9A+4Y6",
+  "website": "https://www.dudziclaw.ca",
+  "blurb": "General practice law firm in Hamilton. Rated 4.8 from 61 Google reviews.",
+  "type": "logo",
+  "about": "Residential real estate and mortgages are the main work of Peter Dudzic Law, a Hamilton practice.\n\nPeter Dudzic, B.A., LL.B., earned his law degree at the University of New Brunswick after a Bachelor of Arts at the University of Western Ontario, and was called to the bar in 1994. He has practised in Hamilton since then and is a member of the Hamilton Law Association. The office handles the sale and purchase of resale properties and new and refinanced mortgages. It is in the Lime Ridge Office Complex on Hamilton Mountain, across from Lime Ridge Mall, and is wheelchair accessible.",
+  "src": "images/logos/dudzic-peter-hamilton.png"
+ },
+ {
+  "name": "Legal Route",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.7103569,
+  "lng": -79.6851176,
+  "address": "2074 Steeles Ave E Unit 17, Brampton, ON L6T 5A5",
+  "phone": "+19052838514",
+  "rating": 5,
+  "count": 58,
+  "slug": "legal-route-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Legal+Route+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2074+Steeles+Ave+E+Unit+17%2C+Brampton%2C+ON+L6T+5A5",
+  "website": "https://www.legalroute.ca",
+  "blurb": "General practice law firm in Brampton. Rated 5.0 from 58 Google reviews.",
+  "type": "logo",
+  "about": "Business, family, real estate, criminal, personal injury and estate law are all offered by Legal Route, a full-service firm in Brampton.\n\nFounder Vinay Thapliyal conceived the firm in 2017 while studying law at the University of Windsor, after noticing that many firms practise in only a few areas. The practice also covers civil litigation and construction law, and its business law work includes formation, contracts, compliance, mergers and acquisitions. Meetings take place virtually or in person, and clients are served across the Greater Toronto Area and in cities such as Ottawa, Hamilton, London, Kitchener and Windsor.",
+  "src": "images/logos/legal-route-brampton.png"
+ },
+ {
+  "name": "WPC Personal Injury Lawyer",
+  "city": "Etobicoke",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.736019,
+  "lng": -79.600555,
+  "address": "127 Westmore Dr, Etobicoke, ON M9V 3Y6",
+  "phone": "+18002990336",
+  "rating": 5,
+  "count": 58,
+  "slug": "wpc-personal-injury-lawyer-etobicoke",
+  "mapsUrl": "https://www.google.com/maps/search/WPC+Personal+Injury+Lawyer+Etobicoke+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=127+Westmore+Dr%2C+Etobicoke%2C+ON+M9V+3Y6",
+  "website": "https://wpclaw.ca",
+  "blurb": "Personal Injury in Etobicoke. Rated 5.0 from 58 Google reviews.",
+  "type": "logo",
+  "about": "Etobicoke-based WPC Personal Injury Lawyer handles car accidents, slips and falls and other injury cases.\n\nEric Barapp leads a team that also includes Lorne Weinstock, Eti Taylor and Nabeel Sera, and he is a graduate of Osgoode Hall Law School. Practice areas include orthopaedic injuries, motorcycle, pedestrian and public transit accidents and dog bite incidents. Each case is assigned a case manager who coordinates documents and communication with the other parties. Operating as WPC Law, the firm has offices in Etobicoke, Scarborough and Cayuga and belongs to the BARAPP Law Alliance.",
+  "src": "images/logos/wpc-personal-injury-lawyer-etobicoke.png"
+ },
+ {
+  "name": "Yazdani Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7662143,
+  "lng": -79.4128728,
+  "address": "5000 Yonge St Ste 1901, North York, ON M2N 0A7",
+  "phone": "+14166308880",
+  "rating": 4.9,
+  "count": 59,
+  "slug": "yazdani-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Yazdani+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5000+Yonge+St+Ste+1901%2C+North+York%2C+ON+M2N+0A7",
+  "website": "https://disabilitylawyertoronto.ca",
+  "blurb": "Personal Injury in North York. Rated 4.9 from 59 Google reviews.",
+  "type": "logo",
+  "about": "Denied and terminated long-term disability benefits are the focus of Yazdani Law, a North York practice led by Mark Yazdani. The practice acts in court against insurance companies for people whose short-term or long-term disability benefits were denied or cut off.\n\nMark Yazdani has more than 17 years of experience as a disability lawyer. His cases involve fibromyalgia and chronic pain as well as psychiatric conditions such as depression, anxiety, bipolar disorder, PTSD and panic disorder. The practice serves Toronto and the surrounding areas from its Yonge Street office and acts for clients across Ontario.",
+  "src": "images/logos/yazdani-law-north-york.png"
+ },
+ {
+  "name": "LeadRight Law",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "criminal"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.392545,
+  "lng": -79.6934445,
+  "address": "136 Bayfield St Ste 108, Barrie, ON L4M 3B3",
+  "phone": "+16479545515",
+  "rating": 4.9,
+  "count": 59,
+  "slug": "leadright-law-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/LeadRight+Law+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=136+Bayfield+St+Ste+108%2C+Barrie%2C+ON+L4M+3B3",
+  "website": "https://www.leadrightlaw.com",
+  "blurb": "Family Law / Immigration in Barrie. Rated 4.9 from 59 Google reviews.",
+  "type": "logo",
+  "about": "From its Barrie office, LeadRight Law offers real estate, family, criminal, immigration and estates services.\n\nPrincipal lawyer Sreejith Subrahmanian has more than a decade of experience and worked with domestic and international law firms before founding the practice. Services are offered in English, Malayalam, Hindi and Tamil. Real estate work includes the purchase, sale and lease of commercial property and the drafting of contracts and leases, family work includes pre-nuptial agreements and parenting plans, and notary services include powers of attorney for selling overseas property. Fees may be flat fees or limited scope retainers.",
+  "src": "images/logos/leadright-law-barrie.png"
+ },
+ {
+  "name": "Kinza Law Office Professional Corporation",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7734292,
+  "lng": -79.3313383,
+  "address": "150 Consumers Rd Ste 105, North York, ON M2J 1P9",
+  "phone": "+14162690444",
+  "rating": 5,
+  "count": 57,
+  "slug": "kinza-law-office-professional-corporation-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Kinza+Law+Office+Professional+Corporation+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=150+Consumers+Rd+Ste+105%2C+North+York%2C+ON+M2J+1P9",
+  "website": "https://www.kinzalawoffice.com",
+  "blurb": "Real Estate in North York. Rated 5.0 from 57 Google reviews.",
+  "type": "logo",
+  "about": "Residential sales, purchases, refinancing and private mortgages are the core work of Kinza Law Office Professional Corporation in North York.\n\nKinza Haider is the barrister, solicitor and notary public behind the firm, and the team also includes Sameena Naz and Mohammad Asad. Other services include notary public work, status certificates, affidavits, marriage contracts, commercial lease agreements and wills. The office on Consumers Road is open Monday to Friday from 9:30 a.m. to 5:30 p.m. and on weekends by appointment.",
+  "src": "images/logos/kinza-law-office-professional-corporation-north-york.png",
+  "bioImage": "images/bio/kinza-law-office-professional-corporation-north-york.webp"
+ },
+ {
+  "name": "Brykman Lefler Lawyers",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7649894,
+  "lng": -79.4121411,
+  "address": "4950 Yonge St Ste 1202, North York, ON M2N 6K1",
+  "phone": "+19053004991",
+  "rating": 4.9,
+  "count": 58,
+  "slug": "brykman-lefler-lawyers-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Brykman+Lefler+Lawyers+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4950+Yonge+St+Ste+1202%2C+North+York%2C+ON+M2N+6K1",
+  "website": "https://www.bllawyers.ca",
+  "blurb": "Real Estate / Wills & Estates in North York. Rated 4.9 from 58 Google reviews.",
+  "type": "logo",
+  "about": "Practising in association from North York, Brykman Lefler Lawyers covers real estate, litigation, business and estate matters.\n\nThe lawyers are not in partnership, and they combine litigation and solicitor work. The firm was formed in early 2014 and is located in the Madison Centre on Yonge Street. Bobby Brykman, an Osgoode Hall Law School graduate of 2010, handles purchases, sales, title transfers, refinances, condominium and development work, leasing and title inquiries. The firm is a member of the LawyerConnection network.",
+  "src": "images/logos/brykman-lefler-lawyers-north-york.webp",
+  "bioImage": "images/bio/brykman-lefler-lawyers-north-york.webp"
+ },
+ {
+  "name": "Day + Borg LLP",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5845893,
+  "lng": -79.7173128,
+  "address": "93 Queen St S, Mississauga, ON L5M 1K7",
+  "phone": "+19058265670",
+  "rating": 4.8,
+  "count": 59,
+  "slug": "day-borg-llp-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Day+%2B+Borg+LLP+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=93+Queen+St+S%2C+Mississauga%2C+ON+L5M+1K7",
+  "website": "https://www.dayborg.com",
+  "blurb": "Real Estate in Mississauga. Rated 4.8 from 59 Google reviews.",
+  "type": "logo",
+  "about": "Established in 1980, Day + Borg LLP practises business, real estate, family and estate law from Streetsville in Mississauga.\n\nThe practice has stayed in the Village of Streetsville, moving in 1989 and again in 1994 to its current office on Queen Street South, and it now employs 14 staff. Business clients include corporations, entrepreneurs, emerging companies, controlling shareholders, management buy-out groups and boards of directors. The real estate group handles title searches, residential and commercial purchases and sales, and secured and unsecured mortgage lending, while the estates group prepares wills, family trusts and powers of attorney.",
+  "src": "images/logos/day-borg-llp-mississauga.webp",
+  "bioImage": "images/bio/day-borg-llp-mississauga.webp"
+ },
+ {
+  "name": "Nathens, Siegel LLP",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7594667,
+  "lng": -79.4098833,
+  "address": "4711 Yonge St Ste 101, North York, ON M2N 6K8",
+  "phone": "+12269802200",
+  "rating": 4.6,
+  "count": 61,
+  "slug": "nathens-siegel-llp-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Nathens%2C+Siegel+LLP+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4711+Yonge+St+Ste+101%2C+North+York%2C+ON+M2N+6K8",
+  "website": "https://www.nathenssiegel.com",
+  "blurb": "Family Law in North York. Rated 4.6 from 61 Google reviews.",
+  "type": "logo",
+  "about": "Family law and divorce clients in North York and Mississauga are served by Nathens, Siegel LLP, a firm founded in 1995.\n\nKen Nathens and Brahm Siegel started the firm, and both are certified in family law by the Law Society of Ontario. Barbara Kristanic and Glen Schwartz are also partners. Lawyers can serve clients in English or French. Matters are resolved by agreement, alternative dispute resolution or in court, and topics include the date of separation and how spousal support is calculated. The lawyers write and speak on family law, and the two offices serve families across the Greater Toronto Area.",
+  "src": "images/logos/nathens-siegel-llp-north-york.webp"
+ },
+ {
+  "name": "Marin Immigration Law",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.4189676,
+  "lng": -75.7020451,
+  "address": "280 Albert St #802, Ottawa, ON K1P 5G8",
+  "phone": "+16134545760",
+  "rating": 5,
+  "count": 55,
+  "slug": "marin-immigration-law-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Marin+Immigration+Law+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=280+Albert+St+%23802%2C+Ottawa%2C+ON+K1P+5G8",
+  "website": "https://www.marinimmigrationlaw.ca",
+  "blurb": "Immigration in Ottawa. Rated 5.0 from 55 Google reviews.",
+  "type": "logo",
+  "about": "Ottawa's Marin Immigration Law handles citizenship by descent, Express Entry and sponsorship applications for families around the world.\n\nFounded in 2023, the firm pairs its lawyers with an in-house genealogist who locates family records for citizenship by descent applications, including those under Bill C-3. It also prepares work and study permits, files reconsideration requests, and brings Federal Court applications to overturn IRCC refusals, as well as mandamus applications. The lawyers work in English and French and are licensed by the Law Society of Ontario.",
+  "src": "images/logos/marin-immigration-law-ottawa.webp"
+ },
+ {
+  "name": "Prior Law PC",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.4184241,
+  "lng": -75.6905294,
+  "address": "200 Cooper St #4, Ottawa, ON K2P 0G1",
+  "phone": "+16134342136",
+  "rating": 4.9,
+  "count": 56,
+  "slug": "prior-law-pc-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Prior+Law+PC+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=200+Cooper+St+%234%2C+Ottawa%2C+ON+K2P+0G1",
+  "website": "https://www.priorlaw.ca",
+  "blurb": "Employment Law in Ottawa. Rated 4.9 from 56 Google reviews.",
+  "type": "logo",
+  "about": "Luke Prior practises employment law for employees in Ottawa through Prior Law PC, covering severance, dismissal and human rights.\n\nHis work covers Ontario and federal workplace law, including constructive dismissal, employment standards, human rights and the assessment of severance packages. He also advises unions on collective agreement interpretation, grievance management, arbitration and bargaining, drawing on articling at an Ottawa labour firm. Meetings can be held virtually, by telephone or in person.",
+  "src": "images/logos/prior-law-pc-ottawa.png"
+ },
+ {
+  "name": "AJ Murray Legal Services Professional Corporation",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.4188072,
+  "lng": -75.7015609,
+  "address": "275 Slater St. #900, Ottawa, ON K1P 6A6",
+  "phone": "+18882176707",
+  "rating": 4.6,
+  "count": 59,
+  "slug": "aj-murray-legal-services-professional-corporation-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/AJ+Murray+Legal+Services+Professional+Corporation+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=275+Slater+St.+%23900%2C+Ottawa%2C+ON+K1P+6A6",
+  "website": "https://www.ajmurraylaw.ca",
+  "blurb": "Employment Law in Ottawa. Rated 4.6 from 59 Google reviews.",
+  "type": "logo",
+  "about": "Paralegals at AJ Murray Legal Services Professional Corporation handle landlord and tenant, human rights and provincial offences matters in Ottawa.\n\nThe firm also has offices in Toronto and Hamilton. Licensed paralegal and notary public Amri Murray holds a law degree from the University of London and has more than 16 years in the legal industry. The firm appears before the Landlord and Tenant Board, the Ontario Court of Justice and the Human Rights Tribunal, and handles employment standards issues such as minimum wage and hours of work, from negotiation through to litigation.",
+  "src": "images/logos/aj-murray-legal-services-professional-corporation-ottawa.png"
+ },
+ {
+  "name": "Archstone Law Professional Corporation",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5971519,
+  "lng": -79.6360272,
+  "address": "4 Robert Speck Pkwy Ste 200, Mississauga, ON L4Z 1S1",
+  "phone": "+14167314272",
+  "rating": 4.6,
+  "count": 57,
+  "slug": "archstone-law-professional-corporation-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Archstone+Law+Professional+Corporation+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4+Robert+Speck+Pkwy+Ste+200%2C+Mississauga%2C+ON+L4Z+1S1",
+  "website": "https://archstonelaw.ca",
+  "blurb": "Personal Injury in Mississauga. Rated 4.6 from 57 Google reviews.",
+  "type": "logo",
+  "about": "Archstone Law Professional Corporation, in Mississauga, acts in real estate, family, immigration, estates and civil litigation matters.\n\nAreesha Raja is the principal lawyer. She articled at an estate litigation firm in downtown Toronto, worked at firms in immigration, family, civil litigation and real estate, and represented clients at a ten-day civil trial in her first year as a lawyer. The firm acts for both plaintiffs and defendants in Ontario litigation, handles residential and commercial real estate transactions and prepares wills. During law school Areesha sat on a pro bono committee, and she still serves clients who might not otherwise afford a lawyer.",
+  "src": "images/logos/archstone-law-professional-corporation-mississauga.png"
+ },
+ {
+  "name": "Li Cheng Business & Real Estate Law",
+  "city": "Hamilton",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.2575053,
+  "lng": -79.8746777,
+  "address": "10 George St Ste 200, Hamilton, ON L8P 1C8",
+  "phone": "+19055262127",
+  "rating": 4.9,
+  "count": 53,
+  "slug": "li-cheng-business-and-real-estate-law-hamilton",
+  "mapsUrl": "https://www.google.com/maps/search/Li+Cheng+Business+%26+Real+Estate+Law+Hamilton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10+George+St+Ste+200%2C+Hamilton%2C+ON+L8P+1C8",
+  "website": "https://lcheng.ca",
+  "blurb": "Real Estate / Wills & Estates in Hamilton. Rated 4.9 from 53 Google reviews.",
+  "type": "logo",
+  "about": "Serving Hamilton, Burlington and Oakville, Li Cheng Business & Real Estate Law handles residential and commercial real estate and business law. The firm has been in practice for more than ten years.\n\nLi Cheng previously worked for all three levels of government advising on major public land development projects, and now acts for developers, lenders, businesses and home buyers and sellers. His work includes residential development projects ranging from $10 million to $200 million, as well as purchases, sales, refinancing, title transfers and private mortgages. Offices serve Hamilton, Burlington, St. Catharines and the Niagara Region, and services are available in English, Mandarin, Cantonese and Arabic.",
+  "src": "images/logos/li-cheng-business-and-real-estate-law-hamilton.jpg",
+  "bioImage": "images/bio/li-cheng-business-and-real-estate-law-hamilton.webp"
+ },
+ {
+  "name": "Lakhan Tram LLP",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Civil Litigation",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "family",
+   "litigation",
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5912644,
+  "lng": -79.636863,
+  "address": "90 Burnhamthorpe Rd W #1400, Mississauga, ON L5B 3C3",
+  "phone": "+14166131158",
+  "rating": 4.9,
+  "count": 52,
+  "slug": "lakhan-tram-llp-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Lakhan+Tram+LLP+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=90+Burnhamthorpe+Rd+W+%231400%2C+Mississauga%2C+ON+L5B+3C3",
+  "website": "https://ltllp.ca",
+  "blurb": "Family Law / Civil Litigation in Mississauga. Rated 4.9 from 52 Google reviews.",
+  "type": "logo",
+  "about": "Family law and civil litigation clients across Mississauga and the GTA are served by Lakhan Tram LLP, a boutique firm.\n\nSean Lakhan and Daniel Tram lead the firm, whose lawyers appear regularly before the Ontario Court of Justice and the Superior Court of Justice for conferences, motions and trials. They also handle mediations and prepare domestic contracts. Family matters include child support, spousal support, property division, parenting disputes, exclusive possession of the family home, and unjust enrichment and constructive trust issues. Clients include individuals, families and small businesses.",
+  "src": "images/logos/lakhan-tram-llp-mississauga.webp",
+  "hours": {
+   "1": [
+    [
+     "08:30",
+     "17:00"
+    ],
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "08:30",
+     "17:00"
+    ],
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "08:30",
+     "17:00"
+    ],
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "08:30",
+     "17:00"
+    ],
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "08:30",
+     "17:00"
+    ],
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  },
+  "bioImage": "images/bio/lakhan-tram-llp-mississauga.webp"
+ },
+ {
+  "name": "Duke Law Firm",
+  "city": "Etobicoke",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.621559,
+  "lng": -79.522878,
+  "address": "1199 The Queensway, Etobicoke, ON M8Z 1R7",
+  "phone": "+14164568501",
+  "rating": 4.9,
+  "count": 51,
+  "slug": "duke-law-firm-etobicoke",
+  "mapsUrl": "https://www.google.com/maps/search/Duke+Law+Firm+Etobicoke+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1199+The+Queensway%2C+Etobicoke%2C+ON+M8Z+1R7",
+  "website": "https://www.dukelawfirm.ca",
+  "blurb": "Real Estate / Wills & Estates in Etobicoke. Rated 4.9 from 51 Google reviews.",
+  "type": "logo",
+  "about": "Real estate, business and wills and estates work in Etobicoke is the focus of Duke Law Firm, based in Toronto's west end.\n\nMarko Djukic leads the practice. A graduate of Osgoode Hall Law School, he finished the Schulich School of Business with distinction and worked in financial services before becoming a lawyer. The firm acts for individuals and small businesses and for national and international clients, including on probate. It bills by task, with the same fees for everyone and no hidden fees or disbursements, so clients have cost certainty.",
+  "src": "images/logos/duke-law-firm-etobicoke.jpg"
+ },
+ {
+  "name": "NIKA LAW LLP",
+  "city": "Etobicoke",
+  "featured": false,
+  "tags": [
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6455391,
+  "lng": -79.5222505,
+  "address": "Bloor Islington Place, 3280 Bloor St W Ste 1050, Etobicoke, ON M8X 2X3",
+  "phone": "+19056027370",
+  "rating": 4.8,
+  "count": 52,
+  "slug": "nika-law-llp-etobicoke",
+  "mapsUrl": "https://www.google.com/maps/search/NIKA+LAW+LLP+Etobicoke+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=Bloor+Islington+Place%2C+3280+Bloor+St+W+Ste+1050%2C+Etobicoke%2C+ON+M8X+2X3",
+  "website": "https://www.nikalaw.ca",
+  "blurb": "Civil Litigation in Etobicoke. Rated 4.8 from 52 Google reviews.",
+  "type": "logo",
+  "about": "Wills, estates, trusts and elder law, including estate litigation, are the work of NIKA LAW LLP, a boutique firm in Etobicoke.\n\nThe name joins the names of founders Nithila Murugadas and Kavina Nagrani, who practise on the Etobicoke and Mississauga border. Kavina Nagrani is certified in estates and trusts law by the Law Society of Ontario and holds the TEP designation. The firm handles both planning and litigation, including will challenges, dependants support applications, estate accounting, probate and cases of financial elder abuse and power of attorney abuse. Lawyers meet clients in the office, which sits above Islington subway station, or at home.",
+  "src": "images/logos/nika-law-llp-etobicoke.png"
+ },
+ {
+  "name": "TLC Legal Professional Corporation",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.2649752,
+  "lng": -75.777379,
+  "address": "240 Kennevale Dr Ste 102, Nepean, ON K2J 0C3",
+  "phone": "+16134407400",
+  "rating": 4.8,
+  "count": 51,
+  "slug": "tlc-legal-professional-corporation-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/TLC+Legal+Professional+Corporation+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=240+Kennevale+Dr+Ste+102%2C+Nepean%2C+ON+K2J+0C3",
+  "website": "https://www.tlclegal.ca",
+  "blurb": "Real Estate / Wills & Estates in Ottawa. Rated 4.8 from 51 Google reviews.",
+  "type": "logo",
+  "about": "In the Barrhaven area of Ottawa, TLC Legal Professional Corporation focuses on real estate, wills and estates, and charity law.\n\nTanya Carlton founded the firm after practising since 2013, including time at Carter's Professional Corporation and Drache Aptowitzer LLP, where she served not-for-profit clients. She holds a Juris Doctor from the University of Ottawa. Lawyers Jordan Scorgie and Dean Barrett also practise there. The practice covers home purchases, sales and remortgages, wills and estates, and business, charity and not-for-profit law, and it offers notary public services.",
+  "src": "images/logos/tlc-legal-professional-corporation-ottawa.webp"
+ },
+ {
+  "name": "Bergmanis Preyra LLP",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6655609,
+  "lng": -79.4670496,
+  "address": "Canada, 2926 Dundas St W, Toronto, ON M6P 1Y8",
+  "phone": "+14162561700",
+  "rating": 4.6,
+  "count": 53,
+  "slug": "bergmanis-preyra-llp-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Bergmanis+Preyra+LLP+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=Canada%2C+2926+Dundas+St+W%2C+Toronto%2C+ON+M6P+1Y8",
+  "website": "https://www.bplawyers.ca",
+  "blurb": "Personal Injury in Toronto. Rated 4.6 from 53 Google reviews.",
+  "type": "logo",
+  "about": "Personal injury law in Toronto, Ontario, is the focus of Bergmanis Preyra LLP, which has an office on Dundas Street West.\n\nThe firm acts for individuals and their families who have suffered serious injury, including injuries from car accidents, brain injuries, chronic pain, slip and fall injuries, product liability matters and disability cases.",
+  "src": "images/logos/bergmanis-preyra-llp-toronto.png"
+ },
+ {
+  "name": "RealCorp Law Professional Corporation",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5203179,
+  "lng": -79.6899752,
+  "address": "3075 Ridgeway Dr Unit 32, Mississauga, ON L5L 5M6",
+  "phone": "+19055697920",
+  "rating": 4.9,
+  "count": 49,
+  "slug": "realcorp-law-professional-corporation-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/RealCorp+Law+Professional+Corporation+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3075+Ridgeway+Dr+Unit+32%2C+Mississauga%2C+ON+L5L+5M6",
+  "website": "https://www.real-corp-law.com",
+  "blurb": "General practice law firm in Mississauga. Rated 4.9 from 49 Google reviews.",
+  "type": "logo",
+  "about": "RealCorp Law Professional Corporation is a general practice law firm in Mississauga, Ontario. The office is located at 3075 Ridgeway Drive, Unit 32, in Mississauga, Ontario L5L 5M6. As a general practice, the firm is not limited to a single area of law, and it operates under the name RealCorp Law.",
+  "src": "images/logos/realcorp-law-professional-corporation-mississauga.png"
+ },
+ {
+  "name": "Matthew M Granic & Assoc",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6682843,
+  "lng": -79.3406617,
+  "address": "942 Gerrard St E, Toronto, ON M4M 1Z2",
+  "phone": "+14164611291",
+  "rating": 4.9,
+  "count": 48,
+  "slug": "matthew-m-granic-and-assoc-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Matthew+M+Granic+%26+Assoc+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=942+Gerrard+St+E%2C+Toronto%2C+ON+M4M+1Z2",
+  "website": "https://mglaw.ca",
+  "blurb": "General practice law firm in Toronto. Rated 4.9 from 48 Google reviews.",
+  "type": "logo",
+  "about": "Matthew Granic has practised law in Toronto since 2001, handling immigration applications and criminal defence through Matthew M Granic & Assoc. The office serves clients in the Greater Toronto Area.\n\nHe graduated in law from the University of Windsor in 1999 and works from an office at Gerrard Street East and Pape Avenue, practising in association with the long-established Sharma law office. His practice includes humanitarian and compassionate applications and the defence of criminal and regulatory charges, with attention to the immigration consequences of facing charges. He manages each file personally, and flexible fee rates and payment plans are offered. He is a member of the Law Society of Ontario, the Toronto Lawyers Association and the Criminal Lawyers' Association.",
+  "src": "images/logos/matthew-m-granic-and-assoc-toronto.jpg"
+ },
+ {
+  "name": "Justin T. Chan",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6515771,
+  "lng": -79.3813526,
+  "address": "390 Bay St. #300, Toronto, ON M5H 2Y2",
+  "phone": "+14168672565",
+  "rating": 5,
+  "count": 47,
+  "slug": "justin-t-chan-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Justin+T.+Chan+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=390+Bay+St.+%23300%2C+Toronto%2C+ON+M5H+2Y2",
+  "website": "https://www.jtcprofcorp.com",
+  "blurb": "Civil Litigation in Toronto. Rated 5.0 from 47 Google reviews.",
+  "type": "logo",
+  "about": "Justin Chan is a Toronto barrister and solicitor handling commercial litigation and part-time general counsel work. The practice focuses on helping businesses prevent and prepare for litigation and on representing clients in litigation.\n\nChan was called to the bar in 2013 and holds LL.B. and LL.M. degrees from Cardiff Law School in Wales. He covers contracts and court processes in plain language, and his approach is to listen, identify the relevant facts, establish the client's goal and advise on the most efficient way to reach it. His office is on Bay Street, and he will travel to meet clients across the GTA. He is also Vice President of Operations of Judo Ontario.",
+  "src": "images/logos/justin-t-chan-toronto.png"
+ },
+ {
+  "name": "Thind Law Enterprise Professional Corporation",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.7383877,
+  "lng": -79.6877585,
+  "address": "50 Delta Park Blvd Unit 4, Brampton, ON L6T 5E8",
+  "phone": "+16475675218",
+  "rating": 5,
+  "count": 47,
+  "slug": "thind-law-enterprise-professional-corporation-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Thind+Law+Enterprise+Professional+Corporation+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=50+Delta+Park+Blvd+Unit+4%2C+Brampton%2C+ON+L6T+5E8",
+  "website": "https://www.tlepc.ca",
+  "blurb": "General practice law firm in Brampton. Rated 5.0 from 47 Google reviews.",
+  "type": "logo",
+  "about": "Real estate, corporate and immigration law are the main work of Thind Law Enterprise Professional Corporation in Brampton. The firm also takes on civil litigation and other matters for clients across Canada.\n\nIts office is on Delta Park Boulevard, and meetings are held in person or virtually. Clients are kept informed at each stage of a file and have easy access to their lawyer. Fees are competitive, payment arrangements are flexible, and legal strategy is set around each client's goals. The corporate, real estate and immigration work is aimed at keeping transactions manageable for business owners who want to focus on growth.",
+  "src": "images/logos/thind-law-enterprise-professional-corporation-brampton.jpg"
+ },
+ {
+  "name": "BridgePoint Law",
+  "city": "Kingston",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "immigration",
+   "litigation"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 44.2336323,
+  "lng": -76.4882174,
+  "address": "221 Queen St Unit 127, Kingston, ON K7K 1B4",
+  "phone": "+16134171850",
+  "rating": 5,
+  "count": 47,
+  "slug": "bridgepoint-law-kingston",
+  "mapsUrl": "https://www.google.com/maps/search/BridgePoint+Law+Kingston+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=221+Queen+St+Unit+127%2C+Kingston%2C+ON+K7K+1B4",
+  "website": "https://bridgepointlaw.ca",
+  "blurb": "Immigration / Civil Litigation in Kingston. Rated 5.0 from 47 Google reviews.",
+  "type": "logo",
+  "about": "From offices in Kingston and Toronto, BridgePoint Law handles immigration and refugee law, Federal Court litigation and cross-border matters. Its lawyers work in English, Mandarin, Cantonese and Persian.\n\nThe immigration practice covers Federal Court applications, appeals to the Immigration Appeal Division and Refugee Appeal Division, mandamus, business immigration, family sponsorship, study and work permits, and inadmissibility arising from criminal records. Refugee work includes hearings before the Refugee Protection Division, and Legal Aid Ontario certificates are accepted. The firm also handles China-related matters, international arbitration, real estate, corporate law and wills, and Dr. Ningjing (Natalie) Zhang is a published legal scholar practising there.",
+  "src": "images/logos/bridgepoint-law-kingston.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "10:00",
+     "14:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "AYF Law Firm",
+  "city": "Markham",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Criminal Defence",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "immigration",
+   "criminal",
+   "litigation"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8539142,
+  "lng": -79.3381945,
+  "address": "3601 Hwy 7 Suite 1104, Markham, ON L3R 0M3",
+  "phone": "+19054708929",
+  "rating": 4.8,
+  "count": 47,
+  "slug": "ayf-law-firm-markham",
+  "mapsUrl": "https://www.google.com/maps/search/AYF+Law+Firm+Markham+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3601+Hwy+7+Suite+1104%2C+Markham%2C+ON+L3R+0M3",
+  "website": "https://www.ayf-law.com",
+  "blurb": "Immigration / Criminal Defence in Markham. Rated 4.8 from 47 Google reviews.",
+  "type": "logo",
+  "about": "Family, criminal, immigration and real estate matters across the Greater Toronto Area are handled by AYF Law Firm in downtown Markham. The team combines lawyers, paralegals and immigration consultants.\n\nFamily services include divorce, separation, arbitration and mediation, asset division, child custody and access, and child support and spousal support. Real estate work covers residential and commercial transactions, title transfers and refinances. The firm also prepares wills and handles civil litigation, immigration appeals and criminal charges, and it works with clients around the globe as well as in the Greater Toronto Area.",
+  "src": "images/logos/ayf-law-firm-markham.png"
+ },
+ {
+  "name": "Aaries Family Law",
+  "city": "Kingston",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 44.2304953,
+  "lng": -76.4827347,
+  "address": "159 Wellington St #4, Kingston, ON K7L 3E1",
+  "phone": "+16134532275",
+  "rating": 4.8,
+  "count": 45,
+  "slug": "aaries-family-law-kingston",
+  "mapsUrl": "https://www.google.com/maps/search/Aaries+Family+Law+Kingston+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=159+Wellington+St+%234%2C+Kingston%2C+ON+K7L+3E1",
+  "website": "https://www.familylawyerdivorcetoronto.com",
+  "blurb": "Family Law in Kingston. Rated 4.8 from 45 Google reviews.",
+  "type": "logo",
+  "about": "Aaries Family Law has offices in Kingston and Toronto and handles divorce, separation, custody, support and property division. Separation agreements and prenuptial agreements are also part of the work.\n\nFounder Mark Kim practised as a family mediator before becoming a family lawyer, holds a Certificate in Family Mediation from York University and completed an internship with child psychologist Dr. Barbara Fidler. Helena Kim is the firm's chief executive officer. Clients set their budget, services and timeframe, and cases can be resolved through negotiation, mediation or collaborative family law. The offices are at Bay and Dundas in Toronto and at Brock and Wellington in Kingston, and the firm serves the GTA, Oshawa, Napanee, Belleville and Brockville.",
+  "src": "images/logos/aaries-family-law-kingston.png"
+ },
+ {
+  "name": "Raluca M. Soica, Barrister & Solicitor",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7742825,
+  "lng": -79.3384032,
+  "address": "2005 Sheppard Ave E Ste 100, North York, ON M2J 5B4",
+  "phone": "+16478499359",
+  "rating": 4.9,
+  "count": 44,
+  "slug": "raluca-m-soica-barrister-and-solicitor-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Raluca+M.+Soica%2C+Barrister+%26+Solicitor+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2005+Sheppard+Ave+E+Ste+100%2C+North+York%2C+ON+M2J+5B4",
+  "website": "https://www.rms-law.ca",
+  "blurb": "General practice law firm in North York. Rated 4.9 from 44 Google reviews.",
+  "type": "logo",
+  "about": "Raluca Soica, Barrister & Solicitor is a general practice law office in North York, Ontario. The office is located at 2005 Sheppard Avenue East, Suite 100, in the Toronto area. Barrister and solicitor is the title used by Ontario lawyers, and the practice is listed as a general practice rather than being limited to one area of law.",
+  "src": "images/logos/raluca-m-soica-barrister-and-solicitor-north-york.png"
+ },
+ {
+  "name": "Chronicle Law P.C.",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5578876,
+  "lng": -79.6996454,
+  "address": "2133 The Chase, Mississauga, ON L5M 3C8",
+  "phone": "+12892709996",
+  "rating": 5,
+  "count": 43,
+  "slug": "chronicle-law-p-c-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Chronicle+Law+P.C.+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2133+The+Chase%2C+Mississauga%2C+ON+L5M+3C8",
+  "website": "https://www.chroniclelaw.com",
+  "blurb": "Family Law in Mississauga. Rated 5.0 from 43 Google reviews.",
+  "type": "logo",
+  "about": "Founded by lawyer Mustafa Khan, Chronicle Law handles family law, wills and estates and civil litigation from Mississauga. Legal services are available in English and Urdu.\n\nMustafa Khan was called to the Ontario bar in 2018 and holds an LL.B. from City, University of London. The practice, which operates as Chronicle Law P.C., serves clients in Mississauga, Toronto, Brampton, Oakville and the wider Greater Toronto Area, with attention to clients of South Asian, Middle Eastern and Muslim heritage. Family work covers divorce, parenting, support, property division, domestic agreements, mediation and collaborative family law, including religious divorce.",
+  "src": "images/logos/chronicle-law-p-c-mississauga.jpg",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Lafrenière Sanna Estate Law",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "wills"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.301497,
+  "lng": -75.9133406,
+  "address": "737 Silver Seven Rd Unit 10, Stittsville, ON K2V 0H3",
+  "phone": "+16138369915",
+  "rating": 5,
+  "count": 43,
+  "slug": "lafreniere-sanna-estate-law-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Lafreni%C3%A8re+Sanna+Estate+Law+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=737+Silver+Seven+Rd+Unit+10%2C+Stittsville%2C+ON+K2V+0H3",
+  "website": "https://estatelawboutique.com",
+  "blurb": "Wills & Estates in Ottawa. Rated 5.0 from 43 Google reviews.",
+  "type": "logo",
+  "about": "Estate planning and trusts are the focus of Lafrenière Sanna Estate Law, formerly Persona Law Group, in the Ottawa area. Its office is in Stittsville.\n\nEach lawyer practises in a limited number of areas so that advice is detailed within those fields, and the combined practices extend from estate planning and powers of attorney to trusts and real estate. Chantal Lafrenière earned her law degree in French at the University of Ottawa and articled at an Ottawa labour and employment firm, and Natalie Sanna is also a lawyer with the firm. A law clerk and administrative staff support the lawyers, and a first meeting is arranged with the lawyer able to advise on the matter.",
+  "src": "images/logos/lafreniere-sanna-estate-law-ottawa.png",
+  "bioImage": "images/bio/lafreniere-sanna-estate-law-ottawa.webp"
+ },
+ {
+  "name": "Azatian Law Professional Corporation",
+  "city": "St. Catharines",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Wills & Estates",
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "family",
+   "wills",
+   "employment"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.1594391,
+  "lng": -79.2481545,
+  "address": "43 Church St Unit 605 C, St. Catharines, ON L2R 7E1",
+  "phone": "+14372466111",
+  "rating": 5,
+  "count": 43,
+  "slug": "azatian-law-professional-corporation-st-catharines",
+  "mapsUrl": "https://www.google.com/maps/search/Azatian+Law+Professional+Corporation+St.+Catharines+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=43+Church+St+Unit+605+C%2C+St.+Catharines%2C+ON+L2R+7E1",
+  "website": "https://www.azatianlaw.com",
+  "blurb": "Family Law / Wills & Estates in St. Catharines. Rated 5.0 from 43 Google reviews.",
+  "type": "logo",
+  "about": "Family law, small business and wills and estates services are offered by Azatian Law Professional Corporation. The firm works collaboratively with clients, and notary public services are available by appointment.\n\nThe office is at 43 Church Street in St. Catharines. Lawyer Lilia holds an Honours Bachelor of Arts in political science from the University of Toronto and received a full academic scholarship in law school, where she was involved with a neighbourhood legal clinic. She volunteers as a mock trial coach with the Ontario Justice Education Network. The business work covers starting, buying or merging with an existing business, and the wills work covers will drafting.",
+  "src": "images/logos/azatian-law-professional-corporation-st-catharines.png"
+ },
+ {
+  "name": "Kooner Law",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.685466,
+  "lng": -79.7615123,
+  "address": "9 George St N Unit 102, Brampton, ON L6X 0T6",
+  "phone": "+19057981826",
+  "rating": 4.9,
+  "count": 43,
+  "slug": "kooner-law-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Kooner+Law+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=9+George+St+N+Unit+102%2C+Brampton%2C+ON+L6X+0T6",
+  "website": "https://www.koonerlaw.ca",
+  "blurb": "Criminal Defence in Brampton. Rated 4.9 from 43 Google reviews.",
+  "type": "logo",
+  "about": "Criminal defence is the only work of Kooner Law, a Brampton firm acting on driving, assault and drug charges. Lawyer Indervir Kooner represents clients at every stage, from arrest through bail, trial and sentencing.\n\nThe firm serves Brampton, Mississauga and the wider Greater Toronto Area and acts across Ontario. It accepts Legal Aid certificates and offers flexible payment options. It also helps clients understand bail and release from custody, how a case will be heard, their rights at trial and sentencing principles, and whether they qualify for Legal Aid Ontario coverage.",
+  "src": "images/logos/kooner-law-brampton.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Mackenzie Family Law PC",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7072517,
+  "lng": -79.3994818,
+  "address": "2300 Yonge St, Toronto, ON M4P 1E4",
+  "phone": "+14165491649",
+  "rating": 5,
+  "count": 41,
+  "slug": "mackenzie-family-law-pc-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Mackenzie+Family+Law+PC+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2300+Yonge+St%2C+Toronto%2C+ON+M4P+1E4",
+  "website": "https://mackenziefamilylaw.com",
+  "blurb": "Family Law in Toronto. Rated 5.0 from 41 Google reviews.",
+  "type": "logo",
+  "about": "Jaclyn Mackenzie leads Mackenzie Family Law PC, a Toronto firm for divorce, parenting, support and child protection cases. Her practice is exclusively family law and child protection law.\n\nJaclyn Mackenzie was called to the Ontario bar in 2014 and founded the firm in 2018 after several years at a boutique family law practice. Her work covers decision-making responsibility, parenting time, child support, spousal support and restraining orders, and a significant part of it involves representing parents and other family members in proceedings with Children's Aid Societies. Legal Aid Ontario certificates are accepted, and private clients can retain the firm hourly or on a flat fee for court materials.",
+  "src": "images/logos/mackenzie-family-law-pc-toronto.png"
+ },
+ {
+  "name": "Farjoud Law Professional Corporation",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7647786,
+  "lng": -79.412983,
+  "address": "4950 Yonge St Ste 2200-12, North York, ON M2N 6K1",
+  "phone": "+16476066776",
+  "rating": 5,
+  "count": 40,
+  "slug": "farjoud-law-professional-corporation-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Farjoud+Law+Professional+Corporation+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4950+Yonge+St+Ste+2200-12%2C+North+York%2C+ON+M2N+6K1",
+  "website": "https://www.farjoudlaw.com",
+  "blurb": "Criminal Defence in North York. Rated 5.0 from 40 Google reviews.",
+  "type": "logo",
+  "about": "In North York, Farjoud Law Professional Corporation defends clients charged with criminal offences in Toronto and across Ontario. The firm is led by criminal defence lawyer Arman Farjoud.\n\nArman Farjoud earned a Bachelor of Arts with Honours at the University of Guelph and a Juris Doctor at the University of Windsor, and he has focused his practice on criminal law, from theft and assault to robbery and murder charges. Services include surrendering to police, bail hearings and bail variations, pre-trials, preliminary hearings, trials, and applications to destroy fingerprints and photos or suspend a criminal record. Clients can reach counsel directly and expect a reply within 24 hours. The firm works in Scarborough, Brampton, Newmarket, Etobicoke, Mississauga and Oshawa.",
+  "src": "images/logos/farjoud-law-professional-corporation-north-york.png"
+ },
+ {
+  "name": "Quail Warfe Kreder LLP",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Personal Injury",
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "injury",
+   "employment"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5923772,
+  "lng": -79.6380369,
+  "address": "East Tower, 77 City Centre Dr Ste 501, Mississauga, ON L5B 1M5",
+  "phone": "+19056025265",
+  "rating": 4.8,
+  "count": 41,
+  "slug": "quail-warfe-kreder-llp-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Quail+Warfe+Kreder+LLP+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=East+Tower%2C+77+City+Centre+Dr+Ste+501%2C+Mississauga%2C+ON+L5B+1M5",
+  "website": "https://www.qwklawyers.com",
+  "blurb": "Personal Injury / Employment Law in Mississauga. Rated 4.8 from 41 Google reviews.",
+  "type": "logo",
+  "about": "Known as QWK Lawyers, Quail Warfe Kreder LLP is a Mississauga personal injury and employment law firm. Its East Tower office is on City Centre Drive.\n\nFounders Luis Quail, Michael Warfe and Richard Kreder established the firm on a philosophy of putting the client first, and they have acted for clients at every level of court. The firm deals with insurance companies, employers, government agencies and other lawyers on a client's behalf so the client can focus on recovery. Personal injury work includes school, daycare and summer camp accidents.",
+  "src": "images/logos/quail-warfe-kreder-llp-mississauga.png"
+ },
+ {
+  "name": "Howard and Howard",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.3928326,
+  "lng": -75.7546329,
+  "address": "376 Churchill Ave N Ste 302, Ottawa, ON K1Z 5C3",
+  "phone": "+16137261221",
+  "rating": 4.8,
+  "count": 41,
+  "slug": "howard-and-howard-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Howard+and+Howard+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=376+Churchill+Ave+N+Ste+302%2C+Ottawa%2C+ON+K1Z+5C3",
+  "website": "https://howardlawoffice.ca",
+  "blurb": "General practice law firm in Ottawa. Rated 4.8 from 41 Google reviews.",
+  "type": "logo",
+  "about": "Howard and Howard is an Ottawa law office covering criminal defence, family law, wills and estates and mental health law. Lawyers David Howard and Daniel Howard serve eastern Ontario and accept Legal Aid certificates for criminal and family matters.\n\nThe firm serves Ottawa, L'Orignal, Pembroke, Renfrew, Killaloe, Kingston, Brockville, Perth, Smiths Falls and Cornwall, and its lawyers have appeared in all levels of court in Ontario. Criminal work ranges from domestic and sexual assault, impaired driving and drug offences to homicide, and includes arranging bail and conducting trials. The firm also prepares wills, powers of attorney and estate applications with or without a will.",
+  "src": "images/logos/howard-and-howard-ottawa.jpg"
+ },
+ {
+  "name": "JBrennan Law",
+  "city": "London",
+  "featured": false,
+  "tags": [
+   "Civil Litigation",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "litigation",
+   "business"
+  ],
+  "region": "southwestern",
+  "province": "ON",
+  "lat": 42.9884909,
+  "lng": -81.2549378,
+  "address": "585 Talbot St, London, ON N6A 2T2",
+  "phone": "+12262366306",
+  "rating": 4.7,
+  "count": 41,
+  "slug": "jbrennan-law-london",
+  "mapsUrl": "https://www.google.com/maps/search/JBrennan+Law+London+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=585+Talbot+St%2C+London%2C+ON+N6A+2T2",
+  "website": "https://www.jbrennanlaw.ca",
+  "blurb": "Civil Litigation / Business Law in London. Rated 4.7 from 41 Google reviews.",
+  "type": "logo",
+  "about": "John Brennan runs JBrennan Law in London, Ontario, handling commercial litigation and business, contract and property disputes. He acts for clients at all levels of court throughout Ontario.\n\nHe also appears before the Human Rights Tribunal, the License Appeal Tribunal and other administrative tribunals. John Brennan is a member of the Middlesex, Elgin, Ontario and Canadian Bar Associations, the Osgoode Society for Legal History and the Advocates Society, and his office is on Talbot Street.",
+  "src": "images/logos/jbrennan-law-london.jpg"
+ },
+ {
+  "name": "Stellar Law Professional Corporation",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7617192,
+  "lng": -79.4080531,
+  "address": "45 Sheppard Ave E #414, North York, ON M2N 5W9",
+  "phone": "+14168212529",
+  "rating": 4.8,
+  "count": 40,
+  "slug": "stellar-law-professional-corporation-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Stellar+Law+Professional+Corporation+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=45+Sheppard+Ave+E+%23414%2C+North+York%2C+ON+M2N+5W9",
+  "website": "https://stellarlaw.ca",
+  "blurb": "General practice law firm in North York. Rated 4.8 from 40 Google reviews.",
+  "type": "logo",
+  "about": "Lawyers at Stellar Law Professional Corporation in North York act in civil litigation, family law and criminal defence. The practice also covers corporate commercial law and wills and estates.\n\nIts lawyers, including Rana Nosratpanah and David Lee, have argued before provincial and federal courts. In family matters the firm works toward resolution through alternative dispute resolution or at trial. Flexible retainers are offered, and legal help is available outside business hours across the Greater Toronto Area, with an office on Sheppard Avenue East.",
+  "src": "images/logos/stellar-law-professional-corporation-north-york.png"
+ },
+ {
+  "name": "Moreau Family Law Professional Corporation",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.3947664,
+  "lng": -79.695176,
+  "address": "178 Bayfield St Ste 302, Barrie, ON L4M 3B5",
+  "phone": "+17057214441",
+  "rating": 4.8,
+  "count": 40,
+  "slug": "moreau-family-law-professional-corporation-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/Moreau+Family+Law+Professional+Corporation+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=178+Bayfield+St+Ste+302%2C+Barrie%2C+ON+L4M+3B5",
+  "website": "https://www.moreaufamilylaw.com",
+  "blurb": "Family Law in Barrie. Rated 4.8 from 40 Google reviews.",
+  "type": "logo",
+  "about": "Divorce, spousal support, child support and property division are the focus of Moreau Family Law Professional Corporation in Barrie. The practice also prepares separation agreements and cohabitation or marriage contracts.\n\nIt advises on changes in circumstances involving children or finances and explores alternative dispute resolution with each client, aiming for low-cost, low-conflict outcomes. Litigation is recommended and handled when needed. Clients come from Barrie, Orillia, Midland, Collingwood, Angus, Alliston, Innisfil, Springwater, Oro Medonte, Bracebridge and the Muskoka area.",
+  "src": "images/logos/moreau-family-law-professional-corporation-barrie.png"
+ },
+ {
+  "name": "Garson Immigration Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7648261,
+  "lng": -79.4128023,
+  "address": "4950 Yonge St # 302, North York, ON M2N 6K1",
+  "phone": "+14163212860",
+  "rating": 4.9,
+  "count": 39,
+  "slug": "garson-immigration-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Garson+Immigration+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4950+Yonge+St+%23+302%2C+North+York%2C+ON+M2N+6K1",
+  "website": "https://www.garsonil.com",
+  "blurb": "Immigration in North York. Rated 4.9 from 39 Google reviews.",
+  "type": "logo",
+  "about": "Immigration law is the only practice of Garson Immigration Law, a North York firm acting for corporations and individuals. It handles Canadian immigration as well as U.S. immigration for Canadians.\n\nFounding partner David Garson has led immigration firms in Toronto and is certified by the Law Society of Ontario in the field. The firm advises on Canadian immigration, including Express Entry, provincial nominee programs and family sponsorship such as the Parents and Grandparents Program, and assists Canadians who want to immigrate to the USA. Clients include businesses and professionals across a range of industries.",
+  "src": "images/logos/garson-immigration-law-north-york.webp"
+ },
+ {
+  "name": "Amani Law Office",
+  "city": "Richmond Hill",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8712158,
+  "lng": -79.4362765,
+  "address": "27 Major Mackenzie Dr E Ste 203, Richmond Hill, ON L4C 1G6",
+  "phone": "+18669485951",
+  "rating": 5,
+  "count": 38,
+  "slug": "amani-law-office-richmond-hill",
+  "mapsUrl": "https://www.google.com/maps/search/Amani+Law+Office+Richmond+Hill+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=27+Major+Mackenzie+Dr+E+Ste+203%2C+Richmond+Hill%2C+ON+L4C+1G6",
+  "website": "https://amanilaw.ca",
+  "blurb": "Real Estate in Richmond Hill. Rated 5.0 from 38 Google reviews.",
+  "type": "logo",
+  "about": "Immigration, notary public, real estate and estate-planning services are offered by Amani Law Office in Richmond Hill. It also acts in civil litigation and criminal matters.\n\nThe office is in Suite 203 at 27 Major Mackenzie Drive East in Richmond Hill, and appointments can be booked. Information about the practice is presented in both English and Farsi. In all, the six service areas are immigration, notary public, real estate, wills and powers of attorney, civil litigation and criminal matters.",
+  "src": "images/logos/amani-law-office-richmond-hill.jpg"
+ },
+ {
+  "name": "Ian J. Collins",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6686842,
+  "lng": -79.3882061,
+  "address": "44 Charles St W Ste 1806, Toronto, ON M4Y 1R7",
+  "phone": "+14168169455",
+  "rating": 4.6,
+  "count": 40,
+  "slug": "ian-j-collins-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Ian+J.+Collins+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=44+Charles+St+W+Ste+1806%2C+Toronto%2C+ON+M4Y+1R7",
+  "website": "https://www.iancollinslawyer.ca",
+  "blurb": "General practice law firm in Toronto. Rated 4.6 from 40 Google reviews.",
+  "type": "logo",
+  "about": "Toronto trial lawyer Ian Collins defends impaired driving, traffic and drug charges across the Greater Toronto Area. His practice is restricted to defending charges.\n\nCharges include over 80, fail to remain, dangerous driving, stunt driving, careless driving and drug offences, as well as traffic tickets. He articled for the Attorney General of Ontario and has conducted trials in all levels of court throughout Ontario. His defence work includes challenging police evidence, notes and reports and raising breaches of the Canadian Charter of Rights. He acts for clients in Toronto, Mississauga, Whitby, Richmond Hill, Markham, Brampton and Oshawa.",
+  "src": "images/logos/ian-j-collins-toronto.png"
+ },
+ {
+  "name": "David Genis",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Criminal Defence",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "criminal",
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7833298,
+  "lng": -79.4160491,
+  "address": "5775 Yonge St #602, North York, ON M2M 4J1",
+  "phone": "+14165122345",
+  "rating": 4.8,
+  "count": 38,
+  "slug": "david-genis-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/David+Genis+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5775+Yonge+St+%23602%2C+North+York%2C+ON+M2M+4J1",
+  "website": "https://davidgenis.ca",
+  "blurb": "Criminal Defence / Civil Litigation in North York. Rated 4.8 from 38 Google reviews.",
+  "type": "logo",
+  "about": "Criminal lawyer David Genis defends impaired driving, assault, drug and other charges from his North York office. He also appears as an immigration lawyer in matters before the Immigration Appeal Division and the Federal Court of Canada.\n\nHe graduated from Osgoode Hall Law School, articled with a Toronto criminal defence firm and appears in the Ontario Court of Justice, the Superior Court and the Court of Appeal for Ontario. Clients speak English, Mandarin, Cantonese, Russian and Ukrainian, and most appear in Toronto, Newmarket or Brampton courts. Charges handled include over 80 mg, refuse sample, dangerous driving, sexual offences, thefts, frauds and domestic assault. He belongs to the Criminal Lawyers Association.",
+  "src": "images/logos/david-genis-north-york.png",
+  "hours": {
+   "1": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "2": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "3": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "4": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "5": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "6": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ],
+   "7": [
+    [
+     "00:00",
+     "23:59"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Junction Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.664227,
+  "lng": -79.4561636,
+  "address": "1655 Dupont St Ste 101, Toronto, ON M6P 3T1",
+  "phone": "+14184551524",
+  "rating": 4.9,
+  "count": 37,
+  "slug": "junction-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Junction+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1655+Dupont+St+Ste+101%2C+Toronto%2C+ON+M6P+3T1",
+  "website": "https://www.junctionlaw.ca",
+  "blurb": "Real Estate in Toronto. Rated 4.9 from 37 Google reviews.",
+  "type": "logo",
+  "about": "Serving clients across Ontario in English and French, Junction Law Professional Corporation is a Toronto real estate law firm. The firm was founded in 2022 by Laurence and has grown into a team of four working only in real estate law.\n\nResidential and commercial work covers acquisitions, financing, dispositions and development for investors, developers, business owners, lenders and property owners, as well as home purchases and refinancing. Laurence holds an LL.B. from Université Laval and an LL.M. in Canadian common law from Osgoode Hall Law School, and her family has a multi-generational involvement in real estate.",
+  "src": "images/logos/junction-law-professional-corporation-toronto.png"
+ },
+ {
+  "name": "Bickhram Litigation",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "litigation"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5937158,
+  "lng": -79.6381064,
+  "address": "55 City Centre Dr #700, Mississauga, ON L4Z 0B8",
+  "phone": "+19053619787",
+  "rating": 4.9,
+  "count": 37,
+  "slug": "bickhram-litigation-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Bickhram+Litigation+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=55+City+Centre+Dr+%23700%2C+Mississauga%2C+ON+L4Z+0B8",
+  "website": "https://www.bickhramlitigation.com",
+  "blurb": "Civil Litigation in Mississauga. Rated 4.9 from 37 Google reviews.",
+  "type": "logo",
+  "about": "Estate, trust, capacity and guardian litigation, along with family law litigation, is the work of Bickhram Litigation in Mississauga. Rick Bickhram leads the practice, which resolves disputes through negotiation, mediation or advocacy in the courtroom.\n\nEstate work includes contesting an estate trustee's compensation, and family matters include the enforceability of kitchen table domestic contracts, as considered in Anderson v. Anderson, 2023 SCC 13. Evening and weekend meetings can be arranged on request, and Shaista Uddin serves as operations manager. The office is on City Centre Drive.",
+  "src": "images/logos/bickhram-litigation-mississauga.png",
+  "bioImage": "images/bio/bickhram-litigation-mississauga.webp"
+ },
+ {
+  "name": "DavyLaw",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7602644,
+  "lng": -79.4109593,
+  "address": "4750 Yonge St Unit 352, North York, ON M2N 0J6",
+  "phone": "+16476136349",
+  "rating": 5,
+  "count": 36,
+  "slug": "davylaw-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/DavyLaw+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4750+Yonge+St+Unit+352%2C+North+York%2C+ON+M2N+0J6",
+  "website": "https://davylaw.ca",
+  "blurb": "Real Estate / Wills & Estates in North York. Rated 5.0 from 36 Google reviews.",
+  "type": "logo",
+  "about": "DavyLaw is a North York practice handling real estate, wills and estates, business and immigration matters across Toronto and the GTA. It also takes on family and franchise work and provides notary services, along with a check of documents before signing, such as agreements of purchase and sale, status certificates and commercial leases.\n\nIrina Davydova studied law at City, University of London, and has experience in real estate law, particularly mortgage matters, having once managed a boutique mortgage brokerage. She also acts on commercial matters and offers immigration services. The firm works in English and Russian, supports virtual signing, offers after-hours and weekend appointments, and provides a land transfer tax calculator that accounts for first-time homebuyer rebates.",
+  "src": "images/logos/davylaw-north-york.webp",
+  "heroImage": "images/hero/davylaw-north-york.webp"
+ },
+ {
+  "name": "Mehrez Law",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.3443123,
+  "lng": -75.9246964,
+  "address": "1000 Innovation Dr Ste 500, Kanata, ON K2K 3E7",
+  "phone": "+16132663239",
+  "rating": 5,
+  "count": 36,
+  "slug": "mehrez-law-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Mehrez+Law+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1000+Innovation+Dr+Ste+500%2C+Kanata%2C+ON+K2K+3E7",
+  "website": "https://www.mehrezlaw.com",
+  "blurb": "General practice law firm in Ottawa. Rated 5.0 from 36 Google reviews.",
+  "type": "logo",
+  "about": "From its Kanata office in Ottawa, Mehrez Law handles business law, employment law, immigration and litigation for clients in Ontario and Quebec. The firm was founded in Ottawa and combines legal training from several jurisdictions with local knowledge.\n\nIts work covers business transactions, litigation and dispute resolution, employment matters for employers and employees, and immigration to Canada. A fractional legal counsel service gives businesses on-demand access to lawyers licensed in Ontario and Québec for contracts, employment questions, litigation risk and immigration issues. Clients include individuals, families and corporations, and the firm also serves people internationally.",
+  "src": "images/logos/mehrez-law-ottawa.png"
+ },
+ {
+  "name": "Sheard Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "family",
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6633962,
+  "lng": -79.3403069,
+  "address": "235 Carlaw Ave 5th Floor, Toronto, ON M4M 2S1",
+  "phone": "+14168609990",
+  "rating": 5,
+  "count": 36,
+  "slug": "sheard-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Sheard+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=235+Carlaw+Ave+5th+Floor%2C+Toronto%2C+ON+M4M+2S1",
+  "website": "https://www.sheardlaw.com",
+  "blurb": "Family Law / Civil Litigation in Toronto. Rated 5.0 from 36 Google reviews.",
+  "type": "logo",
+  "about": "Family law and estate litigation are the core of Sheard Law Professional Corporation, a Toronto firm founded in 2005. Its work also includes probate, estate administration and mediation, and it serves Danforth Village, Riverdale, Leslieville, Playter Estates and East York.\n\nJohn Sheard has more than 20 years of legal experience and training in family mediation. His approach is to organize the issues, run the calculations and seek resolution first, litigating only when necessary. For nearly ten years he has also acted as an agent for the Office of the Children's Lawyer, representing children in high-conflict custody disputes. The firm practises in association with Longo Lawyers, which adds a second office at Yonge and Sheppard.",
+  "src": "images/logos/sheard-law-professional-corporation-toronto.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Stampone Law",
+  "city": "Hamilton",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.2175435,
+  "lng": -79.7219142,
+  "address": "426 ON-8, Stoney Creek, ON L8G 1G2",
+  "phone": "+19055611444",
+  "rating": 5,
+  "count": 36,
+  "slug": "stampone-law-hamilton",
+  "mapsUrl": "https://www.google.com/maps/search/Stampone+Law+Hamilton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=426+ON-8%2C+Stoney+Creek%2C+ON+L8G+1G2",
+  "website": "https://stamponelaw.ca",
+  "blurb": "General practice law firm in Hamilton. Rated 5.0 from 36 Google reviews.",
+  "type": "logo",
+  "about": "Real estate, wills and family law are the work of Stampone Law, a Hamilton-area practice based in Stoney Creek. Siera Stampone is the owner and principal lawyer, and she also advises on estate planning, estate administration and corporate law.\n\nShe earned a Juris Doctor from the University of Ottawa in 2021, where she received the Corbin Estates Law Annual Prize and the STEP Canada Prize in wills and the law of succession. The firm is successor to the practice of Murray Mazza, who practised in Hamilton and the Niagara region for over 40 years, and it now has carriage of his files. Services include home purchases and sales, mortgage refinancing, powers of attorney, trusts and domestic contracts such as cohabitation agreements, marriage contracts and separation agreements.",
+  "src": "images/logos/stampone-law-hamilton.png"
+ },
+ {
+  "name": "Belecky & Belecky",
+  "city": "London",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "southwestern",
+  "province": "ON",
+  "lat": 43.0292355,
+  "lng": -81.2833351,
+  "address": "235 N Centre Rd Ste 104, London, ON N5X 4E7",
+  "phone": "+15196735630",
+  "rating": 5,
+  "count": 36,
+  "slug": "belecky-and-belecky-london",
+  "mapsUrl": "https://www.google.com/maps/search/Belecky+%26+Belecky+London+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=235+N+Centre+Rd+Ste+104%2C+London%2C+ON+N5X+4E7",
+  "website": "https://belecky.ca",
+  "blurb": "Real Estate / Wills & Estates in London. Rated 5.0 from 36 Google reviews.",
+  "type": "logo",
+  "about": "Since 1972, Belecky & Belecky has handled real estate, family, wills and estates and corporate work from London, Ontario. Real estate services cover purchases and sales of homes, condominiums and cottages, title transfers, survivorship applications, private and institutional mortgages, and commercial property transactions, and documents can be signed remotely from anywhere.\n\nAl Belecky has practised in Ontario for over 50 years in commercial real estate, business and corporate law. John Belecky has practised since 2010, focusing on residential real estate, wills and estates and family law, including probate, powers of attorney, family contracts and divorce filings. Together the lawyers serve clients across Ontario online and in person.",
+  "src": "images/logos/belecky-and-belecky-london.png"
+ },
+ {
+  "name": "Coach House Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6698378,
+  "lng": -79.3856671,
+  "address": "33 Bloor St E Suite 1605, Toronto, ON M4Y 3B8",
+  "phone": "+16474838111",
+  "rating": 4.6,
+  "count": 39,
+  "slug": "coach-house-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Coach+House+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=33+Bloor+St+E+Suite+1605%2C+Toronto%2C+ON+M4Y+3B8",
+  "website": "https://www.coachhouselaw.com",
+  "blurb": "Real Estate in Toronto. Rated 4.6 from 39 Google reviews.",
+  "type": "logo",
+  "about": "Business, real estate, health, family and estates law, plus litigation, are handled by the lawyers of Coach House Law in Toronto. David Woodside is managing lawyer, working with lawyers Alex Litwin, Ben Hahn, Bobby Feldman, Sean Carrie and Kelly Sinclair.\n\nBusiness work ranges from start-ups to large private companies, covering mergers, acquisitions, restructuring, intellectual property, employment, debt financing and capital markets. Real estate covers residential and commercial transactions, leasing and financing, while health law deals with regulatory matters, advertising and new ventures. Family law includes divorce, custody and access, support and domestic contracts, and estate planning covers wills, powers of attorney, living wills and trusts. Litigation runs from settlement and alternative dispute resolution to motions and trials.",
+  "src": "images/logos/coach-house-law-toronto.webp"
+ },
+ {
+  "name": "NSPC Law Firm",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Civil Litigation",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "family",
+   "litigation",
+   "business"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.3784357,
+  "lng": -75.639063,
+  "address": "2417 Holly Ln Units 212B-D, Ottawa, ON K1V 7P2",
+  "phone": "+16136003705",
+  "rating": 4.8,
+  "count": 37,
+  "slug": "nspc-law-firm-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/NSPC+Law+Firm+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2417+Holly+Ln+Units+212B-D%2C+Ottawa%2C+ON+K1V+7P2",
+  "website": "https://www.nspclaw.ca",
+  "blurb": "Family Law / Civil Litigation in Ottawa. Rated 4.8 from 37 Google reviews.",
+  "type": "logo",
+  "about": "In Ottawa, the multilingual NSPC Law Firm practises family law, civil litigation and commercial law across Ontario. It is a general practice serving the Greater Ottawa area and the rest of the province, acting for families on personal matters and for businesses on commercial and litigation files.\n\nNikolay Stanchulov is the principal lawyer and director. He holds a Master of International Affairs from Carleton University and a Juris Doctor from the University of Ottawa, and worked in the hospitality industry before founding the firm.",
+  "src": "images/logos/nspc-law-firm-ottawa.webp"
+ },
+ {
+  "name": "Glass Gavel Professional Corporation",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.3878126,
+  "lng": -79.6946248,
+  "address": "49 High St 3rd floor, Barrie, ON L4N 5J4",
+  "phone": "+18333442835",
+  "rating": 4.8,
+  "count": 37,
+  "slug": "glass-gavel-professional-corporation-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/Glass+Gavel+Professional+Corporation+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=49+High+St+3rd+floor%2C+Barrie%2C+ON+L4N+5J4",
+  "website": "https://www.glassgavellaw.com",
+  "blurb": "Criminal Defence in Barrie. Rated 4.8 from 37 Google reviews.",
+  "type": "logo",
+  "about": "Criminal charges, bail and driving offences are the focus of Glass Gavel Professional Corporation, a Barrie paralegal firm. It is owned and operated by Larissa Kushwara, a licensed paralegal and Notary Public in Ontario, and acts for people charged with criminal offences who do not qualify for Legal Aid, with flat fees and payment plans.\n\nAreas include assault, breach of court order, break and enter, cannabis and drug offences, currency and financial offences, environmental offences and firearm offences. Ms. Kushwara grew up in Blind River, Ontario, has represented clients in courtrooms across the province, and started the firm to make legal services more accessible in Northern Ontario.",
+  "src": "images/logos/glass-gavel-professional-corporation-barrie.webp"
+ },
+ {
+  "name": "S S Loomba Law Professional Corporation",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.72941,
+  "lng": -79.79622,
+  "address": "5 B Conestoga Dr Unit 304, Brampton, ON L6Z 4N5",
+  "phone": "+16479171707",
+  "rating": 4.9,
+  "count": 36,
+  "slug": "s-s-loomba-law-professional-corporation-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/S+S+Loomba+Law+Professional+Corporation+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5+B+Conestoga+Dr+Unit+304%2C+Brampton%2C+ON+L6Z+4N5",
+  "website": "https://www.ssloombalaw.ca",
+  "blurb": "Criminal Defence in Brampton. Rated 4.9 from 36 Google reviews.",
+  "type": "logo",
+  "about": "Immigration, real estate, civil litigation and family law are handled at S S Loomba Law Professional Corporation in Brampton. Managing director Shubinder Singh Loomba is a member of the Law Society of Ontario whose practice covers civil litigation, real estate, immigration, corporate and family law.\n\nHe has assisted with matters in the Superior Court and the Ontario Court of Justice, and completed a Master of Laws in Canadian common law at Osgoode Hall Law School and a Master of Laws in corporate law at Amity Law School. The firm serves clients throughout the Greater Toronto Area, offers flexible appointment times and works with flat fees and payment plans.",
+  "src": "images/logos/s-s-loomba-law-professional-corporation-brampton.webp"
+ },
+ {
+  "name": "Sean Kelly Law",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.2703204,
+  "lng": -75.7365905,
+  "address": "301 Bayrose Dr #102, Ottawa, ON K2J 5W3",
+  "phone": "+16139037227",
+  "rating": 4.9,
+  "count": 36,
+  "slug": "sean-kelly-law-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Sean+Kelly+Law+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=301+Bayrose+Dr+%23102%2C+Ottawa%2C+ON+K2J+5W3",
+  "website": "https://sklawottawa.ca",
+  "blurb": "General practice law firm in Ottawa. Rated 4.9 from 36 Google reviews.",
+  "type": "logo",
+  "about": "Based in Barrhaven, Sean Kelly Law handles real estate, wills and estate planning for clients across Ottawa. Sean Kelly is a second-generation lawyer, born and raised in Ottawa, with more than 15 years of experience.\n\nHe acts for first-time home buyers and seasoned investors, prepares agreements of purchase and sale, acts for borrowers or lenders in private financing, and handles title transfers between spouses or family members. The firm also prepares wills and advises on estate planning, and serves all neighbourhoods in Ottawa and surrounding areas.",
+  "src": "images/logos/sean-kelly-law-ottawa.png"
+ },
+ {
+  "name": "Brown Family Law",
+  "city": "Guelph",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "waterloo-guelph",
+  "province": "ON",
+  "lat": 43.5473182,
+  "lng": -80.2542671,
+  "address": "164 Norfolk St, Guelph, ON N1H 1Y2",
+  "phone": "+15197671111",
+  "rating": 4.9,
+  "count": 36,
+  "slug": "brown-family-law-guelph",
+  "mapsUrl": "https://www.google.com/maps/search/Brown+Family+Law+Guelph+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=164+Norfolk+St%2C+Guelph%2C+ON+N1H+1Y2",
+  "website": "https://www.brownfamilylaw.ca",
+  "blurb": "Family Law in Guelph. Rated 4.9 from 36 Google reviews.",
+  "type": "logo",
+  "about": "Brown Family Law and Mediation is a Guelph practice focused on family law settlements, mediation and collaborative law. The principal lawyer became a member of the Ontario bar in 2001, has practised only family law since 2004 and has worked as a sole practitioner since 2007.\n\nAfter about 20 years in the courts, he stopped litigating to concentrate on settlement work, which leaves a more open schedule. He has training in collaborative family law and mediation, seeks to reduce conflict and create value for both sides, and limits the number of clients he acts for. Clients meet with him directly rather than with an assistant or a junior lawyer.",
+  "src": "images/logos/brown-family-law-guelph.png",
+  "bioImage": "images/bio/brown-family-law-guelph.webp"
+ },
+ {
+  "name": "Viridius Lex LLP",
+  "city": "Kingston",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "business"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 44.2336323,
+  "lng": -76.4882174,
+  "address": "221 Queen St, Kingston, ON K7K 1B4",
+  "phone": "+16139001981",
+  "rating": 5,
+  "count": 35,
+  "slug": "viridius-lex-llp-kingston",
+  "mapsUrl": "https://www.google.com/maps/search/Viridius+Lex+LLP+Kingston+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=221+Queen+St%2C+Kingston%2C+ON+K7K+1B4",
+  "website": "https://www.viridius.com",
+  "blurb": "Real Estate / Business Law in Kingston. Rated 5.0 from 35 Google reviews.",
+  "type": "logo",
+  "about": "Real estate, corporate and commercial, environmental and not-for-profit law make up Viridius Lex LLP, a Kingston firm. It also has an office in Toronto, and a digital platform lets it handle real estate transactions anywhere in Ontario, with virtual meetings and electronic signing available.\n\nBusiness services include formation, restructuring, commercial leases and contracts. Environmental work covers regulatory compliance, allocating environmental risk in business and real estate transactions, and drafting and registering conservation easement agreements. The lawyers share a background in public interest law, and the team includes partner Rizwan Khan and law clerk Sandra Choi.",
+  "src": "images/logos/viridius-lex-llp-kingston.jpg"
+ },
+ {
+  "name": "The Criminal Law Team",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7648381,
+  "lng": -79.4127089,
+  "address": "4950 Yonge St SUITE 2200, North York, ON M2N 6K1",
+  "phone": "+14165506554",
+  "rating": 4.8,
+  "count": 36,
+  "slug": "the-criminal-law-team-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/The+Criminal+Law+Team+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4950+Yonge+St+SUITE+2200%2C+North+York%2C+ON+M2N+6K1",
+  "website": "https://thecriminallawteam.ca",
+  "blurb": "Criminal Defence in North York. Rated 4.8 from 36 Google reviews.",
+  "type": "logo",
+  "about": "Criminal defence across Toronto, the GTA and Southern Ontario is the work of The Criminal Law Team, based in North York. Co-founded by Stephen Hebscher, the firm represents people facing domestic assault, sexual assault, dangerous driving, property, violent crime, drug and youth charges, including cases involving mental health considerations.\n\nIts lawyers have decades of combined courtroom experience and have represented clients across Ontario. Stephen Hebscher and Bruce Karten, now retired, each kept their own roster of clients while working together on cases. The firm is available around the clock and publishes case summaries showing the types of matters it has handled.",
+  "src": "images/logos/the-criminal-law-team-north-york.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Kevin Mehar",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6493076,
+  "lng": -79.3853037,
+  "address": "181 University Ave #2200, Toronto, ON M5H 2X7",
+  "phone": "+14166248484",
+  "rating": 5,
+  "count": 34,
+  "slug": "kevin-mehar-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Kevin+Mehar+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=181+University+Ave+%232200%2C+Toronto%2C+ON+M5H+2X7",
+  "website": "https://www.dumasmeharlaw.ca",
+  "blurb": "Criminal Defence in Toronto. Rated 5.0 from 34 Google reviews.",
+  "type": "logo",
+  "about": "Led by Kevin Mehar, Dumas Mehar Law is a Toronto criminal defence firm handling bail hearings and violent, drug and sexual offence charges. Its work also covers driving offences, threats and criminal harassment, firearms and weapons charges, fraud and theft, and Charter rights issues.\n\nKevin Mehar founded the firm after working at the former Adler Bytensky Prutschi and has practised criminal law for over a decade. He earned his Juris Doctor at Osgoode Hall Law School, where he took the Criminal Law Intensive Program, and appears at all levels of court in Ontario. He is fluent in French and English and represents clients in both official languages, and the firm is available 24/7.",
+  "src": "images/logos/kevin-mehar-toronto.jpg"
+ },
+ {
+  "name": "Onley Law Business Lawyers",
+  "city": "Oshawa",
+  "featured": false,
+  "tags": [
+   "Business Law"
+  ],
+  "caseTypes": [
+   "business"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.897281,
+  "lng": -78.8638755,
+  "address": "2 Simcoe St S Ste 300, Oshawa, ON L1H 8C1",
+  "phone": "+19052152156",
+  "rating": 5,
+  "count": 34,
+  "slug": "onley-law-business-lawyers-oshawa",
+  "mapsUrl": "https://www.google.com/maps/search/Onley+Law+Business+Lawyers+Oshawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2+Simcoe+St+S+Ste+300%2C+Oshawa%2C+ON+L1H+8C1",
+  "website": "https://www.onleylaw.ca",
+  "blurb": "Business Law in Oshawa. Rated 5.0 from 34 Google reviews.",
+  "type": "logo",
+  "about": "Onley Law, an Oshawa firm, acts for startups and growing businesses on incorporations, contracts, trademarks and fractional general counsel. It serves founders and owner-managed businesses across Canada, with a licensed Ontario lawyer who has more than 13 years of experience.\n\nTrish Sawhney, a registered Canadian trademark agent, leads its trademark services: clearance searches, registration, office action responses, opposition, infringement and licensing, with recent files in SaaS, mobile apps, fintech, legal tech and EdTech. Other services cover business structuring, shareholder and employment agreements, business purchases and sales, and fractional general counsel on a monthly retainer. Work is fixed-fee wherever possible and quoted before it begins.",
+  "src": "images/logos/onley-law-business-lawyers-oshawa.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Progressive Legal Solutions",
+  "city": "Barrie",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "family",
+   "litigation"
+  ],
+  "region": "simcoe-central",
+  "province": "ON",
+  "lat": 44.3916603,
+  "lng": -79.6938668,
+  "address": "18 Sophia St W, Barrie, ON L4N 1J1",
+  "phone": "+17053930009",
+  "rating": 4.7,
+  "count": 36,
+  "slug": "progressive-legal-solutions-barrie",
+  "mapsUrl": "https://www.google.com/maps/search/Progressive+Legal+Solutions+Barrie+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=18+Sophia+St+W%2C+Barrie%2C+ON+L4N+1J1",
+  "website": "https://plslawyers.ca",
+  "blurb": "Family Law / Civil Litigation in Barrie. Rated 4.7 from 36 Google reviews.",
+  "type": "logo",
+  "about": "Divorce, parenting, support and property division are the focus of Progressive Legal Solutions, a Barrie family law firm. Founded in 2022, it serves Barrie, Simcoe County, Toronto and the GTA and is led by principal lawyer Evgeniy Osipov, with associate lawyers Ho-Ly Ha, Eva Janta and Sheikh-Arsalan Ahmed.\n\nThe firm gives priority to settling matters amicably where possible and appears in court when settlement fails. It also handles custody disputes, common-law relationships and wills. Unbundled services let people hire help for a single task, such as drafting a separation agreement or preparing for a court appearance, without taking on full representation.",
+  "src": "images/logos/progressive-legal-solutions-barrie.jpg",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "ADS Law Professional Corporation",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5820108,
+  "lng": -79.7145633,
+  "address": "168 Queen St S Unit 216, Mississauga, ON L5M 1K8",
+  "phone": "+19057669029",
+  "rating": 5,
+  "count": 33,
+  "slug": "ads-law-professional-corporation-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/ADS+Law+Professional+Corporation+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=168+Queen+St+S+Unit+216%2C+Mississauga%2C+ON+L5M+1K8",
+  "website": "https://www.adslaw.ca",
+  "blurb": "Real Estate in Mississauga. Rated 5.0 from 33 Google reviews.",
+  "type": "logo",
+  "about": "In Mississauga, ADS Law Professional Corporation acts in real estate, business and wills and estates matters, in person or online. The firm has offices in Mississauga and Toronto, with meeting offices across Ontario, and offers a transparent flat-fee structure.\n\nBusiness work includes share and asset acquisitions and dispositions and incorporations, including professional corporations. The firm also drafts domestic contracts such as cohabitation agreements, marriage contracts and separation agreements, assists with divorce, and handles residential tenancies, real estate disputes and power of sale or mortgage enforcement.",
+  "src": "images/logos/ads-law-professional-corporation-mississauga.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "10:00",
+     "17:00"
+    ]
+   ]
+  },
+  "heroImage": "images/hero/ads-law-professional-corporation-mississauga.webp"
+ },
+ {
+  "name": "Nadon Professional Corporation",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.4767578,
+  "lng": -75.514655,
+  "address": "3009 St Joseph Blvd, Orléans, ON K1E 1E1",
+  "phone": "+16138374437",
+  "rating": 4.6,
+  "count": 35,
+  "slug": "nadon-professional-corporation-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Nadon+Professional+Corporation+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3009+St+Joseph+Blvd%2C+Orl%C3%A9ans%2C+ON+K1E+1E1",
+  "website": "https://www.marcnadon.ca",
+  "blurb": "General practice law firm in Ottawa. Rated 4.6 from 35 Google reviews.",
+  "type": "logo",
+  "about": "Real estate and estate planning for Orléans and Ottawa clients is the work of Nadon Professional Corporation. Marc Nadon has more than 25 years of experience in residential real estate law and wills and estate planning, acting for people selling and buying homes or investment properties and working with homeowners and mortgage brokers.\n\nReal estate services cover the purchase, sale and refinancing of residential property for first-time buyers and seasoned investors. Estate work includes powers of attorney for personal care and property, probate applications and estate administration. Christopher Tesseyman is also a lawyer at the firm.",
+  "src": "images/logos/nadon-professional-corporation-ottawa.jpg"
+ },
+ {
+  "name": "TEMPLE OF JUSTICE LEGAL SERVICE",
+  "city": "Hamilton",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.2218169,
+  "lng": -79.8851284,
+  "address": "1030 Upper James St Unit 403, Hamilton, ON L9C 6X6",
+  "phone": "+16475749545",
+  "rating": 5,
+  "count": 31,
+  "slug": "temple-of-justice-legal-service-hamilton",
+  "mapsUrl": "https://www.google.com/maps/search/TEMPLE+OF+JUSTICE+LEGAL+SERVICE+Hamilton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1030+Upper+James+St+Unit+403%2C+Hamilton%2C+ON+L9C+6X6",
+  "website": "https://templeofjustice.ca",
+  "blurb": "General practice law firm in Hamilton. Rated 5.0 from 31 Google reviews.",
+  "type": "logo",
+  "about": "Paralegals at Temple of Justice Legal Service in Hamilton handle provincial offences, tribunal matters and notary public work. The firm acts for individuals and businesses, including at the Landlord and Tenant Board and the Human Rights Tribunal of Ontario. It aims to provide a safe, welcoming environment in which clients' rights are protected and their voices are heard.\n\nIts mission is access to justice, with a people-centred approach that puts the individual first. The firm is open around the clock, seven days a week, from its office on Upper James Street.",
+  "src": "images/logos/temple-of-justice-legal-service-hamilton.webp"
+ },
+ {
+  "name": "PMP Law",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5923772,
+  "lng": -79.6380369,
+  "address": "East Tower, 77 City Centre Dr Ste 501, Mississauga, ON L5B 1M5",
+  "phone": "+19054122288",
+  "rating": 4.9,
+  "count": 31,
+  "slug": "pmp-law-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/PMP+Law+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=East+Tower%2C+77+City+Centre+Dr+Ste+501%2C+Mississauga%2C+ON+L5B+1M5",
+  "website": "https://www.pmplaw.ca",
+  "blurb": "Real Estate in Mississauga. Rated 4.9 from 31 Google reviews.",
+  "type": "logo",
+  "about": "Personal injury, civil litigation, real estate and wills and estates are the core areas of PMP Law, a Mississauga boutique firm. Founded by Paras Patel, it serves clients across the Greater Toronto Area and also offers notarizations, long-term disability and family law matters.\n\nPersonal injury matters carry no upfront legal fees, and the firm is paid only after a settlement or judgment; other services are offered at hourly rates or fixed fees. Mr. Patel earned his LL.B. and LL.M. at Osgoode Hall Law School, has practised since 2016, has appeared before the Ontario Superior Court of Justice and the Financial Services Commission of Ontario, and belongs to the Ontario Trial Lawyers Association, the Ontario Bar Association and the South Asian Bar Association.",
+  "src": "images/logos/pmp-law-mississauga.jpg"
+ },
+ {
+  "name": "DR Injury & Disability Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7612178,
+  "lng": -79.4101211,
+  "address": "4789 Yonge St #1101, North York, ON M2N 0G3",
+  "phone": "+14166683944",
+  "rating": 5,
+  "count": 30,
+  "slug": "dr-injury-and-disability-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/DR+Injury+%26+Disability+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4789+Yonge+St+%231101%2C+North+York%2C+ON+M2N+0G3",
+  "website": "https://www.drinjurylaw.ca",
+  "blurb": "Personal Injury in North York. Rated 5.0 from 30 Google reviews.",
+  "type": "logo",
+  "about": "DR Injury & Disability Law is a personal injury and disability law firm in North York, Ontario. It acts for people across the province in car accident, slip and fall, serious injury and long-term disability matters. The office is on Yonge Street in North York, in the Toronto area, and personal injury is its main practice area.",
+  "src": "images/logos/dr-injury-and-disability-law-north-york.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Vora Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7526544,
+  "lng": -79.1938465,
+  "address": "9 Wythenshawe Wood, Scarborough, ON M1E 1H1",
+  "phone": "+14168373244",
+  "rating": 5,
+  "count": 30,
+  "slug": "vora-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Vora+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=9+Wythenshawe+Wood%2C+Scarborough%2C+ON+M1E+1H1",
+  "website": "https://www.vlpc.ca",
+  "blurb": "Real Estate / Wills & Estates in Toronto. Rated 5.0 from 30 Google reviews.",
+  "type": "logo",
+  "about": "In five languages, Vora Law Professional Corporation serves Toronto clients in real estate, immigration, estate and family law. Mona Vora is the founder and principal lawyer of the GTA-based practice in Scarborough, which focuses on moving matters forward in a timely way.\n\nLegal services are offered in English, Hindi, Urdu, Marathi and Gujarati, with notary services alongside the main practice areas. The firm aims to tailor solutions to each client's needs and objectives, and its office is on Sheppard Avenue East in Scarborough.",
+  "src": "images/logos/vora-law-professional-corporation-toronto.png"
+ },
+ {
+  "name": "EB PERSONAL INJURY LAWYER",
+  "city": "Hamilton",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.2173509,
+  "lng": -79.7609597,
+  "address": "23 King St W Basement, Stoney Creek, ON L8G 1H1",
+  "phone": "+18002895079",
+  "rating": 4.9,
+  "count": 30,
+  "slug": "eb-personal-injury-lawyer-hamilton",
+  "mapsUrl": "https://www.google.com/maps/search/EB+PERSONAL+INJURY+LAWYER+Hamilton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=23+King+St+W+Basement%2C+Stoney+Creek%2C+ON+L8G+1H1",
+  "website": "https://ebinjurylaw.ca",
+  "blurb": "Personal Injury in Hamilton. Rated 4.9 from 30 Google reviews.",
+  "type": "logo",
+  "about": "Injuries from car, motorcycle, pedestrian and slip and fall accidents are the focus of EB Personal Injury Lawyer in Hamilton. The firm, based in Stoney Creek, also acts in dog bite, traumatic brain, spinal cord, orthopaedic and public transit injury cases, and serves Stoney Creek, Brockville and Stratford as a member of the BARAPP Law Alliance.\n\nEach injured client is assigned a case manager, and support is offered around the clock. Personal injury cases are handled on a contingency basis, so no fees are payable unless the case succeeds.",
+  "src": "images/logos/eb-personal-injury-lawyer-hamilton.png"
+ },
+ {
+  "name": "Hummingbird Lawyers LLP",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6699719,
+  "lng": -79.3901461,
+  "address": "80 Bloor St W #1401, Toronto, ON M5S 2V1",
+  "phone": "+19057311911",
+  "rating": 4.7,
+  "count": 31,
+  "slug": "hummingbird-lawyers-llp-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Hummingbird+Lawyers+LLP+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=80+Bloor+St+W+%231401%2C+Toronto%2C+ON+M5S+2V1",
+  "website": "https://www.hummingbirdlaw.com",
+  "blurb": "General practice law firm in Toronto. Rated 4.7 from 31 Google reviews.",
+  "type": "logo",
+  "about": "Since 2011, Hummingbird Lawyers LLP has practised in Toronto and Vaughan across real estate, corporate, family, estates and condominium law. The firm opened on February 1, 2011 as Fortis, Muyal, Bhathal and Desai LLP, founded by four friends, and rebranded as Hummingbird Lawyers LLP on May 10, 2013.\n\nIts lawyers handle residential and commercial real estate transactions, business formation, contracts, mergers and acquisitions, divorce and custody matters, estate planning and litigation, and business disputes. A condominium law team including Erik Savas, Cressella Reeves, Katrina Paray and Nora Marku advises condominium boards and owners on governance and enforcement.",
+  "src": "images/logos/hummingbird-lawyers-llp-toronto.png"
+ },
+ {
+  "name": "Richards and Jurusik US Immigration Lawyer",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6544413,
+  "lng": -79.3875787,
+  "address": "439 University Ave #500, Toronto, ON M5G 1T6",
+  "phone": "+18666971832",
+  "rating": 4.7,
+  "count": 30,
+  "slug": "richards-and-jurusik-us-immigration-lawyer-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Richards+and+Jurusik+US+Immigration+Lawyer+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=439+University+Ave+%23500%2C+Toronto%2C+ON+M5G+1T6",
+  "website": "https://rjimmigrationlaw.com",
+  "blurb": "Immigration in Toronto. Rated 4.7 from 30 Google reviews.",
+  "type": "logo",
+  "about": "US immigration law for Canadians is the only focus of Richards and Jurusik, a practice with a Toronto office. The firm handles matters such as affirmative asylum applications filed with USCIS and also covers Canadian inadmissibility for US citizens.\n\nIt works on cross-border mobility for Canadians, charges flat-rate legal fees, provides service information in Spanish as well as English, and also operates in Buffalo, New York. It publishes updates on USCIS changes and the monthly visa bulletin.",
+  "src": "images/logos/richards-and-jurusik-us-immigration-lawyer-toronto.png",
+  "hours": {
+   "1": [
+    [
+     "08:00",
+     "16:30"
+    ]
+   ],
+   "2": [
+    [
+     "08:00",
+     "16:30"
+    ]
+   ],
+   "3": [
+    [
+     "08:00",
+     "16:30"
+    ]
+   ],
+   "4": [
+    [
+     "08:00",
+     "16:30"
+    ]
+   ],
+   "5": [
+    [
+     "08:00",
+     "12:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Mitch Engel Criminal Lawyer Brampton",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.662921,
+  "lng": -79.727773,
+  "address": "2 County Ct Blvd Suite 400, Brampton, ON L6W 4V1",
+  "phone": "+14169448882",
+  "rating": 4.7,
+  "count": 29,
+  "slug": "mitch-engel-criminal-lawyer-brampton-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Mitch+Engel+Criminal+Lawyer+Brampton+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2+County+Ct+Blvd+Suite+400%2C+Brampton%2C+ON+L6W+4V1",
+  "website": "https://www.mitchengellaw.ca",
+  "blurb": "Criminal Defence in Brampton. Rated 4.7 from 29 Google reviews.",
+  "type": "logo",
+  "about": "Since 1996, Mitch Engel has practised criminal defence from Brampton, serving the Oshawa, Brampton and Mississauga areas. He joined the Ontario bar in 1993, began at a small Toronto firm, and opened his own office, Mitch Engel, Barrister & Solicitor, three years later.\n\nHis practice is limited to criminal defence, with cases ranging from shoplifting and petty theft to white collar crime and murder investigations. Areas covered include driving offences such as impaired driving, property offences, assault, drug offences including possession for the purpose of trafficking, sexual offences, weapons offences, homicide and administration of justice offences. He is available 24 hours a day.",
+  "src": "images/logos/mitch-engel-criminal-lawyer-brampton-brampton.webp"
+ },
+ {
+  "name": "Steven Chnaris Professional Corporation",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.3780691,
+  "lng": -75.6390625,
+  "address": "2417 Holly Ln Unit 212B, Ottawa, ON K1V 7P2",
+  "phone": "+13433220452",
+  "rating": 4.7,
+  "count": 29,
+  "slug": "steven-chnaris-professional-corporation-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Steven+Chnaris+Professional+Corporation+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2417+Holly+Ln+Unit+212B%2C+Ottawa%2C+ON+K1V+7P2",
+  "website": "https://chnarislaw.ca",
+  "blurb": "General practice law firm in Ottawa. Rated 4.7 from 29 Google reviews.",
+  "type": "logo",
+  "about": "Business, estate, family and court matters in Ottawa are handled by Steven Chnaris Professional Corporation, also known as SCPC Law Firm. The firm is led by Steven Chnaris, who acts as legal strategist and adviser to individuals and businesses.\n\nIts services include counsel for businesses, representation in court, estate services and advice on family legal matters. The firm aims to keep clients informed with clear advice and to treat each client as an individual rather than a case number. The office is on Holly Lane in Ottawa.",
+  "src": "images/logos/steven-chnaris-professional-corporation-ottawa.webp"
+ },
+ {
+  "name": "LDR Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6522054,
+  "lng": -79.3750722,
+  "address": "103 Church St #512, Toronto, ON M5C 2G3",
+  "phone": "+14169213511",
+  "rating": 5,
+  "count": 27,
+  "slug": "ldr-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/LDR+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=103+Church+St+%23512%2C+Toronto%2C+ON+M5C+2G3",
+  "website": "https://www.ldrlaw.ca",
+  "blurb": "Wills & Estates in Toronto. Rated 5.0 from 27 Google reviews.",
+  "type": "logo",
+  "about": "Founded in 2022 by Leslie Robinson, LDR Law Professional Corporation handles real estate, wills and estates for Toronto clients. Mr. Robinson works with individuals, families and businesses across Toronto and the GTA on purchases, sales and refinancing, new condominiums, cottage and waterfront properties, private lending, title transfers and Land Registry corrections.\n\nEstate planning and administration are the other main areas, supported by tax planning knowledge and an advanced wills and estates program from Osgoode Hall Law School. Clients range from first-time home buyers to people with corporate holdings who need succession planning, and the firm also provides commissioner of oaths and notary services. Before law school, Mr. Robinson worked in social work.",
+  "src": "images/logos/ldr-law-professional-corporation-toronto.webp"
+ },
+ {
+  "name": "Jag Virk Lawyers",
+  "city": "Hamilton",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.2537374,
+  "lng": -79.8696023,
+  "address": "1 Hunter St E, Hamilton, ON L8N 3W8",
+  "phone": "+18885248475",
+  "rating": 5,
+  "count": 27,
+  "slug": "jag-virk-lawyers-hamilton",
+  "mapsUrl": "https://www.google.com/maps/search/Jag+Virk+Lawyers+Hamilton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1+Hunter+St+E%2C+Hamilton%2C+ON+L8N+3W8",
+  "website": "https://jagvirklawyers.com",
+  "blurb": "Criminal Defence in Hamilton. Rated 5.0 from 27 Google reviews.",
+  "type": "logo",
+  "about": "Assault, sexual assault and other criminal charges are defended by Jag Virk Lawyers, a Hamilton criminal defence firm. Led by Jag Virk, the firm acts for people facing criminal charges across Toronto, Mississauga and the wider GTA, and criminal defence is available around the clock.\n\nIts lawyers have trial experience and an understanding of the Ontario court system. Reported decisions from its cases include R. v. Bajcinca, R. v. Bhagat and R. v. Gill.",
+  "src": "images/logos/jag-virk-lawyers-hamilton.png",
+  "bioImage": "images/bio/jag-virk-lawyers-hamilton.webp"
+ },
+ {
+  "name": "Morneau Family Law & Legal Innovation",
+  "city": "Kitchener",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "waterloo-guelph",
+  "province": "ON",
+  "lat": 43.4557723,
+  "lng": -80.5011521,
+  "address": "67 Louisa St B, Kitchener, ON N2H 5L9",
+  "phone": "+15196359145",
+  "rating": 5,
+  "count": 27,
+  "slug": "morneau-family-law-and-legal-innovation-kitchener",
+  "mapsUrl": "https://www.google.com/maps/search/Morneau+Family+Law+%26+Legal+Innovation+Kitchener+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=67+Louisa+St+B%2C+Kitchener%2C+ON+N2H+5L9",
+  "website": "https://davidmorneau.com",
+  "blurb": "Family Law in Kitchener. Rated 5.0 from 27 Google reviews.",
+  "type": "logo",
+  "about": "In Kitchener, Morneau Family Law & Legal Innovation offers separation agreements, mediation and collaborative law. David Morneau Jr. serves families in the Waterloo Region and holds the title of Creative Evolution Officer at the firm.\n\nServices also include cohabitation agreements and marriage contracts, education and training, and mentoring. He speaks at seminars, conferences and symposiums on conflict definition, management and resolution. His approach, built around a written vision, mission and set of values, treats family separation as mostly emotional rather than legal and aims to reduce polarization and improve communication.",
+  "src": "images/logos/morneau-family-law-and-legal-innovation-kitchener.webp"
+ },
+ {
+  "name": "Burshtein Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7073893,
+  "lng": -79.3994979,
+  "address": "2300 Yonge St #1600, Toronto, ON M4R 2E9",
+  "phone": "+14165465022",
+  "rating": 4.7,
+  "count": 28,
+  "slug": "burshtein-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Burshtein+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2300+Yonge+St+%231600%2C+Toronto%2C+ON+M4R+2E9",
+  "website": "https://burshlaw.com",
+  "blurb": "General practice law firm in Toronto. Rated 4.7 from 28 Google reviews.",
+  "type": "logo",
+  "about": "Burshtein Law, at Yonge and Eglinton in Toronto, practises business, technology and estates law. Jonathan Burshtein is the founding lawyer and helps startups and small businesses with incorporations, share and asset purchases and sales, reorganizations and succession planning, including estate freezes and family trusts.\n\nHe drafts shareholder, partnership, joint venture, employment and independent contractor agreements. Estates work covers wills, powers of attorney, trusts and estate administration, including applications for a Certificate of Appointment of Estate Trustee. The firm uses fixed pricing for most files and has released Groove Law, a platform where startups request and manage legal documents.",
+  "src": "images/logos/burshtein-law-toronto.png"
+ },
+ {
+  "name": "SLC Law",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5895294,
+  "lng": -79.6416551,
+  "address": "201 City Centre Dr Ste 200, Mississauga, ON L5B 2T4",
+  "phone": "+14163192220",
+  "rating": 5,
+  "count": 26,
+  "slug": "slc-law-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/SLC+Law+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=201+City+Centre+Dr+Ste+200%2C+Mississauga%2C+ON+L5B+2T4",
+  "website": "https://slclaw.ca",
+  "blurb": "Personal Injury in Mississauga. Rated 5.0 from 26 Google reviews.",
+  "type": "logo",
+  "about": "Business, corporate and intellectual property law for owners and startups is the focus of SLC Law, a boutique firm in Mississauga. Services include incorporations and minute books, shareholders' agreements and governance, contract drafting, commercial lease negotiation, asset and share purchases, reorganizations and IP strategy, along with employment and litigation matters.\n\nOne of its lawyers, Michael, is also a trademark agent in Canada who represents clients before the Canadian Intellectual Property Office. The office is on City Centre Drive in Mississauga, and the firm serves Port Credit, Streetsville, Meadowvale, Erin Mills, Clarkson, Cooksville, Lorne Park, Toronto, Woodbridge, Oakville, Brampton, Milton, Vaughan and Hamilton.",
+  "src": "images/logos/slc-law-mississauga.png",
+  "hours": {
+   "1": [
+    [
+     "08:00",
+     "20:00"
+    ]
+   ],
+   "2": [
+    [
+     "08:00",
+     "20:00"
+    ]
+   ],
+   "3": [
+    [
+     "08:00",
+     "20:00"
+    ]
+   ],
+   "4": [
+    [
+     "08:00",
+     "20:00"
+    ]
+   ],
+   "5": [
+    [
+     "08:00",
+     "20:00"
+    ]
+   ],
+   "6": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Vick Hundal",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.7296497,
+  "lng": -79.7963051,
+  "address": "1A Conestoga Dr, Brampton, ON L6Z 4N5",
+  "phone": "+16473098425",
+  "rating": 5,
+  "count": 26,
+  "slug": "vick-hundal-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Vick+Hundal+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1A+Conestoga+Dr%2C+Brampton%2C+ON+L6Z+4N5",
+  "website": "https://vickhundallaw.ca",
+  "blurb": "General practice law firm in Brampton. Rated 5.0 from 26 Google reviews.",
+  "type": "logo",
+  "about": "Vick Hundal represents people charged with assault, impaired driving, fraud, theft and drug offences in Brampton and across the GTA. He appears at all levels of court in Ontario and serves clients in Bramalea, Churchville, Mount Pleasant, Castlemore, Tullamore and Snelgrove.\n\nMatters include bail hearings, youth cases, domestic assault, sexual assault, robbery, over 80 charges, attempted murder and murder. His approach covers understanding the court process, identifying flaws in the Crown's case, building a defence strategy and protecting a client's rights.",
+  "src": "images/logos/vick-hundal-brampton.webp",
+  "bioImage": "images/bio/vick-hundal-brampton.webp"
+ },
+ {
+  "name": "JYD LLP",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7797578,
+  "lng": -79.3419102,
+  "address": "245 Fairview Mall Dr #703, North York, ON M2J 4T1",
+  "phone": "+14164911666",
+  "rating": 5,
+  "count": 25,
+  "slug": "jyd-llp-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/JYD+LLP+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=245+Fairview+Mall+Dr+%23703%2C+North+York%2C+ON+M2J+4T1",
+  "website": "https://jydllp.com",
+  "blurb": "General practice law firm in North York. Rated 5.0 from 25 Google reviews.",
+  "type": "logo",
+  "about": "JYD LLP, a North York firm, serves clients in real estate, immigration, corporate, estate planning and family law in English and Chinese. Its real estate practice advises investors, property owners, buyers, sellers, lenders, receivers, brokers, landlords and tenants across Ontario.\n\nOther services include wills and estate planning, corporate and commercial law, family law and notarization of legal documents. The team includes Jingkun Dong, and the firm takes a proactive, forward-looking approach to its clients' current and future legal needs, with its lawyers communicating with clients personally.",
+  "src": "images/logos/jyd-llp-north-york.png"
+ },
+ {
+  "name": "Smithen Family Law Professional Corporation",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7594667,
+  "lng": -79.4098833,
+  "address": "4711 Yonge St #1000, North York, ON M2N 7E4",
+  "phone": "+14169252123",
+  "rating": 5,
+  "count": 25,
+  "slug": "smithen-family-law-professional-corporation-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Smithen+Family+Law+Professional+Corporation+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4711+Yonge+St+%231000%2C+North+York%2C+ON+M2N+7E4",
+  "website": "https://www.smithenlaw.ca",
+  "blurb": "Family Law in North York. Rated 5.0 from 25 Google reviews.",
+  "type": "logo",
+  "about": "Kathryn Smithen leads Smithen Family Law Professional Corporation, a North York firm handling divorce, custody, support and property division. She has practised family law for over fifteen years and acts for women and families in contested and uncontested proceedings, including high-conflict and high-worth cases.\n\nHer work draws on the Family Law Act, the Divorce Act, the Children's Law Reform Act, the Spousal Support Advisory Guidelines and the Federal Child Support Guidelines. The firm also handles separation and cohabitation agreements, mediation and other dispute resolution, and family law for same-sex and LGBTQ+ families, serving the GTA including York and Peel regions.",
+  "src": "images/logos/smithen-family-law-professional-corporation-north-york.webp",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  }
+ },
+ {
+  "name": "Monique J. Charlebois",
+  "city": "Oakville",
+  "featured": false,
+  "tags": [
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "wills"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.4786904,
+  "lng": -79.6580035,
+  "address": "Suite 205, 1540 Cornwall Rd, Oakville, ON L6J 7W5",
+  "phone": "+19058493939",
+  "rating": 5,
+  "count": 25,
+  "slug": "monique-j-charlebois-oakville",
+  "mapsUrl": "https://www.google.com/maps/search/Monique+J.+Charlebois+Oakville+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=Suite+205%2C+1540+Cornwall+Rd%2C+Oakville%2C+ON+L6J+7W5",
+  "website": "https://moniquecharlebois.ca",
+  "blurb": "Wills & Estates in Oakville. Rated 5.0 from 25 Google reviews.",
+  "type": "logo",
+  "about": "Estate administration, will drafting and dispute resolution are the practice of Monique Charlebois, a bilingual lawyer in Oakville. She has more than 20 years of experience in Ontario estates law and is a former Senior Estates Counsel with the Ontario Office of the Public Guardian and Trustee.\n\nServices include advising estate trustees, obtaining a Certificate of Appointment of Estate Trustee with or without a will, acting as estate trustee, preparing wills, living wills and powers of attorney for property and personal care, and locating missing beneficiaries. She also helps beneficiaries understand the distribution of a deceased person's assets. The office is on Cornwall Road in Oakville.",
+  "src": "images/logos/monique-j-charlebois-oakville.png",
+  "bioImage": "images/bio/monique-j-charlebois-oakville.webp"
+ },
+ {
+  "name": "Weng Law Firm",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7840107,
+  "lng": -79.2882852,
+  "address": "2347 Kennedy Rd Unit 401, Scarborough, ON M1T 3T8",
+  "phone": "+14166402000",
+  "rating": 5,
+  "count": 25,
+  "slug": "weng-law-firm-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Weng+Law+Firm+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2347+Kennedy+Rd+Unit+401%2C+Scarborough%2C+ON+M1T+3T8",
+  "website": "https://wenglawfirm.ca",
+  "blurb": "Family Law in Toronto. Rated 5.0 from 25 Google reviews.",
+  "type": "logo",
+  "about": "Across nine practice areas, Weng Law Firm acts for Toronto clients, from business and family matters to immigration and real estate. The areas are business, employment and labour, family and divorce, immigration, litigation, notary services, personal injury, real estate, and wills, estates and trusts.\n\nExamples include incorporations, shareholder agreements and share purchases; dismissal and severance matters; separation agreements and marriage contracts; sponsorship, study permit, work permit and refugee applications; mortgage enforcement; affidavits and declarations; motor vehicle accident, slip and fall and dog bite injuries; and property purchases, sales and refinancing. Business matters are approached from a commercial perspective, and the office is in Scarborough.",
+  "src": "images/logos/weng-law-firm-toronto.png",
+  "bioImage": "images/bio/weng-law-firm-toronto.webp"
+ },
+ {
+  "name": "Danson Delavar LLP",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7068446,
+  "lng": -79.3990722,
+  "address": "20 Eglinton Ave W Ste 1902, Toronto, ON M4R 1K8",
+  "phone": "+14169292200",
+  "rating": 4.8,
+  "count": 26,
+  "slug": "danson-delavar-llp-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Danson+Delavar+LLP+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=20+Eglinton+Ave+W+Ste+1902%2C+Toronto%2C+ON+M4R+1K8",
+  "website": "https://ddlitigators.com",
+  "blurb": "General practice law firm in Toronto. Rated 4.8 from 26 Google reviews.",
+  "type": "logo",
+  "about": "Toronto litigation boutique Danson Delavar LLP handles high-stakes commercial, employment, constitutional, defamation and insurance disputes. Partners Timothy Danson and Marjan Delavar bring decades of courtroom experience to these matters and focus on identifying risk early, before disputes escalate.\n\nCore practice areas are corporate, commercial and civil litigation, employment law, constitutional law, insurance litigation and defamation litigation. The practice also includes complex personal injury litigation, appellate advocacy, administrative law, sports law and professional negligence. Clients include corporations, professionals, executives, insurers and professional athletes.",
+  "src": "images/logos/danson-delavar-llp-toronto.png"
+ },
+ {
+  "name": "Morrison Williams LLP",
+  "city": "Oakville",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.4750715,
+  "lng": -79.6620168,
+  "address": "1400 Cornwall Rd Unit 6a, Oakville, ON L6J 7W5",
+  "phone": "+19053370002",
+  "rating": 4.8,
+  "count": 26,
+  "slug": "morrison-williams-llp-oakville",
+  "mapsUrl": "https://www.google.com/maps/search/Morrison+Williams+LLP+Oakville+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1400+Cornwall+Rd+Unit+6a%2C+Oakville%2C+ON+L6J+7W5",
+  "website": "https://ontariofamilylaw.ca",
+  "blurb": "Family Law in Oakville. Rated 4.8 from 26 Google reviews.",
+  "type": "logo",
+  "about": "Oakville families facing divorce, support, custody or property division are served by Morrison Williams LLP, a family law firm. Its lawyers have practised family law exclusively throughout their careers, and matters also include access, spousal support, common-law settlements and the global settlement of a separation.\n\nThe process is chosen to suit the family: negotiation, collaboration, mediation, arbitration or litigation. The lawyers work as a team to bring different perspectives and strategy to each matter, and involve other professionals such as financial planners where helpful. The firm focuses on timely service and on a solicitor-client relationship tailored to each client's circumstances.",
+  "src": "images/logos/morrison-williams-llp-oakville.webp"
+ },
+ {
+  "name": "Gale Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6496097,
+  "lng": -79.3810483,
+  "address": "320 Bay St. Ste 101, Toronto, ON M5H 4A6",
+  "phone": "+14168683263",
+  "rating": 4.6,
+  "count": 27,
+  "slug": "gale-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Gale+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=320+Bay+St.+Ste+101%2C+Toronto%2C+ON+M5H+4A6",
+  "website": "https://galelaw.ca",
+  "blurb": "Wills & Estates in Toronto. Rated 4.6 from 27 Google reviews.",
+  "type": "logo",
+  "about": "Gale Law Professional Corporation, a Toronto firm led by mediator Kim Gale, concentrates on estate litigation. Its work covers will challenges, capacity disputes, powers of attorney and guardianship disputes, elder abuse, dependant support applications and recovering money owed by a deceased person, along with probate and estate administration.\n\nThe firm has offices in downtown Toronto and North York. Its lawyers include Kim Gale, Mitchell Reiss, Palak Mahajan and Jessica Campolucci, and mediation is offered as a route to resolving estate disputes.",
+  "src": "images/logos/gale-law-professional-corporation-toronto.png",
+  "bioImage": "images/bio/gale-law-professional-corporation-toronto.webp"
+ },
+ {
+  "name": "Taerk Family Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6501852,
+  "lng": -79.3885485,
+  "address": "243 Queen St W Second Floor, Toronto, ON M5V 1Z4",
+  "phone": "+14167559910",
+  "rating": 4.7,
+  "count": 26,
+  "slug": "taerk-family-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Taerk+Family+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=243+Queen+St+W+Second+Floor%2C+Toronto%2C+ON+M5V+1Z4",
+  "website": "https://taerkfamilylaw.com",
+  "blurb": "Family Law in Toronto. Rated 4.7 from 26 Google reviews.",
+  "type": "logo",
+  "about": "Taerk Family Law, on Queen Street West in Toronto, acts in divorce, separation, parenting, support and property division matters. The firm has more than 22 years of experience in family law and serves families across Toronto and the GTA.\n\nServices include parenting plans and agreements, child support including Section 7 expenses, spousal support, property division and equalization, motions to change, domestic contracts and separation agreements. It also acts for high net worth individuals and families, and unbundled services allow people to hire a lawyer for a specific legal step rather than the whole file.",
+  "src": "images/logos/taerk-family-law-toronto.png",
+  "bioImage": "images/bio/taerk-family-law-toronto.webp"
+ },
+ {
+  "name": "Pelican Law- Immigration & Refugee Lawyer",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Immigration"
+  ],
+  "caseTypes": [
+   "immigration"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5971519,
+  "lng": -79.6360272,
+  "address": "4 Robert Speck Pkwy Ste 1500, Mississauga, ON L4Z 1S1",
+  "phone": "+19058052266",
+  "rating": 5,
+  "count": 24,
+  "slug": "pelican-law-immigration-and-refugee-lawyer-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Pelican+Law-+Immigration+%26+Refugee+Lawyer+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4+Robert+Speck+Pkwy+Ste+1500%2C+Mississauga%2C+ON+L4Z+1S1",
+  "website": "https://pelicanlaw.ca",
+  "blurb": "Immigration in Mississauga. Rated 5.0 from 24 Google reviews.",
+  "type": "logo",
+  "about": "From Mississauga, Pelican Law handles immigration matters including family sponsorship, work and study permits, Express Entry and citizenship. It also acts in inadmissibility and refusal matters and in removal proceedings, including deferrals and Federal Court stay applications.\n\nExpress Entry work covers the Canadian Experience Class, Federal Skilled Worker, skilled trades and Ontario PNP, and temporary visa work covers study permits, work permits, visitor visas and super visas. Narinder Mann is the founder and principal legal counsel. He practised civil law in India, earned a paralegal diploma at Humber College, became a licensed paralegal in January 2021 and joined the Ontario bar in March 2024.",
+  "src": "images/logos/pelican-law-immigration-and-refugee-lawyer-mississauga.png"
+ },
+ {
+  "name": "NDM Law",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5820859,
+  "lng": -79.714629,
+  "address": "168 Queen St S, Mississauga, ON L5M 1L2",
+  "phone": "+19059978118",
+  "rating": 4.8,
+  "count": 25,
+  "slug": "ndm-law-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/NDM+Law+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=168+Queen+St+S%2C+Mississauga%2C+ON+L5M+1L2",
+  "website": "https://ndmlaw.ca",
+  "blurb": "Real Estate in Mississauga. Rated 4.8 from 25 Google reviews.",
+  "type": "logo",
+  "about": "Founded by Navnit Dhillon, NDM Law serves Mississauga and the GTA in family, criminal, corporate, real estate, personal injury and estate law. The office is in Streetsville, and the firm acts for individuals and for corporations, including companies throughout Canada and globally.\n\nLegal services are available in English, Hindi, Polish, Portuguese and Urdu. Ms. Dhillon completed a Bachelor of Law at the University of Leicester in 2008, joined the Ontario bar in 2011 and founded the firm shortly afterward. She has spoken about legal topics on television and radio and gives education seminars.",
+  "src": "images/logos/ndm-law-mississauga.jpg"
+ },
+ {
+  "name": "Brazeau Seller Law",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "General Practice"
+  ],
+  "caseTypes": [],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.4216952,
+  "lng": -75.6974492,
+  "address": "100 Queen St #700, Ottawa, ON K1P 1J9",
+  "phone": "+16132374000",
+  "rating": 4.8,
+  "count": 25,
+  "slug": "brazeau-seller-law-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Brazeau+Seller+Law+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=100+Queen+St+%23700%2C+Ottawa%2C+ON+K1P+1J9",
+  "website": "https://brazeauseller.com",
+  "blurb": "General practice law firm in Ottawa. Rated 4.8 from 25 Google reviews.",
+  "type": "logo",
+  "about": "Founded in 1989, Brazeau Seller Law advises Ottawa family-owned businesses on corporate, tax, real estate and estate planning matters. Its practice was designed to protect and maintain the wealth of such businesses, and it works with owners, entrepreneurs, managers and professionals in nearly every sector of the Ottawa community.\n\nServices include acquisitions and mergers, cannabis licensing, corporate and commercial law, employment law, intellectual property, litigation, municipal and development law, and non-profit and charity law. The firm belongs to Meritas Law Firms Worldwide, the Canadian Bar Association, the Canadian Tax Foundation and the Society of Trust and Estate Practitioners, among other bodies.",
+  "src": "images/logos/brazeau-seller-law-ottawa.png"
+ },
+ {
+  "name": "A.Circelli Law",
+  "city": "Guelph",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "waterloo-guelph",
+  "province": "ON",
+  "lat": 43.5518497,
+  "lng": -80.2588269,
+  "address": "367 Woolwich St, Guelph, ON N1H 3W4",
+  "phone": "+15198041513",
+  "rating": 4.6,
+  "count": 25,
+  "slug": "a-circelli-law-guelph",
+  "mapsUrl": "https://www.google.com/maps/search/A.Circelli+Law+Guelph+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=367+Woolwich+St%2C+Guelph%2C+ON+N1H+3W4",
+  "website": "https://www.a-circelli-law.ca",
+  "blurb": "Family Law in Guelph. Rated 4.6 from 25 Google reviews.",
+  "type": "logo",
+  "about": "Antonio Circelli runs A.Circelli Law, a family-run Guelph practice handling divorce, separation, custody, child protection and estates. He has close to 20 years of litigation experience, including trial and appellate work, and served for 11 years as counsel to the Children's Aid Society, most recently with Family and Children's Services of Guelph and Wellington County.\n\nHe has appeared in the Ontario Court of Justice, the Superior Court of Justice, the Divisional Court and the Ontario Court of Appeal. The firm also handles equalization and property division and child and spousal support, and legal clerk Melanie Pavone works with him in serving the Guelph and Waterloo area.",
+  "src": "images/logos/a-circelli-law-guelph.png"
+ },
+ {
+  "name": "Pereira Walter Lawyers LLP",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5894491,
+  "lng": -79.6415543,
+  "address": "201 City Centre Dr Ste 300, Mississauga, ON L5B 3A3",
+  "phone": "+19052703600",
+  "rating": 4.8,
+  "count": 23,
+  "slug": "pereira-walter-lawyers-llp-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Pereira+Walter+Lawyers+LLP+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=201+City+Centre+Dr+Ste+300%2C+Mississauga%2C+ON+L5B+3A3",
+  "website": "https://pwlaw.ca",
+  "blurb": "Employment Law in Mississauga. Rated 4.8 from 23 Google reviews.",
+  "type": "logo",
+  "about": "Pereira Walter Lawyers LLP, also known as Walter Law Group, is a Mississauga firm handling employment, disability and personal injury law. Its lawyers act for employers and employees in matters such as harassment, poisoned work environments, termination and constructive dismissal, as well as long-term disability and personal injury cases, in Mississauga and Toronto.\n\nThe firm has practised for roughly 30 years and appears at all levels of court, as well as at tribunals and mediations. Michael Walter has spoken to the Canadian Press about power dynamics in the workplace.",
+  "src": "images/logos/pereira-walter-lawyers-llp-mississauga.webp"
+ },
+ {
+  "name": "Fosters Law LLP",
+  "city": "London",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "southwestern",
+  "province": "ON",
+  "lat": 42.9869306,
+  "lng": -81.2512567,
+  "address": "150 Dufferin Ave, London, ON N6A 5N6",
+  "phone": "+15196725272",
+  "rating": 4.8,
+  "count": 23,
+  "slug": "fosters-law-llp-london",
+  "mapsUrl": "https://www.google.com/maps/search/Fosters+Law+LLP+London+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=150+Dufferin+Ave%2C+London%2C+ON+N6A+5N6",
+  "website": "https://www.fosterslaw.ca",
+  "blurb": "Personal Injury in London. Rated 4.8 from 23 Google reviews.",
+  "type": "logo",
+  "about": "Fosters Law LLP, founded in 1975, handles personal injury cases and insurance litigation from its London, Ontario office. Its lawyers act for injured people in motor vehicle accident, wrongful death and medical or professional malpractice matters, and for insurers, businesses and property owners across Ontario in insurance defence and advisory work.\n\nInsurance work covers property damage disputes, subrogation and coverage questions, and the firm takes a technology-forward approach to efficient litigation. It has served clients across Ontario for almost 50 years.",
+  "src": "images/logos/fosters-law-llp-london.png",
+  "hours": {
+   "1": [
+    [
+     "08:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "08:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "08:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "08:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "08:00",
+     "17:00"
+    ]
+   ],
+   "6": [
+    [
+     "08:00",
+     "17:00"
+    ]
+   ],
+   "7": [
+    [
+     "08:00",
+     "17:00"
+    ]
+   ]
+  },
+  "heroImage": "images/hero/fosters-law-llp-london.webp"
+ },
+ {
+  "name": "Handa Law Professional Corporation",
+  "city": "Brampton",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.6840835,
+  "lng": -79.7623082,
+  "address": "100 Queen St W, Brampton, ON L6X 1A4",
+  "phone": "+14169018569",
+  "rating": 4.7,
+  "count": 23,
+  "slug": "handa-law-professional-corporation-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Handa+Law+Professional+Corporation+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=100+Queen+St+W%2C+Brampton%2C+ON+L6X+1A4",
+  "website": "https://www.handalawpc.ca",
+  "blurb": "Family Law / Immigration in Brampton. Rated 4.7 from 23 Google reviews.",
+  "type": "logo",
+  "about": "With offices in downtown Brampton and North York, Handa Law Professional Corporation practises family law and real estate law. Kritika Handa founded the firm and focuses her own practice on those two areas, and the firm's lawyers also assist with immigration matters.\n\nHanda Law has been paperless since it opened, and clients can meet by video conference and sign real estate or family documents electronically from anywhere. The team follows a four-part method: listening, educating clients about their rights, developing a clear strategy and executing it. Its head office is at Yonge and Sheppard in North York.",
+  "src": "images/logos/handa-law-professional-corporation-brampton.png"
+ },
+ {
+  "name": "Odele Law Group",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.4915164,
+  "lng": -75.4820565,
+  "address": "890 Taylor Creek Dr #2, Orléans, ON K4A 0Z9",
+  "phone": "+13438821600",
+  "rating": 4.7,
+  "count": 23,
+  "slug": "odele-law-group-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Odele+Law+Group+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=890+Taylor+Creek+Dr+%232%2C+Orl%C3%A9ans%2C+ON+K4A+0Z9",
+  "website": "https://odelelaw.ca",
+  "blurb": "Family Law in Ottawa. Rated 4.7 from 23 Google reviews.",
+  "type": "logo",
+  "about": "Odele Law Group is an Ottawa firm in Orléans with a strong focus on family law, alongside corporate law and estate planning. Its approach puts people first, with legal service meant to be client-focused, transparent and approachable.\n\nLawyers take the time to listen to clients' concerns and goals before developing a customized strategy. The office is on Taylor Creek Drive in Orléans, and the firm serves families and businesses in the Ottawa area.",
+  "src": "images/logos/odele-law-group-ottawa.jpg",
+  "bioImage": "images/bio/odele-law-group-ottawa.webp"
+ },
+ {
+  "name": "Pallavi Law Office",
+  "city": "Mississauga",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "peel-halton",
+  "province": "ON",
+  "lat": 43.5891314,
+  "lng": -79.7221662,
+  "address": "1965 Britannia Rd W Ste 212, Mississauga, ON L5M 4Y4",
+  "phone": "+14377889349",
+  "rating": 5,
+  "count": 21,
+  "slug": "pallavi-law-office-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/Pallavi+Law+Office+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1965+Britannia+Rd+W+Ste+212%2C+Mississauga%2C+ON+L5M+4Y4",
+  "website": "https://pallavilaw.ca",
+  "blurb": "Real Estate in Mississauga. Rated 5.0 from 21 Google reviews.",
+  "type": "logo",
+  "about": "Immigration law leads the practice at Pallavi Law Office in Mississauga, alongside family, business, criminal defence and real estate work. Immigration services cover family-based and employment-based applications, asylum and refugee matters, permanent residence and citizenship applications, refusal cases and deportation cases, for individuals and businesses.\n\nFamily law services include divorce, child custody disputes, legal separation and domestic contracts such as separation agreements and prenuptial agreements. The office is on Britannia Road West in Mississauga.",
+  "src": "images/logos/pallavi-law-office-mississauga.png"
+ }
+]

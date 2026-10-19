@@ -264,7 +264,10 @@
     }
    ]
   },
-  "heroImage": "images/hero/harsimran-makkar-law-professional-corporation-brampton.webp"
+  "heroImage": "images/hero/harsimran-makkar-law-professional-corporation-brampton.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/harsimranmakkar"
+  }
  },
  {
   "name": "Hoffman Law",
@@ -427,7 +430,13 @@
     "Ontario"
    ]
   },
-  "heroImage": "images/hero/legal-route-brampton.webp"
+  "heroImage": "images/hero/legal-route-brampton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61560170283016",
+   "instagram": "https://www.instagram.com/legalroutelaw",
+   "x": "https://x.com/legalroutelaw",
+   "youtube": "https://www.youtube.com/@LegalRouteLawFirm"
+  }
  },
  {
   "name": "WPC Personal Injury Lawyer",
@@ -554,7 +563,12 @@
     "Ontario"
    ]
   },
-  "heroImage": "images/hero/yazdani-law-north-york.webp"
+  "heroImage": "images/hero/yazdani-law-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Yazdani-Law-Office-217299931776272",
+   "linkedin": "https://www.linkedin.com/company/yazdani-law-office",
+   "x": "https://x.com/lawyazdani"
+  }
  },
  {
   "name": "LeadRight Law",
@@ -645,7 +659,12 @@
     "Commercial lease agreements"
    ]
   },
-  "heroImage": "images/hero/kinza-law-office-professional-corporation-north-york.webp"
+  "heroImage": "images/hero/kinza-law-office-professional-corporation-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/kinzalawoffice",
+   "instagram": "https://www.instagram.com/kinzalawoffice",
+   "linkedin": "https://www.linkedin.com/company/kinza-law-office"
+  }
  },
  {
   "name": "Brykman Lefler Lawyers",
@@ -692,7 +711,11 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/brykman-lefler-lawyers-north-york.webp"
+  "heroImage": "images/hero/brykman-lefler-lawyers-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/BrykmanLaw",
+   "linkedin": "https://www.linkedin.com/company/bllawyers"
+  }
  },
  {
   "name": "Day + Borg LLP",
@@ -824,6 +847,13 @@
     "Mississauga",
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/NathensSiegel",
+   "instagram": "https://www.instagram.com/nathenssiegel",
+   "linkedin": "https://www.linkedin.com/company/nathens-siegel-llp",
+   "x": "https://x.com/nathenssiegel",
+   "youtube": "https://www.youtube.com/channel/UCbMOI4oac43tiFbNwxSHXPA"
   }
  },
  {
@@ -892,7 +922,10 @@
     "Ottawa"
    ]
   },
-  "heroImage": "images/hero/marin-immigration-law-ottawa.webp"
+  "heroImage": "images/hero/marin-immigration-law-ottawa.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/cedricmarin"
+  }
  },
  {
   "name": "Prior Law PC",
@@ -966,6 +999,13 @@
     "Employment standards",
     "Accident benefits"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/AJMurraylaw",
+   "instagram": "https://www.instagram.com/ajmurraylaw",
+   "linkedin": "https://www.linkedin.com/company/aj-murray-legal-services",
+   "x": "https://x.com/ajmurraylaw",
+   "youtube": "https://www.youtube.com/@ajmurraylegalservices1406"
   }
  },
  {
@@ -1194,7 +1234,12 @@
     "GTA"
    ]
   },
-  "heroImage": "images/hero/lakhan-tram-llp-mississauga.webp"
+  "heroImage": "images/hero/lakhan-tram-llp-mississauga.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/lawlakhan",
+   "instagram": "https://www.instagram.com/lakhantramllp",
+   "linkedin": "https://www.linkedin.com/company/lakhan-tram-llp"
+  }
  },
  {
   "name": "Duke Law Firm",
@@ -1238,6 +1283,11 @@
    "serving": [
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/dukelawfirm",
+   "linkedin": "https://www.linkedin.com/company/duke-law-firm",
+   "x": "https://x.com/tdotlawyer"
   }
  },
  {
@@ -1293,7 +1343,12 @@
     "Elder abuse"
    ]
   },
-  "heroImage": "images/hero/nika-law-llp-etobicoke.webp"
+  "heroImage": "images/hero/nika-law-llp-etobicoke.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/NIKA-LAW-LLP-109270877647637",
+   "linkedin": "https://www.linkedin.com/company/68140273",
+   "x": "https://x.com/NIKALAWLLP"
+  }
  },
  {
   "name": "TLC Legal Professional Corporation",
@@ -1381,7 +1436,12 @@
   "blurb": "General practice law firm in Mississauga. Rated 4.9 from 49 Google reviews.",
   "type": "logo",
   "about": "RealCorp Law Professional Corporation is a general practice law firm in Mississauga, Ontario. The office is located at 3075 Ridgeway Drive, Unit 32, in Mississauga, Ontario L5L 5M6. As a general practice, the firm is not limited to a single area of law, and it operates under the name RealCorp Law.",
-  "src": "images/logos/realcorp-law-professional-corporation-mississauga.png"
+  "src": "images/logos/realcorp-law-professional-corporation-mississauga.png",
+  "social": {
+   "facebook": "https://www.facebook.com/pages/RealCorp-Law-Professional-Corporation/185340161516035",
+   "linkedin": "https://www.linkedin.com/company/realcorp-law-professional-corporation",
+   "x": "https://x.com/shaffiqdar"
+  }
  },
  {
   "name": "Matthew M Granic & Assoc",
@@ -1459,7 +1519,10 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/justin-t-chan-toronto.webp"
+  "heroImage": "images/hero/justin-t-chan-toronto.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/justin-chan-16182a191"
+  }
  },
  {
   "name": "Thind Law Enterprise Professional Corporation",
@@ -1492,6 +1555,11 @@
     "Immigration",
     "Civil litigation"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/ThindLawEnterprise",
+   "linkedin": "https://www.linkedin.com/company/thind-law-enterprise-p-c",
+   "x": "https://x.com/TLE_PC"
   }
  },
  {
@@ -1582,6 +1650,12 @@
     "China-related legal services",
     "International arbitration"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/bridgepointlawpc",
+   "linkedin": "https://www.linkedin.com/company/bridgepoint-law-professional-corporation",
+   "x": "https://x.com/Bridgepoin29484",
+   "youtube": "https://www.youtube.com/@BridgePointLawPC"
   }
  },
  {
@@ -1638,6 +1712,10 @@
    "serving": [
     "GTA"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/ayflaw",
+   "linkedin": "https://www.linkedin.com/company/ayf-law-firm"
   }
  },
  {
@@ -1733,7 +1811,13 @@
     "Ontario"
    ]
   },
-  "heroImage": "images/hero/raluca-m-soica-barrister-and-solicitor-north-york.webp"
+  "heroImage": "images/hero/raluca-m-soica-barrister-and-solicitor-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100086301917728",
+   "instagram": "https://www.instagram.com/rmsestateslaw",
+   "linkedin": "https://www.linkedin.com/company/rms-estates-law",
+   "youtube": "https://www.youtube.com/@rmsestateslaw"
+  }
  },
  {
   "name": "Chronicle Law P.C.",
@@ -1875,7 +1959,11 @@
     "Guardianship"
    ]
   },
-  "heroImage": "images/hero/lafreniere-sanna-estate-law-ottawa.webp"
+  "heroImage": "images/hero/lafreniere-sanna-estate-law-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Neff-Lafreniere-Estate-Law-Professional-Corporation-1662876777326992",
+   "linkedin": "https://www.linkedin.com/company/persona-law-group-professional-corporation"
+  }
  },
  {
   "name": "Azatian Law Professional Corporation",
@@ -1997,6 +2085,9 @@
     "Mississauga",
     "Greater Toronto Area"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/koonerlaw"
   }
  },
  {
@@ -2085,6 +2176,12 @@
    "serving": [
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/farjoudlaw",
+   "instagram": "https://www.instagram.com/torontocriminallawyer",
+   "linkedin": "https://www.linkedin.com/in/farjoudlaw",
+   "x": "https://x.com/farjoudlaw"
   }
  },
  {
@@ -2131,7 +2228,10 @@
     "Short-term and long-term disability"
    ]
   },
-  "heroImage": "images/hero/quail-warfe-kreder-llp-mississauga.webp"
+  "heroImage": "images/hero/quail-warfe-kreder-llp-mississauga.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/qwklawyers"
+  }
  },
  {
   "name": "Howard and Howard",
@@ -2276,6 +2376,12 @@
     "Corporate commercial law",
     "Wills and estates"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/stellarlawllp",
+   "instagram": "https://www.instagram.com/stellarlaw.ca",
+   "linkedin": "https://www.linkedin.com/company/stellarlaw",
+   "x": "https://x.com/StellarLawLLP"
   }
  },
  {
@@ -2323,7 +2429,11 @@
     "Springwater"
    ]
   },
-  "heroImage": "images/hero/moreau-family-law-professional-corporation-barrie.webp"
+  "heroImage": "images/hero/moreau-family-law-professional-corporation-barrie.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/moreaufamilylawbarrie",
+   "linkedin": "https://www.linkedin.com/company/moreau-family-law-barrie"
+  }
  },
  {
   "name": "Garson Immigration Law",
@@ -2363,7 +2473,13 @@
     "Immigration law"
    ]
   },
-  "heroImage": "images/hero/garson-immigration-law-north-york.webp"
+  "heroImage": "images/hero/garson-immigration-law-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/garsonimmigrationlaw",
+   "instagram": "https://www.instagram.com/garsonimmigrationlaw",
+   "linkedin": "https://www.linkedin.com/company/garson-immigration-law",
+   "x": "https://x.com/GarsonLaw"
+  }
  },
  {
   "name": "Amani Law Office",
@@ -2435,6 +2551,9 @@
    "serving": [
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/Ian-J-Collins-276712902758546"
   }
  },
  {
@@ -2531,7 +2650,12 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/david-genis-north-york.webp"
+  "heroImage": "images/hero/david-genis-north-york.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/DavidGenisCriminalLawyer",
+   "linkedin": "https://www.linkedin.com/in/david-genis-81564818",
+   "youtube": "https://www.youtube.com/channel/UCD_gCPaAlcHjIy6TdwDRUHw"
+  }
  },
  {
   "name": "Junction Law Professional Corporation",
@@ -2573,6 +2697,9 @@
    "serving": [
     "Ontario"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/junction_law"
   }
  },
  {
@@ -2606,7 +2733,12 @@
     "Power of attorney litigation"
    ]
   },
-  "heroImage": "images/hero/bickhram-litigation-mississauga.webp"
+  "heroImage": "images/hero/bickhram-litigation-mississauga.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Bickhram-Litigation-Mississauga-100874218359784",
+   "instagram": "https://www.instagram.com/bickhram__litigation",
+   "x": "https://x.com/BickhramL"
+  }
  },
  {
   "name": "DavyLaw",
@@ -2656,6 +2788,11 @@
     "Family",
     "Franchise"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/davylawtoronto",
+   "instagram": "https://www.instagram.com/davylawtoronto",
+   "linkedin": "https://www.linkedin.com/company/davylaw-professional-corporation"
   }
  },
  {
@@ -2694,7 +2831,10 @@
     "Quebec"
    ]
   },
-  "heroImage": "images/hero/mehrez-law-ottawa.webp"
+  "heroImage": "images/hero/mehrez-law-ottawa.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/hmehrez"
+  }
  },
  {
   "name": "Sheard Law Professional Corporation",
@@ -2804,7 +2944,10 @@
   "blurb": "General practice law firm in Hamilton. Rated 5.0 from 36 Google reviews.",
   "type": "logo",
   "about": "Real estate, wills and family law are the work of Stampone Law, a Hamilton-area practice based in Stoney Creek. Siera Stampone is the owner and principal lawyer, and she also advises on estate planning, estate administration and corporate law.\n\nShe earned a Juris Doctor from the University of Ottawa in 2021, where she received the Corbin Estates Law Annual Prize and the STEP Canada Prize in wills and the law of succession. The firm is successor to the practice of Murray Mazza, who practised in Hamilton and the Niagara region for over 40 years, and it now has carriage of his files. Services include home purchases and sales, mortgage refinancing, powers of attorney, trusts and domestic contracts such as cohabitation agreements, marriage contracts and separation agreements.",
-  "src": "images/logos/stampone-law-hamilton.png"
+  "src": "images/logos/stampone-law-hamilton.png",
+  "social": {
+   "instagram": "https://www.instagram.com/stamponelaw_"
+  }
  },
  {
   "name": "Belecky & Belecky",
@@ -2844,6 +2987,10 @@
     "Family law",
     "Wills and estates"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100063683825567",
+   "instagram": "https://www.instagram.com/beleckyandbelecky"
   }
  },
  {
@@ -2956,7 +3103,12 @@
     "Ontario"
    ]
   },
-  "heroImage": "images/hero/glass-gavel-professional-corporation-barrie.webp"
+  "heroImage": "images/hero/glass-gavel-professional-corporation-barrie.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61552179970235",
+   "instagram": "https://www.instagram.com/glassgavellaw",
+   "linkedin": "https://www.linkedin.com/company/glass-gavel-law"
+  }
  },
  {
   "name": "S S Loomba Law Professional Corporation",
@@ -2996,6 +3148,11 @@
     "Brampton",
     "Greater Toronto Area"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/SS-Loomba-Law-Professional-Corporation-102368655700924",
+   "instagram": "https://www.instagram.com/ssloombalaw",
+   "linkedin": "https://www.linkedin.com/company/ss-loomba-law-professional-corporation"
   }
  },
  {
@@ -3037,7 +3194,12 @@
     "Barrhaven"
    ]
   },
-  "heroImage": "images/hero/sean-kelly-law-ottawa.webp"
+  "heroImage": "images/hero/sean-kelly-law-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/SeanKellyLawOttawa",
+   "instagram": "https://www.instagram.com/sklawottawa",
+   "linkedin": "https://www.linkedin.com/company/sean-kelly-law"
+  }
  },
  {
   "name": "Brown Family Law",
@@ -3218,6 +3380,11 @@
     "North York",
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/TheCriminalLawTeamToronto",
+   "x": "https://x.com/TheCriminalLaw3",
+   "youtube": "https://www.youtube.com/channel/UCyOv4jmSKvXfTXykr7-Q5yw"
   }
  },
  {
@@ -3354,6 +3521,10 @@
     "Trademark and brand protection",
     "Contract and policy reviews"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100094904181306",
+   "linkedin": "https://www.linkedin.com/in/robertonley"
   }
  },
  {
@@ -3436,7 +3607,14 @@
     "Barrie"
    ]
   },
-  "heroImage": "images/hero/progressive-legal-solutions-barrie.webp"
+  "heroImage": "images/hero/progressive-legal-solutions-barrie.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61570932854437",
+   "instagram": "https://www.instagram.com/plslawyers.ca",
+   "linkedin": "https://www.linkedin.com/company/plslawyers",
+   "x": "https://x.com/PLS_Lawyers_ca",
+   "youtube": "https://www.youtube.com/channel/UCMCPVdUr-gYxwJMv-zZmnBg"
+  }
  },
  {
   "name": "ADS Law Professional Corporation",
@@ -3637,6 +3815,10 @@
     "Mississauga",
     "Greater Toronto Area"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/pmplaw",
+   "linkedin": "https://www.linkedin.com/in/parasmpatel"
   }
  },
  {
@@ -3871,7 +4053,12 @@
     "GTA"
    ]
   },
-  "heroImage": "images/hero/hummingbird-lawyers-llp-toronto.webp"
+  "heroImage": "images/hero/hummingbird-lawyers-llp-toronto.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/HummingbirdLawyers",
+   "instagram": "https://www.instagram.com/hummingbirdlawyers",
+   "linkedin": "https://www.linkedin.com/company/hummingbird-lawyers-llp"
+  }
  },
  {
   "name": "Richards and Jurusik US Immigration Lawyer",
@@ -3944,6 +4131,13 @@
     "Board of Immigration Appeals",
     "Immigration delay litigation"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/richardsjurusik",
+   "instagram": "https://www.instagram.com/richardsandjurusik",
+   "linkedin": "https://www.linkedin.com/company/richards-and-jurusik",
+   "x": "https://x.com/RichardsJurusik",
+   "youtube": "https://www.youtube.com/channel/UCpVZeFe0zcp8oGRoXNw_euw"
   }
  },
  {
@@ -4128,7 +4322,11 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/jag-virk-lawyers-hamilton.webp"
+  "heroImage": "images/hero/jag-virk-lawyers-hamilton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/JagVirkCriminalLawyers",
+   "youtube": "https://www.youtube.com/@jagvirkcriminallawyers3486"
+  }
  },
  {
   "name": "Morneau Family Law & Legal Innovation",
@@ -4168,7 +4366,12 @@
     "Waterloo"
    ]
   },
-  "heroImage": "images/hero/morneau-family-law-and-legal-innovation-kitchener.webp"
+  "heroImage": "images/hero/morneau-family-law-and-legal-innovation-kitchener.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/david.morneau.9",
+   "instagram": "https://www.instagram.com/dmorneaulaw",
+   "linkedin": "https://www.linkedin.com/in/david-morneau-237a8b37"
+  }
  },
  {
   "name": "Burshtein Law",
@@ -4204,7 +4407,11 @@
     "Estate administration"
    ]
   },
-  "heroImage": "images/hero/burshtein-law-toronto.webp"
+  "heroImage": "images/hero/burshtein-law-toronto.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/jonathanburshtein",
+   "x": "https://x.com/burshlaw"
+  }
  },
  {
   "name": "SLC Law",
@@ -4287,6 +4494,9 @@
     "Mississauga",
     "Toronto"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/slc-law"
   }
  },
  {
@@ -4459,7 +4669,11 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/smithen-family-law-professional-corporation-north-york.webp"
+  "heroImage": "images/hero/smithen-family-law-professional-corporation-north-york.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/kathryn-l-smithen-6398444",
+   "youtube": "https://www.youtube.com/@SmithenFamilyLaw"
+  }
  },
  {
   "name": "Monique J. Charlebois",
@@ -4540,7 +4754,10 @@
     "Wills, estates & trusts"
    ]
   },
-  "heroImage": "images/hero/weng-law-firm-toronto.webp"
+  "heroImage": "images/hero/weng-law-firm-toronto.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/WengLawFirm"
+  }
  },
  {
   "name": "Danson Delavar LLP",
@@ -4584,7 +4801,10 @@
     "Defamation litigation"
    ]
   },
-  "heroImage": "images/hero/danson-delavar-llp-toronto.webp"
+  "heroImage": "images/hero/danson-delavar-llp-toronto.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/timothy-s-b-danson-9a719038"
+  }
  },
  {
   "name": "Morrison Williams LLP",
@@ -4682,7 +4902,12 @@
     "Elder abuse"
    ]
   },
-  "heroImage": "images/hero/gale-law-professional-corporation-toronto.webp"
+  "heroImage": "images/hero/gale-law-professional-corporation-toronto.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/galelawto",
+   "linkedin": "https://www.linkedin.com/in/kimgale",
+   "x": "https://x.com/galelawto"
+  }
  },
  {
   "name": "Taerk Family Law",
@@ -4825,7 +5050,12 @@
     "Wills & estates"
    ]
   },
-  "heroImage": "images/hero/ndm-law-mississauga.webp"
+  "heroImage": "images/hero/ndm-law-mississauga.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/NDM-Law-1885445145100545",
+   "x": "https://x.com/NdmLaw",
+   "youtube": "https://www.youtube.com/channel/UCJAZVf1_NLKRk3a6Jb43jRg"
+  }
  },
  {
   "name": "Brazeau Seller Law",
@@ -4895,7 +5125,12 @@
     "Business law"
    ]
   },
-  "heroImage": "images/hero/brazeau-seller-law-ottawa.webp"
+  "heroImage": "images/hero/brazeau-seller-law-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/BrazeauSeller",
+   "linkedin": "https://www.linkedin.com/company/brazeau-seller-law",
+   "x": "https://x.com/brazeauseller"
+  }
  },
  {
   "name": "A.Circelli Law",
@@ -4937,6 +5172,11 @@
     "Guelph",
     "Waterloo"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100076952387423",
+   "linkedin": "https://www.linkedin.com/in/antonio-circelli-88a661229",
+   "x": "https://x.com/acircellilaw"
   }
  },
  {
@@ -5077,6 +5317,11 @@
     "London",
     "Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/FosterslawLLP",
+   "linkedin": "https://www.linkedin.com/company/fosters-law-llp",
+   "youtube": "https://www.youtube.com/channel/UC6UWpLZyw1yrXCBtdl3U_Vg"
   }
  },
  {
@@ -5125,7 +5370,10 @@
     "Brampton"
    ]
   },
-  "heroImage": "images/hero/handa-law-professional-corporation-brampton.webp"
+  "heroImage": "images/hero/handa-law-professional-corporation-brampton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/handalaw"
+  }
  },
  {
   "name": "Odele Law Group",

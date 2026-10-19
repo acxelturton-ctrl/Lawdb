@@ -77,7 +77,12 @@
     "Alberta"
    ]
   },
-  "heroImage": "images/hero/stewart-sharma-harsanyi-immigration-law-calgary.webp"
+  "heroImage": "images/hero/stewart-sharma-harsanyi-immigration-law-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/StewartSharmaHarsanyiLaw",
+   "x": "https://x.com/sharmaharsanyi",
+   "youtube": "https://www.youtube.com/user/SharmaHarsanyi"
+  }
  },
  {
   "name": "Shory Law LLP",
@@ -184,6 +189,12 @@
    "serving": [
     "Calgary"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/shoryLaw",
+   "instagram": "https://www.instagram.com/shorylaw",
+   "linkedin": "https://www.linkedin.com/company/shory-law",
+   "youtube": "https://www.youtube.com/channel/UCYhdbSf2fXQcC7F5hdSy7lw"
   }
  },
  {
@@ -369,7 +380,10 @@
     "Edmonton"
    ]
   },
-  "heroImage": "images/hero/brij-mohan-and-associates-edmonton.webp"
+  "heroImage": "images/hero/brij-mohan-and-associates-edmonton.webp",
+  "social": {
+   "youtube": "https://www.youtube.com/@lawyerbrijmohan6689"
+  }
  },
  {
   "name": "UMPC Law Notary Public & Lawyers",
@@ -475,7 +489,11 @@
     "Alberta"
    ]
   },
-  "heroImage": "images/hero/virtual-law-group-canada-calgary.webp"
+  "heroImage": "images/hero/virtual-law-group-canada-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/virtuallawgroupcanada",
+   "instagram": "https://www.instagram.com/virtuallawgroup"
+  }
  },
  {
   "name": "Hansen & Company",
@@ -544,6 +562,11 @@
      "18:00"
     ]
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/gary.hansen.7169",
+   "linkedin": "https://www.linkedin.com/in/hansencompany",
+   "x": "https://x.com/hansencompany"
   }
  },
  {
@@ -585,6 +608,11 @@
    "serving": [
     "Calgary"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/BalawanLawFirm",
+   "instagram": "https://www.instagram.com/balawan_law_firm",
+   "linkedin": "https://www.linkedin.com/company/balawan-law"
   }
  },
  {
@@ -637,6 +665,11 @@
    "serving": [
     "Edmonton"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/RichardsLawEdmonton",
+   "instagram": "https://www.instagram.com/richards.and.company",
+   "linkedin": "https://www.linkedin.com/in/darrenlrichards"
   }
  },
  {
@@ -694,6 +727,11 @@
    "serving": [
     "Calgary"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/millerlawfirm.ca",
+   "instagram": "https://www.instagram.com/millerimmigration",
+   "linkedin": "https://www.linkedin.com/in/halyna-miller-6435b639"
   }
  },
  {
@@ -771,6 +809,10 @@
     "Calgary",
     "Alberta"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/khemkalaw",
+   "instagram": "https://www.instagram.com/khemkalawfirm"
   }
  },
  {
@@ -879,7 +921,12 @@
     "Edmonton"
    ]
   },
-  "heroImage": "images/hero/gunn-law-group-edmonton.webp"
+  "heroImage": "images/hero/gunn-law-group-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/GunnLaw",
+   "x": "https://x.com/GunnLawGroup",
+   "youtube": "https://www.youtube.com/@gunnlawgroup5529"
+  }
  },
  {
   "name": "Safi Law Group",
@@ -970,7 +1017,12 @@
     "Edmonton"
    ]
   },
-  "heroImage": "images/hero/safi-law-group-edmonton.webp"
+  "heroImage": "images/hero/safi-law-group-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/safilawgroup",
+   "linkedin": "https://www.linkedin.com/company/safi-law-group",
+   "x": "https://x.com/safilawgroup"
+  }
  },
  {
   "name": "Olex Legal",
@@ -1010,7 +1062,14 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/olex-legal-calgary.webp"
+  "heroImage": "images/hero/olex-legal-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/olexlegalyyc",
+   "instagram": "https://www.instagram.com/olexlegalyyc",
+   "linkedin": "https://www.linkedin.com/company/olexlegalyyc",
+   "x": "https://x.com/olexlegalyyc",
+   "youtube": "https://www.youtube.com/@olexlegalyyc"
+  }
  },
  {
   "name": "Bagga & Associates",
@@ -1090,6 +1149,10 @@
    "serving": [
     "Calgary"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/baggalaw",
+   "linkedin": "https://www.linkedin.com/in/baggaandassociates"
   }
  },
  {
@@ -1211,7 +1274,12 @@
     "Wills and estates"
    ]
   },
-  "heroImage": "images/hero/minuk-law-calgary.webp"
+  "heroImage": "images/hero/minuk-law-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/legalservices1stopshop",
+   "instagram": "https://www.instagram.com/minuk_law",
+   "linkedin": "https://www.linkedin.com/company/minuk-law"
+  }
  },
  {
   "name": "LinQ Law",
@@ -1293,7 +1361,11 @@
     "Edmonton"
    ]
   },
-  "heroImage": "images/hero/linq-law-edmonton.webp"
+  "heroImage": "images/hero/linq-law-edmonton.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/linqlaw",
+   "linkedin": "https://www.linkedin.com/company/linq-law"
+  }
  },
  {
   "name": "Stemp & Company",
@@ -1386,6 +1458,9 @@
     "Edmonton",
     "Alberta"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/trust-law"
   }
  },
  {
@@ -1428,7 +1503,11 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/psb-law-office-calgary.webp"
+  "heroImage": "images/hero/psb-law-office-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/psblawoffice",
+   "linkedin": "https://www.linkedin.com/in/parbinder-bhangu-b99b1597"
+  }
  },
  {
   "name": "Team Law Group LLP",
@@ -1500,6 +1579,12 @@
    "serving": [
     "Edmonton"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/teamlawgroupllp",
+   "instagram": "https://www.instagram.com/teamlawgroup",
+   "linkedin": "https://www.linkedin.com/company/team-law-group-llp",
+   "youtube": "https://www.youtube.com/@teamlawgroupllp4589"
   }
  },
  {
@@ -1547,7 +1632,13 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/dimic-law-calgary.webp"
+  "heroImage": "images/hero/dimic-law-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/dimiclaw",
+   "instagram": "https://www.instagram.com/dimic_law",
+   "linkedin": "https://www.linkedin.com/company/dimic-law",
+   "x": "https://x.com/dimiclaw"
+  }
  },
  {
   "name": "Capital City Law",
@@ -1657,6 +1748,9 @@
     "Human rights law",
     "Appeals and reviews"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/jouman-el-asmar-a9022b38"
   }
  },
  {
@@ -1741,6 +1835,9 @@
    "serving": [
     "Calgary"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/p-m-menon-parakkal-56075642"
   }
  },
  {
@@ -1951,6 +2048,13 @@
     "St. Albert",
     "Alberta"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/ansarilaw.ca",
+   "instagram": "https://www.instagram.com/ansari_immigration_law",
+   "linkedin": "https://www.linkedin.com/company/ansari-immigration-law",
+   "x": "https://x.com/ansari_law",
+   "youtube": "https://www.youtube.com/@ansari_immigration_law"
   }
  },
  {
@@ -1999,6 +2103,9 @@
    "serving": [
     "Edmonton"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/starlegalservices"
   }
  },
  {
@@ -2055,7 +2162,11 @@
     "Fort Saskatchewan"
    ]
   },
-  "heroImage": "images/hero/salloum-and-company-edmonton.webp"
+  "heroImage": "images/hero/salloum-and-company-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/SalloumLaw",
+   "instagram": "https://www.instagram.com/salloum.law"
+  }
  },
  {
   "name": "Robertson LLP",
@@ -2207,6 +2318,10 @@
    "serving": [
     "Edmonton"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/verdictallp",
+   "linkedin": "https://www.linkedin.com/company/verdictallp"
   }
  },
  {
@@ -2258,6 +2373,12 @@
     "Calgary",
     "Alberta"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/OutsidersLaw",
+   "instagram": "https://www.instagram.com/outsiders.law",
+   "linkedin": "https://www.linkedin.com/company/outsiders-law",
+   "x": "https://x.com/OutsidersLaw"
   }
  },
  {
@@ -2461,7 +2582,10 @@
     "Constitutional law"
    ]
   },
-  "heroImage": "images/hero/williamson-law-calgary.webp"
+  "heroImage": "images/hero/williamson-law-calgary.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/chadmius"
+  }
  },
  {
   "name": "Kahane Law Office",
@@ -2535,7 +2659,14 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/kahane-law-office-edmonton.webp"
+  "heroImage": "images/hero/kahane-law-office-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Kahane-Law-Office-149824311719777",
+   "instagram": "https://www.instagram.com/kahanelaw",
+   "linkedin": "https://www.linkedin.com/company/kahane-law-office",
+   "x": "https://x.com/kahanelaw",
+   "youtube": "https://www.youtube.com/@Kahanelaw"
+  }
  },
  {
   "name": "Galbraith Law",
@@ -2576,7 +2707,10 @@
     "Edmonton"
    ]
   },
-  "heroImage": "images/hero/galbraith-law-edmonton.webp"
+  "heroImage": "images/hero/galbraith-law-edmonton.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/galbraith-law"
+  }
  },
  {
   "name": "Birdsell Grant LLP",
@@ -2766,7 +2900,10 @@
     "Edmonton"
    ]
   },
-  "heroImage": "images/hero/highfield-law-office-edmonton.webp"
+  "heroImage": "images/hero/highfield-law-office-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/highfieldlaw"
+  }
  },
  {
   "name": "Block Law",
@@ -2804,7 +2941,10 @@
     "Real estate"
    ]
   },
-  "heroImage": "images/hero/block-law-edmonton.webp"
+  "heroImage": "images/hero/block-law-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/blocklawfirm"
+  }
  },
  {
   "name": "Gosal & Company",
@@ -2860,7 +3000,11 @@
     "British Columbia"
    ]
   },
-  "heroImage": "images/hero/gosal-and-company-surrey.webp"
+  "heroImage": "images/hero/gosal-and-company-surrey.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61590506316455",
+   "linkedin": "https://www.linkedin.com/company/gosalandcompany"
+  }
  },
  {
   "name": "Ascent Employment Law",
@@ -2912,7 +3056,12 @@
     "Pacific Northwest"
    ]
   },
-  "heroImage": "images/hero/ascent-employment-law-vancouver.webp"
+  "heroImage": "images/hero/ascent-employment-law-vancouver.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/ascentemploymentlaw",
+   "linkedin": "https://www.linkedin.com/company/ascent-employment-law",
+   "x": "https://x.com/AscentLaw_BC"
+  }
  },
  {
   "name": "Gurna Law Corporation",
@@ -3001,6 +3150,13 @@
     "British Columbia",
     "New Westminster"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/surreycriminallawyer",
+   "instagram": "https://www.instagram.com/sternshapray.crimlawyers",
+   "linkedin": "https://www.linkedin.com/company/stern-shapray-lawyers",
+   "x": "https://x.com/sternshapraylaw",
+   "youtube": "https://www.youtube.com/channel/UCjyOcxQlF3SyCxI5mmWFhpw"
   }
  },
  {
@@ -3043,6 +3199,11 @@
     "Refugees and asylum",
     "Citizenship services"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/BinHimyaryLawGroup",
+   "linkedin": "https://www.linkedin.com/company/binhimyar-law-group",
+   "x": "https://x.com/BinHimyarLaw"
   }
  },
  {
@@ -3152,7 +3313,12 @@
     "Vancouver"
    ]
   },
-  "heroImage": "images/hero/tevlin-gleadle-curtis-vancouver.webp"
+  "heroImage": "images/hero/tevlin-gleadle-curtis-vancouver.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/pages/TevlinGleadle-Employment-Law-Strategies/138991096153727",
+   "linkedin": "https://www.linkedin.com/company/1601325",
+   "x": "https://x.com/law_tgc"
+  }
  },
  {
   "name": "Go Law",
@@ -3255,6 +3421,11 @@
    "serving": [
     "Vancouver"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/dlalaw.ca",
+   "linkedin": "https://www.linkedin.com/company/dlalaw",
+   "x": "https://x.com/DLALaw_CA"
   }
  },
  {
@@ -3477,6 +3648,11 @@
    "serving": [
     "British Columbia"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/SmukLaw",
+   "instagram": "https://www.instagram.com/smukowichlaw",
+   "linkedin": "https://www.linkedin.com/in/andrewsmukowich"
   }
  },
  {
@@ -3567,7 +3743,12 @@
     "Vernon"
    ]
   },
-  "heroImage": "images/hero/dumoulin-boskovich-llp-vancouver.webp"
+  "heroImage": "images/hero/dumoulin-boskovich-llp-vancouver.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100077544227055",
+   "instagram": "https://www.instagram.com/dubo.llp",
+   "linkedin": "https://www.linkedin.com/company/dumoulin-boskovich-llp"
+  }
  },
  {
   "name": "Iven KS Tse Law Corporation",
@@ -3699,6 +3880,11 @@
     "Trademark registration",
     "Family sponsorship"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/StrollLawGroup",
+   "linkedin": "https://www.linkedin.com/in/orrin-stroll-9a356410",
+   "x": "https://x.com/strolllawgroup"
   }
  },
  {
@@ -3793,7 +3979,12 @@
     "Surrey"
    ]
   },
-  "heroImage": "images/hero/jiwa-law-corporation-surrey.webp"
+  "heroImage": "images/hero/jiwa-law-corporation-surrey.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/jiwalaw",
+   "instagram": "https://www.instagram.com/jiwa.law",
+   "x": "https://x.com/jiwalaw"
+  }
  },
  {
   "name": "Nirwan Law Corporation",
@@ -3850,6 +4041,11 @@
     "British Columbia",
     "Alberta"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61575533091639",
+   "instagram": "https://www.instagram.com/nirwanlaw",
+   "linkedin": "https://www.linkedin.com/company/nirwan-law-corp"
   }
  },
  {
@@ -3948,7 +4144,12 @@
     "Saskatchewan"
    ]
   },
-  "heroImage": "images/hero/mike-beckett-law-surrey.webp"
+  "heroImage": "images/hero/mike-beckett-law-surrey.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Mike-Beckett-Criminal-Defence-Lawyer-196211614482480",
+   "linkedin": "https://www.linkedin.com/in/michael-a-beckett-j-d-a5b69bb2",
+   "x": "https://x.com/beckettmike"
+  }
  },
  {
   "name": "Carraig Law Group LLP",
@@ -3995,7 +4196,11 @@
     "Mediation"
    ]
   },
-  "heroImage": "images/hero/carraig-law-group-llp-vancouver.webp"
+  "heroImage": "images/hero/carraig-law-group-llp-vancouver.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/carraig_law",
+   "linkedin": "https://www.linkedin.com/company/carraig-law-group"
+  }
  },
  {
   "name": "Einfeld Law",
@@ -4042,6 +4247,9 @@
    "serving": [
     "Kelowna"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/einfeldlaw"
   }
  },
  {
@@ -4091,7 +4299,12 @@
     "British Columbia"
    ]
   },
-  "heroImage": "images/hero/vincent-mark-law-corporation-burnaby.webp"
+  "heroImage": "images/hero/vincent-mark-law-corporation-burnaby.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/BurnabyLawyer",
+   "linkedin": "https://www.linkedin.com/company/vincent-mark-law-corporation",
+   "youtube": "https://www.youtube.com/@vincentmarklaw"
+  }
  },
  {
   "name": "Khaki Law Corporation",
@@ -4178,6 +4391,10 @@
     "Langley",
     "British Columbia"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/khakilaw",
+   "x": "https://x.com/altamishkhaki"
   }
  },
  {
@@ -4358,6 +4575,10 @@
     "Langley",
     "Kelowna"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/gertsoyglaw",
+   "x": "https://x.com/gertsoyglaw"
   }
  },
  {
@@ -4550,6 +4771,10 @@
     "Lake Country",
     "Peachland"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/thelifelawyer",
+   "x": "https://x.com/thelifelawyer"
   }
  },
  {
@@ -4630,7 +4855,10 @@
     "British Columbia"
    ]
   },
-  "heroImage": "images/hero/bay-view-law-employment-lawyers-kelowna.webp"
+  "heroImage": "images/hero/bay-view-law-employment-lawyers-kelowna.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/BayViewLaw"
+  }
  },
  {
   "name": "Velletta Pedersen Christie Lawyers",
@@ -4744,7 +4972,12 @@
     "Canada"
    ]
   },
-  "heroImage": "images/hero/velletta-pedersen-christie-lawyers-victoria.webp"
+  "heroImage": "images/hero/velletta-pedersen-christie-lawyers-victoria.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/pages/Velletta-Company-Lawyers/176365079057666",
+   "instagram": "https://www.instagram.com/vellettalawyers",
+   "x": "https://x.com/vellettalawyers"
+  }
  },
  {
   "name": "George Lee Law Corp",
@@ -4832,7 +5065,11 @@
     "British Columbia"
    ]
   },
-  "heroImage": "images/hero/george-lee-law-corp-burnaby.webp"
+  "heroImage": "images/hero/george-lee-law-corp-burnaby.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/gleelaw",
+   "youtube": "https://www.youtube.com/@georgeleelaw"
+  }
  },
  {
   "name": "Hutchison Oss-Cech Marlatt",
@@ -4875,6 +5112,9 @@
    "serving": [
     "Victoria"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/hutchison-oss-cech-marlatt"
   }
  },
  {
@@ -5027,7 +5267,11 @@
     "Driving offences"
    ]
   },
-  "heroImage": "images/hero/snowdon-and-terepocki-llp-abbotsford.webp"
+  "heroImage": "images/hero/snowdon-and-terepocki-llp-abbotsford.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/gstlegal",
+   "linkedin": "https://www.linkedin.com/in/tonia-grace-62338558"
+  }
  },
  {
   "name": "Heritage Law Group",
@@ -5072,6 +5316,9 @@
    "serving": [
     "Kelowna"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/HeritageLawyers"
   }
  },
  {
@@ -5117,6 +5364,12 @@
    "serving": [
     "Vancouver"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/MeridianLawGroupBC",
+   "instagram": "https://www.instagram.com/meridianlawgroupbc",
+   "linkedin": "https://www.linkedin.com/company/meridian-law-group",
+   "x": "https://x.com/meridianlawBC"
   }
  },
  {
@@ -5215,6 +5468,11 @@
     "Business acquisition and sale",
     "Business entity structuring"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/Trivium-Law-105641231984354",
+   "linkedin": "https://www.linkedin.com/company/trivium-law",
+   "x": "https://x.com/TriviumLawBC"
   }
  },
  {
@@ -5262,7 +5520,12 @@
     "Civil litigation"
    ]
   },
-  "heroImage": "images/hero/johnston-franklin-bishop-nanaimo.webp"
+  "heroImage": "images/hero/johnston-franklin-bishop-nanaimo.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/johnstonfranklinbishop",
+   "instagram": "https://www.instagram.com/jfblawca",
+   "linkedin": "https://www.linkedin.com/company/johnston-franklin-bishop"
+  }
  },
  {
   "name": "Skyline Law Corporation",
@@ -5344,6 +5607,10 @@
     "Surrey",
     "Vancouver"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/skylinelawcorp",
+   "instagram": "https://www.instagram.com/skylinelawcorporation"
   }
  },
  {
@@ -5563,6 +5830,11 @@
    "serving": [
     "Québec"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61555396380056",
+   "instagram": "https://www.instagram.com/banksavocats",
+   "linkedin": "https://www.linkedin.com/company/banks-avocats"
   }
  },
  {
@@ -5650,6 +5922,9 @@
    "serving": [
     "Montreal"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/georgia-pappis-08b94425"
   }
  },
  {
@@ -5774,7 +6049,10 @@
     "Droit pénal"
    ]
   },
-  "heroImage": "images/hero/cantin-boulianne-avocats-saguenay.webp"
+  "heroImage": "images/hero/cantin-boulianne-avocats-saguenay.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/cantinbouliannedroit"
+  }
  },
  {
   "name": "ELI BLOOM Avocat",
@@ -5843,6 +6121,10 @@
    "serving": [
     "Montreal"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/chakib.benhadji",
+   "linkedin": "https://www.linkedin.com/in/chakib-benhadji-serradj-3564a21b2"
   }
  },
  {
@@ -5884,6 +6166,9 @@
    "serving": [
     "Montréal"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/TLM-Avocats-515145455330063"
   }
  },
  {
@@ -5979,6 +6264,10 @@
     "Montréal",
     "Bromont"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/twinlisbet",
+   "linkedin": "https://www.linkedin.com/company/twinlisbet"
   }
  },
  {
@@ -6017,6 +6306,9 @@
    "serving": [
     "Montréal"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/bessette-avocat-inc."
   }
  },
  {
@@ -6106,6 +6398,12 @@
    "serving": [
     "Montreal"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/chalatilawyer",
+   "instagram": "https://www.instagram.com/chalatilawyer",
+   "linkedin": "https://www.linkedin.com/in/nadinechalati",
+   "youtube": "https://www.youtube.com/channel/UCORfAky1MoGuS3cQuTAzx5g"
   }
  },
  {
@@ -6156,7 +6454,11 @@
     "Bankruptcy law"
    ]
   },
-  "heroImage": "images/hero/lazarus-legal-montreal.webp"
+  "heroImage": "images/hero/lazarus-legal-montreal.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/lazarus_legal",
+   "linkedin": "https://www.linkedin.com/company/lazarus-law"
+  }
  },
  {
   "name": "Mathieu Di Lullo",
@@ -6196,6 +6498,12 @@
     "Entrée express",
     "Réunification de la famille"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/mdlimmigration",
+   "instagram": "https://www.instagram.com/mathieudi",
+   "linkedin": "https://www.linkedin.com/in/mathieudilullo",
+   "x": "https://x.com/mdilullo"
   }
  },
  {
@@ -6282,7 +6590,10 @@
     "St-Hyacinthe"
    ]
   },
-  "heroImage": "images/hero/gauthier-avocats-brossard.webp"
+  "heroImage": "images/hero/gauthier-avocats-brossard.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100063912911281"
+  }
  },
  {
   "name": "TCJ",
@@ -6312,6 +6623,11 @@
    "areas": [
     "Affaires, commercial et corporatif"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/groupetcj",
+   "instagram": "https://www.instagram.com/groupetcj",
+   "linkedin": "https://www.linkedin.com/company/therrien-couture-jolicoeur"
   }
  },
  {
@@ -6388,6 +6704,10 @@
     "Droit fiscal",
     "Litige"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/fdgavocats",
+   "instagram": "https://www.instagram.com/fdgavocats"
   }
  },
  {
@@ -6548,6 +6868,9 @@
     "Représentation en appel",
     "Violence conjugale"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/patrick-jacques-b0825789"
   }
  },
  {
@@ -6657,6 +6980,10 @@
    "serving": [
     "Saint-Jérôme"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/cantinmyrelerouxavocats",
+   "linkedin": "https://www.linkedin.com/company/cantin-myre-leroux-avocats"
   }
  },
  {
@@ -6697,6 +7024,9 @@
     "Jeunesse",
     "Appels"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/noncoupableavocats"
   }
  },
  {
@@ -6813,7 +7143,11 @@
     "Laurentides"
    ]
   },
-  "heroImage": "images/hero/lalonde-geraghty-riendeau-saint-jerome.webp"
+  "heroImage": "images/hero/lalonde-geraghty-riendeau-saint-jerome.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/LGRavocats",
+   "linkedin": "https://www.linkedin.com/company/lalonde-geraghty-riendeau"
+  }
  },
  {
   "name": "Me Jonathan Boivin",
@@ -6859,7 +7193,11 @@
     "Laurentides"
    ]
   },
-  "heroImage": "images/hero/me-jonathan-boivin-saint-jerome.webp"
+  "heroImage": "images/hero/me-jonathan-boivin-saint-jerome.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/JBoivinavocat",
+   "linkedin": "https://www.linkedin.com/in/jonathan-boivin-60734532"
+  }
  },
  {
   "name": "AEH Legal",
@@ -6991,6 +7329,9 @@
    "serving": [
     "Trois-Rivières"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/LacoursiereLeBrun"
   }
  },
  {
@@ -7137,7 +7478,11 @@
     "Conduite avec capacités affaiblies"
    ]
   },
-  "heroImage": "images/hero/ioanna-lianis-avocate-longueuil.webp"
+  "heroImage": "images/hero/ioanna-lianis-avocate-longueuil.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61557966065346",
+   "linkedin": "https://www.linkedin.com/in/ioanna-lianis-0211042b"
+  }
  },
  {
   "name": "Me Bachar Khader",
@@ -7182,6 +7527,9 @@
     "Montréal",
     "Laval"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/mebacharkhader"
   }
  },
  {
@@ -7231,7 +7579,11 @@
     "Québec"
    ]
   },
-  "heroImage": "images/hero/pare-duquette-avocats-inc-drummondville.webp"
+  "heroImage": "images/hero/pare-duquette-avocats-inc-drummondville.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/pareduquetteavocats",
+   "instagram": "https://www.instagram.com/pareduquetteavocats"
+  }
  },
  {
   "name": "Me Chiraz Ouni",
@@ -7282,6 +7634,9 @@
    "serving": [
     "Montréal"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/me-chiraz-ouni-7a5943350"
   }
  },
  {
@@ -7522,7 +7877,12 @@
     "Insolvabilité en construction"
    ]
   },
-  "heroImage": "images/hero/m-roy-and-associes-drummondville.webp"
+  "heroImage": "images/hero/m-roy-and-associes-drummondville.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/roysyndic",
+   "instagram": "https://www.instagram.com/roy.mathieu",
+   "youtube": "https://www.youtube.com/channel/UCBuzwvVJ-i2gZsEyob_jppQ"
+  }
  },
  {
   "name": "Lawrence Al Kabain",
@@ -7573,6 +7933,9 @@
     "Montréal",
     "Québec"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/lawrence-al-kabain"
   }
  },
  {
@@ -7617,7 +7980,12 @@
     "Canada"
    ]
   },
-  "heroImage": "images/hero/galileo-partners-montreal.webp"
+  "heroImage": "images/hero/galileo-partners-montreal.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/GalileoPartners",
+   "instagram": "https://www.instagram.com/galileopartners",
+   "linkedin": "https://www.linkedin.com/company/galileopartners"
+  }
  },
  {
   "name": "M.I.B Avocat Inc.",
@@ -7718,6 +8086,10 @@
    "serving": [
     "Sherbrooke"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/gbvavocats",
+   "instagram": "https://www.instagram.com/academiegbv"
   }
  },
  {
@@ -7817,6 +8189,11 @@
     "Ontario",
     "Saskatchewan"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/montrealcriminallaw",
+   "linkedin": "https://www.linkedin.com/in/steven-slimovitch-85162824",
+   "x": "https://x.com/sslimovitch"
   }
  },
  {
@@ -7853,6 +8230,9 @@
     "Real estate",
     "Wills & Estate"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/krklawcor"
   }
  },
  {
@@ -8338,6 +8718,12 @@
     "LMIA & International Mobility Programs",
     "Refusals and appeals"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/lyonstern",
+   "instagram": "https://www.instagram.com/lyon_stern",
+   "linkedin": "https://www.linkedin.com/company/lyonstern",
+   "youtube": "https://www.youtube.com/@LyonStern"
   }
  },
  {

@@ -51,7 +51,11 @@
     "The Kawarthas"
    ]
   },
-  "heroImage": "images/hero/edh-law-peterborough.webp"
+  "heroImage": "images/hero/edh-law-peterborough.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/evansdevrieshiggins",
+   "instagram": "https://www.instagram.com/edh_law"
+  }
  },
  {
   "name": "Lamprey Law Professional Corporation",
@@ -179,7 +183,10 @@
     "Niagara Falls"
    ]
   },
-  "heroImage": "images/hero/cootauco-law-office-st-catharines.webp"
+  "heroImage": "images/hero/cootauco-law-office-st-catharines.webp",
+  "social": {
+   "x": "https://x.com/CootaucoLaw"
+  }
  },
  {
   "name": "Bussey Ainsworth Lawyers",
@@ -264,7 +271,11 @@
     "Kawarthas"
    ]
   },
-  "heroImage": "images/hero/bussey-ainsworth-lawyers-peterborough.webp"
+  "heroImage": "images/hero/bussey-ainsworth-lawyers-peterborough.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/busseyainsworth",
+   "linkedin": "https://www.linkedin.com/company/90614614"
+  }
  },
  {
   "name": "Houlihan Law",
@@ -388,7 +399,13 @@
     "Richmond Hill"
    ]
   },
-  "heroImage": "images/hero/norton-law-pc-oshawa.webp"
+  "heroImage": "images/hero/norton-law-pc-oshawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/NortonLawPC",
+   "instagram": "https://www.instagram.com/nortonlawpc",
+   "linkedin": "https://www.linkedin.com/in/SteveNortonLaw",
+   "x": "https://x.com/NortonLawPC"
+  }
  },
  {
   "name": "10(B) Criminal Law Center",
@@ -436,6 +453,12 @@
     "Hamilton",
     "Halton Region"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/766982839824511",
+   "instagram": "https://www.instagram.com/10bclaw",
+   "linkedin": "https://www.linkedin.com/company/10bclaw",
+   "x": "https://x.com/10bclaw"
   }
  },
  {
@@ -475,6 +498,12 @@
    "serving": [
     "Northwestern Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/tbayinjurylaw",
+   "instagram": "https://www.instagram.com/wmlinjurylaw",
+   "x": "https://x.com/wmlinjurylaw",
+   "youtube": "https://www.youtube.com/channel/UCBqTw5S5OI0MwRP9E8w8Uvg"
   }
  },
  {
@@ -573,7 +602,12 @@
     "Oshawa"
    ]
   },
-  "heroImage": "images/hero/miskin-law-peterborough.webp"
+  "heroImage": "images/hero/miskin-law-peterborough.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/miskinlawoffice",
+   "linkedin": "https://www.linkedin.com/company/miskin-law-office",
+   "x": "https://x.com/miskinlaw"
+  }
  },
  {
   "name": "TLC Family Law",
@@ -743,6 +777,9 @@
    "serving": [
     "Sarnia"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/CasselmanLegal"
   }
  },
  {
@@ -1015,7 +1052,10 @@
     "Fort Frances"
    ]
   },
-  "heroImage": "images/hero/de-bakker-law-thunder-bay.webp"
+  "heroImage": "images/hero/de-bakker-law-thunder-bay.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/debakkerlaw"
+  }
  },
  {
   "name": "Bakleh Avocats & Associés",
@@ -1098,6 +1138,10 @@
    "serving": [
     "Sarnia"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/FrankFazioLaw",
+   "instagram": "https://www.instagram.com/frankfaziolaw"
   }
  },
  {
@@ -1153,7 +1197,11 @@
     "Oshawa"
    ]
   },
-  "heroImage": "images/hero/simeson-law-oshawa.webp"
+  "heroImage": "images/hero/simeson-law-oshawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61553370116418",
+   "instagram": "https://www.instagram.com/kitchensimesonbelliveaullp"
+  }
  },
  {
   "name": "BLFON Personal Injury Lawyer",
@@ -1303,6 +1351,10 @@
     "St. Catharines",
     "Niagara Region"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/OsborneLawGroup",
+   "linkedin": "https://www.linkedin.com/in/stephen-osborne-a4065143"
   }
  },
  {
@@ -1574,7 +1626,11 @@
     "Sexual assault lawsuits"
    ]
   },
-  "heroImage": "images/hero/gerry-law-thunder-bay.webp"
+  "heroImage": "images/hero/gerry-law-thunder-bay.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/gerry-law",
+   "youtube": "https://www.youtube.com/@gerrylaw"
+  }
  },
  {
   "name": "Tremblay Law Group PC",
@@ -1677,6 +1733,11 @@
     "Niagara Falls",
     "Niagara Region"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100076645923367",
+   "instagram": "https://www.instagram.com/parlatorelaw",
+   "linkedin": "https://www.linkedin.com/in/sam-parlatore-8216b522a"
   }
  },
  {
@@ -1717,6 +1778,10 @@
     "Separation and divorce",
     "Notary appointments"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/mclarenbryanlaw",
+   "instagram": "https://www.instagram.com/mclarenbryan_law"
   }
  },
  {
@@ -1829,6 +1894,11 @@
     "Ottawa",
     "North Bay"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100011103045962",
+   "linkedin": "https://www.linkedin.com/company/williams-litigation-lawyers",
+   "x": "https://x.com/WllmsLitigation"
   }
  },
  {
@@ -1911,6 +1981,10 @@
     "Vancouver",
     "Central Vancouver Island"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/collaborativelegal.ca",
+   "linkedin": "https://www.linkedin.com/in/nick-greer-14943579"
   }
  },
  {
@@ -1988,7 +2062,14 @@
     "GTA"
    ]
   },
-  "heroImage": "images/hero/campisi-law-st-catharines-st-catharines.webp"
+  "heroImage": "images/hero/campisi-law-st-catharines-st-catharines.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/CampisiLLP",
+   "instagram": "https://www.instagram.com/campisi.law",
+   "linkedin": "https://www.linkedin.com/company/campisi-llp-personal-injury-lawyers",
+   "x": "https://x.com/campisi_law",
+   "youtube": "https://www.youtube.com/channel/UCz6jXtYWm-c3hEH5FBSMcHw"
+  }
  },
  {
   "name": "Henderson Family Law",
@@ -2036,7 +2117,10 @@
     "Northwestern Ontario"
    ]
   },
-  "heroImage": "images/hero/henderson-family-law-thunder-bay.webp"
+  "heroImage": "images/hero/henderson-family-law-thunder-bay.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/henderson-family-law"
+  }
  },
  {
   "name": "FG Avocat inc.",

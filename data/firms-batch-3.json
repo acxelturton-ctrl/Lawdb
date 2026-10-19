@@ -188,7 +188,13 @@
     "Ottawa"
    ]
   },
-  "heroImage": "images/hero/merovitz-potechin-llp-ottawa.webp"
+  "heroImage": "images/hero/merovitz-potechin-llp-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/MPLawOttawa",
+   "instagram": "https://www.instagram.com/merovitzpotechin",
+   "linkedin": "https://www.linkedin.com/company/merovitz-potechin",
+   "x": "https://x.com/MPLawOttawa"
+  }
  },
  {
   "name": "Droit Ouimet-McPherson Law",
@@ -326,6 +332,10 @@
     "Family class sponsorship",
     "Spousal sponsorship"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/capelle-kane-immigration-lawyers",
+   "x": "https://x.com/CapelleKane2025"
   }
  },
  {
@@ -520,7 +530,13 @@
     "Alberta"
    ]
   },
-  "heroImage": "images/hero/watchmaker-law-car-accident-and-personal-injury-lawyers-edmonton.webp"
+  "heroImage": "images/hero/watchmaker-law-car-accident-and-personal-injury-lawyers-edmonton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61557763791592",
+   "instagram": "https://www.instagram.com/watchmakerlaw",
+   "linkedin": "https://www.linkedin.com/company/watchmaker-law",
+   "x": "https://x.com/WatchMakerLaw"
+  }
  },
  {
   "name": "Shore & Johnston, Barristers-at-Law",
@@ -664,6 +680,11 @@
     "Vaughan",
     "Halton Hills"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/smithemploymentlaw",
+   "instagram": "https://www.instagram.com/smithemploymentlaw",
+   "linkedin": "https://www.linkedin.com/company/smith-employment-law"
   }
  },
  {
@@ -706,6 +727,9 @@
     "Spousal sponsorship",
     "Family sponsorship"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/canadaimmigrationlawyers"
   }
  },
  {
@@ -796,7 +820,10 @@
     "Murder"
    ]
   },
-  "heroImage": "images/hero/sean-fagan-criminal-defence-lawyer-calgary.webp"
+  "heroImage": "images/hero/sean-fagan-criminal-defence-lawyer-calgary.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/faganschambers"
+  }
  },
  {
   "name": "Diamond and Diamond Lawyers",
@@ -841,6 +868,13 @@
     "Toronto",
     "Vancouver"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/diamondanddiamondinjurylaw",
+   "instagram": "https://www.instagram.com/diamond_lawyers",
+   "linkedin": "https://www.linkedin.com/company/diamond-and-diamond-personal-injury-lawyers",
+   "x": "https://x.com/diamondlawtor",
+   "youtube": "https://www.youtube.com/@Diamondlawyers"
   }
  },
  {
@@ -969,7 +1003,11 @@
     "Manitoba"
    ]
   },
-  "heroImage": "images/hero/traffic-tickets-toronto-toronto.webp"
+  "heroImage": "images/hero/traffic-tickets-toronto-toronto.webp",
+  "social": {
+   "instagram": "https://www.instagram.com/justicejoltlaw",
+   "x": "https://x.com/JusticeJolt"
+  }
  },
  {
   "name": "Bernstein Law Group Personal Injury Lawyers",
@@ -1032,7 +1070,12 @@
     "Milton"
    ]
   },
-  "heroImage": "images/hero/bernstein-law-group-personal-injury-lawyers-hamilton.webp"
+  "heroImage": "images/hero/bernstein-law-group-personal-injury-lawyers-hamilton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/bernsteinlawyers",
+   "linkedin": "https://www.linkedin.com/company/bernstein-law-group-hamilton",
+   "x": "https://x.com/BernsteinLawyer"
+  }
  },
  {
   "name": "Derek Wilson Hamilton Personal Injury & Disability Lawyer",
@@ -1114,7 +1157,12 @@
     "Hamilton"
    ]
   },
-  "heroImage": "images/hero/derek-wilson-hamilton-personal-injury-and-disability-lawyer-hamilton.webp"
+  "heroImage": "images/hero/derek-wilson-hamilton-personal-injury-and-disability-lawyer-hamilton.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/DerekWilsonLaw",
+   "linkedin": "https://www.linkedin.com/company/derekwilsonlaw",
+   "x": "https://x.com/derekwilsonlaw"
+  }
  },
  {
   "name": "Ellis Criminal Law Professional Corporation",
@@ -1240,7 +1288,11 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/mm-family-and-divorce-lawyers-calgary.webp"
+  "heroImage": "images/hero/mm-family-and-divorce-lawyers-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/mmlawofficeyyc",
+   "linkedin": "https://www.linkedin.com/company/mm-family-divorce-lawyers"
+  }
  },
  {
   "name": "Ken Hoyt Law",
@@ -1324,6 +1376,10 @@
    "serving": [
     "Ontario"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/zomorodi_law_pc",
+   "linkedin": "https://www.linkedin.com/in/sahar-zomorodi-40794425"
   }
  },
  {
@@ -1367,7 +1423,12 @@
     "Ottawa"
    ]
   },
-  "heroImage": "images/hero/dhiman-law-professional-corporation-ottawa.webp"
+  "heroImage": "images/hero/dhiman-law-professional-corporation-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Dhiman-Law-109410865082538",
+   "instagram": "https://www.instagram.com/dhimanlawoffice",
+   "linkedin": "https://www.linkedin.com/company/dhiman-law-professional-corporation"
+  }
  },
  {
   "name": "Porcelli D'Angela LLP",
@@ -1453,6 +1514,12 @@
    "serving": [
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/himprolaw",
+   "linkedin": "https://www.linkedin.com/company/himelfarb-proszanski-llp",
+   "x": "https://x.com/himprolawpi",
+   "youtube": "https://www.youtube.com/channel/UCnU2YAC2ewu1Z7Suaesgo0Q"
   }
  },
  {
@@ -1507,6 +1574,13 @@
    "serving": [
     "Hamilton"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/lamontlawhamilton",
+   "instagram": "https://www.instagram.com/lamontlaw",
+   "linkedin": "https://www.linkedin.com/company/lamont-law",
+   "x": "https://x.com/lamontlaw_ca",
+   "youtube": "https://www.youtube.com/channel/UCDC7lV54rHqTbGdcf-X3dbw"
   }
  },
  {
@@ -1695,6 +1769,12 @@
     "Property division and equalization",
     "Incorporation and business formation"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/mkhalilMRKLAW",
+   "instagram": "https://www.instagram.com/mrklawfirm",
+   "linkedin": "https://www.linkedin.com/company/16373387",
+   "x": "https://x.com/MRKLAWFIRM"
   }
  },
  {
@@ -1744,6 +1824,11 @@
     "Oakville",
     "Greater Toronto Area"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/lama.law.7",
+   "instagram": "https://www.instagram.com/lamalawpc",
+   "linkedin": "https://www.linkedin.com/in/pavandeep-lama-04950b1a2"
   }
  },
  {
@@ -1797,6 +1882,10 @@
     "Removal order appeals",
     "Family class applications"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/rachaeljanderson",
+   "x": "https://x.com/rjalaw"
   }
  },
  {
@@ -1884,6 +1973,9 @@
     "Halton",
     "Ontario"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/AlamRealEstateLaw"
   }
  },
  {
@@ -1977,7 +2069,13 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/jk-law-calgary.webp"
+  "heroImage": "images/hero/jk-law-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/jklawoffice",
+   "instagram": "https://www.instagram.com/jklaw.ca",
+   "linkedin": "https://www.linkedin.com/company/jk-law-office-calgary",
+   "x": "https://x.com/LawJk"
+  }
  },
  {
   "name": "Kirk Law Office",
@@ -2069,7 +2167,10 @@
     "Mediation and dispute resolution"
    ]
   },
-  "heroImage": "images/hero/apna-law-llp-burnaby.webp"
+  "heroImage": "images/hero/apna-law-llp-burnaby.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/apna-law"
+  }
  },
  {
   "name": "The Myers Law Company",
@@ -2117,7 +2218,10 @@
     "Vancouver"
    ]
   },
-  "heroImage": "images/hero/the-myers-law-company-vancouver.webp"
+  "heroImage": "images/hero/the-myers-law-company-vancouver.webp",
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/justin-vladimir-myers-35b9587b"
+  }
  },
  {
   "name": "Fraese Aymont Family Lawyers Calgary",
@@ -2159,6 +2263,11 @@
    "serving": [
     "Calgary"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/FraeseAymont",
+   "linkedin": "https://www.linkedin.com/company/fraese-aymont-family-lawyers",
+   "youtube": "https://www.youtube.com/@calgaryfamilylawyers"
   }
  },
  {
@@ -2209,6 +2318,10 @@
    "serving": [
     "London"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/JimDeanLaw",
+   "instagram": "https://www.instagram.com/jimdeanlawlondon"
   }
  },
  {
@@ -2303,7 +2416,12 @@
     "Greater Toronto Area"
    ]
   },
-  "heroImage": "images/hero/wahab-law-kitchener.webp"
+  "heroImage": "images/hero/wahab-law-kitchener.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/wahablawpc",
+   "instagram": "https://www.instagram.com/wahab_law",
+   "x": "https://x.com/wahab_law"
+  }
  },
  {
   "name": "Kalia Law Firm",
@@ -2356,6 +2474,9 @@
     "Mississauga",
     "Milton"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/kalialawfirm"
   }
  },
  {
@@ -2410,7 +2531,13 @@
     "Ontario"
    ]
   },
-  "heroImage": "images/hero/tsf-law-mississauga.webp"
+  "heroImage": "images/hero/tsf-law-mississauga.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/tsflaw.ca",
+   "instagram": "https://www.instagram.com/tsflaw",
+   "linkedin": "https://www.linkedin.com/company/tsf-law",
+   "youtube": "https://www.youtube.com/@disability_lawyers"
+  }
  },
  {
   "name": "Zamani Law",
@@ -2455,7 +2582,13 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/zamani-law-toronto.webp"
+  "heroImage": "images/hero/zamani-law-toronto.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/ZamaniLawToronto",
+   "instagram": "https://www.instagram.com/zamanilaw",
+   "linkedin": "https://www.linkedin.com/in/farid-zamani-990524169",
+   "x": "https://x.com/zamani_law"
+  }
  },
  {
   "name": "Badesha Law Criminal Lawyer Brampton",
@@ -2631,7 +2764,12 @@
     "Sentencing"
    ]
   },
-  "heroImage": "images/hero/conron-law-professional-corporation-london.webp"
+  "heroImage": "images/hero/conron-law-professional-corporation-london.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/ConronLaw",
+   "instagram": "https://www.instagram.com/conronlaw_london",
+   "linkedin": "https://www.linkedin.com/in/carolynnconron"
+  }
  },
  {
   "name": "Frenkel Tobin LLP",
@@ -2674,7 +2812,12 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/frenkel-tobin-llp-toronto.webp"
+  "heroImage": "images/hero/frenkel-tobin-llp-toronto.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/frenkeltobinlaw",
+   "instagram": "https://www.instagram.com/frenkeltobin",
+   "linkedin": "https://www.linkedin.com/company/frenkel-tobin-llp"
+  }
  },
  {
   "name": "M.J. O'Nions",
@@ -2719,6 +2862,11 @@
     "Vancouver",
     "British Columbia"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/mjonions",
+   "linkedin": "https://www.linkedin.com/in/mark-john-o-nions-96537877",
+   "x": "https://x.com/mjonions"
   }
  },
  {
@@ -2798,6 +2946,9 @@
     "Windsor",
     "Kitchener"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/lazarlawfirm"
   }
  },
  {
@@ -2918,7 +3069,12 @@
     "Manotick"
    ]
   },
-  "heroImage": "images/hero/dabros-law-ottawa.webp"
+  "heroImage": "images/hero/dabros-law-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/dabroslaw",
+   "instagram": "https://www.instagram.com/dabroslawfirm",
+   "linkedin": "https://www.linkedin.com/in/shane-dabros-58b7b1102"
+  }
  },
  {
   "name": "Boghossian Morais LLP",
@@ -2971,6 +3127,12 @@
    "serving": [
     "Ottawa"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/BMLawyersCanada",
+   "instagram": "https://www.instagram.com/bmlawyerscanada",
+   "linkedin": "https://www.linkedin.com/company/boghossian-morais-llp",
+   "x": "https://x.com/bmlawyerscanada"
   }
  },
  {
@@ -3018,6 +3180,9 @@
    "serving": [
     "Edmonton"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/edmontonprobatelawyer"
   }
  },
  {
@@ -3115,6 +3280,11 @@
    "serving": [
     "Ottawa"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/AGPOttawa",
+   "linkedin": "https://www.linkedin.com/company/agpllp",
+   "x": "https://x.com/agp_law"
   }
  },
  {
@@ -3158,7 +3328,11 @@
     "Vancouver"
    ]
   },
-  "heroImage": "images/hero/gauthier-and-mines-criminal-lawyers-vancouver.webp"
+  "heroImage": "images/hero/gauthier-and-mines-criminal-lawyers-vancouver.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Mines-Company-Criminal-Lawyers-305461412964964",
+   "x": "https://x.com/gmcrimlaw"
+  }
  },
  {
   "name": "Jérémie John Martin",
@@ -3191,6 +3365,9 @@
     "Droit familial",
     "Droit civil"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=100064075808673"
   }
  },
  {
@@ -3230,6 +3407,11 @@
    "serving": [
     "Toronto"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/humemploymentlaw",
+   "linkedin": "https://www.linkedin.com/company/hum-employment-law",
+   "x": "https://x.com/laikinghum"
   }
  },
  {
@@ -3520,6 +3702,13 @@
    "serving": [
     "Ottawa"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/profile.php?id=61552950652849",
+   "instagram": "https://www.instagram.com/wvgb_law",
+   "linkedin": "https://www.linkedin.com/company/wvglaw",
+   "x": "https://x.com/WVGLawGroup",
+   "youtube": "https://www.youtube.com/@wvglawgroupottawalawfirm7245"
   }
  },
  {
@@ -3567,6 +3756,12 @@
     "Northwest Territories",
     "Yukon"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/hammerinjurylaw",
+   "instagram": "https://www.instagram.com/hammerinjurylaw",
+   "linkedin": "https://www.linkedin.com/company/hammer-injury-law",
+   "x": "https://x.com/hammerinjurylaw"
   }
  },
  {
@@ -3826,6 +4021,13 @@
     "Victoria",
     "British Columbia"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/nanuqlaw",
+   "instagram": "https://www.instagram.com/nanuqlaw",
+   "linkedin": "https://www.linkedin.com/company/nanuqlaw",
+   "x": "https://x.com/NanuqLaw",
+   "youtube": "https://www.youtube.com/@nanuqlaw3145"
   }
  },
  {
@@ -3910,7 +4112,12 @@
     "Ontario"
    ]
   },
-  "heroImage": "images/hero/charney-legal-toronto.webp"
+  "heroImage": "images/hero/charney-legal-toronto.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/charneylegal",
+   "linkedin": "https://www.linkedin.com/in/avicharney",
+   "youtube": "https://www.youtube.com/channel/UC8Q73jzEwh4xQXWXGICGF2A"
+  }
  },
  {
   "name": "Mikhael Avocat Inc.",
@@ -3961,7 +4168,12 @@
     "Outaouais"
    ]
   },
-  "heroImage": "images/hero/mikhael-avocat-inc-montreal.webp"
+  "heroImage": "images/hero/mikhael-avocat-inc-montreal.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/MikhaelAvocatLawyer",
+   "instagram": "https://www.instagram.com/mikhaelavocatlawyer",
+   "linkedin": "https://www.linkedin.com/company/mikhael-avocat-lawyer"
+  }
  },
  {
   "name": "Whitestone Law",
@@ -4093,7 +4305,13 @@
     "Okanagan"
    ]
   },
-  "heroImage": "images/hero/hergott-law-kelowna.webp"
+  "heroImage": "images/hero/hergott-law-kelowna.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/estatemanagementlawfirm",
+   "linkedin": "https://www.linkedin.com/company/hergott-law",
+   "x": "https://x.com/Hergott_Law",
+   "youtube": "https://www.youtube.com/channel/UC3fzgXZYLpG5je7LyUAK63w"
+  }
  },
  {
   "name": "Just Done Law Office",
@@ -4303,6 +4521,11 @@
     "Droit commercial",
     "Litige civil et commercial"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/AvocatBerard",
+   "linkedin": "https://www.linkedin.com/in/julien-brard-6694b526",
+   "youtube": "https://www.youtube.com/@BerardAvocats"
   }
  },
  {
@@ -4344,6 +4567,9 @@
     "Utter threats",
     "Traffic tickets"
    ]
+  },
+  "social": {
+   "instagram": "https://www.instagram.com/yourcriminallawyertoronto"
   }
  },
  {
@@ -4395,7 +4621,10 @@
     "Orleans"
    ]
   },
-  "heroImage": "images/hero/stephane-cote-real-estate-lawyer-avocat-ottawa.webp"
+  "heroImage": "images/hero/stephane-cote-real-estate-lawyer-avocat-ottawa.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Stephane-Cote-LawyerAvocat-1927539674171125"
+  }
  },
  {
   "name": "Chandler Law",
@@ -4473,6 +4702,10 @@
    "areas": [
     "US immigration"
    ]
+  },
+  "social": {
+   "facebook": "https://www.facebook.com/brumimmigration.ca",
+   "youtube": "https://www.youtube.com/channel/UCevQmSoW5kGNXTpiq2BOfRw"
   }
  },
  {
@@ -4602,7 +4835,13 @@
     "Canmore"
    ]
   },
-  "heroImage": "images/hero/mincher-koeman-law-chambers-calgary.webp"
+  "heroImage": "images/hero/mincher-koeman-law-chambers-calgary.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/Lynsey-Mincher-Family-Law-Lawyer-243088606055804",
+   "instagram": "https://www.instagram.com/mincherkoeman",
+   "linkedin": "https://www.linkedin.com/company/mincher-koeman-llp",
+   "x": "https://x.com/MincherKoeman"
+  }
  },
  {
   "name": "HNT Law",
@@ -4701,7 +4940,12 @@
     "Ontario"
    ]
   },
-  "heroImage": "images/hero/hnt-law-guelph.webp"
+  "heroImage": "images/hero/hnt-law-guelph.webp",
+  "social": {
+   "facebook": "https://www.facebook.com/hntlaw",
+   "instagram": "https://www.instagram.com/hnt.law",
+   "linkedin": "https://www.linkedin.com/in/hai-tran-5b186140"
+  }
  },
  {
   "name": "Randy Norris",
@@ -4784,6 +5028,9 @@
     "Peel Region",
     "Brampton"
    ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/in/randy-norris-6238711b"
   }
  },
  {

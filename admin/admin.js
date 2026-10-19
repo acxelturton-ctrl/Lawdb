@@ -504,6 +504,11 @@ async function viewSearch() {
       h('p', null, h('b', null, `${data.onGoogle} of ${data.pagesChecked} checked pages are on Google`), ` (${data.sitemapPages} pages are in our sitemap). Every night the next 40 pages are checked, round and round, so the whole site is covered in about two weeks.`),
       h('div', { class: 'row' }, run('sitemap', 'Send sitemap now'), run('inspect', 'Check the next 40 pages')), out),
     h('div', { class: 'card' }, h('h2', null, 'Check one page'), h('div', { class: 'row' }, urlBox, checkOne), one),
+    data.heldBack && h('div', { class: 'card' }, h('h2', null, 'Profiles held back from Google'),
+      h('p', { class: 'muted' }, `A profile with no real description (under ${data.heldBack.minWords} words) is a thin page, so it carries a noindex tag and stays out of the sitemap until a description is added. ${data.heldBack.count} of ${data.heldBack.of} database-built profiles are held back right now.`),
+      data.heldBack.sample.length
+        ? h('ul', null, ...data.heldBack.sample.map((f) => h('li', null, h('a', { href: '/firms/' + f.slug, target: '_blank', rel: 'noopener' }, f.name), ` (${f.words} words)`)))
+        : h('p', { class: 'muted' }, 'None. Every profile has a description.')),
     h('div', { class: 'card' }, h('h2', null, 'What Google says'),
       data.states.length ? h('ul', null, ...data.states.map((s) => h('li', null, `${s.state}: ${s.n}`))) : h('p', { class: 'muted' }, 'No pages checked yet. Press "Check the next 40 pages".')),
     h('div', { class: 'card' }, h('h2', null, 'Pages that are not on Google yet'),

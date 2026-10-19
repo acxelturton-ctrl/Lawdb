@@ -8,6 +8,7 @@
 //
 // Sign-in is a Google *service account*: its key is the Cloudflare secret GSC_SERVICE_ACCOUNT_JSON (never in the repo or in chat).
 // We sign a short-lived token request with that key (RS256, Web Crypto) and trade it for an access token.
+import { heldBack } from './indexing.js';
 import { audit } from './audit.js';
 
 const SCOPE = 'https://www.googleapis.com/auth/webmasters';
@@ -208,11 +209,12 @@ export async function searchSummary(env) {
   ]);
   let sitemapCount = 0;
   try { sitemapCount = (await sitemapUrls(env)).length; } catch {}
+  const held = await heldBack(env).catch(() => null);
   const onGoogle = states.results.filter((s) => s.verdict === 'PASS').reduce((n, s) => n + s.n, 0);
   return {
     connected: !!key, clientEmail: key?.email || null, site: env.GSC_SITE || sitemap?.site || null,
     sitemap, lastRun: last, sitemapPages: sitemapCount, pagesChecked: total.n, lastCheckedAt: total.last, onGoogle, notOnGoogle: total.n - onGoogle,
-    states: states.results, problems: problems.results,
+    states: states.results, problems: problems.results, heldBack: held,
   };
 }
 

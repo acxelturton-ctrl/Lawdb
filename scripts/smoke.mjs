@@ -226,8 +226,20 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const list = JSON.parse((await getRaw('/firms_data.json')).text);
   ok(list.some((f) => f.slug === slug2 && f.rating === 0), 'new firm appears in the directory data');
   ok(inlineFirms((await getRaw('/find-lawyers')).text).some((f) => f.slug === slug2), 'new firm appears on the Find Lawyers page');
+  // a profile with no real description is a thin page: noindex and out of the sitemap until it has one
+  const thin = await getRaw('/firms/' + slug2);
+  ok(/x-robots-tag/i.test([...thin.headers.keys()].join(' ')) && thin.headers.get('x-robots-tag').startsWith('noindex') && /<meta name="robots" content="noindex,follow">/.test(thin.text), 'a firm with a two-line description is marked noindex');
+  ok(!(await getRaw('/sitemap-firms.xml')).text.includes(`/firms/${slug2}</loc>`), 'and it is left out of the firms sitemap');
+  const longAbout = 'The firm acts for owners and managers of growing companies in Toronto and the surrounding region, from incorporation and shareholder agreements through to sales of the business. Its lawyers draft and negotiate commercial contracts, advise on financing and leases, and handle disputes between partners or with suppliers. ' +
+    'The office is open on weekdays and meets clients in person, by phone or by video. Matters are staffed by one lawyer who stays with the file from the first meeting to the closing, and fees are agreed in writing before work starts.';
+  ok((await call('PATCH', '/api/admin/firms/' + slug2, { about: longAbout })).status === 200, 'admin adds a full description');
+  const full = await getRaw('/firms/' + slug2);
+  ok(!full.headers.get('x-robots-tag') && !/name="robots"/.test(full.text), 'with a full description the page is open to Google');
   const fsm = await getRaw('/sitemap-firms.xml');
-  ok(fsm.status === 200 && fsm.text.includes(`/firms/${slug2}</loc>`) && !fsm.text.includes('/firms/achkar-law</loc>'), 'a new database-built firm is in the firms sitemap and hand-built pages are not');
+  ok(fsm.status === 200 && fsm.text.includes(`/firms/${slug2}</loc>`) && !fsm.text.includes('/firms/achkar-law</loc>'), 'a new database-built firm with a description is in the firms sitemap and hand-built pages are not');
+  const held = (await call('GET', '/api/admin/search')).data.heldBack;
+  ok(held && held.minWords === 60 && typeof held.count === 'number', 'the admin Search tab knows how many profiles are held back');
+  await call('PATCH', '/api/admin/firms/' + slug2, { about: body.about });
   ok(/Sitemap: https:\/\/lawdb.ca\/sitemap-firms.xml/.test(readFileSync(new URL('../robots.txt', import.meta.url), 'utf8')), 'robots.txt announces the firms sitemap');
 
   // existing firms keep their original hand-built page until switched

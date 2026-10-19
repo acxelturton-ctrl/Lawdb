@@ -79,18 +79,22 @@ const CSS = `<style>
 @keyframes nwBreath{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.05)}}
 @keyframes nwRise{0%{transform:translateY(120%) rotate(var(--r));opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateY(-140%) rotate(var(--r));opacity:0}}
 @keyframes nwUnder{0%,15%{background-size:0 .2em}45%,85%{background-size:100% .2em}100%{background-size:0 .2em}}
-.st-dlg{border:0;padding:0;width:min(940px,calc(100% - 32px));max-height:92dvh;border-radius:20px;background:#fff3d4;color:#1f2328;overflow:auto;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,.35)}
-.st-dlg::backdrop{background:rgba(31,28,25,.62)}
-.st-dlg .st{padding:clamp(18px,3vw,38px)}
-.st-x{position:sticky;top:10px;float:right;margin:10px 12px 0 0;z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid #e0d6bd;background:#fff;color:#1f2328;font-size:26px;line-height:1;cursor:pointer}
-@media(max-width:700px){.st-dlg{width:100%;height:100dvh;max-height:100dvh;border-radius:0}}
 @media(max-width:1099px){.news-drift{display:none}.news-seal,.news-sealmid{opacity:.45}}
 @media(max-width:700px){.news-seal,.news-sealmid{opacity:.3;right:-70px}}
 @media(prefers-reduced-motion:reduce){.news-seal,.news-sealmid,.news-card,.news-band h1 .u{animation:none!important}.news-sealmid,.news-seal{transform:translateY(-50%)}.news-card{opacity:1}.news-band h1 .u{background-size:100% .2em}}
 </style>`;
 
+// The story that opens over the page (also used by the home page news feed).
+export const DIALOG_CSS = `<style>
+.st-dlg{border:0;padding:0;width:min(940px,calc(100% - 32px));max-height:92dvh;border-radius:20px;background:#fff3d4;color:#1f2328;overflow:auto;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.st-dlg::backdrop{background:rgba(31,28,25,.62)}
+.st-dlg .st{padding:clamp(18px,3vw,38px)}
+.st-x{position:sticky;top:10px;float:right;margin:10px 12px 0 0;z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid #e0d6bd;background:#fff;color:#1f2328;font-size:26px;line-height:1;cursor:pointer}
+@media(max-width:700px){.st-dlg{width:100%;height:100dvh;max-height:100dvh;border-radius:0}}
+</style>`;
+
 // Tapping a story opens it over the page (and gives it its own address, so Back closes it and the link can be shared). Without JavaScript it is an ordinary link to the story's own page.
-const STORY_JS = `(function(){var d=document.getElementById('story-dlg');if(!d||!d.showModal)return;var b=document.getElementById('story-body'),open=false;
+export const STORY_JS = `(function(){var d=document.getElementById('story-dlg');if(!d||!d.showModal)return;var b=document.getElementById('story-body'),open=false;
 function show(h,push){fetch(h+(h.indexOf('?')>-1?'&':'?')+'partial=1').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){b.innerHTML=t;if(window.lawdbSocial)window.lawdbSocial.init(b);if(!d.open)d.showModal();d.scrollTop=0;if(push)history.pushState({story:h},'',h);open=true}).catch(function(){location.href=h})}
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-story]');if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();show(a.getAttribute('href'),true)});
 d.addEventListener('close',function(){if(open&&history.state&&history.state.story){open=false;history.back()}else open=false});
@@ -99,11 +103,27 @@ d.addEventListener('click',function(e){if(e.target===d)d.close()});
 window.addEventListener('popstate',function(e){if(d.open){open=false;d.close()}else if(e.state&&e.state.story){show(e.state.story,false)}});
 })();`;
 
+export const dialogHtml = '<dialog id="story-dlg" class="st-dlg" aria-label="Story"><button class="st-x" type="button" aria-label="Close">&times;</button><div id="story-body"></div></dialog>';
+
 const initial = (n) => esc((n || '?').trim().charAt(0).toUpperCase());
 const avatarOf = (logo, name) => {
   const l = safeUrl(logo);
   return l ? `<img src="${esc(/^https:/.test(l) || l.startsWith('/') ? l : '/' + l)}" alt="" loading="lazy" width="44" height="44">` : initial(name);
 };
+// A post's header on a card: the firm's logo (or initial), its name with the Featured badge, and a Follow button.
+const headOf = (p) => ({
+  avatar: avatarOf(p.logo, p.firmName),
+  who: `<span class="lw-by"><a href="/firms/${esc(p.firmSlug)}">${esc(p.firmName)}</a>${p.featured ? '<span class="lw-ft">Featured</span>' : ''}</span>`,
+  action: `<button class="lw-fbtn" type="button" data-follow="${esc(p.firmSlug)}">Follow</button>`,
+});
+
+// The cards of a feed, as HTML. With `lead`, the newest post that has a picture leads as one large card.
+export function newsCardsHtml(posts, { lead = false } = {}) {
+  const shown = posts.filter((p) => safePostUrl(p.url));
+  const first = lead ? shown.find((p) => p.image) || null : null;
+  return (first ? [cardHtml(first, { head: headOf(first), hero: true })] : []).concat(shown.filter((p) => p !== first).map((p) => cardHtml(p, { head: headOf(p) }))).join('');
+}
+
 const fmtDay = (d) => {
   const t = d ? new Date(String(d).replace(' ', 'T') + 'Z') : null;
   return t && !Number.isNaN(t.getTime()) ? t.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', timeZone: 'UTC' }) : '';
@@ -122,15 +142,8 @@ export function renderNewsPage({ posts, firms, people: strip = null, selected = 
   const people = faces.length
     ? `<div class="news-people"><h2>The firms writing here</h2>${faces.map((f) => `<a href="/news?firm=${esc(f.slug)}"><span class="lw-av">${avatarOf(f.logo, f.name)}</span>${esc(f.name)}</a>`).join('')}${firms.length > faces.length ? `<span class="news-more">and ${firms.length - faces.length} more</span>` : ''}</div>`
     : '';
-  const headOf = (p) => ({
-    avatar: avatarOf(p.logo, p.firmName),
-    who: `<span class="lw-by"><a href="/firms/${esc(p.firmSlug)}">${esc(p.firmName)}</a>${p.featured ? '<span class="lw-ft">Featured</span>' : ''}</span>`,
-    action: `<button class="lw-fbtn" type="button" data-follow="${esc(p.firmSlug)}">Follow</button>`,
-  });
   // The lead story is the newest post that has a picture; the rest follow in date order.
-  const lead = shown.find((p) => p.image) || null;
-  const cards = (lead ? [cardHtml(lead, { head: headOf(lead), hero: true })] : [])
-    .concat(shown.filter((p) => p !== lead).map((p) => cardHtml(p, { head: headOf(p) }))).join('');
+  const cards = newsCardsHtml(shown, { lead: true });
   const body = shown.length
     ? `<div class="lw-bc-grid lw-feed">${cards}</div>`
     : '<div class="news-empty"><b>LawDB News is filling up.</b><br>Articles from the firms listed on LawDB appear here as soon as their blogs are found. Check back soon.</div>';
@@ -156,7 +169,7 @@ export function renderNewsPage({ posts, firms, people: strip = null, selected = 
     '<link rel="canonical" href="https://lawdb.ca/news">',
     '<meta property="og:title" content="LawDB News"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/news">' + `<meta property="og:description" content="${esc(desc)}">`,
     '<script type="application/ld+json">' + JSON.stringify(ld).replace(/</g, '\\u003c') + '</script>',
-    C.STYLE + BLOG_CSS + CSS + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n</head>',
+    C.STYLE + BLOG_CSS + CSS + DIALOG_CSS + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n</head>',
     '<body>\n  ' + C.HEADER.replace(/<a[^>]*>Back to results<\/a>/, ''),
     '  <header class="news-band">' + pressArt(shown) + '<p class="news-eyebrow">Straight from the firms</p><h1><span class="u">LawDB News</span></h1><p class="news-lede">What Canada\'s law firms are writing, all in one place.</p>' +
     '<p class="news-intro">Every article on this page was written by a lawyer or firm you will find in the LawDB directory. We gather their latest work here so you can see how the people behind the listings think, explain and help, before you ever pick up the phone.</p>' + stats3 + '</header>',

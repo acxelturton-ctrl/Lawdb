@@ -186,7 +186,8 @@
     "Real estate",
     "Immigration"
    ]
-  }
+  },
+  "heroImage": "images/hero/nk-lawyers-professional-corporation-north-york.webp"
  },
  {
   "name": "Godwit Law Office",
@@ -228,7 +229,8 @@
    "serving": [
     "Brampton"
    ]
-  }
+  },
+  "heroImage": "images/hero/godwit-law-office-brampton.webp"
  },
  {
   "name": "SINGHA LAW PROFESSIONAL CORPORATION",
@@ -467,7 +469,8 @@
   "blurb": "Family Law in Toronto. Rated 4.9 from 292 Google reviews.",
   "type": "logo",
   "about": "Agnes Law is a Toronto family law practice led by its owner and principal lawyer, Agnes K Varkeychen. The practice handles family law matters, and its principal is also a notary public.\n\nVarkeychen holds a BA, an LLB with honours and an LLM, is pursuing a doctorate, and practises as a barrister, solicitor and notary public. The office is at 885 Progress Avenue, Suite 218, in the Scarborough area of Toronto, Ontario.",
-  "src": "images/logos/agnes-law-toronto.png"
+  "src": "images/logos/agnes-law-toronto.png",
+  "heroImage": "images/hero/agnes-law-toronto.webp"
  },
  {
   "name": "Clivio Law Professional Corporation",
@@ -579,7 +582,8 @@
     "Minden",
     "Greater Toronto Area"
    ]
-  }
+  },
+  "heroImage": "images/hero/sondhi-defence-professional-corporation-aurora.webp"
  },
  {
   "name": "Naimark Law",
@@ -628,7 +632,8 @@
     "Life insurance denials",
     "Wrongful death claims"
    ]
-  }
+  },
+  "heroImage": "images/hero/naimark-law-toronto.webp"
  },
  {
   "name": "Akrami & Associates",
@@ -668,7 +673,8 @@
    "serving": [
     "Mississauga"
    ]
-  }
+  },
+  "heroImage": "images/hero/akrami-and-associates-mississauga.webp"
  },
  {
   "name": "John Cintosun Law Professional Corporation",
@@ -761,7 +767,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/john-cintosun-law-professional-corporation-toronto.webp"
  },
  {
   "name": "JCA Law Office Professional Corporation",
@@ -1095,7 +1102,8 @@
     "Greater Toronto Area",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/azimi-law-north-york.webp"
  },
  {
   "name": "Anton M. Katz, Barrister and Solicitor",
@@ -1229,7 +1237,8 @@
    "serving": [
     "Brampton"
    ]
-  }
+  },
+  "heroImage": "images/hero/lawstop-criminal-lawyers-brampton.webp"
  },
  {
   "name": "Inna Kogan Law Office",
@@ -1368,7 +1377,8 @@
     "Toronto",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/ang-law-professional-corporation-north-york.webp"
  },
  {
   "name": "DNG Law",
@@ -1485,7 +1495,8 @@
     "Toronto",
     "Greater Toronto Area"
    ]
-  }
+  },
+  "heroImage": "images/hero/vilkhov-law-professional-corporation-toronto.webp"
  },
  {
   "name": "Horra Family Law",
@@ -1686,7 +1697,8 @@
    "serving": [
     "Ottawa"
    ]
-  }
+  },
+  "heroImage": "images/hero/kmh-lawyers-ottawa.webp"
  },
  {
   "name": "Kalfa Law",
@@ -1762,7 +1774,8 @@
     "Corporate-commercial law",
     "Tax planning"
    ]
-  }
+  },
+  "heroImage": "images/hero/kalfa-law-markham.webp"
  },
  {
   "name": "Angeles & De Jesus Law LLP",
@@ -2038,7 +2051,8 @@
     "Toronto",
     "Greater Toronto Area"
    ]
-  }
+  },
+  "heroImage": "images/hero/tailor-law-professional-corporation-mississauga.webp"
  },
  {
   "name": "Lee and Company",
@@ -2115,7 +2129,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/moyal-immigration-lawyers-north-york.webp"
  },
  {
   "name": "Art of Law Professional Corporation",
@@ -2150,7 +2165,8 @@
     "Wills and estate",
     "Real estate"
    ]
-  }
+  },
+  "heroImage": "images/hero/art-of-law-professional-corporation-north-york.webp"
  },
  {
   "name": "Visa Law Group PC",
@@ -2251,7 +2267,8 @@
    "serving": [
     "Brampton"
    ]
-  }
+  },
+  "heroImage": "images/hero/bally-hundal-brampton.webp"
  },
  {
   "name": "Ghasemi Law Professional Corporation",
@@ -2512,7 +2529,8 @@
     "Corporate",
     "Wills and estates"
    ]
-  }
+  },
+  "heroImage": "images/hero/omar-hasan-al-zahid-toronto.webp"
  },
  {
   "name": "Bromwich+Smith",
@@ -2592,7 +2610,8 @@
     "London",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/beckett-personal-injury-lawyers-london.webp"
  },
  {
   "name": "Top Law Firm",
@@ -2663,7 +2682,8 @@
     "Brampton",
     "Streetsville"
    ]
-  }
+  },
+  "heroImage": "images/hero/gagan-law-pc-mississauga.webp"
  },
  {
   "name": "Sarao Law Pro. Corp.",
@@ -2707,7 +2727,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/sarao-law-pro-corp-etobicoke.webp"
  },
  {
   "name": "Landings LLP",
@@ -2928,7 +2949,8 @@
     "Notary public",
     "Citizenship"
    ]
-  }
+  },
+  "heroImage": "images/hero/borders-law-firm-toronto.webp"
  },
  {
   "name": "Arrow Law",
@@ -2973,7 +2995,8 @@
     "Hamilton",
     "Durham Region"
    ]
-  }
+  },
+  "heroImage": "images/hero/arrow-law-north-york.webp"
  },
  {
   "name": "Stacey R. Ball",
@@ -3080,7 +3103,8 @@
   "blurb": "Family Law in Toronto. Rated 4.9 from 110 Google reviews.",
   "type": "logo",
   "about": "Immigration, real estate and business law are handled at Imtiaz Ahmad Law Office, a Toronto firm on Danforth Avenue. Its immigration work covers the Federal Skilled Worker program, International Experience Canada, the Start-Up Visa Program and family sponsorship.\n\nReal estate services include residential and commercial purchases, sales and leasing, development matters such as land acquisition and zoning, mortgages and refinancing, and title searches, for individuals, businesses and developers across Canada. Business law services extend from entity formation for start-ups to mergers and acquisitions for established corporations. The office, at 1100 Danforth Avenue, is open Monday to Friday from 11:00 AM to 6:00 PM.",
-  "src": "images/logos/imtiaz-ahmad-law-office-toronto.jpg"
+  "src": "images/logos/imtiaz-ahmad-law-office-toronto.jpg",
+  "heroImage": "images/hero/imtiaz-ahmad-law-office-toronto.webp"
  },
  {
   "name": "Surya Law",
@@ -3228,7 +3252,8 @@
     "Mississauga",
     "Brampton"
    ]
-  }
+  },
+  "heroImage": "images/hero/accord-law-professional-corporation-toronto.webp"
  },
  {
   "name": "NAV LAW FIRM",
@@ -3270,7 +3295,8 @@
    "serving": [
     "Ottawa"
    ]
-  }
+  },
+  "heroImage": "images/hero/nav-law-firm-ottawa.webp"
  },
  {
   "name": "Deol & Nagpal Law Firm LLP",
@@ -3363,7 +3389,8 @@
     "Impaired driving",
     "Weapons"
    ]
-  }
+  },
+  "heroImage": "images/hero/east-law-hamilton.webp"
  },
  {
   "name": "​Victoria Xu Law Office",
@@ -3454,7 +3481,8 @@
     "Immigration detention review",
     "Pre-removal risk assessment"
    ]
-  }
+  },
+  "heroImage": "images/hero/satnam-grewal-criminal-defence-and-immigration-lawyer-kitchener.webp"
  },
  {
   "name": "Mor Fisher LLP",
@@ -3512,7 +3540,8 @@
     "Parry Sound",
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/mor-fisher-llp-barrie.webp"
  },
  {
   "name": "Hayher Vasan Litigation Lawyers",
@@ -3562,7 +3591,8 @@
     "Immigration",
     "Wills and estate"
    ]
-  }
+  },
+  "heroImage": "images/hero/hayher-vasan-litigation-lawyers-toronto.webp"
  },
  {
   "name": "J Boskovic Law Firm",
@@ -3587,7 +3617,8 @@
   "blurb": "General practice law firm in Hamilton. Rated 4.9 from 100 Google reviews.",
   "type": "logo",
   "about": "J Boskovic Law Firm is a general practice law firm in Hamilton, Ontario. Its office is at 31 King Street West in Stoney Creek, within the Hamilton area. The firm is listed under general practice, which points to work across several everyday areas of law rather than a single field. Further details about its lawyers and services are not currently available.",
-  "src": "images/logos/j-boskovic-law-firm-hamilton.png"
+  "src": "images/logos/j-boskovic-law-firm-hamilton.png",
+  "heroImage": "images/hero/j-boskovic-law-firm-hamilton.webp"
  },
  {
   "name": "Durno & Shea Professional Corporation",
@@ -3632,7 +3663,8 @@
     "New construction",
     "Notary and commissioner services"
    ]
-  }
+  },
+  "heroImage": "images/hero/durno-and-shea-professional-corporation-toronto.webp"
  },
  {
   "name": "Andrew Edgar Criminal Defence Counsel",
@@ -3723,7 +3755,8 @@
     "Product liability",
     "Long-term disability"
    ]
-  }
+  },
+  "heroImage": "images/hero/lee-and-associates-north-york.webp"
  },
  {
   "name": "Noohi Law",
@@ -3763,7 +3796,8 @@
     "Toronto",
     "Canada"
    ]
-  }
+  },
+  "heroImage": "images/hero/noohi-law-north-york.webp"
  },
  {
   "name": "Rohit Sharma Law",
@@ -3842,7 +3876,8 @@
      "name": "Jing Zhang"
     }
    ]
-  }
+  },
+  "heroImage": "images/hero/jing-zhang-law-firm-mississauga.webp"
  },
  {
   "name": "Kamalie Law",
@@ -4227,7 +4262,8 @@
     "Corporate law",
     "Notary services"
    ]
-  }
+  },
+  "heroImage": "images/hero/olena-chepil-and-lawyers-etobicoke.webp"
  },
  {
   "name": "Mansoor Law",
@@ -4520,7 +4556,8 @@
     "Halton",
     "Durham"
    ]
-  }
+  },
+  "heroImage": "images/hero/ks-law-professional-corporation-etobicoke.webp"
  },
  {
   "name": "Chsherbinin Litigation Barristers",
@@ -4613,7 +4650,8 @@
     "Property division",
     "Motion to change court orders"
    ]
-  }
+  },
+  "heroImage": "images/hero/vilma-radfar-barrister-and-solicitor-north-york.webp"
  },
  {
   "name": "Kreindler Law",
@@ -4658,7 +4696,8 @@
     "Canadian citizenship",
     "Family sponsorship"
    ]
-  }
+  },
+  "heroImage": "images/hero/kreindler-law-toronto.webp"
  },
  {
   "name": "Bola Akinnusi",
@@ -4709,7 +4748,8 @@
     "Ontario",
     "Greater Toronto Area"
    ]
-  }
+  },
+  "heroImage": "images/hero/bola-akinnusi-barrie.webp"
  },
  {
   "name": "Das Law",
@@ -4782,7 +4822,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/pinto-shekib-llp-north-york.webp"
  },
  {
   "name": "Patricia Brown Barrister and Solicitor",
@@ -4832,7 +4873,8 @@
     "Windsor",
     "Chatham"
    ]
-  }
+  },
+  "heroImage": "images/hero/patricia-brown-barrister-and-solicitor-windsor.webp"
  },
  {
   "name": "LawyerRealtor.ca",
@@ -5086,7 +5128,8 @@
     "Procedural fairness letters",
     "Citizenship revocation"
    ]
-  }
+  },
+  "heroImage": "images/hero/mo-s-law-office-london.webp"
  },
  {
   "name": "Keyork Immigration Law",
@@ -5187,7 +5230,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/godinho-zager-kraska-llp-mississauga.webp"
  },
  {
   "name": "Steven Tress, Barrister & Solicitor",

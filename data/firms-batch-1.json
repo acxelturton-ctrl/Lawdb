@@ -42,7 +42,8 @@
     "Ottawa",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/badre-law-professional-corporation-ottawa.webp"
  },
  {
   "name": "Grover Law Firm",
@@ -174,7 +175,8 @@
    "serving": [
     "Mississauga"
    ]
-  }
+  },
+  "heroImage": "images/hero/tabuchi-law-mississauga.webp"
  },
  {
   "name": "Simplyclose Real Estate Law",
@@ -333,7 +335,8 @@
     "Windsor",
     "Mississauga"
    ]
-  }
+  },
+  "heroImage": "images/hero/waseer-law-office-london.webp"
  },
  {
   "name": "Edmonton Law Office",
@@ -421,7 +424,8 @@
    "serving": [
     "Edmonton"
    ]
-  }
+  },
+  "heroImage": "images/hero/edmonton-law-office-edmonton.webp"
  },
  {
   "name": "Osuji & Smith: Employment Lawyers",
@@ -671,7 +675,8 @@
     "London",
     "Kitchener"
    ]
-  }
+  },
+  "heroImage": "images/hero/lakin-afolabi-law-london.webp"
  },
  {
   "name": "Cashion Legal Employment Lawyers Calgary",
@@ -753,7 +758,8 @@
     "Calgary",
     "Alberta"
    ]
-  }
+  },
+  "heroImage": "images/hero/cashion-legal-employment-lawyers-calgary-calgary.webp"
  },
  {
   "name": "Ginzburg Legal",
@@ -801,7 +807,8 @@
    "serving": [
     "Montreal"
    ]
-  }
+  },
+  "heroImage": "images/hero/ginzburg-legal-montreal.webp"
  },
  {
   "name": "Forum Law LLP",
@@ -852,7 +859,8 @@
     "Edmonton",
     "Alberta"
    ]
-  }
+  },
+  "heroImage": "images/hero/forum-law-llp-edmonton.webp"
  },
  {
   "name": "Citadel Law",
@@ -1327,7 +1335,8 @@
     "Fort Saskatchewan",
     "St. Albert"
    ]
-  }
+  },
+  "heroImage": "images/hero/bhardwaj-co-family-law-edmonton.webp"
  },
  {
   "name": "League and Williams Lawyers",
@@ -1455,7 +1464,8 @@
    "serving": [
     "Edmonton"
    ]
-  }
+  },
+  "heroImage": "images/hero/jarrah-law-edmonton.webp"
  },
  {
   "name": "Hepburn Criminal Law",
@@ -1508,7 +1518,8 @@
    "serving": [
     "Hamilton"
    ]
-  }
+  },
+  "heroImage": "images/hero/hepburn-criminal-law-hamilton.webp"
  },
  {
   "name": "Sitka Law Group",
@@ -1544,7 +1555,8 @@
    "serving": [
     "Victoria"
    ]
-  }
+  },
+  "heroImage": "images/hero/sitka-law-group-victoria.webp"
  },
  {
   "name": "Brisebois Law Office",
@@ -1704,7 +1716,8 @@
     "Edmonton",
     "Northern Alberta"
    ]
-  }
+  },
+  "heroImage": "images/hero/demas-schaefer-family-lawyers-edmonton.webp"
  },
  {
   "name": "MG Law Personal Injury Lawyers",
@@ -1897,7 +1910,8 @@
     "Hamilton",
     "Greater Toronto Area"
    ]
-  }
+  },
+  "heroImage": "images/hero/madaans-llp-lawyers-mississauga.webp"
  },
  {
   "name": "Ammar Law Professional Corporation",
@@ -2298,7 +2312,8 @@
    "serving": [
     "Kitchener"
    ]
-  }
+  },
+  "heroImage": "images/hero/deutschmann-de-koning-law-kitchener.webp"
  },
  {
   "name": "Jeffrey I. Reisman",
@@ -2397,7 +2412,8 @@
     "Scarborough",
     "GTA"
    ]
-  }
+  },
+  "heroImage": "images/hero/jeffrey-i-reisman-north-york.webp"
  },
  {
   "name": "Kainth Law Group",
@@ -2435,7 +2451,8 @@
    "areas": [
     "Powers of attorney for Indian property"
    ]
-  }
+  },
+  "heroImage": "images/hero/kainth-law-group-kitchener.webp"
  },
  {
   "name": "Infinity Law",
@@ -2554,7 +2571,8 @@
     "Calgary",
     "Alberta"
    ]
-  }
+  },
+  "heroImage": "images/hero/macdonald-zhivov-calgary.webp"
  },
  {
   "name": "Gray Criminal Defence",
@@ -2604,7 +2622,8 @@
     "Barrie",
     "Kingston"
    ]
-  }
+  },
+  "heroImage": "images/hero/gray-criminal-defence-toronto.webp"
  },
  {
   "name": "Karapancev Law",
@@ -2920,7 +2939,8 @@
    "serving": [
     "Brampton"
    ]
-  }
+  },
+  "heroImage": "images/hero/christien-levien-j-d-brampton.webp"
  },
  {
   "name": "Stayshyn Law Offices",
@@ -2967,7 +2987,8 @@
     "Haldimand",
     "Southern Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/stayshyn-law-offices-hamilton.webp"
  },
  {
   "name": "Michael A. Wills",
@@ -3211,7 +3232,8 @@
     "Burnaby",
     "Richmond"
    ]
-  }
+  },
+  "heroImage": "images/hero/westcoast-wills-and-estates-vancouver.webp"
  },
  {
   "name": "IG Law Professional Corporation",

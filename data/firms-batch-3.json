@@ -82,7 +82,8 @@
     "Toronto",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/ld-law-llp-toronto.webp"
  },
  {
   "name": "Bernard Lau and Co. Law Office",
@@ -134,7 +135,8 @@
     "Richmond",
     "Metro Vancouver"
    ]
-  }
+  },
+  "heroImage": "images/hero/bernard-lau-and-co-law-office-richmond.webp"
  },
  {
   "name": "Merovitz Potechin LLP",
@@ -185,7 +187,8 @@
    "serving": [
     "Ottawa"
    ]
-  }
+  },
+  "heroImage": "images/hero/merovitz-potechin-llp-ottawa.webp"
  },
  {
   "name": "Droit Ouimet-McPherson Law",
@@ -559,7 +562,8 @@
    "serving": [
     "Ottawa"
    ]
-  }
+  },
+  "heroImage": "images/hero/shore-and-johnston-barristers-at-law-ottawa.webp"
  },
  {
   "name": "Oakley Family Law",
@@ -964,7 +968,8 @@
     "Ontario",
     "Manitoba"
    ]
-  }
+  },
+  "heroImage": "images/hero/traffic-tickets-toronto-toronto.webp"
  },
  {
   "name": "Bernstein Law Group Personal Injury Lawyers",
@@ -1026,7 +1031,8 @@
     "Stoney Creek",
     "Milton"
    ]
-  }
+  },
+  "heroImage": "images/hero/bernstein-law-group-personal-injury-lawyers-hamilton.webp"
  },
  {
   "name": "Derek Wilson Hamilton Personal Injury & Disability Lawyer",
@@ -1233,7 +1239,8 @@
    "serving": [
     "Calgary"
    ]
-  }
+  },
+  "heroImage": "images/hero/mm-family-and-divorce-lawyers-calgary.webp"
  },
  {
   "name": "Ken Hoyt Law",
@@ -1359,7 +1366,8 @@
    "serving": [
     "Ottawa"
    ]
-  }
+  },
+  "heroImage": "images/hero/dhiman-law-professional-corporation-ottawa.webp"
  },
  {
   "name": "Porcelli D'Angela LLP",
@@ -1919,7 +1927,8 @@
     "Calgary",
     "Alberta"
    ]
-  }
+  },
+  "heroImage": "images/hero/jsb-calgary-employment-law-calgary.webp"
  },
  {
   "name": "JK Law",
@@ -1967,7 +1976,8 @@
    "serving": [
     "Calgary"
    ]
-  }
+  },
+  "heroImage": "images/hero/jk-law-calgary.webp"
  },
  {
   "name": "Kirk Law Office",
@@ -2018,7 +2028,8 @@
     "Estate administration",
     "Estate planning"
    ]
-  }
+  },
+  "heroImage": "images/hero/kirk-law-office-ottawa.webp"
  },
  {
   "name": "Apna Law LLP",
@@ -2291,7 +2302,8 @@
     "Cambridge",
     "Greater Toronto Area"
    ]
-  }
+  },
+  "heroImage": "images/hero/wahab-law-kitchener.webp"
  },
  {
   "name": "Kalia Law Firm",
@@ -2397,7 +2409,8 @@
     "Mississauga",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/tsf-law-mississauga.webp"
  },
  {
   "name": "Zamani Law",
@@ -2441,7 +2454,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/zamani-law-toronto.webp"
  },
  {
   "name": "Badesha Law Criminal Lawyer Brampton",
@@ -2616,7 +2630,8 @@
     "Drug trafficking",
     "Sentencing"
    ]
-  }
+  },
+  "heroImage": "images/hero/conron-law-professional-corporation-london.webp"
  },
  {
   "name": "Frenkel Tobin LLP",
@@ -2658,7 +2673,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/frenkel-tobin-llp-toronto.webp"
  },
  {
   "name": "M.J. O'Nions",
@@ -2901,7 +2917,8 @@
     "Greely",
     "Manotick"
    ]
-  }
+  },
+  "heroImage": "images/hero/dabros-law-ottawa.webp"
  },
  {
   "name": "Boghossian Morais LLP",
@@ -3350,7 +3367,8 @@
    "serving": [
     "Calgary"
    ]
-  }
+  },
+  "heroImage": "images/hero/muenz-criminal-law-calgary.webp"
  },
  {
   "name": "Frouhar Law",
@@ -3721,7 +3739,8 @@
    "serving": [
     "Alberta"
    ]
-  }
+  },
+  "heroImage": "images/hero/lt-lawyers-llp-calgary.webp"
  },
  {
   "name": "Nanuq Law",
@@ -3890,7 +3909,8 @@
     "GTA",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/charney-legal-toronto.webp"
  },
  {
   "name": "Mikhael Avocat Inc.",
@@ -3940,7 +3960,8 @@
     "Montreal",
     "Outaouais"
    ]
-  }
+  },
+  "heroImage": "images/hero/mikhael-avocat-inc-montreal.webp"
  },
  {
   "name": "Whitestone Law",
@@ -3981,7 +4002,8 @@
    "serving": [
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/whitestone-law-ottawa.webp"
  },
  {
   "name": "Malina A. Roshan",
@@ -4070,7 +4092,8 @@
     "West Kelowna",
     "Okanagan"
    ]
-  }
+  },
+  "heroImage": "images/hero/hergott-law-kelowna.webp"
  },
  {
   "name": "Just Done Law Office",
@@ -4207,7 +4230,8 @@
     "Quebec acceptance certificate",
     "Quebec selection certificate"
    ]
-  }
+  },
+  "heroImage": "images/hero/bin-xia-zhang-montreal.webp"
  },
  {
   "name": "VML Family Law LLP",
@@ -4370,7 +4394,8 @@
     "Barrhaven",
     "Orleans"
    ]
-  }
+  },
+  "heroImage": "images/hero/stephane-cote-real-estate-lawyer-avocat-ottawa.webp"
  },
  {
   "name": "Chandler Law",
@@ -4576,7 +4601,8 @@
     "Calgary",
     "Canmore"
    ]
-  }
+  },
+  "heroImage": "images/hero/mincher-koeman-law-chambers-calgary.webp"
  },
  {
   "name": "HNT Law",
@@ -4674,7 +4700,8 @@
     "Guelph",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/hnt-law-guelph.webp"
  },
  {
   "name": "Randy Norris",
@@ -4835,6 +4862,7 @@
    "serving": [
     "Calgary"
    ]
-  }
+  },
+  "heroImage": "images/hero/kaysi-fagan-calgary.webp"
  }
 ]

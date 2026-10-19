@@ -1,6 +1,7 @@
 // End-to-end smoke test against a running dev server (npm run dev) seeded with data.
 // Needs .dev.vars containing:  ADMIN_EMAILS=smoke-admin@example.com  and  DEV_ECHO_LINK=1
 //   BASE=http://localhost:8799 npm run smoke
+import { DROPPED_FIELDS } from '../src/routes/dynamic.js';
 import { readFileSync, existsSync } from 'node:fs';
 import { createPublicKey, createVerify, createHash } from 'node:crypto';
 import zlib from 'node:zlib';
@@ -78,18 +79,26 @@ ok((await call('GET', '/api/firms/does-not-exist')).status === 404, 'unknown fir
 ok((await call('POST', '/api/health')).status === 405, 'wrong method is 405');
 
 // --- public pages and data files are served from the database, identical to the static files
+// The firm list sent to browsers leaves out a few fields nobody reads (see DROPPED_FIELDS in src/routes/dynamic.js); everything else is identical.
+const slim = (list) => list.map((f) => Object.fromEntries(Object.entries(f).filter(([k]) => !DROPPED_FIELDS.includes(k))));
 for (const f of ['firms_data.json', 'blog_data.json', 'firms_hours.json']) {
   const r = await getRaw('/' + f);
   ok(r.status === 200 && r.headers.get('x-lawdb-source') === 'database', `${f} comes from the database`);
-  ok(isDeepStrictEqual(JSON.parse(r.text), staticFile(f)), `${f} is identical to the static file`);
+  ok(isDeepStrictEqual(JSON.parse(r.text), f === 'firms_data.json' ? slim(staticFile(f)) : staticFile(f)), `${f} is identical to the static file${f === 'firms_data.json' ? ' (less the unused fields)' : ''}`);
 }
 const staticOrder = staticFile('firms_data.json').map((f) => f.slug);
 ok(isDeepStrictEqual((JSON.parse((await getRaw('/firms_data.json')).text)).map((f) => f.slug), staticOrder), 'firm order is preserved');
+const PROV = { '/ontario/ottawa/': 'ON', '/manitoba/': 'MB', '/quebec/quebec-city/': 'QC' };
+const sizes = {};
 for (const path of ['/find-lawyers', '/ontario/ottawa/', '/manitoba/', '/quebec/quebec-city/']) {
   const r = await getRaw(path);
+  sizes[path] = r.text.length;
   ok(r.status === 200 && r.headers.get('x-lawdb-source') === 'database', `${path} is rendered from the database`);
-  ok(isDeepStrictEqual(inlineFirms(r.text), staticFile('firms_data.json')), `${path} carries the same firm list as before`);
+  const want = PROV[path] ? slim(staticFile('firms_data.json')).filter((f) => f.province === PROV[path]) : slim(staticFile('firms_data.json'));
+  ok(isDeepStrictEqual(inlineFirms(r.text), want), PROV[path] ? `${path} carries only its own province's firms` : `${path} carries every firm`);
+  ok(r.text.includes('f.dirUrl = ') && (PROV[path] ? r.text.includes(`var LAWDB_SCOPE = "${PROV[path]}";`) : !r.text.includes('var LAWDB_SCOPE')), `${path} rebuilds Directions links and ${PROV[path] ? 'knows it is scoped to ' + PROV[path] : 'is not scoped'}`);
 }
+ok(sizes['/manitoba/'] < sizes['/find-lawyers'] * 0.6 && sizes['/ontario/ottawa/'] < sizes['/find-lawyers'], 'a province page is lighter than Find Lawyers');
 const plain = await getRaw('/ontario/toronto/business-lawyers');
 ok(plain.status === 200 && !plain.headers.get('x-lawdb-source'), 'pages without a firm list pass through untouched');
 { const old = await getRaw('/find-lawyers.html'); ok(old.status === 301 && old.headers.get('location').endsWith('/find-lawyers'), 'an old .html address redirects to the clean address, permanently (301)'); }
@@ -160,16 +169,18 @@ ok(edit.status === 200 && edit.data.changed.length === 2, 'firm edit applies');
 ok((await call('GET', `/api/firms/${slug}`)).data.blurb === 'Smoke test blurb', 'public API reflects the edit');
 
 {
-  const find = (arr) => arr.find((f) => f.slug === slug)?.blurb;
-  ok(find(JSON.parse((await getRaw('/firms_data.json')).text)) === 'Smoke test blurb', 'edit shows in /firms_data.json');
-  ok(find(inlineFirms((await getRaw('/find-lawyers')).text)) === 'Smoke test blurb', 'edit shows on /find-lawyers');
-  ok(find(inlineFirms((await getRaw('/ontario/ottawa/')).text)) === 'Smoke test blurb', 'edit shows on a city hub page');
+  // the blurb is no longer sent with the list, so the Featured flag (sent with it) shows the edit
+  const find = (arr) => !!arr.find((f) => f.slug === slug)?.featured;
+  ok(find(JSON.parse((await getRaw('/firms_data.json')).text)) === !before.featured, 'edit shows in /firms_data.json');
+  ok(find(inlineFirms((await getRaw('/find-lawyers')).text)) === !before.featured, 'edit shows on /find-lawyers');
+  const hub = { ON: '/ontario/ottawa/', QC: '/quebec/quebec-city/', BC: '/british-columbia/vancouver/', AB: '/alberta/', MB: '/manitoba/' }[before.province];
+  ok(find(inlineFirms((await getRaw(hub)).text)) === !before.featured, `edit shows on a city hub page (${hub})`);
 }ok((await call('PATCH', `/api/admin/firms/${slug}`, { rating: 1 })).status === 422, 'non-editable field refused');
 ok((await call('PATCH', `/api/admin/firms/${slug}`, { website: 'javascript:alert(1)' })).status === 422, 'unsafe website refused');
 ok((await call('PATCH', `/api/admin/firms/${slug}`, { blurb: 'x'.repeat(501) })).status === 422, 'overlong text refused');
 await call('PATCH', `/api/admin/firms/${slug}`, { blurb: before.blurb, featured: !!before.featured });
 ok((await call('GET', `/api/firms/${slug}`)).data.blurb === before.blurb, 'edit reverted');
-ok(isDeepStrictEqual(inlineFirms((await getRaw('/find-lawyers')).text), staticFile('firms_data.json')), 'public page returns to the original after reverting');
+ok(isDeepStrictEqual(inlineFirms((await getRaw('/find-lawyers')).text), slim(staticFile('firms_data.json'))), 'public page returns to the original after reverting');
 
 const log = await call('GET', '/api/admin/audit?limit=20');
 const actions = log.data.entries.map((e) => e.action);

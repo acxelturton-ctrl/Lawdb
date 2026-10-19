@@ -23,6 +23,9 @@ const ok = (cond, label) => {
 let cookie = '';
 // Every request comes from a made-up address per run, so rate limits never interfere between reruns.
 const RUN_IP = `192.0.2.${1 + Math.floor(Math.random() * 250)}`;
+// The sign-up limits count per address, so two tests that happen to draw the same made-up address would make a limit test fail by chance: every draw is new.
+const usedIps = new Set();
+const freshIp = () => { let a; do { a = `203.0.113.${1 + Math.floor(Math.random() * 250)}`; } while (usedIps.has(a)); usedIps.add(a); return a; };
 const call = async (method, path, body, extraHeaders = {}) => {
   const res = await fetch(BASE + path, {
     method,
@@ -1166,7 +1169,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const sp = (await getRaw(fd.data.stories[0].href)).text;
     ok(sp.includes(`data-follow="${F}"`) && sp.includes(`data-save="${sid}"`), 'story pages carry Follow and Save');
     // limits: a new person cannot follow endlessly
-    const robot = await signUp(`social-${run}@example.com`, `203.0.113.${1 + Math.floor(Math.random() * 250)}`);
+    const robot = await signUp(`social-${run}@example.com`, freshIp());
     as(adminJar);
     const many = (await call('GET', '/api/admin/firms?limit=100')).data.firms.map((x) => x.slug).filter((x) => x !== F).slice(0, 62);
     as(robot.jar);
@@ -1373,7 +1376,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   // member ratings
   {
     const R = 'torys-llp';
-    const ip = () => `203.0.113.${1 + Math.floor(Math.random() * 250)}`;
+    const ip = () => freshIp();
     cookie = '';
     const r0 = await call('GET', `/api/firms/${R}/ratings`);
     ok(r0.status === 200 && r0.data.count === 0 && r0.data.average === null && r0.data.signedIn === false && r0.data.canRate === false && r0.data.comments.length === 0, 'anyone can read a firm\'s member ratings (none yet)');
@@ -1484,7 +1487,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static', phone: origFirm.phone || '', about: origFirm.about || '' });
 
   // sign-up has its own brake, so strangers cannot use us to send mail
-  const flood = `203.0.113.${1 + Math.floor(Math.random() * 250)}`;
+  const flood = freshIp();
   let linked = 0;
   for (let i = 0; i < 8; i++) if (await signUp(`flood${i}-${run}@example.com`, flood)) linked++;
   ok(linked === 6, 'sign-up links are limited per requester (6 an hour)');

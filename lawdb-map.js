@@ -85,6 +85,7 @@
 
   /* ------------------------------------------------------------ state */
   var base = [], view = [];
+  var PER = 10, page = 1, viewSig = '', lastSlots = 0;
   var F = { feat: false, top: false, rev: false, open: false, sort: 'rec' };
   var areaB = null, sel = null, userPos = null, mapOK = false, userMoved = false, sheetState = 'peek';
   var app, panel, scrollEl, listEl, selEl, mapWrap, areaBtn, locBtn;
@@ -99,6 +100,8 @@
     prof: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h6"/></svg>',
     chev: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
     back: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
+    prev: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+    next: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
     tick: '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>',
     loc: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
     redo: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>'
@@ -121,7 +124,7 @@
     var oi = openInfo(f), dist = userPos ? ' · ' + fmtKm(km(userPos.lat, userPos.lng, f.lat, f.lng)) : '';
     var pct = Math.max(0, Math.min(100, (f.rating || 0) / 5 * 100));
     var prof = ROOT + 'firms/' + f.slug;
-    return '<article class="gm-item' + (f.featured ? ' is-feat' : '') + (sel && sel.slug === f.slug && !detail ? ' is-sel' : '') + '" data-slug="' + esc(f.slug) + '" tabindex="0">' +
+    return '<article class="gm-item' + (f.featured ? ' is-feat' : '') + (sel && sel.slug === f.slug && !detail ? ' is-sel' : '') + '" data-slug="' + esc(f.slug) + '">' +
       '<div class="gm-i-main">' +
         (f.featured ? '<span class="gm-i-badge"><i>' + IC.tick + '</i>Featured</span>' : '') +
         '<h3 class="gm-i-name"><a href="' + esc(prof) + '">' + esc(f.name) + '</a></h3>' +
@@ -133,8 +136,7 @@
       '<div class="gm-i-acts">' +
         (f.phone ? '<a class="gm-act pri" href="tel:' + esc(f.phone) + '">' + IC.call + 'Call</a>' : '') +
         '<a class="gm-act" href="' + esc(f.dirUrl) + '" target="_blank" rel="noopener">' + IC.dir + 'Directions</a>' +
-        (detail && f.website ? '<a class="gm-act" href="' + esc(f.website) + '" target="_blank" rel="noopener">' + IC.web + 'Website</a>' : '') +
-        '<a class="gm-act" href="' + esc(prof) + '">' + IC.prof + 'Profile</a>' +
+        (f.website ? '<a class="gm-act" href="' + esc(f.website) + '" target="_blank" rel="noopener">' + IC.web + 'Website</a>' : '') +
       '</div></article>';
   }
   function detailHtml(f){
@@ -161,11 +163,39 @@
       if(c) v.sort(function(a, b){ return km(c.lat, c.lng, a.lat, a.lng) - km(c.lat, c.lng, b.lat, b.lng); });
     }
     view = v;
+    var sig = v.map(function(f){ return f.slug; }).join('|');
+    if(sig !== viewSig){ viewSig = sig; page = 1; }
   }
 
   /* ------------------------------------------------------------ panel rendering */
   var SORTS = [['rec', 'Recommended'], ['top', 'Highest rated'], ['rev', 'Most reviewed'], ['near', 'Nearest']];
   function sortName(){ for(var i = 0; i < SORTS.length; i++) if(SORTS[i][0] === F.sort) return SORTS[i][1]; return 'Recommended'; }
+
+  /* ------------------------------------------------------------ page bar */
+  // A fixed number of slots (first page, last page, "..." and the pages around the current one) so the bar never changes width as you page.
+  function pageItems(cur, total, slots){
+    function range(a, b){ var r = []; for(var i = a; i <= b; i++) r.push(i); return r; }
+    if(total <= slots) return range(1, total);
+    if(cur <= slots - 3) return range(1, slots - 2).concat([0, total]);
+    if(cur >= total - slots + 4) return [1, 0].concat(range(total - slots + 3, total));
+    var mid = slots - 4, from = cur - Math.floor((mid - 1) / 2);
+    return [1, 0].concat(range(from, from + mid - 1), [0, total]);
+  }
+  function pageSlots(){
+    var w = listEl ? listEl.clientWidth : 0;
+    return w ? Math.max(5, Math.min(10, Math.floor((w - 48) / (isMobile() ? 37 : 33)) - 2)) : 7;
+  }
+  function pagerHtml(pages){
+    if(pages < 2) return '';
+    lastSlots = pageSlots();
+    var h = '<nav class="gm-pager" aria-label="Result pages">' +
+      '<button type="button" class="gm-pg gm-pg-arrow" data-pg="' + (page - 1) + '" aria-label="Previous page"' + (page === 1 ? ' disabled' : '') + '>' + IC.prev + '</button>';
+    pageItems(page, pages, lastSlots).forEach(function(p){
+      h += p === 0 ? '<span class="gm-pg-gap" aria-hidden="true">&hellip;</span>'
+        : '<button type="button" class="gm-pg gm-pg-n' + (p === page ? ' on' : '') + '" data-pg="' + p + '" aria-label="Page ' + p + '"' + (p === page ? ' aria-current="page"' : '') + '>' + p + '</button>';
+    });
+    return h + '<button type="button" class="gm-pg gm-pg-arrow" data-pg="' + (page + 1) + '" aria-label="Next page"' + (page === pages ? ' disabled' : '') + '>' + IC.next + '</button></nav>';
+  }
 
   function queryText(){
     var what = selectedCase ? lawyersLabel(selectedCase, selectedProvince) : 'Lawyers';
@@ -178,8 +208,10 @@
     q.title = t;
   }
   function renderPanel(){
+    var pages = Math.max(1, Math.ceil(view.length / PER));
+    if(page > pages) page = pages;
     $('gmCount').textContent = view.length + ' lawyer' + (view.length === 1 ? '' : 's') + (areaB ? ' in this area' : '');
-    $('gmSub').innerHTML = areaB ? 'Showing the current map area · <button type="button" id="gmAll">Show all</button>' : esc(placeLabel());
+    $('gmSub').innerHTML = (areaB ? 'Showing the current map area · <button type="button" id="gmAll">Show all</button>' : esc(placeLabel())) + (pages > 1 ? ' · Page ' + page + ' of ' + pages : '');
     $('gmSort').firstChild.nodeValue = 'Sort: ' + sortName() + ' ';
     var note = '';
     if(F.open) note = '<p class="gm-note">Only firms with listed hours are shown. Hours are as published online, so please call to confirm.</p>';
@@ -189,7 +221,7 @@
       html = '<div class="gm-empty">' + (areaB ? 'No lawyers match in this part of the map.<br>Zoom out or move the map, then search again.' : 'No lawyers match these filters.') +
         '<br><button type="button" data-reset>' + (areaB ? 'Show all in ' + esc(placeLabel()) : 'Clear filters') + '</button></div>';
     } else {
-      html = view.map(function(f){ return itemHtml(f); }).join('');
+      html = view.slice((page - 1) * PER, page * PER).map(function(f){ return itemHtml(f); }).join('') + pagerHtml(pages);
     }
     listEl.innerHTML = note + html;
     var lb = $('listBody'); if(lb) lb.style.display = base.length ? 'none' : '';
@@ -268,6 +300,8 @@
   /* ------------------------------------------------------------ selection */
   function select(f, fromMap){
     sel = f; renderSel(); setSelSource();
+    var vi = view.indexOf(f);
+    if(vi >= 0 && Math.floor(vi / PER) + 1 !== page){ page = Math.floor(vi / PER) + 1; renderPanel(); }
     var items = listEl.querySelectorAll('.gm-item');
     for(var i = 0; i < items.length; i++) items[i].classList.toggle('is-sel', items[i].dataset.slug === f.slug);
     scrollEl.scrollTop = 0;
@@ -605,7 +639,7 @@
   /* ------------------------------------------------------------ page hooks */
   renderMap = async function(list){
     base = (list || []).slice();
-    areaB = null; hideArea(); clearSel(true); userMoved = false;
+    areaB = null; hideArea(); clearSel(true); userMoved = false; page = 1; viewSig = '';
     buildChipsOnce(); renderQuery(); sizeApp(true);
     computeView(); renderPanel();
     if(isMobile()) setState('peek', true);
@@ -898,6 +932,15 @@
 
     /* list / selection delegation */
     function onItem(e){
+      var pg = e.target.closest && e.target.closest('[data-pg]');
+      if(pg){
+        var n = +pg.dataset.pg;
+        if(!pg.disabled && n >= 1 && n !== page){
+          page = n; renderPanel(); scrollEl.scrollTop = 0;
+          var on = e.detail === 0 && listEl.querySelector('.gm-pg-n.on'); if(on) on.focus({ preventScroll: true });
+        }
+        return;
+      }
       if(e.target.closest('[data-back]')){ clearSel(); return; }
       if(e.target.closest('[data-reset]')){
         if(areaB){ areaB = null; apply(true); }
@@ -905,18 +948,11 @@
         return;
       }
       if(e.target.closest('#gmAll')){ areaB = null; apply(true); return; }
-      if(e.target.closest('a, button')) return;
-      var it = e.target.closest('.gm-item'); if(!it) return;
-      var f = (view.filter(function(x){ return x.slug === it.dataset.slug; })[0]) || (base.filter(function(x){ return x.slug === it.dataset.slug; })[0]);
-      if(f && !(sel && sel.slug === f.slug && selEl.contains(it))) select(f);
     }
     panel.addEventListener('click', onItem);
-    panel.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' && e.target.classList && e.target.classList.contains('gm-item')) onItem({ target: e.target });
-    });
 
     setupSheet();
-    var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ sizeApp(false); if(mapOK) map.resize(); }, 120); });
+    var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ sizeApp(false); if(mapOK) map.resize(); if(view.length > PER && pageSlots() !== lastSlots) renderPanel(); }, 120); });
     window.addEventListener('orientationchange', function(){ setTimeout(function(){ sizeApp(true); }, 250); });
     var onMQ = function(){ setState(sheetState === 'sel' && !sel ? 'peek' : sheetState, true); if(mapOK) setTimeout(function(){ map.resize(); }, 50); };
     if(MQ.addEventListener) MQ.addEventListener('change', onMQ); else if(MQ.addListener) MQ.addListener(onMQ);

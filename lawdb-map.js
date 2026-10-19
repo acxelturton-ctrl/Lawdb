@@ -809,9 +809,25 @@
     }
     selectedCase = kase; showResults(true);
   }
+  /* A city page or province hub carries only its own province's firms (LAWDB_SCOPE). The rest are fetched the first time the search box is used,
+     so a firm from another province can still be found by name. */
+  var allFirms = null;
+  function ensureAllFirms(){
+    if(typeof LAWDB_SCOPE === 'undefined') return Promise.resolve();
+    if(allFirms) return allFirms;
+    allFirms = fetch(ROOT + 'firms_data.json').then(function(r){ return r.json(); }).then(function(list){
+      var have = {}; firms.forEach(function(f){ have[f.slug] = 1; });
+      list.forEach(function(f){
+        if(have[f.slug]) return;
+        f.dirUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(f.address || f.name).replace(/%20/g, '+');
+        firms.push(f);
+      });
+    }).catch(function(){ allFirms = null; });
+    return allFirms;
+  }
   function wireSearch(){
     var q = $('gmQ'), box = $('gmSug');
-    q.addEventListener('focus', function(){ setTimeout(function(){ try { q.select(); } catch(e){} }, 0); drawSug(); if(isMobile() && !sel) setState('peek'); });
+    q.addEventListener('focus', function(){ setTimeout(function(){ try { q.select(); } catch(e){} }, 0); drawSug(); if(isMobile() && !sel) setState('peek'); ensureAllFirms().then(function(){ if(document.activeElement === q) drawSug(); }); });
     q.addEventListener('input', drawSug);
     q.addEventListener('blur', function(){ setTimeout(function(){ closeSug(); renderQuery(); }, 160); });
     q.addEventListener('keydown', function(e){

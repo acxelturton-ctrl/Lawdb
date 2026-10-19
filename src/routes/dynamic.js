@@ -11,11 +11,30 @@ const cacheSeconds = (env) => {
   return Number.isFinite(n) && n >= 0 ? n : 60;
 };
 
-// Raw JSON strings straight from D1 (the `data` column already holds JSON), joined without a parse/stringify round trip.
-async function firmsBody(env) {
-  const { results } = await env.DB.prepare("SELECT data FROM firms WHERE status = 'live' ORDER BY rowid").all();
-  return '[' + results.map((r) => r.data).join(',') + ']';
+// What the browser needs to list and map a firm. These stay in the database (and on the firm's own page) but are not sent with the
+// directory list: a Maps link nobody reads, a one-line blurb, the picture files of the firm's own page, and the Directions link, which the
+// page rebuilds from the address (see SHIM). Together they were about a third of the list.
+export const DROPPED_FIELDS = ['mapsUrl', 'blurb', 'dirUrl', 'heroImage', 'bioImage'];
+const slimRow = (json) => {
+  const o = JSON.parse(json);
+  for (const k of DROPPED_FIELDS) delete o[k];
+  return JSON.stringify(o);
+};
+
+// The firm list as JSON. With a province, only that province's firms (a city page lists one province; lawdb-map.js fetches the rest
+// the first time someone uses the search box).
+async function firmsBody(env, province = null) {
+  const st = env.DB.prepare("SELECT data FROM firms WHERE status = 'live'" + (province ? ' AND province = ?' : '') + ' ORDER BY rowid');
+  const { results } = await (province ? st.bind(province) : st).all();
+  return '[' + results.map((r) => slimRow(r.data)).join(',') + ']';
 }
+
+// A city page or province hub lists one province; /find-lawyers and anything else gets everything.
+const SCOPES = { ontario: 'ON', quebec: 'QC', 'british-columbia': 'BC', alberta: 'AB', manitoba: 'MB' };
+export const scopeOf = (pathname) => SCOPES[pathname.split('/')[1]] || null;
+
+// Runs right after the list: the Directions link is rebuilt from the address.
+const SHIM = "\nfirms.forEach(function(f){ if(!f.dirUrl) f.dirUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(f.address || f.name).replace(/%20/g, '+'); });";
 
 async function blogBody(env) {
   const { results } = await env.DB.prepare('SELECT data FROM blog_posts ORDER BY sort_order').all();
@@ -117,8 +136,10 @@ export async function page({ request, env, ctx }) {
 
   let out;
   try {
-    const json = forScript(await firmsBody(env));
-    out = html.replace(INLINE_FIRMS, () => `const firms = ${json};`); // function replacer: "$" in data must not be interpreted
+    const scope = scopeOf(new URL(request.url).pathname);
+    const json = forScript(await firmsBody(env, scope));
+    // function replacer: "$" in data must not be interpreted
+    out = html.replace(INLINE_FIRMS, () => `const firms = ${json};${SHIM}${scope ? `\nvar LAWDB_SCOPE = ${JSON.stringify(scope)};` : ''}`);
   } catch (err) {
     console.error('database read failed, serving static page', new URL(request.url).pathname, err);
     return passthrough();

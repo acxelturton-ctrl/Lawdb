@@ -482,48 +482,51 @@ section.hn{max-width:1440px;margin:0 auto;padding:44px 20px 12px}
 .hn-chips button{flex:none;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:10px 18px;font:600 15px Inter,sans-serif;cursor:pointer;transition:background .15s,border-color .15s}
 .hn-chips button:hover{border-color:var(--brass)}
 .hn-chips button.on{background:var(--ink);border-color:var(--ink);color:#fff}
-.hn .lw-feed{grid-template-columns:1fr;gap:18px}
-@media(min-width:760px){.hn .lw-feed{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1150px){.hn .lw-feed{grid-template-columns:repeat(3,1fr);gap:22px}}
+.hn-tools{display:flex;align-items:center;gap:18px}
+.hn .lw-feed.hn-track{display:flex;grid-template-columns:none;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;padding:2px 2px 14px;transition:opacity .15s}
+.hn .hn-track::-webkit-scrollbar{display:none}
+.hn .hn-track>.lw-bc{flex:0 0 84%;max-width:340px;scroll-snap-align:start}
+@media(min-width:900px){.hn .hn-track>.lw-bc{flex:0 0 340px}}
+.hn .hn-track>.hn-end{flex:1;padding:36px 0;text-align:center}
 .hn .lw-feed .lw-bc h3{font-size:19px}.hn .lw-feed .lw-bc p{font-size:15px}
 .hn .lw-feed .lw-bc-img{aspect-ratio:16/10}
-.hn-more{display:flex;flex-direction:column;align-items:center;gap:10px;padding:26px 0 8px;text-align:center}
-.hn-more button{background:var(--ink);color:#fff;border:0;border-radius:999px;padding:14px 30px;font:700 16px Inter,sans-serif;cursor:pointer}
-.hn-more button:disabled{opacity:.6;cursor:default}
+.hn-more{display:flex;justify-content:center;padding:18px 0 8px}
+.hn-seeall{display:inline-block;background:var(--ink);color:#fff;border-radius:999px;padding:14px 30px;font:700 16px Inter,sans-serif;text-decoration:none}
+.hn-seeall:hover{background:var(--brass-deep)}
 .hn-end{color:var(--ink-soft);font-size:15px}.hn-end a{color:var(--brass-deep);font-weight:700}
 @media(max-width:600px){section.hn{padding:30px 14px 8px}}
 </style>
 <section class="hn" id="homeNews" hidden aria-label="LawDB News">
   <div class="hn-head">
-    <div><p class="hn-eyebrow">LawDB News</p><h2>What Canada's best-rated law firms are writing</h2><p class="hn-sub">New articles from the firms in the directory, strongest profiles and highest Google ratings first. Tap one to read it here, and follow the firms you like.</p></div>
-    <a class="hn-all" href="/news">All LawDB News &rarr;</a>
+    <div><p class="hn-eyebrow">LawDB News</p><h2>What Canada's best-rated law firms are writing</h2><p class="hn-sub">New articles from the firms in the directory, strongest profiles and highest Google ratings first. Tap one to read a preview here; the full article is on the firm&rsquo;s own website.</p></div>
+    <div class="hn-tools"><div class="lw-car-nav hn-nav"><button type="button" class="hn-prev" aria-label="Previous articles">&#8249;</button><button type="button" class="hn-next" aria-label="Next articles">&#8250;</button></div><a class="hn-all" href="/news">All LawDB News &rarr;</a></div>
   </div>
   <div class="hn-chips" role="group" aria-label="Show articles about"><button type="button" data-type="" class="on" aria-pressed="true">All</button><button type="button" data-type="family" aria-pressed="false">Family</button><button type="button" data-type="injury" aria-pressed="false">Injury</button><button type="button" data-type="criminal" aria-pressed="false">Criminal</button><button type="button" data-type="realestate" aria-pressed="false">Real estate</button><button type="button" data-type="immigration" aria-pressed="false">Immigration</button><button type="button" data-type="business" aria-pressed="false">Business</button><button type="button" data-type="employment" aria-pressed="false">Employment</button><button type="button" data-type="wills" aria-pressed="false">Wills &amp; estates</button><button type="button" data-type="litigation" aria-pressed="false">Litigation</button><button type="button" data-type="traffic" aria-pressed="false">Traffic</button></div>
-  <div class="lw-bc-grid lw-feed" id="homeNewsGrid" aria-live="polite"></div>
-  <div class="hn-more"><button type="button" id="homeNewsMore">Show more articles</button><span class="hn-end" id="homeNewsEnd" hidden>That is the latest. <a href="/news">See all LawDB News</a></span></div>
+  <div class="lw-bc-grid lw-feed hn-track" id="homeNewsGrid" aria-live="polite" tabindex="0"></div>
+  <div class="hn-more"><a class="hn-seeall" href="/news">See all LawDB News &rarr;</a></div>
   <div id="homeNewsDlg"></div>
 </section>
 <script>
 (function(){
   var sec=document.getElementById('homeNews'); if(!sec) return;
-  var grid=document.getElementById('homeNewsGrid'), more=document.getElementById('homeNewsMore'), end=document.getElementById('homeNewsEnd'), chips=sec.querySelectorAll('.hn-chips button');
-  var type='', next=grid.getAttribute('data-next')===''?null:parseInt(grid.getAttribute('data-next'),10), busy=false;
-  if(isNaN(next)) next=null;
-  function show(){ more.hidden=next===null; end.hidden=next!==null||!grid.children.length; more.disabled=false; more.textContent='Show more articles'; }
-  function load(reset){
-    if(busy) return; busy=true; more.disabled=true; more.textContent='Loading...';
-    fetch('/api/home-news?offset='+(reset?0:(next||0))+'&type='+encodeURIComponent(type)).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
-      if(reset) grid.innerHTML='';
-      grid.insertAdjacentHTML('beforeend', d.html); next=d.next;
-      if(reset&&!d.html) grid.innerHTML='<p class="hn-end">No articles on this topic yet. Pick another, or see <a href="/news">all LawDB News</a>.</p>';
+  var grid=document.getElementById('homeNewsGrid'), chips=sec.querySelectorAll('.hn-chips button'), prev=sec.querySelector('.hn-prev'), nxt=sec.querySelector('.hn-next');
+  var type='', busy=false;
+  function edges(){ if(prev) prev.disabled=grid.scrollLeft<4; if(nxt) nxt.disabled=grid.scrollLeft+grid.clientWidth>=grid.scrollWidth-4; }
+  function by(dir){ var c=grid.querySelector('.lw-bc'); var w=(c?c.getBoundingClientRect().width:320)+18; grid.scrollBy({left:dir*w,behavior:'smooth'}); }
+  function load(){
+    if(busy) return; busy=true; grid.style.opacity='.5';
+    fetch('/api/home-news?offset=0&type='+encodeURIComponent(type)).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+      grid.innerHTML=d.html||'<p class="hn-end">No articles on this topic yet. Pick another, or see <a href="/news">all LawDB News</a>.</p>';
+      grid.scrollLeft=0;
       if(window.lawdbSocial&&window.lawdbSocial.init) window.lawdbSocial.init(grid);
-      busy=false; show();
-    }).catch(function(){ busy=false; more.disabled=false; more.textContent='Try again'; });
+      busy=false; grid.style.opacity=''; edges();
+    }).catch(function(){ busy=false; grid.style.opacity=''; });
   }
-  more.addEventListener('click', function(){ load(false); });
-  chips.forEach(function(b){ b.addEventListener('click', function(){ type=b.getAttribute('data-type'); chips.forEach(function(c){ var on=c===b; c.classList.toggle('on',on); c.setAttribute('aria-pressed',on?'true':'false'); }); load(true); }); });
-  if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ if(es[0].isIntersecting&&next!==null&&!busy&&!more.hidden) load(false); },{rootMargin:'600px 0px'}).observe(more); }
-  show();
+  chips.forEach(function(b){ b.addEventListener('click', function(){ type=b.getAttribute('data-type'); chips.forEach(function(c){ var on=c===b; c.classList.toggle('on',on); c.setAttribute('aria-pressed',on?'true':'false'); }); load(); }); });
+  if(prev) prev.addEventListener('click', function(){ by(-1); });
+  if(nxt) nxt.addEventListener('click', function(){ by(1); });
+  grid.addEventListener('scroll', edges, {passive:true});
+  edges();
 })();
 </script>
 

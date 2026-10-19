@@ -622,7 +622,8 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(news.text.includes('<select id="news-firm" name="firm"') && news.text.includes('<option value="achkar-law"') && news.text.includes('<option value="">All 2 firms</option>') && news.text.includes('/news?firm=achkar-law'), 'there is a drop-down to filter by firm (it stays short however many firms write)');
   // the home page carries a LawDB News feed: strongest firms first, loaded in slices, filterable by practice area
   const home = await getRaw('/');
-  ok(/<section class="hn" id="homeNews"(?! hidden)/.test(home.text) && /<div class="lw-bc-grid lw-feed" id="homeNewsGrid"[^>]*data-next="[^"]*">\s*<article class="lw-bc/.test(home.text), 'the home page shows the news feed under the search bar (the section is un-hidden once there are articles)');
+  ok(/<section class="hn" id="homeNews"(?! hidden)/.test(home.text) && /<div class="lw-bc-grid lw-feed hn-track" id="homeNewsGrid"[^>]*>\s*<article class="lw-bc/.test(home.text), 'the home page shows a short news row under the search bar (the section is un-hidden once there are articles)');
+  ok(/<a class="hn-seeall" href="\/news">See all LawDB News/.test(home.text) && !home.text.includes('homeNewsMore') && (home.text.match(/<article class="lw-bc[ "]/g) || []).length <= 6, 'the row is short and ends with a link to the full LawDB News page (no long feed on the home page)');
   ok(home.text.indexOf('id="homeNews"') > home.text.indexOf('id="heroForm"') && home.text.indexOf('id="homeNews"') < home.text.indexOf('id="cities"'), 'it sits between the search bar and the city strip');
   ok(!home.text.includes('Find a lawyer with real reviews') && !home.text.includes('lawdb-banner'), 'the old banner is gone');
   const slice = JSON.parse((await getRaw('/api/home-news?offset=0')).text);

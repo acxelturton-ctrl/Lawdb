@@ -1,7 +1,7 @@
 // GET /news/<firm>/<headline>-<id>: one story's page; ?partial=1 returns just the story, for the expanded view on the News page.
 // GET /sitemap-news.xml: every story page, for search engines.
 import { renderStoryPage, renderStoryPartial } from '../render/story-page.js';
-import { parseStoryPath, storyPath } from '../lib/stories.js';
+import { parseStoryPath, storyPath, isIndexableStory, STORY_INDEXABLE_SQL } from '../lib/stories.js';
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -28,7 +28,7 @@ export async function storyPage({ request, env, ctx }) {
   let firmRow;
   try {
     post = await env.DB.prepare(
-      `SELECT p.id, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image FROM firm_posts p
+      `SELECT p.id, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, f.featured AS featured, ff.source AS source FROM firm_posts p
        JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live' AND (ff.page_only = 0 OR f.featured = 1)
        WHERE p.id = ? AND p.firm_slug = ?`
     ).bind(ref.id, ref.firmSlug).first();
@@ -39,9 +39,11 @@ export async function storyPage({ request, env, ctx }) {
     const firm = { ...JSON.parse(firmRow.data), slug: ref.firmSlug, featured: !!firmRow.featured };
     const more = (await env.DB.prepare('SELECT id, title FROM firm_posts WHERE firm_slug = ? AND id != ? ORDER BY published_at DESC, id DESC LIMIT 5').bind(ref.firmSlug, post.id).all()).results;
     const nearby = (await env.DB.prepare("SELECT slug, json_extract(data, '$.name') AS name FROM firms WHERE status = 'live' AND city = ? AND province = ? AND slug != ? ORDER BY featured DESC, rating DESC, review_count DESC LIMIT 5").bind(firm.city, firm.province, ref.firmSlug).all()).results;
-    const data = { post, firm, more, nearby, origin: env.SITE_ORIGIN || url.origin };
+    // Every firm's stories can be opened and shared, but only Featured firms' (and hand-added blogs') are offered to search engines.
+    const indexable = isIndexableStory(post);
+    const data = { post, firm, more, nearby, origin: env.SITE_ORIGIN || url.origin, indexable };
     const res = new Response(partial ? renderStoryPartial(data) : renderStoryPage(data), {
-      headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': ttl > 0 ? `public, max-age=${ttl}` : 'no-cache', 'x-content-type-options': 'nosniff', ...(partial ? { 'x-robots-tag': 'noindex' } : {}) },
+      headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': ttl > 0 ? `public, max-age=${ttl}` : 'no-cache', 'x-content-type-options': 'nosniff', ...(partial ? { 'x-robots-tag': 'noindex' } : !indexable ? { 'x-robots-tag': 'noindex, follow' } : {}) },
     });
     if (ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
     return res;
@@ -56,7 +58,7 @@ export async function storySitemap({ request, env }) {
   try {
     const { results } = await env.DB.prepare(
       `SELECT p.id, p.firm_slug AS slug, p.title, p.published_at AS publishedAt, p.fetched_at AS fetchedAt FROM firm_posts p
-       JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live' AND (ff.page_only = 0 OR f.featured = 1)
+       JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live' AND ${STORY_INDEXABLE_SQL}
        ORDER BY p.published_at DESC, p.id DESC LIMIT 2000`
     ).all();
     const day = (d) => { const t = d ? new Date(String(d).replace(' ', 'T') + 'Z') : null; return t && !Number.isNaN(t.getTime()) ? t.toISOString().slice(0, 10) : ''; };

@@ -206,7 +206,8 @@
     "Calgary",
     "Airdrie"
    ]
-  }
+  },
+  "heroImage": "images/hero/bulwark-law-criminal-defence-lawyer-calgary.webp"
  },
  {
   "name": "Gurpreet Ghag Law Group",
@@ -342,7 +343,8 @@
    "serving": [
     "Kitchener-Waterloo"
    ]
-  }
+  },
+  "heroImage": "images/hero/campbell-litigation-waterloo.webp"
  },
  {
   "name": "Hoogbruin & Company",
@@ -1187,7 +1189,8 @@
     "Employment and labour",
     "Mediation services"
    ]
-  }
+  },
+  "heroImage": "images/hero/pihl-law-corporation-kelowna.webp"
  },
  {
   "name": "Sutherland Criminal Defence",
@@ -1326,7 +1329,8 @@
     "North York",
     "Ottawa"
    ]
-  }
+  },
+  "heroImage": "images/hero/tcz-law-toronto.webp"
  },
  {
   "name": "Guberman Appleby Immigration Lawyers",
@@ -1473,7 +1477,8 @@
     "Succession planning",
     "Estate planning"
    ]
-  }
+  },
+  "heroImage": "images/hero/laredo-law-toronto.webp"
  },
  {
   "name": "H&H Law Group",
@@ -1595,7 +1600,8 @@
    "serving": [
     "Calgary"
    ]
-  }
+  },
+  "heroImage": "images/hero/browne-criminal-defence-calgary.webp"
  },
  {
   "name": "Reich Law",
@@ -1635,7 +1641,8 @@
     "Calgary",
     "Alberta"
    ]
-  }
+  },
+  "heroImage": "images/hero/reich-law-calgary.webp"
  },
  {
   "name": "Longfield Law Professional Corporation",
@@ -2036,7 +2043,8 @@
    "serving": [
     "Montreal"
    ]
-  }
+  },
+  "heroImage": "images/hero/eidelmann-law-inc-montreal.webp"
  },
  {
   "name": "Szakacs Law Injury Lawyers Calgary",
@@ -2389,7 +2397,8 @@
     "London",
     "Southwestern Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/vallillee-family-lawyers-london.webp"
  },
  {
   "name": "Nichols Law Professional Corporation",
@@ -2505,7 +2514,8 @@
    "serving": [
     "London"
    ]
-  }
+  },
+  "heroImage": "images/hero/family-lawyers-collective-llp-london.webp"
  },
  {
   "name": "Nora Law Professional Corporation",
@@ -2740,7 +2750,8 @@
     "Langley",
     "Chilliwack"
    ]
-  }
+  },
+  "heroImage": "images/hero/pathfinder-law-abbotsford.webp"
  },
  {
   "name": "Sirois Avocat",
@@ -2965,7 +2976,8 @@
     "Kerrisdale",
     "Richmond"
    ]
-  }
+  },
+  "heroImage": "images/hero/munro-and-crawford-vancouver.webp"
  },
  {
   "name": "Brett McGarry Criminal Law",
@@ -3104,7 +3116,8 @@
     "Hawkesbury",
     "Casselman"
    ]
-  }
+  },
+  "heroImage": "images/hero/grewal-law-firm-ottawa.webp"
  },
  {
   "name": "BLW Injury Law",
@@ -3260,7 +3273,8 @@
     "Toronto",
     "Greater Toronto Area"
    ]
-  }
+  },
+  "heroImage": "images/hero/modern-family-law-llp-toronto.webp"
  },
  {
   "name": "Nuraney Law Group",
@@ -3628,7 +3642,8 @@
     "Greater Toronto Area",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/ayoun-law-mississauga.webp"
  },
  {
   "name": "Hansra Law",
@@ -3767,7 +3782,8 @@
     "Etobicoke",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/pelsmakher-law-toronto.webp"
  },
  {
   "name": "Robert Légal",
@@ -4185,7 +4201,8 @@
    "serving": [
     "Mississauga"
    ]
-  }
+  },
+  "heroImage": "images/hero/maana-law-mississauga.webp"
  },
  {
   "name": "Lions Gate Law Corporation",
@@ -4470,7 +4487,8 @@
     "West Kelowna",
     "Lake Country"
    ]
-  }
+  },
+  "heroImage": "images/hero/lydia-h-thomson-law-corporation-kelowna.webp"
  },
  {
   "name": "Sankoff Criminal Law",
@@ -4584,7 +4602,8 @@
     "Wills and powers of attorney",
     "Business law"
    ]
-  }
+  },
+  "heroImage": "images/hero/holmes-stephen-a-brampton.webp"
  },
  {
   "name": "Jason Wuttunee Criminal Defence Lawyer",
@@ -4632,7 +4651,8 @@
     "Calgary",
     "Vancouver"
    ]
-  }
+  },
+  "heroImage": "images/hero/jason-wuttunee-criminal-defence-lawyer-calgary.webp"
  },
  {
   "name": "Brass Law Office",
@@ -4676,7 +4696,8 @@
    "serving": [
     "Ottawa"
    ]
-  }
+  },
+  "heroImage": "images/hero/brass-law-office-ottawa.webp"
  },
  {
   "name": "Samy Ziada Avocat",
@@ -4810,7 +4831,8 @@
     "Bail hearings",
     "Traffic charges"
    ]
-  }
+  },
+  "heroImage": "images/hero/kraska-law-mississauga.webp"
  },
  {
   "name": "Iqbal Law Professional Corporation",
@@ -5053,7 +5075,8 @@
     "Brantford",
     "Greater Hamilton Area"
    ]
-  }
+  },
+  "heroImage": "images/hero/van-looyen-and-fallon-law-professional-corporation-hamilton.webp"
  },
  {
   "name": "EBPC Personal Injury Lawyer",
@@ -5186,7 +5209,8 @@
     "Vancouver",
     "Lower Mainland"
    ]
-  }
+  },
+  "heroImage": "images/hero/muldoon-and-company-vancouver.webp"
  },
  {
   "name": "Snow Lawyers Professional Corporation",
@@ -5235,7 +5259,8 @@
     "London",
     "Southwestern Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/snow-lawyers-professional-corporation-london.webp"
  },
  {
   "name": "Lakeshore Law",
@@ -5333,6 +5358,7 @@
    "serving": [
     "Windsor"
    ]
-  }
+  },
+  "heroImage": "images/hero/fox-mcnevin-mackay-llp-lawyers-windsor.webp"
  }
 ]

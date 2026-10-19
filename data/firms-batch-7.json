@@ -426,7 +426,8 @@
    "serving": [
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/legal-route-brampton.webp"
  },
  {
   "name": "WPC Personal Injury Lawyer",
@@ -552,7 +553,8 @@
    "serving": [
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/yazdani-law-north-york.webp"
  },
  {
   "name": "LeadRight Law",
@@ -889,7 +891,8 @@
    "serving": [
     "Ottawa"
    ]
-  }
+  },
+  "heroImage": "images/hero/marin-immigration-law-ottawa.webp"
  },
  {
   "name": "Prior Law PC",
@@ -925,7 +928,8 @@
     "Severance package review",
     "Human rights"
    ]
-  }
+  },
+  "heroImage": "images/hero/prior-law-pc-ottawa.webp"
  },
  {
   "name": "AJ Murray Legal Services Professional Corporation",
@@ -1004,7 +1008,8 @@
     "Real estate",
     "Wills estate litigation"
    ]
-  }
+  },
+  "heroImage": "images/hero/archstone-law-professional-corporation-mississauga.webp"
  },
  {
   "name": "Li Cheng Business & Real Estate Law",
@@ -1287,7 +1292,8 @@
     "Estate and probate",
     "Elder abuse"
    ]
-  }
+  },
+  "heroImage": "images/hero/nika-law-llp-etobicoke.webp"
  },
  {
   "name": "TLC Legal Professional Corporation",
@@ -1452,7 +1458,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/justin-t-chan-toronto.webp"
  },
  {
   "name": "Thind Law Enterprise Professional Corporation",
@@ -1725,7 +1732,8 @@
     "Toronto",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/raluca-m-soica-barrister-and-solicitor-north-york.webp"
  },
  {
   "name": "Chronicle Law P.C.",
@@ -2122,7 +2130,8 @@
    "areas": [
     "Short-term and long-term disability"
    ]
-  }
+  },
+  "heroImage": "images/hero/quail-warfe-kreder-llp-mississauga.webp"
  },
  {
   "name": "Howard and Howard",
@@ -2313,7 +2322,8 @@
     "Innisfil",
     "Springwater"
    ]
-  }
+  },
+  "heroImage": "images/hero/moreau-family-law-professional-corporation-barrie.webp"
  },
  {
   "name": "Garson Immigration Law",
@@ -2352,7 +2362,8 @@
     "U.S. immigration",
     "Immigration law"
    ]
-  }
+  },
+  "heroImage": "images/hero/garson-immigration-law-north-york.webp"
  },
  {
   "name": "Amani Law Office",
@@ -2519,7 +2530,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/david-genis-north-york.webp"
  },
  {
   "name": "Junction Law Professional Corporation",
@@ -2681,7 +2693,8 @@
     "Ontario",
     "Quebec"
    ]
-  }
+  },
+  "heroImage": "images/hero/mehrez-law-ottawa.webp"
  },
  {
   "name": "Sheard Law Professional Corporation",
@@ -2942,7 +2955,8 @@
    "serving": [
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/glass-gavel-professional-corporation-barrie.webp"
  },
  {
   "name": "S S Loomba Law Professional Corporation",
@@ -3022,7 +3036,8 @@
     "Ottawa",
     "Barrhaven"
    ]
-  }
+  },
+  "heroImage": "images/hero/sean-kelly-law-ottawa.webp"
  },
  {
   "name": "Brown Family Law",
@@ -3420,7 +3435,8 @@
     "GTA",
     "Barrie"
    ]
-  }
+  },
+  "heroImage": "images/hero/progressive-legal-solutions-barrie.webp"
  },
  {
   "name": "ADS Law Professional Corporation",
@@ -3726,7 +3742,8 @@
    "serving": [
     "GTA"
    ]
-  }
+  },
+  "heroImage": "images/hero/vora-law-professional-corporation-toronto.webp"
  },
  {
   "name": "EB PERSONAL INJURY LAWYER",
@@ -3853,7 +3870,8 @@
     "Vaughan",
     "GTA"
    ]
-  }
+  },
+  "heroImage": "images/hero/hummingbird-lawyers-llp-toronto.webp"
  },
  {
   "name": "Richards and Jurusik US Immigration Lawyer",
@@ -4149,7 +4167,8 @@
    "serving": [
     "Waterloo"
    ]
-  }
+  },
+  "heroImage": "images/hero/morneau-family-law-and-legal-innovation-kitchener.webp"
  },
  {
   "name": "Burshtein Law",
@@ -4184,7 +4203,8 @@
     "Power of attorney for property",
     "Estate administration"
    ]
-  }
+  },
+  "heroImage": "images/hero/burshtein-law-toronto.webp"
  },
  {
   "name": "SLC Law",
@@ -4438,7 +4458,8 @@
     "North York",
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/smithen-family-law-professional-corporation-north-york.webp"
  },
  {
   "name": "Monique J. Charlebois",
@@ -4562,7 +4583,8 @@
     "Insurance litigation",
     "Defamation litigation"
    ]
-  }
+  },
+  "heroImage": "images/hero/danson-delavar-llp-toronto.webp"
  },
  {
   "name": "Morrison Williams LLP",
@@ -4712,7 +4734,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/taerk-family-law-toronto.webp"
  },
  {
   "name": "Pelican Law- Immigration & Refugee Lawyer",
@@ -4758,7 +4781,8 @@
     "Study permits",
     "Work permits"
    ]
-  }
+  },
+  "heroImage": "images/hero/pelican-law-immigration-and-refugee-lawyer-mississauga.webp"
  },
  {
   "name": "NDM Law",
@@ -4800,7 +4824,8 @@
     "Personal injury law",
     "Wills & estates"
    ]
-  }
+  },
+  "heroImage": "images/hero/ndm-law-mississauga.webp"
  },
  {
   "name": "Brazeau Seller Law",
@@ -4869,7 +4894,8 @@
    "areas": [
     "Business law"
    ]
-  }
+  },
+  "heroImage": "images/hero/brazeau-seller-law-ottawa.webp"
  },
  {
   "name": "A.Circelli Law",
@@ -5098,7 +5124,8 @@
     "Toronto",
     "Brampton"
    ]
-  }
+  },
+  "heroImage": "images/hero/handa-law-professional-corporation-brampton.webp"
  },
  {
   "name": "Odele Law Group",

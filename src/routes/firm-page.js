@@ -4,6 +4,7 @@
 import { renderBlogCards } from '../render/blog-cards.js';
 import { storyPath } from '../lib/stories.js';
 import { renderFirmPage } from '../render/firm-page.js';
+import { isIndexable } from '../lib/indexing.js';
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -112,12 +113,16 @@ export async function firmPage({ request, env, ctx }) {
     console.error('profile render failed', m[1], err);
     return env.ASSETS.fetch(request);
   }
+  // No real description yet: keep the page out of Google (it stays reachable and its links still count) until there is one.
+  const held = !isIndexable(row.about);
+  if (held) html = html.replace('</head>', '<meta name="robots" content="noindex,follow">\n</head>');
   const res = withFollow(new Response(html, {
     headers: {
       'content-type': 'text/html; charset=utf-8',
       'cache-control': ttl > 0 ? `public, max-age=${ttl}` : 'no-cache',
       'x-content-type-options': 'nosniff',
       'x-lawdb-source': 'database',
+      ...(held ? { 'x-robots-tag': 'noindex, follow' } : {}),
     },
   }), m[1], await managedBy(env, m[1]));
   if (ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));

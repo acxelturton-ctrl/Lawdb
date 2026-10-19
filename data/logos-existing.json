@@ -322,5 +322,21 @@
  "varity-law": {
   "src": "images/logos/varity-law.png",
   "site": "https://www.varitylaw.ca"
+ },
+ "daniel-a-wolson-winnipeg": {
+  "src": "images/logos/daniel-a-wolson-winnipeg.png",
+  "site": "https://www.danielwolson.com"
+ },
+ "duboff-edwards-schachter-law-corporation-winnipeg": {
+  "src": "images/logos/duboff-edwards-schachter-law-corporation-winnipeg.png",
+  "site": "https://deslaw.ca"
+ },
+ "nancy-goncalves-law-office-winnipeg": {
+  "src": "images/logos/nancy-goncalves-law-office-winnipeg.png",
+  "site": "https://www.nancygoncalves.com"
+ },
+ "taylor-mccaffrey-llp-winnipeg": {
+  "src": "images/logos/taylor-mccaffrey-llp-winnipeg.png",
+  "site": "https://www.tmlawyers.com"
  }
 }

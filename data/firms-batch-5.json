@@ -23,7 +23,35 @@
   "type": "logo",
   "about": "EDH Law is a general practice in Peterborough and Bradford covering real estate, wills, family, immigration and corporate law.\n\nFormally Evans de Vries Higgins LLP, the firm is the successor to Evans & Evans, established in Bradford in 1894, and to the Peterborough practice of Douglas F. Walker, which has served the Kawarthas since 1974. Robert Evans, Jenivieve de Vries and Nathan Higgins merged their practices in April 2015, and Robert Evans retired at the end of 2019. The firm acts for buyers and sellers in mortgage and title matters, offers notarizing and commissioning, and holds original wills and powers of attorney prepared by lawyers of both earlier practices.",
   "src": "images/logos/edh-law-peterborough.png",
-  "bioImage": "images/bio/edh-law-peterborough.webp"
+  "details": {
+   "founded": 2015,
+   "lawyers": [
+    {
+     "name": "Carly Ladouceur",
+     "title": "Lawyer"
+    },
+    {
+     "name": "Nathan Higgins"
+    },
+    {
+     "name": "Douglas F. Walker"
+    }
+   ],
+   "areas": [
+    "Real estate law",
+    "Wills and estates",
+    "Family law",
+    "Immigration law",
+    "Corporate law",
+    "Notarizing and commissioning"
+   ],
+   "serving": [
+    "Bradford",
+    "Peterborough",
+    "The Kawarthas"
+   ]
+  },
+  "heroImage": "images/hero/edh-law-peterborough.webp"
  },
  {
   "name": "Lamprey Law Professional Corporation",
@@ -84,6 +112,22 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Peter Lamprey"
+    }
+   ],
+   "areas": [
+    "Real estate",
+    "Wills and estates",
+    "Powers of attorney"
+   ],
+   "serving": [
+    "Barrie",
+    "Simcoe County"
+   ]
   }
  },
  {
@@ -111,7 +155,29 @@
   "blurb": "Family Law in St. Catharines. Rated 4.9 from 109 Google reviews.",
   "type": "logo",
   "about": "Cootauco Law Office is a Niagara family law firm that practises only divorce and family law, from child custody to separation agreements.\n\nThe office sits across from the courthouse in St. Catharines and also serves Welland and Niagara Falls. Jerzy Cootauco, who holds a J.D. from the University of Windsor and a B.A. from Western University, is empanelled with Legal Aid Ontario to accept certificates for family law and child protection matters. Areas include parenting time, child and spousal support, equalization, motions to change, uncontested divorce and foreign divorce opinion letters. The firm prefers settlement but litigates when needed, and uses technology to keep costs down.",
-  "src": "images/logos/cootauco-law-office-st-catharines.webp"
+  "src": "images/logos/cootauco-law-office-st-catharines.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Jerzy Cootauco",
+     "title": "Barrister, Solicitor & Notary"
+    }
+   ],
+   "areas": [
+    "Divorce and separation",
+    "Custody and access",
+    "Support issues",
+    "Child protection",
+    "Motions to change",
+    "Family law"
+   ],
+   "serving": [
+    "Niagara Region",
+    "St. Catharines",
+    "Welland",
+    "Niagara Falls"
+   ]
+  }
  },
  {
   "name": "Bussey Ainsworth Lawyers",
@@ -172,6 +238,29 @@
      "15:00"
     ]
    ]
+  },
+  "details": {
+   "founded": 1988,
+   "lawyers": [
+    {
+     "name": "Barry W. Bussey"
+    }
+   ],
+   "areas": [
+    "Real estate",
+    "Wills and estates",
+    "Charity and non-profit law",
+    "Powers of attorney",
+    "Business law",
+    "Farm and business succession",
+    "Civil litigation",
+    "Notarial services",
+    "Constitutional law"
+   ],
+   "serving": [
+    "Peterborough",
+    "Kawarthas"
+   ]
   }
  },
  {
@@ -201,7 +290,15 @@
   "blurb": "Real Estate / Wills & Estates in Sarnia. Rated 5.0 from 89 Google reviews.",
   "type": "logo",
   "about": "Houlihan Law is a downtown Sarnia practice focused on real estate, mortgages, wills, powers of attorney and estate administration.\n\nSpencer Houlihan was born and raised in Sarnia. He earned a law degree from Griffith University in 2014 after an honours degree in political science at Laurier, and was admitted to the Ontario bar in June 2017. The office also provides notary public services and uses technology to save clients time. Outside the office he has been a long-standing member of the Sarnia Saints Rugby and Football Club, serving on its board and as president in 2021.",
-  "src": "images/logos/houlihan-law-sarnia.png"
+  "src": "images/logos/houlihan-law-sarnia.png",
+  "details": {
+   "areas": [
+    "Wills and trusts",
+    "Probate",
+    "Powers of attorney",
+    "Last will and testament"
+   ]
+  }
  },
  {
   "name": "Norton Law PC",
@@ -272,6 +369,21 @@
      "23:59"
     ]
    ]
+  },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Steve Norton"
+    }
+   ],
+   "areas": [
+    "Criminal defence"
+   ],
+   "serving": [
+    "Ajax",
+    "Barrie",
+    "Richmond Hill"
+   ]
   }
  },
  {
@@ -299,7 +411,28 @@
   "blurb": "Criminal Defence in St. Catharines. Rated 4.7 from 90 Google reviews.",
   "type": "logo",
   "about": "10(B) Criminal Law Center is a Niagara criminal defence practice handling bail hearings, trials, youth court and impaired driving charges.\n\nThe office is in St. Catharines, and the practice is exclusively criminal defence, led by Sidney Zarabi. Areas of work include bail hearings, resolution and diversion, youth criminal justice, mental health and drug treatment court, Indigenous peoples court and trials. The firm also helps clients reach counselling, housing and employment programs. Zarabi has written commentary on Niagara's justice system, including its detention centre and treatment court, and the firm is a member of the Ontario Trial Lawyers Association.",
-  "src": "images/logos/10-b-criminal-law-center-st-catharines.png"
+  "src": "images/logos/10-b-criminal-law-center-st-catharines.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Sidney Zarabi"
+    }
+   ],
+   "areas": [
+    "Criminal law",
+    "Bail hearings",
+    "Resolutions and diversion",
+    "Youth criminal justice",
+    "Mental health court",
+    "Indigenous Peoples Court"
+   ],
+   "serving": [
+    "St. Catharines",
+    "Niagara Region",
+    "Hamilton",
+    "Halton Region"
+   ]
+  }
  },
  {
   "name": "White Macgillivray Lester LLP",
@@ -326,7 +459,19 @@
   "blurb": "Personal Injury in Thunder Bay. Rated 4.9 from 82 Google reviews.",
   "type": "logo",
   "about": "White Macgillivray Lester LLP is a Thunder Bay personal injury firm serving clients across Northwestern Ontario.\n\nIts areas of work include slip and falls, vehicle collisions, insurance disputes and long term disability, and its team consists of injury lawyers and agents. Its lawyers and staff live in the region, unlike firms headquartered in Toronto, and it has helped people from the Manitoba border in the west to Marathon in the east, as well as in the far northern communities. The office is at 1 Cumberland Street South, and Dan Lester is among its lawyers.",
-  "src": "images/logos/white-macgillivray-lester-llp-thunder-bay.png"
+  "src": "images/logos/white-macgillivray-lester-llp-thunder-bay.png",
+  "details": {
+   "areas": [
+    "Personal injury",
+    "Slip and falls",
+    "Insurance disputes",
+    "Vehicle collisions",
+    "Long term disability"
+   ],
+   "serving": [
+    "Northwestern Ontario"
+   ]
+  }
  },
  {
   "name": "Miskin Law",
@@ -390,7 +535,41 @@
     ]
    ]
   },
-  "bioImage": "images/bio/miskin-law-peterborough.webp"
+  "details": {
+   "founded": 1981,
+   "lawyers": [
+    {
+     "name": "Murray H. Miskin",
+     "title": "Personal Injury Lawyer"
+    },
+    {
+     "name": "Chris Goddard"
+    },
+    {
+     "name": "Daniel Miskin"
+    },
+    {
+     "name": "Phil Ugnat"
+    }
+   ],
+   "areas": [
+    "Personal injury",
+    "Wills and estates",
+    "Corporate and commercial law",
+    "Real estate law",
+    "Class actions",
+    "Mesothelioma claims",
+    "Nursing home negligence",
+    "Business formation",
+    "Mergers and acquisitions"
+   ],
+   "serving": [
+    "Peterborough",
+    "Toronto",
+    "Oshawa"
+   ]
+  },
+  "heroImage": "images/hero/miskin-law-peterborough.webp"
  },
  {
   "name": "TLC Family Law",
@@ -417,7 +596,22 @@
   "blurb": "Family Law in Prince George. Rated 4.8 from 67 Google reviews.",
   "type": "logo",
   "about": "TLC Family Law Practice is a Prince George firm handling divorce, parenting arrangements, support and property division under British Columbia family law.\n\nThe practice also has offices in Parksville and serves the Nanaimo and Qualicum area. Tracy L. Clark is a family lawyer with over 30 years in practice. The firm's primary aim is to settle matters by agreement quickly and efficiently, while taking cases to court when that is necessary. Services include flat fee agreements, uncontested divorces, guardianship, parenting time and access, child and spousal support, variation of existing orders, pension and property division, family debt, and cohabitation, marriage and prenuptial agreements.",
-  "src": "images/logos/tlc-family-law-prince-george.webp"
+  "src": "images/logos/tlc-family-law-prince-george.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Tracy L. Clark"
+    }
+   ],
+   "areas": [
+    "Family law",
+    "Divorce",
+    "Child and spousal support"
+   ],
+   "serving": [
+    "Prince George"
+   ]
+  }
  },
  {
   "name": "Andrews Donnelly LLP",
@@ -446,7 +640,23 @@
   "blurb": "Family Law / Civil Litigation in Kingston. Rated 4.7 from 66 Google reviews.",
   "type": "logo",
   "about": "Andrews Donnelly LLP is a Kingston boutique firm handling family law, estate litigation and civil litigation.\n\nIts dispute resolution services are available in Kingston, Frontenac County, Prince Edward County and surrounding areas, including Brockville, Napanee, Belleville and Picton. Family work covers custody, access, child and spousal support and division of property. Estate litigation covers will challenges, power of attorney disputes, capacity questions and the passing of fiduciary accounts. Its lawyers include Paul and Whitney, and fees can be arranged as fixed-fee or project-based billing, hourly engagements, or monthly retainers.",
-  "src": "images/logos/andrews-donnelly-llp-kingston.png"
+  "src": "images/logos/andrews-donnelly-llp-kingston.png",
+  "details": {
+   "areas": [
+    "Family law",
+    "Civil litigation",
+    "Estate litigation",
+    "Dispute resolution"
+   ],
+   "serving": [
+    "Kingston",
+    "Brockville",
+    "Napanee",
+    "Belleville",
+    "Picton",
+    "Prince Edward County"
+   ]
+  }
  },
  {
   "name": "Le Cabinet M",
@@ -471,7 +681,25 @@
   "blurb": "Law firm in Saint-Jerome. Rated 4.7 from 61 Google reviews.",
   "type": "logo",
   "about": "Le Cabinet M is a Saint-Jerome firm that acts for people seeking compensation after an accident, a crime or a disability.\n\nFounded in 1980, the firm works only on compensation matters: road accidents handled through the SAAQ, workplace accidents and occupational diseases before the CNESST, victims of crime (IVAC), pension applications to Retraite Québec, medical errors, disability insurance and childhood family violence. Its lawyers and their team act across Quebec, including the Greater Montreal area, and the firm works in French.",
-  "src": "images/logos/le-cabinet-m-saint-jerome.webp"
+  "src": "images/logos/le-cabinet-m-saint-jerome.webp",
+  "details": {
+   "areas": [
+    "Dommages corporels",
+    "Accident de la route",
+    "Accident de travail",
+    "Maladie professionnelle",
+    "Victime d’acte criminel",
+    "Erreur médicale",
+    "Assurance invalidité",
+    "Demande de rente"
+   ],
+   "serving": [
+    "Saint-Jérôme",
+    "Laval",
+    "Longueuil",
+    "Montréal"
+   ]
+  }
  },
  {
   "name": "Casselman Legal",
@@ -498,7 +726,19 @@
   "blurb": "Real Estate in Sarnia. Rated 4.9 from 58 Google reviews.",
   "type": "logo",
   "about": "Casselman Legal is a Sarnia firm handling residential and commercial real estate, wills and powers of attorney, and business law.\n\nThe firm serves Sarnia and the surrounding area. On the business side it handles company formation and corporate governance, and on the estates side it prepares wills under Ontario's Succession Law Reform Act, including guardianship provisions for children and the distribution of property. The team uses modern legal technology to streamline processes and lower costs, and communication and integrity are the foundations of the practice. The office is at 640 Cathcart Boulevard in Sarnia.",
-  "src": "images/logos/casselman-legal-sarnia.png"
+  "src": "images/logos/casselman-legal-sarnia.png",
+  "details": {
+   "areas": [
+    "Real estate",
+    "Wills",
+    "Powers of attorney",
+    "Estate planning",
+    "Business law"
+   ],
+   "serving": [
+    "Sarnia"
+   ]
+  }
  },
  {
   "name": "Lemieux Litigation",
@@ -531,7 +771,39 @@
   "blurb": "Personal Injury / Family Law in Barrie. Rated 4.7 from 57 Google reviews.",
   "type": "logo",
   "about": "Lemieux Litigation is a Barrie boutique litigation firm handling personal injury, employment and family law matters.\n\nIts local lawyers serve all of Simcoe County, including Barrie, Innisfil, Orillia, Midland and Alliston, as well as Bradford, Newmarket and Collingwood. Injury work covers motor vehicle accidents, slip and falls and long-term disability. On the employment side the firm handles wrongful termination and workplace sexual harassment. Family law matters include divorce, child and spousal support, custody and access, and separation and parenting agreements. Nicole Meringolo and Melissa Ritter are the lawyers featured.",
-  "src": "images/logos/lemieux-litigation-barrie.png"
+  "src": "images/logos/lemieux-litigation-barrie.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Antonio Meringolo"
+    },
+    {
+     "name": "Nicole Meringolo"
+    }
+   ],
+   "areas": [
+    "Personal injury",
+    "Employment law",
+    "Family law",
+    "Motor vehicle accidents",
+    "Slip and falls",
+    "Brain injuries",
+    "Dog bites",
+    "Long-term disability",
+    "Wrongful deaths",
+    "Divorce and child support"
+   ],
+   "serving": [
+    "Barrie",
+    "Simcoe County",
+    "Innisfil",
+    "Orillia",
+    "Midland",
+    "Alliston",
+    "Bradford",
+    "Newmarket"
+   ]
+  }
  },
  {
   "name": "MKC Law Office",
@@ -562,7 +834,33 @@
   "blurb": "Family Law / Real Estate in Peterborough. Rated 4.6 from 54 Google reviews.",
   "type": "logo",
   "about": "MKC Law Office is a Peterborough firm handling family law, real estate, wills and estates, business law and litigation.\n\nThe practice has been the city's law firm since 1974, serving Peterborough and Cottage Country from 254 Brock Street. Its real estate team handles closings, title transfers and mortgage details, while family lawyers deal with custody, support and separation agreements. Wills, powers of attorney, probate forms and estate matters are also part of the work. Ian Keay, Oliver S. Cooper and Jackson Wiltshire are among its lawyers, and Julie Kirkpatrick is associated with wills and powers of attorney. The firm also publishes blog posts for executors and beneficiaries.",
-  "src": "images/logos/mkc-law-office-peterborough.webp"
+  "src": "images/logos/mkc-law-office-peterborough.webp",
+  "details": {
+   "founded": 1974,
+   "lawyers": [
+    {
+     "name": "Ian Keay",
+     "title": "Managing Partner"
+    },
+    {
+     "name": "Oliver S. Cooper"
+    },
+    {
+     "name": "Jackson Wiltshire"
+    }
+   ],
+   "areas": [
+    "Real estate",
+    "Family law",
+    "Wills and estates",
+    "Business law",
+    "Litigation"
+   ],
+   "serving": [
+    "Peterborough",
+    "Cottage Country"
+   ]
+  }
  },
  {
   "name": "HGR GRAHAM PARTNERS LLP",
@@ -619,6 +917,21 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Christine Manners",
+     "title": "Partner"
+    }
+   ],
+   "serving": [
+    "Barrie",
+    "Elmvale",
+    "Midland",
+    "Orillia",
+    "Penetanguishene"
+   ]
   }
  },
  {
@@ -669,7 +982,33 @@
   "blurb": "Law firm in Thunder Bay. Rated 4.6 from 49 Google reviews.",
   "type": "logo",
   "about": "de Bakker Law is a Thunder Bay firm handling real estate, wills and estates, criminal, civil litigation, corporate and immigration matters.\n\nThe practice has represented Thunder Bay for over 40 years, and its services also include medical malpractice. Deborah de Bakker practises wills, estates and real estate alongside her son. She is a lifelong Thunder Bay resident with a B.A. from Queen's University and an LL.B. from Osgoode Hall Law School, a member of the Law Society of Ontario and the Thunder Bay Law Association, and a past member of the federal Judicial Appointments Advisory Committee. The team also includes Vlad Popescu, Jennifer Hay, Jessica Macaulay and Carly Deboni.",
-  "src": "images/logos/de-bakker-law-thunder-bay.webp"
+  "src": "images/logos/de-bakker-law-thunder-bay.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Jessica Macaulay"
+    }
+   ],
+   "areas": [
+    "Real estate",
+    "Wills and estates",
+    "Criminal law",
+    "Civil litigation",
+    "Corporate law",
+    "Medical malpractice",
+    "Immigration law"
+   ],
+   "serving": [
+    "Thunder Bay",
+    "Kenora",
+    "Dryden",
+    "Ignace",
+    "Sioux Lookout",
+    "Atikokan",
+    "Nipigon",
+    "Fort Frances"
+   ]
+  }
  },
  {
   "name": "Bakleh Avocats & Associés",
@@ -694,7 +1033,25 @@
   "blurb": "Law firm in Saint-Jerome. Rated 5.0 from 43 Google reviews.",
   "type": "logo",
   "about": "Bakleh Avocats & Associés is a Saint-Jerome firm working in criminal, penal, civil and real estate law, and it also contests traffic tickets.\n\nThe team helps drivers keep their demerit points and their licence when a ticket is contested, including tickets issued in Montreal. The firm also runs an immigration practice that pairs Me Charlis Bakleh with regulated immigration consultant Joseph Zakhour for study permits, work visas, permanent residence and status regularization, in Quebec, Ontario or remotely. Real estate law is among its practice areas, and the firm works in French.",
-  "src": "images/logos/bakleh-avocats-and-associes-saint-jerome.png"
+  "src": "images/logos/bakleh-avocats-and-associes-saint-jerome.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Me Charlis Bakleh"
+    },
+    {
+     "name": "Me Pierre Brunelle"
+    }
+   ],
+   "areas": [
+    "Droit immobilier",
+    "Droit criminel",
+    "Immigration",
+    "Litige",
+    "Infractions routières",
+    "Justice pour adolescents"
+   ]
+  }
  },
  {
   "name": "Fazio Law",
@@ -719,7 +1076,21 @@
   "blurb": "Law firm in Sarnia. Rated 4.8 from 44 Google reviews.",
   "type": "logo",
   "about": "Fazio Law is a Sarnia firm that has handled real estate, business and estate matters since 1988 for individuals, families, charities and companies.\n\nThe practice serves Sarnia and the surrounding area, from small businesses to large corporations, and covers estate planning, real estate transactions and corporate law. Frank Fazio was admitted to the Ontario bar in 1988 and has more than 37 years in practice. He has served on boards in Sarnia-Lambton, including the YMCA, the Downtown Business Improvement Area, the Lung Association and the real estate section of the Lambton Law Association, and the aim is to explain legal dealings in everyday English.",
-  "src": "images/logos/fazio-law-sarnia.jpg"
+  "src": "images/logos/fazio-law-sarnia.jpg",
+  "details": {
+   "founded": 1988,
+   "areas": [
+    "Real estate",
+    "Wills and powers of attorney",
+    "Estate planning and administration",
+    "Corporate and commercial law",
+    "Land development",
+    "Municipal law"
+   ],
+   "serving": [
+    "Sarnia"
+   ]
+  }
  },
  {
   "name": "Simeson Law",
@@ -746,7 +1117,34 @@
   "blurb": "Personal Injury in Oshawa. Rated 4.8 from 42 Google reviews.",
   "type": "logo",
   "about": "Simeson Law LLP is an Oshawa firm handling personal injury, criminal defence, family and employment law matters.\n\nThe firm has acted for accident victims for over 35 years, in matters such as car, bicycle and boating accidents, brain injuries, catastrophic injury, slip and falls, animal attacks, medical malpractice, product liability, accident benefits, and disability, life and property insurance disputes. Its criminal practice covers Criminal Code, provincial and Highway Traffic Act offences, and employment work addresses wrongful dismissal. Alastair H. Simeson is the partner in charge of litigation and a former president of the Oshawa Chamber of Commerce, and Sean M. Simeson is an associate lawyer.",
-  "src": "images/logos/simeson-law-oshawa.png"
+  "src": "images/logos/simeson-law-oshawa.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Alastair H. Simeson",
+     "title": "Partner"
+    },
+    {
+     "name": "Sean M. Simeson",
+     "title": "Associate Lawyer"
+    }
+   ],
+   "areas": [
+    "Personal injury law",
+    "Criminal defence",
+    "Employment law",
+    "Car accidents",
+    "Catastrophic injuries",
+    "Slip and fall",
+    "Wrongful death",
+    "Long-term disability",
+    "Accident benefit claims",
+    "Life insurance claims"
+   ],
+   "serving": [
+    "Oshawa"
+   ]
+  }
  },
  {
   "name": "BLFON Personal Injury Lawyer",
@@ -773,7 +1171,25 @@
   "blurb": "Personal Injury in North Bay. Rated 5.0 from 38 Google reviews.",
   "type": "logo",
   "about": "BLFON Personal Injury Lawyer is a North Bay firm handling car accidents, slip and falls and other injury cases in Ontario.\n\nThe firm has offices in Sarnia, North Bay and Collingwood and is a member of Barapp Law Alliance. Practice areas include car accidents, orthopaedic injuries, slip and fall accidents, motorcycle accidents, public transit accidents and pedestrian accidents. It acts on a contingency fee basis, so clients pay legal fees only if the case succeeds. Its lawyers include Eric Barapp, Lorne Weinstock, Eti Taylor, Nabeel Sera, Michael Brill and Albert Wong.",
-  "src": "images/logos/blfon-personal-injury-lawyer-north-bay.png"
+  "src": "images/logos/blfon-personal-injury-lawyer-north-bay.png",
+  "details": {
+   "areas": [
+    "Car accidents",
+    "Orthopaedic injuries",
+    "Slip and fall accidents",
+    "Motorcycle accidents",
+    "Public transit accidents",
+    "Pedestrian accidents",
+    "Dog bite incidents",
+    "Brain and spinal cord injuries",
+    "Personal injury"
+   ],
+   "serving": [
+    "Sarnia",
+    "North Bay",
+    "Collingwood"
+   ]
+  }
  },
  {
   "name": "Fallow Gould LLP",
@@ -861,6 +1277,23 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "areas": [
+    "Probate",
+    "Real estate law",
+    "Wills and estate planning",
+    "Corporate law",
+    "Commercial real estate",
+    "Condominium purchases and sales",
+    "Private sales and private mortgages",
+    "Refinancing and mortgage work",
+    "Title transfers"
+   ],
+   "serving": [
+    "St. Catharines",
+    "Niagara Region"
+   ]
   }
  },
  {
@@ -890,7 +1323,30 @@
   "blurb": "Real Estate / Wills & Estates in Barrie. Rated 4.7 from 36 Google reviews.",
   "type": "logo",
   "about": "Ain Whitehead LLP is a Barrie firm handling business, real estate and wills and estates law.\n\nThe practice marks ten years and counts lawyers Andrew Ain, Graydon Ebert, Jill Annett, Kathryn Whitehead and Tony Servello among its team. Andrew's work centres on residential real estate, mortgage lending and commercial transactions, with a focus on land development and condominium law, plus corporate matters such as new corporations, shareholder agreements and the buying and selling of businesses. Real estate work covers commercial leasing, lease negotiation and drafting, and the firm offers a land transfer calculator. Areas served include the City of Barrie and the Township of Springwater.",
-  "src": "images/logos/ain-whitehead-llp-barrie.png"
+  "src": "images/logos/ain-whitehead-llp-barrie.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Andrew Ain"
+    },
+    {
+     "name": "Kathryn Whitehead"
+    },
+    {
+     "name": "Graydon Ebert"
+    }
+   ],
+   "areas": [
+    "Business law",
+    "Real estate law",
+    "Wills and estates",
+    "Land development",
+    "Condominium law",
+    "Mortgage lending",
+    "Mortgage enforcement",
+    "Corporate law"
+   ]
+  }
  },
  {
   "name": "Lambert Boenders Employment Lawyer",
@@ -917,7 +1373,26 @@
   "blurb": "Employment Law in Toronto. Rated 5.0 from 33 Google reviews.",
   "type": "logo",
   "about": "Lambert Boenders is a Toronto employment and human rights law practice that advises both employees and employers on termination and workplace issues.\n\nLambert earned a B.A. (Hons) from Victoria College at the University of Toronto and a J.D. from Osgoode Hall Law School in 1994, entered employment and human rights practice in 2009 and was admitted to the Ontario bar in 2010. Before practising law he worked for more than twenty-five years in business, including as Vice-President of Operations with an international insurance company. Services include examining employment offer letters and contracts, performance management and improvement issues, and non-solicitation and non-competition clauses. The office is on Queen Street West.",
-  "src": "images/logos/lambert-boenders-employment-lawyer-toronto.png"
+  "src": "images/logos/lambert-boenders-employment-lawyer-toronto.png",
+  "details": {
+   "languages": [
+    "English",
+    "French",
+    "Dutch"
+   ],
+   "lawyers": [
+    {
+     "name": "Lambert Boenders"
+    }
+   ],
+   "areas": [
+    "Employment law",
+    "Human rights law"
+   ],
+   "serving": [
+    "Toronto"
+   ]
+  }
  },
  {
   "name": "Ewen Boyd LLP",
@@ -948,7 +1423,12 @@
   "blurb": "Family Law / Real Estate in Barrie. Rated 4.8 from 32 Google reviews.",
   "type": "logo",
   "about": "Ewen Boyd LLP is a Barrie firm that handled family, real estate, wills and estate planning and corporate law, and has announced that it is closing.\n\nAfter more than eleven years of service the firm will close its doors in the near future. It no longer holds any wills or powers of attorney, which have been transferred to Ness Law in Orillia. Before the closure notice, it assisted clients across Simcoe County and Muskoka. Former clients who need a closed real estate or family file are directed to a mailing address in Barrie.",
-  "src": "images/logos/ewen-boyd-llp-barrie.webp"
+  "src": "images/logos/ewen-boyd-llp-barrie.webp",
+  "details": {
+   "serving": [
+    "Barrie"
+   ]
+  }
  },
  {
   "name": "Murray & Associates LLP",
@@ -973,7 +1453,26 @@
   "blurb": "Law firm in St. Catharines. Rated 4.7 from 31 Google reviews.",
   "type": "logo",
   "about": "Murray & Associates LLP is a Niagara Region firm covering real estate, wills and estates, corporate, mortgages, power of sale, family and municipal law.\n\nFormerly Heelis, Litle, Almas and Murray LLP, the practice has served the region for nearly 50 years from 14 Church Street in St. Catharines. Lawyers include H. A. Patrick Little, Bryce W. B. Murray, Adam DiFruscia and William Heelis. Its blend of legal service and client rapport has kept generations of business owners, families and residents returning, and its broad range of practice areas lets it compete with larger firms.",
-  "src": "images/logos/murray-and-associates-llp-st-catharines.jpg"
+  "src": "images/logos/murray-and-associates-llp-st-catharines.jpg",
+  "details": {
+   "lawyers": [
+    {
+     "name": "H. A. Patrick Little"
+    },
+    {
+     "name": "Bryce W. B. Murray"
+    },
+    {
+     "name": "Adam DiFruscia"
+    },
+    {
+     "name": "William Heelis"
+    }
+   ],
+   "serving": [
+    "St. Catharines"
+   ]
+  }
  },
  {
   "name": "Kooner Priddle Law Group",
@@ -1005,7 +1504,27 @@
   "type": "logo",
   "about": "Kooner Priddle Law Group is a Kamloops litigation firm handling personal injury, malpractice, estate litigation, employment and contract disputes.\n\nIts Kamloops lawyers offer a full scope of litigation services, from giving an opinion on a legal matter to designing litigation strategies, and act for clients from all walks of life. On malpractice, the firm covers harm from misdiagnosis, surgical or prescription errors and failure to diagnose or monitor a condition, and its team are trial lawyers. The office is at 172 Battle Street in Kamloops, British Columbia.",
   "src": "images/logos/kooner-priddle-law-group-kamloops.png",
-  "bioImage": "images/bio/kooner-priddle-law-group-kamloops.webp"
+  "details": {
+   "lawyers": [
+    {
+     "name": "Kerri Priddle"
+    }
+   ],
+   "areas": [
+    "Personal injury",
+    "Medical and dental malpractice",
+    "Employment",
+    "Estate disputes",
+    "Human rights breaches",
+    "Defamation",
+    "Contract disputes",
+    "Litigation"
+   ],
+   "serving": [
+    "Kamloops"
+   ]
+  },
+  "heroImage": "images/hero/kooner-priddle-law-group-kamloops.webp"
  },
  {
   "name": "Gerry Law",
@@ -1032,7 +1551,19 @@
   "blurb": "Personal Injury in Thunder Bay. Rated 4.8 from 29 Google reviews.",
   "type": "logo",
   "about": "Gerry Law is a Thunder Bay personal injury firm that also takes on sexual assault and slip and fall cases in Ontario.\n\nThe practice is built around lawyer Natalie Gerry, who holds a Juris Doctor from the Bora Laskin Faculty of Law and an honours B.A. from Trinity College at the University of Toronto, and has selected reported decisions to her name. Legal fees are not charged until a file is resolved, and initial case evaluations are limited to personal injury and sexual assault matters. The office is at 34 Cumberland Street North.",
-  "src": "images/logos/gerry-law-thunder-bay.webp"
+  "src": "images/logos/gerry-law-thunder-bay.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Natalie Gerry",
+     "title": "Personal Injury & Sexual Assault Lawyer"
+    }
+   ],
+   "areas": [
+    "Personal injury",
+    "Sexual assault lawsuits"
+   ]
+  }
  },
  {
   "name": "Tremblay Law Group PC",
@@ -1057,7 +1588,37 @@
   "blurb": "Law firm in North Bay. Rated 4.9 from 28 Google reviews.",
   "type": "logo",
   "about": "Tremblay Law Group PC is a North Bay firm offering real estate, corporate, litigation, family, criminal and estates law in the Nipissing area.\n\nServices are offered in English and French, with lawyers also serving Sturgeon Falls. The practice traces to 1993, when Wallace & Carr and Klein & Klein merged as Wallace Klein Partners in Law, followed by a 2024 rebrand under Managing Partner Christian Tremblay. It now has eight legal professionals. Real estate work includes commercial and industrial transactions, conventional, high ratio and reverse mortgages, power of sale and foreclosure proceedings, and condominium registration.",
-  "src": "images/logos/tremblay-law-group-pc-north-bay.png"
+  "src": "images/logos/tremblay-law-group-pc-north-bay.png",
+  "details": {
+   "languages": [
+    "English",
+    "French"
+   ],
+   "lawyers": [
+    {
+     "name": "Christian Tremblay",
+     "title": "Managing Lawyer"
+    },
+    {
+     "name": "Taylor Trottier",
+     "title": "Lawyer"
+    }
+   ],
+   "areas": [
+    "Real estate law",
+    "Corporate and commercial law",
+    "Civil litigation",
+    "Family law",
+    "Criminal law",
+    "Will and estate law",
+    "Construction law"
+   ],
+   "serving": [
+    "North Bay",
+    "Sturgeon Falls",
+    "Nipissing area"
+   ]
+  }
  },
  {
   "name": "Parlatore Law, Niagara",
@@ -1086,7 +1647,25 @@
   "blurb": "Personal Injury / Real Estate in Niagara Falls. Rated 5.0 from 27 Google reviews.",
   "type": "logo",
   "about": "Parlatore Law handles personal injury cases and residential real estate transactions for clients in Niagara Falls and across the Niagara Region. Its lawyers act for people in Niagara Falls and surrounding communities, with personal injury and real estate as practice areas. Clients pay no fees if there is no recovery, and each case is treated as unique to the individual. The office is at 6387 Morrison Street, Suite 200, in Niagara Falls, Ontario.",
-  "src": "images/logos/parlatore-law-niagara-niagara-falls.webp"
+  "src": "images/logos/parlatore-law-niagara-niagara-falls.webp",
+  "details": {
+   "areas": [
+    "Personal injury",
+    "Real estate",
+    "Wills and powers of attorney",
+    "Auto accidents",
+    "Brain injuries",
+    "Dog bites and animal attacks",
+    "Slip and fall accidents",
+    "Spinal cord injuries",
+    "Life insurance claims",
+    "Long-term disability claims"
+   ],
+   "serving": [
+    "Niagara Falls",
+    "Niagara Region"
+   ]
+  }
  },
  {
   "name": "McLaren Bryan Law Professional Corporation",
@@ -1111,7 +1690,22 @@
   "blurb": "Law firm in Peterborough. Rated 5.0 from 25 Google reviews.",
   "type": "logo",
   "about": "McLaren Bryan Law is a Peterborough practice handling residential and commercial real estate, immigration, wills and estates, and family law.\n\nChantal McLaren Bryan is the founder and principal lawyer, and the team brings over 14 years of legal experience across several practice areas. Real estate work covers acquisitions, dispositions, financing and leasing. Immigration work includes applications, sponsorships and status matters for individuals and families, while estate services include planning, administration and litigation. Family law support is also offered. The office is at 398 McDonnel Street, Unit 4, in Peterborough.",
-  "src": "images/logos/mclaren-bryan-law-professional-corporation-peterborough.webp"
+  "src": "images/logos/mclaren-bryan-law-professional-corporation-peterborough.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Chantal McLaren Bryan"
+    }
+   ],
+   "areas": [
+    "Residential and commercial real estate",
+    "Immigration",
+    "Estate planning and administration",
+    "Family law",
+    "Separation and divorce",
+    "Notary appointments"
+   ]
+  }
  },
  {
   "name": "Bouffard Law Office",
@@ -1142,7 +1736,15 @@
   "blurb": "Real Estate / Wills & Estates in Greater Sudbury. Rated 5.0 from 24 Google reviews.",
   "type": "logo",
   "about": "Bouffard Law Office in Greater Sudbury handles real estate, wills and estates, and corporate law for clients in Sudbury and French River.\n\nThe firm handles real estate purchases, sales, refinances, private mortgages and title transfers, along with wills of varying complexity, powers of attorney, probate and estate administration, and corporate organization. Its client-first approach aims to simplify complex legal processes and keep communication clear from start to finish. The office is at 1351 Kelly Lake Road, Suite C5, and the firm has a team of lawyers and staff.",
-  "src": "images/logos/bouffard-law-office-greater-sudbury.png"
+  "src": "images/logos/bouffard-law-office-greater-sudbury.png",
+  "details": {
+   "areas": [
+    "Real estate transactions",
+    "Will and powers of attorney",
+    "Probate and estate administration",
+    "Corporate organization"
+   ]
+  }
  },
  {
   "name": "Williams Litigation North",
@@ -1170,7 +1772,51 @@
   "type": "logo",
   "about": "Williams Litigation North is a North Bay civil litigation firm covering insurance, personal injury, long-term disability and professional liability.\n\nThe firm works as Williams Litigation Lawyers from 176 Lakeshore Drive. Its approach is modern counsel with classic care, doing law differently. Its team includes Ashlee L. Barber, Kelly P. Hart, Tara Lemke, Jeremy R. Rubenstein, Eric R. Williams, David Cutler, Gabrielle Parsons and Gabriella Gader. Two of its lawyers were included in a Canadian lawyer ranking publication.",
   "src": "images/logos/williams-litigation-north-north-bay.png",
-  "heroImage": "images/hero/williams-litigation-north-north-bay.webp"
+  "heroImage": "images/hero/williams-litigation-north-north-bay.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Ashlee L. Barber"
+    },
+    {
+     "name": "Kelly P. Hart"
+    },
+    {
+     "name": "Tara Lemke"
+    },
+    {
+     "name": "Jeremy R. Rubenstein"
+    },
+    {
+     "name": "Eric R. Williams"
+    },
+    {
+     "name": "David Cutler"
+    },
+    {
+     "name": "Gabrielle Parsons"
+    },
+    {
+     "name": "Gabriella Gader"
+    },
+    {
+     "name": "Liam Wray"
+    }
+   ],
+   "areas": [
+    "Insurance law",
+    "Personal injury law",
+    "Long-term disability",
+    "Professional liability",
+    "Commercial litigation",
+    "Employment litigation",
+    "Estate litigation"
+   ],
+   "serving": [
+    "Ottawa",
+    "North Bay"
+   ]
+  }
  },
  {
   "name": "TS Canadian Immigration Services",
@@ -1226,7 +1872,33 @@
   "blurb": "Family Law / Employment Law in Nanaimo. Rated 4.7 from 24 Google reviews.",
   "type": "logo",
   "about": "Collaborative Law Corporation is a Nanaimo family law and mediation firm offering collaborative negotiation, mediation, arbitration and litigation.\n\nMost family law issues can be settled collaboratively, saving cost, time and stress, and the firm serves Nanaimo, Vancouver and clients online across British Columbia. Services include separation and cohabitation agreements, independent legal advice, a 1 Day Divorce program, desk order divorces and med-arb. It also hosts a family and business mediation and arbitration centre. The team includes Nick Greer, Kevin Cantelon, Muadi Kalambay and Amanda Ferguson, and the office at 348 Wesley Street is downtown next to the Nanaimo courts.",
-  "src": "images/logos/collaborative-law-corporation-nanaimo.png"
+  "src": "images/logos/collaborative-law-corporation-nanaimo.png",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Nick Greer"
+    },
+    {
+     "name": "Kevin Cantelon"
+    }
+   ],
+   "areas": [
+    "Separation and cohabitation agreements",
+    "Independent legal advice",
+    "Desk order divorce",
+    "Mediation and arbitration",
+    "Family law litigation",
+    "Divorce and separation",
+    "Property disputes",
+    "Child custody",
+    "1-Day divorce"
+   ],
+   "serving": [
+    "Nanaimo",
+    "Vancouver",
+    "Central Vancouver Island"
+   ]
+  }
  },
  {
   "name": "Campisi Law St. Catharines",
@@ -1285,6 +1957,23 @@
      "17:00"
     ]
    ]
+  },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Joseph Campisi",
+     "title": "Founder"
+    }
+   ],
+   "areas": [
+    "Personal injury",
+    "Car accident",
+    "Motorcycle accident"
+   ],
+   "serving": [
+    "Toronto",
+    "GTA"
+   ]
   }
  },
  {
@@ -1313,7 +2002,26 @@
   "type": "logo",
   "about": "Henderson Family Law is a Thunder Bay firm that works only on family law matters.\n\nIt is the only multi-lawyer firm in northwestern Ontario that focuses on family law, and its approach is candid, compassionate and respectful, with clients helped to understand what they need to know before making decisions. A trained law clerk asks a few confidential questions at first and helps match the client with a suitable lawyer. The office is in the James Whalen building at 34 Cumberland Street North, Suite 600, open weekdays from 8:30 am to 5 pm.",
   "src": "images/logos/henderson-family-law-thunder-bay.png",
-  "bioImage": "images/bio/henderson-family-law-thunder-bay.webp"
+  "bioImage": "images/bio/henderson-family-law-thunder-bay.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Timothy J. Henderson"
+    },
+    {
+     "name": "Lauren M. Conti"
+    },
+    {
+     "name": "Timothy Matthews"
+    }
+   ],
+   "areas": [
+    "Family law"
+   ],
+   "serving": [
+    "Northwestern Ontario"
+   ]
+  }
  },
  {
   "name": "FG Avocat inc.",
@@ -1340,7 +2048,30 @@
   "blurb": "Criminal Defence in Repentigny. Rated 5.0 from 20 Google reviews.",
   "type": "logo",
   "about": "FG Avocat is a Repentigny firm practising criminal and penal law, from impaired driving and criminal offences to pardon applications and traffic tickets.\n\nMe François Gaudreau defends people charged in the Joliette, Repentigny and Laval areas, with service points in Joliette, Laval, Saint-Jérôme, Terrebonne, Trois-Rivières and Témiscamingue (Ville-Marie). The firm supports clients from the first steps after an arrest for impaired driving through to court appearances, and helps challenge a ticket considered unjustified. The firm works in French.",
-  "src": "images/logos/fg-avocat-inc-repentigny.webp"
+  "src": "images/logos/fg-avocat-inc-repentigny.webp",
+  "details": {
+   "lawyers": [
+    {
+     "name": "Me François Gaudreau"
+    }
+   ],
+   "areas": [
+    "Droit criminel et pénal",
+    "Alcool au volant",
+    "Infractions criminelles",
+    "Demande de pardon",
+    "Contraventions"
+   ],
+   "serving": [
+    "Joliette",
+    "Témiscamingue",
+    "Laval",
+    "Repentigny",
+    "Saint-Jérôme",
+    "Terrebonne",
+    "Trois-Rivières"
+   ]
+  }
  },
  {
   "name": "Fabris McIver & Durvin",
@@ -1365,6 +2096,27 @@
   "blurb": "Law firm in Nanaimo. Rated 4.6 from 21 Google reviews.",
   "type": "logo",
   "about": "Fabris McIver & Durvin is a Nanaimo association of lawyers handling civil litigation, personal injury, employment, estates, real estate and business law.\n\nThe firm has looked after clients since 1980 and practises across British Columbia from 40 Cavan Street on Vancouver Island. Its clients include individuals, partnerships, corporations, insurers, financial institutions, retailers and contractors. Its lawyers tend to concentrate on preferred areas of practice and consult each other regularly. Iain D. McIver, admitted to the bar in 1990 after law studies at UBC, works on personal injury, estate and inheritance disputes, commercial litigation and employment law.",
-  "src": "images/logos/fabris-mciver-and-durvin-nanaimo.png"
+  "src": "images/logos/fabris-mciver-and-durvin-nanaimo.png",
+  "details": {
+   "founded": 1980,
+   "lawyers": [
+    {
+     "name": "Iain D. McIver"
+    }
+   ],
+   "areas": [
+    "Civil litigation",
+    "Employment law",
+    "Real estate",
+    "Personal injury",
+    "Wills and estates",
+    "Business law"
+   ],
+   "serving": [
+    "Nanaimo",
+    "British Columbia",
+    "Vancouver Island"
+   ]
+  }
  }
 ]

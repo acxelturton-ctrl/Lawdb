@@ -46,6 +46,7 @@ live list in on the way out (`src/routes/dynamic.js`):
   It shows 10 firms a page with a dark page bar (`PER` in `lawdb-map.js`); the map keeps every pin. The bar goes back to page 1 whenever the
   list changes (filter, sort, area, new search) and a pin on another page opens that page. The bar sits in the list right after the tenth firm.
   Each card is one link to the firm's LawDB profile (the name's link is stretched over the card); Call, Directions and the firm's own Website button sit on top of it. Bump the `?v=` on both files in every page when either changes.
+- **Lighter pages.** The list sent to browsers leaves out fields nobody reads (`DROPPED_FIELDS` in `src/routes/dynamic.js`: the Maps link, blurb, firm-page pictures and the Directions link, which the page rebuilds from the address). A city page or province hub carries only its own province's firms (`var LAWDB_SCOPE`); `lawdb-map.js` fetches the rest of `/firms_data.json` the first time the search box is focused, so a firm in another province can still be found by name. `/find-lawyers` carries everyone. At 1,092 firms a Toronto page went from about 900 KB to about 340 KB (72 KB compressed), Calgary to about 170 KB.
 - Responses are cached at the edge for 60 seconds (`PUBLIC_CACHE_TTL`, seconds; 0 disables), so a busy site reads the
   database about once a minute per location, not once per visitor.
 - **Safety net:** if the database cannot be read, or a page does not contain exactly one inline list, the original

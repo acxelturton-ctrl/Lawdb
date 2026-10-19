@@ -108,7 +108,7 @@
   "type": "logo",
   "about": "Isenberg & Shuman is a boutique firm in North York, Toronto, handling real estate, wills and powers of attorney, estate administration and business law.\n\nThe firm helps hundreds of clients each year and offers remote video conference signings whenever needed. A valid will and power of attorney matter because a power of attorney lets a person appoint someone to manage personal and financial affairs in the event of incapacity. Practice areas are real estate law, wills and powers of attorney, estate administration and business law, and the firm publishes articles on these topics.",
   "src": "images/logos/isenberg-and-shuman-north-york.png",
-  "bioImage": "images/bio/isenberg-and-shuman-north-york.webp"
+  "heroImage": "images/hero/isenberg-and-shuman-north-york.webp"
  },
  {
   "name": "Chaudhary Law Office",
@@ -538,7 +538,7 @@
   "type": "logo",
   "about": "James H Brown & Associates is an Edmonton personal injury firm acting for Albertans hurt in car accidents and other serious accidents.\n\nThe firm was formed by James H. Brown, who at 19 suffered a broken neck in a head-on collision with a drunk driver, ending his professional hockey career. Injury types include spinal cord injury, traumatic brain injury, whiplash and wrongful death, and its lawyers have over 200 years of combined experience. The firm aims to help injured people recover compensation for medical expenses, lost wages and other damages, and it handles precedent-setting car accident cases.",
   "src": "images/logos/james-h-brown-and-associates-edmonton.webp",
-  "bioImage": "images/bio/james-h-brown-and-associates-edmonton.webp"
+  "heroImage": "images/hero/james-h-brown-and-associates-edmonton.webp"
  },
  {
   "name": "Snowdrop Immigration Services Ltd",
@@ -1823,7 +1823,7 @@
   "type": "logo",
   "about": "Seif Law Firm is a Richmond Hill practice serving the Greater Toronto Area, with real estate, wills, powers of attorney and notary services.\n\nThe firm's main focus is real estate law, covering buying, selling and refinancing, and it also handles private mortgages, family law and litigation. Adam Seif is licensed in Canada and in the US, belongs to the Florida Bar and opened his own practice in 2011 after articling. The team includes lawyers, law clerks and legal assistants, a live person answers around the clock, and the multilingual team includes French.",
   "src": "images/logos/seif-law-firm-richmond-hill.jpg",
-  "bioImage": "images/bio/seif-law-firm-richmond-hill.webp"
+  "heroImage": "images/hero/seif-law-firm-richmond-hill.webp"
  },
  {
   "name": "Dimitri Trofimoff Lawyer",
@@ -2000,7 +2000,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/dlegal-law-office-wills-calgary.webp"
+  "heroImage": "images/hero/dlegal-law-office-wills-calgary.webp"
  },
  {
   "name": "Hammerco Lawyers LLP",
@@ -2181,7 +2181,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/tim-louis-and-company-law-firm-vancouver.webp"
+  "heroImage": "images/hero/tim-louis-and-company-law-firm-vancouver.webp"
  },
  {
   "name": "Aviron Law Professional Corporation",
@@ -2747,7 +2747,7 @@
   "type": "logo",
   "about": "Jahanshahi Business Law Firm is a North York firm advising on business purchases and sales, shareholder disputes and ongoing corporate matters.\n\nThe firm supports startups, entrepreneurs, franchise operations and small or mid-sized businesses, and its work also touches real estate, estate planning and tax planning. It gives ongoing counsel on contracts, corporate matters and reorganizations, and acts for buyers and sellers from structuring and due diligence through closing. For shareholder disputes it addresses ownership, management, control and the breakdown of business relationships. It also offers general guidance on choosing a law firm, covering experience, fees and disbursements.",
   "src": "images/logos/jahanshahi-business-law-firm-north-york.png",
-  "bioImage": "images/bio/jahanshahi-business-law-firm-north-york.webp"
+  "heroImage": "images/hero/jahanshahi-business-law-firm-north-york.webp"
  },
  {
   "name": "Siu Law Professional Corporation",

@@ -100,7 +100,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/grover-law-firm-calgary.webp"
+  "heroImage": "images/hero/grover-law-firm-calgary.webp"
  },
  {
   "name": "Tabuchi Law",
@@ -375,7 +375,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/osuji-and-smith-employment-lawyers-calgary.webp"
+  "heroImage": "images/hero/osuji-and-smith-employment-lawyers-calgary.webp"
  },
  {
   "name": "Millars Lawyers London",
@@ -721,7 +721,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/bow-river-law-llp-calgary.webp"
+  "heroImage": "images/hero/bow-river-law-llp-calgary.webp"
  },
  {
   "name": "Parr Business Law",
@@ -1090,7 +1090,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/brisebois-law-office-windsor.webp"
+  "heroImage": "images/hero/brisebois-law-office-windsor.webp"
  },
  {
   "name": "Demas Schaefer Family Lawyers",
@@ -1181,7 +1181,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/mg-law-personal-injury-lawyers-ottawa.webp"
+  "heroImage": "images/hero/mg-law-personal-injury-lawyers-ottawa.webp"
  },
  {
   "name": "Madaans LLP Lawyers",
@@ -1811,7 +1811,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/karapancev-law-toronto.webp"
+  "heroImage": "images/hero/karapancev-law-toronto.webp"
  },
  {
   "name": "Rupinder Singh Dhaliwal Professional Corporation",
@@ -1906,7 +1906,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/david-hollingsworth-and-associates-ottawa.webp"
+  "heroImage": "images/hero/david-hollingsworth-and-associates-ottawa.webp"
  },
  {
   "name": "Christien Levien J.D.",
@@ -2211,7 +2211,7 @@
   "type": "logo",
   "about": "Robb MacDonald is a Toronto criminal defence lawyer whose practice centres on jury trials for serious charges, from assault and impaired driving to murder.\n\nHe was admitted to the Ontario bar in 2007, holds a J.D. from Queen's University, trained under Edward Greenspan and has two decades of defence work. Charges handled include assault and violent offences, conspiracy and organized crime, over 80, drug offences, fraud and economic crimes, sexual offences, and murder and manslaughter. The case R. v. Hoang features in his work, and other lawyers refer files to him. His assault work covers what the Crown must prove across the Greater Toronto Area.",
   "src": "images/logos/robb-macdonald-toronto.webp",
-  "bioImage": "images/bio/robb-macdonald-toronto.webp"
+  "heroImage": "images/hero/robb-macdonald-toronto.webp"
  },
  {
   "name": "Dietrich Law Office",

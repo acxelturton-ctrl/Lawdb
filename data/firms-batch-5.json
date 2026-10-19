@@ -23,7 +23,7 @@
   "type": "logo",
   "about": "EDH Law is a general practice in Peterborough and Bradford covering real estate, wills, family, immigration and corporate law.\n\nFormally Evans de Vries Higgins LLP, the firm is the successor to Evans & Evans, established in Bradford in 1894, and to the Peterborough practice of Douglas F. Walker, which has served the Kawarthas since 1974. Robert Evans, Jenivieve de Vries and Nathan Higgins merged their practices in April 2015, and Robert Evans retired at the end of 2019. The firm acts for buyers and sellers in mortgage and title matters, offers notarizing and commissioning, and holds original wills and powers of attorney prepared by lawyers of both earlier practices.",
   "src": "images/logos/edh-law-peterborough.png",
-  "bioImage": "images/bio/edh-law-peterborough.webp"
+  "heroImage": "images/hero/edh-law-peterborough.webp"
  },
  {
   "name": "Lamprey Law Professional Corporation",
@@ -390,7 +390,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/miskin-law-peterborough.webp"
+  "heroImage": "images/hero/miskin-law-peterborough.webp"
  },
  {
   "name": "TLC Family Law",
@@ -1005,7 +1005,7 @@
   "type": "logo",
   "about": "Kooner Priddle Law Group is a Kamloops litigation firm handling personal injury, malpractice, estate litigation, employment and contract disputes.\n\nIts Kamloops lawyers offer a full scope of litigation services, from giving an opinion on a legal matter to designing litigation strategies, and act for clients from all walks of life. On malpractice, the firm covers harm from misdiagnosis, surgical or prescription errors and failure to diagnose or monitor a condition, and its team are trial lawyers. The office is at 172 Battle Street in Kamloops, British Columbia.",
   "src": "images/logos/kooner-priddle-law-group-kamloops.png",
-  "bioImage": "images/bio/kooner-priddle-law-group-kamloops.webp"
+  "heroImage": "images/hero/kooner-priddle-law-group-kamloops.webp"
  },
  {
   "name": "Gerry Law",

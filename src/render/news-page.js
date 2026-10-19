@@ -86,10 +86,10 @@ const CSS = `<style>
 
 // The story that opens over the page (also used by the home page news feed).
 export const DIALOG_CSS = `<style>
-.st-dlg{border:0;padding:0;width:min(940px,calc(100% - 32px));max-height:92dvh;border-radius:20px;background:#fff3d4;color:#1f2328;overflow:auto;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.st-dlg{border:0;padding:0;width:min(940px,calc(100% - 32px));max-height:92dvh;border-radius:20px;background:#f8f6f1;color:#1f2328;overflow:auto;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,.35)}
 .st-dlg::backdrop{background:rgba(31,28,25,.62)}
 .st-dlg .st{padding:clamp(18px,3vw,38px)}
-.st-x{position:sticky;top:10px;float:right;margin:10px 12px 0 0;z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid #e0d6bd;background:#fff;color:#1f2328;font-size:26px;line-height:1;cursor:pointer}
+.st-x{position:sticky;top:10px;float:right;margin:10px 12px 0 0;z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid #e3dfd5;background:#fff;color:#1f2328;font-size:26px;line-height:1;cursor:pointer}
 @media(max-width:700px){.st-dlg{width:100%;height:100dvh;max-height:100dvh;border-radius:0}}
 </style>`;
 

@@ -2431,7 +2431,6 @@
   "type": "logo",
   "about": "Williamson Law is a Calgary litigation practice handling civil disputes, personal injury, estate litigation, construction and real estate disputes. The practice operates as Chad Williamson Professional Corporation.\n\nCivil work includes debt collection, judgment enforcement, insurance denials and professional negligence, while injury matters cover motor vehicle, motorcycle, pedestrian, bicycle and public transit accidents. It also handles probate, trusts, guardianship and trusteeship, builders' liens, and shareholder and joint venture disputes. The firm does not offer simple will drafting or real estate purchase and sale services.",
   "src": "images/logos/williamson-law-calgary.jpg",
-  "bioImage": "images/bio/williamson-law-calgary.webp",
   "details": {
    "areas": [
     "General civil litigation",
@@ -2445,7 +2444,8 @@
     "Defamation",
     "Constitutional law"
    ]
-  }
+  },
+  "heroImage": "images/hero/williamson-law-calgary.webp"
  },
  {
   "name": "Kahane Law Office",
@@ -2584,7 +2584,6 @@
   "type": "logo",
   "about": "Birdsell Grant LLP is a full-service Edmonton firm with roots in Stony Plain, handling real estate, business, litigation, family and estate law. Alastair Grant and Mike Birdsell began practising together in Stony Plain, Spruce Grove and Parkland County, and the firm has served Alberta since 1984.\n\nIt has grown to 11 lawyers and more than 30 support staff and students, with offices in Edmonton and Whitecourt. Practice areas also include employment, agricultural, municipal and First Nations matters and adult guardianship and trusteeship. Clients are farmers, parents, entrepreneurs, professionals and small business owners.",
   "src": "images/logos/birdsell-grant-llp-edmonton.png",
-  "bioImage": "images/bio/birdsell-grant-llp-edmonton.webp",
   "details": {
    "founded": 1984,
    "lawyers": [
@@ -2600,7 +2599,8 @@
    "serving": [
     "Alberta"
    ]
-  }
+  },
+  "heroImage": "images/hero/birdsell-grant-llp-edmonton.webp"
  },
  {
   "name": "Accord Family Law",
@@ -2705,7 +2705,7 @@
     ]
    ]
   },
-  "bioImage": "images/bio/centre-pointe-law-calgary.webp"
+  "heroImage": "images/hero/centre-pointe-law-calgary.webp"
  },
  {
   "name": "Highfield Law Office",
@@ -3110,7 +3110,6 @@
   "type": "logo",
   "about": "Tevlin Gleadle Curtis is a Vancouver employment law firm handling wrongful dismissal, constructive dismissal and human rights matters. Murray Tevlin and Dan Gleadle founded it in 2000, and it acts for employees, groups of employees, employers and contractors across Canada.\n\nIts lawyers have worked in trial and appeal courts in British Columbia, Alberta, Saskatchewan and Ontario and appeared at the Supreme Court of Canada in Matthews and Ocean Nutrition, and they also act in mediation, arbitration and before administrative tribunals. The practice covers workplace harassment, class actions, workplace investigations and compensation issues for physicians in publicly funded health care.",
   "src": "images/logos/tevlin-gleadle-curtis-vancouver.jpg",
-  "bioImage": "images/bio/tevlin-gleadle-curtis-vancouver.webp",
   "details": {
    "lawyers": [
     {
@@ -3130,7 +3129,8 @@
    "serving": [
     "Vancouver"
    ]
-  }
+  },
+  "heroImage": "images/hero/tevlin-gleadle-curtis-vancouver.webp"
  },
  {
   "name": "Go Law",
@@ -4580,7 +4580,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/bay-view-law-employment-lawyers-kelowna.webp",
   "details": {
    "lawyers": [
     {
@@ -4600,7 +4599,8 @@
     "Kelowna",
     "British Columbia"
    ]
-  }
+  },
+  "heroImage": "images/hero/bay-view-law-employment-lawyers-kelowna.webp"
  },
  {
   "name": "Velletta Pedersen Christie Lawyers",
@@ -4658,7 +4658,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/velletta-pedersen-christie-lawyers-victoria.webp",
   "details": {
    "lawyers": [
     {
@@ -4714,7 +4713,8 @@
     "Victoria",
     "Canada"
    ]
-  }
+  },
+  "heroImage": "images/hero/velletta-pedersen-christie-lawyers-victoria.webp"
  },
  {
   "name": "George Lee Law Corp",
@@ -6009,7 +6009,6 @@
   "type": "logo",
   "about": "Siddiky Law is a Montreal immigration firm handling permanent residence, visitor visas, work permits, family reunification and citizenship applications.\n\nIts lawyers are Sohana Sara Siddiky and Shadman Siddiky, working from an office on René-Lévesque Boulevard West. Permanent residence applications, visitor visas for temporary stays and work permits for employment in Canada make up the core of the practice. Clients are kept informed of progress at each stage of their file, and the firm's values are justice, equality and resilience.",
   "src": "images/logos/siddiky-law-montreal.png",
-  "bioImage": "images/bio/siddiky-law-montreal.webp",
   "details": {
    "lawyers": [
     {
@@ -6029,7 +6028,8 @@
     "Family reunification",
     "Citizenship"
    ]
-  }
+  },
+  "heroImage": "images/hero/siddiky-law-montreal.webp"
  },
  {
   "name": "Chalati Lawyer Inc./Chalati Avocat Inc.",
@@ -6416,7 +6416,6 @@
   "type": "logo",
   "about": "Based in Brossard, Dionne Avocats Boucherville is a family law practice handling divorce, separation, child custody and child support.\n\nThe practice also covers access rights, whether through negotiation, amicable agreements or before the courts, and handles criminal and penal matters. Services are offered remotely to clients across Quebec, and the lawyers travel throughout the greater Montreal area. Topics addressed include how a custody application proceeds in Quebec and whether a support payment or an existing judgment can be changed.",
   "src": "images/logos/dionne-avocats-boucherville-brossard.png",
-  "bioImage": "images/bio/dionne-avocats-boucherville-brossard.webp",
   "details": {
    "areas": [
     "Droit familial",
@@ -6429,7 +6428,8 @@
    "serving": [
     "Québec"
    ]
-  }
+  },
+  "heroImage": "images/hero/dionne-avocats-boucherville-brossard.webp"
  },
  {
   "name": "Patrick Jacques Avocat Droit Criminel",
@@ -7310,7 +7310,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/avocat-droit-criminel-montreal-montreal.webp",
   "details": {
    "lawyers": [
     {
@@ -7332,7 +7331,8 @@
     "Montréal",
     "Longueuil"
    ]
-  }
+  },
+  "heroImage": "images/hero/avocat-droit-criminel-montreal-montreal.webp"
  },
  {
   "name": "Christine Yazbeck",
@@ -7554,7 +7554,6 @@
   "type": "logo",
   "about": "For employers with Canadian, Quebec and American immigration needs, Galileo Partners is a Montreal business immigration firm.\n\nThe firm acts for domestic and international companies through a bilingual, turnkey service that manages complete immigration files, with the aim of lightening the load on human resources and legal teams. It handles more than 2,500 files a year for over 1,000 companies, with more than 15 lawyers working in immigration law. A blog follows Quebec, Canada and US immigration developments, including work permits expiring in 2026. Its office is on Avenue Union.",
   "src": "images/logos/galileo-partners-montreal.png",
-  "bioImage": "images/bio/galileo-partners-montreal.webp",
   "details": {
    "lawyers": [
     {
@@ -7570,7 +7569,8 @@
     "Québec",
     "Canada"
    ]
-  }
+  },
+  "heroImage": "images/hero/galileo-partners-montreal.webp"
  },
  {
   "name": "M.I.B Avocat Inc.",

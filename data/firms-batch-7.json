@@ -257,14 +257,14 @@
   "type": "logo",
   "about": "In Brampton, Harsimran Makkar Law Professional Corporation handles immigration, family and civil litigation matters.\n\nHarsimran Makkar takes the time to listen to each client, assess the available legal options and give strategic guidance tailored to the client's situation. The practice works within Ontario's laws and regulations and takes a proactive approach to each file. Its family law work looks at the rights and obligations people hold before they make significant decisions about their family. The office is on Queen Street West.",
   "src": "images/logos/harsimran-makkar-law-professional-corporation-brampton.png",
-  "bioImage": "images/bio/harsimran-makkar-law-professional-corporation-brampton.webp",
   "details": {
    "lawyers": [
     {
      "name": "Harsimran Makkar"
     }
    ]
-  }
+  },
+  "heroImage": "images/hero/harsimran-makkar-law-professional-corporation-brampton.webp"
  },
  {
   "name": "Hoffman Law",
@@ -624,7 +624,6 @@
   "type": "logo",
   "about": "Residential sales, purchases, refinancing and private mortgages are the core work of Kinza Law Office Professional Corporation in North York.\n\nKinza Haider is the barrister, solicitor and notary public behind the firm, and the team also includes Sameena Naz and Mohammad Asad. Other services include notary public work, status certificates, affidavits, marriage contracts, commercial lease agreements and wills. The office on Consumers Road is open Monday to Friday from 9:30 a.m. to 5:30 p.m. and on weekends by appointment.",
   "src": "images/logos/kinza-law-office-professional-corporation-north-york.png",
-  "bioImage": "images/bio/kinza-law-office-professional-corporation-north-york.webp",
   "details": {
    "lawyers": [
     {
@@ -643,7 +642,8 @@
     "Divorce applications",
     "Commercial lease agreements"
    ]
-  }
+  },
+  "heroImage": "images/hero/kinza-law-office-professional-corporation-north-york.webp"
  },
  {
   "name": "Brykman Lefler Lawyers",
@@ -673,7 +673,6 @@
   "type": "logo",
   "about": "Practising in association from North York, Brykman Lefler Lawyers covers real estate, litigation, business and estate matters.\n\nThe lawyers are not in partnership, and they combine litigation and solicitor work. The firm was formed in early 2014 and is located in the Madison Centre on Yonge Street. Bobby Brykman, an Osgoode Hall Law School graduate of 2010, handles purchases, sales, title transfers, refinances, condominium and development work, leasing and title inquiries. The firm is a member of the LawyerConnection network.",
   "src": "images/logos/brykman-lefler-lawyers-north-york.webp",
-  "bioImage": "images/bio/brykman-lefler-lawyers-north-york.webp",
   "details": {
    "founded": 2014,
    "lawyers": [
@@ -690,7 +689,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/brykman-lefler-lawyers-north-york.webp"
  },
  {
   "name": "Day + Borg LLP",
@@ -718,7 +718,6 @@
   "type": "logo",
   "about": "Established in 1980, Day + Borg LLP practises business, real estate, family and estate law from Streetsville in Mississauga.\n\nThe practice has stayed in the Village of Streetsville, moving in 1989 and again in 1994 to its current office on Queen Street South, and it now employs 14 staff. Business clients include corporations, entrepreneurs, emerging companies, controlling shareholders, management buy-out groups and boards of directors. The real estate group handles title searches, residential and commercial purchases and sales, and secured and unsecured mortgage lending, while the estates group prepares wills, family trusts and powers of attorney.",
   "src": "images/logos/day-borg-llp-mississauga.webp",
-  "bioImage": "images/bio/day-borg-llp-mississauga.webp",
   "details": {
    "founded": 1980,
    "lawyers": [
@@ -752,7 +751,8 @@
    "serving": [
     "Streetsville"
    ]
-  }
+  },
+  "heroImage": "images/hero/day-borg-llp-mississauga.webp"
  },
  {
   "name": "Nathens, Siegel LLP",
@@ -1148,7 +1148,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/lakhan-tram-llp-mississauga.webp",
   "details": {
    "lawyers": [
     {
@@ -1189,7 +1188,8 @@
     "Mississauga",
     "GTA"
    ]
-  }
+  },
+  "heroImage": "images/hero/lakhan-tram-llp-mississauga.webp"
  },
  {
   "name": "Duke Law Firm",
@@ -1850,7 +1850,6 @@
   "type": "logo",
   "about": "Estate planning and trusts are the focus of Lafrenière Sanna Estate Law, formerly Persona Law Group, in the Ottawa area. Its office is in Stittsville.\n\nEach lawyer practises in a limited number of areas so that advice is detailed within those fields, and the combined practices extend from estate planning and powers of attorney to trusts and real estate. Chantal Lafrenière earned her law degree in French at the University of Ottawa and articled at an Ottawa labour and employment firm, and Natalie Sanna is also a lawyer with the firm. A law clerk and administrative staff support the lawyers, and a first meeting is arranged with the lawyer able to advise on the matter.",
   "src": "images/logos/lafreniere-sanna-estate-law-ottawa.png",
-  "bioImage": "images/bio/lafreniere-sanna-estate-law-ottawa.webp",
   "details": {
    "lawyers": [
     {
@@ -1867,7 +1866,8 @@
     "Trusts",
     "Guardianship"
    ]
-  }
+  },
+  "heroImage": "images/hero/lafreniere-sanna-estate-law-ottawa.webp"
  },
  {
   "name": "Azatian Law Professional Corporation",
@@ -2589,12 +2589,12 @@
   "type": "logo",
   "about": "Estate, trust, capacity and guardian litigation, along with family law litigation, is the work of Bickhram Litigation in Mississauga. Rick Bickhram leads the practice, which resolves disputes through negotiation, mediation or advocacy in the courtroom.\n\nEstate work includes contesting an estate trustee's compensation, and family matters include the enforceability of kitchen table domestic contracts, as considered in Anderson v. Anderson, 2023 SCC 13. Evening and weekend meetings can be arranged on request, and Shaista Uddin serves as operations manager. The office is on City Centre Drive.",
   "src": "images/logos/bickhram-litigation-mississauga.png",
-  "bioImage": "images/bio/bickhram-litigation-mississauga.webp",
   "details": {
    "areas": [
     "Power of attorney litigation"
    ]
-  }
+  },
+  "heroImage": "images/hero/bickhram-litigation-mississauga.webp"
  },
  {
   "name": "DavyLaw",
@@ -3050,14 +3050,14 @@
   "type": "logo",
   "about": "Brown Family Law and Mediation is a Guelph practice focused on family law settlements, mediation and collaborative law. The principal lawyer became a member of the Ontario bar in 2001, has practised only family law since 2004 and has worked as a sole practitioner since 2007.\n\nAfter about 20 years in the courts, he stopped litigating to concentrate on settlement work, which leaves a more open schedule. He has training in collaborative family law and mediation, seeks to reduce conflict and create value for both sides, and limits the number of clients he acts for. Clients meet with him directly rather than with an assistant or a junior lawyer.",
   "src": "images/logos/brown-family-law-guelph.png",
-  "bioImage": "images/bio/brown-family-law-guelph.webp",
   "details": {
    "areas": [
     "Family law",
     "Collaborative family law",
     "Mediation"
    ]
-  }
+  },
+  "heroImage": "images/hero/brown-family-law-guelph.webp"
  },
  {
   "name": "Viridius Lex LLP",
@@ -4087,7 +4087,6 @@
   "type": "logo",
   "about": "Assault, sexual assault and other criminal charges are defended by Jag Virk Lawyers, a Hamilton criminal defence firm. Led by Jag Virk, the firm acts for people facing criminal charges across Toronto, Mississauga and the wider GTA, and criminal defence is available around the clock.\n\nIts lawyers have trial experience and an understanding of the Ontario court system. Reported decisions from its cases include R. v. Bajcinca, R. v. Bhagat and R. v. Gill.",
   "src": "images/logos/jag-virk-lawyers-hamilton.png",
-  "bioImage": "images/bio/jag-virk-lawyers-hamilton.webp",
   "details": {
    "lawyers": [
     {
@@ -4110,7 +4109,8 @@
     "Burlington",
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/jag-virk-lawyers-hamilton.webp"
  },
  {
   "name": "Morneau Family Law & Legal Innovation",
@@ -4293,7 +4293,6 @@
   "type": "logo",
   "about": "Vick Hundal represents people charged with assault, impaired driving, fraud, theft and drug offences in Brampton and across the GTA. He appears at all levels of court in Ontario and serves clients in Bramalea, Churchville, Mount Pleasant, Castlemore, Tullamore and Snelgrove.\n\nMatters include bail hearings, youth cases, domestic assault, sexual assault, robbery, over 80 charges, attempted murder and murder. His approach covers understanding the court process, identifying flaws in the Crown's case, building a defence strategy and protecting a client's rights.",
   "src": "images/logos/vick-hundal-brampton.webp",
-  "bioImage": "images/bio/vick-hundal-brampton.webp",
   "details": {
    "lawyers": [
     {
@@ -4316,7 +4315,8 @@
     "Brampton",
     "Southern Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/vick-hundal-brampton.webp"
  },
  {
   "name": "JYD LLP",
@@ -4506,7 +4506,6 @@
   "type": "logo",
   "about": "Across nine practice areas, Weng Law Firm acts for Toronto clients, from business and family matters to immigration and real estate. The areas are business, employment and labour, family and divorce, immigration, litigation, notary services, personal injury, real estate, and wills, estates and trusts.\n\nExamples include incorporations, shareholder agreements and share purchases; dismissal and severance matters; separation agreements and marriage contracts; sponsorship, study permit, work permit and refugee applications; mortgage enforcement; affidavits and declarations; motor vehicle accident, slip and fall and dog bite injuries; and property purchases, sales and refinancing. Business matters are approached from a commercial perspective, and the office is in Scarborough.",
   "src": "images/logos/weng-law-firm-toronto.png",
-  "bioImage": "images/bio/weng-law-firm-toronto.webp",
   "details": {
    "areas": [
     "Business",
@@ -4519,7 +4518,8 @@
     "Real estate",
     "Wills, estates & trusts"
    ]
-  }
+  },
+  "heroImage": "images/hero/weng-law-firm-toronto.webp"
  },
  {
   "name": "Danson Delavar LLP",
@@ -4639,7 +4639,6 @@
   "type": "logo",
   "about": "Gale Law Professional Corporation, a Toronto firm led by mediator Kim Gale, concentrates on estate litigation. Its work covers will challenges, capacity disputes, powers of attorney and guardianship disputes, elder abuse, dependant support applications and recovering money owed by a deceased person, along with probate and estate administration.\n\nThe firm has offices in downtown Toronto and North York. Its lawyers include Kim Gale, Mitchell Reiss, Palak Mahajan and Jessica Campolucci, and mediation is offered as a route to resolving estate disputes.",
   "src": "images/logos/gale-law-professional-corporation-toronto.png",
-  "bioImage": "images/bio/gale-law-professional-corporation-toronto.webp",
   "details": {
    "lawyers": [
     {
@@ -4660,7 +4659,8 @@
     "Estate and trust disputes",
     "Elder abuse"
    ]
-  }
+  },
+  "heroImage": "images/hero/gale-law-professional-corporation-toronto.webp"
  },
  {
   "name": "Taerk Family Law",
@@ -5126,7 +5126,6 @@
   "type": "logo",
   "about": "Odele Law Group is an Ottawa firm in Orléans with a strong focus on family law, alongside corporate law and estate planning. Its approach puts people first, with legal service meant to be client-focused, transparent and approachable.\n\nLawyers take the time to listen to clients' concerns and goals before developing a customized strategy. The office is on Taylor Creek Drive in Orléans, and the firm serves families and businesses in the Ottawa area.",
   "src": "images/logos/odele-law-group-ottawa.jpg",
-  "bioImage": "images/bio/odele-law-group-ottawa.webp",
   "details": {
    "areas": [
     "Family law",
@@ -5140,7 +5139,8 @@
     "Nunavut",
     "Orleans"
    ]
-  }
+  },
+  "heroImage": "images/hero/odele-law-group-ottawa.webp"
  },
  {
   "name": "Pallavi Law Office",

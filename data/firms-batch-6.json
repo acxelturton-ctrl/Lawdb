@@ -57,7 +57,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/abramovich-immigration-law-toronto.webp",
   "details": {
    "lawyers": [
     {
@@ -80,7 +79,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/abramovich-immigration-law-toronto.webp"
  },
  {
   "name": "Marwah Law",
@@ -495,7 +495,6 @@
   "type": "logo",
   "about": "Since 2016, Clivio Law Professional Corporation has handled immigration, refugee and citizenship matters from downtown Toronto. Services cover immigration assessments, permanent residence, family sponsorship, hearings and appeals, refugee determination and Canadian citizenship, including citizenship revocation cases, and the firm also provides notary services.\n\nIts staff speak English, French, Haitian Creole, Spanish, Italian and Turkish, with interpreters for other languages. Founder Amedeo Clivio graduated from Osgoode Hall Law School in 2014, was called to the bar in 2015 and appears before all divisions of the Immigration and Refugee Board and the Federal Court. His cases include Feher, a constitutional challenge to a policy limiting rights of refugee applicants from certain countries by nationality.",
   "src": "images/logos/clivio-law-professional-corporation-toronto.webp",
-  "bioImage": "images/bio/clivio-law-professional-corporation-toronto.webp",
   "details": {
    "founded": 2016,
    "languages": [
@@ -528,7 +527,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/clivio-law-professional-corporation-toronto.webp"
  },
  {
   "name": "Sondhi Defence Professional Corporation",
@@ -1257,7 +1257,6 @@
   "type": "logo",
   "about": "Led by lawyer Inna Kogan, Inna Kogan Law Office in Toronto handles Express Entry, permanent residence, permits, sponsorships and Federal Court appeals. Kogan is a member of the Law Society of Ontario and a public notary, and the firm also covers provincial nominee programs, humanitarian and compassionate applications, refugee protection, temporary resident permits, citizenship, and business and investor immigration.\n\nIt challenges refusals and delays at the Federal Court, including through mandamus applications, and appears before the Immigration and Refugee Board. Kogan oversees each file personally, and the team works in English, Ukrainian, Russian, Hebrew and Persian. Meetings are held online by Zoom, and the office is on Eglinton Avenue East in Toronto.",
   "src": "images/logos/inna-kogan-law-office-toronto.png",
-  "bioImage": "images/bio/inna-kogan-law-office-toronto.webp",
   "details": {
    "languages": [
     "English",
@@ -1284,7 +1283,8 @@
     "Brampton",
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/inna-kogan-law-office-toronto.webp"
  },
  {
   "name": "Ang Law Professional Corporation",
@@ -1604,7 +1604,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/titan-law-toronto.webp",
   "details": {
    "areas": [
     "Visitor visa",
@@ -1616,7 +1615,8 @@
     "Inadmissibility",
     "Refugee"
    ]
-  }
+  },
+  "heroImage": "images/hero/titan-law-toronto.webp"
  },
  {
   "name": "KMH Lawyers",
@@ -1832,7 +1832,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/angeles-and-de-jesus-law-llp-toronto.webp",
   "details": {
    "languages": [
     "English",
@@ -1858,7 +1857,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "heroImage": "images/hero/angeles-and-de-jesus-law-llp-toronto.webp"
  },
  {
   "name": "Legal Solutions Law Firm",
@@ -5217,7 +5217,6 @@
   "type": "logo",
   "about": "Steven Tress, Barrister & Solicitor, practises immigration law in Toronto, handling family sponsorship, permanent residence and appeals. The firm has practised Canadian immigration law in Toronto for over 35 years, acting for spouses and family members seeking sponsorship, students applying for study visas, skilled immigrants and professionals seeking permanent residence, business people and investors, and employers arranging corporate transfers or foreign recruitment.\n\nIt also assists people in Canada who want to restore status or apply on humanitarian and compassionate grounds, and those facing admissibility or deportation proceedings, immigration appeals or Federal Court applications. Cases include criminal and medical inadmissibility, misrepresentation, rehabilitation and residency appeals. Criminal law services are also offered from the University Avenue office.",
   "src": "images/logos/steven-tress-barrister-and-solicitor-toronto.webp",
-  "bioImage": "images/bio/steven-tress-barrister-and-solicitor-toronto.webp",
   "details": {
    "lawyers": [
     {

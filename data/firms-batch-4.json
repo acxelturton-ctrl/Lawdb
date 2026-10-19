@@ -279,7 +279,6 @@
   "type": "logo",
   "about": "Pav Singh is a Mississauga criminal defence lawyer who represents clients across Peel Region, Toronto and surrounding areas.\n\nPav Singh completed a Bachelor of Arts in Criminal Justice at Ryerson University, a law degree at the University of Leicester, and a Master of Laws at Osgoode Hall Law School. His personal line is answered around the clock, every day of the year, and evening, weekend and out-of-office meetings are available. Fees are quoted upfront, with block fee and hourly options and payment plans. His office is on Matheson Boulevard West in Mississauga, Ontario.",
   "src": "images/logos/pav-singh-criminal-lawyer-mississauga.png",
-  "bioImage": "images/bio/pav-singh-criminal-lawyer-mississauga.webp",
   "details": {
    "lawyers": [
     {
@@ -295,7 +294,8 @@
    "serving": [
     "Mississauga"
    ]
-  }
+  },
+  "heroImage": "images/hero/pav-singh-criminal-lawyer-mississauga.webp"
  },
  {
   "name": "Campbell Litigation",
@@ -556,7 +556,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/bergel-magence-guelph.webp",
   "details": {
    "founded": 1972,
    "areas": [
@@ -571,7 +570,8 @@
     "Toronto",
     "Ontario"
    ]
-  }
+  },
+  "heroImage": "images/hero/bergel-magence-guelph.webp"
  },
  {
   "name": "Onyx Law Group",
@@ -633,7 +633,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/onyx-law-group-vancouver.webp",
   "details": {
    "areas": [
     "Estates, trusts and probate",
@@ -647,7 +646,8 @@
    "serving": [
     "British Columbia"
    ]
-  }
+  },
+  "heroImage": "images/hero/onyx-law-group-vancouver.webp"
  },
  {
   "name": "Osra Avocats",
@@ -963,7 +963,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/annette-lefebvre-avocats-montreal.webp",
   "details": {
    "areas": [
     "Erreur médicale",
@@ -972,7 +971,8 @@
     "Blessure médullaire",
     "Produits défectueux"
    ]
-  }
+  },
+  "heroImage": "images/hero/annette-lefebvre-avocats-montreal.webp"
  },
  {
   "name": "Purves-Smith Law",
@@ -1871,7 +1871,6 @@
   "type": "logo",
   "about": "TZ Law is a Calgary boutique handling employment, human rights and privacy law for employees and employers across Alberta and British Columbia.\n\nIts work covers wrongful termination, discrimination, privacy and contractual matters, and it advises people on whether to accept a severance offer or sign a release. It also acts for businesses, including start-ups and entrepreneurs dealing with growth, compliance and risk. Fee options are contingency, hourly and hybrid arrangements. The full range of services is provided in both English and Mandarin. The office is on 11 Avenue SW in downtown Calgary.",
   "src": "images/logos/tz-law-calgary.png",
-  "bioImage": "images/bio/tz-law-calgary.webp",
   "details": {
    "areas": [
     "Human rights",
@@ -1890,7 +1889,8 @@
     "Alberta",
     "British Columbia"
    ]
-  }
+  },
+  "heroImage": "images/hero/tz-law-calgary.webp"
  },
  {
   "name": "Dolgin Family Law",
@@ -2316,7 +2316,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/dunlap-criminal-defence-lawyer-edmonton-edmonton.webp",
   "details": {
    "lawyers": [
     {
@@ -2337,7 +2336,8 @@
     "Fort McMurray",
     "Alberta"
    ]
-  }
+  },
+  "heroImage": "images/hero/dunlap-criminal-defence-lawyer-edmonton-edmonton.webp"
  },
  {
   "name": "Vallillee Family Lawyers",
@@ -2421,7 +2421,6 @@
   "type": "logo",
   "about": "Nichols Law Professional Corporation is a Markham firm covering real estate, wills, powers of attorney, business law and notary services.\n\nThe firm has served clients since 1983 and is run by partners Graham Nichols and Keith Nichols, with associates Zeinab Khan and Ryan Dzingala. Graham Nichols was admitted to the bar in 1983, served as president of the Markham Board of Trade, and chaired the Markham Stouffville Hospital board in 2001. He has practised on Markham Main Street since 1993. Its work covers home refinancing, private lending, executor duties, and starting a business, with clients ranging from young families to growing companies.",
   "src": "images/logos/nichols-law-professional-corporation-markham.png",
-  "bioImage": "images/bio/nichols-law-professional-corporation-markham.webp",
   "details": {
    "lawyers": [
     {
@@ -2454,7 +2453,8 @@
    "serving": [
     "Markham"
    ]
-  }
+  },
+  "heroImage": "images/hero/nichols-law-professional-corporation-markham.webp"
  },
  {
   "name": "Family Lawyers Collective LLP",
@@ -3320,7 +3320,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/nuraney-law-group-vancouver.webp",
   "details": {
    "founded": 2016,
    "lawyers": [
@@ -3340,7 +3339,8 @@
     "Lower Mainland",
     "Metro Vancouver"
    ]
-  }
+  },
+  "heroImage": "images/hero/nuraney-law-group-vancouver.webp"
  },
  {
   "name": "Pacific Legal Professional Corporation",
@@ -4351,7 +4351,6 @@
   "type": "logo",
   "about": "Lespérance Avocats, operating as Avocat Criminel Montréal, is a criminal defence firm serving Montreal, Laval, Gatineau and Maniwaki in French and English.\n\nThe main office is in Old Montreal near Notre-Dame Basilica, with a second office in Gatineau and meetings in Maniwaki by appointment. The firm acts in criminal cases involving firearms, drugs, violence and domestic violence, and handles offences tied to sexual services and human trafficking. It accepts legal aid and takes a collaborative, organized approach to each file, with an administrative team that manages communication and case handling.",
   "src": "images/logos/avocat-criminel-montreal-montreal.png",
-  "bioImage": "images/bio/avocat-criminel-montreal-montreal.webp",
   "details": {
    "lawyers": [
     {
@@ -4382,7 +4381,8 @@
     "Maniwaki",
     "Québec"
    ]
-  }
+  },
+  "heroImage": "images/hero/avocat-criminel-montreal-montreal.webp"
  },
  {
   "name": "McElroy Law",
@@ -4752,7 +4752,6 @@
     ]
    ]
   },
-  "bioImage": "images/bio/samy-ziada-avocat-montreal.webp",
   "details": {
    "lawyers": [
     {
@@ -4769,7 +4768,8 @@
     "Montréal",
     "Québec"
    ]
-  }
+  },
+  "heroImage": "images/hero/samy-ziada-avocat-montreal.webp"
  },
  {
   "name": "Kraska Law",

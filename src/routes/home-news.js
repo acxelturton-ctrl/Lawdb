@@ -1,13 +1,13 @@
-// The LawDB News feed on the home page (ranking in src/lib/home-feed.js): the first cards are put into the page when it is served, the
-// rest come from GET /api/home-news?offset=&type= as the visitor scrolls or picks a practice area.
+// The LawDB News strip on the home page (ranking in src/lib/home-feed.js): one short row of the best-ranked cards, put into the page when
+// it is served; picking a practice area fetches a fresh row from GET /api/home-news?type=. The long feed is the News page (/news).
 import { loadCandidates, rankPosts, isPracticeType } from '../lib/home-feed.js';
 import { newsCardsHtml, DIALOG_CSS, STORY_JS, dialogHtml } from '../render/news-page.js';
 import { BLOG_CSS } from '../render/blog-cards.js';
 import { storyPath } from '../lib/stories.js';
 
-export const FIRST = 6; // cards in the page itself
-export const STEP = 6;  // cards per "show more"
-export const MAX = 60;  // the feed ends here; News has the rest
+export const FIRST = 6; // cards in the page itself (a swipe row, not a long feed)
+export const STEP = 6;  // cards per request
+export const MAX = 60;  // the ranked list the API can page through; the page itself only shows the first row
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -47,7 +47,7 @@ export async function withHomeNews(html, env) {
   return new HTMLRewriter()
     .on('head', { element(el) { el.append(BLOG_CSS + DIALOG_CSS, { html: true }); } })
     .on('section#homeNews', { element(el) { el.removeAttribute('hidden'); } })
-    .on('div#homeNewsGrid', { element(el) { el.setInnerContent(first.html, { html: true }); el.setAttribute('data-next', first.next == null ? '' : String(first.next)); } })
+    .on('div#homeNewsGrid', { element(el) { el.setInnerContent(first.html, { html: true }); } })
     .on('div#homeNewsDlg', { element(el) { el.setInnerContent(dialogHtml + '<script>' + STORY_JS + '</script><script src="/follow.js" defer></script>', { html: true }); } })
     .transform(new Response(html)).text();
 }

@@ -351,19 +351,17 @@ export async function refreshFirmFeed(env, slug, { discover = true } = {}) {
   }
 }
 
-// Every live firm with a website gets a feed row so its blog is looked for. Featured firms are shown everywhere (News, story pages);
-// the rest are "page only": cards on the firm's own page that link straight to the firm's own article.
+// Every live firm with a website gets a feed row so its blog is looked for, and its articles go on LawDB News. (Only Featured firms'
+// story pages are offered to search engines; see src/lib/stories.js. An admin can hold a firm to its own page with page_only.)
 export async function ensureFeedRows(env) {
   await env.DB.prepare(
-    `INSERT OR IGNORE INTO firm_feeds (firm_slug, page_only) SELECT slug, CASE WHEN featured = 1 THEN 0 ELSE 1 END FROM firms
+    `INSERT OR IGNORE INTO firm_feeds (firm_slug) SELECT slug FROM firms
      WHERE status = 'live' AND json_extract(data, '$.website') IS NOT NULL AND json_extract(data, '$.website') != ''`
   ).run();
-  // A firm that turned Featured is shown everywhere from then on.
-  await env.DB.prepare("UPDATE firm_feeds SET page_only = 0 WHERE page_only = 1 AND firm_slug IN (SELECT slug FROM firms WHERE featured = 1)").run();
 }
 
-// Runs every 15 minutes: finds the blog of one firm that has never been looked at (discovery takes about 15 requests, and a run may make 50),
-// and re-reads a few known blogs that are due. 356 firms are covered in a few days, then it keeps them fresh.
+// Runs every 5 minutes: finds the blog of one firm that has never been looked at (discovery takes about 15 requests, and a run may make 50),
+// and re-reads a few known blogs that are due. About 1,000 firms are covered in under four days, then it keeps them fresh.
 export async function feedBatch(env) {
   if (env.DEV_ECHO_LINK === '1') return { skipped: 'local development' };
   await ensureFeedRows(env);

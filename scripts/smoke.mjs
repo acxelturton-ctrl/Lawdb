@@ -90,6 +90,19 @@ for (const path of ['/find-lawyers', '/ontario/ottawa/', '/manitoba/', '/quebec/
   ok(r.status === 200 && r.headers.get('x-lawdb-source') === 'database', `${path} is rendered from the database`);
   ok(isDeepStrictEqual(inlineFirms(r.text), staticFile('firms_data.json')), `${path} carries the same firm list as before`);
 }
+// the totals typed into the home page and For Law Firms (and the Browse-by-city counts) are today's numbers from the database, not the typed ones
+{
+  const live = JSON.parse((await getRaw('/firms_data.json')).text);
+  const num = (v) => v.toLocaleString('en-CA');
+  const cityCount = new Set(live.map((f) => f.province + '|' + f.city)).size;
+  for (const path of ['/', '/for-firms']) {
+    const r = await getRaw(path);
+    ok(r.status === 200 && r.headers.get('x-lawdb-source') === 'database', `${path} is rendered from the database`);
+    ok(r.text.includes(`data-live="firms">${num(live.length)}<`) && r.text.includes(`data-live="cities">${num(cityCount)}<`), `${path} shows today's firm and city totals`);
+  }
+  const tor = live.filter((f) => f.province === 'ON' && f.city === 'Toronto').length;
+  ok((await getRaw('/')).text.includes(`data-live="city:ON|Toronto">${tor}<`), 'the Browse-by-city counts are live too');
+}
 const plain = await getRaw('/ontario/toronto/business-lawyers');
 ok(plain.status === 200 && !plain.headers.get('x-lawdb-source'), 'pages without a firm list pass through untouched');
 { const old = await getRaw('/find-lawyers.html'); ok(old.status === 301 && old.headers.get('location').endsWith('/find-lawyers'), 'an old .html address redirects to the clean address, permanently (301)'); }
@@ -226,6 +239,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const list = JSON.parse((await getRaw('/firms_data.json')).text);
   ok(list.some((f) => f.slug === slug2 && f.rating === 0), 'new firm appears in the directory data');
   ok(inlineFirms((await getRaw('/find-lawyers')).text).some((f) => f.slug === slug2), 'new firm appears on the Find Lawyers page');
+  ok((await getRaw('/')).text.includes(`data-live="firms">${list.length.toLocaleString('en-CA')}<`), 'a new listing moves the home page total at once');
   const fsm = await getRaw('/sitemap-firms.xml');
   ok(fsm.status === 200 && fsm.text.includes(`/firms/${slug2}</loc>`) && !fsm.text.includes('/firms/achkar-law</loc>'), 'a new database-built firm is in the firms sitemap and hand-built pages are not');
   ok(/Sitemap: https:\/\/lawdb.ca\/sitemap-firms.xml/.test(readFileSync(new URL('../robots.txt', import.meta.url), 'utf8')), 'robots.txt announces the firms sitemap');

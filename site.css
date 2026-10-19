@@ -79,7 +79,7 @@
   .site-header{ padding:0 max(40px,calc((100vw - 1440px)/2 + 40px)) !important; }
   .site-footer{ padding-left:40px; padding-right:40px; }
   .site-footer .foot-grid,.site-footer .foot-bottom{ max-width:1360px !important; }
-  body.pg-home section,body.pg-home .hero2 .hero-inner,body.pg-home .lawdb-banner,body.pg-home .cta-band{ max-width:1440px !important; }
+  body.pg-home section,body.pg-home .hero2 .hero-inner,body.pg-home .cta-band{ max-width:1440px !important; }
 }
 
 /* compact list-row actions: same pill, one compact height */

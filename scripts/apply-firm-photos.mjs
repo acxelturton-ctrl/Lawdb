@@ -5,6 +5,7 @@
 //    (not when the page already has a firm photo);
 //  - batch firms (data/firms-batch-N.json): `heroImage` / `bioImage` on the record, which the database page renders;
 //  - db/photo-updates.sql: the same for every firm already in the database, only where no picture is set yet.
+// An entry with `pos` (for example "center 25%") sets which part of the cover the banner shows.
 // An entry with `bio` (the old bio picture's path) was a bio picture that is now used as the cover: the bio picture is taken off the page and the record.
 //   node scripts/apply-firm-photos.mjs          writes everything
 //   node scripts/apply-firm-photos.mjs --check  fails if anything is out of date
@@ -35,9 +36,11 @@ for (const [slug, p] of Object.entries(photos).sort()) {
   // Same statements for hand-built and batch firms: a hand-built firm's record is what its page turns into when the owner switches to the database page.
   if (p.bio) sql.push(`UPDATE firms SET data = json_remove(json_set(data, '$.heroImage', ${q(p.src)}), '$.bioImage'), updated_at = datetime('now') WHERE slug = ${q(slug)} AND json_extract(data, '$.heroImage') IS NULL AND json_extract(data, '$.bioImage') = ${q(p.bio)};`);
   sql.push(`UPDATE firms SET data = json_set(data, '$.${key}', ${q(p.src)}), updated_at = datetime('now') WHERE slug = ${q(slug)} AND json_extract(data, '$.${key}') IS NULL;`);
+  if (p.pos) sql.push(`UPDATE firms SET data = json_set(data, '$.heroPos', ${q(p.pos)}) WHERE slug = ${q(slug)} AND json_extract(data, '$.heroPos') IS NULL;`);
   if (batchOf.has(slug)) {
     const rec = batchOf.get(slug);
     rec[key] = p.src;
+    if (p.pos) rec.heroPos = p.pos;
     if (p.bio && rec.bioImage === p.bio) delete rec.bioImage;
     continue;
   }

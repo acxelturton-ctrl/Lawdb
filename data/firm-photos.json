@@ -920,5 +920,26 @@
   "kind": "cover",
   "src": "images/hero/kmmg-law-winnipeg.webp",
   "from": "https://kmmglaw.ca/wp-content/uploads/2023/03/accountant-hero.jpg"
+ },
+ "daniel-brown-law-llp": {
+  "kind": "cover",
+  "src": "images/daniel-brown-office.jpg",
+  "from": "the hand-built page (cover picture already on it)"
+ },
+ "oatley-vigmond-personal-injury-lawyers-llp": {
+  "kind": "cover",
+  "src": "images/oatley-vigmond-building.jpg",
+  "from": "the hand-built page (cover picture already on it)"
+ },
+ "nelligan-law": {
+  "kind": "cover",
+  "src": "images/nelligan-team.png",
+  "from": "the hand-built page (cover picture already on it)",
+  "pos": "center 25%"
+ },
+ "gupta-law-firm": {
+  "kind": "cover",
+  "src": "images/gupta-law-banner.jpg",
+  "from": "the hand-built page (cover picture already on it)"
  }
 }

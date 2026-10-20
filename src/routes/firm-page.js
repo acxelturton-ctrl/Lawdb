@@ -6,6 +6,7 @@ import { storyPath } from '../lib/stories.js';
 import { renderFirmPage } from '../render/firm-page.js';
 import { isIndexable } from '../lib/indexing.js';
 import { firmStats } from '../lib/firm-stats.js';
+import { profilesBox, hasLinkedIn } from '../render/profiles.js';
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -54,10 +55,13 @@ const claimLine = (slug, managed) => managed
   ? '<p class="lw-claim lw-claimed">&#10003; Managed by the firm</p>'
   : `<p class="lw-claim"><a href="/account/#find/${slug}" data-claim="${slug}">Is this your firm? Claim this listing</a></p>`;
 
-const withFollow = (res, slug, managed) =>
+// profiles: the Profiles box (the firm's social icons) for a hand-built page; a database page already has it. A firm with a real LinkedIn page
+// does not need the generic "Search on LinkedIn" link of the hand-built pages.
+const withFollow = (res, slug, managed, profiles = '', linkedin = false) =>
   new HTMLRewriter()
     .on('div.li-actions', { element(el) { el.before(`<div class="lw-fline"><span class="lw-fcount" data-fcount="${slug}"></span><button class="lw-fbtn" type="button" data-follow="${slug}">+ Follow</button></div>`, { html: true }); } })
-    .on('div.li-actions', { element(el) { el.after(claimLine(slug, managed), { html: true }); } })
+    .on('div.li-actions', { element(el) { el.after(claimLine(slug, managed) + profiles, { html: true }); } })
+    .on('div.socials a', { element(el) { if (linkedin && /^https:\/\/www\.linkedin\.com\/search\//.test(el.getAttribute('href') || '')) el.remove(); } })
     .on('div.lead-slim', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>`, { html: true }); } })
     .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })
     .transform(res);
@@ -99,7 +103,10 @@ export async function firmPage({ request, env, ctx }) {
     // The "Before you call about..." guide is the same text on every firm in a case type, so only Featured firms keep it
     // (the city and case-type pages already carry that guidance once, where it belongs).
     if (res.status === 200 && row && row.status === 'live' && !row.featured) res = new HTMLRewriter().on('div.guide', { element(el) { el.remove(); } }).transform(res);
-    if (res.status === 200 && row && row.status === 'live') res = withFollow(res, m[1], await managedBy(env, m[1]));
+    if (res.status === 200 && row && row.status === 'live') {
+      const rec = JSON.parse(row.data);
+      res = withFollow(res, m[1], await managedBy(env, m[1]), profilesBox(rec.social, rec.name), hasLinkedIn(rec.social));
+    }
     if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
     return res;
   }

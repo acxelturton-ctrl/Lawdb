@@ -55,16 +55,19 @@ const claimLine = (slug, managed) => managed
   ? '<p class="lw-claim lw-claimed">&#10003; Managed by the firm</p>'
   : `<p class="lw-claim"><a href="/account/#find/${slug}" data-claim="${slug}">Is this your firm? Claim this listing</a></p>`;
 
-// profiles: the Profiles box (the firm's social icons) for a hand-built page; a database page already has it. A firm with a real LinkedIn page
+// profiles: the Profiles box (the firm's social icons) for a hand-built page, put right under its description; a database page already has it. A firm with a real LinkedIn page
 // does not need the generic "Search on LinkedIn" link of the hand-built pages.
-const withFollow = (res, slug, managed, profiles = '', linkedin = false) =>
-  new HTMLRewriter()
+const withFollow = (res, slug, managed, profiles = '', linkedin = false) => {
+  let profilesPlaced = false;
+  return new HTMLRewriter()
     .on('div.li-actions', { element(el) { el.before(`<div class="lw-fline"><span class="lw-fcount" data-fcount="${slug}"></span><button class="lw-fbtn" type="button" data-follow="${slug}">+ Follow</button></div>`, { html: true }); } })
-    .on('div.li-actions', { element(el) { el.after(claimLine(slug, managed) + profiles, { html: true }); } })
+    .on('div.li-actions', { element(el) { el.after(claimLine(slug, managed), { html: true }); } })
+    .on('div.article', { element(el) { if (profiles && !profilesPlaced) { profilesPlaced = true; el.after(profiles, { html: true }); } } })
     .on('div.socials a', { element(el) { if (linkedin && /^https:\/\/www\.linkedin\.com\/search\//.test(el.getAttribute('href') || '')) el.remove(); } })
     .on('div.lead-slim', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>`, { html: true }); } })
     .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })
     .transform(res);
+};
 
 export async function firmPage({ request, env, ctx }) {
   const url = new URL(request.url);

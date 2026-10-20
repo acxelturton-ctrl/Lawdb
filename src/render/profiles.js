@@ -1,5 +1,5 @@
 // The "Profiles" box on a firm's page: one large brand-coloured icon per social profile the firm has on its own website (src/lib/social.js decides
-// which addresses are real profiles). It sits in the firm's header card under the buttons, one row, evenly spaced, like the Profiles box on
+// which addresses are real profiles). It sits right under the firm's description, one row, evenly spaced, like the Profiles box on
 // MSPdatabase. The snippet carries its own style so it works the same on database pages and on the hand-built pages, which the Worker adds it to.
 import { NETWORKS, cleanSocial } from '../lib/social.js';
 
@@ -16,7 +16,7 @@ const ICON = {
 const ORDER = ['linkedin', 'x', 'facebook', 'instagram', 'youtube'];
 const LABEL = Object.fromEntries(NETWORKS.map((n) => [n.key, n.label]));
 
-const CSS = '<style>.lw-prof{margin:16px 0 4px;max-width:440px;border:1px solid var(--line,#e3dfd5);border-radius:10px;padding:14px 18px 16px;background:#fff}' +
+const CSS = '<style>.lw-prof{margin:18px 0 24px;max-width:440px;border:1px solid var(--line,#e3dfd5);border-radius:10px;padding:14px 18px 16px;background:#fff}' +
   '.lw-prof-h{margin:0 0 12px;font:500 15px/1.2 Inter,system-ui,sans-serif;color:var(--ink,#1f2328)}' +
   '.lw-prof-row{display:flex;justify-content:space-around;align-items:center;gap:12px}' +
   '.lw-prof-row a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:8px}' +

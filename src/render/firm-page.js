@@ -227,9 +227,11 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<section class="li-card" aria-label="${esc(f.name)} profile">\n      ${coverDiv(f)}\n      <div class="li-body">\n        ${logoSpan(f)}\n` +
     `        <h1 class="li-name">${esc(f.name)}${f.featured ? ' ' + C.TICK : ''}</h1>\n        <p class="li-tag">${tagline(f)}</p>\n` +
     `        <p class="li-meta">Law Practice &middot; ${esc(f.city)}, ${esc(f.province)}${rated ? ` &middot; <b>${num(f.rating)} &#9733;</b> from ${num(f.count)} Google reviews` : ''}</p>\n` +
-    `        ${f.address ? `<p class="li-meta">${esc(f.address)}</p>` : ''}${planLine}\n        ${actions}${profilesBox(f.social, f.name)}\n      </div>\n    </section>`;
+    `        ${f.address ? `<p class="li-meta">${esc(f.address)}</p>` : ''}${planLine}\n        ${actions}\n      </div>\n    </section>`;
 
   const aboutHtml = about ? `\n    <div class="article">${esc(about).replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>')}</div>` : '';
+  // The Profiles box (the firm's social icons) sits right under the description; a firm without one still has it where the description would be.
+  const profilesHtml = profilesBox(f.social, f.name);
   // A picture that does not suit the cover goes under the description, like a bio or blog picture.
   const bio = safeUrl(f.bioImage);
   const bioHtml = bio ? `\n    <figure style="margin:0 0 18px;"><img src="${esc(localImg(bio))}" alt="${esc(f.name)}, ${esc(f.city)}" loading="lazy" style="display:block;width:100%;max-width:520px;height:auto;border-radius:12px;"></figure>` : '';
@@ -270,7 +272,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
     C.STYLE + PHOTO_CSS + GLANCE_CSS + (f.block && f.block.image ? BLOCK_CSS : '') + (stats?.rank || (stats?.practice || []).length ? RANK_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm">\n  ' + C.HEADER,
-    '  <div class="wrap">\n    ' + card + rankHtml(f, stats?.rank) + aboutHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + practiceHtml(f, cards) + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap">\n    ' + card + rankHtml(f, stats?.rank) + aboutHtml + profilesHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + practiceHtml(f, cards) + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     '    ' + fill(C.LEAD_SLIM, toks),
     carousel(f, nearby),
     '\n\n    ' + leadScript,

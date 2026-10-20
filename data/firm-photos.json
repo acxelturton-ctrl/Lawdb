@@ -43,6 +43,11 @@
   "src": "images/hero/balance-law-professional-corporation.webp",
   "from": "https://balancelaw.ca/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-16-at-12.18.58-1-e1784276240849-1024x433.jpeg"
  },
+ "barbarian-law": {
+  "kind": "cover",
+  "src": "images/hero/barbarian-law.webp",
+  "from": "photo of Karim supplied by the LawDB owner"
+ },
  "bartlaw-llp": {
   "kind": "cover",
   "src": "images/hero/bartlaw-llp.webp",

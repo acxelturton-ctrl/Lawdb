@@ -338,5 +338,17 @@
  "taylor-mccaffrey-llp-winnipeg": {
   "src": "images/logos/taylor-mccaffrey-llp-winnipeg.png",
   "site": "https://www.tmlawyers.com"
+ },
+ "doak-shirreff-lawyers-llp": {
+  "src": "images/logos/doak-shirreff-lawyers-llp.png",
+  "site": "https://www.doakshirreff.com"
+ },
+ "gowling-wlg-canada-llp": {
+  "src": "images/logos/gowling-wlg-canada-llp.png",
+  "site": "https://gowlingwlg.com/en/canada"
+ },
+ "gowling-wlg-canada-llp-calgary": {
+  "src": "images/logos/gowling-wlg-canada-llp.png",
+  "site": "https://gowlingwlg.com"
  }
 }

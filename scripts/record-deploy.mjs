@@ -12,7 +12,7 @@ const torontoDay = (date) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Ameri
 const clean = (s) => String(s).replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 140);
 const humanise = (branch) => { const w = branch.split('/').pop().replace(/[-_]+/g, ' ').trim(); return w ? w[0].toUpperCase() + w.slice(1) : 'Update'; };
 
-// `git log --merges --format=%H%x1f%cI%x1f%B%x1e` -> [{ pr, day, at, title }]. GitHub's merge commits read "Merge pull request #N from owner/branch" and then the pull request's title.
+// `git log --format=%H%x1f%cI%x1f%B%x1e` -> [{ pr, day, at, title }]. GitHub's merge commits read "Merge pull request #N from owner/branch" and then the pull request's title.
 export function parseMerges(text) {
   const rows = [];
   for (const rec of String(text).split('\x1e')) {
@@ -31,17 +31,20 @@ export function parseMerges(text) {
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`;
 export const toSql = (rows) => rows.map((r) => `INSERT OR IGNORE INTO ship_log (pr, day, at, title) VALUES (${r.pr}, ${q(r.day)}, ${q(r.at)}, ${q(r.title)});`).join('\n') + (rows.length ? '\n' : '');
 
-function gitMerges(limit) {
-  return execFileSync('git', ['log', '--merges', ...(limit ? ['-n', String(limit)] : []), '--format=%H%x1f%cI%x1f%B%x1e'], { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
+// Not `git log --merges`: the deploy's checkout is shallow, and a shallow checkout's newest commit has no parents on record, so git no longer
+// calls it a merge. The pull request is read from the commit message instead (parseMerges ignores any commit that is not "Merge pull request #N").
+export function gitLog(limit, cwd = process.cwd()) {
+  return execFileSync('git', ['log', ...(limit ? ['-n', String(limit)] : []), '--format=%H%x1f%cI%x1f%B%x1e'], { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024, cwd });
 }
+export const recentPullRequests = (limit = 80, cwd = process.cwd()) => parseMerges(gitLog(limit, cwd));
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     if (process.argv.includes('--history')) {
-      const rows = parseMerges(gitMerges(0)).sort((a, b) => a.pr - b.pr);
+      const rows = recentPullRequests(0).sort((a, b) => a.pr - b.pr);
       process.stdout.write(`-- Pull requests merged before the deploy hook existed (made by: node scripts/record-deploy.mjs --history). Safe to load again: each is keyed by its number.\n${toSql(rows)}`);
     } else {
-      const rows = parseMerges(gitMerges(80));
+      const rows = recentPullRequests(80);
       if (!rows.length) console.log('record-deploy: no merged pull requests in this checkout, nothing to record');
       else {
         const dir = mkdtempSync(join(tmpdir(), 'lawdb-ship-'));

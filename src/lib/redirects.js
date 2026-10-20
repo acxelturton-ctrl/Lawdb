@@ -13,7 +13,6 @@ export function cleanPath(pathname) {
   const svc = /^\/services\/(bc-|qc-)?([a-z]+)$/.exec(p);
   if (svc && SERVICES[svc[2]]) p = `/${PROVINCE[svc[1] || '']}/${SERVICES[svc[2]]}`;
   else if (p === '/legal-news') p = '/news';
-  else if (p.startsWith('/legal-news/')) p = '/court-decisions/' + p.slice('/legal-news/'.length);
   return p === pathname ? null : p;
 }
 

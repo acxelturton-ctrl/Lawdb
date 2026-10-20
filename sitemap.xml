@@ -79,42 +79,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://lawdb.ca/court-decisions</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/scc-intimate-partner-violence-tort-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/scc-rebuilding-cost-insurance-exclusion-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/scc-corbett-prior-convictions-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/scc-democracy-watch-judicial-review-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/aboriginal-title-private-land-leave-denied-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://lawdb.ca/british-columbia/traffic-ticket-lawyers</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
@@ -2015,48 +1979,6 @@
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/scc-ssc-spoliation-evidence-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/scc-quebec-denis-mandatory-minimum-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/scc-berg-credibility-wd-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/scc-patrick-street-cause-of-action-estoppel-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/scc-cope-gladue-indigenous-victim-sentencing-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/onca-panasonic-ransomware-retention-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lawdb.ca/court-decisions/onca-kondaj-successor-notice-2026</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://lawdb.ca/manitoba/</loc>

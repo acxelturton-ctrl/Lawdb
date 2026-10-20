@@ -10,6 +10,7 @@ import { audit } from './audit.js';
 import { refreshAllFeeds } from './feeds.js';
 import { sendLeadDigests } from './leads.js';
 import { prune as pruneStats } from './stats.js';
+import { journalNightly } from './journal.js';
 
 export const RETENTION = { leadMonths: 12, ipHashDays: 7, auditMonths: 24, backupDays: 30 };
 
@@ -27,6 +28,8 @@ const TABLES = {
   follows: 'SELECT * FROM follows ORDER BY user_id, firm_slug',
   saved_stories: 'SELECT * FROM saved_stories ORDER BY user_id, post_id',
   audit_log: 'SELECT * FROM audit_log ORDER BY id',
+  projects: 'SELECT * FROM projects ORDER BY id', // the owner's Future projects list
+  journal: 'SELECT * FROM journal ORDER BY day', // the daily journal with the owner's notes
 };
 const PAGE = 2000;
 
@@ -83,6 +86,7 @@ export async function housekeeping(env) {
 
 export async function nightly(env) {
   try { await housekeeping(env); } catch (err) { console.error('housekeeping failed', err); await audit(env, null, 'housekeeping.failed', 'system', 'nightly', { error: String(err.message || err).slice(0, 300) }); }
+  try { await journalNightly(env); } catch (err) { console.error('journal failed', err); await audit(env, null, 'journal.failed', 'system', 'nightly', { error: String(err.message || err).slice(0, 300) }); }
   try { await sendLeadDigests(env); } catch (err) { console.error('lead summary failed', err); await audit(env, null, 'leads.digest_failed', 'system', 'weekly', { error: String(err.message || err).slice(0, 300) }); }
   try { await refreshAllFeeds(env); } catch (err) { console.error('feed refresh failed', err); await audit(env, null, 'feeds.failed', 'system', 'nightly', { error: String(err.message || err).slice(0, 300) }); }
   try { await runBackup(env, null); } catch (err) { console.error('backup failed', err); await audit(env, null, 'backup.failed', 'backup', 'nightly', { error: String(err.message || err).slice(0, 300) }); }

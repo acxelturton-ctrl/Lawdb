@@ -360,6 +360,46 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     as(o1.jar);
   }
 
+  // admin extras: the Future projects list, the daily journal, and the traffic projection with its advice
+  {
+    cookie = '';
+    ok((await call('GET', '/api/admin/projects')).status === 401 && (await call('GET', '/api/admin/journal')).status === 401, 'the projects list and the journal need a sign-in');
+    as(o1.jar);
+    ok((await call('GET', '/api/admin/projects')).status === 403 && (await call('POST', '/api/admin/projects', { title: 'x' })).status === 403 && (await call('PATCH', '/api/admin/journal/2026-10-20', { note: 'x' })).status === 403 && (await call('POST', '/api/admin/journal/rebuild')).status === 403, 'an owner can read and change neither');
+    as(adminJar);
+    const list = (await call('GET', '/api/admin/projects')).data.projects;
+    ok(list.length >= 10 && list.filter((p) => p.source === 'you').length >= 6 && list.filter((p) => p.source === 'claude').length >= 4 && list.every((p) => ['idea', 'next', 'doing', 'done'].includes(p.status)), 'the starter Future projects list is there, yours and Claude\'s kept apart');
+    const made = await call('POST', '/api/admin/projects', { title: `Smoke project ${run}`, detail: 'Because it matters', status: 'next' });
+    ok(made.status === 201 && made.data.project.status === 'next' && made.data.project.source === 'you' && made.data.project.sort > Math.max(...list.map((p) => p.sort)), 'a new project goes to the end of the list');
+    ok((await call('POST', '/api/admin/projects', { title: '   ' })).status === 422, 'a project needs a title');
+    const id = made.data.project.id;
+    const done = await call('PATCH', `/api/admin/projects/${id}`, { status: 'done' });
+    const mine = done.data.projects.find((p) => p.id === id);
+    ok(done.status === 200 && mine.status === 'done' && mine.doneAt, 'marking a project done stamps the date');
+    const reopened = (await call('PATCH', `/api/admin/projects/${id}`, { status: 'doing', title: 'Renamed', detail: 'New detail' })).data.projects.find((p) => p.id === id);
+    ok(reopened.status === 'doing' && reopened.doneAt === null && reopened.title === 'Renamed' && reopened.detail === 'New detail', 'a project can be reopened and edited');
+    ok((await call('PATCH', `/api/admin/projects/${id}`, { status: 'bogus' })).status === 422 && (await call('PATCH', '/api/admin/projects/999999', { title: 'x' })).status === 404 && (await call('PATCH', `/api/admin/projects/${id}`, { title: '' })).status === 422, 'an unknown status, project or empty title is refused');
+    ok((await call('DELETE', `/api/admin/projects/${id}`)).status === 200 && (await call('DELETE', `/api/admin/projects/${id}`)).status === 404, 'a project can be deleted, once');
+    const order = (await call('GET', '/api/admin/projects')).data.projects.map((p) => p.id);
+    const lastId = order[order.length - 1];
+    const moved = (await call('PATCH', `/api/admin/projects/${lastId}`, { move: 'up' })).data.projects.map((p) => p.id);
+    ok(moved.indexOf(lastId) === order.length - 2 && moved[order.length - 1] === order[order.length - 2], 'moving a project up swaps it with the one above');
+    await call('PATCH', `/api/admin/projects/${lastId}`, { move: 'down' });
+
+    const j0 = (await call('GET', '/api/admin/journal')).data;
+    ok(/^\d{4}-\d{2}-\d{2}$/.test(j0.today.day) && j0.today.visits >= 1 && Array.isArray(j0.today.shipped) && Array.isArray(j0.entries), 'the journal shows today so far, live, from the real counts');
+    ok((await call('PATCH', `/api/admin/journal/${j0.today.day}`, { note: 'Smoke note' })).status === 200 && (await call('GET', '/api/admin/journal')).data.today.note === 'Smoke note', 'a note on today is saved with the day and shown on today\'s card');
+    ok((await call('PATCH', '/api/admin/journal/not-a-date', { note: 'x' })).status === 400, 'a note needs a real date');
+    const reb = await call('POST', '/api/admin/journal/rebuild');
+    const j2 = (await call('GET', '/api/admin/journal')).data;
+    ok(reb.status === 200 && typeof reb.data.written === 'number' && j2.today.note === 'Smoke note' && !j2.entries.some((e) => e.day === j0.today.day), 'filling in missing days works and never loses a note (today shows once, on its own card)');
+
+    const t = (await call('GET', '/api/admin/traffic?days=7')).data;
+    ok(t.forecast && t.forecast.ready === false && t.forecast.needDays === 7 && Array.isArray(t.tips) && t.tips.length >= 1 && /Too early/.test(t.tips[0].title), 'a new database has no projection yet and the advice says it is too early');
+    ok(Array.isArray(t.coverage) && t.coverage.some((c) => c.province === 'ON' && c.firms > 100), 'the report carries firms by province');
+    as(o1.jar);
+  }
+
   // claim a firm
   ok((await call('POST', '/api/account/claims', { slug: 'achkar-law', acceptTerms: true })).status === 422, 'a claim needs a contact name');
   ok((await call('POST', '/api/account/claims', { slug: 'achkar-law', contactName: 'Pat Owner' })).status === 422, 'a claim needs the firm terms accepted');

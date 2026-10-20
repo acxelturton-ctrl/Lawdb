@@ -4,6 +4,8 @@
 // "add one to this counter" lines for today, and forgotten. Nothing about the sender is stored: no IP address, no browser details, no cookie, no
 // visitor id. Robots are ignored, and so is anyone whose browser says Do Not Track (the page does not send anything for them).
 
+import { forecast, growthTips } from './forecast.js';
+
 export const CASE_IDS = new Set(['injury', 'traffic', 'criminal', 'family', 'realestate', 'wills', 'business', 'employment', 'immigration', 'litigation']);
 export const EVENTS = new Set(['call', 'website', 'directions', 'follow', 'claim', 'cta-featured', 'cta-list']);
 export const RETENTION_DAYS = { counts: 400, searchText: 90 };
@@ -111,7 +113,7 @@ export async function trafficReport(env, days) {
   const to = torontoDay();
   const from = torontoDay(new Date(Date.now() - (days - 1) * 86400000));
   const sum = (kind, limit, extra = '') => env.DB.prepare(`SELECT k1, k2, SUM(n) AS n FROM stats_daily WHERE kind = ? AND day >= ? ${extra} GROUP BY k1, k2 ORDER BY n DESC, k1 LIMIT ${limit}`).bind(kind, from);
-  const [series, totals, pages, entries, refs, devices, geo, utm, events, eventFirms, searches, towns, noparse, firmPages, first] = await env.DB.batch([
+  const [series, totals, pages, entries, refs, devices, geo, utm, events, eventFirms, searches, towns, noparse, firmPages, first, visits60, coverage] = await env.DB.batch([
     env.DB.prepare("SELECT day, kind, SUM(n) AS n FROM stats_daily WHERE kind IN ('pv', 'visit') AND day >= ? GROUP BY day, kind ORDER BY day").bind(from),
     env.DB.prepare("SELECT kind, SUM(n) AS n FROM stats_daily WHERE kind IN ('pv', 'visit', 'search', 'ev') AND day >= ? GROUP BY kind").bind(from),
     sum('pv', 15), sum('entry', 15), sum('ref', 12), sum('dev', 3), sum('geo', 12), sum('utm', 10),
@@ -120,6 +122,8 @@ export async function trafficReport(env, days) {
     sum('search', 20), sum('town', 20), sum('noparse', 20),
     env.DB.prepare("SELECT k1, SUM(n) AS n FROM stats_daily WHERE kind = 'pv' AND k1 LIKE '/firms/%' AND day >= ? GROUP BY k1 ORDER BY n DESC LIMIT 15").bind(from),
     env.DB.prepare('SELECT MIN(day) AS d FROM stats_daily'),
+    env.DB.prepare("SELECT day, SUM(n) AS n FROM stats_daily WHERE kind = 'visit' AND day >= ? GROUP BY day ORDER BY day").bind(torontoDay(new Date(Date.now() - 59 * 86400000))),
+    env.DB.prepare("SELECT province, COUNT(*) AS firms FROM firms WHERE status = 'live' GROUP BY province ORDER BY firms DESC"),
   ]);
 
   const byDay = new Map();
@@ -137,7 +141,7 @@ export async function trafficReport(env, days) {
   const nameOf = Object.fromEntries(names.map((r) => [r.slug, r.name]));
   const firmLabel = (p) => nameOf[p.replace('/firms/', '')] || p;
 
-  return {
+  const report = {
     from, to, days, since: first.results[0]?.d || null,
     totals: { visits: total.visit || 0, pageViews: total.pv || 0, searches: total.search || 0, clicks: total.ev || 0 },
     series: days_,
@@ -150,5 +154,14 @@ export async function trafficReport(env, days) {
     searches: searches.results.map((r) => ({ kase: r.k1, place: r.k2, n: r.n })),
     towns: towns.results.map((r) => ({ label: r.k1, kase: r.k2, n: r.n })),
     noparse: top(noparse.results),
+    coverage: coverage.results.map((r) => ({ province: r.province, firms: r.firms })),
   };
+
+  // The projection is fitted on up to 60 days whatever range is on screen (a 7-day view would be too short to say anything).
+  const by60 = new Map(visits60.results.map((r) => [r.day, r.n]));
+  const series60 = [];
+  for (let i = 59; i >= 0; i--) { const d = torontoDay(new Date(Date.now() - i * 86400000)); series60.push({ day: d, visits: by60.get(d) || 0 }); }
+  report.forecast = forecast(series60);
+  report.tips = growthTips(report, report.coverage);
+  return report;
 }

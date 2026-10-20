@@ -25,6 +25,7 @@ import * as social from './routes/social.js';
 import * as ratings from './routes/ratings.js';
 import * as invite from './routes/invite.js';
 import * as stats from './routes/stats.js';
+import * as projects from './routes/projects.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -89,6 +90,13 @@ const ROUTES = [
   route('POST', '/api/admin/payments/:id/assign', admin.paymentsAssign),
   route('POST', '/api/admin/payments/:id/dismiss', admin.paymentsDismiss),
   route('GET', '/api/admin/traffic', stats.adminReport),
+  route('GET', '/api/admin/projects', projects.listProjects),
+  route('POST', '/api/admin/projects', projects.createProject),
+  route('PATCH', '/api/admin/projects/:id', projects.updateProject),
+  route('DELETE', '/api/admin/projects/:id', projects.deleteProject),
+  route('GET', '/api/admin/journal', projects.journalGet),
+  route('POST', '/api/admin/journal/rebuild', projects.journalRebuild),
+  route('PATCH', '/api/admin/journal/:day', projects.journalNote),
   route('GET', '/api/admin/search', admin.searchGet),
   route('POST', '/api/admin/search/run', admin.searchRun),
   route('POST', '/api/admin/search/inspect', admin.searchInspect),

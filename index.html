@@ -374,9 +374,6 @@
   .h3-formula span{ display:inline-flex; align-items:center; background:#fff; border:1px solid var(--line); border-radius:999px; padding:5px 12px 5px 6px; color:var(--ink); font-weight:500; }
   .h3-formula b{ display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--ink); color:#fff; font-size:11px; margin-right:6px; }
   .h3-formula i{ font-style:normal; }
-  .h3-try{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; align-items:center; margin:14px 0 0; font-size:13px; color:var(--ink-soft); }
-  .h3-try a{ background:#fff; border:1px solid var(--line); border-radius:999px; padding:7px 13px; color:var(--ink); text-decoration:none; }
-  .h3-try a:hover{ border-color:var(--ink); }
   .h3-stats{ display:flex; justify-content:center; gap:34px; margin:34px 0 0; flex-wrap:wrap; }
   .h3-stats b{ display:block; font-family:'Source Serif 4',serif; font-size:28px; color:var(--brass-deep); line-height:1; }
   .h3-stats span{ font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); }
@@ -401,10 +398,12 @@
   .firms-divider{ max-width:1080px; margin:20px auto 0; padding:0 20px; display:flex; align-items:center; gap:14px; color:var(--brass-deep); font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
   .firms-divider::before,.firms-divider::after{ content:''; flex:1; height:1px; background:var(--line); }
 .hero.hero3{ position:relative; isolation:isolate; text-align:center; padding:72px 20px 84px; background:#fdfcf9; }
-  .hero.hero3::before{ content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse 60% 76% at 50% 46%, rgba(253,252,249,.86) 0%, rgba(253,252,249,.68) 55%, rgba(253,252,249,.14) 100%), url('images/hero-photo.webp') center 30%/cover no-repeat, #fdfcf9; }
-  @media(max-width:700px){ .hero.hero3{ padding:56px 16px 64px; } .hero.hero3::before{ background:linear-gradient(rgba(253,252,249,.78), rgba(253,252,249,.66)), url('images/hero-photo.webp') 46% 30%/cover no-repeat, #fdfcf9; } }
-  .hero.hero3 h1{ max-width:none; margin:0 0 14px; text-align:center; font-size:clamp(36px,6vw,56px); }
-  .hero.hero3 .h3-sub{ text-align:center; }
+  .hero.hero3::before{ content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse 60% 76% at 50% 46%, rgba(253,252,249,.66) 0%, rgba(253,252,249,.46) 55%, rgba(253,252,249,.04) 100%), url('images/hero-photo.webp') center 30%/cover no-repeat, #fdfcf9; }
+  @media(max-width:700px){ .hero.hero3{ padding:56px 16px 64px; } .hero.hero3::before{ background:linear-gradient(rgba(253,252,249,.6), rgba(253,252,249,.46)), url('images/hero-photo.webp') 46% 30%/cover no-repeat, #fdfcf9; } }
+  .hero.hero3 h1{ max-width:none; margin:0 0 14px; text-align:center; font-size:clamp(36px,6vw,56px); text-shadow:0 0 18px rgba(253,252,249,.9), 0 0 4px rgba(253,252,249,.7); }
+  .hero.hero3 .h3-sub, .hero.hero3 .h3-label{ text-shadow:0 0 12px rgba(253,252,249,.95), 0 0 3px rgba(253,252,249,.8); }
+  .hero.hero3 .h3-stats span{ color:#3d434b; font-weight:600; text-shadow:0 0 10px rgba(253,252,249,.95); }
+  .hero.hero3 .h3-sub{ text-align:center; color:#454b53; }
   #cases{ padding-bottom:10px; }
   .hero3 ~ section{ padding-top:34px; padding-bottom:34px; }
   .hero3 ~ section .section-head{ margin-bottom:24px; }
@@ -459,12 +458,6 @@
     </div>
   </form>
   <div class="h3-formula"><span><b>1</b> Kind of lawyer</span><i>+</i><span><b>2</b> City</span></div>
-  <div class="h3-try"><span>Try:</span>
-    <a href="/find-lawyers?q=family+lawyer+in+Ottawa">family lawyer in Ottawa</a>
-    <a href="/find-lawyers?q=immigration+lawyer+in+Vancouver">immigration lawyer in Vancouver</a>
-    <a href="/find-lawyers?q=real+estate+lawyer+in+Toronto">real estate lawyer in Toronto</a>
-    <a href="/find-lawyers?q=business+lawyer+in+Calgary">business lawyer in Calgary</a>
-  </div>
   <div class="h3-stats"><div><b data-live="firms">1,092</b><span>law firms</span></div><div><b data-live="cities">62</b><span>cities</span></div><div><b>5</b><span>provinces</span></div><div><b>10</b><span>practice areas</span></div></div>
  </div>
 </div>

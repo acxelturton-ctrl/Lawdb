@@ -185,14 +185,6 @@
 
   .firm-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
   @media (max-width:820px){ .firm-grid{ grid-template-columns:repeat(2,1fr); } }
-  .blog-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  @media (max-width:820px){ .blog-grid{ grid-template-columns:1fr; } }
-
-  .blog-card{ background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; text-decoration:none; color:inherit; display:block; }
-  .blog-card img{ width:100%; height:150px; object-fit:cover; display:block; }
-  .blog-card-banner{ width:100%; height:150px; display:flex; align-items:flex-end; padding:16px; color:#fff; }
-  .blog-card-banner span{ font-family:'Source Serif 4',serif; font-size:14.5px; font-weight:600;
-    text-shadow:0 1px 3px rgba(0,0,0,0.25); }
   .trust-note{ max-width:720px; margin:0 auto 26px; text-align:center; font-size:13.5px;
     line-height:1.75; color:var(--ink-soft); }
   .trust-strip{ background:#15181c; color:#fff; padding:20px; }
@@ -203,11 +195,6 @@
     color:var(--brass); display:block; line-height:1.1; }
   .trust-strip .lbl{ font-size:11px; text-transform:uppercase; letter-spacing:0.07em;
     color:#a7a097; margin-top:4px; display:block; }
-  .blog-card-body{ padding:14px 16px 18px; }
-  .blog-card .city-pill{ display:inline-block; background:var(--cream); color:var(--ink); padding:2px 10px;
-    border-radius:20px; font-weight:600; font-size:10.5px; margin-bottom:8px; }
-  .blog-card h3{ font-family:'Source Serif 4',serif; font-size:15.5px; margin:0 0 6px; line-height:1.35; }
-  .blog-card p{ font-size:12.5px; color:var(--ink-soft); margin:0; line-height:1.55; }
   .firm-card{
     position:relative; border:1.5px solid var(--red-border); background:#fff;
     border-radius:6px; padding:18px 16px; text-decoration:none; color:var(--ink);
@@ -244,19 +231,6 @@
   .compare-card .cta-link{ display:block; text-align:center; padding:11px; border-radius:4px; font-weight:700; font-size:13.5px; text-decoration:none; }
   .compare-card.is-featured .cta-link{ background:linear-gradient(135deg,#f6dc9a,#e0a93a 55%,#b45309); color:#1f2328; }
   .compare-card:not(.is-featured) .cta-link{ background:#eef0f2; color:var(--ink); }
-
-  .cta-band{
-    background:var(--ink); color:#fff; border-radius:6px; padding:44px 30px; text-align:center;
-    max-width:1080px; margin:0 auto 60px;
-  }
-  .cta-band h2{ font-family:'Source Serif 4',serif; font-size:26px; margin:0 0 8px; }
-  .cta-band .price{ color:var(--brass); font-weight:700; font-size:15px; margin-bottom:16px; }
-  .cta-band p{ color:#c7cfda; max-width:480px; margin:0 auto 22px; font-size:14px; line-height:1.6; }
-  .cta-band a{
-    display:inline-block; background:var(--brass); color:#1f2328; font-weight:700; padding:12px 24px;
-    border-radius:4px; text-decoration:none; font-size:14px;
-  }
-
 
   .desktop-nav{ display:none; }
   @media (min-width:900px){
@@ -634,14 +608,6 @@ section#cases{ padding-bottom:36px; }
 
 
 <div class="firms-divider" id="for-firms"><span>For law firms</span></div>
-<div class="cta-band">
-  <h2>Are you a lawyer or law firm?</h2>
-  <div class="price">Featured placement from $89 per month, cancel anytime</div>
-  <p>Register your firm on LawDB in a few minutes. Get a highlighted marker, top placement in your area's results, and an expanded profile page in front of everyone searching Ontario, Quebec, British Columbia, Alberta, and Manitoba for a lawyer.</p>
-  <a href="/list-your-firm">List Your Firm</a>
-</div>
-
-
 <div class="lwa-sec">
 <h2 class="lwa-h">How a Featured listing gets found</h2>
 <p class="lwa-lede">As a client types what they need and where, LawDB suggests matching firms. Here is where a Featured firm lands.</p>
@@ -700,19 +666,11 @@ section#cases{ padding-bottom:36px; }
   </div>
 </section>
 
-<section>
-  <div class="section-head">
-    <h2>Legal Guides by City</h2>
-    <p>The rules, courts, and filing processes that actually change from one city to the next.</p>
-  </div>
-  <div class="blog-grid" id="blogGrid"></div>
-  <div style="text-align:center; margin-top:22px;"><a class="cta-link" href="/blog">See all articles</a></div>
-</section>
 <footer class="site-footer">
   <div class="foot-grid">
     <div>
       <span class="fmark"><img src="./images/logo-icon.png" alt="LawDB" style="height:26px;width:auto;display:block;">LawDB.ca<sup style="font-size:.4em;font-weight:600;margin-left:1px;vertical-align:super;line-height:0;">&trade;</sup></span>
-      <p class="fblurb">Canada's law firm directory. Find a real, reviewed law firm near you by the kind of case you have. Ontario, Quebec, British Columbia, Alberta, and Manitoba are live now, with more provinces coming soon.</p><div style="display:flex;align-items:center;gap:14px;margin-top:12px;"><img src="images/badge-quality-legal-info.jpg" alt="Quality Legal Information" style="height:38px;width:auto;border-radius:4px;"><img src="images/badge-directory-trust.jpg" alt="Legal Directory You Can Trust" style="height:32px;width:auto;border-radius:4px;"></div>
+      <p class="fblurb">Canada's law firm directory. Find a real, reviewed law firm near you by the kind of case you have. Ontario, Quebec, British Columbia, Alberta, and Manitoba are live now, with more provinces coming soon.</p>
     </div>
     <div>
       <h4>For Clients</h4>
@@ -746,30 +704,6 @@ section#cases{ padding-bottom:36px; }
     &copy; 2026 LawDB.ca. Listing data sourced from Google's public business listings. LawDB is an independent directory and is not affiliated with, endorsed by, or representing any listed firm. Ratings, review counts, and practice-area tags reflect a snapshot at the time each page was generated and may have changed since.
   </div>
 </footer>
-
-<script>
-(function() {
-  fetch('blog_data.json').then(function(r) { return r.json(); }).then(function(posts) {
-    posts = posts.filter(function(p) { return p.audience !== 'firms'; });
-    for (var i = posts.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = posts[i]; posts[i] = posts[j]; posts[j] = tmp;
-    }
-    var picks = posts.slice(0, 3);
-    var grid = document.getElementById('blogGrid');
-    grid.innerHTML = picks.map(function(p) {
-      var hero = p.hero_image
-        ? '<img src="' + p.hero_image + '" alt="' + p.hero_alt + '">'
-        : '<div class="blog-card-banner" style="background:' + p.banner_css + ';"><span>'
-          + p.city + ' · ' + p.banner_label + '</span></div>';
-      return '<a class="blog-card" href="/blog/' + p.slug + '">'
-        + hero
-        + '<div class="blog-card-body"><span class="city-pill">' + p.city + ', ' + p.province + '</span>'
-        + '<h3>' + p.title + '</h3><p>' + p.excerpt + '</p></div></a>';
-    }).join('');
-  });
-})();
-</script>
 
 <script src="site.js" defer></script>
 <script src="lwa.js?v=2" defer></script>

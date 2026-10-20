@@ -47,8 +47,6 @@
 .site-footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:19px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
 .site-footer .fimg{ height:26px; width:auto; display:block; }
 .site-footer .fblurb{ font-size:13px; line-height:1.7; max-width:280px; }
-.site-footer .fbadges{ display:flex; align-items:center; gap:14px; margin-top:12px; }
-.site-footer .fb1{ height:38px; width:auto; border-radius:4px; } .site-footer .fb2{ height:32px; width:auto; border-radius:4px; }
 .site-footer h4{ color:#c7cfda; font-size:12px; text-transform:uppercase; letter-spacing:.06em; margin:0 0 14px; font-weight:700; }
 .site-footer ul{ list-style:none; margin:0; padding:0; } .site-footer li{ margin-bottom:10px; }
 .site-footer a{ color:#8d9197; text-decoration:none; font-size:13.5px; } .site-footer a:hover{ color:#fff; }

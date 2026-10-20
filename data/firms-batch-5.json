@@ -186,7 +186,8 @@
   "heroImage": "images/hero/cootauco-law-office-st-catharines.webp",
   "social": {
    "x": "https://x.com/CootaucoLaw"
-  }
+  },
+  "bookingUrl": "https://cootauco.com/contact/"
  },
  {
   "name": "Bussey Ainsworth Lawyers",
@@ -275,7 +276,8 @@
   "social": {
    "facebook": "https://www.facebook.com/busseyainsworth",
    "linkedin": "https://www.linkedin.com/company/90614614"
-  }
+  },
+  "bookingUrl": "https://busseyainsworth.ca/book-consultation.html"
  },
  {
   "name": "Houlihan Law",
@@ -780,7 +782,8 @@
   },
   "social": {
    "facebook": "https://www.facebook.com/CasselmanLegal"
-  }
+  },
+  "bookingUrl": "https://www.casselmanlegal.com/contact-us"
  },
  {
   "name": "Lemieux Litigation",
@@ -845,7 +848,8 @@
     "Bradford",
     "Newmarket"
    ]
-  }
+  },
+  "bookingUrl": "https://lemieuxlaw.ca/contact-lemieux-law/"
  },
  {
   "name": "MKC Law Office",
@@ -1201,7 +1205,8 @@
   "social": {
    "facebook": "https://www.facebook.com/profile.php?id=61553370116418",
    "instagram": "https://www.instagram.com/kitchensimesonbelliveaullp"
-  }
+  },
+  "bookingUrl": "https://www.kslawfirm.ca/contact-us/"
  },
  {
   "name": "BLFON Personal Injury Lawyer",
@@ -1355,7 +1360,8 @@
   "social": {
    "facebook": "https://www.facebook.com/OsborneLawGroup",
    "linkedin": "https://www.linkedin.com/in/stephen-osborne-a4065143"
-  }
+  },
+  "bookingUrl": "https://www.osbornelaw.ca/contact.html"
  },
  {
   "name": "Ain Whitehead LLP",
@@ -1408,7 +1414,8 @@
     "Corporate law"
    ]
   },
-  "heroImage": "images/hero/ain-whitehead-llp-barrie.webp"
+  "heroImage": "images/hero/ain-whitehead-llp-barrie.webp",
+  "bookingUrl": "https://www.ainwhitehead.com/contact-us"
  },
  {
   "name": "Lambert Boenders Employment Lawyer",
@@ -1454,7 +1461,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "bookingUrl": "https://employmentlawcounsel.ca/contact/"
  },
  {
   "name": "Ewen Boyd LLP",
@@ -1630,7 +1638,8 @@
   "social": {
    "linkedin": "https://www.linkedin.com/company/gerry-law",
    "youtube": "https://www.youtube.com/@gerrylaw"
-  }
+  },
+  "bookingUrl": "https://calendly.com/lawyer_nat/free15minutes"
  },
  {
   "name": "Tremblay Law Group PC",
@@ -1738,7 +1747,8 @@
    "facebook": "https://www.facebook.com/profile.php?id=100076645923367",
    "instagram": "https://www.instagram.com/parlatorelaw",
    "linkedin": "https://www.linkedin.com/in/sam-parlatore-8216b522a"
-  }
+  },
+  "bookingUrl": "https://parlatorelawyers.com/contact/"
  },
  {
   "name": "McLaren Bryan Law Professional Corporation",
@@ -1782,7 +1792,8 @@
   "social": {
    "facebook": "https://www.facebook.com/mclarenbryanlaw",
    "instagram": "https://www.instagram.com/mclarenbryan_law"
-  }
+  },
+  "bookingUrl": "https://mclarenbryanlaw.com/book/"
  },
  {
   "name": "Bouffard Law Office",
@@ -1985,7 +1996,8 @@
   "social": {
    "facebook": "https://www.facebook.com/collaborativelegal.ca",
    "linkedin": "https://www.linkedin.com/in/nick-greer-14943579"
-  }
+  },
+  "bookingUrl": "https://calendly.com/nanaimolegal/free-consultation"
  },
  {
   "name": "Campisi Law St. Catharines",
@@ -2120,7 +2132,8 @@
   "heroImage": "images/hero/henderson-family-law-thunder-bay.webp",
   "social": {
    "linkedin": "https://www.linkedin.com/company/henderson-family-law"
-  }
+  },
+  "bookingUrl": "https://hendersonfamilylaw.ca/contact"
  },
  {
   "name": "FG Avocat inc.",

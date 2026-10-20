@@ -205,6 +205,7 @@ async function viewFirms() {
       about: h('textarea', { class: 'tall', maxlength: 2000 }, firm.about || ''),
       phone: h('input', { type: 'text', value: firm.phone || '', maxlength: 30 }),
       website: h('input', { type: 'text', value: firm.website || '', maxlength: 300 }),
+      bookingUrl: h('input', { type: 'text', value: firm.bookingUrl || '', maxlength: 500, placeholder: 'https://' }),
       address: h('input', { type: 'text', value: firm.address || '', maxlength: 300 }),
       tags: h('input', { type: 'text', value: (firm.tags || []).join(', ') }),
       featured: h('input', { type: 'checkbox', checked: !!firm.featured }),
@@ -218,7 +219,7 @@ async function viewFirms() {
       save.disabled = true;
       try {
         const payload = {
-          name: f.name.value, blurb: f.blurb.value, about: f.about.value, phone: f.phone.value, website: f.website.value, address: f.address.value,
+          name: f.name.value, blurb: f.blurb.value, about: f.about.value, phone: f.phone.value, website: f.website.value, bookingUrl: f.bookingUrl.value, address: f.address.value,
           tags: splitTags(f.tags.value), caseTypes: cats.get(), featured: f.featured.checked, pageMode: f.pageMode.value,
         };
         if (hrs.isDirty()) payload.hours = hrs.anyOpen() ? hrs.get() : null;
@@ -231,7 +232,9 @@ async function viewFirms() {
       h('div', { class: 'row spread' }, h('h2', null, firm.name), h('a', { href: `/firms/${slug}`, target: '_blank', rel: 'noopener' }, 'View public page')),
       field('Name', f.name), field('Short description (shown in lists)', f.blurb),
       field('About the firm (shown on the profile page)', f.about, 'Plain text. A blank line starts a new paragraph.'),
-      field('Phone', f.phone), field('Website', f.website), field('Address', f.address),
+      field('Phone', f.phone), field('Website', f.website),
+      field('Booking link', f.bookingUrl, 'Optional. Your calendar (Calendly, Clio, Microsoft Bookings...) or the page on your site where people book a call. It turns on the Book a call button on your page; leave it blank to switch the button off.'),
+      field('Address', f.address),
       field('Practice areas (comma separated)', f.tags),
       h('label', null, 'Categories'), cats.el,
       h('label', null, 'Opening hours'), hrs.el,
@@ -558,8 +561,8 @@ async function viewTraffic() {
     h('div', { class: 'two' },
       box('Most viewed pages', null, simple(d.pages)),
       box('Most viewed firms', null, table(['Firm', 'Page views'], d.firms.map((r) => [h('a', { href: r.path, target: '_blank', rel: 'noopener' }, r.label), num(r.n)]))),
-      box('Clicks that matter', 'Call, website and directions buttons, follows, claims, and the buttons that sell Featured or listing.', simple(d.events)),
-      box('Firms getting call, website and directions clicks', null, table(['Firm', 'Button', 'Clicks'], d.eventFirms.map((r) => [r.label, r.kind, num(r.n)])))));
+      box('Clicks that matter', 'Call, website, directions and Book a call buttons (book-locked is a tap on a greyed-out Book a call, a firm people wanted to book with), follows, claims, and the buttons that sell Featured or listing.', simple(d.events)),
+      box('Firms getting call, website, directions and booking clicks', null, table(['Firm', 'Button', 'Clicks'], d.eventFirms.map((r) => [r.label, r.kind, num(r.n)])))));
 }
 
 // ---------------------------------------------------------------- future projects

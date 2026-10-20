@@ -17,6 +17,14 @@
     '.lw-fline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px}.lw-fline .lw-fcount:empty{display:none}.lw-fline .lw-fcount:not(:empty)::after{content:"\\00b7";margin-left:10px;color:#b9b2a4}' +
     '.li-actions{flex-wrap:wrap}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+  // The greyed-out "Book a call" button on a firm's page: tapping it opens or closes the note that says how the firm can add a booking link.
+  document.addEventListener('click', function (e) {
+    var b = e.target && e.target.closest ? e.target.closest('.li-book-off') : null;
+    var n = b && document.getElementById(b.getAttribute('aria-controls') || 'lw-book-note');
+    if (!n) return;
+    n.hidden = !n.hidden;
+    b.setAttribute('aria-expanded', n.hidden ? 'false' : 'true');
+  });
   var state = { signedIn: false, follows: {}, saved: {} };
   var all = function (root, sel) { return [].slice.call((root || document).querySelectorAll(sel)); };
   var uniq = function (a) { return a.filter(function (v, i) { return v && a.indexOf(v) === i; }); };

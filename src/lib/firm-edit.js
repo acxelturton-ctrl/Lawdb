@@ -4,6 +4,7 @@
 import { HttpError } from './http.js';
 import { audit } from './audit.js';
 import { checkOwnerText } from './content-rules.js';
+import { cleanBookingUrl } from './booking.js';
 import { PROVINCES } from '../render/firm-page.js';
 
 export function str(v, min, max) {
@@ -29,6 +30,14 @@ export const FIRM_FIELDS = {
     return s;
   },
   address: (v) => str(v, 0, 300),
+  // The firm's own online booking link: it turns on the Book a call button on its page. Blank turns it off again.
+  bookingUrl: (v) => {
+    const s = str(v, 0, 500);
+    if (!s) return '';
+    const clean = cleanBookingUrl(s);
+    if (!clean) throw new HttpError(422, 'booking link must be a web address starting with https:// (your own calendar or booking page)');
+    return clean;
+  },
   featured: (v) => {
     if (typeof v !== 'boolean') throw new HttpError(422, 'featured must be true or false');
     return v;

@@ -515,7 +515,8 @@
    "instagram": "https://www.instagram.com/whitejeetlaw",
    "linkedin": "https://www.linkedin.com/company/white-jeet-law",
    "youtube": "https://www.youtube.com/@GregWhiteDefence"
-  }
+  },
+  "bookingUrl": "https://whitejeetlaw.com/contact-us/"
  },
  {
   "name": "Bergel Magence",
@@ -1286,7 +1287,8 @@
    "serving": [
     "Edmonton"
    ]
-  }
+  },
+  "bookingUrl": "https://sutherlandcriminaldefence.ca/contact"
  },
  {
   "name": "TCZ Law",
@@ -1382,7 +1384,8 @@
     "Ottawa"
    ]
   },
-  "heroImage": "images/hero/tcz-law-toronto.webp"
+  "heroImage": "images/hero/tcz-law-toronto.webp",
+  "bookingUrl": "https://tczlaw.ca/contact/"
  },
  {
   "name": "Guberman Appleby Immigration Lawyers",
@@ -1540,7 +1543,8 @@
   "social": {
    "facebook": "https://www.facebook.com/Laredo-Law-180769972022977",
    "linkedin": "https://www.linkedin.com/in/lisa-laredo-027842a"
-  }
+  },
+  "bookingUrl": "https://calendly.com/lisalaredo/30min"
  },
  {
   "name": "H&H Law Group",
@@ -1624,7 +1628,8 @@
    "instagram": "https://www.instagram.com/hhlawgroup",
    "linkedin": "https://www.linkedin.com/company/hhlawgroup",
    "x": "https://x.com/hh_law_group"
-  }
+  },
+  "bookingUrl": "https://hhlawgroup.ca/contact/"
  },
  {
   "name": "Browne Criminal Defence",
@@ -1672,7 +1677,8 @@
   "heroImage": "images/hero/browne-criminal-defence-calgary.webp",
   "social": {
    "linkedin": "https://www.linkedin.com/in/matthew-browne-01563722"
-  }
+  },
+  "bookingUrl": "https://bcdlaw.ca/contact/"
  },
  {
   "name": "Reich Law",
@@ -1766,7 +1772,8 @@
     "Burlington",
     "Mississauga"
    ]
-  }
+  },
+  "bookingUrl": "https://www.longfieldlaw.com/wp27057/contact/"
  },
  {
   "name": "DeMelo Heathcote",
@@ -1817,7 +1824,8 @@
     "London",
     "Southwestern Ontario"
    ]
-  }
+  },
+  "bookingUrl": "https://www.demelolaw.com/contact"
  },
  {
   "name": "Tarnow Criminal Law",
@@ -2011,7 +2019,8 @@
     "Ontario",
     "Ottawa"
    ]
-  }
+  },
+  "bookingUrl": "https://dolginfamilylaw.ca/book/"
  },
  {
   "name": "The Law Offices of Nikolas J. Lust",
@@ -2043,7 +2052,8 @@
    "serving": [
     "Ontario"
    ]
-  }
+  },
+  "bookingUrl": "https://nikolaslust.youcanbook.me/"
  },
  {
   "name": "Eidelmann Law Inc",
@@ -2129,7 +2139,8 @@
   "social": {
    "facebook": "https://www.facebook.com/adam.eidl",
    "linkedin": "https://www.linkedin.com/in/adam-eidelmann-b8563620"
-  }
+  },
+  "bookingUrl": "https://www.eidelmannlaw.ca/contact"
  },
  {
   "name": "Szakacs Law Injury Lawyers Calgary",
@@ -2262,7 +2273,8 @@
     "Family trusts",
     "Estate trustee appointment"
    ]
-  }
+  },
+  "bookingUrl": "https://calendly.com/portfoliolaw/30min"
  },
  {
   "name": "Jasmin Sandhu- Immigration Lawyer Toronto",
@@ -2445,7 +2457,8 @@
    "linkedin": "https://www.linkedin.com/company/dunlap-law",
    "x": "https://x.com/dunlap_law",
    "youtube": "https://www.youtube.com/@dunlaplaw"
-  }
+  },
+  "bookingUrl": "https://www.dunlapcriminaldefencelawyer.com/book-a-consultation/"
  },
  {
   "name": "Vallillee Family Lawyers",
@@ -2502,7 +2515,8 @@
   "social": {
    "facebook": "https://www.facebook.com/LondonOntarioFamilyLaw",
    "linkedin": "https://www.linkedin.com/in/ericvallillee"
-  }
+  },
+  "bookingUrl": "https://valaw.ca/book-a-callback"
  },
  {
   "name": "Nichols Law Professional Corporation",
@@ -2671,7 +2685,8 @@
   "social": {
    "instagram": "https://www.instagram.com/noralawcorp",
    "linkedin": "https://www.linkedin.com/company/noralaw"
-  }
+  },
+  "bookingUrl": "https://outlook.office.com/owa/calendar/Consultations@noralaw.ca/bookings/"
  },
  {
   "name": "Dominion Criminal Defence",
@@ -3543,7 +3558,8 @@
    "instagram": "https://www.instagram.com/_pacificlegal",
    "linkedin": "https://www.linkedin.com/company/77640929",
    "x": "https://x.com/_PacificLegal"
-  }
+  },
+  "bookingUrl": "https://pacificlegallawfirm.zohobookings.com/"
  },
  {
   "name": "LA ROSÉE AVOCAT INC.",
@@ -3787,7 +3803,8 @@
    "facebook": "https://www.facebook.com/ayounlawoffice",
    "instagram": "https://www.instagram.com/ayounlaw",
    "linkedin": "https://www.linkedin.com/in/ayoun-and-s-b3a368190"
-  }
+  },
+  "bookingUrl": "https://ayounlaw.com/book-a-free-consultation/"
  },
  {
   "name": "Hansra Law",
@@ -3878,7 +3895,8 @@
    "instagram": "https://www.instagram.com/techlawyertoronto",
    "linkedin": "https://www.linkedin.com/company/hansra-law",
    "x": "https://x.com/hansra_law"
-  }
+  },
+  "bookingUrl": "https://www.hansralaw.ca/contact-free-consultation/"
  },
  {
   "name": "Pelsmakher Law",
@@ -3937,7 +3955,8 @@
   "social": {
    "instagram": "https://www.instagram.com/pelsmakherlaw",
    "linkedin": "https://www.linkedin.com/company/pelsmakher-law"
-  }
+  },
+  "bookingUrl": "https://pelslaw.ca/contact"
  },
  {
   "name": "Robert Légal",
@@ -4113,7 +4132,8 @@
   },
   "social": {
    "instagram": "https://www.instagram.com/onefamilylaw"
-  }
+  },
+  "bookingUrl": "https://www.onefamily.law/contact/"
  },
  {
   "name": "Chinook Law",
@@ -4522,7 +4542,8 @@
   "social": {
    "facebook": "https://www.facebook.com/athwallaw",
    "linkedin": "https://www.linkedin.com/company/athwal-law"
-  }
+  },
+  "bookingUrl": "https://athwallaw.ca/contact.html"
  },
  {
   "name": "Avocat Criminel Montréal",
@@ -4623,7 +4644,8 @@
    "areas": [
     "Criminal defence"
    ]
-  }
+  },
+  "bookingUrl": "https://www.mcelroylaw.ca/schedule-appointment-ready"
  },
  {
   "name": "Lydia H. Thomson Law Corporation",
@@ -4792,7 +4814,8 @@
   "social": {
    "linkedin": "https://www.linkedin.com/in/stephen-holmes-89265316",
    "youtube": "https://www.youtube.com/channel/UClIzT-_LEbMlDY1o2JJpGTA"
-  }
+  },
+  "bookingUrl": "https://stephenholmeslawoffice.com/contact/"
  },
  {
   "name": "Jason Wuttunee Criminal Defence Lawyer",
@@ -4991,7 +5014,8 @@
    "facebook": "https://www.facebook.com/zsavocats",
    "instagram": "https://www.instagram.com/zsavocats",
    "linkedin": "https://www.linkedin.com/in/samy-ziada-9386121bb"
-  }
+  },
+  "bookingUrl": "https://zsavocats.com/consultation-juridique/"
  },
  {
   "name": "Kraska Law",
@@ -5230,7 +5254,8 @@
    "serving": [
     "East Vancouver"
    ]
-  }
+  },
+  "bookingUrl": "https://www.grayerlaw.com/booking"
  },
  {
   "name": "Van Looyen and Fallon Law Professional Corporation",
@@ -5377,7 +5402,8 @@
     "Mortgage enforcement",
     "Notarial services"
    ]
-  }
+  },
+  "bookingUrl": "https://goldwynlaw.ca/contact/"
  },
  {
   "name": "Muldoon & Company",
@@ -5471,7 +5497,8 @@
   "heroImage": "images/hero/snow-lawyers-professional-corporation-london.webp",
   "social": {
    "linkedin": "https://www.linkedin.com/in/geoff-snow-10042a29"
-  }
+  },
+  "bookingUrl": "https://snowlawyers.ca/contact/"
  },
  {
   "name": "Lakeshore Law",

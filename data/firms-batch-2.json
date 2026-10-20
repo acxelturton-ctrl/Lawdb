@@ -278,7 +278,8 @@
     "Toronto",
     "Sydney"
    ]
-  }
+  },
+  "bookingUrl": "https://chaudharylaw.com/book-an-appointment/"
  },
  {
   "name": "Lecker & Associates",
@@ -358,7 +359,8 @@
    "linkedin": "https://www.linkedin.com/company/leckerslaw",
    "x": "https://x.com/leckerslaw",
    "youtube": "https://www.youtube.com/channel/UCsTGMoNr1xHWqAhPY4vDMnA"
-  }
+  },
+  "bookingUrl": "https://leckerslaw.com/contact-us/"
  },
  {
   "name": "Toronto Civil Litigation Lawyers",
@@ -931,7 +933,8 @@
    "facebook": "https://www.facebook.com/AlbertaInjuryLawyers",
    "instagram": "https://www.instagram.com/jameshbrowninjurylawyers",
    "linkedin": "https://www.linkedin.com/company/james-h-brown-associates-alberta-injury-lawyers"
-  }
+  },
+  "bookingUrl": "https://www.jameshbrown.com/lawyers/"
  },
  {
   "name": "Snowdrop Immigration Services Ltd",
@@ -971,7 +974,8 @@
    "serving": [
     "Edmonton"
    ]
-  }
+  },
+  "bookingUrl": "https://snowdropimmigration.as.me/"
  },
  {
   "name": "Preferred Immigration Services",
@@ -1111,7 +1115,8 @@
    "facebook": "https://www.facebook.com/olalerelawoffice",
    "instagram": "https://www.instagram.com/olalerelaw",
    "youtube": "https://www.youtube.com/@olalerelawoffice4499"
-  }
+  },
+  "bookingUrl": "https://ottawaimmigrationlawyers.com/book-a-consultation/"
  },
  {
   "name": "JSM Law",
@@ -1469,7 +1474,8 @@
    "instagram": "https://www.instagram.com/greenandspiegel",
    "x": "https://x.com/GreenAndSpiegel",
    "youtube": "https://www.youtube.com/@greenandspiegelllp7817"
-  }
+  },
+  "bookingUrl": "https://gands.com/contact/"
  },
  {
   "name": "Unified Immigration Lawyers",
@@ -1808,7 +1814,8 @@
   },
   "social": {
    "instagram": "https://www.instagram.com/divorcelawyertoronto_jose"
-  }
+  },
+  "bookingUrl": "https://unified.cliogrow.com/book/1ddc733acd75ca1c7c73574e80d45c20"
  },
  {
   "name": "YLaw",
@@ -1903,7 +1910,8 @@
    "linkedin": "https://www.linkedin.com/company/ylaw-group",
    "x": "https://x.com/ylawfamilylaw",
    "youtube": "https://www.youtube.com/c/YLawGroupVancouver"
-  }
+  },
+  "bookingUrl": "https://www.ylaw.ca/contact/"
  },
  {
   "name": "Immiland",
@@ -1945,7 +1953,8 @@
    "linkedin": "https://www.linkedin.com/company/immiland-canada",
    "x": "https://x.com/immilandcanada",
    "youtube": "https://www.youtube.com/@Immiland"
-  }
+  },
+  "bookingUrl": "https://calendly.com/immiland-canada/1-hora-consulta-migratoria-regular?background_color=f0edee&text_color=262628&primary_color=1D1F21"
  },
  {
   "name": "Liberty Law LLP",
@@ -2094,7 +2103,8 @@
   "social": {
    "facebook": "https://www.facebook.com/Gogna-Immigration-Inc-108703088139775",
    "linkedin": "https://www.linkedin.com/company/gogna-immigration-inc"
-  }
+  },
+  "bookingUrl": "https://www.gognaimmigration.com/booking"
  },
  {
   "name": "Shapiro LLP",
@@ -2251,7 +2261,8 @@
    "facebook": "https://www.facebook.com/choiceimmigration.ca",
    "instagram": "https://www.instagram.com/choiceimmigration",
    "x": "https://x.com/choiceimmigrat"
-  }
+  },
+  "bookingUrl": "https://choiceimmigration.ca/contact/"
  },
  {
   "name": "Lambert Avocats",
@@ -2436,7 +2447,8 @@
    "instagram": "https://www.instagram.com/lmrt.immigration",
    "linkedin": "https://www.linkedin.com/company/lmrt-immigration-services-inc",
    "youtube": "https://www.youtube.com/c/LMRTimmigrationLoujinKhalil"
-  }
+  },
+  "bookingUrl": "https://lmrtimmigration.com/online-booking/"
  },
  {
   "name": "Diversitas Law Group",
@@ -2566,7 +2578,8 @@
   "social": {
    "facebook": "https://www.facebook.com/ImmigrationLawOfficeofRonenKurzfeld",
    "youtube": "https://www.youtube.com/channel/UC7AKwN-u1N1T7AdAp56g9aA"
-  }
+  },
+  "bookingUrl": "https://www.immigrationway.com/contact-us/"
  },
  {
   "name": "Randhawa Law Centre",
@@ -2778,7 +2791,8 @@
    "facebook": "https://www.facebook.com/Crossroadslaw",
    "instagram": "https://www.instagram.com/crossroadslaw",
    "linkedin": "https://www.linkedin.com/company/crossroadslaw"
-  }
+  },
+  "bookingUrl": "https://www.crossroadslaw.ca/contact-us/"
  },
  {
   "name": "Anderson Haak & Engels",
@@ -2985,7 +2999,8 @@
   "social": {
    "facebook": "https://www.facebook.com/seiflawfirm",
    "instagram": "https://www.instagram.com/seiflawteam"
-  }
+  },
+  "bookingUrl": "https://seiflawfirm.com/book-private-consultation/"
  },
  {
   "name": "Dimitri Trofimoff Lawyer",
@@ -3028,7 +3043,8 @@
     "Lanark"
    ]
   },
-  "heroImage": "images/hero/dimitri-trofimoff-lawyer-ottawa.webp"
+  "heroImage": "images/hero/dimitri-trofimoff-lawyer-ottawa.webp",
+  "bookingUrl": "https://calendar.app.google/hVL4YFpbzkahWsTF8"
  },
  {
   "name": "LawyerG",
@@ -3172,7 +3188,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "bookingUrl": "https://mandallimmigrationlaw.com/contact/"
  },
  {
   "name": "DLegal Law Office: Wills",
@@ -3356,7 +3373,8 @@
    "facebook": "https://www.facebook.com/HammercoLawyers",
    "instagram": "https://www.instagram.com/hammercolawyers",
    "linkedin": "https://www.linkedin.com/company/hammercolawyersllp"
-  }
+  },
+  "bookingUrl": "https://hammerco.ca/contact/"
  },
  {
   "name": "Bottos Law Group",
@@ -3600,7 +3618,8 @@
    "instagram": "https://www.instagram.com/timlouislaw",
    "linkedin": "https://www.linkedin.com/in/tim-louis-a883ba13",
    "x": "https://x.com/timlouislawco"
-  }
+  },
+  "bookingUrl": "https://timlouislaw.com/contact-us/"
  },
  {
   "name": "Aviron Law Professional Corporation",
@@ -3653,7 +3672,8 @@
    "facebook": "https://www.facebook.com/avironlaw",
    "instagram": "https://www.instagram.com/aviron_law",
    "linkedin": "https://www.linkedin.com/in/dilvir-tatter-b00347a2"
-  }
+  },
+  "bookingUrl": "https://www.avironlaw.com/booking-calendar/appointment"
  },
  {
   "name": "KH/Dunkley Law Group",
@@ -4132,7 +4152,8 @@
   },
   "social": {
    "instagram": "https://www.instagram.com/kahlonlaw"
-  }
+  },
+  "bookingUrl": "https://kahlonlaw.com/contact-us/"
  },
  {
   "name": "Ryan Edmonds Workplace Counsel",
@@ -4296,7 +4317,8 @@
    "facebook": "https://www.facebook.com/ngsidhu",
    "linkedin": "https://www.linkedin.com/in/shawn-sidhu-b69059a7",
    "x": "https://x.com/SidhuInjuryLaw"
-  }
+  },
+  "bookingUrl": "https://www.ngsidhu.com/contact-us/"
  },
  {
   "name": "Sabio Law LLP",
@@ -4391,7 +4413,8 @@
    "facebook": "https://www.facebook.com/Sabiollp",
    "instagram": "https://www.instagram.com/sabiollp",
    "linkedin": "https://www.linkedin.com/company/sabiollp"
-  }
+  },
+  "bookingUrl": "https://sabiollp.com/contact-us/"
  },
  {
   "name": "MD LAW GROUP",
@@ -4450,7 +4473,8 @@
   "social": {
    "facebook": "https://www.facebook.com/MD-Criminal-Defence-107584628167536",
    "linkedin": "https://www.linkedin.com/in/daniel-murphy-criminal-lawyer-573186a3"
-  }
+  },
+  "bookingUrl": "https://www.mdlawgroup.ca/contact"
  },
  {
   "name": "Avanessy Giordano LLP",
@@ -4545,7 +4569,8 @@
   "social": {
    "facebook": "https://www.facebook.com/B.KayLawOffice",
    "instagram": "https://www.instagram.com/canadian_immigration_lawyer"
-  }
+  },
+  "bookingUrl": "https://bkaylaw.com/contact-with-google-map/"
  },
  {
   "name": "Jahanshahi Business Law Firm",
@@ -4592,7 +4617,8 @@
    "instagram": "https://www.instagram.com/jahanshahilaw",
    "linkedin": "https://www.linkedin.com/company/18782605",
    "x": "https://x.com/jahanlaw"
-  }
+  },
+  "bookingUrl": "https://jahanlaw.ca/contact/"
  },
  {
   "name": "Siu Law Professional Corporation",
@@ -4818,7 +4844,8 @@
    "facebook": "https://www.facebook.com/SusanKarpa",
    "linkedin": "https://www.linkedin.com/in/susankarpa",
    "x": "https://x.com/SusanKarpa"
-  }
+  },
+  "bookingUrl": "https://www.susankarpa.com/contact/"
  },
  {
   "name": "Lawyer UP Canada",
@@ -4984,7 +5011,8 @@
     "Business law",
     "Wills and estates"
    ]
-  }
+  },
+  "bookingUrl": "https://www.dalestreimanlaw.com/book-an-appointment/"
  },
  {
   "name": "Erikson Law Firm",
@@ -5186,7 +5214,8 @@
    "linkedin": "https://www.linkedin.com/in/rory-ziv-29711a140",
    "x": "https://x.com/edmontonz",
    "youtube": "https://www.youtube.com/channel/UCSDvCxAhJs_W5kbeJpQjJYw"
-  }
+  },
+  "bookingUrl": "https://edmontoncriminallawyerziv.com/contactus/"
  },
  {
   "name": "Silver Immigration",
@@ -5240,7 +5269,8 @@
   "social": {
    "instagram": "https://www.instagram.com/silverimmigration",
    "x": "https://x.com/SilverImm"
-  }
+  },
+  "bookingUrl": "https://calendly.com/silverimm/"
  },
  {
   "name": "Merchant Law Group LLP",
@@ -5368,7 +5398,8 @@
    "facebook": "https://www.facebook.com/Mawaziniimmigrationvisa",
    "instagram": "https://www.instagram.com/mawazini_immigration",
    "x": "https://x.com/Mawazini_visa"
-  }
+  },
+  "bookingUrl": "https://mawazini.ca/appointment/"
  },
  {
   "name": "Laws & Beyond",
@@ -5572,7 +5603,8 @@
    "facebook": "https://www.facebook.com/pacificpointlaw",
    "instagram": "https://www.instagram.com/pacificpointlaw",
    "linkedin": "https://www.linkedin.com/company/pacific-point-law-corporation"
-  }
+  },
+  "bookingUrl": "https://www.pacificpointlaw.ca/book-consultation"
  },
  {
   "name": "RPB Family Law",
@@ -5652,7 +5684,8 @@
   },
   "social": {
    "facebook": "https://www.facebook.com/rpblaw"
-  }
+  },
+  "bookingUrl": "https://rpblaw.ca/contact/"
  },
  {
   "name": "KN LAW",
@@ -5878,7 +5911,8 @@
    "facebook": "https://www.facebook.com/GeramiLawPC",
    "linkedin": "https://www.linkedin.com/in/arghavan-gerami-ba776519",
    "x": "https://x.com/ArghavanGerami"
-  }
+  },
+  "bookingUrl": "https://geramilaw.com/requestconsultation.html"
  },
  {
   "name": "Leiter Rahme Attorneys Inc.",

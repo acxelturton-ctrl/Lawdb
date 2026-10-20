@@ -329,9 +329,11 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(first.status === 204 && !first.headers.get('set-cookie'), 'a page-view message is accepted with no content and no cookie');
     const later = await send({ t: 'pv', p: '/firms/achkar-law', m: 1, s: 0 });
     const click = await send({ t: 'ev', e: 'call', p: '/firms/achkar-law' });
+    const book = await send({ t: 'ev', e: 'book', p: '/firms/achkar-law' });
+    const locked = await send({ t: 'ev', e: 'book-locked', p: '/firms/achkar-law' });
     const found = await send({ t: 'search', c: 'family', city: 'Ottawa|ON' });
     const town = await send({ t: 'search', c: 'criminal', w: `${tag}ville` });
-    ok([later, click, found, town].every((r) => r.status === 204), 'clicks and searches are accepted too');
+    ok([later, click, book, locked, found, town].every((r) => r.status === 204), 'clicks (including Book a call) and searches are accepted too');
     const robot = await send({ t: 'pv', p: `/smoke-robot-${tag}`, s: 1 }, 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)');
     const junk = [await send({ t: 'pv', p: '<script>' }), await send({ t: 'ev', e: 'delete-everything', p: '/' }), await send({ t: 'nope' }), await send('not an object'), await call('POST', '/api/a', null, { 'user-agent': UA })];
     ok(robot.status === 204 && junk.every((r) => r.status === 204), 'robots and nonsense are answered the same way and simply not counted');
@@ -1248,6 +1250,18 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     as(adminJar);
     await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' });
     cookie = '';
+    // Book a call: greyed out until a firm has a booking link, active with one (hand-built and database-built pages alike)
+    ok(fp.includes('class="li-btn li-book li-book-off"') && fp.includes('Book a call') && dp.text.includes('class="li-btn li-book li-book-off"') && dp.text.includes('Book a call'), 'every firm page, hand-built or database-built, has a greyed-out Book a call button until the firm adds a booking link');
+    as(adminJar);
+    ok((await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: 'http://calendly.com/torys' })).status === 422 && (await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: 'javascript:alert(1)' })).status === 422, 'a booking link must be an https address');
+    ok((await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: 'https://calendly.com/torys/30min?month=2020-01&utm_source=x' })).status === 200, 'an admin can add a booking link');
+    cookie = '';
+    const bk = (await getRaw('/firms/torys-llp')).text;
+    ok(bk.includes('class="li-btn li-book" href="https://calendly.com/torys/30min"') && !bk.includes('class="li-btn li-book li-book-off"') && bk.includes('rel="noopener nofollow"'), 'with a booking link the button is active and opens it in a new tab, with the month and tracking parts dropped');
+    as(adminJar);
+    ok((await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: '' })).status === 200, 'the booking link can be removed');
+    cookie = '';
+    ok((await getRaw('/firms/torys-llp')).text.includes('class="li-btn li-book li-book-off"'), 'removing it greys the button out again');
     const jsf = await getRaw('/follow.js');
     ok(jsf.status === 200 && /javascript/.test(jsf.headers.get('content-type') || '') && !/eval\(|document\.write|innerHTML/.test(jsf.text), 'the Follow script is plain and never builds markup from data');
     const nw = (await getRaw('/news')).text;

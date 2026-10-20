@@ -2671,5 +2671,10 @@
   "kind": "cover",
   "src": "images/hero/waseer-law-office-london.webp",
   "from": "https://waseerlaw.ca/wp-content/uploads/2026/10/waseer-law-office-building-london.webp"
+ },
+ "quantum-business-law-markham": {
+  "kind": "cover",
+  "src": "images/hero/quantum-business-law-markham.webp",
+  "from": "provided by the LawDB owner"
  }
 }

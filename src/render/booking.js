@@ -18,15 +18,18 @@ const CSS = '<style>.li-book-row{margin:10px 0 0;max-width:470px}' +
   '.li-book-off{background:#f3f1ec;border:1.5px dashed #cdc8bc;color:#8a8f98}' +
   '.li-book-off:hover{background:#eeebe4;color:#6b7078;transform:none;box-shadow:none;filter:none}' +
   '.lw-book-note{margin:8px 0 0;max-width:470px;font:500 13.5px/1.5 Inter,system-ui,sans-serif;color:#636870}' +
-  '.lw-book-note a{color:#b45309;font-weight:600;text-decoration:underline;text-underline-offset:2px}.lw-book-note a:hover{color:#1f2328}</style>';
+  '</style>';
 
 // The button row for one firm. `url` is whatever is stored; only a valid one makes the button active.
-export function bookingRow({ url, slug, name }) {
+export function bookingRow({ url, name, managed = false }) {
   const good = cleanBookingUrl(url || '');
   if (good) {
     return `${CSS}<div class="li-book-row"><a class="li-btn li-book" href="${esc(good)}" target="_blank" rel="noopener nofollow" title="Opens ${esc(name)}'s own booking page">${CAL}<span>Book a call</span></a></div>`;
   }
-  const claim = `/account/#find/${esc(String(slug).replace(/[^a-z0-9-]/g, ''))}`;
+  // The page already has its own "Claim this listing" line right under the buttons, so the note points to it instead of repeating the link.
+  const note = managed
+    ? `${esc(name)} hasn&#x27;t added an online booking link yet.`
+    : `${esc(name)} hasn&#x27;t added an online booking link yet. If you run this firm, use &ldquo;Claim this listing&rdquo; below to add one.`;
   return `${CSS}<div class="li-book-row"><button type="button" class="li-btn li-book li-book-off" aria-disabled="true" aria-expanded="false" aria-controls="lw-book-note">${LOCK}<span>Book a call</span></button>` +
-    `<p class="lw-book-note" id="lw-book-note" hidden>${esc(name)} hasn&#x27;t added an online booking link yet. <a href="${claim}" data-claim="${esc(String(slug).replace(/[^a-z0-9-]/g, ''))}">Own this firm? Claim your listing to add one.</a></p></div>`;
+    `<p class="lw-book-note" id="lw-book-note" hidden>${note}</p></div>`;
 }

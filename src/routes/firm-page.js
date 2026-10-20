@@ -113,7 +113,8 @@ export async function firmPage({ request, env, ctx }) {
     if (res.status === 200 && row && row.status === 'live' && !row.featured) res = new HTMLRewriter().on('div.guide', { element(el) { el.remove(); } }).transform(res);
     if (res.status === 200 && row && row.status === 'live') {
       const rec = JSON.parse(row.data);
-      res = withFollow(res, m[1], await managedBy(env, m[1]), profilesBox(rec.social, rec.name), hasLinkedIn(rec.social), bookingRow({ url: rec.bookingUrl, slug: m[1], name: rec.name }));
+      const managed = await managedBy(env, m[1]);
+      res = withFollow(res, m[1], managed, profilesBox(rec.social, rec.name), hasLinkedIn(rec.social), bookingRow({ url: rec.bookingUrl, name: rec.name, managed }));
     }
     if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
     return res;
@@ -132,6 +133,7 @@ export async function firmPage({ request, env, ctx }) {
   // No real description yet: keep the page out of Google (it stays reachable and its links still count) until there is one.
   const held = !isIndexable(row.about);
   if (held) html = html.replace('</head>', '<meta name="robots" content="noindex,follow">\n</head>');
+  const managed = await managedBy(env, m[1]);
   const res = withFollow(new Response(html, {
     headers: {
       'content-type': 'text/html; charset=utf-8',
@@ -140,7 +142,7 @@ export async function firmPage({ request, env, ctx }) {
       'x-lawdb-source': 'database',
       ...(held ? { 'x-robots-tag': 'noindex, follow' } : {}),
     },
-  }), m[1], await managedBy(env, m[1]), '', false, bookingRow({ url: bookingUrlOf(row), slug: m[1], name: nameOf(row) }));
+  }), m[1], managed, '', false, bookingRow({ url: bookingUrlOf(row), name: nameOf(row), managed }));
   if (ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
   return res;
 }

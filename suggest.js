@@ -201,7 +201,8 @@
       sync();
       var raw=input.value.trim(), my=++seq;
       load().then(function(){ if(my!==seq) return; paint(build(raw)); }).catch(function(){ close(); });
-      if(raw.length>=3&&!placesOK) loadPlaces().then(function(){ if(placesOK&&my===seq&&document.activeElement===input) paint(build(raw)); });
+      // the towns can arrive before the firm list does: draw only once both are here
+      if(raw.length>=3&&!placesOK) Promise.all([load(),loadPlaces()]).then(function(){ if(placesOK&&my===seq&&document.activeElement===input) paint(build(raw)); }).catch(function(){});
     }
     function setActive(i){
       items.forEach(function(e){ e.classList.remove('is-active'); });

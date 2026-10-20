@@ -91,6 +91,13 @@ for (const f of ['firms_data.json', 'blog_data.json', 'firms_hours.json']) {
 }
 const staticOrder = staticFile('firms_data.json').map((f) => f.slug);
 ok(isDeepStrictEqual((JSON.parse((await getRaw('/firms_data.json')).text)).map((f) => f.slug), staticOrder), 'firm order is preserved');
+{
+  // the towns the search box knows (a place with no firm of its own is answered with the nearest firms)
+  const places = await getRaw('/places.json'), lib = await getRaw('/lawdb-places.js');
+  let list = null; try { list = JSON.parse(places.text).places; } catch {}
+  ok(places.status === 200 && Array.isArray(list) && list.length > 5000 && list.some((p) => p[0] === 'Keswick' && p[1] === 'ON'), 'places.json (towns the search box knows) is served');
+  ok(lib.status === 200 && /LawdbPlaces/.test(lib.text), 'lawdb-places.js is served');
+}
 const PROV = { '/ontario/ottawa/': 'ON', '/manitoba/': 'MB', '/quebec/quebec-city/': 'QC' };
 const sizes = {};
 for (const path of ['/find-lawyers', '/ontario/ottawa/', '/manitoba/', '/quebec/quebec-city/']) {

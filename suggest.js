@@ -3,6 +3,8 @@
    - reads "family lawyer in Ottawa" style queries (practice area + city or province)
    - suggests practice areas x cities, cities, provinces, "near me" and firm names
    - onPick(query) runs a full search; default sends people to find-lawyers?q=
+   - a town with no firm of its own (Keswick) is answered with the firms nearest to it: onPlace(label, caseId) runs that search, default sends people
+     to find-lawyers?near=Keswick, ON; "near me" asks the browser for the location: onNear({lat,lng}, caseId), default goes to find-lawyers?near=me
    Look and feel lives in lawdb-search.css (class names ls-*). */
 (function(){
   var CASES=[
@@ -54,6 +56,32 @@
       return pending;
     }
     function cityObj(name,prov){ for(var i=0;i<cities.length;i++){ if(cities[i].c===name&&cities[i].p===prov) return cities[i]; } return null; }
+    /* towns without a firm of their own: places.json is fetched the first time someone types a place we do not list */
+    var placesP=null, placesOK=false;
+    function loadPlaces(){
+      if(placesP) return placesP;
+      placesP=new Promise(function(res,rej){
+        function go(){ window.LawdbPlaces.load(root).then(function(){ placesOK=true; res(); },rej); }
+        if(window.LawdbPlaces) return go();
+        var sc=document.createElement('script'); sc.src=root+'lawdb-places.js?v=1'; sc.onload=go; sc.onerror=function(){ rej(new Error('places')); };
+        document.head.appendChild(sc);
+      }).catch(function(){ placesP=null; });
+      return placesP;
+    }
+    function closestInfo(pl,kase){
+      var r=window.LawdbPlaces.nearest(firms,pl.lat,pl.lng,{caseId:kase,max:1,minCase:1});
+      return r.list.length?{f:r.list[0].f,km:r.list[0].km}:null;
+    }
+    function kmText(d){ return (d<10?d.toFixed(1):Math.round(d))+' km'; }
+    // places for a typed fragment that are not already one of our firm cities
+    function placeRows(frag,kase){
+      if(!placesOK||!frag||frag.length<3) return [];
+      return window.LawdbPlaces.suggest(frag,6).filter(function(pl){ return !cityObj(pl.name,pl.prov); }).slice(0,4);
+    }
+    function rowPlace(pl,kase){
+      var info=closestInfo(pl,kase), what=kase?BYID[kase].plural:'Lawyers';
+      return '<div class="ls-i" role="option" data-k="place" data-place="'+esc(pl.label)+'" data-case="'+(kase||'')+'"><span class="ls-ico">'+ICON.pin+'</span><span class="ls-t"><b>'+esc(pl.label)+'</b><small>'+esc(what)+' nearest to '+esc(pl.name)+'</small></span>'+(info?'<span class="ls-r">closest '+kmText(info.km)+'</span>':'')+'</div>';
+    }
     function parse(raw){
       var q=norm(raw), pad=' '+q+' ', r={q:q,kase:null,city:null,prov:null,near:/ (near me|nearby|close to me|around me) /.test(pad),rest:''}, i, k;
       for(i=0;i<WORDS.length;i++){ if(has(pad,WORDS[i].w)){ r.kase=WORDS[i].id; pad=cut(pad,WORDS[i].w); break; } }
@@ -128,7 +156,10 @@
         if(!frag&&opt.near!==false) html+=rowNear(p.kase);
         html+=cc.map(function(x){ return rowCombo('pin',x.c.c+', '+x.c.p,BYID[p.kase].plural+' in '+x.c.c,BYID[p.kase].say+' in '+x.c.c,x.n); }).join('');
         if(frag&&frag.length>=3) Object.keys(PROV_WORDS).forEach(function(w){ if(w.length>3&&w.indexOf(frag)===0){ var pv=PROV_WORDS[w]; html+=rowCombo('pin',PROV_NAME[pv],BYID[p.kase].plural+' in all of '+PROV_NAME[pv],BYID[p.kase].say+' in '+PROV_NAME[pv],provCount(pv,p.kase)); } });
-        if(frag&&!cc.length&&html.indexOf('data-k="pick"')===-1) html+='<div class="ls-empty">No city matches &ldquo;'+esc(frag)+'&rdquo;. Try <b>'+esc(BYID[p.kase].say)+' in Toronto</b>.</div>';
+        var pr=placeRows(frag,p.kase);
+        html+=pr.map(function(pl){ return rowPlace(pl,p.kase); }).join('');
+        if(frag&&frag.length>=3&&!placesOK&&!cc.length) html+='<div class="ls-empty">Looking for &ldquo;'+esc(frag)+'&rdquo;&hellip;</div>';
+        else if(frag&&!cc.length&&!pr.length&&html.indexOf('data-k="pick"')===-1) html+='<div class="ls-empty">We could not find a place called &ldquo;'+esc(frag)+'&rdquo;. Try the nearest bigger town, or <b>'+esc(BYID[p.kase].say)+' in Toronto</b>.</div>';
         return html;
       }
       if(p.city||p.prov){
@@ -146,11 +177,14 @@
       var ct=n.length>=2?cities.filter(function(c){ return c.n.indexOf(n)===0||c.n.indexOf(' '+n)!==-1; }).slice(0,4):[];
       var pv=n.length>=3?Object.keys(PROV_WORDS).filter(function(w){ return w.length>3&&w.indexOf(n)===0; }).map(function(w){ return PROV_WORDS[w]; }):[];
       var fm=n.length>=3?firms.filter(function(f){ return norm(f.name).indexOf(n)!==-1; }).sort(function(a,b){ var x=norm(a.name).indexOf(n)===0?0:1,y=norm(b.name).indexOf(n)===0?0:1; return (x-y)||rank(a,b); }).slice(0,4):[];
-      if(cl.length||ct.length||pv.length) html+=head('Suggestions');
+      var pls=ct.length?[]:placeRows(n,null);
+      if(cl.length||ct.length||pv.length||pls.length) html+=head('Suggestions');
       html+=cl.map(function(c){ return rowCombo('search',c.plural,'Practice area · add a city',c.say+' in ',cnt(function(f){ return hasCase(f,c.id); }),true); }).join('');
       html+=ct.map(function(c){ return rowCombo('pin',c.c+', '+c.p,'City · all practice areas',c.c,cityCount(c)); }).join('');
       html+=pv.map(function(v){ return rowCombo('pin',PROV_NAME[v],'Province · pick a practice area',PROV_NAME[v]+' ',provCount(v),true); }).join('');
+      html+=pls.map(function(pl){ return rowPlace(pl,null); }).join('');
       if(fm.length) html+=head('Law firms')+fm.map(function(f){ return rowFirm(f,null); }).join('');
+      if(!html&&n.length>=3&&!placesOK) html='<div class="ls-empty">Looking for &ldquo;'+esc(n)+'&rdquo;&hellip;</div>';
       if(!html) html=hint();
       return html;
     }
@@ -167,6 +201,7 @@
       sync();
       var raw=input.value.trim(), my=++seq;
       load().then(function(){ if(my!==seq) return; paint(build(raw)); }).catch(function(){ close(); });
+      if(raw.length>=3&&!placesOK) loadPlaces().then(function(){ if(placesOK&&my===seq&&document.activeElement===input) paint(build(raw)); });
     }
     function setActive(i){
       items.forEach(function(e){ e.classList.remove('is-active'); });
@@ -179,24 +214,28 @@
       if(opt.onPick) opt.onPick(q);
       else window.location.href=root+'find-lawyers?q='+encodeURIComponent(q);
     }
-    function fill(q){ input.value=q; input.focus(); input.dispatchEvent(new Event('input',{bubbles:true})); }
-    function nearest(){
-      return load().then(function(){ return new Promise(function(res,rej){
-        if(!navigator.geolocation) return rej();
-        navigator.geolocation.getCurrentPosition(function(pos){
-          var m={}; firms.forEach(function(f){ if(f.lat==null) return; var k=f.city+'|'+f.province; m[k]=m[k]||{c:f.city,p:f.province,la:0,ln:0,n:0}; m[k].la+=f.lat; m[k].ln+=f.lng; m[k].n++; });
-          var best=null,bd=1e9; Object.keys(m).forEach(function(k){ var c=m[k],la=c.la/c.n,ln=c.ln/c.n,d=Math.pow(la-pos.coords.latitude,2)+Math.pow((ln-pos.coords.longitude)*Math.cos(la*Math.PI/180),2); if(d<bd){bd=d;best=c;} });
-          best?res(best):rej();
-        },function(){ rej(); },{timeout:8000,maximumAge:600000});
-      }); });
+    function pickPlace(label,kase){
+      close();
+      if(opt.onPlace) opt.onPlace(label,kase);
+      else window.location.href=root+'find-lawyers?near='+encodeURIComponent(label)+(kase?'&case='+encodeURIComponent(kase):'');
     }
+    function fill(q){ input.value=q; input.focus(); input.dispatchEvent(new Event('input',{bubbles:true})); }
+    function locateMe(){
+      return new Promise(function(res,rej){
+        if(!navigator.geolocation) return rej();
+        navigator.geolocation.getCurrentPosition(function(pos){ res({lat:pos.coords.latitude,lng:pos.coords.longitude}); },function(){ rej(); },{timeout:9000,maximumAge:600000});
+      });
+    }
+    /* "Lawyers near me": the lawyers closest to where the person is, whatever town that is. The spot stays in this browser tab (sessionStorage), never in the address. */
     function near(row){
       var kase=row.getAttribute('data-case')||null, sm=row.querySelector('small');
-      sm.textContent='Finding the closest city…';
-      nearest().then(function(c){
-        if(kase) pick(BYID[kase].say+' in '+c.c);
-        else fill('lawyer in '+c.c);
-      }).catch(function(){ sm.textContent='Location is off. No problem, pick a city instead.'; });
+      sm.textContent='Finding where you are\u2026';
+      locateMe().then(function(pos){
+        close();
+        if(opt.onNear){ opt.onNear(pos,kase); return; }
+        try{ sessionStorage.setItem('lawdb.near',JSON.stringify({lat:Math.round(pos.lat*1000)/1000,lng:Math.round(pos.lng*1000)/1000,t:Date.now()})); }catch(e){}
+        window.location.href=root+'find-lawyers?near=me'+(kase?'&case='+encodeURIComponent(kase):'');
+      }).catch(function(){ sm.textContent='Location is off. No problem, type your town instead.'; });
     }
 
     box.addEventListener('mousedown',function(e){ if(e.target.closest&&e.target.closest('.ls-i')) e.preventDefault(); });
@@ -205,6 +244,7 @@
       var k=o.getAttribute('data-k'); if(k==='firm') return;
       e.preventDefault();
       if(k==='near') near(o);
+      else if(k==='place') pickPlace(o.getAttribute('data-place'),o.getAttribute('data-case')||null);
       else if(k==='fill') fill(o.getAttribute('data-q'));
       else pick(o.getAttribute('data-q'));
     });
@@ -222,6 +262,7 @@
         if(open&&raw&&items.length&&pending&&firms){
           var p=parse(raw);
           if(!p.kase&&!p.city&&!p.prov){ var first=items.filter(function(el){ return el.getAttribute('data-k')!=='near'; })[0]; if(first){ e.preventDefault(); first.click(); } }
+          else if(p.kase&&!p.city&&!p.prov){ var pl=items.filter(function(el){ return el.getAttribute('data-k')==='place'; })[0]; if(pl){ e.preventDefault(); pl.click(); } }
         }
       } else if(e.key==='Escape'){ close(); }
     });
@@ -234,7 +275,7 @@
       clearBtn.addEventListener('click',function(){ input.value=''; input.focus(); input.dispatchEvent(new Event('input',{bubbles:true})); });
     }
     sync();
-    opt.api={ load:load, nearest:nearest, close:close, render:render, setVal:fill };
+    opt.api={ load:load, close:close, render:render, setVal:fill };
     return opt.api;
   };
 })();

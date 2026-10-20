@@ -46,7 +46,12 @@
     if(f.caseTypes && f.caseTypes.length) return areaName(f.caseTypes[0], f.province);
     return 'Law firm';
   }
+  /* "near a spot" (find-lawyers page only): the firms closest to a town with no firm of its own, or to the person: { lat, lng, label, me } */
+  function nearSel(){ return (typeof selectedNear !== 'undefined' && selectedNear) ? selectedNear : null; }
+  function setNear(v){ if(typeof selectedNear !== 'undefined') selectedNear = v; }
   function placeLabel(short){
+    var nr = nearSel();
+    if(nr) return 'Closest to ' + (nr.me ? 'you' : nr.label);
     if(selectedCityName) return selectedCityName + ', ' + selectedProvince;
     if(selectedRegion && typeof REGION_LABEL !== 'undefined' && REGION_LABEL[selectedRegion]) return REGION_LABEL[selectedRegion];
     var pv = (typeof PROVINCE_LABEL !== 'undefined' && PROVINCE_LABEL[selectedProvince]) || 'Canada';
@@ -87,7 +92,7 @@
   var base = [], view = [];
   var PER = 10, page = 1, viewSig = '', lastSlots = 0;
   var F = { feat: false, top: false, rev: false, open: false, sort: 'rec' };
-  var areaB = null, sel = null, userPos = null, mapOK = false, userMoved = false, sheetState = 'peek';
+  var areaB = null, sel = null, userPos = null, mapOK = false, userMoved = false, sheetState = 'peek', nearOrigin = false;
   var app, panel, scrollEl, listEl, selEl, mapWrap, areaBtn, locBtn;
 
   /* ------------------------------------------------------------ icons */
@@ -198,8 +203,8 @@
   }
 
   function queryText(){
-    var what = selectedCase ? lawyersLabel(selectedCase, selectedProvince) : 'Lawyers';
-    return what + ' in ' + placeLabel(true) + (selectedCityName ? '' : '');
+    var what = selectedCase ? lawyersLabel(selectedCase, selectedProvince) : 'Lawyers', nr = nearSel();
+    return nr ? what + ' near ' + (nr.me ? 'you' : nr.label) : what + ' in ' + placeLabel(true);
   }
   function renderQuery(){
     var q = $('gmQ'); if(!q) return;
@@ -274,10 +279,29 @@
   }
   function pad(){
     var m = isMobile();
-    return m ? { top: 128, bottom: 168 + 30, left: 36, right: 36 } : { top: 120, bottom: 60, left: 60, right: 60 };
+    return m ? { top: 128, bottom: 168 + 70, left: 40, right: 84 } : { top: 120, bottom: 60, left: 60, right: 90 };
+  }
+  /* Frame the person (or the town searched) and the few firms really near them. One far-off firm must not drag the view out, and a block of
+     offices must not zoom the map in to rooftops: the view is at least about a kilometre across and never closer than street level. */
+  function fitAround(o, list, animate){
+    if(!mapOK) return;
+    var ds = list.map(function(f){ return { f: f, d: km(o.lat, o.lng, f.lat, f.lng) }; }).sort(function(a, b){ return a.d - b.d; });
+    var lim = ds.length ? Math.max(2, ds[0].d * 2.2 + 1.5) : 0;
+    var w = o.lng, e = o.lng, s = o.lat, n = o.lat;
+    ds.filter(function(x){ return x.d <= lim; }).slice(0, 6).forEach(function(x){ w = Math.min(w, x.f.lng); e = Math.max(e, x.f.lng); s = Math.min(s, x.f.lat); n = Math.max(n, x.f.lat); });
+    var minLat = 0.006, minLng = minLat / Math.max(0.2, Math.cos(o.lat * Math.PI / 180));
+    if(n - s < minLat){ var mla = (n + s) / 2; s = mla - minLat / 2; n = mla + minLat / 2; }
+    if(e - w < minLng){ var mln = (e + w) / 2; w = mln - minLng / 2; e = mln + minLng / 2; }
+    userMoved = false;
+    var cam = null;
+    try { cam = map.cameraForBounds([[w, s], [e, n]], { padding: pad() }); } catch(x){}
+    var dur = animate && !REDUCED ? 700 : 0;
+    if(!cam){ map.easeTo({ center: [o.lng, o.lat], zoom: 12, duration: dur }); return; }
+    map.easeTo({ center: cam.center, zoom: Math.max(4.5, Math.min(cam.zoom, 15)), duration: dur });
   }
   function fitView(pts){
     if(!mapOK) return;
+    if(nearOrigin && userPos && !pts){ fitAround(userPos, view, false); return; }
     pts = pts || view;
     if(!pts.length) return;
     if(pts.length === 1){ map.jumpTo({ center: [pts[0].lng, pts[0].lat], zoom: 13 }); return; }
@@ -393,25 +417,28 @@
     clearTimeout(toastT); toastT = setTimeout(function(){ t.hidden = true; }, 4200);
   }
   function updateMe(){
-    if(!mapOK || !userPos) return;
-    try { map.getSource('me').setData(fc([pt({ lng: userPos.lng, lat: userPos.lat }, {})])); } catch(e){}
+    if(!mapOK) return;
+    try { map.getSource('me').setData(fc(userPos ? [pt({ lng: userPos.lng, lat: userPos.lat }, {})] : [])); } catch(e){}
   }
   function locate(){
-    if(!navigator.geolocation){ toast('Location isn’t available in this browser.'); return; }
+    if(!navigator.geolocation){ toast('Location isn\u2019t available in this browser.'); return; }
     locBtn.classList.add('busy');
     navigator.geolocation.getCurrentPosition(function(p){
       locBtn.classList.remove('busy'); locBtn.classList.add('on');
-      userPos = { lat: p.coords.latitude, lng: p.coords.longitude };
+      var here = { lat: p.coords.latitude, lng: p.coords.longitude };
+      if(p.coords.accuracy > 5000) toast('Your phone shared an approximate location (about ' + Math.round(p.coords.accuracy / 1000) + ' km). Search your town if this looks off.');
+      // Searching "near" a town and then tapping locate: the search becomes "near you" and the list is rebuilt around the person.
+      if(nearSel()){
+        setNear({ lat: here.lat, lng: here.lng, label: 'you', prov: null, me: true });
+        try { var nu = new URL(location.href); nu.searchParams.set('near', 'me'); history.replaceState({}, '', nu); } catch(e){}
+        showResults(true); return;
+      }
+      userPos = here; nearOrigin = false;
       updateMe();
       F.sort = 'near'; areaB = null; hideArea();
       computeView(); renderPanel(); drawMap(false);
       if(sel) { renderSel(); }
-      if(mapOK){
-        var near = view.slice(0, 4), w = userPos.lng, e = userPos.lng, s = userPos.lat, n = userPos.lat;
-        near.forEach(function(f){ w = Math.min(w, f.lng); e = Math.max(e, f.lng); s = Math.min(s, f.lat); n = Math.max(n, f.lat); });
-        userMoved = false;
-        map.fitBounds([[w, s], [e, n]], { padding: pad(), maxZoom: 14, duration: REDUCED ? 0 : 700 });
-      }
+      if(mapOK) fitAround(userPos, view, true);
       if(isMobile() && !sel) setState('peek');
     }, function(){
       locBtn.classList.remove('busy');
@@ -639,6 +666,10 @@
   /* ------------------------------------------------------------ page hooks */
   renderMap = async function(list){
     base = (list || []).slice();
+    // the search "near a spot": the spot is where distances are measured from, and the nearest firm is listed first
+    var nr = nearSel();
+    if(nr){ userPos = { lat: nr.lat, lng: nr.lng }; nearOrigin = true; F.sort = 'near'; locBtn.classList.toggle('on', !!nr.me); }
+    else if(nearOrigin){ nearOrigin = false; userPos = null; if(F.sort === 'near') F.sort = 'rec'; locBtn.classList.remove('on'); }
     areaB = null; hideArea(); clearSel(true); userMoved = false; page = 1; viewSig = '';
     buildChipsOnce(); renderQuery(); sizeApp(true);
     computeView(); renderPanel();
@@ -717,6 +748,18 @@
     return { kind: 'combo', icon: kase ? 'search' : 'pin', main: what + ' in ' + tgtLabel(t), sub: extra || (kase ? 'Practice area' : 'All practice areas'),
       t: { caseId: kase || null, city: t.city || null, prov: t.prov || null } };
   }
+  /* towns with no firm of their own: places.json is fetched the first time a few letters are typed */
+  var placesP = null, placesReady = false;
+  function loadPlacesLib(){
+    if(placesP) return placesP;
+    placesP = new Promise(function(res, rej){
+      function go(){ window.LawdbPlaces.load(ROOT).then(function(){ placesReady = true; res(); }, rej); }
+      if(window.LawdbPlaces) return go();
+      var sc = document.createElement('script'); sc.src = ROOT + 'lawdb-places.js?v=1'; sc.onload = go; sc.onerror = function(){ rej(new Error('places')); };
+      document.head.appendChild(sc);
+    }).catch(function(){ placesP = null; });
+    return placesP;
+  }
   function suggestions(q){
     var items = [], seen = {}, p = parseQ(q), cur = curTarget();
     function add(it){ var k = it.kind + '|' + it.main; if(seen[k]) return; seen[k] = 1; items.push(it); }
@@ -740,6 +783,13 @@
         if(KW[id].some(function(w){ return w.indexOf(tail) === 0; }) || norm(AREA[id]).indexOf(tail) === 0) add(combo(id, tgt));
       });
       Object.keys(PROVS).forEach(function(k){ if(k.length > 3 && k.indexOf(tail) === 0) add(combo(p.kase, { prov: PROVS[k] }, 'Province')); });
+      if(placesReady && tail.length >= 3 && !p.city){
+        window.LawdbPlaces.suggest(tail, 6).filter(function(pl){
+          return !cities().some(function(c){ return c.c.name === pl.name && c.c.province === pl.prov; });
+        }).slice(0, 3).forEach(function(pl){
+          add({ kind: 'place', icon: 'pin', main: pl.label, sub: (p.kase ? lawyersLabel(p.kase, pl.prov) : 'Lawyers') + ' nearest to ' + pl.name, t: { place: pl, caseId: p.kase || null } });
+        });
+      }
     }
     var fq = p.n.replace(STOP, ' ').replace(/\s+/g, ' ').trim();
     if(fq.length >= 3){
@@ -781,6 +831,15 @@
   }
   function go(t){
     var kase = Object.prototype.hasOwnProperty.call(t, 'caseId') ? t.caseId : selectedCase;
+    if(t.place){
+      var spot = { lat: t.place.lat, lng: t.place.lng, label: t.place.label, prov: t.place.prov, me: false };
+      if(!IS_FIND || typeof selectedNear === 'undefined'){ location.href = ROOT + 'find-lawyers?near=' + encodeURIComponent(spot.label) + (kase ? '&case=' + encodeURIComponent(kase) : ''); return; }
+      selectedNear = spot; selectedCase = kase; selectedProvince = spot.prov; selectedRegion = null; selectedCityName = null;
+      try { var nu = new URL(location.href); nu.searchParams.set('near', spot.label); history.replaceState({}, '', nu); } catch(e){}
+      showResults(true);
+      return;
+    }
+    if(!t.near) setNear(null);
     if(t.near){
       if(kase !== selectedCase){ pendingLocate = true; selectedCase = kase; showResults(true); } else locate();
       return;
@@ -828,7 +887,7 @@
   function wireSearch(){
     var q = $('gmQ'), box = $('gmSug');
     q.addEventListener('focus', function(){ setTimeout(function(){ try { q.select(); } catch(e){} }, 0); drawSug(); if(isMobile() && !sel) setState('peek'); ensureAllFirms().then(function(){ if(document.activeElement === q) drawSug(); }); });
-    q.addEventListener('input', drawSug);
+    q.addEventListener('input', function(){ drawSug(); if(q.value.length >= 3 && !placesReady) loadPlacesLib().then(function(){ if(document.activeElement === q) drawSug(); }); });
     q.addEventListener('blur', function(){ setTimeout(function(){ closeSug(); renderQuery(); }, 160); });
     q.addEventListener('keydown', function(e){
       var n = sugItems.length;

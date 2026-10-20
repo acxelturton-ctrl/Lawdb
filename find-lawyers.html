@@ -324,7 +324,8 @@
 <link rel="stylesheet" href="desktop.css">
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="lawdb-search.css?v=1">
-<script src="suggest.js?v=2"></script>
+<script src="lawdb-places.js?v=1"></script>
+<script src="suggest.js?v=3"></script>
 <style>
 </style>
 </head>
@@ -672,20 +673,84 @@ function renderLive(){
     : `<span class="fy-tag miss">Add the kind of lawyer, e.g. "family" or "personal injury"</span>`);
   if(p.city) bits.push(`<span class="fy-tag">City: ${cityLabel(p.city)}</span>`);
   else if(p.prov) bits.push(`<span class="fy-tag">Province: ${PROVINCE_LABEL[p.prov]}</span>`);
-  else bits.push(`<span class="fy-tag miss">Add a city, e.g. "in Toronto"</span>`);
+  else {
+    // a town with no firm of its own counts too: we show the firms nearest to it
+    const guess = placeGuess(raw, p);
+    const hit = guess.length >= 3 ? LawdbPlaces.find(guess)[0] : null;
+    if(guess.length >= 3 && !hit && !LawdbPlaces.ready()) LawdbPlaces.load('').then(() => { if(fyInput.value === raw) renderLive(); }).catch(() => {});
+    bits.push(hit
+      ? `<span class="fy-tag">Near: ${hit.label}</span>`
+      : `<span class="fy-tag miss">Add a city or town, e.g. "in Toronto"</span>`);
+  }
   fyLive.innerHTML = bits.join('');
 }
 
 /* the suggestion card is the shared LawDB search engine (suggest.js), same as the homepage */
 const fySearch = LawdbSuggest(fyInput, fySug, {
   root: '', firms: firms,
-  onPick: q => { fyInput.value = q; renderLive(); runSearch(); }
+  onPick: q => { fyInput.value = q; renderLive(); runSearch(); },
+  onPlace: (label, caseId) => { fyErr.style.display = 'none'; lookUpPlace(label, caseId); },
+  onNear: (pos, caseId) => startNear({ lat: pos.lat, lng: pos.lng, label: 'you', me: true }, caseId)
 });
 function closeSug(){ fySearch.close(); }
 fyInput.addEventListener('input', () => { fyErr.style.display = 'none'; renderLive(); });
 
 function showSearchHelp(html){
   fyErr.innerHTML = html; fyErr.style.display = 'block';
+}
+// The part of the search that names a town: what is left after the practice area and the filler words ("criminal lawyer in Keswick, ON" -> "keswick on").
+function placeGuess(raw, p){
+  let rest = ' ' + normQ(raw) + ' ';
+  if(p.caseWord) rest = rest.replace(' ' + p.caseWord + ' ', ' ');
+  return rest.split(' ').filter(t => t && !FILLER.has(t)).join(' ');
+}
+function spotOf(pl){ return { lat: pl.lat, lng: pl.lng, label: pl.label, prov: pl.prov, me: false }; }
+function lookUpPlace(text, caseId, raw){
+  showSearchHelp(`Looking for <strong>${text.replace(/</g,'&lt;')}</strong>&hellip;`);
+  LawdbPlaces.load('').then(() => {
+    const hit = LawdbPlaces.find(text)[0];
+    if(hit){ fyErr.style.display = 'none'; startNear(spotOf(hit), caseId); return; }
+    const shown = (raw || text).replace(/</g,'&lt;');
+    if(caseId){
+      const btns = POPULAR_CITIES.slice(0,6).map(c => `<button type="button" data-q="${caseSay(caseId)} in ${cityLabel(c)}">${c.name}</button>`).join('');
+      showSearchHelp(`We couldn't find a place called <strong>${text.replace(/</g,'&lt;')}</strong>. Try the nearest bigger town, for example <strong>${caseSay(caseId)} in Toronto</strong>.<br>${btns}`);
+      fyErr.querySelectorAll('button[data-q]').forEach(b => b.addEventListener('click', () => { fyInput.value = b.dataset.q; runSearch(); }));
+    } else {
+      showSearchHelp(`We couldn't find a city or a type of lawyer in "${shown}". Try something like <strong>family lawyer in Ottawa</strong>, or pick a case type below. We cover Ontario, Quebec, British Columbia, Alberta and Manitoba.`);
+    }
+  }).catch(() => showSearchHelp('We could not look that town up just now. Check your connection and try again, or pick a bigger city nearby.'));
+}
+// Show the firms closest to a spot, nearest first.
+function startNear(spot, caseId){
+  selectedNear = spot;
+  selectedCase = caseId || null;
+  selectedProvince = spot.prov || null; selectedRegion = null; selectedCityName = null;
+  try {
+    const url = new URL(window.location);
+    url.search = '';
+    url.searchParams.set('near', spot.me ? 'me' : spot.label);
+    if(caseId) url.searchParams.set('case', caseId);
+    window.history.replaceState({}, '', url);
+  } catch(e){}
+  showResults(true);
+}
+// ?near=me (the browser's location, kept in this tab by the home page search) or ?near=Keswick, ON (a town)
+function startNearFromUrl(what, caseId){
+  if(what === 'me'){
+    let kept = null;
+    try { kept = JSON.parse(sessionStorage.getItem('lawdb.near') || 'null'); } catch(e){}
+    if(kept && typeof kept.lat === 'number' && typeof kept.lng === 'number' && Date.now() - kept.t < 30 * 60 * 1000){
+      startNear({ lat: kept.lat, lng: kept.lng, label: 'you', me: true }, caseId); return;
+    }
+    if(!navigator.geolocation){ showSearchHelp('Your browser cannot share its location. Type your town above instead.'); return; }
+    showSearchHelp('Finding where you are&hellip;');
+    navigator.geolocation.getCurrentPosition(
+      pos => { fyErr.style.display = 'none'; startNear({ lat: pos.coords.latitude, lng: pos.coords.longitude, label: 'you', me: true }, caseId); },
+      () => showSearchHelp('Location is off, so we cannot tell where you are. No problem: type your town above, like <strong>criminal lawyer in Keswick</strong>.'),
+      { timeout: 9000, maximumAge: 600000 });
+    return;
+  }
+  lookUpPlace(what, caseId);
 }
 function runSearch(){
   const raw = fyInput.value;
@@ -716,6 +781,9 @@ function runSearch(){
     showResults();
     return;
   }
+  // A town with no firm of its own ("criminal lawyer in Keswick"): answer with the firms nearest to it instead of asking again.
+  const guess = placeGuess(raw, p);
+  if(guess.length >= 3){ fyErr.style.display = 'none'; lookUpPlace(guess, p.caseId, raw); return; }
   if(p.caseId){
     const btns = POPULAR_CITIES.slice(0,6).map(c =>
       `<button type="button" data-q="${caseSay(p.caseId)} in ${cityLabel(c)}">${c.name}</button>`).join('');
@@ -730,6 +798,8 @@ fyForm.addEventListener('submit', e => { e.preventDefault(); closeSug(); runSear
 let selectedCase = null;
 let selectedProvince = null;
 let selectedRegion = null;
+// "Near a spot": the firms closest to a town with no firm of its own (Keswick) or to the person's own location. { lat, lng, label, prov, me }
+let selectedNear = null;
 let currentFeatured = [];
 
 // A calculated scroll instead of scrollIntoView: predictable regardless of
@@ -800,28 +870,12 @@ provinceRow.querySelectorAll('.province-chip:not(.disabled)').forEach(btn=>{
 });
 
 document.getElementById('locateInline').addEventListener('click', ()=>{
-  if(!navigator.geolocation) return;
-  navigator.geolocation.getCurrentPosition(pos=>{
-    // No geocoding API: find the closest region centre by straight-line
-    // distance across every live province, then derive the province from it.
-    const lat = pos.coords.latitude, lng = pos.coords.longitude;
-    let best = null, bestD = Infinity;
-    Object.entries(REGION_CENTERS).forEach(([rid, c])=>{
-      const d = Math.hypot(c.lat-lat, c.lng-lng);
-      if(d < bestD){ bestD = d; best = rid; }
-    });
-    if(!best) return;
-    selectedRegion = best;
-    selectedProvince = REGION_PROVINCE[best];
-    const chip = provinceRow.querySelector(`[data-p="${selectedProvince}"]`);
-    if(chip){
-      provinceRow.querySelectorAll('.province-chip').forEach(b=>b.classList.remove('active'));
-      chip.classList.add('active');
-      renderRegionTiles(selectedProvince);
-      document.getElementById('regionWrap').style.display = 'block';
-    }
-    showResults();
-  }, ()=>{ alert("Couldn't get your location. Pick a region manually."); });
+  // "Use my location": the firms closest to wherever the person is (no guessing a region first)
+  if(!navigator.geolocation){ alert("Your browser can't share its location. Pick a region manually."); return; }
+  navigator.geolocation.getCurrentPosition(
+    pos => startNear({ lat: pos.coords.latitude, lng: pos.coords.longitude, label: 'you', me: true }, selectedCase),
+    () => { alert("Couldn't get your location. Pick a region manually."); },
+    { timeout: 9000, maximumAge: 600000 });
 });
 
 /* ---------------- URL deep link (?province=xx&case=xxx&region=yyy from the homepage tiles, or ?city=xxx from a city search) ---------------- */
@@ -851,6 +905,11 @@ if(deepCity){
     goToCity(cityMatch, !!(deepCase && CASE_LABEL[deepCase]), (deepCase && CASE_LABEL[deepCase]) ? deepCase : null);
   }
 }
+// The firms nearest to a town or to the person (?near=Keswick%2C+ON or ?near=me), from the home page search or a shared link
+(function(){
+  var near = params.get('near');
+  if(near && near.trim()) startNearFromUrl(near.trim(), (deepCase && CASE_LABEL[deepCase]) ? deepCase : null);
+})();
 // A free-text search arriving from the homepage (?q=family+lawyer+in+Ottawa)
 // runs through the same smart search as the bar on this page.
 (function(){
@@ -861,7 +920,7 @@ if(deepCity){
 // this is the "click your case type on the homepage, land straight on the
 // map" path. A region/city in the URL too zooms straight to that area
 // instead of the whole province.
-if(!deepCity && deepProvince && PROVINCE_LABEL[deepProvince]){
+if(!deepCity && !params.get('near') && deepProvince && PROVINCE_LABEL[deepProvince]){
   renderRegionTiles(deepProvince);
   document.getElementById('regionWrap').style.display = 'block';
   if(deepRegion && REGION_PROVINCE[deepRegion] === deepProvince){
@@ -1053,10 +1112,18 @@ function renderGuides(){
 }
 
 function showResults(skipScroll){
+  // choosing a city or a region leaves "near a spot" mode
+  if(selectedNear && (selectedCityName || selectedRegion)) selectedNear = null;
+  // near a spot: the closest firms to it, whatever province or city they are in
+  const near = selectedNear ? LawdbPlaces.nearest(firms, selectedNear.lat, selectedNear.lng, { caseId: selectedCase, max: 40 }) : null;
+  const nearName = selectedNear ? (selectedNear.me ? 'you' : selectedNear.label) : '';
+  if(near && !selectedProvince && near.list.length) selectedProvince = near.list[0].f.province;
   document.getElementById('wizard').style.display = 'none';
   document.getElementById('results').classList.add('active');
   document.getElementById('casePill').textContent = selectedCase ? caseLabel(selectedCase, selectedProvince) : 'Any case type';
-  document.getElementById('regionPill').textContent = selectedCityName
+  document.getElementById('regionPill').textContent = selectedNear
+    ? 'Near ' + nearName
+    : selectedCityName
     ? selectedCityName + ', ' + selectedProvince
     : selectedRegion
       ? REGION_LABEL[selectedRegion]
@@ -1069,9 +1136,9 @@ function showResults(skipScroll){
   // a practice area narrows both live without leaving the page. Picking "Any
   // case type" again broadens it straight back out.
   const refineBox = document.getElementById('cityRefine');
-  if(selectedCityName){
+  if(selectedCityName || selectedNear){
     refineBox.style.display = 'block';
-    document.getElementById('cityRefineLabel').textContent = `What are you looking for in ${selectedCityName}?`;
+    document.getElementById('cityRefineLabel').textContent = selectedNear ? `What are you looking for near ${nearName}?` : `What are you looking for in ${selectedCityName}?`;
     const chipsHtml = CASE_TYPES.map(c => {
       const active = selectedCase === c.id ? ' active' : '';
       return `<div class="city-refine-chip${active}" data-c="${c.id}">${caseLabel(c.id, selectedProvince)}</div>`;
@@ -1108,7 +1175,7 @@ function showResults(skipScroll){
     cityFiltering = false;
     widenedNote = `We don't have a firm tagged for <strong>${caseLabel(selectedCase, selectedProvince).toLowerCase()}</strong> in ${selectedCityName} yet, so these are all the lawyers we list there. Featured partners for this case type appear above when available.`;
   }
-  const regional = regionFirms
+  let regional = regionFirms
     .filter(f => !cityFiltering || f.caseTypes.includes(selectedCase))
     .slice()
     .sort((a,b) => {
@@ -1123,7 +1190,14 @@ function showResults(skipScroll){
       if(ar !== br) return ar - br;
       return b.rating - a.rating;
     });
-  const featuredMatches = firms.filter(f => f.featured && inProvince(f) && (!selectedRegion || f.region === selectedRegion) && (!selectedCase || f.caseTypes.includes(selectedCase)));
+  let featuredMatches = firms.filter(f => f.featured && inProvince(f) && (!selectedRegion || f.region === selectedRegion) && (!selectedCase || f.caseTypes.includes(selectedCase)));
+  if(near){
+    featuredMatches = near.list.filter(x => x.f.featured).map(x => x.f);
+    regional = near.list.filter(x => !x.f.featured).map(x => x.f);
+    widenedNote = near.widened
+      ? `We don't have a firm tagged for <strong>${caseLabel(selectedCase, selectedProvince).toLowerCase()}</strong> within 150 km of ${selectedNear.me ? 'you' : selectedNear.label} yet, so these are the closest lawyers of any kind.`
+      : '';
+  }
   currentFeatured = featuredMatches;
 
   document.getElementById('matchCount').textContent = `${regional.length + featuredMatches.length} firm${(regional.length+featuredMatches.length)===1?'':'s'} shown`;
@@ -1218,6 +1292,7 @@ async function focusFirmOnMap(slug){
 
 document.getElementById('changeFilters').addEventListener('click', ()=>{
   document.getElementById('results').classList.remove('active');
+  selectedNear = null;
   if(selectedCityName){
     // Already on a city - the only thing worth re-asking is the practice
     // area, not province/region we already know from the city itself.
@@ -1481,7 +1556,7 @@ async function renderMap(list){
 }
 </script>
 <!-- LAWDB-MAP-START -->
-<script src="lawdb-map.js?v=3"></script>
+<script src="lawdb-map.js?v=4"></script>
 <!-- LAWDB-MAP-END -->
 <script src="site.js" defer></script>
 <script src="/follow.js" defer></script>

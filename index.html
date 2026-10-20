@@ -358,6 +358,10 @@
 .hero.hero3{ position:relative; isolation:isolate; text-align:center; padding:72px 20px 84px; background:#fdfcf9; }
   .hero.hero3::before{ content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse 60% 76% at 50% 46%, rgba(253,252,249,.66) 0%, rgba(253,252,249,.46) 55%, rgba(253,252,249,.04) 100%), url('images/hero-photo.webp') center 30%/cover no-repeat, #fdfcf9; }
   @media(max-width:700px){ .hero.hero3{ padding:56px 16px 64px; } .hero.hero3::before{ background:linear-gradient(rgba(253,252,249,.6), rgba(253,252,249,.46)), url('images/hero-photo.webp') 46% 30%/cover no-repeat, #fdfcf9; } }
+  /* The second hero photo fades in over the first and back out, every 5 seconds (10-second loop). It is added by a small script after the page has loaded (class xf), so it never competes with the first photo, and not at all when the visitor prefers reduced motion. */
+  .hero.hero3.xf::after{ content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse 60% 76% at 50% 46%, rgba(253,252,249,.66) 0%, rgba(253,252,249,.46) 55%, rgba(253,252,249,.04) 100%), url('images/hero-photo-2.webp') center 62%/cover no-repeat, #fdfcf9; opacity:0; animation:heroXfade 10s ease-in-out infinite; }
+  @media(max-width:700px){ .hero.hero3.xf::after{ background:linear-gradient(rgba(253,252,249,.6), rgba(253,252,249,.46)), url('images/hero-photo-2.webp') 50% 62%/cover no-repeat, #fdfcf9; } }
+  @keyframes heroXfade{ 0%,40%{ opacity:0; } 50%,90%{ opacity:1; } 100%{ opacity:0; } }
   .hero.hero3 h1{ max-width:none; margin:0 0 14px; text-align:center; font-size:clamp(36px,6vw,56px); text-shadow:0 0 18px rgba(253,252,249,.9), 0 0 4px rgba(253,252,249,.7); }
   .hero.hero3 .h3-sub, .hero.hero3 .h3-label{ text-shadow:0 0 12px rgba(253,252,249,.95), 0 0 3px rgba(253,252,249,.8); }
   .hero.hero3 .h3-stats span{ color:#3d434b; font-weight:600; text-shadow:0 0 10px rgba(253,252,249,.95); }
@@ -652,6 +656,14 @@ section#cases{ padding-bottom:36px; }
   </div>
 </footer>
 
+<script>
+(function(){
+  var h=document.querySelector('.hero3');
+  if(!h||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
+  function go(){var i=new Image();i.onload=function(){h.classList.add('xf');};i.src='images/hero-photo-2.webp';}
+  if(document.readyState==='complete')go();else addEventListener('load',go);
+})();
+</script>
 <script src="site.js" defer></script>
 <script src="lwa.js?v=2" defer></script>
 <script src="/follow.js" defer></script>

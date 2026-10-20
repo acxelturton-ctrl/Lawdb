@@ -23,6 +23,10 @@
       "/ontario/*/", "/quebec/*/", "/british-columbia/*/", "/alberta/*/", "/manitoba/*/"
     ]
   },
+  // The site lives at lawdb.ca (a custom domain set up in the dashboard). Keep the duplicate lawdb.acxelturton.workers.dev
+  // address and the per-version preview addresses switched off; without these two lines every deploy turns them back on.
+  "workers_dev": false,
+  "preview_urls": false,
   // Keep anything added by hand in the dashboard (e.g. a "Text" variable) when this config is deployed.
   "keep_vars": true,
   // Non-secret settings. Secrets (BREVO_API_KEY, ADMIN_EMAILS) are set in the Cloudflare dashboard:

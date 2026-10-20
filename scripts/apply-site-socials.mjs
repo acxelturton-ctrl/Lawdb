@@ -21,12 +21,14 @@ const link = (s, size, fill, extra = '') =>
   `<a href="${s.url}" target="_blank" rel="noopener me" aria-label="LawDB on ${s.label}" title="${s.label}"${extra}>` +
   `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="${fill}" aria-hidden="true" style="display:block"><path d="${s.d}"/></svg></a>`;
 
-// Footer: grey icons that turn white on hover through the footer's own link colours.
-const FOOTER_ROW = `<div class="fsoc" style="display:flex;gap:16px;margin-top:16px">${SOCIALS.map((s) => link(s, 20, 'currentColor')).join('')}</div>`;
+// Footer: grey icons that turn white on hover through the footer's own link colours; each link has an 8px pad (a 36px tap target) that
+// does not move the icon.
+const FOOTER_ROW = `<div class="fsoc" style="display:flex;gap:16px;margin-top:16px">${SOCIALS.map((s) => link(s, 20, 'currentColor', ' style="display:block;padding:8px;margin:-8px"')).join('')}</div>`;
 // Contact page: brand colours on the page's light background, under the form card.
 const CONTACT_ROW = `<p class="ct-follow" style="display:flex;align-items:center;justify-content:center;gap:16px;margin:28px 0 0;font-size:1rem">` +
   `<span>Follow LawDB</span>${SOCIALS.map((s) => link(s, 24, s.color, ' style="display:inline-flex;text-decoration:none"')).join('')}</p>`;
 
+const FSOC_ROW = /<div class="fsoc"[^\n]*<\/div>/;
 const FBLURB_END = /^([ \t]*)(<p class="fblurb">[^\n]*<\/p>)(\n?)(?![ \t\n]*<div class="fsoc")/m;
 const sameAs = JSON.stringify(SOCIALS.map((s) => s.url));
 
@@ -53,6 +55,7 @@ const edit = (file, fn) => {
 for (const file of pagesIn('.')) {
   edit(file, (h) => {
     if (!h.includes('class="fblurb"')) return h;
+    if (FSOC_ROW.test(h)) return h.replace(FSOC_ROW, () => FOOTER_ROW);
     return h.replace(FBLURB_END, (m, ind, p, nl) => `${ind}${p}\n${ind}${FOOTER_ROW}${nl || '\n'}`);
   });
 }

@@ -245,10 +245,14 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(!JSON.stringify(JSON.parse((await getRaw('/firms_data.json')).text)).includes('Second paragraph'), 'about text stays out of the public firm list');
   ok(!pg.text.includes('class="guide"') && pg.text.includes('class="lw-car"') && pg.text.includes('id="leadForm-' + slug2 + '"'), 'a Basic firm has nearby firms and a contact form, but not the shared "Before you call" guide');
   // the guide is a Featured benefit, on database-built and hand-built pages alike
-  ok((await getRaw('/firms/achkar-law')).text.includes('class="guide"') === false && (await getRaw('/firms/barbarian-law')).text.includes('class="guide"'), 'hand-built pages: Basic firms drop the shared guide, Featured firms keep it');
+  // Who is Featured in the real data: only Barbarian Law and Blottman Legal Services (they have a commission arrangement with LawDB)
   const dbPage = (await getRaw('/firms/daniel-brown-law-llp')).text;
   ok(!dbPage.includes('class="guide"') && !dbPage.includes('Featured on LawDB') && !dbPage.includes('Verified LawDB Featured firm') && dbPage.includes('Basic listing'), 'a firm taken off Featured (Daniel Brown Law LLP) now reads and behaves as a Basic listing');
   ok((await getRaw('/firms/blottman-legal-services')).text.includes('Featured on LawDB') && (await getRaw('/firms/barbarian-law')).text.includes('Featured on LawDB'), 'Blottman Legal Services and Barbarian Law are still Featured');
+  // Many tests below need one hand-built Featured firm that is in Toronto (the guide, the News badge, Featured-only News, a firm Featured by hand before it paid,
+  // the follow suggestions). Daniel Brown Law LLP is that fixture: it is switched on here, as an admin would, and the tests below rely on it.
+  ok((await call('PATCH', '/api/admin/firms/daniel-brown-law-llp', { featured: true })).status === 200, 'test setup: Daniel Brown Law LLP is made Featured for the tests below');
+  ok((await getRaw('/firms/achkar-law')).text.includes('class="guide"') === false && (await getRaw('/firms/daniel-brown-law-llp')).text.includes('class="guide"'), 'hand-built pages: Basic firms drop the shared guide, Featured firms keep it');
   await call('PATCH', '/api/admin/firms/' + slug2, { featured: true });
   let featuredGuide = false;
   for (let i = 0; i < 10 && !featuredGuide; i++) { featuredGuide = (await getRaw('/firms/' + slug2)).text.includes('class="guide"'); if (!featuredGuide) await new Promise((r) => setTimeout(r, 500)); }
@@ -626,25 +630,25 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 
   // featured, hand-built page: cards appear after "From the Firm"
   cookie = adminJar;
-  const featSlug = 'barbarian-law';
+  const featSlug = 'daniel-brown-law-llp';
   const setFeed = await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: origin + '/feed.xml' });
   ok(setFeed.status === 200 && setFeed.data.feed.status === 'ok' && setFeed.data.posts.length === 5, 'the admin sets a firm\'s feed and it is read at once');
   const featPage = (await getRaw('/firms/' + featSlug)).text;
   const cardCount = (featPage.match(/<article class="lw-bc">/g) || []).length;
   ok(cardCount === 3 && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="from-firm"') && featPage.indexOf('class="lw-blog"') < featPage.indexOf('class="fine"'), 'three cards sit between "From the Firm" and the fine print');
   ok(featPage.includes('Charged With Impaired Driving') && featPage.includes('Tom &amp; Jerry&#x27;s Guide') && !featPage.includes('evil.example') && !featPage.includes('<script>alert') && !featPage.includes('onerror=alert'), 'card text is escaped and off-site links never appear');
-  const storyHref = (/href="(\/news\/barbarian-law\/charged-with-impaired-driving-what-happens-next-\d+)"/.exec(featPage) || [])[1];
+  const storyHref = (/href="(\/news\/daniel-brown-law-llp\/charged-with-impaired-driving-what-happens-next-\d+)"/.exec(featPage) || [])[1];
   ok(!!storyHref && featPage.includes('data-story') && !featPage.includes(`href="${origin}/blog/impaired"`), 'each card opens the story\'s own LawDB page');
   const story = await getRaw(storyHref || '/news/none/x-1');
-  ok(story.status === 200 && story.text.includes('<h1>Charged With Impaired Driving: What Happens Next</h1>') && story.text.includes(`href="${origin}/blog/impaired"`) && story.text.includes('Read the full article on 127.0.0.1') && story.text.includes(`rel="canonical" href="https://lawdb.ca${storyHref}"`) && story.text.includes('"@type":"BreadcrumbList"') && story.text.includes('href="/firms/barbarian-law"') && !story.text.includes('<script>alert') && !story.text.includes('onerror=alert'), 'the story page shows the headline, the firm, the preview, a link to the full article, and a canonical address');
+  ok(story.status === 200 && story.text.includes('<h1>Charged With Impaired Driving: What Happens Next</h1>') && story.text.includes(`href="${origin}/blog/impaired"`) && story.text.includes('Read the full article on 127.0.0.1') && story.text.includes(`rel="canonical" href="https://lawdb.ca${storyHref}"`) && story.text.includes('"@type":"BreadcrumbList"') && story.text.includes('href="/firms/daniel-brown-law-llp"') && !story.text.includes('<script>alert') && !story.text.includes('onerror=alert'), 'the story page shows the headline, the firm, the preview, a link to the full article, and a canonical address');
   ok(story.text.includes('This is a short preview') && !story.text.includes(longText.repeat(2)), 'the page carries only the short preview, never the full article');
   const part = await getRaw(storyHref + '?partial=1');
   ok(part.status === 200 && !/<html|<head/i.test(part.text) && part.text.includes('class="st"') && part.headers.get('x-robots-tag') === 'noindex', 'the expanded view is just the story (and is not indexed on its own)');
   ok(!story.headers.get('x-robots-tag') && !/name="robots"/.test(story.text), 'a Featured firm\'s story page is offered to search engines');
   const sid = storyHref.match(/-(\d+)$/)[1];
-  const wrong = await getRaw(`/news/barbarian-law/some-old-wording-${sid}`);
+  const wrong = await getRaw(`/news/daniel-brown-law-llp/some-old-wording-${sid}`);
   ok(wrong.status === 301 && wrong.headers.get('location').endsWith(storyHref), 'a story address with old wording redirects to the right one');
-  ok((await getRaw(`/news/achkar-law/x-${sid}`)).status === 404 && (await getRaw('/news/barbarian-law/x-99999999')).status === 404 && (await getRaw('/news/barbarian-law/garbage')).status === 404, 'wrong firm, unknown id and nonsense addresses are 404');
+  ok((await getRaw(`/news/achkar-law/x-${sid}`)).status === 404 && (await getRaw('/news/daniel-brown-law-llp/x-99999999')).status === 404 && (await getRaw('/news/daniel-brown-law-llp/garbage')).status === 404, 'wrong firm, unknown id and nonsense addresses are 404');
   const smap = await getRaw('/sitemap-news.xml');
   ok(smap.status === 200 && /xml/.test(smap.headers.get('content-type')) && smap.text.includes(`<loc>https://lawdb.ca${storyHref}</loc>`) && (smap.text.match(/<loc>/g) || []).length >= 5 && !smap.text.includes('evil.example'), 'the story sitemap lists every story page');
   ok(/Sitemap: https:\/\/lawdb.ca\/sitemap-news.xml/.test(readFileSync(new URL('../robots.txt', import.meta.url), 'utf8')), 'robots.txt announces the story sitemap');
@@ -703,16 +707,16 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const news = await getRaw('/news');
   ok(news.status === 200 && news.headers.get('x-lawdb-source') === 'database' && /<h1><span class="u">LawDB News<\/span><\/h1>/.test(news.text), 'LawDB News is built from the database');
   const nCards = (news.text.match(/<article class="lw-bc[ "]/g) || []).length;
-  ok(nCards === 6 && news.text.includes('Barbarian Law') && news.text.includes('Achkar Law'), 'it shows cards from every firm that has its blog switched on, at most three per firm so one busy blog never fills the page');
+  ok(nCards === 6 && news.text.includes('Daniel Brown Law LLP') && news.text.includes('Achkar Law'), 'it shows cards from every firm that has its blog switched on, at most three per firm so one busy blog never fills the page');
   const noPic = news.text.split(/<article class="lw-bc[ "]/).slice(1).filter((c) => !c.includes('class="lw-bc-img"')).length;
   ok(noPic === 2 && (news.text.match(/class="lw-bc-img"/g) || []).length === 4 && noPic <= 3, 'posts with a picture are shown, and never more than three without');
-  ok(news.text.includes('class="lw-bc-grid lw-feed"') && news.text.includes('class="lw-bc-head"') && news.text.includes('/images/logos/barbarian-law.jpg') && /class="lw-av">[A-Z]</.test(news.text), 'the News page is laid out as a feed with a post header: the firm logo, or its initial');
+  ok(news.text.includes('class="lw-bc-grid lw-feed"') && news.text.includes('class="lw-bc-head"') && news.text.includes('/images/logos/daniel-brown-law-llp.jpg') && /class="lw-av">[A-Z]</.test(news.text), 'the News page is laid out as a feed with a post header: the firm logo, or its initial');
   ok((news.text.match(/class="lw-bc lw-hero"/g) || []).length === 1 && /<article class="lw-bc lw-hero"><div class="lw-bc-head">/.test(news.text), 'the newest story with a picture leads the page as one large card');
   ok(/<svg class="news-seal"[^>]*aria-hidden="true"/.test(news.text) && news.text.includes('class="news-drift" aria-hidden="true"') && (news.text.match(/class="news-card k\d"/g) || []).length === 4 && !/<image\b/.test(news.text.slice(news.text.indexOf('<header class="news-band">'), news.text.indexOf('</header>'))) && news.text.includes('prefers-reduced-motion'), 'the masthead has decorative artwork: a turning seal and four of the page\'s own stories drifting up (pure drawing, hidden from screen readers, still for reduced motion)');
   ok(/<header class="news-band">/.test(news.text) && news.text.includes('class="news-steps"') && news.text.includes('The firms writing here') && /<b>2<\/b><span>FIRMS WRITING/.test(news.text) && /<b>10<\/b><span>RECENT ARTICLES/.test(news.text), 'the page opens with a masthead, how it works, who is writing, and real counts (firms and articles)');
   ok(!news.text.includes('Back to results'), 'the News page header has no stray "Back to results" link');
-  ok(/Barbarian Law<\/a><span class="lw-ft">Featured<\/span>/.test(news.text) && !/Achkar Law<\/a><span class="lw-ft">/.test(news.text), 'only Featured firms carry the Featured badge');
-  ok(news.text.includes('data-story') && news.text.includes('<dialog id="story-dlg"') && news.text.includes('partial=1') && /href="\/news\/barbarian-law\/[a-z0-9-]+-\d+"/.test(news.text) && !news.text.includes(`href="${origin}/blog/impaired"`) && !news.text.includes('evil.example') && !news.text.includes('<script>alert') && !news.text.includes('onerror=alert'), 'cards open the story over the page (its own address, Back closes it), and nothing unsafe gets in');
+  ok(/Daniel Brown Law LLP<\/a><span class="lw-ft">Featured<\/span>/.test(news.text) && !/Achkar Law<\/a><span class="lw-ft">/.test(news.text), 'only Featured firms carry the Featured badge');
+  ok(news.text.includes('data-story') && news.text.includes('<dialog id="story-dlg"') && news.text.includes('partial=1') && /href="\/news\/daniel-brown-law-llp\/[a-z0-9-]+-\d+"/.test(news.text) && !news.text.includes(`href="${origin}/blog/impaired"`) && !news.text.includes('evil.example') && !news.text.includes('<script>alert') && !news.text.includes('onerror=alert'), 'cards open the story over the page (its own address, Back closes it), and nothing unsafe gets in');
   ok(news.text.includes(`<img src="${origin}/img/a.jpg"`) && news.text.includes('aspect-ratio:16/9'), 'LawDB News cards carry the article pictures');
   ok(news.text.includes('<select id="news-firm" name="firm"') && news.text.includes('<option value="achkar-law"') && news.text.includes('<option value="">All 2 firms</option>') && news.text.includes('/news?firm=achkar-law'), 'there is a drop-down to filter by firm (it stays short however many firms write)');
   // the home page carries a LawDB News feed: strongest firms first, loaded in slices, filterable by practice area
@@ -723,19 +727,19 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(!home.text.includes('Find a lawyer with real reviews') && !home.text.includes('lawdb-banner'), 'the old banner is gone');
   const slice = JSON.parse((await getRaw('/api/home-news?offset=0')).text);
   ok(typeof slice.html === 'string' && slice.html.includes('<article class="lw-bc') && 'next' in slice && typeof slice.total === 'number', 'the feed slices come from /api/home-news');
-  ok(slice.html.indexOf('Barbarian Law') > -1 && (slice.html.indexOf('Achkar Law') === -1 || slice.html.indexOf('Barbarian Law') < slice.html.indexOf('Achkar Law')), 'the Featured, five-star firm\'s article comes before the Basic firm\'s');
+  ok(slice.html.indexOf('Daniel Brown Law LLP') > -1 && (slice.html.indexOf('Achkar Law') === -1 || slice.html.indexOf('Daniel Brown Law LLP') < slice.html.indexOf('Achkar Law')), 'the Featured, five-star firm\'s article comes before the Basic firm\'s');
   const none = JSON.parse((await getRaw('/api/home-news?offset=0&type=immigration')).text);
   const emp = JSON.parse((await getRaw('/api/home-news?offset=0&type=employment')).text);
-  ok(none.html === '' && none.next === null && emp.html.includes('Achkar Law') && !emp.html.includes('Barbarian Law') && JSON.parse((await getRaw('/api/home-news?offset=0&type=__proto__')).text).total === slice.total, 'the practice-area filter keeps only that area (empty when there is none), and an unknown area is ignored');
+  ok(none.html === '' && none.next === null && emp.html.includes('Achkar Law') && !emp.html.includes('Daniel Brown Law LLP') && JSON.parse((await getRaw('/api/home-news?offset=0&type=__proto__')).text).total === slice.total, 'the practice-area filter keeps only that area (empty when there is none), and an unknown area is ignored');
   const only = await getRaw('/news?firm=achkar-law');
-  ok((only.text.match(/<article class="lw-bc[ "]/g) || []).length === 5 && !only.text.includes('Barbarian Law</a><span'), 'a firm filter shows only that firm\'s cards');
+  ok((only.text.match(/<article class="lw-bc[ "]/g) || []).length === 5 && !only.text.includes('Daniel Brown Law LLP</a><span'), 'a firm filter shows only that firm\'s cards');
   as(adminJar);
   const nAdmin = await call('GET', '/api/admin/news');
   ok(nAdmin.status === 200 && nAdmin.data.featuredOnly === false && nAdmin.data.firms.some((f) => f.slug === featSlug && f.featured && f.enabled && f.status === 'ok' && f.posts === 5), 'the admin sees which firms are on the page, and their status');
   ok((await call('PATCH', '/api/admin/news', { featuredOnly: true })).status === 200, 'the admin limits the page to Featured members');
   cookie = '';
   const fOnly = (await getRaw('/news')).text;
-  ok(fOnly.includes('Barbarian Law') && !fOnly.includes('>Achkar Law<'), 'then only Featured firms\' blogs appear');
+  ok(fOnly.includes('Daniel Brown Law LLP') && !fOnly.includes('>Achkar Law<'), 'then only Featured firms\' blogs appear');
   as(adminJar);
   ok((await call('PATCH', '/api/admin/news', { featuredOnly: 'yes' })).status === 422, 'the setting must be true or false');
   await call('PATCH', '/api/admin/news', { featuredOnly: false });
@@ -753,7 +757,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', '/api/admin/firms/achkar-law/feed', { pageOnly: true })).status === 200, 'the admin can show a firm\'s blog on its own page only');
   cookie = '';
   const poNews = (await getRaw('/news')).text;
-  ok(!poNews.includes('>Achkar Law<') && poNews.includes('Barbarian Law'), 'a page-only firm is not on LawDB News');
+  ok(!poNews.includes('>Achkar Law<') && poNews.includes('Daniel Brown Law LLP'), 'a page-only firm is not on LawDB News');
   const poPage = (await getRaw('/firms/achkar-law')).text;
   ok(poPage.includes('class="lw-blog"') && !poPage.includes('data-story') && !poPage.includes('data-save=') && poPage.includes(`href="${origin}/blog/`), 'its own page still shows the cards, linking straight to the firm\'s articles');
   ok(!!achHref && (await getRaw(achHref)).status === 404 && !(await getRaw('/sitemap-news.xml')).text.includes('/news/achkar-law/'), 'a page-only firm has no LawDB story pages and none in the story sitemap');
@@ -986,7 +990,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await stripePost(mkEvent('charge.refunded', { id: 'ch_1' }))).status === 200, 'events we do not use are acknowledged and ignored');
 
   // a firm that was already Featured by hand stays Featured when a subscription ends
-  const manual = 'barbarian-law';
+  const manual = 'daniel-brown-law-llp';
   ok(await firmFeatured(manual) === true, 'the hand-featured firm starts Featured');
   const subH = 'sub_h_' + run;
   await stripePost(checkout(subH, { slug: undefined, email: `pays-${run}@example.com` }));
@@ -1202,7 +1206,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 
   // following firms, saving stories, and the feed
   {
-    const F = 'daniel-brown-law-llp'; // a Toronto firm (suggestions start with the followed firm's city); it needs no Featured status
+    const F = 'daniel-brown-law-llp';
     cookie = '';
     const anon = await call('GET', `/api/social/status?slugs=${F},torys-llp&posts=1`);
     ok(anon.status === 200 && anon.data.signedIn === false && anon.data.follows[F].following === false && anon.data.follows[F].followers === 0, 'anyone can see follower counts; the status says nobody is signed in');

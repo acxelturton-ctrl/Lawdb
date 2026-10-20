@@ -1,0 +1,93 @@
+[
+ {
+  "name": "Quantum Business Law",
+  "city": "Markham",
+  "featured": false,
+  "tags": [
+   "Business Law",
+   "Wills & Estates",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "business",
+   "wills",
+   "litigation"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8580011,
+  "lng": -79.3628358,
+  "address": "220-60 Renfrew Dr, Markham, ON L3R 0E1",
+  "phone": "+18554755400",
+  "rating": 0,
+  "count": 0,
+  "slug": "quantum-business-law-markham",
+  "mapsUrl": "https://www.google.com/maps/search/Quantum+Business+Law+Markham+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=220-60+Renfrew+Dr%2C+Markham%2C+ON+L3R+0E1",
+  "website": "https://qbl.ca",
+  "blurb": "Business Law / Wills & Estates in Markham.",
+  "type": "logo",
+  "about": "Quantum Business Law is a Markham, Ontario law firm for tax planning, corporate reorganizations, tax disputes and business litigation.\n\nThe firm advises business owners and families in Markham and Toronto. Its tax planning work covers estate freezes, butterfly transactions, family trusts and tax-efficient corporate structures that protect assets from creditors, position a business for liquidity events and make succession to the next generation easier. Senior partner Todd Louie, who has more than 30 years of experience as a tax practitioner, directs a team of lawyers, accountants and tax consultants who provide corporate reorganization strategies to business owners.\n\nQuantum Business Law also acts in tax disputes with the Canada Revenue Agency, in civil litigation such as shareholder disputes, investor disputes and breach of contract claims, and in class action matters from certification through discovery to resolution. Partner Jonathan Burshtein helps with business purchases and sales and with shareholder and partnership agreements. The firm's estate services include wills, powers of attorney and family business succession planning.\n\nThe office is at 60 Renfrew Drive in Markham, and the firm lists its hours as Monday to Friday, 9 AM to 5 PM.",
+  "src": "images/logos/quantum-business-law-markham.png",
+  "hours": {
+   "1": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "2": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "3": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "4": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "5": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ]
+  },
+  "details": {
+   "lawyers": [
+    {
+     "name": "Todd Louie",
+     "title": "Senior Partner"
+    },
+    {
+     "name": "Jonathan Burshtein",
+     "title": "Partner"
+    }
+   ],
+   "areas": [
+    "Tax planning",
+    "Estate freezes and corporate reorganizations",
+    "Class action litigation",
+    "Civil litigation",
+    "Tax litigation"
+   ],
+   "serving": [
+    "Toronto"
+   ]
+  },
+  "social": {
+   "linkedin": "https://www.linkedin.com/company/qbl",
+   "youtube": "https://www.youtube.com/channel/UCYTBRnHNlZBDhb1A3EnoYdw"
+  },
+  "heroImage": "images/hero/quantum-business-law-markham.webp",
+  "bioImage": "images/bio/quantum-business-law-markham.webp"
+ }
+]

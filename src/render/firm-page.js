@@ -3,6 +3,7 @@
 import { cleanDetails } from '../lib/details.js';
 import * as C from './firm-chunks.generated.js';
 import { renderBlogCards } from './blog-cards.js';
+import { profilesBox, hasLinkedIn } from './profiles.js';
 
 export const PROVINCES = { ON: 'Ontario', QC: 'Quebec', BC: 'British Columbia', AB: 'Alberta', MB: 'Manitoba' };
 const TZ = { ON: 'America/Toronto', QC: 'America/Toronto', BC: 'America/Vancouver', AB: 'America/Edmonton', MB: 'America/Winnipeg' };
@@ -226,7 +227,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<section class="li-card" aria-label="${esc(f.name)} profile">\n      ${coverDiv(f)}\n      <div class="li-body">\n        ${logoSpan(f)}\n` +
     `        <h1 class="li-name">${esc(f.name)}${f.featured ? ' ' + C.TICK : ''}</h1>\n        <p class="li-tag">${tagline(f)}</p>\n` +
     `        <p class="li-meta">Law Practice &middot; ${esc(f.city)}, ${esc(f.province)}${rated ? ` &middot; <b>${num(f.rating)} &#9733;</b> from ${num(f.count)} Google reviews` : ''}</p>\n` +
-    `        ${f.address ? `<p class="li-meta">${esc(f.address)}</p>` : ''}${planLine}\n        ${actions}\n      </div>\n    </section>`;
+    `        ${f.address ? `<p class="li-meta">${esc(f.address)}</p>` : ''}${planLine}\n        ${actions}${profilesBox(f.social, f.name)}\n      </div>\n    </section>`;
 
   const aboutHtml = about ? `\n    <div class="article">${esc(about).replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>')}</div>` : '';
   // A picture that does not suit the cover goes under the description, like a bio or blog picture.
@@ -243,7 +244,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
 
   const socials =
     `<div class="socials">\n      <a href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.star}<span>Read Google Reviews</span></a>\n` +
-    `      <a href="https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(f.name)}" target="_blank" rel="noopener">${C.ICONS.linkedin}<span>Find on LinkedIn</span></a>\n` +
+    // the Profiles box in the header card has the firm's real LinkedIn page; this search link is only for firms without one
+    (hasLinkedIn(f.social) ? '' : `      <a href="https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(f.name)}" target="_blank" rel="noopener">${C.ICONS.linkedin}<span>Find on LinkedIn</span></a>\n`) +
     `      <a href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.pin2}<span>View on Google Maps</span></a>\n    </div>`;
 
   const toks = { NAME: esc(f.name), SLUG: esc(f.slug), LAT: esc(f.lat), LNG: esc(f.lng) };

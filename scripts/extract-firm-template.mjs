@@ -79,7 +79,7 @@ chunks.FINE = tokenize(block(REF, '<div class="fine">'), refFirm);
   const soc = block(REF, '<div class="socials">');
   const [star, linkedin, pin2] = svgs(soc);
   chunks.ICONS = { phone: must(phone, 'phone icon'), globe: must(globe, 'globe icon'), pin: must(pin, 'pin icon'), star: must(star, 'star'), linkedin: must(linkedin, 'linkedin'), pin2: must(pin2, 'pin2') };
-  const dan = page('daniel-brown-law-llp');
+  const dan = page('barbarian-law'); // a firm that is still Featured, so its page still has the tick
   const tick = must(dan.match(/<span class="li-tick".*?<\/svg><\/span>/s), 'tick')[0];
   chunks.TICK = tick;
 }

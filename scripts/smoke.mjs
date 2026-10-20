@@ -245,6 +245,13 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(!JSON.stringify(JSON.parse((await getRaw('/firms_data.json')).text)).includes('Second paragraph'), 'about text stays out of the public firm list');
   ok(!pg.text.includes('class="guide"') && pg.text.includes('class="lw-car"') && pg.text.includes('id="leadForm-' + slug2 + '"'), 'a Basic firm has nearby firms and a contact form, but not the shared "Before you call" guide');
   // the guide is a Featured benefit, on database-built and hand-built pages alike
+  // Who is Featured in the real data: only Barbarian Law and Blottman Legal Services (they have a commission arrangement with LawDB)
+  const dbPage = (await getRaw('/firms/daniel-brown-law-llp')).text;
+  ok(!dbPage.includes('class="guide"') && !dbPage.includes('Featured on LawDB') && !dbPage.includes('Verified LawDB Featured firm') && dbPage.includes('Basic listing'), 'a firm taken off Featured (Daniel Brown Law LLP) now reads and behaves as a Basic listing');
+  ok((await getRaw('/firms/blottman-legal-services')).text.includes('Featured on LawDB') && (await getRaw('/firms/barbarian-law')).text.includes('Featured on LawDB'), 'Blottman Legal Services and Barbarian Law are still Featured');
+  // Many tests below need one hand-built Featured firm that is in Toronto (the guide, the News badge, Featured-only News, a firm Featured by hand before it paid,
+  // the follow suggestions). Daniel Brown Law LLP is that fixture: it is switched on here, as an admin would, and the tests below rely on it.
+  ok((await call('PATCH', '/api/admin/firms/daniel-brown-law-llp', { featured: true })).status === 200, 'test setup: Daniel Brown Law LLP is made Featured for the tests below');
   ok((await getRaw('/firms/achkar-law')).text.includes('class="guide"') === false && (await getRaw('/firms/daniel-brown-law-llp')).text.includes('class="guide"'), 'hand-built pages: Basic firms drop the shared guide, Featured firms keep it');
   await call('PATCH', '/api/admin/firms/' + slug2, { featured: true });
   let featuredGuide = false;

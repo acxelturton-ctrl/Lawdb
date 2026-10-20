@@ -113,6 +113,7 @@
     var href = el.getAttribute('href') || '';
     if(el.hasAttribute('data-follow')) return ev('follow');
     if(el.hasAttribute('data-claim')) return ev('claim');
+    if(el.classList.contains('li-book')) return ev(el.classList.contains('li-book-off') ? 'book-locked' : 'book');
     if(/^tel:/i.test(href)) return ev('call');
     if(/plan=featured/.test(href)) return ev('cta-featured');
     if(/^\/list-your-firm/.test(href)) return ev('cta-list');

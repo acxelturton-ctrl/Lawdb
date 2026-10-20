@@ -50,7 +50,8 @@
    "linkedin": "https://www.linkedin.com/company/badre-law-professional-corporation",
    "x": "https://x.com/danielbadre",
    "youtube": "https://www.youtube.com/@danielbadre"
-  }
+  },
+  "bookingUrl": "https://badrelaw.com/appointments/"
  },
  {
   "name": "Grover Law Firm",
@@ -147,7 +148,8 @@
    "instagram": "https://www.instagram.com/grover_law_firm",
    "linkedin": "https://www.linkedin.com/company/grover-law-firm",
    "youtube": "https://www.youtube.com/channel/UCczoxJI___VL-ER-6v4Slrg"
-  }
+  },
+  "bookingUrl": "https://www.groverlawfirm.com/contact/"
  },
  {
   "name": "Tabuchi Law",
@@ -189,7 +191,8 @@
     "Mississauga"
    ]
   },
-  "heroImage": "images/hero/tabuchi-law-mississauga.webp"
+  "heroImage": "images/hero/tabuchi-law-mississauga.webp",
+  "bookingUrl": "https://outlook.office365.com/owa/calendar/InitialCall@tabuchilaw.com/bookings/"
  },
  {
   "name": "Simplyclose Real Estate Law",
@@ -358,7 +361,8 @@
   "social": {
    "facebook": "https://www.facebook.com/waseerlaw",
    "instagram": "https://www.instagram.com/waseerlaw.ca"
-  }
+  },
+  "bookingUrl": "https://portal.waseerlaw.ca/widget/group/PffBLx3nbiX2meRohikm"
  },
  {
   "name": "Edmonton Law Office",
@@ -580,7 +584,8 @@
    "instagram": "https://www.instagram.com/osujismithlawyers",
    "x": "https://x.com/OsujiandSmith",
    "youtube": "https://www.youtube.com/channel/UCg-Xhnn2IofVCEiMmuFgRfg"
-  }
+  },
+  "bookingUrl": "https://osujismith.ca/contact-us/"
  },
  {
   "name": "Millars Lawyers London",
@@ -668,7 +673,8 @@
   "social": {
    "instagram": "https://www.instagram.com/millarslawyers",
    "linkedin": "https://www.linkedin.com/company/millars-law"
-  }
+  },
+  "bookingUrl": "https://millarslaw.com/contact-us/"
  },
  {
   "name": "Lakin Afolabi Law",
@@ -717,7 +723,8 @@
    "facebook": "https://www.facebook.com/lakinafolabilaw",
    "linkedin": "https://www.linkedin.com/company/lakin-afolabi-law-professional-corporation",
    "x": "https://x.com/lakinafolabilaw"
-  }
+  },
+  "bookingUrl": "https://lakinafolabilaw.com/schedule-your-own-consult/"
  },
  {
   "name": "Cashion Legal Employment Lawyers Calgary",
@@ -907,7 +914,8 @@
   "heroImage": "images/hero/forum-law-llp-edmonton.webp",
   "social": {
    "facebook": "https://www.facebook.com/forumlawyeg"
-  }
+  },
+  "bookingUrl": "https://www.forumlaw.ca/contact/"
  },
  {
   "name": "Citadel Law",
@@ -1092,7 +1100,8 @@
    "linkedin": "https://www.linkedin.com/company/bow-river-law-llp",
    "x": "https://x.com/bowriverlawllp",
    "youtube": "https://www.youtube.com/@BowRiverLawLLP"
-  }
+  },
+  "bookingUrl": "https://bowriveremploymentlaw.com/contact-us/"
  },
  {
   "name": "Parr Business Law",
@@ -1132,7 +1141,8 @@
     "Estate planning",
     "Estate freezes"
    ]
-  }
+  },
+  "bookingUrl": "https://parrbusinesslaw.com/contact"
  },
  {
   "name": "A. Dhillon Law",
@@ -1281,7 +1291,8 @@
     "Toronto",
     "GTA"
    ]
-  }
+  },
+  "bookingUrl": "https://batthlaw.com/contact"
  },
  {
   "name": "Michael Juskey",
@@ -1333,7 +1344,8 @@
   "social": {
    "facebook": "https://www.facebook.com/TheLawOfficeOfMichaelPJuskey",
    "x": "https://x.com/MPJLAW"
-  }
+  },
+  "bookingUrl": "https://mpjlaw.ca/pages/contact/"
  },
  {
   "name": "Bhardwaj+Co Family Law",
@@ -1403,7 +1415,8 @@
   "heroImage": "images/hero/bhardwaj-co-family-law-edmonton.webp",
   "social": {
    "instagram": "https://www.instagram.com/bhardwaj_co"
-  }
+  },
+  "bookingUrl": "https://bhardwajco.ca/contact-us-edmonton-lawyers/"
  },
  {
   "name": "League and Williams Lawyers",
@@ -1536,7 +1549,8 @@
   "social": {
    "facebook": "https://www.facebook.com/jjarrahlaw",
    "youtube": "https://www.youtube.com/@jarrahlaw"
-  }
+  },
+  "bookingUrl": "https://jarrahlaw.com/contact-us/"
  },
  {
   "name": "Hepburn Criminal Law",
@@ -1631,7 +1645,8 @@
   "social": {
    "facebook": "https://www.facebook.com/sitkalawgroup",
    "instagram": "https://www.instagram.com/sitkalawgroup"
-  }
+  },
+  "bookingUrl": "https://sitkalaw.ca/contact/"
  },
  {
   "name": "Brisebois Law Office",
@@ -1905,7 +1920,8 @@
    "instagram": "https://www.instagram.com/mglaw_offices",
    "linkedin": "https://www.linkedin.com/company/mglawoffices",
    "x": "https://x.com/mglawoffices"
-  }
+  },
+  "bookingUrl": "https://mginjurylawyers.com/contact"
  },
  {
   "name": "Madaans LLP Lawyers",
@@ -2304,7 +2320,8 @@
   },
   "social": {
    "linkedin": "https://www.linkedin.com/in/gary-batasar-60ab1519"
-  }
+  },
+  "bookingUrl": "https://www.batasarlaw.ca/contact/"
  },
  {
   "name": "Real Estate Lawyers.ca LLP",
@@ -2574,7 +2591,8 @@
   "social": {
    "facebook": "https://www.facebook.com/profile.php?id=61557327658670",
    "instagram": "https://www.instagram.com/kainthlawgroup"
-  }
+  },
+  "bookingUrl": "https://outlook.office.com/book/FreeConsultationwithKLG@klawgp.com/?ismsaljsauthenabled"
  },
  {
   "name": "Infinity Law",
@@ -2705,7 +2723,8 @@
    "instagram": "https://www.instagram.com/macdonaldzhivov",
    "linkedin": "https://www.linkedin.com/company/macdonald-zhivov",
    "youtube": "https://www.youtube.com/@MacDonaldZhivov"
-  }
+  },
+  "bookingUrl": "https://macz.ca/contact"
  },
  {
   "name": "Gray Criminal Defence",
@@ -2762,7 +2781,8 @@
    "linkedin": "https://www.linkedin.com/in/george-gray-253a9626",
    "x": "https://x.com/georgegray",
    "youtube": "https://www.youtube.com/@TheLegalGrayZone"
-  }
+  },
+  "bookingUrl": "https://georgegray.ca/contact/"
  },
  {
   "name": "Karapancev Law",
@@ -3291,7 +3311,8 @@
    "facebook": "https://www.facebook.com/millerboileau",
    "x": "https://x.com/millerboileau",
    "youtube": "https://www.youtube.com/@millerboileau7544"
-  }
+  },
+  "bookingUrl": "https://www.millerboileau.com/contact-us/"
  },
  {
   "name": "OP Lawyers LLP",
@@ -3585,7 +3606,8 @@
   "heroImage": "images/hero/robb-macdonald-toronto.webp",
   "social": {
    "youtube": "https://www.youtube.com/channel/UCOmZLxVF-f7GlRo82vlbatA"
-  }
+  },
+  "bookingUrl": "https://www.lawintoronto.com/contact"
  },
  {
   "name": "Dietrich Law Office",

@@ -230,6 +230,7 @@ async function viewEdit(slug) {
     about: h('textarea', { class: 'tall', maxlength: 2000 }, firm.about || ''),
     phone: h('input', { type: 'text', value: firm.phone || '', maxlength: 30 }),
     website: h('input', { type: 'text', value: firm.website || '', maxlength: 300 }),
+    bookingUrl: h('input', { type: 'text', value: firm.bookingUrl || '', maxlength: 500, placeholder: 'https://' }),
     address: h('input', { type: 'text', value: firm.address || '', maxlength: 300 }),
     tags: h('input', { type: 'text', value: (firm.tags || []).join(', ') }),
   };
@@ -243,7 +244,7 @@ async function viewEdit(slug) {
       save.disabled = true;
       try {
         const payload = {
-          name: f.name.value, blurb: f.blurb.value, about: f.about.value, phone: f.phone.value, website: f.website.value, address: f.address.value,
+          name: f.name.value, blurb: f.blurb.value, about: f.about.value, phone: f.phone.value, website: f.website.value, bookingUrl: f.bookingUrl.value, address: f.address.value,
           tags: splitTags(f.tags.value), caseTypes: cats.get(),
         };
         if (hrs.isDirty()) payload.hours = hrs.anyOpen() ? hrs.get() : null;
@@ -256,7 +257,9 @@ async function viewEdit(slug) {
       pageMode !== 'dynamic' && note('msg-err', 'Your page has a custom layout that we update for you. Your changes still appear in the directory, search and map. Write to info@lawdb.ca to have the page itself updated.'),
       field('Firm name', f.name), field('Short description (shown in lists)', f.blurb),
       field('About the firm (shown on your page)', f.about, 'Plain text. A blank line starts a new paragraph.'),
-      field('Phone', f.phone), field('Website', f.website), field('Address', f.address),
+      field('Phone', f.phone), field('Website', f.website),
+      field('Booking link', f.bookingUrl, 'Optional. Your calendar (Calendly, Clio, Microsoft Bookings...) or the page on your site where people book a call. It turns on the Book a call button on your page; leave it blank to switch the button off.'),
+      field('Address', f.address),
       field('Practice areas (comma separated)', f.tags),
       h('label', null, 'Categories'), cats.el,
       h('label', null, 'Opening hours'), hrs.el,

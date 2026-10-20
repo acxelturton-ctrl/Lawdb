@@ -7,7 +7,7 @@
 import { forecast, growthTips } from './forecast.js';
 
 export const CASE_IDS = new Set(['injury', 'traffic', 'criminal', 'family', 'realestate', 'wills', 'business', 'employment', 'immigration', 'litigation']);
-export const EVENTS = new Set(['call', 'website', 'directions', 'follow', 'claim', 'cta-featured', 'cta-list']);
+export const EVENTS = new Set(['call', 'website', 'directions', 'book', 'book-locked', 'follow', 'claim', 'cta-featured', 'cta-list']);
 export const RETENTION_DAYS = { counts: 400, searchText: 90 };
 
 // "Today" for the owner is a Toronto day, so a day's numbers match the day they lived through.
@@ -118,7 +118,7 @@ export async function trafficReport(env, days) {
     env.DB.prepare("SELECT kind, SUM(n) AS n FROM stats_daily WHERE kind IN ('pv', 'visit', 'search', 'ev') AND day >= ? GROUP BY kind").bind(from),
     sum('pv', 15), sum('entry', 15), sum('ref', 12), sum('dev', 3), sum('geo', 12), sum('utm', 10),
     env.DB.prepare('SELECT k1, SUM(n) AS n FROM stats_daily WHERE kind = ? AND day >= ? GROUP BY k1 ORDER BY n DESC').bind('ev', from),
-    env.DB.prepare("SELECT k2 AS k1, k1 AS k2, SUM(n) AS n FROM stats_daily WHERE kind = 'ev' AND k1 IN ('call', 'website', 'directions') AND day >= ? GROUP BY k2, k1 ORDER BY n DESC LIMIT 15").bind(from),
+    env.DB.prepare("SELECT k2 AS k1, k1 AS k2, SUM(n) AS n FROM stats_daily WHERE kind = 'ev' AND k1 IN ('call', 'website', 'directions', 'book', 'book-locked') AND day >= ? GROUP BY k2, k1 ORDER BY n DESC LIMIT 15").bind(from),
     sum('search', 20), sum('town', 20), sum('noparse', 20),
     env.DB.prepare("SELECT k1, SUM(n) AS n FROM stats_daily WHERE kind = 'pv' AND k1 LIKE '/firms/%' AND day >= ? GROUP BY k1 ORDER BY n DESC LIMIT 15").bind(from),
     env.DB.prepare('SELECT MIN(day) AS d FROM stats_daily'),

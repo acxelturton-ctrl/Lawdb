@@ -85,7 +85,8 @@
    "facebook": "https://www.facebook.com/atimmigrationlaw",
    "linkedin": "https://www.linkedin.com/company/atimmigrationlaw",
    "youtube": "https://www.youtube.com/channel/UCQVhTkc9vSzZa851slOWdiA"
-  }
+  },
+  "bookingUrl": "https://atimmigrationlaw.com/booking/"
  },
  {
   "name": "Marwah Law",
@@ -155,7 +156,8 @@
    "instagram": "https://www.instagram.com/marwahlaw_",
    "linkedin": "https://www.linkedin.com/company/marwah-law-professional-corporation",
    "x": "https://x.com/MarwahLaw"
-  }
+  },
+  "bookingUrl": "https://marwahlaw.com/contact/"
  },
  {
   "name": "NK Lawyers Professional Corporation",
@@ -250,7 +252,8 @@
    "facebook": "https://www.facebook.com/godwitlawoffice",
    "instagram": "https://www.instagram.com/godwitlawoffice",
    "linkedin": "https://www.linkedin.com/company/godwit-law-office-professional-corporation"
-  }
+  },
+  "bookingUrl": "https://godwitlaw.com/book-consultation/"
  },
  {
   "name": "SINGHA LAW PROFESSIONAL CORPORATION",
@@ -308,7 +311,8 @@
    "facebook": "https://www.facebook.com/singhalaw.ca",
    "linkedin": "https://www.linkedin.com/in/jayanta-k-singha-0a937536",
    "youtube": "https://www.youtube.com/channel/UC0VL4OqRzPOwJc_mMwf2d2Q"
-  }
+  },
+  "bookingUrl": "https://singhalaw.ca/book-a-consultation/"
  },
  {
   "name": "Nazarian Law",
@@ -483,7 +487,8 @@
    "facebook": "https://www.facebook.com/zinatikay",
    "instagram": "https://www.instagram.com/zinatikay",
    "x": "https://x.com/ZinatiKay"
-  }
+  },
+  "bookingUrl": "https://zinatikay.com/contact/"
  },
  {
   "name": "Agnes Law",
@@ -635,7 +640,8 @@
    "instagram": "https://www.instagram.com/sondhidefence",
    "linkedin": "https://www.linkedin.com/in/ankushsondhi",
    "x": "https://x.com/SondhiDefence"
-  }
+  },
+  "bookingUrl": "https://sondhidefence.ca/contact/"
  },
  {
   "name": "Naimark Law",
@@ -738,7 +744,8 @@
    "linkedin": "https://www.linkedin.com/company/53711779",
    "x": "https://x.com/thevisa_ca",
    "youtube": "https://www.youtube.com/@ThevisaCaAkrami"
-  }
+  },
+  "bookingUrl": "https://thevisa.ca/about-us/book-a-consultation/"
  },
  {
   "name": "John Cintosun Law Professional Corporation",
@@ -832,7 +839,8 @@
     "Toronto"
    ]
   },
-  "heroImage": "images/hero/john-cintosun-law-professional-corporation-toronto.webp"
+  "heroImage": "images/hero/john-cintosun-law-professional-corporation-toronto.webp",
+  "bookingUrl": "https://cintosun.com/contact-us/"
  },
  {
   "name": "JCA Law Office Professional Corporation",
@@ -1084,7 +1092,8 @@
     "Brampton",
     "Milton"
    ]
-  }
+  },
+  "bookingUrl": "https://motevallicriminallawyers.com/contact/"
  },
  {
   "name": "Infinity Law Firm",
@@ -1122,7 +1131,8 @@
     "Notary services",
     "Business law"
    ]
-  }
+  },
+  "bookingUrl": "https://infinitylawfirm.ca/contact-us/"
  },
  {
   "name": "Azimi Law",
@@ -1385,7 +1395,8 @@
    "facebook": "https://www.facebook.com/InnaKoganLawFirm",
    "instagram": "https://www.instagram.com/innakoganlawyer",
    "youtube": "https://www.youtube.com/@InnaKogan-CanadaImmigration"
-  }
+  },
+  "bookingUrl": "https://www.innakogan.com/contact"
  },
  {
   "name": "Ang Law Professional Corporation",
@@ -1474,7 +1485,8 @@
   "social": {
    "facebook": "https://www.facebook.com/AngLawPC",
    "instagram": "https://www.instagram.com/anglawpc"
-  }
+  },
+  "bookingUrl": "https://calendly.com/derek-anglawpc/new-meeting"
  },
  {
   "name": "DNG Law",
@@ -1592,7 +1604,8 @@
     "Greater Toronto Area"
    ]
   },
-  "heroImage": "images/hero/vilkhov-law-professional-corporation-toronto.webp"
+  "heroImage": "images/hero/vilkhov-law-professional-corporation-toronto.webp",
+  "bookingUrl": "https://vilkhovlaw.ca/contact/"
  },
  {
   "name": "Horra Family Law",
@@ -1729,7 +1742,8 @@
     "Refugee"
    ]
   },
-  "heroImage": "images/hero/titan-law-toronto.webp"
+  "heroImage": "images/hero/titan-law-toronto.webp",
+  "bookingUrl": "https://www.titanlaw.ca/book-a-consultation/"
  },
  {
   "name": "KMH Lawyers",
@@ -1989,7 +2003,8 @@
    "instagram": "https://www.instagram.com/ajlawpartners",
    "x": "https://x.com/ajlawpartners",
    "youtube": "https://www.youtube.com/channel/UC5INKHtArWkSuLJlfIcaQIg"
-  }
+  },
+  "bookingUrl": "https://www.ajlawpartners.ca/contact"
  },
  {
   "name": "Legal Solutions Law Firm",
@@ -2736,7 +2751,8 @@
    "instagram": "https://www.instagram.com/BromwichandSmith",
    "linkedin": "https://www.linkedin.com/company/bromwichandsmith",
    "youtube": "https://www.youtube.com/c/bromwichsmith"
-  }
+  },
+  "bookingUrl": "https://www.bromwichandsmith.com/contact-us/"
  },
  {
   "name": "Beckett Personal Injury Lawyers",
@@ -2788,7 +2804,8 @@
    "instagram": "https://www.instagram.com/beckettlawyers",
    "linkedin": "https://www.linkedin.com/company/beckett-personal-injury-lawyers",
    "x": "https://x.com/BeckettLawyers"
-  }
+  },
+  "bookingUrl": "https://beckettinjurylawyers.com/contact-us/"
  },
  {
   "name": "Top Law Firm",
@@ -2987,7 +3004,8 @@
   "social": {
    "linkedin": "https://www.linkedin.com/company/landingslaw",
    "x": "https://x.com/LandingsLaw"
-  }
+  },
+  "bookingUrl": "https://landingslaw.com/contact-us/"
  },
  {
   "name": "Posner Craig Stein LLP",
@@ -3063,7 +3081,8 @@
   },
   "social": {
    "x": "https://x.com/PCSLawyers"
-  }
+  },
+  "bookingUrl": "https://pcslaw.ca/contact/"
  },
  {
   "name": "Grechi Carter Professional Corporation",
@@ -3149,7 +3168,8 @@
    "facebook": "https://www.facebook.com/Borders-Law-Firm-Immigration-Lawyers-300190643895",
    "linkedin": "https://www.linkedin.com/in/devika-penekelapati-6108918",
    "x": "https://x.com/borderslawfirm"
-  }
+  },
+  "bookingUrl": "https://borderslawfirm.com/consultations/"
  },
  {
   "name": "Arrow Law",
@@ -3195,7 +3215,8 @@
     "Durham Region"
    ]
   },
-  "heroImage": "images/hero/arrow-law-north-york.webp"
+  "heroImage": "images/hero/arrow-law-north-york.webp",
+  "bookingUrl": "https://arrowlaw.ca/contact-us/"
  },
  {
   "name": "Stacey R. Ball",
@@ -3413,7 +3434,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "bookingUrl": "https://lawpoint.ca/consultation.html"
  },
  {
   "name": "Accord Law Professional Corporation",
@@ -3611,7 +3633,8 @@
    "facebook": "https://www.facebook.com/JohnEastLaw",
    "instagram": "https://www.instagram.com/johneastlaw",
    "linkedin": "https://www.linkedin.com/in/john-east-87a04a1ab"
-  }
+  },
+  "bookingUrl": "https://eastlaw.ca/contact"
  },
  {
   "name": "​Victoria Xu Law Office",
@@ -3653,7 +3676,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "bookingUrl": "https://www.victoriaxulaw.com/contact-us"
  },
  {
   "name": "Satnam Grewal Criminal Defence and Immigration Lawyer",
@@ -3934,7 +3958,8 @@
    "serving": [
     "GTA"
    ]
-  }
+  },
+  "bookingUrl": "https://www.edgarlaw.ca/bookconsultation/"
  },
  {
   "name": "Lee & Associates",
@@ -4034,7 +4059,8 @@
    "facebook": "https://www.facebook.com/noohilaw",
    "instagram": "https://www.instagram.com/noohilaw",
    "linkedin": "https://www.linkedin.com/company/noohi-law"
-  }
+  },
+  "bookingUrl": "https://noohilaw.com/contact/"
  },
  {
   "name": "Rohit Sharma Law",
@@ -4514,7 +4540,8 @@
     "Notary services"
    ]
   },
-  "heroImage": "images/hero/olena-chepil-and-lawyers-etobicoke.webp"
+  "heroImage": "images/hero/olena-chepil-and-lawyers-etobicoke.webp",
+  "bookingUrl": "https://terralaw.ca/contact/"
  },
  {
   "name": "Mansoor Law",
@@ -4603,7 +4630,8 @@
    "linkedin": "https://www.linkedin.com/in/zeesean-r-sheikh-b-a-lck-ll-b-6a2a9121",
    "x": "https://x.com/prestige_firm",
    "youtube": "https://www.youtube.com/@PrestigeLawCanada"
-  }
+  },
+  "bookingUrl": "https://booking.setmore.com/scheduleappointment/677ead21-fd27-46f6-8f34-a0bb25447b7f?lang="
  },
  {
   "name": "Vo Law",
@@ -4819,7 +4847,8 @@
     "Durham"
    ]
   },
-  "heroImage": "images/hero/ks-law-professional-corporation-etobicoke.webp"
+  "heroImage": "images/hero/ks-law-professional-corporation-etobicoke.webp",
+  "bookingUrl": "https://kslawoffice.ca/contact/"
  },
  {
   "name": "Chsherbinin Litigation Barristers",
@@ -4864,7 +4893,8 @@
     "Pre-removal risk assessment",
     "Labour market assessment applications"
    ]
-  }
+  },
+  "bookingUrl": "https://nclaw.ca/contact/"
  },
  {
   "name": "Vilma Radfar Barrister & Solicitor",
@@ -5153,7 +5183,8 @@
    "facebook": "https://www.facebook.com/LawofficesofPatriciaBrown",
    "linkedin": "https://www.linkedin.com/in/patricia-brown-0901b89",
    "x": "https://x.com/psbrown_esq"
-  }
+  },
+  "bookingUrl": "https://patriciabrownlawyer.com/contact"
  },
  {
   "name": "LawyerRealtor.ca",
@@ -5371,7 +5402,8 @@
   "social": {
    "instagram": "https://www.instagram.com/pkclaw",
    "linkedin": "https://www.linkedin.com/company/pkc-law-pc"
-  }
+  },
+  "bookingUrl": "https://pkclaw.ca/contact.php"
  },
  {
   "name": "MO'S LAW OFFICE",
@@ -5419,7 +5451,8 @@
   "heroImage": "images/hero/mo-s-law-office-london.webp",
   "social": {
    "instagram": "https://www.instagram.com/moslawoffice"
-  }
+  },
+  "bookingUrl": "https://moslawoffice.com/immigration-questionnaire/"
  },
  {
   "name": "Keyork Immigration Law",
@@ -5769,6 +5802,7 @@
    "instagram": "https://www.instagram.com/worklylaw",
    "linkedin": "https://www.linkedin.com/company/workly-law",
    "x": "https://x.com/worklylaw"
-  }
+  },
+  "bookingUrl": "https://calendly.com/suniraworkly"
  }
 ]

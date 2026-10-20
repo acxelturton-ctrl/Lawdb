@@ -287,7 +287,8 @@
     "Guelph",
     "Milton"
    ]
-  }
+  },
+  "bookingUrl": "https://www.traverslaw.ca/contact-us"
  },
  {
   "name": "Capelle Kane Immigration Lawyers",
@@ -336,7 +337,8 @@
   "social": {
    "linkedin": "https://www.linkedin.com/company/capelle-kane-immigration-lawyers",
    "x": "https://x.com/CapelleKane2025"
-  }
+  },
+  "bookingUrl": "https://www.capellekane.com/contact"
  },
  {
   "name": "S. Zalman Haouzi Avocat",
@@ -625,7 +627,8 @@
     "Arbitration",
     "Legal coaching"
    ]
-  }
+  },
+  "bookingUrl": "https://oakleyfamilylaw.ca/consultation/"
  },
  {
   "name": "Smith Employment Law",
@@ -685,7 +688,8 @@
    "facebook": "https://www.facebook.com/smithemploymentlaw",
    "instagram": "https://www.instagram.com/smithemploymentlaw",
    "linkedin": "https://www.linkedin.com/company/smith-employment-law"
-  }
+  },
+  "bookingUrl": "https://smithemploymentlaw.ca/contact/book-a-consultation/"
  },
  {
   "name": "Gad Pariente",
@@ -730,7 +734,8 @@
   },
   "social": {
    "linkedin": "https://www.linkedin.com/in/canadaimmigrationlawyers"
-  }
+  },
+  "bookingUrl": "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2sungSltxYCiqGLUlN53Ki8r3N0fa0r0GBvrWobCz22nS8KjHNeDvbKpiypFtl_6fRS2upw3L4"
  },
  {
   "name": "Sean Fagan Criminal Defence Lawyer",
@@ -925,7 +930,8 @@
    "serving": [
     "Ontario"
    ]
-  }
+  },
+  "bookingUrl": "https://umerhameed.ca/contact-us/"
  },
  {
   "name": "TAS Law Firm",
@@ -1162,7 +1168,8 @@
    "facebook": "https://www.facebook.com/DerekWilsonLaw",
    "linkedin": "https://www.linkedin.com/company/derekwilsonlaw",
    "x": "https://x.com/derekwilsonlaw"
-  }
+  },
+  "bookingUrl": "https://derekwilsonlaw.ca/personal-injury-lawyer-free-consultation-get-in-touch/"
  },
  {
   "name": "Ellis Criminal Law Professional Corporation",
@@ -1292,7 +1299,8 @@
   "social": {
    "facebook": "https://www.facebook.com/mmlawofficeyyc",
    "linkedin": "https://www.linkedin.com/company/mm-family-divorce-lawyers"
-  }
+  },
+  "bookingUrl": "https://mmfamilyanddivorcelawyers.ca/book-a-consultation/"
  },
  {
   "name": "Ken Hoyt Law",
@@ -1428,7 +1436,8 @@
    "facebook": "https://www.facebook.com/Dhiman-Law-109410865082538",
    "instagram": "https://www.instagram.com/dhimanlawoffice",
    "linkedin": "https://www.linkedin.com/company/dhiman-law-professional-corporation"
-  }
+  },
+  "bookingUrl": "https://dhimanlaw.com/contact-form/"
  },
  {
   "name": "Porcelli D'Angela LLP",
@@ -1886,7 +1895,8 @@
   "social": {
    "linkedin": "https://www.linkedin.com/in/rachaeljanderson",
    "x": "https://x.com/rjalaw"
-  }
+  },
+  "bookingUrl": "https://rjalaw.cliogrow.com/book"
  },
  {
   "name": "Alam Real Estate Law",
@@ -2676,7 +2686,8 @@
     "Brampton",
     "GTA"
    ]
-  }
+  },
+  "bookingUrl": "https://criminallawyerinbrampton.com/contact/"
  },
  {
   "name": "Swift Law",
@@ -2817,7 +2828,8 @@
    "facebook": "https://www.facebook.com/frenkeltobinlaw",
    "instagram": "https://www.instagram.com/frenkeltobin",
    "linkedin": "https://www.linkedin.com/company/frenkel-tobin-llp"
-  }
+  },
+  "bookingUrl": "https://frenkeltobin.ca/contact/"
  },
  {
   "name": "M.J. O'Nions",
@@ -2949,7 +2961,8 @@
   },
   "social": {
    "linkedin": "https://www.linkedin.com/company/lazarlawfirm"
-  }
+  },
+  "bookingUrl": "https://lazarlaw.ca/contact-us/"
  },
  {
   "name": "Slipacoff Immigration Law",
@@ -2988,7 +3001,8 @@
     "Citizenship applications",
     "PR card renewals"
    ]
-  }
+  },
+  "bookingUrl": "https://slipacofflaw.com/contact"
  },
  {
   "name": "Dabros Law",
@@ -3074,7 +3088,8 @@
    "facebook": "https://www.facebook.com/dabroslaw",
    "instagram": "https://www.instagram.com/dabroslawfirm",
    "linkedin": "https://www.linkedin.com/in/shane-dabros-58b7b1102"
-  }
+  },
+  "bookingUrl": "https://www.dabroslaw.com/contact-us/"
  },
  {
   "name": "Boghossian Morais LLP",
@@ -3133,7 +3148,8 @@
    "instagram": "https://www.instagram.com/bmlawyerscanada",
    "linkedin": "https://www.linkedin.com/company/boghossian-morais-llp",
    "x": "https://x.com/bmlawyerscanada"
-  }
+  },
+  "bookingUrl": "https://www.bmlawyers.ca/contact"
  },
  {
   "name": "Matthew Feehan Estate Lawyer",
@@ -3285,7 +3301,8 @@
    "facebook": "https://www.facebook.com/AGPOttawa",
    "linkedin": "https://www.linkedin.com/company/agpllp",
    "x": "https://x.com/agp_law"
-  }
+  },
+  "bookingUrl": "https://www.agpllp.ca/contact/"
  },
  {
   "name": "Gauthier & Mines Criminal Lawyers",
@@ -3550,7 +3567,8 @@
     "Calgary"
    ]
   },
-  "heroImage": "images/hero/muenz-criminal-law-calgary.webp"
+  "heroImage": "images/hero/muenz-criminal-law-calgary.webp",
+  "bookingUrl": "https://www.rickmuenz.ca/contact/"
  },
  {
   "name": "Frouhar Law",
@@ -3641,7 +3659,8 @@
     "Brockville",
     "Eastern Ontario"
    ]
-  }
+  },
+  "bookingUrl": "https://frouharlaw.com/contact-us/"
  },
  {
   "name": "WVGB Personal Injury Lawyers",
@@ -3709,7 +3728,8 @@
    "linkedin": "https://www.linkedin.com/company/wvglaw",
    "x": "https://x.com/WVGLawGroup",
    "youtube": "https://www.youtube.com/@wvglawgroupottawalawfirm7245"
-  }
+  },
+  "bookingUrl": "https://www.wvglaw.com/contact/"
  },
  {
   "name": "Hammer Injury Law",
@@ -3935,7 +3955,8 @@
     "Alberta"
    ]
   },
-  "heroImage": "images/hero/lt-lawyers-llp-calgary.webp"
+  "heroImage": "images/hero/lt-lawyers-llp-calgary.webp",
+  "bookingUrl": "https://ltlawyers.ca/contact/"
  },
  {
   "name": "Nanuq Law",
@@ -4028,7 +4049,8 @@
    "linkedin": "https://www.linkedin.com/company/nanuqlaw",
    "x": "https://x.com/NanuqLaw",
    "youtube": "https://www.youtube.com/@nanuqlaw3145"
-  }
+  },
+  "bookingUrl": "https://nanuqlaw.com/contact"
  },
  {
   "name": "Charney Legal",
@@ -4449,7 +4471,8 @@
     "Quebec selection certificate"
    ]
   },
-  "heroImage": "images/hero/bin-xia-zhang-montreal.webp"
+  "heroImage": "images/hero/bin-xia-zhang-montreal.webp",
+  "bookingUrl": "https://calendly.com/quebecvisa"
  },
  {
   "name": "VML Family Law LLP",
@@ -4624,7 +4647,8 @@
   "heroImage": "images/hero/stephane-cote-real-estate-lawyer-avocat-ottawa.webp",
   "social": {
    "facebook": "https://www.facebook.com/Stephane-Cote-LawyerAvocat-1927539674171125"
-  }
+  },
+  "bookingUrl": "https://scotelaw.com/contact/"
  },
  {
   "name": "Chandler Law",
@@ -4841,7 +4865,8 @@
    "instagram": "https://www.instagram.com/mincherkoeman",
    "linkedin": "https://www.linkedin.com/company/mincher-koeman-llp",
    "x": "https://x.com/MincherKoeman"
-  }
+  },
+  "bookingUrl": "https://mincherkoeman.cliogrow.com/book"
  },
  {
   "name": "HNT Law",
@@ -5069,7 +5094,8 @@
    "serving": [
     "Toronto"
    ]
-  }
+  },
+  "bookingUrl": "https://sharelawyers.com/contact/?"
  },
  {
   "name": "Kaysi Fagan",

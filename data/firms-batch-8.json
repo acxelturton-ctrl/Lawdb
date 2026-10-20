@@ -248,7 +248,8 @@
    "serving": [
     "Edmonton"
    ]
-  }
+  },
+  "bookingUrl": "https://www.edmontonlaw.ca/contact/"
  },
  {
   "name": "Taurus Law",
@@ -424,7 +425,8 @@
    "serving": [
     "Calgary"
    ]
-  }
+  },
+  "bookingUrl": "https://outlook.office.com/bookwithme/user/2bf7954798c24d92b391d3bbc09e204c@umpclaw.ca?anonymous&ismsaljsauthenabled&ep=plink"
  },
  {
   "name": "Virtual Law Group Canada",
@@ -732,7 +734,8 @@
    "facebook": "https://www.facebook.com/millerlawfirm.ca",
    "instagram": "https://www.instagram.com/millerimmigration",
    "linkedin": "https://www.linkedin.com/in/halyna-miller-6435b639"
-  }
+  },
+  "bookingUrl": "https://millerlawfirm.ca/contact/"
  },
  {
   "name": "Axon Law",
@@ -813,7 +816,8 @@
   "social": {
    "facebook": "https://www.facebook.com/khemkalaw",
    "instagram": "https://www.instagram.com/khemkalawfirm"
-  }
+  },
+  "bookingUrl": "https://khemkalaw.com/contact"
  },
  {
   "name": "Immigration & Criminal Defense Law Office",
@@ -1069,7 +1073,8 @@
    "linkedin": "https://www.linkedin.com/company/olexlegalyyc",
    "x": "https://x.com/olexlegalyyc",
    "youtube": "https://www.youtube.com/@olexlegalyyc"
-  }
+  },
+  "bookingUrl": "https://www.olexlegal.ca/olex-legal-services-appointment-form/"
  },
  {
   "name": "Bagga & Associates",
@@ -1461,7 +1466,8 @@
   },
   "social": {
    "linkedin": "https://www.linkedin.com/company/trust-law"
-  }
+  },
+  "bookingUrl": "https://www.trustlawyeg.com/contact"
  },
  {
   "name": "PSB Law Office",
@@ -1751,7 +1757,8 @@
   },
   "social": {
    "linkedin": "https://www.linkedin.com/in/jouman-el-asmar-a9022b38"
-  }
+  },
+  "bookingUrl": "https://elasmarlegal.com/contact-us/"
  },
  {
   "name": "Zemp Law Group",
@@ -1961,7 +1968,8 @@
     "Edmonton",
     "Alberta"
    ]
-  }
+  },
+  "bookingUrl": "https://www.smiththompsonlaw.ca/consultation.html"
  },
  {
   "name": "Ansari Immigration Law",
@@ -2055,7 +2063,8 @@
    "linkedin": "https://www.linkedin.com/company/ansari-immigration-law",
    "x": "https://x.com/ansari_law",
    "youtube": "https://www.youtube.com/@ansari_immigration_law"
-  }
+  },
+  "bookingUrl": "https://ansarilaw.ca/consultation-tier/"
  },
  {
   "name": "Star Legal Services",
@@ -2322,7 +2331,8 @@
   "social": {
    "instagram": "https://www.instagram.com/verdictallp",
    "linkedin": "https://www.linkedin.com/company/verdictallp"
-  }
+  },
+  "bookingUrl": "https://www.verdictallp.ca/contact/"
  },
  {
   "name": "Outsiders Law",
@@ -3061,7 +3071,8 @@
    "facebook": "https://www.facebook.com/ascentemploymentlaw",
    "linkedin": "https://www.linkedin.com/company/ascent-employment-law",
    "x": "https://x.com/AscentLaw_BC"
-  }
+  },
+  "bookingUrl": "https://calendly.com/richard-ipm/zoom-meeting?primary_color=1e9078"
  },
  {
   "name": "Gurna Law Corporation",
@@ -3100,7 +3111,8 @@
     "Record suspension",
     "Pre-removal risk assessment"
    ]
-  }
+  },
+  "bookingUrl": "https://gurnalaw.ca/contact-us/"
  },
  {
   "name": "Stern Shapray Criminal Lawyers",
@@ -3157,7 +3169,8 @@
    "linkedin": "https://www.linkedin.com/company/stern-shapray-lawyers",
    "x": "https://x.com/sternshapraylaw",
    "youtube": "https://www.youtube.com/channel/UCjyOcxQlF3SyCxI5mmWFhpw"
-  }
+  },
+  "bookingUrl": "https://sternshapraylaw.ca/contact-us/"
  },
  {
   "name": "BinHimyar Law Group",
@@ -3265,7 +3278,8 @@
     "Wills and estate law",
     "Estate litigation and probate"
    ]
-  }
+  },
+  "bookingUrl": "https://sodagar.ca/contact.php"
  },
  {
   "name": "Tevlin Gleadle Curtis",
@@ -3426,7 +3440,8 @@
    "instagram": "https://www.instagram.com/dlalaw.ca",
    "linkedin": "https://www.linkedin.com/company/dlalaw",
    "x": "https://x.com/DLALaw_CA"
-  }
+  },
+  "bookingUrl": "https://dlalaw.ca/contact/"
  },
  {
   "name": "Wilson Rasmussen LLP",
@@ -3513,7 +3528,8 @@
     "Delta",
     "South Surrey"
    ]
-  }
+  },
+  "bookingUrl": "https://wilsonrasmussen.com/free-consultation/"
  },
  {
   "name": "Elegant Law Corporation",
@@ -3796,7 +3812,8 @@
     "Vancouver"
    ]
   },
-  "heroImage": "images/hero/iven-ks-tse-law-corporation-vancouver.webp"
+  "heroImage": "images/hero/iven-ks-tse-law-corporation-vancouver.webp",
+  "bookingUrl": "https://iventse.com/contact"
  },
  {
   "name": "Zoe Arghandewal",
@@ -4395,7 +4412,8 @@
   "social": {
    "facebook": "https://www.facebook.com/khakilaw",
    "x": "https://x.com/altamishkhaki"
-  }
+  },
+  "bookingUrl": "https://calendly.com/khaki-law/paid-consultation"
  },
  {
   "name": "JK Law Corporation",
@@ -4441,7 +4459,8 @@
    "serving": [
     "Surrey"
    ]
-  }
+  },
+  "bookingUrl": "https://jklawcorp.ca/consultation/"
  },
  {
   "name": "Mahogany Law Group LLP",
@@ -4476,7 +4495,8 @@
     "Family law",
     "Estate law"
    ]
-  }
+  },
+  "bookingUrl": "https://www.mahoganylaw.ca/contact"
  },
  {
   "name": "Stirling LLP",
@@ -4722,7 +4742,8 @@
    "serving": [
     "British Columbia"
    ]
-  }
+  },
+  "bookingUrl": "https://thelawportal.ca/schedule-a-consultation/"
  },
  {
   "name": "Maio Family Law",
@@ -4858,7 +4879,8 @@
   "heroImage": "images/hero/bay-view-law-employment-lawyers-kelowna.webp",
   "social": {
    "facebook": "https://www.facebook.com/BayViewLaw"
-  }
+  },
+  "bookingUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeIFIYOogCGiPZPWW_3bXNbtDAY7fbcyilxQQsSE2y_imEtwQ/viewform"
  },
  {
   "name": "Velletta Pedersen Christie Lawyers",
@@ -5069,7 +5091,8 @@
   "social": {
    "instagram": "https://www.instagram.com/gleelaw",
    "youtube": "https://www.youtube.com/@georgeleelaw"
-  }
+  },
+  "bookingUrl": "https://gleelaw.com/contact-us/"
  },
  {
   "name": "Hutchison Oss-Cech Marlatt",
@@ -5115,7 +5138,8 @@
   },
   "social": {
    "linkedin": "https://www.linkedin.com/company/hutchison-oss-cech-marlatt"
-  }
+  },
+  "bookingUrl": "https://www.hom-law.com/contact-us/"
  },
  {
   "name": "A.S. Mattoo & Associates Law Office",
@@ -5416,7 +5440,8 @@
     "Burnaby",
     "Vancouver"
    ]
-  }
+  },
+  "bookingUrl": "https://outlook.office365.com/owa/calendar/AliceHuynhLaw@NETORG6073904.onmicrosoft.com/bookings/"
  },
  {
   "name": "Trivium Law",
@@ -5663,7 +5688,8 @@
     "British Columbia",
     "Vancouver Island"
    ]
-  }
+  },
+  "bookingUrl": "https://neilbrookslaw.ca.cliogrow.com/book"
  },
  {
   "name": "Redpoint Law LLP",
@@ -5760,7 +5786,8 @@
    "areas": [
     "Divorce"
    ]
-  }
+  },
+  "bookingUrl": "https://calendly.com/rupturequebec/divorce-sans-enfant-a-charge-en-personne"
  },
  {
   "name": "Banks Avocats",
@@ -5883,7 +5910,8 @@
    "serving": [
     "Québec"
    ]
-  }
+  },
+  "bookingUrl": "https://book.squareup.com/appointments/vw7j59a21pvrxy/location/LK6779ZWY0PD3/services"
  },
  {
   "name": "Georgia Pappis",
@@ -6005,7 +6033,8 @@
     "Montreal"
    ]
   },
-  "heroImage": "images/hero/ols-avocats-en-droit-du-travail-labour-and-employment-lawyers-montreal.webp"
+  "heroImage": "images/hero/ols-avocats-en-droit-du-travail-labour-and-employment-lawyers-montreal.webp",
+  "bookingUrl": "https://olsquebec.com/contact/"
  },
  {
   "name": "Cantin Boulianne Avocats",
@@ -6708,7 +6737,8 @@
   "social": {
    "facebook": "https://www.facebook.com/fdgavocats",
    "instagram": "https://www.instagram.com/fdgavocats"
-  }
+  },
+  "bookingUrl": "https://fdgavocats.ca.cliogrow.com/book/f8de8803d76ec015a9716f1a266fee56"
  },
  {
   "name": "Le Groupe Campeau Raymond Inc.",
@@ -8011,7 +8041,8 @@
   "type": "logo",
   "about": "With an office in Laval, MIB Avocat handles immigration applications and criminal defence for clients in the Montreal area.\n\nImmigration services cover visitors, foreign students, temporary workers, permanent residence, sponsorship and Canadian citizenship, while criminal law work includes release hearings and the defence of criminal charges and court summonses. Lawyers and staff communicate in French, English and Arabic. The firm's values are respect, transparency, open-mindedness, discretion, perseverance and excellence, and its office is on Boulevard Saint-Martin Ouest.",
   "src": "images/logos/m-i-b-avocat-inc-laval.png",
-  "heroImage": "images/hero/m-i-b-avocat-inc-laval.webp"
+  "heroImage": "images/hero/m-i-b-avocat-inc-laval.webp",
+  "bookingUrl": "https://mibavocat.com/en/appointment/"
  },
  {
   "name": "Mélanie Lord",
@@ -8279,7 +8310,8 @@
     "US work visas",
     "Business investment"
    ]
-  }
+  },
+  "bookingUrl": "https://thresholdlaw.ca/contact"
  },
  {
   "name": "Ratuski Law Office",
@@ -8594,7 +8626,8 @@
     "Elmwood",
     "East Kildonan"
    ]
-  }
+  },
+  "bookingUrl": "https://kmmglaw.ca/contactus/"
  },
  {
   "name": "Samphir Law Office",
@@ -8724,7 +8757,8 @@
    "instagram": "https://www.instagram.com/lyon_stern",
    "linkedin": "https://www.linkedin.com/company/lyonstern",
    "youtube": "https://www.youtube.com/@LyonStern"
-  }
+  },
+  "bookingUrl": "https://lyonsternpartners.setmore.com/"
  },
  {
   "name": "Holloway Thliveris",

@@ -267,7 +267,8 @@
   "heroImage": "images/hero/harsimran-makkar-law-professional-corporation-brampton.webp",
   "social": {
    "linkedin": "https://www.linkedin.com/in/harsimranmakkar"
-  }
+  },
+  "bookingUrl": "https://www.hmakkarlaw.ca/book-an-appointmen"
  },
  {
   "name": "Hoffman Law",
@@ -715,7 +716,8 @@
   "social": {
    "facebook": "https://www.facebook.com/BrykmanLaw",
    "linkedin": "https://www.linkedin.com/company/bllawyers"
-  }
+  },
+  "bookingUrl": "https://bllawyers.ca/contact/"
  },
  {
   "name": "Day + Borg LLP",
@@ -854,7 +856,8 @@
    "linkedin": "https://www.linkedin.com/company/nathens-siegel-llp",
    "x": "https://x.com/nathenssiegel",
    "youtube": "https://www.youtube.com/channel/UCbMOI4oac43tiFbNwxSHXPA"
-  }
+  },
+  "bookingUrl": "https://www.nathenssiegel.com/contact/"
  },
  {
   "name": "Marin Immigration Law",
@@ -925,7 +928,8 @@
   "heroImage": "images/hero/marin-immigration-law-ottawa.webp",
   "social": {
    "linkedin": "https://www.linkedin.com/in/cedricmarin"
-  }
+  },
+  "bookingUrl": "https://www.marinimmigrationlaw.ca/book-a-consultation"
  },
  {
   "name": "Prior Law PC",
@@ -962,7 +966,8 @@
     "Human rights"
    ]
   },
-  "heroImage": "images/hero/prior-law-pc-ottawa.webp"
+  "heroImage": "images/hero/prior-law-pc-ottawa.webp",
+  "bookingUrl": "https://priorlaw.ca/book-an-appointment/"
  },
  {
   "name": "AJ Murray Legal Services Professional Corporation",
@@ -1006,7 +1011,8 @@
    "linkedin": "https://www.linkedin.com/company/aj-murray-legal-services",
    "x": "https://x.com/ajmurraylaw",
    "youtube": "https://www.youtube.com/@ajmurraylegalservices1406"
-  }
+  },
+  "bookingUrl": "https://www.ajmurraylaw.ca/book-consultation"
  },
  {
   "name": "Archstone Law Professional Corporation",
@@ -1348,7 +1354,8 @@
    "facebook": "https://www.facebook.com/NIKA-LAW-LLP-109270877647637",
    "linkedin": "https://www.linkedin.com/company/68140273",
    "x": "https://x.com/NIKALAWLLP"
-  }
+  },
+  "bookingUrl": "https://forms.office.com/r/GYAhMVCWPs"
  },
  {
   "name": "TLC Legal Professional Corporation",
@@ -1560,7 +1567,8 @@
    "facebook": "https://www.facebook.com/ThindLawEnterprise",
    "linkedin": "https://www.linkedin.com/company/thind-law-enterprise-p-c",
    "x": "https://x.com/TLE_PC"
-  }
+  },
+  "bookingUrl": "https://www.tlepc.ca/book-an-consultation/"
  },
  {
   "name": "BridgePoint Law",
@@ -1656,7 +1664,8 @@
    "linkedin": "https://www.linkedin.com/company/bridgepoint-law-professional-corporation",
    "x": "https://x.com/Bridgepoin29484",
    "youtube": "https://www.youtube.com/@BridgePointLawPC"
-  }
+  },
+  "bookingUrl": "https://bridgepointlaw.cliogrow.com/book"
  },
  {
   "name": "AYF Law Firm",
@@ -1817,7 +1826,8 @@
    "instagram": "https://www.instagram.com/rmsestateslaw",
    "linkedin": "https://www.linkedin.com/company/rms-estates-law",
    "youtube": "https://www.youtube.com/@rmsestateslaw"
-  }
+  },
+  "bookingUrl": "https://outlook.office.com/bookwithme/user/a253eea9366d468b85453a41606f56e5@rms-law.ca?anonymous&ismsaljsauthenabled&ep=plink"
  },
  {
   "name": "Chronicle Law P.C.",
@@ -1914,7 +1924,8 @@
     "Oakville",
     "Greater Toronto Area"
    ]
-  }
+  },
+  "bookingUrl": "https://chroniclelaw.com/contact/"
  },
  {
   "name": "Lafrenière Sanna Estate Law",
@@ -2182,7 +2193,8 @@
    "instagram": "https://www.instagram.com/torontocriminallawyer",
    "linkedin": "https://www.linkedin.com/in/farjoudlaw",
    "x": "https://x.com/farjoudlaw"
-  }
+  },
+  "bookingUrl": "https://www.farjoudlaw.com/contact-us/"
  },
  {
   "name": "Quail Warfe Kreder LLP",
@@ -2231,7 +2243,8 @@
   "heroImage": "images/hero/quail-warfe-kreder-llp-mississauga.webp",
   "social": {
    "linkedin": "https://www.linkedin.com/company/qwklawyers"
-  }
+  },
+  "bookingUrl": "https://qwklawyers.com/contact/"
  },
  {
   "name": "Howard and Howard",
@@ -2330,7 +2343,8 @@
    "serving": [
     "Ontario"
    ]
-  }
+  },
+  "bookingUrl": "https://calendly.com/jbrennanlaw"
  },
  {
   "name": "Stellar Law Professional Corporation",
@@ -2433,7 +2447,8 @@
   "social": {
    "facebook": "https://www.facebook.com/moreaufamilylawbarrie",
    "linkedin": "https://www.linkedin.com/company/moreau-family-law-barrie"
-  }
+  },
+  "bookingUrl": "https://www.moreaufamilylaw.com/form.php"
  },
  {
   "name": "Garson Immigration Law",
@@ -2919,7 +2934,8 @@
     "East York",
     "GTA"
    ]
-  }
+  },
+  "bookingUrl": "https://sheardlaw.com/contact-us"
  },
  {
   "name": "Stampone Law",
@@ -2947,7 +2963,8 @@
   "src": "images/logos/stampone-law-hamilton.png",
   "social": {
    "instagram": "https://www.instagram.com/stamponelaw_"
-  }
+  },
+  "bookingUrl": "https://stamponelaw.ca/contact/"
  },
  {
   "name": "Belecky & Belecky",
@@ -3153,7 +3170,8 @@
    "facebook": "https://www.facebook.com/SS-Loomba-Law-Professional-Corporation-102368655700924",
    "instagram": "https://www.instagram.com/ssloombalaw",
    "linkedin": "https://www.linkedin.com/company/ss-loomba-law-professional-corporation"
-  }
+  },
+  "bookingUrl": "https://ssloombalaw.ca/contact-us/"
  },
  {
   "name": "Sean Kelly Law",
@@ -3385,7 +3403,8 @@
    "facebook": "https://www.facebook.com/TheCriminalLawTeamToronto",
    "x": "https://x.com/TheCriminalLaw3",
    "youtube": "https://www.youtube.com/channel/UCyOv4jmSKvXfTXykr7-Q5yw"
-  }
+  },
+  "bookingUrl": "https://thecriminallawteam.ca/contact-us/"
  },
  {
   "name": "Kevin Mehar",
@@ -3525,7 +3544,8 @@
   "social": {
    "facebook": "https://www.facebook.com/profile.php?id=100094904181306",
    "linkedin": "https://www.linkedin.com/in/robertonley"
-  }
+  },
+  "bookingUrl": "https://onleylaw.ca/contact/"
  },
  {
   "name": "Progressive Legal Solutions",
@@ -3690,7 +3710,8 @@
     "Toronto",
     "Ontario"
    ]
-  }
+  },
+  "bookingUrl": "https://adslaw.ca/contact/"
  },
  {
   "name": "Nadon Professional Corporation",
@@ -4271,7 +4292,8 @@
     "Toronto",
     "Ontario"
    ]
-  }
+  },
+  "bookingUrl": "https://app.acuityscheduling.com/schedule/93d948df"
  },
  {
   "name": "Jag Virk Lawyers",
@@ -4371,7 +4393,8 @@
    "facebook": "https://www.facebook.com/david.morneau.9",
    "instagram": "https://www.instagram.com/dmorneaulaw",
    "linkedin": "https://www.linkedin.com/in/david-morneau-237a8b37"
-  }
+  },
+  "bookingUrl": "https://davidmorneau.com/contact/contact-david"
  },
  {
   "name": "Burshtein Law",
@@ -4546,7 +4569,8 @@
     "Southern Ontario"
    ]
   },
-  "heroImage": "images/hero/vick-hundal-brampton.webp"
+  "heroImage": "images/hero/vick-hundal-brampton.webp",
+  "bookingUrl": "https://vickhundallaw.ca/contact-us"
  },
  {
   "name": "JYD LLP",
@@ -4673,7 +4697,8 @@
   "social": {
    "linkedin": "https://www.linkedin.com/in/kathryn-l-smithen-6398444",
    "youtube": "https://www.youtube.com/@SmithenFamilyLaw"
-  }
+  },
+  "bookingUrl": "https://smithenlaw.ca/book-consultation/"
  },
  {
   "name": "Monique J. Charlebois",
@@ -4713,7 +4738,8 @@
     "Estate administration",
     "Will drafting"
    ]
-  }
+  },
+  "bookingUrl": "https://forms.office.com/Pages/ResponsePage.aspx?id=BBTmPlcGAUO2uHDezbY4c55g9d_K4u5BhxlUCB30j0NUNTFOQTdENDQyN0hWRko0Mk1WNlVFVVdWTiQlQCN0PWcu"
  },
  {
   "name": "Weng Law Firm",
@@ -5007,7 +5033,8 @@
     "Work permits"
    ]
   },
-  "heroImage": "images/hero/pelican-law-immigration-and-refugee-lawyer-mississauga.webp"
+  "heroImage": "images/hero/pelican-law-immigration-and-refugee-lawyer-mississauga.webp",
+  "bookingUrl": "https://pelicanlaw.ca/consultation/"
  },
  {
   "name": "NDM Law",

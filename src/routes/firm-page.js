@@ -7,6 +7,7 @@ import { renderFirmPage } from '../render/firm-page.js';
 import { isIndexable } from '../lib/indexing.js';
 import { firmStats } from '../lib/firm-stats.js';
 import { profilesBox, hasLinkedIn } from '../render/profiles.js';
+import { bookingRow } from '../render/booking.js';
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -47,7 +48,8 @@ async function feedPosts(env, slug) {
   }
 }
 
-// Every firm page gets a Follow button (next to Call / Website / Directions), the member-ratings box under the contact form, and the small script that runs them.
+// Every firm page gets a Follow button (next to Call / Website / Directions), a Book a call button under them (active when the firm has given a booking link, greyed out when not),
+// the member-ratings box under the contact form, and the small script that runs them.
 const managedBy = async (env, slug) => {
   try { return !!(await env.DB.prepare("SELECT 1 FROM firm_members WHERE firm_slug = ? AND status = 'approved'").bind(slug).first()); } catch { return false; }
 };
@@ -57,17 +59,20 @@ const claimLine = (slug, managed) => managed
 
 // profiles: the Profiles box (the firm's social icons) for a hand-built page, put right under its description; a database page already has it. A firm with a real LinkedIn page
 // does not need the generic "Search on LinkedIn" link of the hand-built pages.
-const withFollow = (res, slug, managed, profiles = '', linkedin = false) => {
+const withFollow = (res, slug, managed, profiles = '', linkedin = false, booking = '') => {
   let profilesPlaced = false;
   return new HTMLRewriter()
     .on('div.li-actions', { element(el) { el.before(`<div class="lw-fline"><span class="lw-fcount" data-fcount="${slug}"></span><button class="lw-fbtn" type="button" data-follow="${slug}">+ Follow</button></div>`, { html: true }); } })
-    .on('div.li-actions', { element(el) { el.after(claimLine(slug, managed), { html: true }); } })
+    .on('div.li-actions', { element(el) { el.after(booking + claimLine(slug, managed), { html: true }); } })
     .on('div.article', { element(el) { if (profiles && !profilesPlaced) { profilesPlaced = true; el.after(profiles, { html: true }); } } })
     .on('div.socials a', { element(el) { if (linkedin && /^https:\/\/www\.linkedin\.com\/search\//.test(el.getAttribute('href') || '')) el.remove(); } })
     .on('div.lead-slim', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>`, { html: true }); } })
     .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })
     .transform(res);
 };
+
+const bookingUrlOf = (row) => { try { return JSON.parse(row.data).bookingUrl || ''; } catch { return ''; } };
+const nameOf = (row) => { try { return JSON.parse(row.data).name || 'This firm'; } catch { return 'This firm'; } };
 
 export async function firmPage({ request, env, ctx }) {
   const url = new URL(request.url);
@@ -108,7 +113,7 @@ export async function firmPage({ request, env, ctx }) {
     if (res.status === 200 && row && row.status === 'live' && !row.featured) res = new HTMLRewriter().on('div.guide', { element(el) { el.remove(); } }).transform(res);
     if (res.status === 200 && row && row.status === 'live') {
       const rec = JSON.parse(row.data);
-      res = withFollow(res, m[1], await managedBy(env, m[1]), profilesBox(rec.social, rec.name), hasLinkedIn(rec.social));
+      res = withFollow(res, m[1], await managedBy(env, m[1]), profilesBox(rec.social, rec.name), hasLinkedIn(rec.social), bookingRow({ url: rec.bookingUrl, slug: m[1], name: rec.name }));
     }
     if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
     return res;
@@ -135,7 +140,7 @@ export async function firmPage({ request, env, ctx }) {
       'x-lawdb-source': 'database',
       ...(held ? { 'x-robots-tag': 'noindex, follow' } : {}),
     },
-  }), m[1], await managedBy(env, m[1]));
+  }), m[1], await managedBy(env, m[1]), '', false, bookingRow({ url: bookingUrlOf(row), slug: m[1], name: nameOf(row) }));
   if (ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
   return res;
 }

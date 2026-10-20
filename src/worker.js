@@ -24,6 +24,7 @@ import { firmSitemap } from './routes/firm-sitemap.js';
 import * as social from './routes/social.js';
 import * as ratings from './routes/ratings.js';
 import * as invite from './routes/invite.js';
+import * as stats from './routes/stats.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -55,6 +56,7 @@ const ROUTES = [
   route('GET', '/api/blog', pub.listBlog),
   route('GET', '/api/home-news', homeNews.homeNewsApi),
   route('POST', '/api/leads', pub.createLead),
+  route('POST', '/api/a', stats.collect),
 
   route('POST', '/api/stripe/webhook', stripe.webhook),
 
@@ -86,6 +88,7 @@ const ROUTES = [
   route('GET', '/api/admin/payments', admin.paymentsList),
   route('POST', '/api/admin/payments/:id/assign', admin.paymentsAssign),
   route('POST', '/api/admin/payments/:id/dismiss', admin.paymentsDismiss),
+  route('GET', '/api/admin/traffic', stats.adminReport),
   route('GET', '/api/admin/search', admin.searchGet),
   route('POST', '/api/admin/search/run', admin.searchRun),
   route('POST', '/api/admin/search/inspect', admin.searchInspect),

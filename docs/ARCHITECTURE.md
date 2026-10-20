@@ -192,6 +192,17 @@ Workers Paid plan ($5/month) raises it to 10 million a month. Plain static pages
 - Not possible by API: "Request indexing" for ordinary pages (Google's Indexing API is for jobs/livestreams only). Setup: `docs/SEARCH_CONSOLE_SETUP.md`.
 - Tests run against a fake Google on port 8798 (`scripts/gen-test-gsc.mjs` adds a throw-away key to `.dev.vars`); `GSC_API_BASE`/`GSC_TOKEN_URL` are only honoured in local development (`DEV_ECHO_LINK=1`).
 
+## Traffic counts (admin Traffic tab)
+
+Google Search Console is slow and says nothing about what people do once they arrive, so the site counts its own traffic, without tracking anyone.
+
+- **What is counted** (`src/lib/stats.js`, migration 0028, table `stats_daily`): one row per Toronto day, kind and label with a running count. Kinds: `pv` page views, `visit` new visits, `entry` landing pages, `ref` referrers (search engines and social sites grouped), `dev` phone or computer (by screen width), `geo` country and province from Cloudflare's coarse location (new visits only), `utm` campaign links, `ev` clicks that matter (call, website, directions, follow, claim, and the Featured and List buttons, per page), `search` (kind of lawyer + city, province or "near me"), `town` and `noparse` (the words of a search that named a town with no page yet, or matched nothing).
+- **What is never stored**: no IP address, no browser details, no cookie, no visitor id. Robots (`isBot`) and anyone sending Do Not Track or Global Privacy Control are not counted; the member, admin and API areas are never counted. Words are kept only when they are plain letters (numbers, emails and links are dropped), and a search that matched a city never keeps the extra words. A new visit is told from another page of the same visit by a note in `sessionStorage` (tab only, not a cookie).
+- **How it flows**: `site.js` (loaded on every public page) sends a small JSON message with `navigator.sendBeacon('/api/a')`; pages that run before it loads queue theirs on `window.lwq` (`find-lawyers.html` does this for searches, once in `runSearch` and once for `?near=`). `POST /api/a` (`src/routes/stats.js`) answers 204 whatever happens, checks the message against a whitelist (`eventIncs`), throttles one address to 90 messages a minute per isolate (nothing stored), and adds one to each counter in the background. Page views are counted in the browser because most pages are static files that never reach the Worker.
+- **Reading it**: `GET /api/admin/traffic?days=7|30|90` (admin only) feeds the Traffic tab: visits per day, searches, towns people want that have no page (where to add firms next), searches that matched nothing, referrers, landing pages, regions, devices, most viewed pages and firms, and call/website/directions clicks per firm. The admin's content-security rules forbid `style=""` in markup, so the chart sets bar heights through the style object.
+- **Retention** (nightly housekeeping, `prune`): counts 400 days, `town` and `noparse` words 90 days. The Privacy Policy describes all of this ("Visit and search counts"). The table is derived and is not part of the nightly backup.
+- **Tests**: `scripts/test-stats.mjs` (cleaning, bots, throttle, what each message counts, retention SQL) is in `npm run check`; `scripts/smoke.mjs` sends real messages to the running Worker and reads the admin report.
+
 ## URLs: one clean address per page
 
 - No ".html" anywhere. Every page has exactly one address: `/list-your-firm`, `/firms/<slug>`, `/ontario/toronto/` (hubs keep their trailing slash), `/ontario/family-lawyers`, `/news`.

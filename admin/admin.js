@@ -33,7 +33,7 @@ function renderLogin() {
 // ---------------------------------------------------------------- shell
 let pendingCount = 0;
 let paymentCount = 0;
-const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['logos', 'Logos'], ['news', 'News'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['logos', 'Logos'], ['news', 'News'], ['traffic', 'Traffic'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
 
 function shell(user, active, content) {
   return h('div', null,
@@ -441,6 +441,57 @@ async function viewApprovals() {
     h('div', { class: 'card' }, decided.length ? decided.map(decidedRow) : h('p', { class: 'muted' }, 'None yet.')));
 }
 
+// ---------------------------------------------------------------- traffic (our own counts, no tracking of people)
+let trafficDays = 30;
+async function viewTraffic() {
+  const d = await api('GET', `/api/admin/traffic?days=${trafficDays}`);
+  const num = (n) => Number(n || 0).toLocaleString();
+  const place = (k) => (!k ? 'no place given' : k === 'near-me' ? 'Near me' : PROVINCES[k] ? `${PROVINCES[k]} (whole province)` : k.replace('|', ', '));
+  const kase = (k) => (k ? CASE_LABELS[k] || k : 'any kind of lawyer');
+  const table = (heads, rows, empty) => (rows.length
+    ? h('table', { class: 'tbl' }, h('thead', null, h('tr', null, heads.map((t, i) => h('th', { class: i === heads.length - 1 ? 'n' : '' }, t)))),
+      h('tbody', null, rows.map((r) => h('tr', null, r.map((c, i) => h('td', { class: i === r.length - 1 ? 'n' : '' }, c))))))
+    : h('p', { class: 'muted' }, empty || 'Nothing yet.'));
+  const box = (title, hint, body) => h('div', { class: 'card' }, h('h2', null, title), hint && h('p', { class: 'muted' }, hint), body);
+  const simple = (rows, empty) => table(['', 'Count'], rows.map((r) => [r.label, num(r.n)]), empty);
+
+  const max = Math.max(1, ...d.series.map((x) => x.visits));
+  // (The admin's content-security rules forbid style="" in markup, so each bar's height is set through the style object instead.)
+  const bars = h('div', { class: 'bars', role: 'img', 'aria-label': `Visits per day, ${d.from} to ${d.to}, highest ${num(max)}` },
+    d.series.map((x) => { const bar = h('i', { class: x.visits ? '' : 'zero', title: `${x.day}: ${num(x.visits)} visits, ${num(x.pageViews)} page views` }); bar.style.height = `${Math.max(2, Math.round((x.visits / max) * 100))}%`; return bar; }));
+  const days = h('div', { class: 'row' }, [7, 30, 90].map((n) => {
+    const b = h('button', { type: 'button', 'aria-pressed': n === trafficDays ? 'true' : 'false', class: n === trafficDays ? 'primary' : '' }, `Last ${n} days`);
+    b.addEventListener('click', () => { trafficDays = n; render(me); });
+    return b;
+  }));
+
+  return h('div', { class: 'traffic' },
+    h('h1', null, 'Traffic'),
+    h('p', { class: 'muted' }, `Our own counts, kept without tracking anyone: no cookies, no IP addresses, no visitor ids. Robots and visitors who send Do Not Track are left out. ${d.since ? `Counting since ${d.since}.` : 'Nothing has been counted yet; numbers appear as people visit.'} Days are Toronto days.`),
+    days,
+    h('div', { class: 'grid' },
+      [['Visits', d.totals.visits], ['Page views', d.totals.pageViews], ['Searches', d.totals.searches], ['Clicks that matter', d.totals.clicks]].map(([label, n]) => h('div', { class: 'card stat' }, h('b', null, num(n)), h('span', null, label)))),
+    box('Visits per day', `${d.from} to ${d.to}. Hover or tap a bar for the day.`, bars),
+    h('h2', null, 'What people look for'),
+    h('div', { class: 'two' },
+      box('Searches', 'The kind of lawyer and where, most common first.', table(['Kind of lawyer', 'Where', 'Searches'], d.searches.map((r) => [kase(r.kase), place(r.place), num(r.n)]), 'No searches yet.')),
+      box('Towns people want that we have no page for', 'The firms nearest to them were shown instead. Good places to add firms. Kept 90 days.', table(['Town', 'Kind of lawyer', 'Searches'], d.towns.map((r) => [r.label, kase(r.kase), num(r.n)]), 'None yet.')),
+      box('Searches that matched nothing', 'Words typed that were not a lawyer type, a city or a province. Kept 90 days.', simple(d.noparse, 'None yet.'))),
+    h('h2', null, 'Where visitors come from'),
+    h('div', { class: 'two' },
+      box('Websites that sent visitors', null, simple(d.refs)),
+      box('First page of a visit', 'The pages people land on.', simple(d.entries)),
+      box('Country and province', 'From Cloudflare\'s coarse location, new visits only.', simple(d.geo)),
+      box('Phone or computer', 'By the width of the screen.', simple(d.devices)),
+      d.utm.length ? box('Campaign links (utm_source)', null, simple(d.utm)) : null),
+    h('h2', null, 'What they view and do'),
+    h('div', { class: 'two' },
+      box('Most viewed pages', null, simple(d.pages)),
+      box('Most viewed firms', null, table(['Firm', 'Page views'], d.firms.map((r) => [h('a', { href: r.path, target: '_blank', rel: 'noopener' }, r.label), num(r.n)]))),
+      box('Clicks that matter', 'Call, website and directions buttons, follows, claims, and the buttons that sell Featured or listing.', simple(d.events)),
+      box('Firms getting call, website and directions clicks', null, table(['Firm', 'Button', 'Clicks'], d.eventFirms.map((r) => [r.label, r.kind, num(r.n)])))));
+}
+
 // ---------------------------------------------------------------- search (Google Search Console)
 // The site talks to Google Search Console by itself: it submits the sitemap and asks Google, a batch of pages at a time, which pages are on Google and why not.
 // Requesting indexing for a single page is the one thing Google does not allow software to do.
@@ -729,7 +780,7 @@ async function viewActivity() {
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, logos: viewLogos, news: viewNews, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, logos: viewLogos, news: viewNews, traffic: viewTraffic, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
 async function render(user) {

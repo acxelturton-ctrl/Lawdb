@@ -319,6 +319,47 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('GET', '/api/admin/members')).status === 403, 'an owner cannot see the approvals list');
   ok((await call('GET', '/api/account/me')).data.memberships.length === 0, 'a new owner manages no firms');
 
+  // traffic counts: first-party, no cookie, nothing about the sender kept, robots ignored, only the owner's admin sees the report
+  {
+    const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+    const tag = `smoke${run}`.toLowerCase().replace(/[^a-z]/g, 'x');
+    const send = (body, ua = UA) => call('POST', '/api/a', body, { 'user-agent': ua });
+    cookie = '';
+    const first = await send({ t: 'pv', p: `/smoke-${tag}`, m: 0, s: 1, r: 'www.google.ca', u: 'smoketest' });
+    ok(first.status === 204 && !first.headers.get('set-cookie'), 'a page-view message is accepted with no content and no cookie');
+    const later = await send({ t: 'pv', p: '/firms/achkar-law', m: 1, s: 0 });
+    const click = await send({ t: 'ev', e: 'call', p: '/firms/achkar-law' });
+    const found = await send({ t: 'search', c: 'family', city: 'Ottawa|ON' });
+    const town = await send({ t: 'search', c: 'criminal', w: `${tag}ville` });
+    ok([later, click, found, town].every((r) => r.status === 204), 'clicks and searches are accepted too');
+    const robot = await send({ t: 'pv', p: `/smoke-robot-${tag}`, s: 1 }, 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)');
+    const junk = [await send({ t: 'pv', p: '<script>' }), await send({ t: 'ev', e: 'delete-everything', p: '/' }), await send({ t: 'nope' }), await send('not an object'), await call('POST', '/api/a', null, { 'user-agent': UA })];
+    ok(robot.status === 204 && junk.every((r) => r.status === 204), 'robots and nonsense are answered the same way and simply not counted');
+    ok((await getRaw('/api/a')).status === 405, 'the counting address only takes messages');
+
+    cookie = '';
+    ok((await call('GET', '/api/admin/traffic')).status === 401, 'the traffic report needs a sign-in');
+    as(o1.jar);
+    ok((await call('GET', '/api/admin/traffic')).status === 403, 'an owner cannot read the traffic report');
+    as(adminJar);
+    let rep = null;
+    for (let i = 0; i < 12; i++) { // the counters are written just after the reply, so give them a moment
+      const r = await call('GET', '/api/admin/traffic?days=7');
+      rep = r.data;
+      if (rep?.towns?.some((t) => t.label === `${tag}ville`) && rep.pages.some((p) => p.label === `/smoke-${tag}`)) break;
+      await new Promise((r2) => setTimeout(r2, 400));
+    }
+    ok(rep && rep.days === 7 && rep.series.length === 7 && rep.totals.visits >= 1 && rep.totals.pageViews >= 2 && rep.totals.searches >= 2 && rep.totals.clicks >= 1, 'the report adds up visits, page views, searches and clicks over the chosen days');
+    ok(rep.pages.some((p) => p.label === `/smoke-${tag}`) && rep.entries.some((p) => p.label === `/smoke-${tag}`) && rep.refs.some((p) => p.label === 'google') && rep.utm.some((p) => p.label === 'smoketest'), 'a visit records its page, landing page, referrer (grouped) and campaign');
+    ok(!rep.pages.some((p) => p.label.includes('smoke-robot')) && !rep.pages.some((p) => p.label.includes('script')), 'robots and invalid addresses are not in the counts');
+    ok(rep.firms.some((f) => f.path === '/firms/achkar-law' && f.label === 'Achkar Law') && rep.eventFirms.some((f) => f.path === '/firms/achkar-law' && f.kind === 'call'), 'firm pages and their call clicks come with the firm\'s name');
+    ok(rep.searches.some((r) => r.kase === 'family' && r.place === 'Ottawa|ON') && rep.towns.some((t) => t.label === `${tag}ville` && t.kase === 'criminal'), 'searches and the towns nobody has a page for are listed');
+    ok(rep.devices.some((d) => d.label === 'mobile') && rep.devices.some((d) => d.label === 'desktop') && rep.geo.length >= 1, 'phone and computer visits and a coarse region are counted');
+    ok(!JSON.stringify(rep).includes(RUN_IP) && !JSON.stringify(rep).includes('Chrome/120') && !JSON.stringify(rep).includes('Googlebot'), 'the report holds no network address and no browser details');
+    ok((await call('GET', '/api/admin/traffic?days=abc')).data.days === 30 && (await call('GET', '/api/admin/traffic?days=9999')).data.days === 90, 'the number of days is kept within 1 to 90 (30 by default)');
+    as(o1.jar);
+  }
+
   // claim a firm
   ok((await call('POST', '/api/account/claims', { slug: 'achkar-law', acceptTerms: true })).status === 422, 'a claim needs a contact name');
   ok((await call('POST', '/api/account/claims', { slug: 'achkar-law', contactName: 'Pat Owner' })).status === 422, 'a claim needs the firm terms accepted');

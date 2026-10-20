@@ -1202,7 +1202,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 
   // following firms, saving stories, and the feed
   {
-    const F = 'barbarian-law';
+    const F = 'daniel-brown-law-llp'; // a Toronto firm (suggestions start with the followed firm's city); it needs no Featured status
     cookie = '';
     const anon = await call('GET', `/api/social/status?slugs=${F},torys-llp&posts=1`);
     ok(anon.status === 200 && anon.data.signedIn === false && anon.data.follows[F].following === false && anon.data.follows[F].followers === 0, 'anyone can see follower counts; the status says nobody is signed in');

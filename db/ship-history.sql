@@ -79,3 +79,4 @@ INSERT OR IGNORE INTO ship_log (pr, day, at, title) VALUES (96, '2026-10-19', '2
 INSERT OR IGNORE INTO ship_log (pr, day, at, title) VALUES (97, '2026-10-19', '2026-10-20 02:58:53', 'Firm pages: put the Profiles box right under the description');
 INSERT OR IGNORE INTO ship_log (pr, day, at, title) VALUES (98, '2026-10-19', '2026-10-20 03:08:25', 'Home page: remove the Basic vs Featured box');
 INSERT OR IGNORE INTO ship_log (pr, day, at, title) VALUES (99, '2026-10-20', '2026-10-20 11:04:28', 'Home hero: fade between two photos every 5 seconds');
+INSERT OR IGNORE INTO ship_log (pr, day, at, title) VALUES (100, '2026-10-20', '2026-10-20 17:19:16', 'Admin: traffic counts with chart and projection, Future projects, nightly Journal');

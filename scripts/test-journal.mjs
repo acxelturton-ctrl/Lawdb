@@ -1,7 +1,11 @@
 // The Traffic projection and advice, the nightly journal, the deploy record and the seeded project list.
 import { forecast, growthTips } from '../src/lib/forecast.js';
 import { dayBoundsUtc, compileDay, journalNightly } from '../src/lib/journal.js';
-import { parseMerges, toSql } from './record-deploy.mjs';
+import { parseMerges, toSql, recentPullRequests } from './record-deploy.mjs';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { readFileSync } from 'node:fs';
 
 let bad = 0;
@@ -92,6 +96,17 @@ ok(rows[0].day === '2026-10-20' && rows[0].at === '2026-10-21 02:58:53' && rows[
 ok(rows[2].title === 'Some branch name', 'a merge with no title falls back to the branch name, tidied');
 const sql = toSql(rows);
 ok(sql.split('\n').filter(Boolean).every((l) => /^INSERT OR IGNORE INTO ship_log \(pr, day, at, title\) VALUES \(\d+, '[\d-]+', '[\d: -]+', '.*'\);$/.test(l)) && sql.includes("O''Brien''s") && !sql.includes('\u0001'), 'the SQL is one idempotent insert per pull request, with quotes doubled and control characters removed');
+{
+  // The deploy's checkout is shallow: its newest commit is a "Merge pull request" with no parents on record, which `git log --merges` would skip.
+  const dir = mkdtempSync(join(tmpdir(), 'lawdb-git-'));
+  const git = (...args) => execFileSync('git', args, { cwd: dir, encoding: 'utf8', env: { ...process.env, GIT_AUTHOR_NAME: 't', GIT_AUTHOR_EMAIL: 't@t', GIT_COMMITTER_NAME: 't', GIT_COMMITTER_EMAIL: 't@t' } });
+  try {
+    git('init', '-q'); writeFileSync(join(dir, 'f.txt'), 'x'); git('add', '.');
+    git('commit', '-q', '-m', 'Merge pull request #123 from owner/some-branch\n\nA shallow checkout still has this title');
+    const rowsShallow = recentPullRequests(80, dir);
+    ok(git('log', '--merges', '--format=%H').trim() === '' && rowsShallow.length === 1 && rowsShallow[0].pr === 123 && rowsShallow[0].title === 'A shallow checkout still has this title', 'a pull request is found even when git does not call its commit a merge (the shallow checkout the deploy uses)');
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+}
 const hist = readFileSync(new URL('../db/ship-history.sql', import.meta.url), 'utf8').split('\n').filter((l) => l && !l.startsWith('--'));
 const prs = hist.map((l) => Number(/VALUES \((\d+),/.exec(l)?.[1]));
 ok(hist.length > 50 && hist.every((l) => /^INSERT OR IGNORE INTO ship_log /.test(l)) && new Set(prs).size === prs.length, 'the history file has one idempotent row per past pull request, none twice');

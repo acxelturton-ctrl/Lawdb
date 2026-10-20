@@ -400,8 +400,9 @@
   .why3-steps span:not(.n){ font-size:13.5px; color:#b9b2a4; line-height:1.5; }
   .firms-divider{ max-width:1080px; margin:20px auto 0; padding:0 20px; display:flex; align-items:center; gap:14px; color:var(--brass-deep); font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
   .firms-divider::before,.firms-divider::after{ content:''; flex:1; height:1px; background:var(--line); }
-.hero.hero3{ position:relative; isolation:isolate; text-align:center; padding:64px 20px 48px; background:#fdfcf9; }
-  .hero.hero3::before{ content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse 55% 75% at 50% 48%, rgba(255,253,248,.93) 0%, rgba(255,253,248,.78) 58%, rgba(255,253,248,.1) 100%), url('images/hero-map-canada-v2.jpg') center 70%/cover no-repeat; filter:saturate(1.5) brightness(1.07); }
+.hero.hero3{ position:relative; isolation:isolate; text-align:center; padding:64px 20px 278px; background:#fdfcf9; }
+  .hero.hero3::before{ content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse 52% 60% at 50% 38%, rgba(253,252,249,.88) 0%, rgba(253,252,249,.62) 60%, rgba(253,252,249,0) 100%), url('images/hero-city.webp') center bottom/auto 610px repeat-x, url('images/hero-sky.webp') center top/cover no-repeat, #fdfcf9; }
+  @media(max-width:700px){ .hero.hero3{ padding-bottom:236px; } .hero.hero3::before{ background-size:100% 100%, auto 232px, cover; } }
   .hero.hero3 h1{ max-width:none; margin:0 0 14px; text-align:center; font-size:clamp(36px,6vw,56px); }
   .hero.hero3 .h3-sub{ text-align:center; }
   #cases{ padding-bottom:10px; }

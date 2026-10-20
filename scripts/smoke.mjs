@@ -135,8 +135,7 @@ ok(plain.status === 200 && !plain.headers.get('x-lawdb-source'), 'pages without 
   await check('/services/qc-traffic', '/quebec/traffic-ticket-lawyers');
   await check('/legal-news', '/news');
   await check('/legal-news.html?firm=x', '/news?firm=x', 'the old News address keeps its filter');
-  await check('/legal-news/scc-berg-credibility-wd-2026.html', '/court-decisions/scc-berg-credibility-wd-2026');
-  ok((await getRaw('/british-columbia/family-lawyers')).status === 200 && (await getRaw('/court-decisions/scc-berg-credibility-wd-2026')).status === 200 && (await getRaw('/news')).status === 200, 'the new addresses answer directly, with no redirect');
+  ok((await getRaw('/british-columbia/family-lawyers')).status === 200 && (await getRaw('/news')).status === 200, 'the new addresses answer directly, with no redirect');
 }
 ok((await getRaw('/images/favicon-192.png')).status === 200, 'static images unaffected');
 
@@ -707,10 +706,8 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const emptyNews = await getRaw('/news');
   ok(emptyNews.status === 200 && emptyNews.text.includes('LawDB News is filling up'), 'with no blogs connected the page says it is filling up');
 
-  // the court-decision explainers have their own page now
-  const cd = await getRaw('/court-decisions');
-  ok(cd.status === 200 && /<h1>Court Decisions Explained<\/h1>/.test(cd.text) && (cd.text.match(/href="\/court-decisions\/[^"]+"/g) || []).length === 12, 'the 12 court-decision articles are listed on their own page');
-  ok(readFileSync(new URL('../court-decisions/scc-corbett-prior-convictions-2026.html', import.meta.url), 'utf8').includes('<a href="/court-decisions">Court Decisions</a>'), 'each article\'s breadcrumb leads back to that page');
+  // the court-decision explainers were removed: their old addresses are gone, not redirected to a page that does not match
+  ok((await getRaw('/court-decisions')).status === 404 && (await getRaw('/court-decisions/scc-berg-credibility-wd-2026')).status === 404 && !existsSync(new URL('../court-decisions.html', import.meta.url)), 'the Court Decisions Explained section is gone');
 
   // menus: three items, one hub for firms, no duplicates
   const pageFile = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
@@ -723,7 +720,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const firmsCol = (h.match(/<h4>For Law Firms<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
     ok(isDeepStrictEqual(labels(firmsCol), ['For Law Firms', 'List Your Firm (Free)', 'Get Featured', 'Manage Your Listing', 'Grow Your Practice']), `${f}: the footer's firms column has no repeats`);
     const clientsCol = (h.match(/<h4>For Clients<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
-    ok(isDeepStrictEqual(labels(clientsCol), ['Find Your Lawyer', 'Browse by Case Type', 'LawDB News', 'Court Decisions Explained', 'Blog', 'How LawDB Works', 'Request a Consultation']), `${f}: the footer's clients column is complete`);
+    ok(isDeepStrictEqual(labels(clientsCol), ['Find Your Lawyer', 'Browse by Case Type', 'LawDB News', 'Blog', 'How LawDB Works', 'Request a Consultation']), `${f}: the footer's clients column is complete`);
   }
   const hub = pageFile('for-firms.html');
   ok(['/list-your-firm"', '/list-your-firm?plan=featured"', '/account/"', '/grow-your-practice"'].every((l) => hub.slice(hub.indexOf('class="promo-links"'), hub.indexOf('class="promo-links"') + 900).includes(l)) && hub.includes('/images/featured-hero-981.webp') && /alt="A LawDB Featured firm/.test(hub) && hub.indexOf('class="hx"') > 0 && hub.indexOf('class="hx"') < hub.indexOf('<div class="wrap">') && (hub.match(/<h1[ >]/g) || []).length === 1 && !hub.includes('class="stats-strip"') && hub.includes('data-i="3"'), 'For Law Firms opens with the full-width interactive Featured hero (one h1, four features, the buttons), with no old dark hero or stats strip');

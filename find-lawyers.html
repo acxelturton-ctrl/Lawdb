@@ -736,6 +736,8 @@ function startNear(spot, caseId){
 }
 // ?near=me (the browser's location, kept in this tab by the home page search) or ?near=Keswick, ON (a town)
 function startNearFromUrl(what, caseId){
+  // Counted like a typed search: the case type and either "near me" or the town that was picked (a place name, kept only when it is plain letters).
+  (window.lwq = window.lwq || []).push(what === 'me' ? { t:'search', c:caseId || '', near:true } : { t:'search', c:caseId || '', w:what, nt:1 });
   if(what === 'me'){
     let kept = null;
     try { kept = JSON.parse(sessionStorage.getItem('lawdb.near') || 'null'); } catch(e){}
@@ -768,6 +770,9 @@ function runSearch(){
     const m = findCity(p.rest);
     if(m) p.city = m;
   }
+  // Count the search for the owner's traffic report: what kind of lawyer and where, plus the words nobody has a page for yet (a town) when no
+  // place matched. Nothing about the visitor is sent, and the words are dropped by the server unless they are plain letters.
+  (window.lwq = window.lwq || []).push({ t:'search', c:p.caseId || '', city:p.city ? p.city.name + '|' + p.city.province : '', prov:p.prov || '', w:(!p.city && !p.prov) ? p.rest : '' });
   if(p.city){
     renderLive();
     if(p.caseId) goToCity(p.city, true, p.caseId, true);

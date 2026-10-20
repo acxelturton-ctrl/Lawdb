@@ -75,3 +75,47 @@
   var swap=function(){ [].forEach.call(document.querySelectorAll('a[href="/account/"]'),function(a){ if(/^\s*Sign in\s*$/.test(a.textContent)) a.textContent='My account'; });
     var s=document.createElement('script'); s.src='/lw-app.js'; s.defer=true; document.head.appendChild(s); };
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',swap); else swap(); }catch(e){} })();
+
+/* ===== Traffic counts (first-party, no cookies, no IP address or browser details kept; see the Privacy Policy) =====
+   Sends nothing for anyone whose browser says Do Not Track / Global Privacy Control, and nothing from the member and admin areas.
+   Pages that run before this file loads queue their messages on window.lwq; they are sent from here. */
+(function(){
+  var queued = window.lwq || [];
+  var path = location.pathname.replace(/\/+$/,'') || '/';
+  var off = navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true || /^\/(admin|account|api)(\/|$)/.test(path);
+  function post(o){
+    if(off || !o) return;
+    try{
+      var body = JSON.stringify(o);
+      if(!(navigator.sendBeacon && navigator.sendBeacon('/api/a', new Blob([body], {type:'application/json'}))))
+        fetch('/api/a', {method:'POST', headers:{'content-type':'application/json'}, body:body, keepalive:true});
+    }catch(e){}
+  }
+  window.lwq = { push: post };
+  queued.forEach(function(o){ post(o); });
+  if(off) return;
+
+  /* one page view; "fresh" marks the first page of a browser-tab visit (a note kept only in this tab, gone when it closes) */
+  var host = '';
+  try{ host = document.referrer ? new URL(document.referrer).hostname : ''; }catch(e){}
+  if(host === location.hostname) host = '';
+  var fresh;
+  try{ fresh = sessionStorage.getItem('lw_s') ? 0 : 1; sessionStorage.setItem('lw_s','1'); }catch(e){ fresh = document.referrer && !host ? 0 : 1; }
+  var utm = '';
+  try{ utm = (new URLSearchParams(location.search).get('utm_source') || '').slice(0,30); }catch(e){}
+  post({ t:'pv', p:path, m: (window.innerWidth || screen.width) < 760 ? 1 : 0, s:fresh, r:host, u:utm });
+
+  /* the clicks that matter on a firm page and the buttons that sell Featured */
+  function ev(name){ post({ t:'ev', e:name, p:path }); }
+  document.addEventListener('click', function(e){
+    var el = e.target && e.target.closest ? e.target.closest('a,button') : null;
+    if(!el) return;
+    var href = el.getAttribute('href') || '';
+    if(el.hasAttribute('data-follow')) return ev('follow');
+    if(el.hasAttribute('data-claim')) return ev('claim');
+    if(/^tel:/i.test(href)) return ev('call');
+    if(/plan=featured/.test(href)) return ev('cta-featured');
+    if(/^\/list-your-firm/.test(href)) return ev('cta-list');
+    if(el.closest('.li-actions') && /^https?:/i.test(href)) return ev(/google\.com\/maps/.test(href) ? 'directions' : 'website');
+  }, true);
+})();

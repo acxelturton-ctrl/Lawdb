@@ -53,3 +53,8 @@ jobs:
           npm run db:updates:local
           npm run db:updates:local
           npx wrangler d1 execute DB --local --command "SELECT COUNT(*) AS logos_now FROM firms WHERE json_extract(data, '$.type') = 'logo'"
+      - name: Journal history loads (twice, adding nothing the second time)
+        run: |
+          npm run db:journal:local
+          npm run db:journal:local
+          npx wrangler d1 execute DB --local --command "SELECT COUNT(*) AS shipped_prs, MIN(day) AS first_day, MAX(day) AS last_day FROM ship_log"

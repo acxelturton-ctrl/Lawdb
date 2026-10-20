@@ -33,7 +33,7 @@ function renderLogin() {
 // ---------------------------------------------------------------- shell
 let pendingCount = 0;
 let paymentCount = 0;
-const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['logos', 'Logos'], ['news', 'News'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['logos', 'Logos'], ['news', 'News'], ['traffic', 'Traffic'], ['projects', 'Projects'], ['journal', 'Journal'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
 
 function shell(user, active, content) {
   return h('div', null,
@@ -441,6 +441,245 @@ async function viewApprovals() {
     h('div', { class: 'card' }, decided.length ? decided.map(decidedRow) : h('p', { class: 'muted' }, 'None yet.')));
 }
 
+// ---------------------------------------------------------------- traffic (our own counts, no tracking of people)
+let trafficDays = 30;
+const SVG_NS = 'http://www.w3.org/2000/svg';
+// (The admin's content-security rules forbid style="" in markup, so the chart is drawn with SVG attributes and classes from admin.css.)
+function svg(tag, attrs, ...kids) {
+  const el = document.createElementNS(SVG_NS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) el.setAttribute(k, v);
+  for (const kid of kids.flat()) if (kid) el.append(kid);
+  return el;
+}
+const shortDay = (d) => new Date(`${d}T12:00:00Z`).toLocaleDateString('en-CA', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+const longDay = (d) => new Date(`${d}T12:00:00Z`).toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
+const niceMax = (n) => { const p = 10 ** Math.floor(Math.log10(Math.max(n, 5))); return Math.ceil(Math.max(n, 5) / p) * p; };
+
+// Visits per day (solid), then the straight-line projection (dashed) with its likely range (shaded).
+function trafficChart(d) {
+  const W = 720, H = 250, L = 46, R = 14, T = 14, B = 30;
+  const actual = d.series.map((x) => ({ day: x.day, v: x.visits }));
+  const proj = d.forecast && d.forecast.ready ? d.forecast.points : [];
+  const total = actual.length + proj.length;
+  const ymax = niceMax(Math.max(...actual.map((p) => p.v), ...proj.map((p) => p.hi), 1));
+  const x = (i) => L + (total <= 1 ? (W - L - R) / 2 : (i * (W - L - R)) / (total - 1));
+  const y = (v) => T + (1 - v / ymax) * (H - T - B);
+  const line = (pts) => pts.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)},${py.toFixed(1)}`).join('');
+  const aPts = actual.map((p, i) => [x(i), y(p.v)]);
+  const fullPts = aPts.slice(0, -1); // today is still going, so it is shown as a hollow dot, not as the end of the line (it would look like a crash)
+  const children = [];
+  for (const f of [0, 0.5, 1]) {
+    children.push(svg('line', { class: 'ch-grid', x1: L, x2: W - R, y1: y(ymax * f), y2: y(ymax * f) }));
+    children.push(svg('text', { class: 'ch-axis', x: L - 6, y: y(ymax * f) + 4, 'text-anchor': 'end' }, String(Math.round(ymax * f))));
+  }
+  if (proj.length) {
+    const up = proj.map((p, i) => [x(actual.length + i), y(p.hi)]);
+    const down = proj.map((p, i) => [x(actual.length + i), y(p.lo)]).reverse();
+    children.push(svg('path', { class: 'ch-band', d: `${line([fullPts[fullPts.length - 1], ...up])}${down.map(([px, py]) => `L${px.toFixed(1)},${py.toFixed(1)}`).join('')}Z` }));
+  }
+  children.push(svg('path', { class: 'ch-area', d: `${line(fullPts)}L${fullPts[fullPts.length - 1][0].toFixed(1)},${y(0)}L${fullPts[0][0].toFixed(1)},${y(0)}Z` }));
+  children.push(svg('path', { class: 'ch-line', d: line(fullPts) }));
+  children.push(svg('circle', { class: 'ch-now', cx: aPts[aPts.length - 1][0], cy: aPts[aPts.length - 1][1], r: 4 }));
+  if (proj.length) children.push(svg('path', { class: 'ch-proj', d: line([fullPts[fullPts.length - 1], ...proj.map((p, i) => [x(actual.length + i), y(p.visits)])]) }));
+  children.push(svg('line', { class: 'ch-today', x1: x(actual.length - 1), x2: x(actual.length - 1), y1: T, y2: H - B }));
+  const label = (i, text, anchor) => svg('text', { class: 'ch-axis', x: x(i), y: H - 8, 'text-anchor': anchor }, text);
+  children.push(label(0, shortDay(actual[0].day), 'start'), label(actual.length - 1, 'today', proj.length ? 'middle' : 'end'));
+  if (proj.length) children.push(label(total - 1, shortDay(proj[proj.length - 1].day), 'end'));
+  // a dot with a tooltip on every day, so hovering or tapping reads out the number
+  actual.forEach((p, i) => children.push(svg('circle', { class: 'ch-dot', cx: x(i), cy: y(p.v), r: 5 }, svg('title', {}, `${longDay(p.day)}: ${p.v} visits${i === actual.length - 1 ? ' so far today (still counting)' : ''}`))));
+  proj.forEach((p, i) => children.push(svg('circle', { class: 'ch-dot', cx: x(actual.length + i), cy: y(p.visits), r: 5 }, svg('title', {}, `${longDay(p.day)} (projected): about ${p.visits} visits, likely ${p.lo} to ${p.hi}`))));
+  return svg('svg', { class: 'chart', viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Visits per day from ${shortDay(actual[0].day)} to today${proj.length ? `, then a projection to ${shortDay(proj[proj.length - 1].day)}` : ''}. The numbers are in the table below.` }, children);
+}
+
+async function viewTraffic() {
+  const d = await api('GET', `/api/admin/traffic?days=${trafficDays}`);
+  const num = (n) => Number(n || 0).toLocaleString();
+  const place = (k) => (!k ? 'no place given' : k === 'near-me' ? 'Near me' : PROVINCES[k] ? `${PROVINCES[k]} (whole province)` : k.replace('|', ', '));
+  const kase = (k) => (k ? CASE_LABELS[k] || k : 'any kind of lawyer');
+  const table = (heads, rows, empty) => (rows.length
+    ? h('table', { class: 'tbl' }, h('thead', null, h('tr', null, heads.map((t, i) => h('th', { class: i === heads.length - 1 ? 'n' : '' }, t)))),
+      h('tbody', null, rows.map((r) => h('tr', null, r.map((c, i) => h('td', { class: i === r.length - 1 ? 'n' : '' }, c))))))
+    : h('p', { class: 'muted' }, empty || 'Nothing yet.'));
+  const box = (title, hint, body) => h('div', { class: 'card' }, h('h2', null, title), hint && h('p', { class: 'muted' }, hint), body);
+  const simple = (rows, empty) => table(['', 'Count'], rows.map((r) => [r.label, num(r.n)]), empty);
+
+  const f = d.forecast;
+  const headline = f && f.ready
+    ? h('p', null, h('b', null, `If this trend holds: about ${num(f.next30)} visits over the next 30 days`), ` (the last 30 days: ${num(f.last30)}). The daily average is ${num(f.avgNow)} and is ${f.perWeekPct >= 0 ? 'climbing' : 'falling'} about ${Math.abs(f.perWeekPct)}% a week.`,
+      !f.steady && h('span', { class: 'muted' }, ' The days so far bounce around too much for this to be more than a rough guide.'))
+    : h('p', { class: 'muted' }, `The projection appears after 7 full days of counting (${f ? f.haveDays : 0} so far). Today is left out because it is still going.`);
+  const days = h('div', { class: 'row' }, [7, 30, 90].map((n) => {
+    const b = h('button', { type: 'button', 'aria-pressed': n === trafficDays ? 'true' : 'false', class: n === trafficDays ? 'primary' : '' }, `Last ${n} days`);
+    b.addEventListener('click', () => { trafficDays = n; render(me); });
+    return b;
+  }));
+  const dailyRows = [...d.series].reverse().map((x) => [longDay(x.day), num(x.pageViews), num(x.visits)]);
+
+  // Where growth could come from: listings against visits, by province.
+  const prov = {};
+  for (const g of d.geo) { const [c, r] = g.label.split(' '); if (c === 'CA' && r) prov[r] = (prov[r] || 0) + g.n; }
+  const caVisits = Object.values(prov).reduce((a, b) => a + b, 0);
+  const firmsTotal = d.coverage.reduce((a, c) => a + c.firms, 0);
+  const share = (n, t) => (t > 0 ? `${Math.round((n / t) * 100)}%` : '–');
+  const where = table(['Province', 'Firms listed', 'Share of firms', 'Visits', 'Share of visits'],
+    d.coverage.map((c) => [PROVINCES[c.province] || c.province, num(c.firms), share(c.firms, firmsTotal), num(prov[c.province] || 0), share(prov[c.province] || 0, caVisits)]).map((r) => r), 'No firms yet.');
+
+  return h('div', { class: 'traffic' },
+    h('h1', null, 'Traffic'),
+    h('p', { class: 'muted' }, `Our own counts, kept without tracking anyone: no cookies, no IP addresses, no visitor ids. Robots and visitors who send Do Not Track are left out. ${d.since ? `Counting since ${d.since}.` : 'Nothing has been counted yet; numbers appear as people visit.'} Days are Toronto days.`),
+    days,
+    h('div', { class: 'grid' },
+      [['Visits', d.totals.visits], ['Page views', d.totals.pageViews], ['Searches', d.totals.searches], ['Clicks that matter', d.totals.clicks]].map(([label, n]) => h('div', { class: 'card stat' }, h('b', null, num(n)), h('span', null, label)))),
+    h('div', { class: 'card' },
+      h('h2', null, 'Visits per day, and where they are heading'),
+      headline,
+      trafficChart(d),
+      h('div', { class: 'legend' }, h('span', { class: 'key k-line' }, 'Visits (full days)'), f && f.ready && h('span', { class: 'key k-proj' }, 'Projection'), f && f.ready && h('span', { class: 'key k-band' }, 'Likely range'), h('span', { class: 'muted' }, ' Hover or tap a point for the day.')),
+      f && f.ready && h('p', { class: 'muted' }, 'The projection is a straight line through the full days counted so far. It does not know about weekends, holidays or what you do next, so treat it as a rough guide.'),
+      h('details', null, h('summary', null, 'Show the numbers as a table'), table(['Day', 'Page views', 'Visits'], dailyRows))),
+    h('div', { class: 'card tips' },
+      h('h2', null, 'What you could do to grow traffic'),
+      h('p', { class: 'muted' }, 'Written from the numbers on this page, so it changes as the numbers do. Each point says which number it comes from.'),
+      h('ol', null, d.tips.map((t) => h('li', null, h('b', null, t.title), h('p', { class: 'why' }, t.why), h('p', null, h('span', { class: 'do' }, 'Do: '), t.action))))),
+    box('Where traffic could grow', 'Listings against Canadian visits, by province. A province with a bigger share of visits than of firms is asking for more listings; the opposite means listings that nobody is finding yet.', where),
+    h('h2', null, 'What people look for'),
+    h('div', { class: 'two' },
+      box('Searches', 'The kind of lawyer and where, most common first.', table(['Kind of lawyer', 'Where', 'Searches'], d.searches.map((r) => [kase(r.kase), place(r.place), num(r.n)]), 'No searches yet.')),
+      box('Towns people want that we have no page for', 'The firms nearest to them were shown instead. Good places to add firms. Kept 90 days.', table(['Town', 'Kind of lawyer', 'Searches'], d.towns.map((r) => [r.label, kase(r.kase), num(r.n)]), 'None yet.')),
+      box('Searches that matched nothing', 'Words typed that were not a lawyer type, a city or a province. Kept 90 days.', simple(d.noparse, 'None yet.'))),
+    h('h2', null, 'Where visitors come from'),
+    h('div', { class: 'two' },
+      box('Websites that sent visitors', null, simple(d.refs)),
+      box('First page of a visit', 'The pages people land on.', simple(d.entries)),
+      box('Country and province', 'From Cloudflare\'s coarse location, new visits only.', simple(d.geo)),
+      box('Phone or computer', 'By the width of the screen.', simple(d.devices)),
+      d.utm.length ? box('Campaign links (utm_source)', null, simple(d.utm)) : null),
+    h('h2', null, 'What they view and do'),
+    h('div', { class: 'two' },
+      box('Most viewed pages', null, simple(d.pages)),
+      box('Most viewed firms', null, table(['Firm', 'Page views'], d.firms.map((r) => [h('a', { href: r.path, target: '_blank', rel: 'noopener' }, r.label), num(r.n)]))),
+      box('Clicks that matter', 'Call, website and directions buttons, follows, claims, and the buttons that sell Featured or listing.', simple(d.events)),
+      box('Firms getting call, website and directions clicks', null, table(['Firm', 'Button', 'Clicks'], d.eventFirms.map((r) => [r.label, r.kind, num(r.n)])))));
+}
+
+// ---------------------------------------------------------------- future projects
+const PROJECT_STATUS = [['doing', 'In progress'], ['next', 'Next up'], ['idea', 'Ideas'], ['done', 'Done']];
+async function viewProjects() {
+  const { projects } = await api('GET', '/api/admin/projects');
+  const out = h('div');
+  const fail = (err) => out.replaceChildren(note('msg-err', err.message));
+  const patch = async (id, body) => { try { await api('PATCH', `/api/admin/projects/${id}`, body); render(me); } catch (err) { fail(err); } };
+
+  function card(p) {
+    const body = h('div', { class: 'proj' });
+    const showView = () => {
+      const status = h('select', { 'aria-label': `Status of ${p.title}` }, PROJECT_STATUS.map(([v, label]) => h('option', { value: v, selected: v === p.status }, label)));
+      status.addEventListener('change', () => patch(p.id, { status: status.value }));
+      const edit = h('button', { type: 'button' }, 'Edit');
+      edit.addEventListener('click', showEdit);
+      const del = h('button', { type: 'button' }, 'Delete');
+      del.addEventListener('click', async () => { if (!confirm(`Delete "${p.title}"?`)) return; try { await api('DELETE', `/api/admin/projects/${p.id}`); render(me); } catch (err) { fail(err); } });
+      const up = h('button', { type: 'button', 'aria-label': 'Move up', title: 'Move up' }, '↑');
+      const down = h('button', { type: 'button', 'aria-label': 'Move down', title: 'Move down' }, '↓');
+      up.addEventListener('click', () => patch(p.id, { move: 'up' }));
+      down.addEventListener('click', () => patch(p.id, { move: 'down' }));
+      body.replaceChildren(
+        h('div', { class: 'row spread' }, h('b', { class: 'proj-title' }, p.title),
+          h('span', { class: `badge ${p.source === 'you' ? 'b-you' : 'b-claude'}` }, p.source === 'you' ? `You asked${p.askedOn ? ' · ' + shortDay(p.askedOn) : ''}` : 'Claude\'s idea')),
+        p.detail && h('p', { class: 'proj-detail' }, p.detail),
+        h('div', { class: 'row' }, status, up, down, edit, del));
+    };
+    function showEdit() {
+      const title = h('input', { type: 'text', value: p.title, maxlength: 120, 'aria-label': 'Title' });
+      const detail = h('textarea', { maxlength: 1200, 'aria-label': 'Details' }, p.detail);
+      const save = h('button', { class: 'primary', type: 'button' }, 'Save');
+      const cancel = h('button', { type: 'button' }, 'Cancel');
+      save.addEventListener('click', () => patch(p.id, { title: title.value, detail: detail.value }));
+      cancel.addEventListener('click', showView);
+      body.replaceChildren(title, detail, h('div', { class: 'row' }, save, cancel));
+    }
+    showView();
+    return h('div', { class: 'card' }, body);
+  }
+
+  const groups = PROJECT_STATUS.map(([status, label]) => {
+    const list = projects.filter((p) => p.status === status);
+    if (!list.length) return null;
+    const cards = list.map(card);
+    return status === 'done'
+      ? h('details', null, h('summary', null, `${label} (${list.length})`), cards)
+      : h('div', null, h('h2', null, `${label} (${list.length})`), cards);
+  });
+
+  const title = h('input', { type: 'text', maxlength: 120, placeholder: 'A big thing to do, e.g. "French pages for Quebec"', 'aria-label': 'New project title' });
+  const detail = h('textarea', { maxlength: 1200, placeholder: 'Why it matters and what it would take (optional)', 'aria-label': 'New project details' });
+  const add = h('button', { class: 'primary', type: 'button' }, 'Add project');
+  add.addEventListener('click', async () => {
+    if (!title.value.trim()) return;
+    add.disabled = true;
+    try { await api('POST', '/api/admin/projects', { title: title.value, detail: detail.value, status: 'idea', source: 'you', askedOn: new Date().toISOString().slice(0, 10) }); render(me); } catch (err) { fail(err); add.disabled = false; }
+  });
+
+  return h('div', { class: 'projects' },
+    h('h1', null, 'Future projects'),
+    h('p', { class: 'muted' }, 'The big things you have asked for that are not done yet, and ideas Claude has suggested. Change a project\'s status, move it up or down, edit it, or add your own. Small fixes do not belong here.'),
+    out,
+    groups,
+    h('div', { class: 'card' }, h('h2', null, 'Add a project'), title, detail, h('div', { class: 'row' }, add)));
+}
+
+// ---------------------------------------------------------------- daily journal
+async function viewJournal() {
+  const data = await api('GET', '/api/admin/journal');
+  const out = h('div');
+  const num = (n) => Number(n || 0).toLocaleString();
+  const plural = (n, one, many) => `${num(n)} ${n === 1 ? one : many}`;
+
+  function entry(e, live) {
+    const lines = [];
+    if (e.shipped.length) lines.push(h('div', null, h('b', null, live ? 'Shipped so far' : 'Shipped'), h('ul', null, e.shipped.map((t) => h('li', null, t)), e.moreShipped > 0 && h('li', { class: 'muted' }, `and ${e.moreShipped} more`))));
+    if (e.visits || e.pageViews || e.searches || e.clicks) {
+      // a day that is still going is not compared with a whole day
+      const change = !live && e.prevVisits > 0 ? Math.round(((e.visits - e.prevVisits) / e.prevVisits) * 100) : null;
+      const vs = change === null ? '' : change === 0 ? ' (same as the day before)' : ` (${change > 0 ? 'up' : 'down'} ${Math.abs(change)}% from the day before)`;
+      lines.push(h('p', null, h('b', null, 'Site: '), `${plural(e.visits, 'visit', 'visits')}${vs} · ${plural(e.pageViews, 'page view', 'page views')} · ${plural(e.searches, 'search', 'searches')} · ${plural(e.clicks, 'click that matters', 'clicks that matter')}`));
+    }
+    const people = [e.enquiries && plural(e.enquiries, 'enquiry', 'enquiries'), e.ownerRequests && plural(e.ownerRequests, 'owner request', 'owner requests'), e.payments && plural(e.payments, 'new payment', 'new payments')].filter(Boolean);
+    if (people.length) lines.push(h('p', null, h('b', null, 'People: '), people.join(' · ')));
+    if (e.wanted) lines.push(h('p', null, h('b', null, 'Most wanted town with no page: '), `${e.wanted.town}${e.wanted.kase ? ` (${CASE_LABELS[e.wanted.kase] || e.wanted.kase})` : ''}`));
+    if (e.problems.length) lines.push(h('p', { class: 'problem' }, h('b', null, 'Problems: '), e.problems.join(' · ')));
+    if (!lines.length) lines.push(h('p', { class: 'muted' }, 'Nothing yet today.'));
+    // a note stays out of the way: shown as text when there is one, and edited from a small "note" link
+    const noteBox = h('textarea', { maxlength: 500, placeholder: 'A note for this day', 'aria-label': `Note for ${longDay(e.day)}` }, e.note || '');
+    const save = h('button', { type: 'button' }, 'Save note');
+    const shown = h('p', { class: 'note', hidden: !e.note }, e.note || '');
+    save.addEventListener('click', async () => {
+      save.disabled = true;
+      try { await api('PATCH', `/api/admin/journal/${e.day}`, { note: noteBox.value }); shown.textContent = noteBox.value.trim(); shown.hidden = !noteBox.value.trim(); save.textContent = 'Saved'; } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
+      setTimeout(() => { save.disabled = false; save.textContent = 'Save note'; }, 1200);
+    });
+    return h('div', { class: 'card journal-day' }, h('h2', null, live ? `Today so far · ${longDay(e.day)}` : longDay(e.day)), lines, shown,
+      h('details', null, h('summary', null, e.note ? 'Edit the note' : 'Add a note'), noteBox, h('div', { class: 'row' }, save)));
+  }
+
+  const SHOWN = 10;
+  const older = h('div', { hidden: true }, data.entries.slice(SHOWN).map((e) => entry(e, false)));
+  const more = h('button', { type: 'button', hidden: data.entries.length <= SHOWN }, `Show ${data.entries.length - SHOWN} older days`);
+  more.addEventListener('click', () => { older.hidden = false; more.hidden = true; });
+  const rebuild = h('button', { type: 'button' }, data.entries.length ? 'Fill in any missing days' : 'Write the last two weeks now');
+  rebuild.addEventListener('click', async () => { rebuild.disabled = true; try { await api('POST', '/api/admin/journal/rebuild'); render(me); } catch (err) { out.replaceChildren(note('msg-err', err.message)); rebuild.disabled = false; } });
+
+  return h('div', { class: 'journal' },
+    h('h1', null, 'Journal'),
+    h('p', { class: 'muted' }, 'Written for you every night, short on purpose: what shipped that day, a few numbers, and anything that broke. A day with nothing in it is skipped. What shipped comes from the site\'s own deploys; the numbers come from the Traffic counts.'),
+    out,
+    entry(data.today, true),
+    data.entries.slice(0, SHOWN).map((e) => entry(e, false)),
+    older,
+    data.entries.length ? null : h('p', { class: 'muted' }, 'No saved days yet. The first one is written tonight; you can also write the last two weeks now.'),
+    h('div', { class: 'row' }, more, rebuild));
+}
+
 // ---------------------------------------------------------------- search (Google Search Console)
 // The site talks to Google Search Console by itself: it submits the sitemap and asks Google, a batch of pages at a time, which pages are on Google and why not.
 // Requesting indexing for a single page is the one thing Google does not allow software to do.
@@ -729,7 +968,7 @@ async function viewActivity() {
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, logos: viewLogos, news: viewNews, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, logos: viewLogos, news: viewNews, traffic: viewTraffic, projects: viewProjects, journal: viewJournal, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
 async function render(user) {

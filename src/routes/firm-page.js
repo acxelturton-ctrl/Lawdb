@@ -8,6 +8,7 @@ import { isIndexable } from '../lib/indexing.js';
 import { firmStats } from '../lib/firm-stats.js';
 import { profilesBox, hasLinkedIn } from '../render/profiles.js';
 import { bookingRow } from '../render/booking.js';
+import { staticLogoHtml } from '../render/logo.js';
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -114,6 +115,9 @@ export async function firmPage({ request, env, ctx }) {
     if (res.status === 200 && row && row.status === 'live') {
       const rec = JSON.parse(row.data);
       const managed = await managedBy(env, m[1]);
+      // The logo saved in the database (admin / owner screens) wins over the one baked into the file.
+      const logo = staticLogoHtml(rec);
+      if (logo) res = new HTMLRewriter().on('span.li-logo', { element(el) { el.setInnerContent(logo, { html: true }); } }).transform(res);
       res = withFollow(res, m[1], managed, profilesBox(rec.social, rec.name), hasLinkedIn(rec.social), bookingRow({ url: rec.bookingUrl, name: rec.name, managed }));
     }
     if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));

@@ -350,5 +350,61 @@
  "gowling-wlg-canada-llp-calgary": {
   "src": "images/logos/gowling-wlg-canada-llp.png",
   "site": "https://gowlingwlg.com"
+ },
+ "fasken": {
+  "src": "images/logos/fasken.png",
+  "site": "https://www.fasken.com"
+ },
+ "gelman-and-associates": {
+  "src": "images/logos/gelman-and-associates.webp",
+  "site": "https://www.lisagelman.com"
+ },
+ "george-murray-shipley-bell-llp": {
+  "src": "images/logos/george-murray-shipley-bell-llp.png",
+  "site": "https://sarnialaw.com/?utm_source=google&utm_medium=organic&utm_campaign=Google%20My%20Business"
+ },
+ "gluckstein-lawyers": {
+  "src": "images/logos/gluckstein-lawyers.png",
+  "site": "https://www.gluckstein.com"
+ },
+ "kelly-santini-llp": {
+  "src": "images/logos/kelly-santini-llp.webp",
+  "site": "https://www.kellysantini.com"
+ },
+ "keyser-mason-ball-llp": {
+  "src": "images/logos/keyser-mason-ball-llp.png",
+  "site": "https://www.kmblaw.com"
+ },
+ "lalande-personal-injury-long-term-disability-lawyers": {
+  "src": "images/logos/lalande-personal-injury-long-term-disability-lawyers.webp",
+  "site": "https://injured.ca/"
+ },
+ "laperle-bouchard-avocats": {
+  "src": "images/logos/laperle-bouchard-avocats.png",
+  "site": "https://laperlebouchardavocats.com/"
+ },
+ "ma-adebisi-law-office-winnipeg": {
+  "src": "images/logos/ma-adebisi-law-office-winnipeg.webp",
+  "site": "https://maadebisilawoffice.com/"
+ },
+ "menneh-legal-s-a": {
+  "src": "images/logos/menneh-legal-s-a.png",
+  "site": "https://www.mennehlegal.com/"
+ },
+ "pace-law-firm": {
+  "src": "images/logos/pace-law-firm.png",
+  "site": "https://www.pacelawfirm.com"
+ },
+ "pollock-company-lawyers-winnipeg": {
+  "src": "images/logos/pollock-company-lawyers-winnipeg.webp",
+  "site": "https://pollockandcompany.com/"
+ },
+ "preszler-injury-lawyers": {
+  "src": "images/logos/preszler-injury-lawyers.webp",
+  "site": "https://www.preszlerlawbc.com"
+ },
+ "resolutions-law-corporation": {
+  "src": "images/logos/resolutions-law-corporation.png",
+  "site": "https://www.resolutionslawcorp.com/"
  }
 }

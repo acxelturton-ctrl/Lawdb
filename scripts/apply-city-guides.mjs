@@ -1,12 +1,13 @@
-// Writes the sourced local facts in data/city-guides.json into the city hub and the city practice-area pages
+// Writes the sourced local facts in data/city-guides/<province>.json into the city hub and the city practice-area pages
 // (manitoba/winnipeg/index.html, manitoba/winnipeg/criminal-defence-lawyers.html ...), between <!--city-guide--> markers, so it can be re-run.
 // A practice page also gets "firms closest to the courthouse", worked out from the firms' map positions.
 //   node scripts/apply-city-guides.mjs          rewrites the pages
 //   node scripts/apply-city-guides.mjs --check  fails if a page is out of date
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { loadGuides } from './city-guides-data.mjs';
 
 const CHECK = process.argv.includes('--check');
-const GUIDES = JSON.parse(readFileSync('data/city-guides.json', 'utf8'));
+const GUIDES = loadGuides();
 
 function loadFirms() {
   const all = JSON.parse(readFileSync('firms_data.json', 'utf8'));
@@ -58,12 +59,12 @@ function guideHtml(g, page, def, pageHtml) {
   return `<!--city-guide--><${H[0]}${isHub ? '' : ' class="seo-h"'}>${esc(def.title)}</${H[0]}><div class="${cls}">${body}${note}</div><!--/city-guide-->`;
 }
 
-let stale = 0, written = 0;
+let stale = 0, written = 0, notBuilt = 0;
 for (const [key, g] of Object.entries(GUIDES)) {
   if (key.startsWith('_')) continue;
   for (const [page, def] of Object.entries(g.pages)) {
     const file = `${key}/${page === 'index' ? 'index' : page}.html`;
-    if (!existsSync(file)) { console.error('missing page:', file); stale++; continue; }
+    if (!existsSync(file)) { notBuilt++; continue; } // a guide can be written before its page exists; it is applied once the page is built
     const old = readFileSync(file, 'utf8');
     const block = guideHtml(g, page, def, old);
     let html;
@@ -76,5 +77,5 @@ for (const [key, g] of Object.entries(GUIDES)) {
     if (html !== old) { if (CHECK) { stale++; console.error('out of date:', file); } else { writeFileSync(file, html); written++; } }
   }
 }
-if (CHECK) { if (stale) process.exit(1); console.log('city guides are up to date'); }
-else { if (stale) process.exit(1); console.log(`city guides written to ${written} pages`); }
+if (CHECK) { if (stale) process.exit(1); console.log(`city guides are up to date${notBuilt ? ` (${notBuilt} wait for pages that are not built yet)` : ''}`); }
+else { if (stale) process.exit(1); console.log(`city guides written to ${written} pages${notBuilt ? ` (${notBuilt} guide(s) wait for pages that are not built yet)` : ''}`); }

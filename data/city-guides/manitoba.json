@@ -146,7 +146,7 @@
                     "url": "https://www.manitobacourts.mb.ca/provincial-court/locations-and-contact-info/location/winnipeg/"
                   }
                 ],
-                "proof": "More than ninety-five percent of all criminal cases in Manitoba commence in the Provincial Court. | applications for judicial interim release (bail), presides over intake (first appearance) courts, screening (resolution) courts, preliminary inquiries | Provincial Court (Winnipeg) Law Courts Building Main Floor, 408 York Avenue"
+                "proof": "More than ninety-five percent of all criminal cases in Manitoba commence in the Provincial Court. | applications for judicial interim release (bail), presides over intake (first appearance) courts, screening (resolution) courts, preliminary inquiries | Provincial Court Law Courts Building Main Floor, 408 York Avenue"
               },
               {
                 "text": "All Youth Court cases in Manitoba are heard in the Provincial Court, which also hears drug cases under the Controlled Drugs and Substances Act and provincial offences such as those under The Highway Traffic Act. In Winnipeg, provincial offence tickets are handled on the main floor of 373 Broadway.",
@@ -196,11 +196,15 @@
                 "text": "Legal Aid Manitoba lists criminal law among its services. Besides applying online or by telephone, you can apply from court or from jail or prison.",
                 "sources": [
                   {
+                    "label": "Legal Aid Manitoba: services",
+                    "url": "https://www.legalaid.mb.ca/services/who-we-serve/"
+                  },
+                  {
                     "label": "Legal Aid Manitoba: how to apply",
                     "url": "https://www.legalaid.mb.ca/how-to-apply/application-centres/"
                   }
                 ],
-                "proof": "Services We Provide: Public Interest, Family, Immigration & Refugee, Residential Tenancies, Government Benefits, Criminal | HOW TO APPLY: Online, What to Bring, By Telephone, From Court, From Jail or Prison"
+                "proof": "Government Benefits Criminal U of M Community Law Centre | By Telephone Paying for Legal Aid From Court From Jail or Prison"
               }
             ]
           }

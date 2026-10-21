@@ -26,6 +26,7 @@ import * as ratings from './routes/ratings.js';
 import * as invite from './routes/invite.js';
 import * as stats from './routes/stats.js';
 import * as projects from './routes/projects.js';
+import * as outreach from './routes/outreach.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -94,6 +95,10 @@ const ROUTES = [
   route('POST', '/api/admin/projects', projects.createProject),
   route('PATCH', '/api/admin/projects/:id', projects.updateProject),
   route('DELETE', '/api/admin/projects/:id', projects.deleteProject),
+  route('GET', '/api/admin/outreach', outreach.listOutreach),
+  route('POST', '/api/admin/outreach', outreach.createOutreach),
+  route('PATCH', '/api/admin/outreach/:id', outreach.updateOutreach),
+  route('DELETE', '/api/admin/outreach/:id', outreach.deleteOutreach),
   route('GET', '/api/admin/journal', projects.journalGet),
   route('POST', '/api/admin/journal/rebuild', projects.journalRebuild),
   route('PATCH', '/api/admin/journal/:day', projects.journalNote),

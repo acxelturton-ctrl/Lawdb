@@ -30,6 +30,7 @@ const TABLES = {
   audit_log: 'SELECT * FROM audit_log ORDER BY id',
   projects: 'SELECT * FROM projects ORDER BY id', // the owner's Future projects list
   journal: 'SELECT * FROM journal ORDER BY day', // the daily journal with the owner's notes
+  outreach: 'SELECT * FROM outreach ORDER BY id', // the owner's Outreach desk (who was contacted, where it stands, when to follow up)
 };
 const PAGE = 2000;
 

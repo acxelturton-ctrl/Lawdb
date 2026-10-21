@@ -395,6 +395,35 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(moved.indexOf(lastId) === order.length - 2 && moved[order.length - 1] === order[order.length - 2], 'moving a project up swaps it with the one above');
     await call('PATCH', `/api/admin/projects/${lastId}`, { move: 'down' });
 
+    // the Outreach desk: admin only; who was contacted, where it stands, when to follow up
+    cookie = '';
+    ok((await call('GET', '/api/admin/outreach')).status === 401 && (await call('POST', '/api/admin/outreach', { person: 'x' })).status === 401, 'the Outreach desk needs a sign-in');
+    as(o1.jar);
+    ok((await call('GET', '/api/admin/outreach')).status === 403 && (await call('POST', '/api/admin/outreach', { person: 'x' })).status === 403 && (await call('PATCH', '/api/admin/outreach/1', { stage: 'replied' })).status === 403 && (await call('DELETE', '/api/admin/outreach/1')).status === 403, 'an owner cannot read or change the Outreach desk');
+    as(adminJar);
+    const o0 = (await call('GET', '/api/admin/outreach')).data;
+    ok(Array.isArray(o0.rows) && /^\d{4}-\d{2}-\d{2}$/.test(o0.today) && o0.due === 0 && ['connected', 'messaged', 'replied', 'call', 'agreed', 'not-now'].every((k) => k in o0.counts), 'the desk starts with the counts for every stage and nobody due');
+    const yesterday = new Date(Date.now() - 36 * 3600 * 1000).toISOString().slice(0, 10);
+    const o1made = await call('POST', '/api/admin/outreach', { person: `Smoke Person ${run}`, firmSlug: 'torys-llp', channel: 'linkedin', stage: 'messaged', link: 'https://www.linkedin.com/in/smoke-person?utm_source=share_via&utm_medium=member_ios', note: 'Asked about claiming', followUp: yesterday });
+    const rowA = (o1made.data.rows || []).find((r) => r.id === o1made.data.id);
+    ok(o1made.status === 201 && rowA && rowA.stage === 'messaged' && rowA.firmSlug === 'torys-llp' && rowA.firmName === 'Torys LLP' && rowA.firmState === 'listed' && rowA.link === 'https://www.linkedin.com/in/smoke-person' && rowA.lastContact === o1made.data.today, 'a contact is added, linked to the listed firm, with the LinkedIn address tidied and today as the last contact');
+    ok(rowA.due === true && o1made.data.due >= 1 && o1made.data.rows[0].id === rowA.id, 'a follow-up date that has come makes the contact due, and due contacts come first');
+    ok(rowA.post.startsWith('Welcome to LawDB, Torys LLP!') && rowA.post.includes('Toronto, Ontario') && rowA.post.endsWith(`/firms/torys-llp`), 'a listed firm comes with the LinkedIn welcome post');
+    const o2made = await call('POST', '/api/admin/outreach', { person: `Smoke Other ${run}`, firmName: 'Not Listed Law', channel: 'phone' });
+    const rowB = (o2made.data.rows || []).find((r) => r.id === o2made.data.id);
+    ok(o2made.status === 201 && rowB.firmSlug === null && rowB.firmName === 'Not Listed Law' && rowB.firmState === '' && rowB.post === '' && rowB.stage === 'connected' && rowB.due === false, 'a firm that is not listed is kept as plain text, with no post');
+    ok((await call('POST', '/api/admin/outreach', { person: '  ' })).status === 422 && (await call('POST', '/api/admin/outreach', { person: 'x', firmSlug: 'no-such-firm' })).status === 422 && (await call('POST', '/api/admin/outreach', { person: 'x', stage: 'bogus' })).status === 422 && (await call('POST', '/api/admin/outreach', { person: 'x', channel: 'carrier-pigeon' })).status === 422 && (await call('POST', '/api/admin/outreach', { person: 'x', link: 'http://insecure.example/a' })).status === 422 && (await call('POST', '/api/admin/outreach', { person: 'x', followUp: '2026-13-45' })).status === 422, 'a contact needs a name, a real firm, a known stage and channel, an https link and a real date');
+    const upd = await call('PATCH', `/api/admin/outreach/${rowA.id}`, { stage: 'replied', followUp: '2099-01-01', note: 'They replied' });
+    const rowA2 = upd.data.rows.find((r) => r.id === rowA.id);
+    ok(upd.status === 200 && rowA2.stage === 'replied' && rowA2.followUp === '2099-01-01' && rowA2.note === 'They replied' && rowA2.due === false && upd.data.counts.replied >= 1, 'changing the stage and the follow-up date is saved, and the contact stops being due');
+    const week = await call('PATCH', `/api/admin/outreach/${rowB.id}`, { touched: true, followUp: '2098-06-01' });
+    ok(week.data.rows.find((r) => r.id === rowB.id).followUp === '2098-06-01' && week.data.rows.find((r) => r.id === rowB.id).lastContact === week.data.today, '"contacted today" stamps the last contact');
+    ok((await call('PATCH', `/api/admin/outreach/${rowB.id}`, { followUp: null })).data.rows.find((r) => r.id === rowB.id).followUp === null && (await call('PATCH', `/api/admin/outreach/${rowB.id}`, { firmSlug: 'torys-llp' })).data.rows.find((r) => r.id === rowB.id).firmName === 'Torys LLP', 'a follow-up can be cleared, and a firm can be linked later');
+    ok((await call('PATCH', '/api/admin/outreach/999999', { stage: 'replied' })).status === 404 && (await call('PATCH', `/api/admin/outreach/${rowA.id}`, { stage: 'bogus' })).status === 422 && (await call('PATCH', `/api/admin/outreach/${rowA.id}`, { person: '' })).status === 422, 'an unknown contact is a 404 and bad values are refused');
+    ok((await call('DELETE', `/api/admin/outreach/${rowA.id}`)).status === 200 && (await call('DELETE', `/api/admin/outreach/${rowA.id}`)).status === 404 && (await call('DELETE', `/api/admin/outreach/${rowB.id}`)).status === 200, 'a contact can be deleted, once');
+    ok((await call('GET', '/api/admin/audit?limit=40')).data.entries.some((e) => e.action === 'outreach.add') && (await call('GET', '/api/admin/audit?limit=40')).data.entries.some((e) => e.action === 'outreach.stage'), 'adding a contact and changing a stage are in the activity log');
+    ok((await getRaw('/admin/admin.js')).text.includes("['outreach', 'Outreach']"), 'the admin area has an Outreach tab');
+
     const j0 = (await call('GET', '/api/admin/journal')).data;
     ok(/^\d{4}-\d{2}-\d{2}$/.test(j0.today.day) && j0.today.visits >= 1 && Array.isArray(j0.today.shipped) && Array.isArray(j0.entries), 'the journal shows today so far, live, from the real counts');
     ok((await call('PATCH', `/api/admin/journal/${j0.today.day}`, { note: 'Smoke note' })).status === 200 && (await call('GET', '/api/admin/journal')).data.today.note === 'Smoke note', 'a note on today is saved with the day and shown on today\'s card');

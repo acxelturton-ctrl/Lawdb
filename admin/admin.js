@@ -33,7 +33,7 @@ function renderLogin() {
 // ---------------------------------------------------------------- shell
 let pendingCount = 0;
 let paymentCount = 0;
-const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['firms', 'Firms'], ['logos', 'Logos'], ['news', 'News'], ['traffic', 'Traffic'], ['projects', 'Projects'], ['journal', 'Journal'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['outreach', 'Outreach'], ['firms', 'Firms'], ['logos', 'Logos'], ['news', 'News'], ['traffic', 'Traffic'], ['projects', 'Projects'], ['journal', 'Journal'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
 
 function shell(user, active, content) {
   return h('div', null,
@@ -583,6 +583,119 @@ async function viewTraffic() {
 
 // ---------------------------------------------------------------- future projects
 const PROJECT_STATUS = [['doing', 'In progress'], ['next', 'Next up'], ['idea', 'Ideas'], ['done', 'Done']];
+// ---- Outreach desk: who has been contacted about listing, claiming or upgrading, and when to follow up
+const OUTREACH_STAGES = [['connected', 'Connected'], ['messaged', 'Messaged'], ['replied', 'Replied'], ['call', 'Call'], ['agreed', 'Said yes'], ['not-now', 'Not now']];
+const OUTREACH_CHANNELS = [['linkedin', 'LinkedIn'], ['phone', 'Phone'], ['email', 'Email'], ['in-person', 'In person'], ['other', 'Other']];
+const FIRM_STATE = { featured: ['featured', 'Featured'], claimed: ['', 'Claimed'], listed: ['new', 'Listed, not claimed'], unlisted: ['new', 'Not live'] };
+const addDay = (day, n) => { const d = new Date(`${day}T12:00:00Z`); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+
+async function viewOutreach() {
+  let data = await api('GET', '/api/admin/outreach');
+  const out = h('div');
+  const list = h('div');
+  let filter = 'all';
+  const fail = (err) => out.replaceChildren(note('msg-err', err.message));
+  const apply = (next) => { data = next; out.replaceChildren(); drawChips(); drawList(); };
+  const patch = async (id, body) => { try { apply(await api('PATCH', `/api/admin/outreach/${id}`, body)); } catch (err) { fail(err); } };
+  const chips = h('div', { class: 'o-chips' });
+
+  function drawChips() {
+    const mk = (key, label, n, due) => {
+      const b = h('button', { type: 'button', class: `o-chip${filter === key ? ' on' : ''}${due && n ? ' due' : ''}`, 'aria-pressed': filter === key ? 'true' : 'false' }, `${label} `, h('b', null, String(n)));
+      b.addEventListener('click', () => { filter = key; drawChips(); drawList(); });
+      return b;
+    };
+    chips.replaceChildren(mk('all', 'All', data.rows.length), mk('due', 'Follow up now', data.due, true), ...OUTREACH_STAGES.map(([k, l]) => mk(k, l, data.counts[k] || 0)));
+  }
+
+  function card(r) {
+    const body = h('div', { class: `card o-card${r.due ? ' o-due' : ''}` });
+    const stage = h('select', { 'aria-label': `Stage for ${r.person}` }, OUTREACH_STAGES.map(([v, l]) => h('option', { value: v, selected: v === r.stage }, l)));
+    stage.addEventListener('change', () => patch(r.id, { stage: stage.value }));
+    const follow = h('input', { type: 'date', value: r.followUp || '', 'aria-label': `Follow up date for ${r.person}` });
+    follow.addEventListener('change', () => patch(r.id, { followUp: follow.value || null }));
+    const noteBox = h('textarea', { maxlength: 1000, 'aria-label': `Notes about ${r.person}`, placeholder: 'What was said, what they need, what to do next' }, r.note);
+    noteBox.addEventListener('change', () => patch(r.id, { note: noteBox.value }));
+    const week = h('button', { type: 'button', title: 'Mark as contacted today and follow up again in 7 days' }, 'Contacted today, follow up in a week');
+    week.addEventListener('click', () => patch(r.id, { touched: true, followUp: addDay(data.today, 7) }));
+    const del = h('button', { type: 'button' }, 'Delete');
+    del.addEventListener('click', async () => { if (!confirm(`Delete ${r.person} from the desk?`)) return; try { await api('DELETE', `/api/admin/outreach/${r.id}`); apply(await api('GET', '/api/admin/outreach')); } catch (err) { fail(err); } });
+    const state = FIRM_STATE[r.firmState];
+    const post = r.post ? h('button', { type: 'button' }, 'LinkedIn post') : null;
+    const postBox = h('div', { class: 'o-post', hidden: true });
+    if (post) post.addEventListener('click', () => {
+      if (!postBox.hidden) { postBox.hidden = true; return; }
+      const ta = h('textarea', { readonly: true, 'aria-label': 'LinkedIn post text' }, r.post);
+      const copy = h('button', { class: 'primary', type: 'button' }, 'Copy');
+      copy.addEventListener('click', async () => { try { await navigator.clipboard.writeText(r.post); copy.textContent = 'Copied'; } catch { ta.focus(); ta.select(); copy.textContent = 'Select and copy'; } });
+      postBox.replaceChildren(h('p', { class: 'muted' }, 'Post this with the "now live on LawDB" card, and tag the firm.'), ta, copy);
+      postBox.hidden = false;
+    });
+    body.append(
+      h('div', { class: 'row spread' },
+        h('div', null, h('b', null, r.person), ' ',
+          r.firmSlug && r.firmState !== 'unlisted' ? h('a', { href: `/firms/${r.firmSlug}`, target: '_blank', rel: 'noopener' }, r.firmName) : r.firmName ? h('span', null, r.firmName) : h('span', { class: 'muted' }, 'no firm yet'),
+          state && [' ', h('span', { class: `badge ${state[0]}` }, state[1])]),
+        h('span', { class: 'muted' }, OUTREACH_CHANNELS.find(([k]) => k === r.channel)?.[1] || r.channel, r.lastContact ? ` · last contact ${shortDay(r.lastContact)}` : '', r.link ? [' · ', h('a', { href: r.link, target: '_blank', rel: 'noopener noreferrer' }, 'open')] : '')),
+      h('div', { class: 'row' }, stage, h('label', { class: 'o-date' }, 'Follow up ', follow), week),
+      noteBox,
+      h('div', { class: 'row' }, post, del),
+      postBox);
+    return body;
+  }
+
+  function drawList() {
+    const rows = data.rows.filter((r) => filter === 'all' || (filter === 'due' ? r.due : r.stage === filter));
+    list.replaceChildren(...(rows.length ? rows.map(card) : [h('p', { class: 'muted' }, filter === 'all' ? 'Nobody on the desk yet. Add the first person below.' : 'Nobody here.')]));
+  }
+
+  // adding someone: the firm box suggests listed firms as you type; anything else is kept as plain text (a firm that is not listed yet)
+  const person = h('input', { type: 'text', maxlength: 120, placeholder: 'Their name', 'aria-label': 'Person' });
+  const firm = h('input', { type: 'text', maxlength: 120, placeholder: 'Their firm (pick a listed one, or type any name)', 'aria-label': 'Firm', list: 'o-firms', autocomplete: 'off' });
+  const suggest = h('datalist', { id: 'o-firms' });
+  const found = new Map();
+  let timer = null;
+  firm.addEventListener('input', () => {
+    clearTimeout(timer);
+    const q = firm.value.trim();
+    if (q.length < 2) return;
+    timer = setTimeout(async () => {
+      try {
+        const { firms } = await api('GET', `/api/admin/firms?q=${encodeURIComponent(q)}&limit=8`);
+        found.clear();
+        suggest.replaceChildren(...firms.map((f) => { const label = `${f.name} (${f.city}, ${f.province})`; found.set(label, f.slug); return h('option', { value: label }); }));
+      } catch { /* the box still works as plain text */ }
+    }, 250);
+  });
+  const channel = h('select', { 'aria-label': 'How' }, OUTREACH_CHANNELS.map(([v, l]) => h('option', { value: v }, l)));
+  const stage = h('select', { 'aria-label': 'Stage' }, OUTREACH_STAGES.map(([v, l]) => h('option', { value: v }, l)));
+  const link = h('input', { type: 'text', maxlength: 500, placeholder: 'Their LinkedIn address (optional)', 'aria-label': 'Link' });
+  const follow = h('input', { type: 'date', 'aria-label': 'Follow up on' });
+  const noteBox = h('textarea', { maxlength: 1000, placeholder: 'Notes (optional)', 'aria-label': 'Notes' });
+  const add = h('button', { class: 'primary', type: 'button' }, 'Add to the desk');
+  add.addEventListener('click', async () => {
+    if (!person.value.trim()) return;
+    add.disabled = true;
+    try {
+      const slug = found.get(firm.value);
+      const body = { person: person.value, channel: channel.value, stage: stage.value, link: link.value, note: noteBox.value, followUp: follow.value || null, ...(slug ? { firmSlug: slug } : { firmName: firm.value }) };
+      const next = await api('POST', '/api/admin/outreach', body);
+      person.value = firm.value = link.value = noteBox.value = follow.value = '';
+      filter = 'all';
+      apply(next);
+    } catch (err) { fail(err); }
+    add.disabled = false;
+  });
+
+  drawChips();
+  drawList();
+  return h('div', { class: 'outreach' },
+    h('h1', null, 'Outreach'),
+    h('p', { class: 'muted' }, 'Everyone you have contacted about listing, claiming or upgrading, where each conversation stands, and when to follow up. People due today or earlier come first. A firm that is listed shows whether it has since been claimed or become Featured, so you do not have to update that. Only you can see this page.'),
+    out, chips, list,
+    h('div', { class: 'card' }, h('h2', null, 'Add someone'), person, firm, suggest, h('div', { class: 'row' }, channel, stage, h('label', { class: 'o-date' }, 'Follow up ', follow)), link, noteBox, h('div', { class: 'row' }, add)));
+}
+
 async function viewProjects() {
   const { projects } = await api('GET', '/api/admin/projects');
   const out = h('div');
@@ -987,7 +1100,7 @@ async function viewActivity() {
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, firms: viewFirms, logos: viewLogos, news: viewNews, traffic: viewTraffic, projects: viewProjects, journal: viewJournal, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, outreach: viewOutreach, firms: viewFirms, logos: viewLogos, news: viewNews, traffic: viewTraffic, projects: viewProjects, journal: viewJournal, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
 async function render(user) {

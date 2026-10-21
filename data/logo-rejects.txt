@@ -66,8 +66,6 @@ el-haddad-avocats
 excelsior-avocats
 gagnon-tasse-gagnon-avocats
 gauthier-tousignant-avocats-inc
-george-murray-shipley-bell-llp
-gluckstein-lawyers
 gowling-wlg-canada-llp
 hara-company
 hoare-claxton-criminal-defence
@@ -76,13 +74,8 @@ john-mcgarrity-professional-corporation
 joshua-slayen-immigration-lawyer
 juriseo-avocats-inc
 juriseo-avocats-rimouski
-kelly-santini-llp
-keyser-mason-ball-llp
 knight-law-office-winnipeg
-lalande-personal-injury-long-term-disability-lawyers
-laperle-bouchard-avocats
 lewis-et-associes-sencrl
-ma-adebisi-law-office-winnipeg
 mackenzie-vozza-law
 mamann-sandaluk-llp
 mat-schwartz-criminal-law-winnipeg
@@ -95,13 +88,10 @@ me-melanie-brochu-droit-criminel-granby
 mills-and-mills-llp
 my-visa-source-legal
 nancy-goncalves-law-office-winnipeg
-pace-law-firm
 pathway-legal-family-lawyers
 point-legal
 poliquin-karine
-pollock-company-lawyers-winnipeg
 ppd-law-office-brandon
-resolutions-law-corporation
 reynolds-mirth-richards-farmer-llp
 ross-mcbride-llp
 roy-johnston-tds-brandon

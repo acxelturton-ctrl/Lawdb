@@ -1,0 +1,554 @@
+{
+  "_about": "Local facts for city and practice pages, each taken from an official page and kept with a short verbatim proof from it. scripts/apply-city-guides.mjs writes them into the pages. Only facts a person could check on the linked page belong here: no fees, no deadlines, no opinions. Review a city again when its sources change.",
+  "manitoba/winnipeg": {
+    "city": "Winnipeg",
+    "province": "MB",
+    "checked": "2026-10-21",
+    "courthouse": {
+      "name": "Law Courts Building",
+      "address": "408 York Avenue",
+      "lat": 49.8871729,
+      "lng": -97.1465079
+    },
+    "pages": {
+      "index": {
+        "title": "Winnipeg legal guide: courts, free help and checking a lawyer",
+        "groups": [
+          {
+            "heading": "Where cases are heard in Winnipeg",
+            "items": [
+              {
+                "text": "The Winnipeg court offices of the Court of King's Bench and of the Provincial Court are both on the main floor of the Law Courts Building, 408 York Avenue.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: King's Bench in Winnipeg",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/location-and-contact-info/location/winnipeg/"
+                  },
+                  {
+                    "label": "Provincial Court in Winnipeg",
+                    "url": "https://www.manitobacourts.mb.ca/provincial-court/locations-and-contact-info/location/winnipeg/"
+                  }
+                ],
+                "proof": "Law Courts Building Main Floor, 408 York Avenue Winnipeg, Manitoba R3C 0P9 | Provincial Court Law Courts Building Main Floor, 408 York Avenue"
+              },
+              {
+                "text": "Small Claims hearings are held on the 3rd floor of 373 Broadway. Provincial offences (tickets) are handled on the main floor of the same building.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: King's Bench in Winnipeg",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/location-and-contact-info/location/winnipeg/"
+                  },
+                  {
+                    "label": "Provincial Court in Winnipeg",
+                    "url": "https://www.manitobacourts.mb.ca/provincial-court/locations-and-contact-info/location/winnipeg/"
+                  }
+                ],
+                "proof": "For Small Claims Hearings: 3rd floor 373 Broadway Winnipeg | Provincial Offences Provincial Court Main Floor - 373 Broadway"
+              },
+              {
+                "text": "Family matters arising in Winnipeg go to the Family Division of the Court of King's Bench, whose judges are family law specialists and who handle all family and child protection matters from the city.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: family law",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/family-law/"
+                  }
+                ],
+                "proof": "The judges who sit in the Family Division are family law specialists. They handle all family and child protection matters arising in Flin Flon, Morden, Selkirk, St. Boniface, The Pas, Thompson and Winnipeg."
+              },
+              {
+                "text": "Winnipeg is the only place in Manitoba with a Mental Health Court at present, and it also has a Drug Treatment Court. Both are programs of the Provincial Court.",
+                "sources": [
+                  {
+                    "label": "Mental Health Court",
+                    "url": "https://www.manitobacourts.mb.ca/provincial-court/problem-solving-courts/mental-health-court/"
+                  },
+                  {
+                    "label": "Drug Treatment Court",
+                    "url": "https://www.manitobacourts.mb.ca/provincial-court/problem-solving-courts/drug-treatment-court/"
+                  }
+                ],
+                "proof": "available only in Winnipeg at the present time | The Winnipeg Drug Treatment Court (WDTC) program"
+              }
+            ]
+          },
+          {
+            "heading": "Free and low-cost help",
+            "items": [
+              {
+                "text": "Legal Aid Manitoba helps people who are financially eligible and have cases with merit, including people who are working. It looks at income, assets such as a home or RRSPs, and debts. You start the application online and finish it by telephone within 30 days.",
+                "sources": [
+                  {
+                    "label": "Legal Aid Manitoba: do I qualify?",
+                    "url": "https://www.legalaid.mb.ca/financial-rules/do-i-qualify-financially/"
+                  },
+                  {
+                    "label": "How to apply",
+                    "url": "https://www.legalaid.mb.ca/how-to-apply/application-centres/"
+                  }
+                ],
+                "proof": "provides legal help to people who are financially eligible and have cases with merit. This can include people who are working. | You must complete it over the telephone within 30 days."
+              },
+              {
+                "text": "Through the Family Resolution Service, the Family Division offers mandatory parenting programs, plus optional mediation, brief consultations for teenage children and home assessments, at no cost.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: family law",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/family-law/"
+                  }
+                ],
+                "proof": "Mandatory parenting programs, and optional mediation, brief consultations for teenage children and home assessments at no cost through Family Resolution Service"
+              }
+            ]
+          },
+          {
+            "heading": "Check before you hire",
+            "items": [
+              {
+                "text": "The Law Society of Manitoba, in Suite 200 at 260 St. Mary Avenue, runs a Lawyer Lookup to find a Manitoba lawyer or articling student, and lets you search its discipline decisions.",
+                "sources": [
+                  {
+                    "label": "Law Society of Manitoba: finding a lawyer",
+                    "url": "https://lawsociety.mb.ca/for-the-public/finding-a-lawyer/"
+                  }
+                ],
+                "proof": "Lawyer Lookup Locate a Manitoba lawyer or articling student | Discipline Decisions Search Our Discipline Records by year or alphabetically | 200 - 260 St. Mary Ave. Winnipeg"
+              },
+              {
+                "text": "Immigration consultants are licensed by the College of Immigration and Citizenship Consultants, whose public register shows whether a consultant is licensed and active.",
+                "sources": [
+                  {
+                    "label": "College of Immigration and Citizenship Consultants",
+                    "url": "https://college-ic.ca/"
+                  }
+                ],
+                "proof": "Verify that your immigration consultant is authorized-they are licensed and \"active\"-by using our public search register."
+              }
+            ]
+          }
+        ]
+      },
+      "criminal-defence-lawyers": {
+        "title": "Criminal cases in Winnipeg: the courts, specialized programs and legal aid",
+        "near": "criminal defence",
+        "groups": [
+          {
+            "heading": "Which court hears a criminal case",
+            "items": [
+              {
+                "text": "Most criminal cases in Manitoba start in the Provincial Court: more than ninety-five percent begin there. After a charge it hears bail applications, first-appearance (intake) courts, screening (resolution) courts, preliminary inquiries and trials. In Winnipeg its court office is on the main floor of the Law Courts Building, 408 York Avenue.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: about the Provincial Court",
+                    "url": "https://www.manitobacourts.mb.ca/provincial-court/about-the-provincial-court/"
+                  },
+                  {
+                    "label": "Provincial Court in Winnipeg",
+                    "url": "https://www.manitobacourts.mb.ca/provincial-court/locations-and-contact-info/location/winnipeg/"
+                  }
+                ],
+                "proof": "More than ninety-five percent of all criminal cases in Manitoba commence in the Provincial Court. | applications for judicial interim release (bail), presides over intake (first appearance) courts, screening (resolution) courts, preliminary inquiries | Provincial Court (Winnipeg) Law Courts Building Main Floor, 408 York Avenue"
+              },
+              {
+                "text": "All Youth Court cases in Manitoba are heard in the Provincial Court, which also hears drug cases under the Controlled Drugs and Substances Act and provincial offences such as those under The Highway Traffic Act. In Winnipeg, provincial offence tickets are handled on the main floor of 373 Broadway.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: about the Provincial Court",
+                    "url": "https://www.manitobacourts.mb.ca/provincial-court/about-the-provincial-court/"
+                  },
+                  {
+                    "label": "Provincial Court in Winnipeg",
+                    "url": "https://www.manitobacourts.mb.ca/provincial-court/locations-and-contact-info/location/winnipeg/"
+                  }
+                ],
+                "proof": "The Provincial Court also hears all Youth Court cases in the Province of Manitoba. | the Controlled Drugs and Substances Act, and hears all provincial statute cases, such as those under The Highway Traffic Act | Provincial Offences Provincial Court Main Floor - 373 Broadway"
+              }
+            ]
+          },
+          {
+            "heading": "Specialized courts in Winnipeg",
+            "items": [
+              {
+                "text": "The Winnipeg Drug Treatment Court is for people charged under the Controlled Drugs and Substances Act with drug-related offences, or with non-violent Criminal Code offences, who are dependent on drugs and whose criminal behaviour was caused or motivated by their addiction.",
+                "sources": [
+                  {
+                    "label": "Drug Treatment Court",
+                    "url": "https://www.manitobacourts.mb.ca/provincial-court/problem-solving-courts/drug-treatment-court/"
+                  }
+                ],
+                "proof": "To be eligible, the offender must be dependent on drugs and their criminal behaviour must have been caused or motivated by their addiction."
+              },
+              {
+                "text": "The Winnipeg Mental Health Court is a weekly sitting of the Provincial Court, available only in Winnipeg at present, for people whose criminal involvement is a direct result of their mental illness. Crown attorneys review the cases referred to them, and the process is expected to take between 18 and 24 months.",
+                "sources": [
+                  {
+                    "label": "Mental Health Court",
+                    "url": "https://www.manitobacourts.mb.ca/provincial-court/problem-solving-courts/mental-health-court/"
+                  }
+                ],
+                "proof": "The MHC process is expected to take between 18 and 24 months for each participant to complete. | The MHC Crown Attorneys will review cases referred to them"
+              }
+            ]
+          },
+          {
+            "heading": "Paying for a lawyer",
+            "items": [
+              {
+                "text": "Legal Aid Manitoba lists criminal law among its services. Besides applying online or by telephone, you can apply from court or from jail or prison.",
+                "sources": [
+                  {
+                    "label": "Legal Aid Manitoba: how to apply",
+                    "url": "https://www.legalaid.mb.ca/how-to-apply/application-centres/"
+                  }
+                ],
+                "proof": "Services We Provide: Public Interest, Family, Immigration & Refugee, Residential Tenancies, Government Benefits, Criminal | HOW TO APPLY: Online, What to Bring, By Telephone, From Court, From Jail or Prison"
+              }
+            ]
+          }
+        ]
+      },
+      "family-lawyers": {
+        "title": "Family cases in Winnipeg: the Family Division, free programs and legal aid",
+        "near": "family law",
+        "groups": [
+          {
+            "heading": "How family cases work in Winnipeg",
+            "items": [
+              {
+                "text": "Winnipeg family cases are heard by the Family Division of the Court of King's Bench, which deals with family disputes exclusively. Its judges are family law specialists, and it handles all family and child protection matters arising in the city.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: family law",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/family-law/"
+                  }
+                ],
+                "proof": "The Court of King's Bench (Family Division) deals with family disputes exclusively."
+              },
+              {
+                "text": "The Family Division encourages people to settle their differences without a contested hearing where possible. It uses mandatory case management before most contested hearings, and for contested matters it sets deadlines and a timetable.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: family law",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/family-law/"
+                  }
+                ],
+                "proof": "Dispute resolution through mandatory case management prior to most contested hearings | Aggressive case management for contested matters - setting deadlines and laying out a litigation timetable"
+              },
+              {
+                "text": "Small Claims Court cannot hear family matters that are under the authority of the Family Division.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: small claims information",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/small-claim-information-claims-filed-after-january-1-2015/"
+                  }
+                ],
+                "proof": "Small Claims Court cannot hear a claim involving the following kinds of disputes: ... family matters that are under the authority of the Family Division of the Court of King's Bench"
+              }
+            ]
+          },
+          {
+            "heading": "Free programs and help",
+            "items": [
+              {
+                "text": "The Family Resolution Service offers mandatory parenting programs, and optional mediation, brief consultations for teenage children and home assessments, at no cost. The court also publishes a brochure on its requirements for attending the Parent Information Program.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: family law",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/family-law/"
+                  }
+                ],
+                "proof": "Mandatory parenting programs, and optional mediation, brief consultations for teenage children and home assessments at no cost through Family Resolution Service | Brochure - Court Requirements for Attendance at the Parent Information Program"
+              },
+              {
+                "text": "Legal Aid Manitoba lists family law among its services. It helps people who are financially eligible and have cases with merit, and looks at income, assets such as a home or RRSPs, and debts.",
+                "sources": [
+                  {
+                    "label": "Legal Aid Manitoba: services",
+                    "url": "https://www.legalaid.mb.ca/services/who-we-serve/"
+                  },
+                  {
+                    "label": "Do I qualify?",
+                    "url": "https://www.legalaid.mb.ca/financial-rules/do-i-qualify-financially/"
+                  }
+                ],
+                "proof": "Services We Provide: Public Interest, Family, Immigration & Refugee ... | We look at your financial situation, including: Income, Assets such as a home or RRSPs, Debts"
+              }
+            ]
+          }
+        ]
+      },
+      "litigation-lawyers": {
+        "title": "Civil claims in Winnipeg: Small Claims limits and where to file",
+        "near": "litigation",
+        "groups": [
+          {
+            "heading": "Small Claims Court in Winnipeg",
+            "items": [
+              {
+                "text": "Small Claims Court is part of the Court of King's Bench and hears claims for money that do not exceed $20,000, not counting interest, costs and disbursements. The claim may include general damages of up to $2,000. If a claim is larger, the extra amount may be waived so the claim can be heard there.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: small claims information",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/small-claim-information-claims-filed-after-january-1-2015/"
+                  }
+                ],
+                "proof": "hears claims for an amount of money that does not exceed $20,000.00 (excluding interest, costs and disbursements). The claim may include general damages up to $2,000.00. | If your claim exceeds $20,000.00, you may waive the excess amount to allow for the claim to be heard in Small Claims Court."
+              },
+              {
+                "text": "In Winnipeg, Small Claims filing is at Suite 100, 408 York Avenue, and hearings are held on the 3rd floor of 373 Broadway.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: small claims information",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/small-claim-information-claims-filed-after-january-1-2015/"
+                  },
+                  {
+                    "label": "King's Bench in Winnipeg",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/location-and-contact-info/location/winnipeg/"
+                  }
+                ],
+                "proof": "Winnipeg Filing: 100 - 408 York Ave, Winnipeg, R3C 0P9 | For Small Claims Hearings: 3rd floor 373 Broadway"
+              },
+              {
+                "text": "Small Claims Court cannot hear disputes between landlords and tenants over a residential tenancy, ownership of land or an interest in land, the administration of a trust or an estate, family matters under the Family Division, or wrongful dismissal from employment.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: small claims information",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/small-claim-information-claims-filed-after-january-1-2015/"
+                  }
+                ],
+                "proof": "Small Claims Court cannot hear a claim involving the following kinds of disputes: between landlords and tenants, involving a residential tenancy ... ownership of land or an interest in land, the administration of a trust or an estate, family matters ... wrongful dismissal from employment"
+              },
+              {
+                "text": "The court officers who hear Small Claims may be able to resolve a claim through mediation if both sides are open to it. For automobile warranty disputes, the Canadian Motor Vehicle Arbitration Plan (CAMVAP) may be an option.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: small claims information",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/small-claim-information-claims-filed-after-january-1-2015/"
+                  }
+                ],
+                "proof": "the Court Officers who hear Small Claims may also be able to resolve your claim through mediation, if you and the defendant are open to trying to settle the dispute that way. | the Canadian Motor Vehicle Arbitration Plan (CAMVAP)"
+              }
+            ]
+          }
+        ]
+      },
+      "immigration-lawyers": {
+        "title": "Immigration in Winnipeg: the provincial program, legal aid and checking who can act for you",
+        "groups": [
+          {
+            "heading": "Immigrating to Manitoba",
+            "items": [
+              {
+                "text": "The Manitoba Provincial Nominee Program (MPNP) is the province's economic immigration program for people who want to become Canadian permanent residents. Its official site lists three streams: Skilled Worker, International Education and Business Investor.",
+                "sources": [
+                  {
+                    "label": "Immigrate Manitoba (MPNP)",
+                    "url": "https://immigratemanitoba.com/"
+                  }
+                ],
+                "proof": "the official website of the Manitoba Provincial Nominee Program (MPNP), the Province of Manitoba's economic immigration program for prospective Canadian permanent residents. | Skilled Worker Stream | International Education Stream | Business Investor Stream"
+              }
+            ]
+          },
+          {
+            "heading": "Help with cost and checking who you hire",
+            "items": [
+              {
+                "text": "Legal Aid Manitoba lists immigration and refugee matters among its services, for people who are financially eligible and have cases with merit.",
+                "sources": [
+                  {
+                    "label": "Legal Aid Manitoba: services",
+                    "url": "https://www.legalaid.mb.ca/services/who-we-serve/"
+                  },
+                  {
+                    "label": "Do I qualify?",
+                    "url": "https://www.legalaid.mb.ca/financial-rules/do-i-qualify-financially/"
+                  }
+                ],
+                "proof": "Services We Provide: Public Interest, Family, Immigration & Refugee, Residential Tenancies | provides legal help to people who are financially eligible and have cases with merit."
+              },
+              {
+                "text": "Lawyers are checked on the Law Society of Manitoba's Lawyer Lookup. A Regulated Canadian Immigration Consultant (RCIC) is licensed by the College of Immigration and Citizenship Consultants, whose public register shows whether a consultant is licensed and active. Immigration fraud can be hard to spot, so check before you pay anyone.",
+                "sources": [
+                  {
+                    "label": "Law Society of Manitoba: finding a lawyer",
+                    "url": "https://lawsociety.mb.ca/for-the-public/finding-a-lawyer/"
+                  },
+                  {
+                    "label": "College of Immigration and Citizenship Consultants",
+                    "url": "https://college-ic.ca/"
+                  }
+                ],
+                "proof": "Lawyer Lookup Locate a Manitoba lawyer or articling student | licenses and regulates the practice of Regulated Canadian Immigration Consultants (RCICs) ... Immigration fraud can be hard to spot"
+              }
+            ]
+          }
+        ]
+      },
+      "employment-lawyers": {
+        "title": "Work disputes in Winnipeg: employment standards, human rights and what Small Claims cannot hear",
+        "groups": [
+          {
+            "heading": "Where employment problems go in Manitoba",
+            "items": [
+              {
+                "text": "Manitoba's Small Claims Court cannot hear a claim for wrongful dismissal from employment, so that kind of claim is not a Small Claims matter. An employment lawyer can say where it belongs.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: small claims information",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/small-claim-information-claims-filed-after-january-1-2015/"
+                  }
+                ],
+                "proof": "Small Claims Court cannot hear a claim involving the following kinds of disputes: ... wrongful dismissal from employment"
+              },
+              {
+                "text": "Manitoba's Employment Standards office answers questions about the rights and responsibilities of employees and employers (204-945-3352, or 1-800-821-4307 toll free in Manitoba), and claims and application forms can be sent electronically.",
+                "sources": [
+                  {
+                    "label": "Manitoba Employment Standards",
+                    "url": "https://www.manitoba.ca/labour/standards/"
+                  }
+                ],
+                "proof": "Questions about the rights and responsibilities of employees and employers in Manitoba? Call our general inquiry lines at 204-945-3352 or toll free in Manitoba at 1-800-821-4307. | Claims and application forms can be submitted electronically"
+              },
+              {
+                "text": "Since November 7, 2024, Long-Term Leave for Serious Injury or Illness gives 27 weeks of job protection in Manitoba, up from 17 weeks.",
+                "sources": [
+                  {
+                    "label": "Manitoba Employment Standards",
+                    "url": "https://www.manitoba.ca/labour/standards/"
+                  }
+                ],
+                "proof": "As of November 7, 2024, Long-Term Leave for Serious Injury or Illness has been extended from 17 weeks to 27 weeks of job protection."
+              },
+              {
+                "text": "Human rights complaints go to the Manitoba Human Rights Commission ((204) 945-3007), which publishes guides on filing a complaint, responding to one, early assessment and dismissal without investigation, and investigation. Since June 2, 2025, gender expression has been a protected characteristic listed under section 9(2) of The Human Rights Code.",
+                "sources": [
+                  {
+                    "label": "Manitoba Human Rights Commission",
+                    "url": "https://www.manitobahumanrights.ca/"
+                  }
+                ],
+                "proof": "Following amendments to The Human Rights Code which came into effect on June 2, 2025, gender expression is now a protected characteristic specifically listed under section 9(2) of The Code. | contact the Commission at (204) 945-3007 | Filing a Complaint, Responding to a Complaint, Early Assessment and Dismissal Without Investigation, Investigation"
+              }
+            ]
+          }
+        ]
+      },
+      "wills-estate-lawyers": {
+        "title": "Wills and estates in Winnipeg: the Public Guardian and Trustee and finding a lost will",
+        "groups": [
+          {
+            "heading": "Public help with estates",
+            "items": [
+              {
+                "text": "The Public Guardian and Trustee of Manitoba administers the estates of people who died in Manitoba with no one else capable or willing to act as administrator or executor, and the estates of people who granted it a Power of Attorney. Winnipeg office: 204-945-2700.",
+                "sources": [
+                  {
+                    "label": "Public Guardian and Trustee of Manitoba",
+                    "url": "https://www.manitoba.ca/publictrustee/"
+                  }
+                ],
+                "proof": "Administers the estates of people who have died in Manitoba with no one else capable or willing to act as administrator or executor. | Administers the estates of people who have granted a Power of Attorney to The Public Guardian and Trustee. | 204-945-2700 (Winnipeg)"
+              },
+              {
+                "text": "Small Claims Court cannot hear a dispute about the administration of a trust or an estate.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: small claims information",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/small-claim-information-claims-filed-after-january-1-2015/"
+                  }
+                ],
+                "proof": "the administration of a trust or an estate"
+              }
+            ]
+          },
+          {
+            "heading": "If you cannot find the original will",
+            "items": [
+              {
+                "text": "The Law Society of Manitoba suggests looking in the usual places (safety deposit boxes, home safes, desks), contacting the law firm that drafted the will, asking relatives and friends, and considering a public notice. Some wills were registered with the Court of King's Bench in the past, so the Court Registry System (KB Wills) can be checked. If you know which lawyer drafted it, the Law Society can look in its records.",
+                "sources": [
+                  {
+                    "label": "Law Society of Manitoba: lost wills",
+                    "url": "https://lawsociety.mb.ca/for-the-public/lost-wills/"
+                  }
+                ],
+                "proof": "Look in typical places where a will might be stored, such as safety deposit boxes, home safes, desks, or file cabinets. | You can check the Court Registry System (KB Wills), as in the past, some wills were registered with the Court of King's Bench. | If you know the name of the lawyer who drafted the will, we can look in our records"
+              }
+            ]
+          }
+        ]
+      },
+      "business-lawyers": {
+        "title": "Starting or running a business in Winnipeg: the Companies Office and the public registry",
+        "groups": [
+          {
+            "heading": "Registering a business in Manitoba",
+            "items": [
+              {
+                "text": "The Manitoba Companies Office, at Suite 1010, 405 Broadway in Winnipeg, registers corporations and business names, and reviews a proposed name to make sure it is not confusingly similar to one already on record before it incorporates the company or registers the name.",
+                "sources": [
+                  {
+                    "label": "Manitoba Companies Office",
+                    "url": "https://companiesoffice.gov.mb.ca/"
+                  }
+                ],
+                "proof": "We register information about corporations and business names. | we review the proposed names to make sure that they aren't confusingly similar to ones already on our record. | Address: 1010-405 Broadway Winnipeg, MB R3C 3L6"
+              },
+              {
+                "text": "Anyone can search the registry to see who is doing business under a trade name, where the business is located, and the list of officers and directors. The same office handles appointments and renewals of Commissioners for Oaths and Notaries Public.",
+                "sources": [
+                  {
+                    "label": "Manitoba Companies Office",
+                    "url": "https://companiesoffice.gov.mb.ca/"
+                  }
+                ],
+                "proof": "The public may search the registry to obtain information (for example, who is doing business under the trade name, where the business is located, and to get a list of officers and directors). | appointments and renewals of Commissioner for Oaths and Notary Publics"
+              }
+            ]
+          }
+        ]
+      },
+      "real-estate-lawyers": {
+        "title": "Buying or selling property in Winnipeg: Manitoba's land titles system",
+        "groups": [
+          {
+            "heading": "How property is registered in Manitoba",
+            "items": [
+              {
+                "text": "Teranet Manitoba is the exclusive service provider for Manitoba's Land Titles Registry and Personal Property Registry. It certifies titles to land and maintains land and survey records for the Province, and the Registrar-General of Manitoba oversees it.",
+                "sources": [
+                  {
+                    "label": "Teranet Manitoba",
+                    "url": "https://teranetmanitoba.ca/"
+                  }
+                ],
+                "proof": "We're the exclusive service provider for Manitoba's Land Titles Registry and Personal Property Registry. We certify titles to land, maintain land and survey records | The Registrar-General of Manitoba is responsible for exercising general oversight of Teranet Manitoba"
+              },
+              {
+                "text": "The land titles offices accept and register the documents that transfer or affect interests in land, such as mortgages, liens and discharges. They are in Winnipeg, Brandon, Dauphin, Morden, Neepawa and Portage la Prairie.",
+                "sources": [
+                  {
+                    "label": "Teranet Manitoba",
+                    "url": "https://teranetmanitoba.ca/"
+                  }
+                ],
+                "proof": "The land titles offices accept and register the documents that transfer and affect interests in land such as mortgages, liens, and discharges. The offices are located in Winnipeg, Brandon, Dauphin, Morden, Neepawa, and Portage la Prairie."
+              },
+              {
+                "text": "Small Claims Court cannot hear disputes about ownership of land or an interest in land, or residential tenancy disputes between landlords and tenants.",
+                "sources": [
+                  {
+                    "label": "Manitoba Courts: small claims information",
+                    "url": "https://www.manitobacourts.mb.ca/court-of-queens-bench/court-proceedings/small-claim-information-claims-filed-after-january-1-2015/"
+                  }
+                ],
+                "proof": "between landlords and tenants, involving a residential tenancy ... ownership of land or an interest in land"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

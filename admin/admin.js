@@ -494,6 +494,10 @@ function trafficChart(d) {
   return svg('svg', { class: 'chart', viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Visits per day from ${shortDay(actual[0].day)} to today${proj.length ? `, then a projection to ${shortDay(proj[proj.length - 1].day)}` : ''}. The numbers are in the table below.` }, children);
 }
 
+// "lawdb_skip" in this browser's storage: site.js sends no traffic messages while it is '1'. null = never set here.
+function skipState() { try { const v = localStorage.getItem('lawdb_skip'); return v === null ? null : v === '1'; } catch { return null; } }
+function setSkip(on) { try { localStorage.setItem('lawdb_skip', on ? '1' : '0'); } catch { /* storage blocked: visits from this browser are counted */ } }
+
 async function viewTraffic() {
   const d = await api('GET', `/api/admin/traffic?days=${trafficDays}`);
   const num = (n) => Number(n || 0).toLocaleString();
@@ -505,6 +509,17 @@ async function viewTraffic() {
     : h('p', { class: 'muted' }, empty || 'Nothing yet.'));
   const box = (title, hint, body) => h('div', { class: 'card' }, h('h2', null, title), hint && h('p', { class: 'muted' }, hint), body);
   const simple = (rows, empty) => table(['', 'Count'], rows.map((r) => [r.label, num(r.n)]), empty);
+
+  // Your own visits: left out on this device, so looking at your site 100 times a day does not move the numbers.
+  const ownVisitsCard = () => {
+    const skipping = skipState() === true;
+    const btn = h('button', { type: 'button', class: skipping ? '' : 'primary' }, skipping ? 'Count this device again' : 'Do not count this device');
+    btn.addEventListener('click', () => { setSkip(!skipping); render(me); });
+    return h('div', { class: 'card' }, h('h2', null, 'Your own visits'),
+      h('p', null, skipping ? 'Visits from this device are not counted.' : 'Visits from this device are counted, like anyone\'s.'),
+      h('p', { class: 'muted' }, 'This is a note kept in this browser only. Opening the admin on a phone or computer sets it for that one, so do that once on each device you use. Visits counted before it was set cannot be taken out, because nothing about a visitor is kept.'),
+      btn);
+  };
 
   const f = d.forecast;
   const headline = f && f.ready
@@ -530,6 +545,7 @@ async function viewTraffic() {
   return h('div', { class: 'traffic' },
     h('h1', null, 'Traffic'),
     h('p', { class: 'muted' }, `Our own counts, kept without tracking anyone: no cookies, no IP addresses, no visitor ids. Robots and visitors who send Do Not Track are left out. ${d.since ? `Counting since ${d.since}.` : 'Nothing has been counted yet; numbers appear as people visit.'} Days are Toronto days.`),
+    ownVisitsCard(),
     days,
     h('div', { class: 'grid' },
       [['Visits', d.totals.visits], ['Page views', d.totals.pageViews], ['Searches', d.totals.searches], ['Clicks that matter', d.totals.clicks]].map(([label, n]) => h('div', { class: 'card stat' }, h('b', null, num(n)), h('span', null, label)))),
@@ -992,6 +1008,7 @@ async function boot() {
   try { who = await api('GET', '/api/auth/me'); } catch (err) { return mount(h('div', { class: 'wrap' }, note('msg-err', err.message))); }
   if (!who.user) return renderLogin();
   if (who.user.role !== 'admin') return location.replace('/account/'); // firm owners have their own area
+  if (skipState() === null) setSkip(true); // the owner's own visits are not counted, on every device the admin is opened on (the Traffic tab can turn this off)
   window.addEventListener('hashchange', () => render(who.user));
   render(who.user);
 }

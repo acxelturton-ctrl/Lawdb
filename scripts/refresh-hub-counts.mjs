@@ -1,5 +1,6 @@
 // Refreshes the counts and lists baked into the province and city hub pages (<province>/index.html, <province>/<city>/index.html):
-// number of firms, average rating, review total, "rated 4.5+", practice-area counts, city counts, the top-rated firms, the
+// number of firms, average rating, review total, "rated 4.5+", practice-area counts, city counts, the top-rated firms, the A to Z list of
+// every firm in a city (so every firm page has a link to it), the
 // "most firms" sentences, and the matching meta descriptions and FAQ answers. The words around them are left as they are.
 // Firms come from firms_data.json plus the released data/firms-batch-N.json files, so run this after adding firms.
 //   node scripts/refresh-hub-counts.mjs          rewrites the pages
@@ -112,6 +113,13 @@ function cityPage(file, province) {
     : `<span class="seo-chip off">${OFF_LABEL[t.k]} <span>${t.n}</span></span>`))));
 
   html = html.replace(/(<div class="flist">)[\s\S]*?(<\/div>)/, (_, a, b) => a + top.slice(0, 20).map(row).join('') + b);
+
+  // Every firm in the city as a plain link, A to Z. The top-rated list above stops at 20, and a firm page that no other page links to is
+  // only known to Google through the sitemap, which is the weakest way for a page to get indexed.
+  const allFirms = `<!--all-firms--><h3>All ${list.length} law firms in ${esc(city)}</h3><ul class="seo-all">${[...list].sort((a, b) => a.name.localeCompare(b.name)).map((f) => `<li><a href="/firms/${f.slug}">${esc(f.name)}</a></li>`).join('')}</ul><!--/all-firms-->`;
+  html = html.includes('<!--all-firms-->')
+    ? html.replace(/<!--all-firms-->[\s\S]*?<!--\/all-firms-->/, () => allFirms)
+    : html.replace(/(<div class="flist">[\s\S]*?<\/div>)/, (m) => `${m}\n    ${allFirms}`);
 
   const fa = s.featured ? `LawDB lists ${s.n} law firms in ${esc(city)}, ${s.featured} of which ${plural(s.featured, 'is a Featured partner', 'are Featured partners')}.` : `LawDB lists ${s.n} law firms in ${esc(city)}.`;
   const faRe = new RegExp(`LawDB lists \\d+ law firms in ${esc(city).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:, \\d+ of which (?:is a Featured partner|are Featured partners))?\\.`, 'g');

@@ -861,6 +861,18 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const afterLogo = (await call('GET', '/api/firms/achkar-law')).data;
   ok(afterLogo.type === 'logo' && afterLogo.src === `img/${logo1.data.image.id}`, 'the logo is in the firm\'s public record');
   ok((await getRaw('/firms/achkar-law')).text.includes(`img/${logo1.data.image.id}`), 'the logo is on the firm\'s page');
+  {
+    // the same firm on its hand-built page: the saved logo replaces the baked-in initials in the header, and nowhere else
+    const ownerJar = cookie;
+    as(adminJar);
+    const wasMode = (await call('GET', '/api/admin/firms/achkar-law')).data.pageMode;
+    await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' });
+    const pg = await getRaw('/firms/achkar-law');
+    const hdr = (pg.text.match(/<span class="li-logo">([\s\S]*?)<\/span>/) || [])[1] || '';
+    ok(!pg.headers.get('x-lawdb-source') && hdr === `<img src="/img/${logo1.data.image.id}" alt="Achkar Law logo" width="96" height="96">`, 'a hand-built page shows the logo saved in the admin or owner screens, in place of its initials');
+    await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: wasMode });
+    as(ownerJar);
+  }
   const logo2 = await rawCall('POST', base + '?kind=logo', makePng(120, 120, 80), 'image/png');
   ok(logo2.status === 201 && (await fetch(BASE + logo1.data.image.url)).status === 404, 'a new logo replaces the old one');
   ok((await call('GET', '/api/firms/achkar-law')).data.src === `img/${logo2.data.image.id}`, 'the public record points at the new logo');

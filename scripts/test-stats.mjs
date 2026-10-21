@@ -68,6 +68,9 @@ ok(same(eventIncs({ t: 'search', c: 'weird', city: '<b>|ON', prov: 'XX', w: 'cal
   const js = readFileSync(new URL('../site.js', import.meta.url), 'utf8');
   ok(/doNotTrack === '1'/.test(js) && /globalPrivacyControl === true/.test(js) && /\(admin\|account\|api\)/.test(js), 'the page script sends nothing for Do Not Track, Global Privacy Control, or the admin, account and api areas');
   ok(!/document\.cookie/.test(js.slice(js.indexOf('Traffic counts'))), 'the counting script never touches cookies');
+  const adminJs = readFileSync(new URL('../admin/admin.js', import.meta.url), 'utf8');
+  ok(/localStorage\.getItem\('lawdb_skip'\) === '1'/.test(js) && /var off = mine \|\|/.test(js), 'the page script sends nothing from a browser marked as the owner\'s (lawdb_skip)');
+  ok(/setSkip\(true\)/.test(adminJs) && /skipState\(\) === null/.test(adminJs) && /Count this device again/.test(adminJs) && /Do not count this device/.test(adminJs), 'opening the admin marks the device, unless the owner has chosen otherwise, and the Traffic tab can switch it either way');
 }
 
 if (bad) { console.log(`\n${bad} FAILED`); process.exit(1); }

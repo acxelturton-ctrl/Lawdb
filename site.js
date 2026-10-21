@@ -77,12 +77,14 @@
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',swap); else swap(); }catch(e){} })();
 
 /* ===== Traffic counts (first-party, no cookies, no IP address or browser details kept; see the Privacy Policy) =====
-   Sends nothing for anyone whose browser says Do Not Track / Global Privacy Control, and nothing from the member and admin areas.
+   Sends nothing for anyone whose browser says Do Not Track / Global Privacy Control, nothing from the member and admin areas, and nothing from a browser the site owner has marked as theirs (lawdb_skip).
    Pages that run before this file loads queue their messages on window.lwq; they are sent from here. */
 (function(){
   var queued = window.lwq || [];
   var path = location.pathname.replace(/\/+$/,'') || '/';
-  var off = navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true || /^\/(admin|account|api)(\/|$)/.test(path);
+  var mine = false; /* the site owner's own devices: a note in this browser, set when the admin area is opened on it (Traffic tab turns it off) */
+  try{ mine = localStorage.getItem('lawdb_skip') === '1'; }catch(e){}
+  var off = mine || navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true || /^\/(admin|account|api)(\/|$)/.test(path);
   function post(o){
     if(off || !o) return;
     try{

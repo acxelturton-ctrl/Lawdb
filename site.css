@@ -309,6 +309,10 @@ a.seo-chip:hover{ background:#fff3d4; border-color:#e8a91f; }
 .seo-city .frow:hover{ background:#fdfcf9; }
 .seo-city .frow .rname{ font-weight:700; font-size:14px; }
 .seo-city .frow .rmeta{ font-size:12px; color:var(--ink-soft,#636870); }
+.seo-all{ list-style:none; margin:0 0 22px; padding:0; columns:3 230px; column-gap:28px; font-size:14px; line-height:1.5; }
+.seo-all li{ break-inside:avoid; padding:4px 0; }
+.seo-all a{ color:var(--ink,#1f2328); text-decoration:none; border-bottom:1px solid var(--line,#e3dfd5); }
+.seo-all a:hover{ color:#8a5a00; border-bottom-color:#e8a91f; }
 .seo-text{ max-width:860px; } .seo-text p{ font-size:15px; line-height:1.75; color:#30353b; margin:0 0 14px; }
 .wrap .seo-chips{ margin-bottom:10px; } .wrap .seo-chips a:not(.seo-chip){ font-size:14px; }
 .seo-faq{ margin-bottom:18px; }

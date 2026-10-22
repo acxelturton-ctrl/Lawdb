@@ -42,8 +42,8 @@ export const mailInBackground = (env, exec, message) =>
   );
 
 const button = (link, label) =>
-  `<p><a href="${esc(link)}" style="background:#b45309;color:#fff;padding:12px 20px;border-radius:6px;text-decoration:none;display:inline-block">${esc(label)}</a></p>`;
-const small = (text) => `<p style="color:#666;font-size:13px">${esc(text)}</p>`;
+  `<p><a href="${esc(link)}" style="background:#8a6224;color:#fff;padding:12px 20px;border-radius:6px;text-decoration:none;display:inline-block">${esc(label)}</a></p>`;
+const small = (text) => `<p style="color:#586170;font-size:13px">${esc(text)}</p>`;
 
 export function loginEmail(link) {
   return {
@@ -103,9 +103,9 @@ export function welcomeEmail(origin, { name }) {
     subject: 'Welcome to LawDB: your member account is active',
     text: `${hi}\n\nYour LawDB member account is active. Continue setting up your profile here:\n${link}\n\nWhat you can do with LawDB:\n${things.map((t) => '- ' + t).join('\n')}\n\nHave questions? Just reply to this email.\n\nThe LawDB team`,
     html: `<p>${esc(hi)}</p><p>Your LawDB member account is active, and you can now use LawDB to follow law firms, save stories and build your profile.</p>` +
-      `<div style="border-left:4px solid #e8a91f;background:#fff3d4;padding:12px 16px;margin:16px 0"><b>Continue setting up your profile</b><br>Add your name and tell us who you are, so firms and other members recognise you.</div>` +
+      `<div style="border-left:4px solid #c9a050;background:#f4ecd8;padding:12px 16px;margin:16px 0"><b>Continue setting up your profile</b><br>Add your name and tell us who you are, so firms and other members recognise you.</div>` +
       `${button(link, 'Continue setting up your profile')}<p style="margin-top:24px"><b>What you can do with LawDB</b></p><ul>${things.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` +
-      `<p style="color:#666">Have questions? Just reply to this email.</p>`,
+      `<p style="color:#586170">Have questions? Just reply to this email.</p>`,
   };
 }
 
@@ -118,7 +118,7 @@ export function leadEmail(origin, firmName, lead) {
     subject: `New enquiry for ${firmName}`,
     text: `Someone contacted ${firmName} through LawDB.\n\n${lines.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\nAll enquiries: ${link}`,
     html: `<p>Someone contacted <b>${esc(firmName)}</b> through LawDB.</p><table cellpadding="4" style="border-collapse:collapse">${lines
-      .map(([k, v]) => `<tr><td style="color:#666;vertical-align:top">${esc(k)}</td><td>${esc(v).replace(/\n/g, '<br>')}</td></tr>`)
+      .map(([k, v]) => `<tr><td style="color:#586170;vertical-align:top">${esc(k)}</td><td>${esc(v).replace(/\n/g, '<br>')}</td></tr>`)
       .join('')}</table>${button(link, 'Open my enquiries')}`,
   };
 }
@@ -143,7 +143,7 @@ export function reportEmail(origin, { slug, reason, name, email, message }) {
   return {
     subject: `Listing reported${slug ? ': ' + slug : ''}`,
     text: `A visitor reported a listing.\n\n${lines.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\nReview it in the admin: ${link}`,
-    html: `<p>A visitor reported a listing.</p><table cellpadding="4">${lines.map(([k, v]) => `<tr><td style="color:#666;vertical-align:top">${esc(k)}</td><td>${esc(v).replace(/\n/g, '<br>')}</td></tr>`).join('')}</table>${button(link, 'Open the admin')}`,
+    html: `<p>A visitor reported a listing.</p><table cellpadding="4">${lines.map(([k, v]) => `<tr><td style="color:#586170;vertical-align:top">${esc(k)}</td><td>${esc(v).replace(/\n/g, '<br>')}</td></tr>`).join('')}</table>${button(link, 'Open the admin')}`,
   };
 }
 

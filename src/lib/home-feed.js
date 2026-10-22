@@ -4,6 +4,7 @@
 // well-rated firm leads and an old one from a top firm still beats a new one from a firm with a thin profile. At most two articles per firm
 // in the feed, and only articles that have a picture (it is a visual feed; News has the rest). Pure functions here, the query in loadCandidates.
 import { PRACTICE } from './practice.js';
+import { dedupeSameSite, isPlaceholderTitle } from './stories.js';
 
 export const PER_FIRM = 2;
 export const FRESH_DAYS = 120;
@@ -47,7 +48,7 @@ export const isPracticeType = (t) => Object.prototype.hasOwnProperty.call(PRACTI
 export async function loadCandidates(env) {
   const { results } = await env.DB.prepare(
     `SELECT p.id, p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, ff.source AS source,
-            p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo,
+            p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo, json_extract(f.data, '$.website') AS website,
             f.rating AS rating, f.review_count AS reviewCount, f.about AS about,
             (json_extract(f.data, '$.details') IS NOT NULL) AS hasDetails, (json_extract(f.data, '$.src') IS NOT NULL) AS hasLogo,
             (json_extract(f.data, '$.heroImage') IS NOT NULL) AS hasCover, (f.hours IS NOT NULL) AS hasHours, json_extract(f.data, '$.caseTypes') AS ct
@@ -57,7 +58,8 @@ export async function loadCandidates(env) {
      ORDER BY p.published_at DESC, p.id DESC LIMIT 600`
   ).all();
   const seen = new Set();
-  return results
+  return dedupeSameSite(results)
+    .filter((r) => !isPlaceholderTitle(r.title))
     .filter((r) => (seen.has(r.firmSlug + '|' + r.url) ? false : seen.add(r.firmSlug + '|' + r.url)))
     .map((r) => {
       let caseTypes = [];

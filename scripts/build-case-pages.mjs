@@ -1,5 +1,6 @@
-// Builds the national case-type guide pages (/family-lawyers, /criminal-defence-lawyers ... ten of them) from data/case-types.json, and the
-// "Browse lawyers by case type" picture cards on /find-lawyers (between <!--case-cards--> markers). Each guide is answer-first, general
+// Builds the national case-type guide pages (/family-lawyers, /criminal-defence-lawyers ... ten of them) from data/case-types.json, the
+// "Browse lawyers by case type" cards on /find-lawyers (between <!--case-cards--> markers) and the "Or pick a case type" list on the
+// home page (index.html, between <!--home-cases--> markers; the icons are symbols in the page's own sprite). Each guide is answer-first, general
 // information about one kind of case, with plain links down to every province page and city page that exists for it, so the national page,
 // the province page and the city page of a case type form one chain: /family-lawyers -> /ontario/family-lawyers -> /ontario/toronto/family-lawyers.
 //   node scripts/build-case-pages.mjs          rewrites the pages and the cards
@@ -45,9 +46,6 @@ function pagesFor(slug) {
 }
 
 const EXTRA_CSS = `<style>
-  .case-hero{ margin:4px 0 16px; border-radius:14px; overflow:hidden; max-width:520px; background:#fff3d4; }
-  .case-hero img{ display:block; width:100%; height:auto; }
-  @media(min-width:860px){ .case-hero{ float:right; width:340px; margin:6px 0 16px 28px; } }
   .case-updated{ font-size:12.5px; color:var(--ink-soft); margin:2px 0 0; }
   .wrap h3{ font-family:'Source Serif 4',serif; font-size:18px; margin:22px 0 8px; }
   .case-prov-block{ clear:both; }
@@ -85,7 +83,6 @@ function pageHtml([id, t]) {
 <div class="wrap">
   <div class="crumb"><a href="/">Home</a> &rsaquo; <a href="/find-lawyers">Find a lawyer</a> &rsaquo; ${esc(crumbName)}</div>
   <h1>${esc(t.h1)}</h1>
-  <figure class="case-hero"><img src="/images/cases/${t.image}" alt="${esc(t.alt)}" width="640" height="400" fetchpriority="high"></figure>
   <div class="seo-text"><p>${esc(t.lede)}</p></div>
   <p class="case-updated">Last updated ${longDate(DATA.updated)}. General information, not legal advice.</p>
   <h2 class="seo-h">Find a ${esc(t.noun)} by province</h2>
@@ -109,12 +106,19 @@ function pageHtml([id, t]) {
   return SHELL.replace('%%HEAD%%', () => head).replace('%%BODY%%', () => body);
 }
 
-// the picture cards on /find-lawyers
+// the cards on /find-lawyers
 function cardsHtml() {
-  const cards = TYPES.map(([, t]) => `<a class="case-card" href="/${t.slug}"><img src="/images/cases/${t.image}" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>${esc(t.name)}</h3><p>${esc(t.card)}</p><span class="cc-go">Read the guide</span></div></a>`).join('');
+  const cards = TYPES.map(([, t]) => `<a class="case-card" href="/${t.slug}"><div class="cc-body"><h3>${esc(t.name)}</h3><p>${esc(t.card)}</p><span class="cc-go">Read the guide</span></div></a>`).join('');
   return '<!--case-cards--><section class="cases" id="cases" aria-labelledby="casesH"><h2 id="casesH">Not sure where to start? Browse by case type</h2>'
     + '<p class="cases-sub">Each guide explains when to hire a lawyer, what the lawyer does and what to ask, and links to firms by province and city.</p>'
     + `<div class="case-cards">${cards}</div></section><!--/case-cards-->`;
+}
+
+// the "Or pick a case type" list on the home page
+function homeCasesHtml() {
+  const li = ([, t]) => `<li><a href="/${t.slug}"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-${t.icon}"/></svg></span><span class="h4-cl">${esc(t.homeLabel)}</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li>`;
+  const order = ['traffic', 'criminal', 'family', 'injury', 'realestate', 'wills', 'business', 'employment', 'immigration', 'litigation']; // the order the case types have always had on the site
+  return `<!--home-cases--><ul class="h4-case-grid">${order.map((k) => li([k, DATA.types[k]])).join('')}</ul><!--/home-cases-->`;
 }
 
 let stale = 0, written = 0;
@@ -130,5 +134,9 @@ const find = readFileSync('find-lawyers.html', 'utf8');
 if (!find.includes('<!--case-cards-->')) { console.error('find-lawyers.html has no <!--case-cards--> marker'); process.exit(1); }
 put('find-lawyers.html', find.replace(/<!--case-cards-->[\s\S]*?<!--\/case-cards-->/, () => cardsHtml()));
 
+const home = readFileSync('index.html', 'utf8');
+if (!home.includes('<!--home-cases-->')) { console.error('index.html has no <!--home-cases--> marker'); process.exit(1); }
+put('index.html', home.replace(/<!--home-cases-->[\s\S]*?<!--\/home-cases-->/, () => homeCasesHtml()));
+
 if (CHECK) { if (stale) process.exit(1); console.log(`case pages and cards are up to date (${TYPES.length} pages)`); }
-else console.log(`${written} file(s) written (${TYPES.length} case pages and the cards on /find-lawyers)`);
+else console.log(`${written} file(s) written (${TYPES.length} case pages, the cards on /find-lawyers and the list on the home page)`);

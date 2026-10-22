@@ -30,7 +30,7 @@ const nasty = markup(bookingRow({ url: '', name: '<img src=x onerror=alert(1)> "
 ok(!/<script|<img/.test(nasty) && nasty.includes('&lt;img') && nasty.includes('&quot;Q&quot; &amp; Co'), 'the firm name and address are escaped in both states');
 const nameOn = bookingRow({ url: 'https://calendly.com/x', name: 'O"Brien <b>' });
 ok(nameOn.includes('title="Opens O&quot;Brien &lt;b&gt;&#x27;s own booking page"') || nameOn.includes('O&quot;Brien &lt;b&gt;'), 'the name is escaped in the button tooltip too');
-ok(/li-book\{background:#fdf3d6;border:1\.5px solid #e6c36a/.test(on) && /li-book-off\{background:#f3f1ec/.test(on), 'the active button is light gold (not solid gold) and the locked one is light grey');
+ok(/li-book\{background:#f4ecd8;border:1\.5px solid #c9a050/.test(on) && /li-book-off\{background:#edeae1/.test(on), 'the active button is light gold (not solid gold) and the locked one is light grey');
 
 // ---- the owner and admin forms
 ok(FIRM_FIELDS.bookingUrl('') === '' && FIRM_FIELDS.bookingUrl('  ') === '' && FIRM_FIELDS.bookingUrl('https://calendly.com/a/b?month=2020-01') === 'https://calendly.com/a/b', 'the edit form takes a blank (button off) or a clean https link');

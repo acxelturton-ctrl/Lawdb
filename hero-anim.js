@@ -38,7 +38,7 @@
       var i,d,p,l;
       for(i=0;i<dots.length;i++){d=dots[i]; d.glow=Math.max(0,d.glow-dt*.5);
         x.beginPath(); x.arc(d.x,d.y,d.r*1.15+d.glow*2.6,0,6.283);
-        x.fillStyle=d.glow>0.02?'rgba(232,169,31,'+(.35+d.glow*.65)+')':'rgba(248,246,241,.42)'; x.fill();
+        x.fillStyle=d.glow>0.02?'rgba(232,169,31,'+(.35+d.glow*.65)+')':'rgba(245,243,236,0.42)'; x.fill();
       }
       for(i=pulses.length-1;i>=0;i--){p=pulses[i]; p.t+=dt*.45; if(p.t>=1){pulses.splice(i,1);continue}
         var rad=p.t*130, a=(1-p.t)*.6;

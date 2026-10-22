@@ -99,14 +99,20 @@ ok(isDeepStrictEqual((JSON.parse((await getRaw('/firms_data.json')).text)).map((
   ok(lib.status === 200 && /LawdbPlaces/.test(lib.text), 'lawdb-places.js is served');
 }
 const PROV = { '/ontario/ottawa/': 'ON', '/manitoba/': 'MB', '/quebec/quebec-city/': 'QC' };
-const sizes = {};
-for (const path of ['/find-lawyers', '/ontario/ottawa/', '/manitoba/', '/quebec/quebec-city/']) {
+for (const path of ['/ontario/ottawa/', '/manitoba/', '/quebec/quebec-city/']) {
   const r = await getRaw(path);
-  sizes[path] = r.text.length;
   ok(r.status === 200 && r.headers.get('x-lawdb-source') === 'database', `${path} is rendered from the database`);
-  const want = PROV[path] ? slim(staticFile('firms_data.json')).filter((f) => f.province === PROV[path]) : slim(staticFile('firms_data.json'));
-  ok(isDeepStrictEqual(inlineFirms(r.text), want), PROV[path] ? `${path} carries only its own province's firms` : `${path} carries every firm`);
-  ok(r.text.includes('f.dirUrl = ') && (PROV[path] ? r.text.includes(`var LAWDB_SCOPE = "${PROV[path]}";`) : !r.text.includes('var LAWDB_SCOPE')), `${path} rebuilds Directions links and ${PROV[path] ? 'knows it is scoped to ' + PROV[path] : 'is not scoped'}`);
+  ok(isDeepStrictEqual(inlineFirms(r.text), slim(staticFile('firms_data.json')).filter((f) => f.province === PROV[path])), `${path} carries only its own province's firms`);
+  ok(r.text.includes('f.dirUrl = ') && r.text.includes(`var LAWDB_SCOPE = "${PROV[path]}";`), `${path} rebuilds Directions links and knows it is scoped to ${PROV[path]}`);
+}
+// /find-lawyers has no firm list inside the page any more: it is a light static page that fetches /firms_data.json (every firm, from the database) on demand
+{
+  const r = await getRaw('/find-lawyers');
+  ok(r.status === 200 && inlineFirms(r.text) === null && !r.text.includes('var LAWDB_SCOPE'), '/find-lawyers has no firm list inside the page');
+  ok(r.text.length < 150000, `/find-lawyers is a light page (${Math.round(r.text.length / 1000)} KB)`);
+  ok(r.text.includes("fetch('/firms_data.json')") && r.text.includes('function loadFirms()') && r.text.includes('firms: loadFirms,'), '/find-lawyers fetches the firm list on demand, and the search box shares that download');
+  const all = JSON.parse((await getRaw('/firms_data.json')).text);
+  ok(isDeepStrictEqual(all, slim(staticFile('firms_data.json'))) && !all.some((f) => 'social' in f), '/firms_data.json carries every firm, without the unused social links');
 }
 // the totals typed into the home page and For Law Firms (and the Browse-by-city counts) are today's numbers from the database, not the typed ones
 {
@@ -121,7 +127,6 @@ for (const path of ['/find-lawyers', '/ontario/ottawa/', '/manitoba/', '/quebec/
   const tor = live.filter((f) => f.province === 'ON' && f.city === 'Toronto').length;
   ok((await getRaw('/')).text.includes(`data-live="city:ON|Toronto">${tor}<`), 'the Browse-by-city counts are live too');
 }
-ok(sizes['/manitoba/'] < sizes['/find-lawyers'] * 0.6 && sizes['/ontario/ottawa/'] < sizes['/find-lawyers'], 'a province page is lighter than Find Lawyers');
 const plain = await getRaw('/ontario/toronto/business-lawyers');
 ok(plain.status === 200 && !plain.headers.get('x-lawdb-source'), 'pages without a firm list pass through untouched');
 { const old = await getRaw('/find-lawyers.html'); ok(old.status === 301 && old.headers.get('location').endsWith('/find-lawyers'), 'an old .html address redirects to the clean address, permanently (301)'); }
@@ -194,7 +199,6 @@ ok((await call('GET', `/api/firms/${slug}`)).data.blurb === 'Smoke test blurb', 
   // the blurb is no longer sent with the list, so the Featured flag (sent with it) shows the edit
   const find = (arr) => !!arr.find((f) => f.slug === slug)?.featured;
   ok(find(JSON.parse((await getRaw('/firms_data.json')).text)) === !before.featured, 'edit shows in /firms_data.json');
-  ok(find(inlineFirms((await getRaw('/find-lawyers')).text)) === !before.featured, 'edit shows on /find-lawyers');
   const hub = { ON: '/ontario/ottawa/', QC: '/quebec/quebec-city/', BC: '/british-columbia/vancouver/', AB: '/alberta/', MB: '/manitoba/' }[before.province];
   ok(find(inlineFirms((await getRaw(hub)).text)) === !before.featured, `edit shows on a city hub page (${hub})`);
 }ok((await call('PATCH', `/api/admin/firms/${slug}`, { rating: 1 })).status === 422, 'non-editable field refused');
@@ -202,7 +206,7 @@ ok((await call('PATCH', `/api/admin/firms/${slug}`, { website: 'javascript:alert
 ok((await call('PATCH', `/api/admin/firms/${slug}`, { blurb: 'x'.repeat(501) })).status === 422, 'overlong text refused');
 await call('PATCH', `/api/admin/firms/${slug}`, { blurb: before.blurb, featured: !!before.featured });
 ok((await call('GET', `/api/firms/${slug}`)).data.blurb === before.blurb, 'edit reverted');
-ok(isDeepStrictEqual(inlineFirms((await getRaw('/find-lawyers')).text), slim(staticFile('firms_data.json'))), 'public page returns to the original after reverting');
+ok(isDeepStrictEqual(JSON.parse((await getRaw('/firms_data.json')).text), slim(staticFile('firms_data.json'))), 'the public firm list returns to the original after reverting');
 
 const log = await call('GET', '/api/admin/audit?limit=20');
 const actions = log.data.entries.map((e) => e.action);
@@ -265,7 +269,6 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 
   const list = JSON.parse((await getRaw('/firms_data.json')).text);
   ok(list.some((f) => f.slug === slug2 && f.rating === 0), 'new firm appears in the directory data');
-  ok(inlineFirms((await getRaw('/find-lawyers')).text).some((f) => f.slug === slug2), 'new firm appears on the Find Lawyers page');
   ok((await getRaw('/')).text.includes(`data-live="firms">${list.length.toLocaleString('en-CA')}<`), 'a new listing moves the home page total at once');
   // a profile with no real description is a thin page: noindex and out of the sitemap until it has one
   const thin = await getRaw('/firms/' + slug2);
@@ -561,7 +564,6 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('GET', '/api/firms/' + nslug)).status === 404, 'a pending firm is not in the public API');
   ok(!(await call('GET', '/api/firms?limit=500')).data.some((f) => f.slug === nslug), 'a pending firm is not in the public list');
   ok(!(await getRaw('/firms_data.json')).text.includes(nslug), 'a pending firm is not in the data file');
-  ok(!(await getRaw('/find-lawyers')).text.includes(nslug), 'a pending firm is not on the Find Lawyers page');
   ok((await getRaw('/firms/' + nslug)).status === 404, 'a pending firm\'s page is not public');
   ok((await call('POST', '/api/account/firms', newBody)).status === 401, 'creating a listing needs sign-in');
   as(o2.jar);
@@ -578,7 +580,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(live.status === 200 && live.headers.get('x-lawdb-source') === 'database' && live.text.includes('Birchwood &amp; &quot;Legal&quot;'), 'the approved firm has a public page, name escaped');
   const pubNew = (await call('GET', '/api/firms/' + nslug)).data;
   ok(pubNew.lat >= 41 && pubNew.lat <= 84 && pubNew.lng >= -142 && pubNew.lng <= -52 && pubNew.approxCoords === true, 'the approved firm is in the public API with a pin in the middle of its city');
-  ok(inlineFirms((await getRaw('/find-lawyers')).text).some((f) => f.slug === nslug), 'the approved firm appears on the Find Lawyers page');
+  ok(JSON.parse((await getRaw('/firms_data.json')).text).some((f) => f.slug === nslug), 'the approved firm appears in the firm list the Find Lawyers page loads');
   cookie = '';
   ok((await call('POST', '/api/account/firms', newBody)).status === 401, 'still needs sign-in');
   as(o2.jar);
@@ -740,9 +742,9 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const noPic = news.text.split(/<article class="lw-bc[ "]/).slice(1).filter((c) => !c.includes('class="lw-bc-img"')).length;
   ok(noPic === 2 && (news.text.match(/class="lw-bc-img"/g) || []).length === 4 && noPic <= 3, 'posts with a picture are shown, and never more than three without');
   ok(news.text.includes('class="lw-bc-grid lw-feed"') && news.text.includes('class="lw-bc-head"') && news.text.includes('/images/logos/daniel-brown-law-llp.jpg') && /class="lw-av">[A-Z]</.test(news.text), 'the News page is laid out as a feed with a post header: the firm logo, or its initial');
-  ok((news.text.match(/class="lw-bc lw-hero"/g) || []).length === 1 && /<article class="lw-bc lw-hero"><div class="lw-bc-head">/.test(news.text), 'the newest story with a picture leads the page as one large card');
-  ok(/<svg class="news-seal"[^>]*aria-hidden="true"/.test(news.text) && news.text.includes('class="news-drift" aria-hidden="true"') && (news.text.match(/class="news-card k\d"/g) || []).length === 4 && !/<image\b/.test(news.text.slice(news.text.indexOf('<header class="news-band">'), news.text.indexOf('</header>'))) && news.text.includes('prefers-reduced-motion'), 'the masthead has decorative artwork: a turning seal and four of the page\'s own stories drifting up (pure drawing, hidden from screen readers, still for reduced motion)');
-  ok(/<header class="news-band">/.test(news.text) && news.text.includes('class="news-steps"') && news.text.includes('The firms writing here') && /<b>2<\/b><span>FIRMS WRITING/.test(news.text) && /<b>10<\/b><span>RECENT ARTICLES/.test(news.text), 'the page opens with a masthead, how it works, who is writing, and real counts (firms and articles)');
+  ok(!/class="lw-bc lw-hero"/.test(news.text) && /<article class="lw-bc"><div class="lw-bc-head">/.test(news.text), 'every story is the same card: a post header, then the picture beside the story (no lead card)');
+  ok(/<header class="news-band"><p class="news-eyebrow">News &amp; insights<\/p>/.test(news.text) && /Real stories\. Practical advice\. <em>All in one place\.<\/em>/.test(news.text) && !news.text.includes('news-drift') && !news.text.includes('news-seal'), 'the masthead is a plain cream header: eyebrow, headline and the line "Real stories. Practical advice. All in one place."');
+  ok(/<header class="news-band">/.test(news.text) && news.text.includes('class="news-steps"') && (news.text.match(/class="news-step"/g) || []).length === 3 && news.text.includes('The firms writing here') && /<b>2<\/b><span>FIRMS WRITING/.test(news.text) && /<b>10<\/b><span>RECENT ARTICLES/.test(news.text), 'the page opens with a masthead, how it works, who is writing, and real counts (firms and articles)');
   ok(!news.text.includes('Back to results'), 'the News page header has no stray "Back to results" link');
   ok(/Daniel Brown Law LLP<\/a><span class="lw-ft">Featured<\/span>/.test(news.text) && !/Achkar Law<\/a><span class="lw-ft">/.test(news.text), 'only Featured firms carry the Featured badge');
   ok(news.text.includes('data-story') && news.text.includes('<dialog id="story-dlg"') && news.text.includes('partial=1') && /href="\/news\/daniel-brown-law-llp\/[a-z0-9-]+-\d+"/.test(news.text) && !news.text.includes(`href="${origin}/blog/impaired"`) && !news.text.includes('evil.example') && !news.text.includes('<script>alert') && !news.text.includes('onerror=alert'), 'cards open the story over the page (its own address, Back closes it), and nothing unsafe gets in');

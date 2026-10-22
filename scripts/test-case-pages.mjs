@@ -1,4 +1,4 @@
-// The ten national case-type guides (/family-lawyers ...) and the picture cards on /find-lawyers (scripts/build-case-pages.mjs): every guide is
+// The ten national case-type guides (/family-lawyers ...) and the cards on /find-lawyers (scripts/build-case-pages.mjs): every guide is
 // complete and consistent, links down to every province and city page that exists for it, is in the sitemap, and carries no figures (fees,
 // deadlines and amounts change and differ by province, so these pages never state them). That the files match the data is checked by
 // build-case-pages.mjs --check.
@@ -34,7 +34,7 @@ for (const [id, t] of entries) {
   ok((html.match(/<h1[^>]*>/g) || []).length === 1, `${id}: exactly one h1`);
   ok(indexable(html), `${id}: not noindex`);
   ok(sitemap.includes(`<loc>https://lawdb.ca/${t.slug}</loc>`), `${id}: in the sitemap`);
-  ok(existsSync(`images/cases/${t.image}`) && new RegExp(`<img src="/images/cases/${t.image.replace('.', '\\.')}" alt="[^"]*" width="640" height="400"`).test(html), `${id}: has its picture, with a size`);
+  ok(!/<img/i.test(html.slice(html.indexOf('<h1'), html.indexOf('</h1>') + 400)) && !/class="case-hero"/.test(html), `${id}: no picture (the site has none of its own for case types yet)`);
   ok(t.faqs.length >= 3 && (html.match(/<summary>/g) || []).length === t.faqs.length, `${id}: ${t.faqs.length} questions shown`);
   let lds = [];
   try { lds = [...html.matchAll(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/g)].map((m) => JSON.parse(m[1])); } catch { /* checked below */ }
@@ -66,7 +66,22 @@ ok(dup.length === 0, `no sentence is repeated on two guides${dup.length ? `: ${d
 // /find-lawyers: the pick-a-case-type wizard is gone, replaced by the cards (and the deep links still work)
 ok(!find.includes('id="stepCase"') && !find.includes('id="stepLocation"') && !find.includes('or pick a case type below'), '/find-lawyers no longer has the step 1 / step 2 wizard');
 ok((find.match(/<a class="case-card"/g) || []).length === entries.length, `/find-lawyers has ${entries.length} case cards`);
+ok(!/<a class="case-card"[^>]*><img/.test(find) && !existsSync('images/cases') && entries.every(([, t]) => !('image' in t)), 'the case cards have no pictures and images/cases is gone (add pictures only when the site owns them)');
 ok(find.includes("function setWizard(show)") && !find.includes('provinceRow') && !find.includes('caseGrid.'), '/find-lawyers has no leftover code for the removed steps');
+
+// the home page: the "Or pick a case type" list links every guide, in the old picker's order, and the hero keeps what the rest of the site relies on
+const home = readFileSync('index.html', 'utf8');
+const homeList = (home.match(/<!--home-cases-->([\s\S]*?)<!--\/home-cases-->/) || [])[1] || '';
+const order = ['traffic', 'criminal', 'family', 'injury', 'realestate', 'wills', 'business', 'employment', 'immigration', 'litigation'];
+ok(JSON.stringify([...homeList.matchAll(/<li><a href="\/([a-z-]+)">/g)].map((m) => m[1])) === JSON.stringify(order.map((k) => data.types[k].slug)), 'the home page lists all ten case types, each linking to its guide');
+ok(/id="cases"/.test(home) && /id="cities"/.test(home), 'the home page has #cases and #cities (the footer link "Browse by Case Type", the hero filter icon and the city list land on them)');
+ok(entries.every(([, t]) => { const icon = (homeList.match(new RegExp(`href="/${t.slug}">.*?#i-(\\w+)`)) || [])[1]; return icon === t.icon && home.includes(`<symbol id="i-${t.icon}"`); }), 'every home list icon exists in the page\'s sprite');
+ok((home.match(/<h1[\s>]/g) || []).length === 1 && home.includes('<em>your</em>'), 'the home page has one h1');
+ok(!/popular searches/i.test(home), 'the home page has no "Popular searches" row');
+ok(/<img class="h5-photo" src="images\/home-courthouse\.webp" alt="" width="\d+" height="\d+"/.test(home) && existsSync('images/home-courthouse.webp'), 'the hero picture has a size and exists');
+ok(/data-live="firms">[\d,]+</.test(home) && /data-live="cities">\d+</.test(home) && /class="h5-stats-in h3-stats"/.test(home), 'the home page shows the live firm and city totals in the stats band (site.js counts them up)');
+ok(home.includes("LawdbSuggest(document.getElementById('heroInput'),document.getElementById('heroSuggest')") && /<form id="heroForm"[^>]*action="\/find-lawyers"/.test(home), 'the hero search box is still wired to the shared search');
+ok(home.indexOf('id="homeNews"') < home.indexOf('id="cases"') && home.indexOf('class="h5-stats"') < home.indexOf('id="homeNews"'), 'the home page order is hero, numbers, news, case types');
 
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }
 console.log('All checks passed');

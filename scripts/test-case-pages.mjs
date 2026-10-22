@@ -1,4 +1,4 @@
-// The ten national case-type guides (/family-lawyers ...) and the picture cards on /find-lawyers (scripts/build-case-pages.mjs): every guide is
+// The ten national case-type guides (/family-lawyers ...) and the cards on /find-lawyers (scripts/build-case-pages.mjs): every guide is
 // complete and consistent, links down to every province and city page that exists for it, is in the sitemap, and carries no figures (fees,
 // deadlines and amounts change and differ by province, so these pages never state them). That the files match the data is checked by
 // build-case-pages.mjs --check.
@@ -34,7 +34,7 @@ for (const [id, t] of entries) {
   ok((html.match(/<h1[^>]*>/g) || []).length === 1, `${id}: exactly one h1`);
   ok(indexable(html), `${id}: not noindex`);
   ok(sitemap.includes(`<loc>https://lawdb.ca/${t.slug}</loc>`), `${id}: in the sitemap`);
-  ok(existsSync(`images/cases/${t.image}`) && new RegExp(`<img src="/images/cases/${t.image.replace('.', '\\.')}" alt="[^"]*" width="640" height="400"`).test(html), `${id}: has its picture, with a size`);
+  ok(!/<img/i.test(html.slice(html.indexOf('<h1'), html.indexOf('</h1>') + 400)) && !/class="case-hero"/.test(html), `${id}: no picture (the site has none of its own for case types yet)`);
   ok(t.faqs.length >= 3 && (html.match(/<summary>/g) || []).length === t.faqs.length, `${id}: ${t.faqs.length} questions shown`);
   let lds = [];
   try { lds = [...html.matchAll(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/g)].map((m) => JSON.parse(m[1])); } catch { /* checked below */ }
@@ -66,6 +66,7 @@ ok(dup.length === 0, `no sentence is repeated on two guides${dup.length ? `: ${d
 // /find-lawyers: the pick-a-case-type wizard is gone, replaced by the cards (and the deep links still work)
 ok(!find.includes('id="stepCase"') && !find.includes('id="stepLocation"') && !find.includes('or pick a case type below'), '/find-lawyers no longer has the step 1 / step 2 wizard');
 ok((find.match(/<a class="case-card"/g) || []).length === entries.length, `/find-lawyers has ${entries.length} case cards`);
+ok(!/<a class="case-card"[^>]*><img/.test(find) && !existsSync('images/cases') && entries.every(([, t]) => !('image' in t)), 'the case cards have no pictures and images/cases is gone (add pictures only when the site owns them)');
 ok(find.includes("function setWizard(show)") && !find.includes('provinceRow') && !find.includes('caseGrid.'), '/find-lawyers has no leftover code for the removed steps');
 
 // the home page: the "Or pick a case type" list links every guide, in the old picker's order, and the hero keeps what the rest of the site relies on

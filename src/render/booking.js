@@ -11,13 +11,13 @@ const LOCK = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none"
 const CSS = '<style>.li-book-row{margin:10px 0 0;max-width:470px}' +
   '.li-book-row .li-btn{width:100%;flex:none;gap:8px;cursor:pointer;font-family:inherit}' +
   '.li-book-row .ic{width:19px;height:19px;flex:none}' +
-  '.li-book{background:#fdf3d6;border:1.5px solid #e6c36a;color:#6b4300}' +
-  '.li-book .ic{color:#b7791f}' +
-  '.li-book-off .ic{color:#9aa0a8}' +
-  '.li-book:hover{background:#fbe9b5;color:#5a3700}' +
-  '.li-book-off{background:#f3f1ec;border:1.5px dashed #cdc8bc;color:#8a8f98}' +
-  '.li-book-off:hover{background:#eeebe4;color:#6b7078;transform:none;box-shadow:none;filter:none}' +
-  '.lw-book-note{margin:8px 0 0;max-width:470px;font:500 13.5px/1.5 Inter,system-ui,sans-serif;color:#636870}' +
+  '.li-book{background:#f4ecd8;border:1.5px solid #c9a050;color:#2b3a4c}' +
+  '.li-book .ic{color:#8a6224}' +
+  '.li-book-off .ic{color:#8a919b}' +
+  '.li-book:hover{background:#e6d4a4;color:#2b3a4c}' +
+  '.li-book-off{background:#edeae1;border:1.5px dashed #e3dfd3;color:#8a919b}' +
+  '.li-book-off:hover{background:#edeae1;color:#586170;transform:none;box-shadow:none;filter:none}' +
+  '.lw-book-note{margin:8px 0 0;max-width:470px;font:500 13.5px/1.5 Inter,system-ui,sans-serif;color:#586170}' +
   '</style>';
 
 // The button row for one firm. `url` is whatever is stored; only a valid one makes the button active.

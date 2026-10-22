@@ -46,7 +46,7 @@ export function hoursCard(hours, province) {
 
 function monogram(f) {
   const ini = esc((f.initials || f.name || '?').slice(0, 3).toUpperCase());
-  const col = /^#[0-9a-fA-F]{6}$/.test(f.color || '') ? f.color : '#5d5f63';
+  const col = '#2b3a4c'; // one navy for every monogram (a firm's own colour is not used)
   return `<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${ini}"><rect width="60" height="60" rx="10.8" fill="${col}"/><text x="50%" y="50%" dy="0.35em" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="24.0" fill="#ffffff" letter-spacing="0.02em">${ini}</text></svg>`;
 }
 
@@ -121,7 +121,7 @@ function description(f) {
     : `${lead}. Practice areas, address, phone and directions on LawDB.`;
 }
 
-const PHOTO_CSS = '<style>.photos{margin:22px 0}.photos h2{font-size:18px;margin:0 0 10px}.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.photo-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block;background:#eee}</style>';
+const PHOTO_CSS = '<style>.photos{margin:22px 0}.photos h2{font-size:18px;margin:0 0 10px}.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.photo-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block;background:#edeae1}</style>';
 const BLOCK_CSS = '<style>.article-photo{width:100%;height:auto;border-radius:6px;margin:12px 0;display:block}</style>';
 
 // A small hand-written block under the description ("From the Firm", "Related reading"): headline, teaser, optional picture, one link.
@@ -136,7 +136,7 @@ function blockHtml(b) {
     `<p class="article-teaser">${esc(String(b.teaser).slice(0, 500))}</p><a class="read-link" href="${esc(b.href)}"${ext ? ' target="_blank" rel="noopener"' : ''}>${esc(String(b.linkText || 'Read more').slice(0, 120))}</a></div>`;
 }
 
-const RANK_CSS = '<style>.rank-panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;margin-bottom:20px}.rank-panel h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 12px}.rank-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:10px}.rank-cell{background:var(--cream);border-radius:8px;padding:12px 12px 10px}.rank-cell.main{background:linear-gradient(135deg,#f6dc9a,#e8a91f 60%,#b98a2c)}.rank-big{font-family:\'Source Serif 4\',serif;font-weight:700;font-size:30px;line-height:1;color:var(--ink)}.rank-cell.main .rank-big{color:#2d1f05}.rank-big small{font-size:14px;font-weight:600;opacity:.7}.rank-lab{font-size:11.5px;line-height:1.35;color:var(--ink-soft);margin-top:6px}.rank-cell.main .rank-lab{color:#1f2328}.rank-delta{display:inline-block;font-size:11px;font-weight:700;color:#1f6f6b;background:#e1f0ee;border-radius:10px;padding:2px 7px;margin-top:6px}.rank-delta.neutral,.rank-delta.down{color:var(--ink-soft);background:#ebe8df}.rank-note{font-size:11px;color:#8d9197;margin:10px 0 0;line-height:1.5}.pa-wrap{margin-bottom:20px}.pa-wrap h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 10px}.pa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.pa-card{display:block;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--ink)}.pa-card:hover{border-color:var(--brass);box-shadow:0 2px 10px rgba(31,35,40,.08)}.pa-card b{display:block;font-size:15px;margin-bottom:4px}.pa-card span{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.45}.pa-card em{display:block;font-style:normal;font-size:12.5px;font-weight:700;color:var(--brass-deep);margin-top:8px}@media(max-width:640px){.rank-grid{grid-template-columns:1fr 1fr}.rank-cell.main{grid-column:1/-1}}</style>';
+const RANK_CSS = '<style>.rank-panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;margin-bottom:20px}.rank-panel h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 12px}.rank-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:10px}.rank-cell{background:var(--cream);border-radius:8px;padding:12px 12px 10px}.rank-cell.main{background:linear-gradient(135deg,#e6d4a4,#c9a050 60%,#8a6224)}.rank-big{font-family:\'Source Serif 4\',serif;font-weight:700;font-size:30px;line-height:1;color:var(--ink)}.rank-cell.main .rank-big{color:#142434}.rank-big small{font-size:14px;font-weight:600;opacity:.7}.rank-lab{font-size:11.5px;line-height:1.35;color:var(--ink-soft);margin-top:6px}.rank-cell.main .rank-lab{color:#142434}.rank-delta{display:inline-block;font-size:11px;font-weight:700;color:#2b3a4c;background:#edeae1;border-radius:10px;padding:2px 7px;margin-top:6px}.rank-delta.neutral,.rank-delta.down{color:var(--ink-soft);background:#e3dfd3}.rank-note{font-size:11px;color:#8a919b;margin:10px 0 0;line-height:1.5}.pa-wrap{margin-bottom:20px}.pa-wrap h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 10px}.pa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.pa-card{display:block;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--ink)}.pa-card:hover{border-color:var(--brass);box-shadow:0 2px 10px rgba(20,36,52,0.08)}.pa-card b{display:block;font-size:15px;margin-bottom:4px}.pa-card span{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.45}.pa-card em{display:block;font-style:normal;font-size:12.5px;font-weight:700;color:var(--brass-deep);margin-top:8px}@media(max-width:640px){.rank-grid{grid-template-columns:1fr 1fr}.rank-cell.main{grid-column:1/-1}}</style>';
 
 // Where the firm stands among the firms LawDB lists in its city (see src/lib/firm-stats.js): a ranking by Google rating, the city's average rating,
 // and the review count against the province. Left out when too few firms are listed there to say anything.
@@ -157,7 +157,7 @@ function practiceHtml(f, cards) {
   return `\n    <div class="pa-wrap"><h2>Practice areas</h2><div class="pa-grid">${cards.map((c) => `<a class="pa-card" href="${esc(c.href)}"><b>${esc(c.label)}</b><span>${c.count} ${c.count === 1 ? 'firm' : 'firms'} listed across ${esc(prov)}, compared by real Google ratings.</span><em>Compare all &rarr;</em></a>`).join('')}</div></div>`;
 }
 
-const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#4a4f56}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
+const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#586170}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
 const IMG_ID = /^[0-9a-f]{24}$/;
 
 // Facts the firm's own website states (see src/lib/details.js): shown as a plain list, never as claims of our own.
@@ -167,7 +167,7 @@ function glanceHtml(f) {
   const row = (label, html) => `<dt>${label}</dt><dd>${html}</dd>`;
   const rows = [
     d.founded ? row('Founded', String(d.founded)) : '',
-    d.lawyers ? row('Lawyers named by the firm', `<ul>${d.lawyers.map((l) => `<li>${esc(l.name)}${l.title ? ` <span style="color:#636870">(${esc(l.title)})</span>` : ''}</li>`).join('')}</ul>`) : '',
+    d.lawyers ? row('Lawyers named by the firm', `<ul>${d.lawyers.map((l) => `<li>${esc(l.name)}${l.title ? ` <span style="color:#586170">(${esc(l.title)})</span>` : ''}</li>`).join('')}</ul>`) : '',
     d.languages ? row('Languages', esc(d.languages.join(', '))) : '',
     d.serving ? row('Places served', esc(d.serving.join(', '))) : '',
     d.areas ? row('Areas of law listed', `<ul>${d.areas.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>`) : '',

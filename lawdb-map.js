@@ -97,8 +97,8 @@
 
   /* ------------------------------------------------------------ icons */
   var IC = {
-    search: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
-    x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+    search: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+    x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     call: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
     dir: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>',
     web: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>',
@@ -108,8 +108,14 @@
     prev: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
     next: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
     tick: '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>',
-    loc: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
-    redo: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>'
+    loc: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#142434" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
+    redo: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>',
+    pinS: '<svg class="gm-pin" width="14" height="14" viewBox="0 0 24 24" fill="#8a6224" aria-hidden="true"><path d="M12 22s-7-6.4-7-12a7 7 0 0 1 14 0c0 5.6-7 12-7 12zm0-9.2a2.8 2.8 0 1 0 0-5.6 2.8 2.8 0 0 0 0 5.6z"/></svg>',
+    pinG: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>',
+    sliders: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>',
+    plus: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#142434" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+    minus: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#142434" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg>',
+    go: '<svg class="gm-go" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>'
   };
 
   /* ------------------------------------------------------------ item markup */
@@ -119,25 +125,26 @@
   }
   function thumb(f){
     if(f.logoUrl){
-      return '<div class="gm-i-thumb mono" style="background:' + esc(f.color || '#636870') + '">' + esc(initials(f.name)) +
-        '<img src="' + esc(f.logoUrl) + '" alt="' + esc(f.name) + ' logo" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" style="background:' + (f.dark ? '#1f2328' : '#fff') + '"></div>';
+      return '<div class="gm-i-thumb mono">' + esc(initials(f.name)) +
+        '<img src="' + esc(f.logoUrl) + '" alt="' + esc(f.name) + ' logo" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" style="background:' + (f.dark ? '#142434' : '#fff') + '"></div>';
     }
     if(f.type === 'logo' && f.src) return '<div class="gm-i-thumb"><img src="' + esc(ROOT + f.src) + '" alt="' + esc(f.name) + ' logo" loading="lazy"></div>';
-    return '<div class="gm-i-thumb mono" style="background:' + esc(f.color || '#636870') + '">' + esc(initials(f.name)) + '</div>';
+    return '<div class="gm-i-thumb mono">' + esc(initials(f.name)) + '</div>';
   }
   function itemHtml(f, detail){
     var oi = openInfo(f), dist = userPos ? ' · ' + fmtKm(km(userPos.lat, userPos.lng, f.lat, f.lng)) : '';
     var pct = Math.max(0, Math.min(100, (f.rating || 0) / 5 * 100));
     var prof = ROOT + 'firms/' + f.slug;
     return '<article class="gm-item' + (f.featured ? ' is-feat' : '') + (sel && sel.slug === f.slug && !detail ? ' is-sel' : '') + '" data-slug="' + esc(f.slug) + '">' +
+      thumb(f) +
       '<div class="gm-i-main">' +
         (f.featured ? '<span class="gm-i-badge"><i>' + IC.tick + '</i>Featured</span>' : '') +
         '<h3 class="gm-i-name"><a href="' + esc(prof) + '">' + esc(f.name) + '</a></h3>' +
         '<div class="gm-i-rate"><b>' + f.rating.toFixed(1) + '</b><span class="gm-stars" style="--p:' + pct + '%" aria-hidden="true">★★★★★</span><span>(' + f.count + ')</span></div>' +
         '<div class="gm-i-meta">' + esc(firmArea(f)) + ' · ' + esc(f.city) + dist + '</div>' +
-        (f.address ? '<div class="gm-i-addr">' + esc(f.address) + '</div>' : '') +
+        (f.address ? '<div class="gm-i-addr">' + IC.pinS + '<span>' + esc(f.address) + '</span></div>' : '') +
         (oi ? '<div class="gm-i-hours"><span class="' + (oi.open ? 'o' : 'c') + '">' + (oi.open ? 'Open' : 'Closed') + '</span> · ' + esc(oi.text) + '</div>' : '') +
-      '</div>' + thumb(f) +
+      '</div>' + (detail ? '' : IC.go) +
       '<div class="gm-i-acts">' +
         (f.phone ? '<a class="gm-act pri" href="tel:' + esc(f.phone) + '">' + IC.call + 'Call</a>' : '') +
         '<a class="gm-act" href="' + esc(f.dirUrl) + '" target="_blank" rel="noopener">' + IC.dir + 'Directions</a>' +
@@ -216,8 +223,8 @@
     var pages = Math.max(1, Math.ceil(view.length / PER));
     if(page > pages) page = pages;
     $('gmCount').textContent = view.length + ' lawyer' + (view.length === 1 ? '' : 's') + (areaB ? ' in this area' : '');
-    $('gmSub').innerHTML = (areaB ? 'Showing the current map area · <button type="button" id="gmAll">Show all</button>' : esc(placeLabel())) + (pages > 1 ? ' · Page ' + page + ' of ' + pages : '');
-    $('gmSort').firstChild.nodeValue = 'Sort: ' + sortName() + ' ';
+    $('gmSub').innerHTML = (areaB ? 'Showing the current map area · <button type="button" id="gmAll">Show all</button>' : esc(placeLabel())) + (pages > 1 ? ' · <span class="gm-pgno">Page ' + page + ' of ' + pages + '</span>' : '');
+    $('gmSortName').textContent = sortName();
     var note = '';
     if(F.open) note = '<p class="gm-note">Only firms with listed hours are shown. Hours are as published online, so please call to confirm.</p>';
     var html;
@@ -246,12 +253,19 @@
     });
     $('gmChips').innerHTML = h;
   }
+  var shownCase;
   function syncChips(){
-    var chips = $('gmChips').querySelectorAll('.gm-chip');
+    var box = $('gmChips'), chips = box.querySelectorAll('.gm-chip');
     for(var i = 0; i < chips.length; i++){
       var c = chips[i], on = c.dataset.k ? !!F[c.dataset.k] : (c.dataset.case === selectedCase);
       c.classList.toggle('on', on); c.setAttribute('aria-pressed', on ? 'true' : 'false');
       if(c.dataset.case) c.textContent = areaName(c.dataset.case, selectedProvince);
+    }
+    /* a practice area chosen by a link or the search box can sit off to the right: bring it into view, once per choice */
+    if(selectedCase !== shownCase){
+      shownCase = selectedCase;
+      var act = selectedCase && box.querySelector('.gm-chip[data-case].on');
+      if(act){ var bx = box.getBoundingClientRect(), cr = act.getBoundingClientRect(); if(cr.right > bx.right - 30 || cr.left < bx.left) box.scrollLeft += cr.left - bx.left - 24; }
     }
   }
 
@@ -279,7 +293,7 @@
   }
   function pad(){
     var m = isMobile();
-    return m ? { top: 128, bottom: 168 + 70, left: 40, right: 84 } : { top: 120, bottom: 60, left: 60, right: 90 };
+    return m ? { top: 50, bottom: 214 + 40, left: 40, right: 70 } : { top: 60, bottom: 60, left: 60, right: 90 };
   }
   /* Frame the person (or the town searched) and the few firms really near them. One far-off firm must not drag the view out, and a block of
      offices must not zoom the map in to rooftops: the view is at least about a kilometre across and never closer than street level. */
@@ -350,7 +364,7 @@
   function snaps(){
     var H = panel.offsetHeight, A = app.clientHeight;
     var selVis = 26 + (selEl.hidden ? 0 : selEl.offsetHeight) + 6;
-    return { full: 0, half: Math.max(0, H - Math.round(A * 0.5)), peek: Math.max(0, H - 168), sel: Math.max(0, H - selVis) };
+    return { full: 0, half: Math.max(0, H - Math.round(A * 0.5)), peek: Math.max(0, H - 214), sel: Math.max(0, H - selVis) };
   }
   function setTy(ty, animate){
     var H = panel.offsetHeight;
@@ -362,6 +376,9 @@
   function setState(name, instant){
     sheetState = name;
     app.dataset.state = name; panel.dataset.state = name;
+    /* fully open on a phone: the heading steps aside so the list gets the screen */
+    var wide = isMobile() && name === 'full';
+    if(document.body.classList.contains('gm-full') !== wide){ document.body.classList.toggle('gm-full', wide); if(wide) window.scrollTo(0, 0); sizeApp(true); }
     if(!isMobile()){ panel.style.removeProperty('--gm-ty'); return; }
     var S = snaps();
     setTy(S[name] != null ? S[name] : S.peek, !instant);
@@ -448,9 +465,9 @@
 
   /* ------------------------------------------------------------ basemap theme */
   var P = {
-    land: '#f4f1e8', water: '#bfe0ee', park: '#d3ebc6', wood: '#c7e4b8', grass: '#e0eed3', resid: '#efece2',
-    road: '#ffffff', casing: '#e2ddd0', major: '#ffffff', motor: '#e4eaf1', motorCasing: '#b8c3cf',
-    building: '#e8e3d6', buildingLine: '#d9d3c4', halo: 'rgba(255,255,255,.92)', text: '#1f2328', textSoft: '#636870', water_txt: '#5b8fa8'
+    land: '#f5f3ec', water: 'rgba(138,145,155,0.3)', park: '#f4ecd8', parkLine: '#e6d4a4', wood: '#f4ecd8', grass: '#f5f3ec', resid: '#f5f3ec',
+    road: '#ffffff', casing: '#e3dfd3', major: '#ffffff', motor: '#f4ecd8', motorCasing: '#e6d4a4',
+    building: '#e3dfd3', buildingLine: '#e3dfd3', halo: 'rgba(255,255,255,.92)', text: '#142434', textSoft: '#586170', water_txt: '#586170'
   };
   window.__gmPalette = P;
   applyMapTheme = function(){
@@ -480,15 +497,16 @@
           if(/rail|transit|ferry|aerialway|cablecar/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
           if(/^boundary/.test(id)){
             if(/boundary_3|disputed/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
-            map.setPaintProperty(id, 'line-color', '#c9c2b0'); return;
+            map.setPaintProperty(id, 'line-color', '#e6d4a4'); return;
           }
+          if(/park_outline|outline/.test(id) && !/road|highway|bridge|tunnel/.test(id)){ map.setPaintProperty(id, 'line-color', '#e6d4a4'); return; }
           if(/waterway/.test(id)){ map.setPaintProperty(id, 'line-color', P.water); return; }
           if(/highway|road|bridge|tunnel|link|motorway|trunk|primary|secondary|tertiary|minor|service|path|pier/.test(id)){
             var c = P.road;
             if(/casing/.test(id)) c = /motorway|trunk/.test(id) ? P.motorCasing : P.casing;
             else if(/motorway|trunk/.test(id)) c = P.motor;
             else if(/major|primary|secondary|link/.test(id)) c = P.major;
-            else if(/path|track/.test(id)) c = '#e2ddd0';
+            else if(/path|track/.test(id)) c = '#e3dfd3';
             map.setPaintProperty(id, 'line-color', c);
           }
           return;
@@ -496,15 +514,19 @@
         if(ty === 'background'){ map.setPaintProperty(id, 'background-color', P.land); return; }
         if(ty === 'fill'){
           if(id === 'water' || /^water/.test(id)) map.setPaintProperty(id, 'fill-color', P.water);
-          else if(/^park/.test(id) || /landcover_(wood|forest)/.test(id)) map.setPaintProperty(id, 'fill-color', /wood|forest/.test(id) ? P.wood : P.park);
-          else if(/landcover_(ice|glacier)/.test(id)) map.setPaintProperty(id, 'fill-color', '#f1efe8');
-          else if(/landcover_(sand|beach)/.test(id)) map.setPaintProperty(id, 'fill-color', '#efe6cc');
-          else if(/landcover_wetland/.test(id)) map.setPaintProperty(id, 'fill-color', '#d5e8cf');
+          else if(/^park/.test(id) || /landcover_(wood|forest)/.test(id)){
+            map.setPaintProperty(id, 'fill-color', /wood|forest/.test(id) ? P.wood : P.park);
+            if(/^park/.test(id)) map.setPaintProperty(id, 'fill-outline-color', P.parkLine);
+          }
+          else if(/landuse_(pitch|track)/.test(id)) map.setPaintProperty(id, 'fill-color', '#edeae1');
+          else if(/landcover_(ice|glacier)/.test(id)) map.setPaintProperty(id, 'fill-color', '#edeae1');
+          else if(/landcover_(sand|beach)/.test(id)) map.setPaintProperty(id, 'fill-color', '#f4ecd8');
+          else if(/landcover_wetland/.test(id)) map.setPaintProperty(id, 'fill-color', '#e3dfd3');
           else if(/landcover/.test(id)) map.setPaintProperty(id, 'fill-color', P.grass);
           else if(/landuse_residential/.test(id)) map.setPaintProperty(id, 'fill-color', P.resid);
-          else if(/landuse_cemetery/.test(id)) map.setPaintProperty(id, 'fill-color', '#d3ebc6');
-          else if(/landuse_hospital/.test(id)) map.setPaintProperty(id, 'fill-color', '#f0e3df');
-          else if(/landuse_school/.test(id)) map.setPaintProperty(id, 'fill-color', '#ece7d3');
+          else if(/landuse_cemetery/.test(id)) map.setPaintProperty(id, 'fill-color', '#e3dfd3');
+          else if(/landuse_hospital/.test(id)) map.setPaintProperty(id, 'fill-color', '#edeae1');
+          else if(/landuse_school/.test(id)) map.setPaintProperty(id, 'fill-color', '#f4ecd8');
           else if(id === 'building'){
             map.setPaintProperty(id, 'fill-color', P.building); map.setPaintProperty(id, 'fill-outline-color', P.buildingLine);
             map.setPaintProperty(id, 'fill-opacity', ['interpolate', ['linear'], ['zoom'], 14, 0, 15.5, 1]);
@@ -516,24 +538,24 @@
   };
 
   /* ------------------------------------------------------------ pins */
-  function pinImage(fill, stroke, scale, gold){
+  function pinImage(fill, stroke, scale, gold, dot){
     var W = Math.round(34 * scale), H = Math.round(46 * scale);
     var c = document.createElement('canvas'); c.width = W * 2; c.height = H * 2;
     var x = c.getContext('2d'); x.scale(2 * scale, 2 * scale);
-    x.shadowColor = 'rgba(0,0,0,.35)'; x.shadowBlur = 3; x.shadowOffsetY = 1.5;
+    x.shadowColor = 'rgba(20,36,52,0.35)'; x.shadowBlur = 3; x.shadowOffsetY = 1.5;
     x.beginPath(); x.moveTo(17, 44);
     x.bezierCurveTo(17, 44, 3, 28, 3, 16.5); x.arc(17, 16.5, 14, Math.PI, 0, false); x.bezierCurveTo(31, 28, 17, 44, 17, 44); x.closePath();
     x.fillStyle = fill; x.fill(); x.shadowColor = 'transparent'; x.lineWidth = 1.4; x.strokeStyle = stroke; x.stroke();
     if(gold){
       // a white disc with the LawDB database-stack mark in gold
       x.beginPath(); x.arc(17, 16.5, 8.6, 0, Math.PI * 2); x.fillStyle = '#ffffff'; x.fill();
-      x.fillStyle = '#e8a91f';
+      x.fillStyle = '#c9a050';
       x.beginPath(); x.ellipse(17, 12.6, 5, 2.1, 0, 0, Math.PI * 2); x.fill();
       x.beginPath(); x.moveTo(12, 12.6); x.lineTo(12, 20.4); x.ellipse(17, 20.4, 5, 2.1, 0, Math.PI, 0, true); x.lineTo(22, 12.6); x.closePath(); x.fill();
       x.strokeStyle = '#ffffff'; x.lineWidth = 1; x.beginPath(); x.ellipse(17, 15.4, 5, 2, 0, 0, Math.PI); x.stroke();
       x.beginPath(); x.ellipse(17, 18.1, 5, 2, 0, 0, Math.PI); x.stroke();
     } else {
-      x.beginPath(); x.arc(17, 16.5, 5.2, 0, Math.PI * 2); x.fillStyle = '#ffffff'; x.fill();
+      x.beginPath(); x.arc(17, 16.5, 5.2, 0, Math.PI * 2); x.fillStyle = dot || '#ffffff'; x.fill();
     }
     return { width: W * 2, height: H * 2, data: x.getImageData(0, 0, W * 2, H * 2).data };
   }
@@ -555,7 +577,7 @@
     return FONTS;
   }
   function textField(feat){
-    var F2 = pickFonts(), nm = { 'font-scale': 1, 'text-color': feat ? '#7a5512' : '#1f2328' }, sb = { 'font-scale': 0.88, 'text-color': '#636870' };
+    var F2 = pickFonts(), nm = { 'font-scale': 1, 'text-color': feat ? '#2b3a4c' : '#142434' }, sb = { 'font-scale': 0.88, 'text-color': '#586170' };
     if(F2.bold) nm['text-font'] = ['literal', F2.bold];
     if(F2.reg) sb['text-font'] = ['literal', F2.reg];
     return ['format', ['get', 'name'], nm, '\n', {}, ['get', 'sub'], sb];
@@ -567,7 +589,7 @@
     };
     var font = F2.reg || F2.any; if(font) lay['text-font'] = font;
     var def = { id: id, type: 'symbol', source: source, layout: lay,
-      paint: { 'text-color': '#1f2328', 'text-halo-color': 'rgba(248,246,241,.95)', 'text-halo-width': 1.8,
+      paint: { 'text-color': '#142434', 'text-halo-color': 'rgba(245,243,236,0.95)', 'text-halo-width': 1.8,
         'text-opacity': feat ? 1 : ['interpolate', ['linear'], ['zoom'], 10.5, 0, 11.5, 1] } };
     if(filter) def.filter = filter;
     try { map.addLayer(def); } catch(e){}
@@ -580,17 +602,19 @@
     map.addSource('firms-feat', { type: 'geojson', data: empty });
     map.addSource('firm-sel', { type: 'geojson', data: empty });
     map.addSource('me', { type: 'geojson', data: empty });
-    var IM = { 'gm-pin': ['#6f757d', '#4a4f56', 1, false], 'gm-pin-gold': ['#f0b429', '#c98a0a', 1.12, true], 'gm-pin-sel': ['#1f2328', '#14110f', 1.35, false], 'gm-pin-sel-gold': ['#f0b429', '#c98a0a', 1.5, true] };
-    Object.keys(IM).forEach(function(k){ if(!map.hasImage(k)) map.addImage(k, pinImage(IM[k][0], IM[k][1], IM[k][2], IM[k][3]), { pixelRatio: 2 }); });
+    var IM = { 'gm-pin': ['#2b3a4c', '#ffffff', 1, false], 'gm-pin-gold': ['#c9a050', '#ffffff', 1.12, true], 'gm-pin-sel': ['#142434', '#ffffff', 1.35, false, '#c9a050'], 'gm-pin-sel-gold': ['#c9a050', '#142434', 1.5, true] };
+    Object.keys(IM).forEach(function(k){ if(!map.hasImage(k)) map.addImage(k, pinImage(IM[k][0], IM[k][1], IM[k][2], IM[k][3], IM[k][4]), { pixelRatio: 2 }); });
     var font = pickFonts(), tf = font.bold || font.any;
     var size = ['interpolate', ['linear'], ['zoom'], 8, 0.55, 13, 0.8];
     var notCluster = ['!', ['has', 'point_count']];
 
+    map.addLayer({ id: 'firm-cluster-halo', type: 'circle', source: 'firms', filter: ['has', 'point_count'],
+      paint: { 'circle-color': 'rgba(138,98,36,0.2)', 'circle-radius': ['step', ['get', 'point_count'], 24, 5, 28, 15, 33] } });
     map.addLayer({ id: 'firm-cluster', type: 'circle', source: 'firms', filter: ['has', 'point_count'],
-      paint: { 'circle-color': '#f0b429', 'circle-radius': ['step', ['get', 'point_count'], 17, 5, 21, 15, 26], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 3 } });
+      paint: { 'circle-color': '#8a6224', 'circle-radius': ['step', ['get', 'point_count'], 17, 5, 21, 15, 26], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 3 } });
     var cl = { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-allow-overlap': true };
     if(tf) cl['text-font'] = tf;
-    map.addLayer({ id: 'firm-cluster-count', type: 'symbol', source: 'firms', filter: ['has', 'point_count'], layout: cl, paint: { 'text-color': '#1f2328' } });
+    map.addLayer({ id: 'firm-cluster-count', type: 'symbol', source: 'firms', filter: ['has', 'point_count'], layout: cl, paint: { 'text-color': '#ffffff' } });
 
     map.addLayer({ id: 'firm-pin', type: 'symbol', source: 'firms', filter: notCluster,
       layout: { 'icon-image': 'gm-pin', 'icon-size': size, 'icon-anchor': 'bottom', 'icon-allow-overlap': true, 'symbol-sort-key': ['get', 'prio'] } });
@@ -603,8 +627,8 @@
     map.addLayer({ id: 'firm-pin-sel', type: 'symbol', source: 'firm-sel',
       layout: { 'icon-image': ['case', ['==', ['get', 'featured'], 1], 'gm-pin-sel-gold', 'gm-pin-sel'], 'icon-size': 0.82, 'icon-anchor': 'bottom', 'icon-allow-overlap': true } });
 
-    map.addLayer({ id: 'me-halo', type: 'circle', source: 'me', paint: { 'circle-radius': 20, 'circle-color': '#b45309', 'circle-opacity': 0.2 } });
-    map.addLayer({ id: 'me-dot', type: 'circle', source: 'me', paint: { 'circle-radius': 7.5, 'circle-color': '#b45309', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2.5 } });
+    map.addLayer({ id: 'me-halo', type: 'circle', source: 'me', paint: { 'circle-radius': 20, 'circle-color': '#8a6224', 'circle-opacity': 0.2 } });
+    map.addLayer({ id: 'me-dot', type: 'circle', source: 'me', paint: { 'circle-radius': 7.5, 'circle-color': '#8a6224', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2.5 } });
 
     var tapLayers = ['firm-pin', 'firm-label', 'firm-feat-pin', 'firm-feat-label', 'firm-pin-sel'];
     function pick(e){
@@ -645,9 +669,7 @@
           attributionControl: false, dragRotate: false, touchPitch: false, pitchWithRotate: false, maxZoom: 18.5
         });
         map.touchZoomRotate.disableRotation();
-        map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
-        map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right');
-        map.addControl(new maplibregl.ScaleControl({ maxWidth: 90, unit: 'metric' }), 'bottom-left');
+        map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left');
         map.on('load', function(){
           if(settled) return; settled = true; clearTimeout(timer);
           try { applyMapTheme(); } catch(e){ console.warn('Map theme skipped:', e); }
@@ -799,10 +821,10 @@
     return items.slice(0, 9);
   }
   var SUGICO = {
-    search: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
-    pin: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
-    near: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
-    firm: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg>'
+    search: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+    pin: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+    near: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8a6224" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
+    firm: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg>'
   };
   var sugItems = [], sugIdx = -1;
   function drawSug(){
@@ -935,6 +957,23 @@
   var chipsBuilt = false;
   function buildChipsOnce(){ if(!chipsBuilt){ buildChips(); chipsBuilt = true; } }
 
+  /* the heading block above the search: an eyebrow, the page's own h1 (its place in gold italic) and one line under it. City and province pages
+     already have their h1 in a .city-hero, which is kept as it is for search engines and only styled; the Find page gets its own. */
+  function buildHead(wrap, before){
+    var head = document.querySelector('.city-hero');
+    if(!head){
+      head = document.createElement('header'); head.className = 'gm-head';
+      head.innerHTML = '<h1>Trusted legal help,<span class="gm-brk"></span> <em>near you.</em></h1><p>Search by location, practice area or firm name. Every firm shows its public Google rating, and none can pay to change it.</p>';
+      wrap.insertBefore(head, before);
+    } else {
+      var h1 = head.querySelector('h1'), m = h1 && !h1.querySelector('em') && h1.textContent.match(/^(Find a Lawyer in )(.+)$/i);
+      if(m) h1.innerHTML = esc(m[1]) + '<em>' + esc(m[2]) + '</em>';
+    }
+    head.classList.add('gm-head');
+    var eb = document.createElement('div'); eb.className = 'gm-eyebrow'; eb.textContent = 'Find a lawyer';
+    head.insertBefore(eb, head.firstChild);
+  }
+
   function build(){
     var wrap = document.querySelector('.results-wrap'), stack = document.querySelector('.content-stack'), card = document.querySelector('.map-card');
     if(!wrap || !stack || !card) return false;
@@ -942,22 +981,31 @@
     app = document.createElement('div'); app.className = 'gm-app'; app.id = 'gmApp'; app.dataset.state = 'peek';
     app.innerHTML =
       '<div class="gm-mapwrap" id="gmMapWrap">' +
-        '<div class="gm-top" id="gmTop"><div class="gm-searchwrap"><div class="gm-search" role="search"><button type="button" class="gm-sbtn" id="gmSearchBtn" aria-label="Search">' + IC.search + '</button>' +
-          '<input class="gm-q" id="gmQ" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search a city or type of lawyer" aria-label="Search lawyers by city or practice area" role="combobox" aria-expanded="false" aria-controls="gmSug">' +
-          '<button type="button" class="gm-x" id="gmX" aria-label="Clear search">' + IC.x + '</button></div>' +
-          '<div class="gm-sug" id="gmSug" role="listbox" hidden></div></div>' +
-          '<div class="gm-chips" id="gmChips" role="group" aria-label="Filters"></div></div>' +
-        '<button type="button" class="gm-area" id="gmArea" hidden>' + IC.redo + 'Search this area</button>' +
-        '<button type="button" class="gm-loc" id="gmLoc" aria-label="Show lawyers near my location">' + IC.loc + '</button>' +
+        '<button type="button" class="gm-area" id="gmArea" hidden>' + IC.pinG + 'Search this area</button>' +
+        '<div class="gm-ctrls" id="gmCtrls">' +
+          '<div class="gm-zoom"><button type="button" class="gm-zbtn" id="gmZin" aria-label="Zoom in">' + IC.plus + '</button><button type="button" class="gm-zbtn" id="gmZout" aria-label="Zoom out">' + IC.minus + '</button></div>' +
+          '<button type="button" class="gm-loc" id="gmLoc" aria-label="Show lawyers near my location">' + IC.loc + '</button>' +
+        '</div>' +
         '<div class="gm-toast" id="gmToast" role="status" hidden></div>' +
       '</div>' +
       '<aside class="gm-panel" id="gmPanel" aria-label="Law firm results">' +
         '<button type="button" class="gm-grab" id="gmGrab" aria-label="Expand or collapse results"><span></span></button>' +
         '<div class="gm-phead"><div><b id="gmCount"></b><small id="gmSub"></small></div>' +
-          '<div class="gm-sortwrap"><button type="button" class="gm-sortbtn" id="gmSort" aria-haspopup="true" aria-expanded="false">Sort: Recommended ' + IC.chev + '</button>' +
+          '<div class="gm-sortwrap"><button type="button" class="gm-sortbtn" id="gmSort" aria-haspopup="true" aria-expanded="false"><span class="gm-sortlbl">Sort:</span><span id="gmSortName">Recommended</span> ' + IC.chev + '</button>' +
           '<div class="gm-menu" id="gmMenu" role="menu" hidden></div></div></div>' +
         '<div class="gm-scroll" id="gmScroll"><div class="gm-sel" id="gmSel" hidden></div><div class="gm-list" id="gmList"></div></div>' +
       '</aside>';
+    /* heading, then the search pill with the filters beside it, then the map card */
+    buildHead(wrap, stack);
+    var bar = document.createElement('div'); bar.className = 'gm-top'; bar.id = 'gmTop';
+    bar.innerHTML =
+      '<div class="gm-searchwrap"><div class="gm-search" role="search"><button type="button" class="gm-sbtn" id="gmSearchBtn" aria-label="Search">' + IC.search + '</button>' +
+        '<input class="gm-q" id="gmQ" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search a city or type of lawyer" aria-label="Search lawyers by city or practice area" role="combobox" aria-expanded="false" aria-controls="gmSug">' +
+        '<button type="button" class="gm-x" id="gmX" aria-label="Clear search">' + IC.x + '</button>' +
+        '<button type="button" class="gm-filter" id="gmFilter" aria-label="Choose a type of lawyer">' + IC.sliders + '</button></div>' +
+        '<div class="gm-sug" id="gmSug" role="listbox" hidden></div></div>' +
+      '<div class="gm-chips" id="gmChips" role="group" aria-label="Filters"></div>';
+    wrap.insertBefore(bar, stack);
     wrap.insertBefore(app, stack);
     mapWrap = $('gmMapWrap'); panel = $('gmPanel'); scrollEl = $('gmScroll'); listEl = $('gmList'); selEl = $('gmSel'); areaBtn = $('gmArea'); locBtn = $('gmLoc');
     mapWrap.insertBefore(card, mapWrap.firstChild);
@@ -1004,6 +1052,10 @@
       if(isMobile() && !sel) setState('half');
     });
     locBtn.addEventListener('click', locate);
+    $('gmZin').addEventListener('click', function(){ if(mapOK) map.zoomIn({ duration: REDUCED ? 0 : 250 }); });
+    $('gmZout').addEventListener('click', function(){ if(mapOK) map.zoomOut({ duration: REDUCED ? 0 : 250 }); });
+    $('gmFilter').addEventListener('mousedown', function(e){ e.preventDefault(); });
+    $('gmFilter').addEventListener('click', function(){ var q = $('gmQ'); if(document.activeElement !== q) q.focus(); q.value = ''; drawSug(); });
 
     /* list / selection delegation */
     function onItem(e){

@@ -48,52 +48,52 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap');
   :root{
-    --ink:#1f2328; --ink-soft:#636870; --brass:#e8a91f; --brass-deep:#b45309;
-    --red:#e8a91f; --red-deep:#b45309; --red-tint:#fff3d4; --red-border:#f6dc9a;
-    --cream:#f8f6f1; --card:#ffffff; --line:#e3dfd5; --dark:#15181c; --dark-2:#15181c; --green:#1f6f6b;
+    --ink:#142434; --ink-soft:#586170; --brass:#c9a050; --brass-deep:#8a6224;
+    --red:#c9a050; --red-deep:#8a6224; --red-tint:#f4ecd8; --red-border:#e6d4a4;
+    --cream:#f5f3ec; --card:#ffffff; --line:#e3dfd3; --dark:#1b242d; --dark-2:#1b242d; --green:#2b3a4c;
   }
   *{box-sizing:border-box;}
   body{margin:0; font-family:'Inter',sans-serif; color:var(--ink); background:var(--cream);}
   .wrap{ max-width:640px; margin:0 auto; padding:26px 18px 60px; }
   @media (min-width:900px){ .wrap{ max-width:860px; padding-top:44px; } .firm-head h1{ font-size:26px; } .actions{ gap:12px; } .article,.services,.guide{ padding:26px 30px; } }
   
-  .site-header{ height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#f8f6f1; border-bottom:1px solid #e3dfd5; color:#1f2328; position:sticky; top:0; z-index:500; }
+  .site-header{ height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#f5f3ec; border-bottom:1px solid #e3dfd3; color:#142434; position:sticky; top:0; z-index:500; }
   .site-header .mark{ text-decoration:none; display:flex; align-items:center; gap:10px; }
   .site-header .mark img{ height:34px; width:auto; display:block; }
   .site-header .mark .wordmark{ display:flex; flex-direction:column; line-height:1; }
-  .site-header .mark .wordmark .name{ font-family:'Inter',sans-serif; font-size:19px; font-weight:800; letter-spacing:-0.01em; color:#1f2328; }
-  .site-header .mark .wordmark .name .db{ color:#e8a91f; }
-  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#b45309; margin-top:2px; }
+  .site-header .mark .wordmark .name{ font-family:'Inter',sans-serif; font-size:19px; font-weight:800; letter-spacing:-0.01em; color:#142434; }
+  .site-header .mark .wordmark .name .db{ color:#c9a050; }
+  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#8a6224; margin-top:2px; }
   .brand-icon{ flex-shrink:0; display:block; }
   .site-header .header-right{ display:flex; align-items:center; gap:12px; }
-  .site-header .back-link{ font-size:12px; color:#636870; text-decoration:none; white-space:nowrap; }
-  .site-header .back-link:hover{ color:#1f2328; }
-  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#1f2328; background:var(--brass,#e0a93a); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link{ font-size:12px; color:#586170; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link:hover{ color:#142434; }
+  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#142434; background:var(--brass,#c9a050); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
   .add-firm-btn:hover{ filter:brightness(1.08); }
   .hamburger-btn{ background:none; border:none; cursor:pointer; padding:6px; display:flex; flex-direction:column; gap:4px; }
-  .hamburger-btn span{ display:block; width:22px; height:2px; background:#1f2328; border-radius:2px; }
-  .menu-overlay{ position:fixed; inset:0; background:rgba(6,8,11,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
+  .hamburger-btn span{ display:block; width:22px; height:2px; background:#142434; border-radius:2px; }
+  .menu-overlay{ position:fixed; inset:0; background:rgba(20,36,52,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
   .menu-overlay.open{ opacity:1; pointer-events:auto; }
-  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#15181c; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
-  .menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(0,0,0,0.35); }
-  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#8d9197; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
-  .menu-drawer a{ color:#f0ede5; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #2a2f35; }
-  .menu-drawer a:hover{ color:var(--brass,#e0a93a); }
-  .menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#e0342f); color:#fff; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
+  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#1b242d; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
+  .menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(20,36,52,0.35); }
+  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#8a919b; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
+  .menu-drawer a{ color:#edeae1; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #2b3a4c; }
+  .menu-drawer a:hover{ color:var(--brass,#c9a050); }
+  .menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#c9a050); color:#142434; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
 
   
-  .site-footer{ background:var(--dark,#15181c); color:#8d9197; padding:48px 20px 24px; }
-  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2a2f35; }
+  .site-footer{ background:var(--dark,#1b242d); color:#b4bac4; padding:48px 20px 24px; }
+  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2b3a4c; }
   @media (max-width:760px){ .site-footer .foot-grid{ grid-template-columns:1fr 1fr; } }
   .site-footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:19px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
   .site-footer .fblurb{ font-size:13px; line-height:1.7; max-width:280px; }
-  .site-footer h4{ color:#c7cfda; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px; font-weight:700; }
+  .site-footer h4{ color:#e3dfd3; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px; font-weight:700; }
   .site-footer ul{ list-style:none; margin:0; padding:0; }
   .site-footer li{ margin-bottom:10px; }
-  .site-footer a{ color:#8d9197; text-decoration:none; font-size:13.5px; }
+  .site-footer a{ color:#8a919b; text-decoration:none; font-size:13.5px; }
   .site-footer a:hover{ color:#fff; }
-  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#e0a93a); color:#1f2328; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
-  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#636870; }
+  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#c9a050); color:#142434; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
+  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#586170; }
 
   .guide{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:18px 20px; margin:22px 0; }
   .guide h2{ font-family:'Source Serif 4',serif; font-size:17px; margin:0 0 4px; }
@@ -101,7 +101,7 @@
   .guide h3{ font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--brass-deep); margin:16px 0 8px; }
   .guide ul{ margin:0; padding-left:18px; }
   .guide li{ font-size:13.5px; line-height:1.65; margin-bottom:7px; }
-  .guide p{ font-size:13.5px; line-height:1.7; margin:0; color:#30353b; }
+  .guide p{ font-size:13.5px; line-height:1.7; margin:0; color:#2b3a4c; }
   .nearby{ margin:22px 0; }
   .nearby h2{ font-family:'Source Serif 4',serif; font-size:17px; margin:0 0 12px; }
   .nearby a{ display:flex; justify-content:space-between; gap:10px; align-items:center;
@@ -114,20 +114,20 @@
   .firm-head h1{ margin:0; }
   .firm-monogram{ flex-shrink:0; border-radius:11px; }
   @media (max-width:480px){ .firm-head{ gap:11px; } .firm-monogram{ width:52px; height:52px; } }
-  .ribbon-basic{ display:inline-block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#636870; background:#eef0f2; padding:4px 10px; border-radius:20px; margin-bottom:10px; }
+  .ribbon-basic{ display:inline-block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#586170; background:#edeae1; padding:4px 10px; border-radius:20px; margin-bottom:10px; }
   h1{ font-family:'Source Serif 4',serif; font-size:28px; margin:6px 0 4px; line-height:1.2; }
   .addr{ color:var(--ink-soft); font-size:14px; margin-bottom:14px; }
   .chips{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
-  .chip{ font-size:12px; background:#f0ede5; color:var(--brass-deep); padding:4px 10px; border-radius:20px; font-weight:600; }
+  .chip{ font-size:12px; background:#edeae1; color:var(--brass-deep); padding:4px 10px; border-radius:20px; font-weight:600; }
   .rate-row{ display:flex; align-items:center; gap:8px; margin:14px 0 20px; font-size:15px; }
   .services{ background:var(--card); border:1px solid var(--line); border-radius:6px; padding:20px 22px; margin-bottom:24px; }
   .services h2{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 12px; }
   .services ul{ margin:0; padding-left:20px; }
-  .services li{ font-size:14px; line-height:1.9; color:#30353b; }
-  .from-firm{ background:#fff3d4; border:1px solid #f6dc9a; border-radius:6px; padding:20px 22px; margin-bottom:24px; }
+  .services li{ font-size:14px; line-height:1.9; color:#2b3a4c; }
+  .from-firm{ background:#f4ecd8; border:1px solid #e6d4a4; border-radius:6px; padding:20px 22px; margin-bottom:24px; }
   .from-firm h2{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 4px; }
   .from-firm .post-title{ font-weight:700; font-size:14.5px; margin:8px 0 6px; }
-  .from-firm p{ font-size:13.5px; line-height:1.7; color:#4a3a1e; margin:0 0 10px; }
+  .from-firm p{ font-size:13.5px; line-height:1.7; color:#2b3a4c; margin:0 0 10px; }
   .from-firm a.read-link{ font-size:12.5px; font-weight:700; color:var(--brass-deep); text-decoration:none; }
   .rate-row .stars{ color:var(--brass); font-size:18px; }
   .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px; }
@@ -136,14 +136,14 @@
   .a-web{ background:var(--ink); color:#fff; }
   .a-dir{ background:transparent; border:1px solid var(--ink); color:var(--ink); }
   .a-rev{ background:transparent; border:1px solid var(--brass); color:var(--brass-deep); }
-  .article{ font-size:15.5px; line-height:1.75; color:#30353b; background:var(--card); border:1px solid var(--line); padding:20px 22px; border-radius:6px; margin-bottom:24px; }
+  .article{ font-size:15.5px; line-height:1.75; color:#2b3a4c; background:var(--card); border:1px solid var(--line); padding:20px 22px; border-radius:6px; margin-bottom:24px; }
   .socials{ display:flex; gap:10px; flex-wrap:wrap; }
   .map-embed{ margin:22px 0; }
   .map-embed h2{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 12px; }
   .map-embed iframe{ display:block; width:100%; height:320px; border:0; border-radius:8px; border:1px solid var(--line); }
   .socials a{ font-size:13px; color:var(--ink-soft); text-decoration:none; border:1px solid var(--line); padding:8px 12px; border-radius:4px; }
   .socials a:hover{ border-color:var(--brass); color:var(--brass-deep); }
-  .fine{ font-size:11.5px; color:#8d9197; margin-top:30px; line-height:1.6; }
+  .fine{ font-size:11.5px; color:#8a919b; margin-top:30px; line-height:1.6; }
 
   .desktop-nav{ display:none; }
   @media (min-width:900px){
@@ -152,10 +152,10 @@
     .site-header .mark .wordmark .name{ font-size:22px; }
     .site-header .mark .wordmark .tagline{ font-size:8.5px; }
     .desktop-nav{ display:flex; align-items:center; }
-    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#1f2328; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
-    .desktop-nav a:hover{ color:#b45309; }
-    .desktop-nav .nav-cta{ background:#e8a91f; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
-    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#b45309; }
+    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#142434; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
+    .desktop-nav a:hover{ color:#8a6224; }
+    .desktop-nav .nav-cta{ background:#c9a050; color:#142434; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
+    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#8a6224; }
     .hamburger-btn{ display:none; }
   }
 </style>
@@ -184,7 +184,7 @@
     <section class="li-card" aria-label="Steinbergs LLP profile">
       <div class="li-cover gen"><span class="li-cover-city">North York, ON</span></div>
       <div class="li-body">
-        <span class="li-logo"><svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SL"><rect width="60" height="60" rx="10.8" fill="#1c2a3a"/><text x="50%" y="50%" dy="0.35em" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="24.0" fill="#ffffff" letter-spacing="0.02em">SL</text></svg><img src="https://steinbergsllp.com/assets/images/logo-standard.svg" alt="Steinbergs LLP logo" referrerpolicy="no-referrer" loading="eager" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8px;box-sizing:border-box;background:#ffffff;"></span>
+        <span class="li-logo"><svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SL"><rect width="60" height="60" rx="10.8" fill="#2b3a4c"/><text x="50%" y="50%" dy="0.35em" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="24.0" fill="#ffffff" letter-spacing="0.02em">SL</text></svg><img src="https://steinbergsllp.com/assets/images/logo-standard.svg" alt="Steinbergs LLP logo" referrerpolicy="no-referrer" loading="eager" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8px;box-sizing:border-box;background:#ffffff;"></span>
         <h1 class="li-name">Steinbergs LLP</h1>
         <p class="li-tag">Business Law and Real Estate lawyers serving North York, Ontario.</p>
         <p class="li-meta">Law Practice &middot; North York, ON &middot; <b>4.6 &#9733;</b> from 76 Google reviews</p>
@@ -211,7 +211,7 @@
         <button type="button" class="ls-toggle" aria-expanded="false">Send message</button>
       </div>
       <div class="ls-more">
-      <p style="font-size:11.5px;color:#8d9197;margin:0 0 14px;line-height:1.5;">By submitting, you agree LawDB may contact you about your inquiry and will share these details with Steinbergs LLP so they can respond. See our <a href="/privacy-policy" style="color:inherit;text-decoration:underline;">Privacy Policy</a>.</p>
+      <p style="font-size:11.5px;color:#8a919b;margin:0 0 14px;line-height:1.5;">By submitting, you agree LawDB may contact you about your inquiry and will share these details with Steinbergs LLP so they can respond. See our <a href="/privacy-policy" style="color:inherit;text-decoration:underline;">Privacy Policy</a>.</p>
       <form id="leadForm-steinbergs-llp" onsubmit="return false;">
         <input type="hidden" name="access_key" value="fab93f49-936a-43f3-95e9-104ed29e503f">
         <input type="hidden" name="firm_name" value="Steinbergs LLP">
@@ -219,27 +219,27 @@
         <input type="hidden" name="subject" value="New LawDB lead for Steinbergs LLP">
         <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
         <div style="margin-bottom:12px;">
-          <label style="display:block;font-size:12.5px;font-weight:600;color:#1f2328;margin-bottom:5px;">Your name</label>
-          <input type="text" name="name" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd5;border-radius:5px;font-size:14px;font-family:inherit;">
+          <label style="display:block;font-size:12.5px;font-weight:600;color:#142434;margin-bottom:5px;">Your name</label>
+          <input type="text" name="name" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd3;border-radius:5px;font-size:14px;font-family:inherit;">
         </div>
         <div style="margin-bottom:12px;">
-          <label style="display:block;font-size:12.5px;font-weight:600;color:#1f2328;margin-bottom:5px;">Email</label>
-          <input type="email" name="email" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd5;border-radius:5px;font-size:14px;font-family:inherit;">
+          <label style="display:block;font-size:12.5px;font-weight:600;color:#142434;margin-bottom:5px;">Email</label>
+          <input type="email" name="email" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd3;border-radius:5px;font-size:14px;font-family:inherit;">
         </div>
         <div style="margin-bottom:12px;">
-          <label style="display:block;font-size:12.5px;font-weight:600;color:#1f2328;margin-bottom:5px;">Phone (optional)</label>
-          <input type="tel" name="phone" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd5;border-radius:5px;font-size:14px;font-family:inherit;">
+          <label style="display:block;font-size:12.5px;font-weight:600;color:#142434;margin-bottom:5px;">Phone (optional)</label>
+          <input type="tel" name="phone" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd3;border-radius:5px;font-size:14px;font-family:inherit;">
         </div>
         <div style="margin-bottom:16px;">
-          <label style="display:block;font-size:12.5px;font-weight:600;color:#1f2328;margin-bottom:5px;">Briefly describe your situation</label>
-          <textarea name="message" rows="4" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd5;border-radius:5px;font-size:14px;font-family:inherit;resize:vertical;"></textarea>
+          <label style="display:block;font-size:12.5px;font-weight:600;color:#142434;margin-bottom:5px;">Briefly describe your situation</label>
+          <textarea name="message" rows="4" required style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e3dfd3;border-radius:5px;font-size:14px;font-family:inherit;resize:vertical;"></textarea>
         </div>
-        <button type="submit" id="leadBtn-steinbergs-llp" style="background:#1f2328;color:#fff;border:none;border-radius:5px;padding:12px 22px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;">Send Message</button>
+        <button type="submit" id="leadBtn-steinbergs-llp" style="background:#142434;color:#fff;border:none;border-radius:5px;padding:12px 22px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;">Send Message</button>
         <div id="leadStatus-steinbergs-llp" style="margin-top:12px;font-size:13.5px;"></div>
       </form>
       </div>
     </div>
-<section class="lw-car" aria-label="Lawyers near North York"><div class="lw-car-head"><h2>Browse other lawyers near North York</h2><div class="lw-car-nav"><button type="button" class="lw-prev" aria-label="Previous">&#8249;</button><button type="button" class="lw-next" aria-label="Next">&#8250;</button></div></div><div class="lw-track" tabindex="0"><article class="lc"><div class="lc-cover gen"><span>North York</span></div><span class="lc-logo" style="background:#1f2328"><img src="https://achkarlaw.com/wp-content/uploads/2024/11/achkarlaw-white-logo.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='AL'"></span><div class="lc-body"><h3><a href="/firms/achkar-law">Achkar Law</a></h3><span class="lc-rate"><b>&#9733; 4.5</b> <i>(410)</i></span><div class="lc-addr">4789 Yonge St Ste 908, North York, ON M2N 0G3</div><div class="lc-tags"><span>Employment Law</span><span>Wrongful Dismissal</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16475599363">Call</a><a class="lc-view" href="/firms/achkar-law">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>North York</span></div><span class="lc-logo" style="background:#1f2328"><img src="https://lisagelman.com/wp-content/uploads/white-logo-text-300x91.webp" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='GA'"></span><div class="lc-body"><h3><a href="/firms/gelman-and-associates">Gelman &amp; Associates</a></h3><span class="lc-rate"><b>&#9733; 4.6</b> <i>(285)</i></span><div class="lc-addr">4211 Yonge St #210, North York, ON M2P 2A9</div><div class="lc-tags"><span>Family Law</span><span>Divorce</span></div><div class="lc-btns"><a class="lc-call" href="tel:+18447360200">Call</a><a class="lc-view" href="/firms/gelman-and-associates">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>North York</span></div><span class="lc-logo"><img src="https://www.keylawyer.com/wp-content/uploads/elementor/thumbs/logo-1-qsxwv8l8qlnbycxc7tzbyuktl9c9blvyhzm2fwu8h0.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='JL'"></span><div class="lc-body"><h3><a href="/firms/juzkiw-law">Juzkiw Law</a></h3><span class="lc-rate"><b>&#9733; 4.8</b> <i>(51)</i></span><div class="lc-addr">4750 Yonge St Unit 346, North York, ON M2N 0J6</div><div class="lc-tags"><span>Family Law</span><span>Criminal Defence</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14162212221">Call</a><a class="lc-view" href="/firms/juzkiw-law">View profile</a></div></div></article><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover brand"><img src="../images/logos/daniel-brown-law-llp.jpg" alt="Daniel Brown Law LLP logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/daniel-brown-law-llp">Daniel Brown Law LLP</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>(156)</i></span><div class="lc-addr">103 Church St #400, Toronto, ON M5C 2G3</div><div class="lc-tags"><span>Criminal Defence</span><span>Appeals</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14162977200">Call</a><a class="lc-view" href="/firms/daniel-brown-law-llp">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="../images/logos/stikeman-elliott-llp.jpg" alt="Stikeman Elliott LLP logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/stikeman-elliott-llp">Stikeman Elliott LLP</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>(39)</i></span><div class="lc-addr">199 Bay St #5300, Toronto, ON M5L 1B9</div><div class="lc-tags"><span>Corporate/M&amp;A</span><span>Capital Markets</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14168695500">Call</a><a class="lc-view" href="/firms/stikeman-elliott-llp">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://stlawyers.ca/wp-content/uploads/2019/07/logo-main@2x-285x48.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='ST'"></span><div class="lc-body"><h3><a href="/firms/samfiru-tumarkin-llp">Samfiru Tumarkin LLP</a></h3><span class="lc-rate"><b>&#9733; 4.8</b> <i>(2550)</i></span><div class="lc-addr">350 Bay St, Toronto, ON M5H 2S6</div><div class="lc-tags"><span>Employment Law</span><span>Disability Claims</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14168619065">Call</a><a class="lc-view" href="/firms/samfiru-tumarkin-llp">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://www.russellalexander.com/wp-content/uploads/2026/05/logotype-1.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='RA'"></span><div class="lc-body"><h3><a href="/firms/russell-alexander-collaborative-family-lawyers">Russell Alexander Collaborative Family Lawyers</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>(1605)</i></span><div class="lc-addr">200 Bay St Ste 1200, Toronto, ON M5J 2J2</div><div class="lc-tags"><span>Family Law</span><span>Divorce</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16474921481">Call</a><a class="lc-view" href="/firms/russell-alexander-collaborative-family-lawyers">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://www.myvisasource.com/hubfs/MVS%20Logo.svg" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='MV'"></span><div class="lc-body"><h3><a href="/firms/my-visa-source-legal">My Visa Source Legal</a></h3><span class="lc-rate"><b>&#9733; 4.8</b> <i>(1226)</i></span><div class="lc-addr">320 Bay St Ste 101, Toronto, ON M5H 4A6</div><div class="lc-tags"><span>Immigration</span><span>Spousal Sponsorship</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16475608203">Call</a><a class="lc-view" href="/firms/my-visa-source-legal">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://www.monkhouselaw.com/wp-content/uploads/2020/03/cropped-Monkhouse-Law-Employment-Lawyers-Toronto-280x69.png.webp" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='ML'"></span><div class="lc-body"><h3><a href="/firms/monkhouse-law-employment-lawyers">Monkhouse Law Employment Lawyers</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>(962)</i></span><div class="lc-addr">220 Bay St Ste 900, Toronto, ON M5J 2W4</div><div class="lc-tags"><span>Employment Law</span><span>Wrongful Dismissal</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16473706274">Call</a><a class="lc-view" href="/firms/monkhouse-law-employment-lawyers">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://www.migrationlaw.com/wp-content/uploads/2026/04/mamman-sandaluk-logo.jpg" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='MS'"></span><div class="lc-body"><h3><a href="/firms/mamann-sandaluk-llp">Mamann Sandaluk LLP</a></h3><span class="lc-rate"><b>&#9733; 4.8</b> <i>(901)</i></span><div class="lc-addr">103 Church St #200, Toronto, ON M5C 2G3</div><div class="lc-tags"><span>Immigration</span><span>Refugee</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14168620000">Call</a><a class="lc-view" href="/firms/mamann-sandaluk-llp">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Etobicoke</span></div><span class="lc-logo"><img src="https://t8w3m4j8.delivery.rocketcdn.me/wp-content/uploads/2022/07/Pace-Law-Logo-2022-Colour-1024x211.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='PL'"></span><div class="lc-body"><h3><a href="/firms/pace-law-firm">Pace Law Firm</a></h3><span class="lc-rate"><b>&#9733; 4.7</b> <i>(369)</i></span><div class="lc-addr">191 The West Mall Ste 1100, Etobicoke, ON M9C 5K8</div><div class="lc-tags"><span>Personal Injury</span><span>Immigration</span></div><div class="lc-btns"><a class="lc-call" href="tel:+18772363060">Call</a><a class="lc-view" href="/firms/pace-law-firm">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://static.wixstatic.com/media/8ef232_a78cdd0baf144cd3b4093d9857bd532b~mv2.png/v1/crop/x_38,y_29,w_462,h_194/fill/w_239,h_100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/BattistaMigration-logopng.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='BM'"></span><div class="lc-body"><h3><a href="/firms/battista-migration-law-group">Battista Migration Law Group</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>(367)</i></span><div class="lc-addr">160 Bloor St E Suite 1000, Toronto, ON M4W 1B9</div><div class="lc-tags"><span>Immigration</span><span>Refugee</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14162032899">Call</a><a class="lc-view" href="/firms/battista-migration-law-group">View profile</a></div></div></article></div></section>
+<section class="lw-car" aria-label="Lawyers near North York"><div class="lw-car-head"><h2>Browse other lawyers near North York</h2><div class="lw-car-nav"><button type="button" class="lw-prev" aria-label="Previous">&#8249;</button><button type="button" class="lw-next" aria-label="Next">&#8250;</button></div></div><div class="lw-track" tabindex="0"><article class="lc"><div class="lc-cover gen"><span>North York</span></div><span class="lc-logo" style="background:#142434"><img src="https://achkarlaw.com/wp-content/uploads/2024/11/achkarlaw-white-logo.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='AL'"></span><div class="lc-body"><h3><a href="/firms/achkar-law">Achkar Law</a></h3><span class="lc-rate"><b>&#9733; 4.5</b> <i>(410)</i></span><div class="lc-addr">4789 Yonge St Ste 908, North York, ON M2N 0G3</div><div class="lc-tags"><span>Employment Law</span><span>Wrongful Dismissal</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16475599363">Call</a><a class="lc-view" href="/firms/achkar-law">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>North York</span></div><span class="lc-logo" style="background:#142434"><img src="https://lisagelman.com/wp-content/uploads/white-logo-text-300x91.webp" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='GA'"></span><div class="lc-body"><h3><a href="/firms/gelman-and-associates">Gelman &amp; Associates</a></h3><span class="lc-rate"><b>&#9733; 4.6</b> <i>(285)</i></span><div class="lc-addr">4211 Yonge St #210, North York, ON M2P 2A9</div><div class="lc-tags"><span>Family Law</span><span>Divorce</span></div><div class="lc-btns"><a class="lc-call" href="tel:+18447360200">Call</a><a class="lc-view" href="/firms/gelman-and-associates">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>North York</span></div><span class="lc-logo"><img src="https://www.keylawyer.com/wp-content/uploads/elementor/thumbs/logo-1-qsxwv8l8qlnbycxc7tzbyuktl9c9blvyhzm2fwu8h0.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='JL'"></span><div class="lc-body"><h3><a href="/firms/juzkiw-law">Juzkiw Law</a></h3><span class="lc-rate"><b>&#9733; 4.8</b> <i>(51)</i></span><div class="lc-addr">4750 Yonge St Unit 346, North York, ON M2N 0J6</div><div class="lc-tags"><span>Family Law</span><span>Criminal Defence</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14162212221">Call</a><a class="lc-view" href="/firms/juzkiw-law">View profile</a></div></div></article><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover brand"><img src="../images/logos/daniel-brown-law-llp.jpg" alt="Daniel Brown Law LLP logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/daniel-brown-law-llp">Daniel Brown Law LLP</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>(156)</i></span><div class="lc-addr">103 Church St #400, Toronto, ON M5C 2G3</div><div class="lc-tags"><span>Criminal Defence</span><span>Appeals</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14162977200">Call</a><a class="lc-view" href="/firms/daniel-brown-law-llp">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="../images/logos/stikeman-elliott-llp.jpg" alt="Stikeman Elliott LLP logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/stikeman-elliott-llp">Stikeman Elliott LLP</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>(39)</i></span><div class="lc-addr">199 Bay St #5300, Toronto, ON M5L 1B9</div><div class="lc-tags"><span>Corporate/M&amp;A</span><span>Capital Markets</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14168695500">Call</a><a class="lc-view" href="/firms/stikeman-elliott-llp">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://stlawyers.ca/wp-content/uploads/2019/07/logo-main@2x-285x48.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='ST'"></span><div class="lc-body"><h3><a href="/firms/samfiru-tumarkin-llp">Samfiru Tumarkin LLP</a></h3><span class="lc-rate"><b>&#9733; 4.8</b> <i>(2550)</i></span><div class="lc-addr">350 Bay St, Toronto, ON M5H 2S6</div><div class="lc-tags"><span>Employment Law</span><span>Disability Claims</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14168619065">Call</a><a class="lc-view" href="/firms/samfiru-tumarkin-llp">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://www.russellalexander.com/wp-content/uploads/2026/05/logotype-1.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='RA'"></span><div class="lc-body"><h3><a href="/firms/russell-alexander-collaborative-family-lawyers">Russell Alexander Collaborative Family Lawyers</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>(1605)</i></span><div class="lc-addr">200 Bay St Ste 1200, Toronto, ON M5J 2J2</div><div class="lc-tags"><span>Family Law</span><span>Divorce</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16474921481">Call</a><a class="lc-view" href="/firms/russell-alexander-collaborative-family-lawyers">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://www.myvisasource.com/hubfs/MVS%20Logo.svg" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='MV'"></span><div class="lc-body"><h3><a href="/firms/my-visa-source-legal">My Visa Source Legal</a></h3><span class="lc-rate"><b>&#9733; 4.8</b> <i>(1226)</i></span><div class="lc-addr">320 Bay St Ste 101, Toronto, ON M5H 4A6</div><div class="lc-tags"><span>Immigration</span><span>Spousal Sponsorship</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16475608203">Call</a><a class="lc-view" href="/firms/my-visa-source-legal">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://www.monkhouselaw.com/wp-content/uploads/2020/03/cropped-Monkhouse-Law-Employment-Lawyers-Toronto-280x69.png.webp" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='ML'"></span><div class="lc-body"><h3><a href="/firms/monkhouse-law-employment-lawyers">Monkhouse Law Employment Lawyers</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>(962)</i></span><div class="lc-addr">220 Bay St Ste 900, Toronto, ON M5J 2W4</div><div class="lc-tags"><span>Employment Law</span><span>Wrongful Dismissal</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16473706274">Call</a><a class="lc-view" href="/firms/monkhouse-law-employment-lawyers">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://www.migrationlaw.com/wp-content/uploads/2026/04/mamman-sandaluk-logo.jpg" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='MS'"></span><div class="lc-body"><h3><a href="/firms/mamann-sandaluk-llp">Mamann Sandaluk LLP</a></h3><span class="lc-rate"><b>&#9733; 4.8</b> <i>(901)</i></span><div class="lc-addr">103 Church St #200, Toronto, ON M5C 2G3</div><div class="lc-tags"><span>Immigration</span><span>Refugee</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14168620000">Call</a><a class="lc-view" href="/firms/mamann-sandaluk-llp">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Etobicoke</span></div><span class="lc-logo"><img src="https://t8w3m4j8.delivery.rocketcdn.me/wp-content/uploads/2022/07/Pace-Law-Logo-2022-Colour-1024x211.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='PL'"></span><div class="lc-body"><h3><a href="/firms/pace-law-firm">Pace Law Firm</a></h3><span class="lc-rate"><b>&#9733; 4.7</b> <i>(369)</i></span><div class="lc-addr">191 The West Mall Ste 1100, Etobicoke, ON M9C 5K8</div><div class="lc-tags"><span>Personal Injury</span><span>Immigration</span></div><div class="lc-btns"><a class="lc-call" href="tel:+18772363060">Call</a><a class="lc-view" href="/firms/pace-law-firm">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Toronto</span></div><span class="lc-logo"><img src="https://static.wixstatic.com/media/8ef232_a78cdd0baf144cd3b4093d9857bd532b~mv2.png/v1/crop/x_38,y_29,w_462,h_194/fill/w_239,h_100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/BattistaMigration-logopng.png" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;p.className='lc-logo mono';p.removeAttribute('style');p.textContent='BM'"></span><div class="lc-body"><h3><a href="/firms/battista-migration-law-group">Battista Migration Law Group</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>(367)</i></span><div class="lc-addr">160 Bloor St E Suite 1000, Toronto, ON M4W 1B9</div><div class="lc-tags"><span>Immigration</span><span>Refugee</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14162032899">Call</a><a class="lc-view" href="/firms/battista-migration-law-group">View profile</a></div></div></article></div></section>
 
 
 
@@ -258,16 +258,16 @@
           body: formData
         }).then(function(r){ return r.json(); }).then(function(data){
           if(data.success){
-            status.style.color = '#1f6f6b';
+            status.style.color = '#2b3a4c';
             status.textContent = 'Message sent \u2014 Steinbergs LLP will be in touch soon.';
             form.querySelectorAll('input,textarea,button').forEach(function(el){ el.style.display='none'; });
           } else {
-            status.style.color = '#b91c1c';
+            status.style.color = '#8a6224';
             status.textContent = 'Something went wrong. Please try again or call directly.';
             btn.disabled = false; btn.textContent = 'Send Message';
           }
         }).catch(function(){
-          status.style.color = '#b91c1c';
+          status.style.color = '#8a6224';
           status.textContent = 'Something went wrong. Please try again or call directly.';
           btn.disabled = false; btn.textContent = 'Send Message';
         });
@@ -317,7 +317,7 @@
     </div>
   </div>
   <div class="foot-bottom">
-    &copy; 2026 LawDB.ca. Listing data sourced from Google's public business listings. LawDB is an independent directory and is not affiliated with, endorsed by, or representing any listed firm. Ratings, review counts, and practice-area tags reflect a snapshot at the time each page was generated and may have changed since. Something wrong with this listing? <a href="mailto:info@lawdb.ca?subject=Listing%20correction%3A%20steinbergs-llp" style="color:#8d9197;text-decoration:underline;">Report a correction</a>.
+    &copy; 2026 LawDB.ca. Listing data sourced from Google's public business listings. LawDB is an independent directory and is not affiliated with, endorsed by, or representing any listed firm. Ratings, review counts, and practice-area tags reflect a snapshot at the time each page was generated and may have changed since. Something wrong with this listing? <a href="mailto:info@lawdb.ca?subject=Listing%20correction%3A%20steinbergs-llp" style="color:#8a919b;text-decoration:underline;">Report a correction</a>.
   </div>
 </footer>
   <script>

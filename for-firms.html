@@ -211,6 +211,15 @@
   @keyframes hxfloat{ 0%,100%{ translate:0 0; } 50%{ translate:0 -8px; } }
   @keyframes hxpulse{ 0%,100%{ box-shadow:0 0 0 4px rgba(201,160,80,0.22),0 0 22px rgba(201,160,80,0.45); } 50%{ box-shadow:0 0 0 12px rgba(201,160,80,0.1),0 0 38px rgba(201,160,80,0.7); } }
   @media (max-width:979px){ .hx-in{ grid-template-columns:1fr; grid-template-areas:'head' 'stage' 'body'; grid-template-rows:auto; padding:28px 18px 44px; } .hx-stage{ max-width:640px; margin:0 auto 18px; width:100%; } .hx-sub{ font-size:16px; margin-bottom:6px; } }
+  /* the mock-up is the point of the page, so it gets the room: a wider column on a computer; the full screen width on a phone, where tapping a feature zooms in on its card */
+  @media (min-width:980px){ .hx-in{ max-width:1360px; grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr); } }
+  .hx-hint{ display:none; }
+  @media (max-width:979px){
+    .hx-stage{ width:calc(100% + 36px); max-width:none; margin:0 -18px 12px; overflow:hidden; perspective:none; }
+    .hx-frame{ transform-origin:0 0; transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--zs,1)); transition:transform .55s cubic-bezier(.2,.8,.2,1); animation:none; }
+    .hx-hint{ display:block; margin:0; padding:0 18px; text-align:center; font:600 12.5px 'Inter',sans-serif; color:#8a6224; }
+    .hx-stage.zoomed .hx-hint{ visibility:hidden; }
+  }
   @media (prefers-reduced-motion:reduce){ .hx-frame,.hx-in > *,.hx-spot.on{ animation:none; } .hx-frame{ transition:none; } .hx-feat{ transition:none; } }
   .promo-links{ display:flex; flex-wrap:wrap; gap:10px; margin:0 0 34px; }
   .promo-links a{ display:inline-flex; align-items:center; border:1.5px solid #142434; border-radius:999px; padding:10px 18px; font-weight:700; font-size:14.5px; text-decoration:none; color:#142434; background:#fff; }
@@ -283,13 +292,14 @@
     </div>
     <div class="hx-stage" id="hxStage">
       <div class="hx-frame" id="hxFrame">
-        <img src="/images/featured-hero-981.webp" srcset="/images/featured-hero-640.webp 640w, /images/featured-hero-981.webp 981w" sizes="(max-width:979px) 92vw, 640px" width="981" height="938" fetchpriority="high" decoding="async"
+        <img src="/images/featured-hero-981.webp" srcset="/images/featured-hero-640.webp 640w, /images/featured-hero-981.webp 981w" sizes="(max-width:979px) 100vw, 760px" width="981" height="938" fetchpriority="high" decoding="async"
           alt="A LawDB Featured firm: a gold highlighted badge on the map, ranked first in search results for your area and practice area, and a custom profile page with your team, services, credentials and blog.">
         <span class="hx-spot round" style="left:57%;top:28%;width:10%;aspect-ratio:1" data-i="0"></span>
         <span class="hx-spot box" style="left:51%;top:46.6%;width:17%;height:5.6%" data-i="1"></span>
         <span class="hx-spot box" style="left:5%;top:45.5%;width:44%;height:12%" data-i="2"></span>
         <span class="hx-spot box" style="left:4.4%;top:75%;width:62%;height:22%" data-i="3"></span>
       </div>
+      <p class="hx-hint">Tap a feature below to zoom in on it</p>
     </div>
   </div>
 </section>
@@ -301,8 +311,22 @@
   function show(i){ cur=i; feats.forEach(function(b,k){ b.setAttribute('aria-pressed',k===i?'true':'false'); }); spots.forEach(function(s,k){ s.classList.toggle('on',k===i); }); }
   function stop(){ if(timer){ clearInterval(timer); timer=null; } }
   function play(){ stop(); if(reduce) return; timer=setInterval(function(){ show((cur+1)%feats.length); },4200); }
+  // on a phone, tapping a feature zooms the mock-up in on its card (tap it again, or the picture, to zoom out)
+  var phone=window.matchMedia('(max-width:979px)'), zoomed=-1;
+  function zoomTo(i){
+    var st=['--zs','--tx','--ty'];
+    if(!phone.matches||i<0||i===zoomed){ st.forEach(function(n){ frame.style.removeProperty(n); }); stage.classList.remove('zoomed'); zoomed=-1; return; }
+    var sp=spots[i], W=frame.offsetWidth, H=frame.offsetHeight, k=Math.max(1.25,Math.min(1.8,.92/(sp.offsetWidth/W)));
+    var cx=sp.offsetLeft+sp.offsetWidth/2, cy=sp.offsetTop+sp.offsetHeight/2;
+    frame.style.setProperty('--zs',k.toFixed(2));
+    frame.style.setProperty('--tx',Math.min(0,Math.max(W-k*W,W/2-k*cx)).toFixed(1)+'px');
+    frame.style.setProperty('--ty',Math.min(0,Math.max(H-k*H,H/2-k*cy)).toFixed(1)+'px');
+    stage.classList.add('zoomed'); zoomed=i;
+  }
+  stage.addEventListener('click',function(){ if(zoomed>=0) zoomTo(-1); });
+  if(phone.addEventListener) phone.addEventListener('change',function(){ zoomTo(-1); });
   feats.forEach(function(b,k){
-    b.addEventListener('click',function(){ show(k); stop(); });
+    b.addEventListener('click',function(){ show(k); stop(); zoomTo(k); });
     b.addEventListener('mouseenter',function(){ show(k); stop(); });
     b.addEventListener('focus',function(){ show(k); stop(); });
   });

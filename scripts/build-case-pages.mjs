@@ -46,37 +46,56 @@ function pagesFor(slug) {
 }
 
 const EXTRA_CSS = `<style>
-  /* the guide: a navy header with one next step, then a few calm cards (palette colours only) */
-  .cg-hero{ background:#142434; color:#fff; padding:26px 20px 34px; border-bottom:3px solid #c9a050; }
-  .cg-in{ max-width:1040px; margin:0 auto; }
-  .cg-crumb{ margin:0 0 20px; font-size:12.5px; color:#b4bac4; }
-  .cg-crumb a{ color:#e2bd6a; text-decoration:none; }
-  .cg-eyebrow{ margin:0 0 10px; font:600 12px/1.6 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#e2bd6a; }
-  .cg-hero h1{ margin:0 0 14px; font:700 clamp(30px,7.6vw,46px)/1.1 'Source Serif 4',serif; letter-spacing:-.01em; color:#fff; max-width:19em; text-wrap:balance; }
-  .cg-lede{ margin:0 0 22px; max-width:40em; font-size:16.5px; line-height:1.6; color:#edeae1; }
-  .cg-cta{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; }
-  .cg-btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:52px; padding:0 28px; border-radius:999px; background:linear-gradient(180deg,#e2bd6a 0%,#c9a050 100%); color:#142434; font:600 16.5px Inter,sans-serif; text-decoration:none; box-shadow:0 8px 20px rgba(20,36,52,0.3); }
+  /* the guide reads like a blog post: a headline, a photo, one readable column and a sticky side card (palette colours only) */
+  .cg-wrap{ max-width:1100px; margin:0 auto; padding:0 20px; }
+  .cg-top{ background:#f5f3ec; padding:26px 0 0; }
+  .cg-crumb{ margin:0 0 18px; font-size:12.5px; color:#586170; }
+  .cg-crumb a{ color:#8a6224; text-decoration:none; }
+  .cg-eyebrow{ margin:0 0 10px; font:600 12px/1.6 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#8a6224; }
+  .cg-top h1{ margin:0 0 14px; font:700 clamp(32px,6.6vw,54px)/1.08 'Source Serif 4',serif; letter-spacing:-.01em; color:#142434; max-width:17em; text-wrap:balance; }
+  .cg-meta{ display:flex; flex-wrap:wrap; gap:4px 16px; margin:0; padding:0; list-style:none; font:500 13.5px/1.5 Inter,sans-serif; color:#586170; }
+  .cg-feature{ margin:24px 0 0; }
+  .cg-feature img{ display:block; width:100%; height:auto; aspect-ratio:4 / 3; object-fit:cover; object-position:50% 60%; border-radius:22px; }
+  .cg-layout{ max-width:1100px; margin:0 auto; padding:30px 20px 10px; display:grid; grid-template-columns:minmax(0,1fr); gap:30px; }
+  .cg-article{ font-size:17px; line-height:1.75; color:#2b3a4c; min-width:0; }
+  .cg-lede{ margin:0 0 22px; font:400 clamp(19px,2.4vw,22px)/1.6 'Source Serif 4',serif; color:#142434; }
+  .cg-cta{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; margin:0 0 6px; }
+  .cg-btn{ display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:0 28px; border-radius:999px; background:linear-gradient(180deg,#e2bd6a 0%,#c9a050 100%); color:#142434; font:600 16.5px Inter,sans-serif; text-decoration:none; box-shadow:0 8px 20px rgba(20,36,52,0.2); }
   .cg-btn:hover{ background:#e2bd6a; }
-  .cg-jump{ color:#e2bd6a; font:600 15px Inter,sans-serif; text-decoration:none; }
+  .cg-jump{ color:#8a6224; font:600 15px Inter,sans-serif; text-decoration:none; }
   .cg-jump:hover{ text-decoration:underline; }
-  .cg-photo{ margin:0; }
-  .cg-photo img{ display:block; width:100%; height:auto; border-radius:20px; }
-  .cg-split .cg-photo{ margin-top:24px; }
-  .cg-col{ display:grid; gap:14px; align-content:start; }
-  .cg-updated{ margin:20px 0 0; font-size:12.5px; line-height:1.5; color:#b4bac4; }
-  .cg-body{ max-width:1040px; margin:0 auto; padding:26px 20px 56px; display:grid; gap:18px; }
-  .cg-row{ display:grid; grid-template-columns:minmax(0,1fr); gap:18px; align-items:start; }
-  .cg-card{ background:#fff; border:1px solid #e3dfd3; border-radius:20px; padding:22px 22px 18px; }
-  .cg-card h2, .cg-where > h2, .cg-faq > h2, .cg-more > h2{ margin:0 0 14px; font:700 21px/1.25 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
+  .cg-article h2{ margin:46px 0 14px; font:700 clamp(24px,3.4vw,30px)/1.2 'Source Serif 4',serif; color:#142434; text-wrap:balance; scroll-margin-top:84px; }
+  .cg-article h2::before{ content:''; display:block; width:44px; height:3px; margin:0 0 14px; background:#c9a050; }
   .cg-list{ list-style:none; margin:0; padding:0; }
-  .cg-list li{ position:relative; margin:0 0 11px; padding-left:30px; font-size:15.5px; line-height:1.55; color:#2b3a4c; }
-  .cg-list li::before{ content:'\\2713'; position:absolute; left:0; top:1px; width:20px; height:20px; border-radius:50%; background:#f4ecd8; color:#8a6224; font:700 12px/20px Inter,sans-serif; text-align:center; }
+  .cg-list li{ position:relative; margin:0 0 12px; padding-left:34px; }
+  .cg-list li::before{ content:'\\2713'; position:absolute; left:0; top:4px; width:22px; height:22px; border-radius:50%; background:#f4ecd8; color:#8a6224; font:700 12px/22px Inter,sans-serif; text-align:center; }
   ol.cg-list{ counter-reset:q; }
   ol.cg-list li{ counter-increment:q; }
   ol.cg-list li::before{ content:counter(q); background:#c9a050; color:#142434; }
-  .cg-note{ background:#f4ecd8; border:1px solid #e6d4a4; border-radius:20px; padding:22px 22px 18px; border-left:5px solid #c9a050; }
-  .cg-note h2{ margin:0 0 10px; font:700 21px/1.25 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
-  .cg-note p{ margin:0 0 6px; font-size:15.5px; line-height:1.65; color:#2b3a4c; }
+  .cg-note{ margin:34px 0 0; padding:22px 24px; background:#f4ecd8; border:1px solid #e6d4a4; border-left:5px solid #c9a050; border-radius:18px; }
+  .cg-note h2{ margin:0 0 10px; font-size:22px; }
+  .cg-note h2::before{ display:none; }
+  .cg-note p{ margin:0; }
+  .cg-figure{ margin:36px 0 0; }
+  .cg-figure img{ display:block; width:100%; height:auto; border-radius:20px; }
+  .cg-figure figcaption{ margin:10px 4px 0; font-size:13.5px; line-height:1.55; color:#586170; }
+  .cg-faq details{ background:#fff; border:1px solid #e3dfd3; border-radius:14px; margin:0 0 8px; }
+  .cg-faq summary{ cursor:pointer; padding:15px 18px; font:600 15.5px/1.45 Inter,sans-serif; color:#142434; }
+  .cg-faq details[open] summary{ color:#8a6224; }
+  .cg-faq p{ margin:0; padding:0 18px 16px; font-size:15.5px; line-height:1.7; }
+  .cg-side{ display:none; }
+  .cg-card{ background:#fff; border:1px solid #e3dfd3; border-radius:20px; padding:22px; }
+  .cg-card h2{ margin:0 0 6px; font:700 19px/1.25 'Source Serif 4',serif; color:#142434; }
+  .cg-card h2::before{ display:none; }
+  .cg-card p{ margin:0 0 14px; font-size:14.5px; line-height:1.55; color:#586170; }
+  .cg-card .cg-btn{ width:100%; min-height:48px; font-size:15.5px; }
+  .cg-toc{ list-style:none; margin:0; padding:0; font-size:14.5px; line-height:1.4; }
+  .cg-toc li{ margin:0; border-top:1px solid #e3dfd3; }
+  .cg-toc li:first-child{ border-top:0; }
+  .cg-toc a{ display:block; padding:9px 0; color:#142434; text-decoration:none; font-weight:500; }
+  .cg-toc a:hover{ color:#8a6224; }
+  .cg-after{ max-width:1100px; margin:0 auto; padding:0 20px 64px; display:grid; gap:34px; }
+  .cg-after h2{ margin:0 0 14px; font:700 clamp(22px,3vw,26px)/1.25 'Source Serif 4',serif; color:#142434; }
   .cg-where > p{ margin:-6px 0 16px; font-size:15px; color:#586170; }
   .cg-provs{ background:#fff; border:1px solid #e3dfd3; border-radius:20px; padding:2px 20px; }
   .cg-prov{ display:grid; grid-template-columns:minmax(0,1fr); gap:10px; padding:16px 0; border-top:1px solid #e3dfd3; }
@@ -84,36 +103,24 @@ const EXTRA_CSS = `<style>
   .cg-prov h3{ margin:0; font:700 17px/1.3 'Source Serif 4',serif; }
   .cg-prov h3 a{ color:#142434; text-decoration:none; border-bottom:2px solid #e6d4a4; }
   .cg-prov h3 a:hover{ border-bottom-color:#c9a050; }
-  .cg-pills{ display:flex; flex-wrap:wrap; gap:7px; }
+  .cg-pills, .cg-chips{ display:flex; flex-wrap:wrap; gap:7px; }
   .cg-pills a, .cg-chips a{ display:inline-block; padding:7px 13px; border:1px solid #e3dfd3; border-radius:999px; background:#f5f3ec; color:#142434; font:600 13.5px/1.3 Inter,sans-serif; text-decoration:none; }
+  .cg-chips a{ background:#fff; }
   .cg-pills a:hover, .cg-chips a:hover{ background:#f4ecd8; border-color:#c9a050; }
-  .cg-faq details{ background:#fff; border:1px solid #e3dfd3; border-radius:14px; margin:0 0 8px; }
-  .cg-faq summary{ cursor:pointer; padding:15px 18px; font:600 15.5px/1.4 Inter,sans-serif; color:#142434; }
-  .cg-faq details[open] summary{ color:#8a6224; }
-  .cg-faq p{ margin:0; padding:0 18px 16px; font-size:15px; line-height:1.7; color:#2b3a4c; }
-  .cg-chips{ display:flex; flex-wrap:wrap; gap:8px; }
-  .cg-small{ margin:6px 0 0; font-size:12.5px; line-height:1.6; color:#586170; }
+  .cg-small{ margin:0; font-size:12.5px; line-height:1.6; color:#586170; }
   .cg-small a{ color:#8a6224; }
-  @media(max-width:759px){
-    .cg-lede{ font-size:16px; line-height:1.55; }
-    .cg-card, .cg-note{ padding:18px 18px 10px; }
-    .cg-card h2, .cg-note h2, .cg-where > h2, .cg-faq > h2, .cg-more > h2{ font-size:19.5px; margin-bottom:12px; }
-    .cg-list li{ margin-bottom:9px; padding-left:28px; font-size:15px; line-height:1.5; }
-    .cg-body{ gap:14px; }
-    .cg-row{ gap:14px; }
-  }
-  @media(min-width:900px){
-    .cg-split{ display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); gap:48px; align-items:center; }
-    .cg-split .cg-photo{ margin-top:0; }
-    .cg-split .cg-photo img{ box-shadow:0 18px 40px rgba(20,36,52,0.35); }
-  }
   @media(min-width:760px){
-    .cg-hero{ padding:34px 32px 44px; }
-    .cg-body{ padding:34px 32px 72px; gap:22px; }
-    .cg-row{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
-    .cg-card{ padding:26px 28px 20px; }
-    .cg-provs{ padding:4px 28px; }
+    .cg-meta li + li::before{ content:'\\00b7'; margin-right:16px; color:#8a919b; }
+    .cg-top{ padding-top:34px; }
+    .cg-feature img{ aspect-ratio:2 / 1; }
+    .cg-layout{ padding-top:40px; }
     .cg-prov{ grid-template-columns:minmax(0,290px) minmax(0,1fr); gap:28px; align-items:center; }
+    .cg-provs{ padding:4px 28px; }
+  }
+  @media(min-width:1000px){
+    .cg-layout{ grid-template-columns:minmax(0,700px) 300px; justify-content:space-between; gap:56px; padding:46px 32px 10px; }
+    .cg-wrap, .cg-after{ padding-left:32px; padding-right:32px; }
+    .cg-side{ display:grid; gap:16px; align-content:start; position:sticky; top:84px; align-self:start; }
   }
 </style>`;
 
@@ -145,40 +152,49 @@ function pageHtml([id, t]) {
   const others = TYPES.filter(([k]) => k !== id).map(([, o]) => `<a href="/${o.slug}">${esc(o.name)}</a>`).join('');
   const faq = t.faqs.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('');
 
-  // optional photos (only the guides whose data has them): one beside the header text, one under the "rules differ" note
-  const pic = (p, hero) => (p ? `<figure class="cg-photo"><img src="${p.src}" srcset="${p.small} 640w, ${p.src} ${p.w}w" sizes="${hero ? '(min-width:900px) 460px, 100vw' : '(min-width:760px) 480px, 100vw'}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}"${hero ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async"></figure>` : '');
-  const heroPic = pic(t.photos && t.photos.hero, true);
-  const sidePic = pic(t.photos && t.photos.side, false);
-  const note = `<section class="cg-note"><h2>How the rules differ across Canada</h2><p>${esc(t.differ)}</p></section>`;
+  // optional photos (only the guides whose data has them): a featured photo under the headline and one inside the article
+  const img = (p, attrs) => `<img src="${p.src}" srcset="${p.small} 640w, ${p.src} ${p.w}w" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" ${attrs} decoding="async">`;
+  const feature = t.photos && t.photos.hero ? `<figure class="cg-feature">${img(t.photos.hero, 'sizes="(min-width:1100px) 1036px, 100vw" fetchpriority="high"')}</figure>` : '';
+  const inline = t.photos && t.photos.side ? `<figure class="cg-figure">${img(t.photos.side, 'sizes="(min-width:1000px) 700px, 100vw" loading="lazy"')}${t.photos.side.caption ? `<figcaption>${esc(t.photos.side.caption)}</figcaption>` : ''}</figure>` : '';
+  const words = [t.lede, t.differ, ...t.when, ...t.does, ...t.ask, ...t.faqs.flatMap((f) => [f.q, f.a])].join(' ').split(/\s+/).length;
+  const minutes = Math.max(2, Math.round(words / 200));
+  const heads = { when: `When to speak to a ${t.noun}`, does: `What a ${t.noun} does`, rules: 'How the rules differ across Canada', ask: `Questions to ask before you hire a ${t.noun}`, faq: 'Frequently asked questions' };
+  const toc = Object.entries(heads).map(([k, h]) => `<li><a href="#${k}">${esc(h)}</a></li>`).join('') + `<li><a href="#where">${esc(t.name)} lawyers by province and city</a></li>`;
 
   const body = `
-<header class="cg-hero">
-  <div class="cg-in${heroPic ? ' cg-split' : ''}">
-    <div class="cg-copy">
+<header class="cg-top">
+  <div class="cg-wrap">
     <div class="cg-crumb"><a href="/">Home</a> &rsaquo; <a href="/find-lawyers">Find a lawyer</a> &rsaquo; ${esc(crumbName)}</div>
     <p class="cg-eyebrow">Case guide</p>
     <h1>${esc(t.h1)}</h1>
-    <p class="cg-lede">${esc(t.lede)}</p>
-    <div class="cg-cta"><a class="cg-btn" href="/find-lawyers?case=${id}">Find a ${esc(t.noun)}</a><a class="cg-jump" href="#where">Browse by province and city &darr;</a></div>
-    <p class="cg-updated">Last updated ${longDate(DATA.updated)}. General information, not legal advice.</p>
-    </div>
-    ${heroPic}
+    <ul class="cg-meta"><li>Updated ${longDate(DATA.updated)}</li><li>${minutes} min read</li><li>General information, not legal advice</li></ul>
+    ${feature}
   </div>
 </header>
-<main class="cg-body">
-  <div class="cg-row">
-    <section class="cg-card"><h2>When to speak to a ${esc(t.noun)}</h2>${list(t.when)}</section>
-    <section class="cg-card"><h2>What a ${esc(t.noun)} does</h2>${list(t.does)}</section>
-  </div>
-  <div class="cg-row">
-    ${sidePic ? `<div class="cg-col">${note}${sidePic}</div>` : note}
-    <section class="cg-card"><h2>Questions to ask before you hire a ${esc(t.noun)}</h2>${list(t.ask, 'ol')}</section>
-  </div>
+<div class="cg-layout">
+  <article class="cg-article">
+    <p class="cg-lede">${esc(t.lede)}</p>
+    <div class="cg-cta"><a class="cg-btn" href="/find-lawyers?case=${id}">Find a ${esc(t.noun)}</a><a class="cg-jump" href="#where">Browse by province and city &darr;</a></div>
+    <h2 id="when">${esc(heads.when)}</h2>
+    ${list(t.when)}
+    <h2 id="does">${esc(heads.does)}</h2>
+    ${list(t.does)}
+    ${inline}
+    <section class="cg-note" id="rules"><h2>${esc(heads.rules)}</h2><p>${esc(t.differ)}</p></section>
+    <h2 id="ask">${esc(heads.ask)}</h2>
+    ${list(t.ask, 'ol')}
+    <section class="cg-faq" id="faq"><h2>${esc(heads.faq)}</h2>${faq}</section>
+  </article>
+  <aside class="cg-side" aria-label="About this guide">
+    <div class="cg-card"><h2>Find a ${esc(t.noun)}</h2><p>Search by city and see public Google ratings. Firms cannot pay to change them.</p><a class="cg-btn" href="/find-lawyers?case=${id}">Start your search</a></div>
+    <div class="cg-card"><h2>In this guide</h2><ul class="cg-toc">${toc}</ul></div>
+  </aside>
+</div>
+<div class="cg-after">
   <section class="cg-where" id="where"><h2>${esc(t.name)} lawyers by province and city</h2><p>Pick a province for every firm we list there, or a city to go straight to its lawyers.</p><div class="cg-provs">${where}</div></section>
-  <section class="cg-faq"><h2>Frequently asked questions</h2>${faq}</section>
   <section class="cg-more"><h2>Other practice areas</h2><div class="cg-chips">${others}</div></section>
   <p class="cg-small">This page is general information about legal topics in Canada, not legal advice. Laws change and differ by province, so speak to a licensed lawyer about your situation. LawDB is an independent directory: ratings shown are public Google ratings, and a firm cannot pay to change them. <a href="/find-lawyers">Search by city or case type</a>.</p>
-</main>`;
+</div>`;
   return SHELL.replace('%%HEAD%%', () => head).replace('%%BODY%%', () => body);
 }
 

@@ -94,25 +94,47 @@
 
   /* ---------------- Wizard ---------------- */
   .wizard{ max-width:680px; margin:0 auto; padding:44px 20px 60px; }
-  .city-search{ position:relative; margin:0 0 30px; }
-  .fy-label{ display:block; font-family:'Source Serif 4',serif; font-weight:700; font-size:17px; margin:0 0 8px; color:var(--ink); }
-  .fy-row{ display:flex; gap:8px; }
-  .fy-inp{ position:relative; flex:1; min-width:0; display:flex; }
-  .fy-inp input{ width:100%; }
-  .city-search input{
-    flex:1; min-width:0; padding:16px 16px; border:2px solid var(--ink); border-radius:999px;
-    font-size:17px; font-family:'Inter',sans-serif; background:var(--card); color:var(--ink);
+  /* ---------------- Hero: the Toronto skyline under a navy wash, like the home page ---------------- */
+  .fyh{ position:relative; z-index:5; isolation:isolate; margin:0 auto; color:#fff; background:#1b242d; padding:30px 20px 26px; }
+  .fyh-bg{ position:absolute; inset:0; z-index:-2; overflow:hidden; pointer-events:none; }
+  .fyh-photo{ position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:cover; object-position:50% 62%; }
+  .fyh::before{ content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(20,36,52,0.82) 0%, rgba(20,36,52,0.62) 40%, rgba(27,36,45,0.78) 78%, rgba(27,36,45,0.92) 100%); }
+  .fyh-inner{ position:relative; max-width:600px; margin:0 auto; }
+  .fyh-eyebrow{ margin:0 0 12px; font:600 12px/1.65 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#e2bd6a; }
+  .fyh-rule{ display:block; width:56px; height:2px; margin:0 0 20px; background:#c9a050; }
+  .fyh h1{ margin:0 0 14px; font:700 clamp(32px,8.6vw,44px)/1.08 'Source Serif 4',serif; letter-spacing:-.01em; color:#fff; max-width:9.6em; text-wrap:balance; text-align:left; }
+  .fyh h1 em{ font-style:italic; font-weight:600; color:#e2bd6a; }
+  .fyh-sub{ margin:0 0 22px; max-width:20em; font-size:15.5px; line-height:1.5; color:#fff; }
+  .fyh-search{ position:relative; display:block; margin:0; }
+  .fyh .ls-field{ height:56px; background:rgba(255,255,255,0.96); box-shadow:0 10px 26px rgba(20,36,52,0.4); }
+  .fyh .ls-field:focus-within{ box-shadow:0 10px 26px rgba(20,36,52,0.4), 0 0 0 2px #e2bd6a, 0 0 0 7px rgba(226,189,106,0.3); }
+  .fyh .ls-sug{ z-index:70; }
+  .fyh-sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .fyh-go{ display:flex; align-items:center; justify-content:center; gap:10px; width:100%; height:54px; margin-top:12px; border:0; border-radius:999px; cursor:pointer;
+    font:600 17px Inter,sans-serif; color:#142434; background:linear-gradient(180deg,#e2bd6a 0%,#c9a050 100%); box-shadow:0 8px 20px rgba(20,36,52,0.3); }
+  .fyh-go:hover{ background:#e2bd6a; }
+  .fyh-formula{ display:flex; align-items:stretch; margin-top:12px; border-radius:20px; background:rgba(27,36,45,0.88); border:1px solid rgba(226,189,106,0.3); }
+  .fyh-formula > div{ flex:1; min-width:0; display:flex; align-items:center; gap:12px; padding:14px 16px; }
+  .fyh-formula b{ flex:none; display:grid; place-items:center; width:36px; height:36px; border-radius:50%; background:#c9a050; color:#142434; font:700 16px Inter,sans-serif; }
+  .fyh-formula strong{ display:block; font:600 15px/1.25 Inter,sans-serif; color:#fff; }
+  .fyh-formula small{ display:block; margin-top:2px; font:400 13px/1.3 Inter,sans-serif; color:#b4bac4; }
+  .fyh-formula i{ flex:none; align-self:center; padding:0 2px; font-style:normal; font-size:20px; color:#b4bac4; }
+  .fyh-formula .fyh-sep{ flex:none; width:1px; margin:12px 0; background:rgba(226,189,106,0.3); }
+  @media(max-width:420px){ .fyh-formula > div{ padding:12px 10px; gap:9px; } .fyh-formula b{ width:32px; height:32px; font-size:14px; } .fyh-formula strong{ font-size:14px; } .fyh-formula small{ font-size:12px; } }
+  .fyh .fy-live{ margin-top:12px; }
+  .fyh .fy-tag.miss{ background:rgba(27,36,45,0.7); border-color:rgba(226,189,106,0.55); color:#e3dfd3; }
+  .fyh .city-search-note{ color:#fff !important; background:rgba(27,36,45,0.88); border-radius:12px; padding:10px 14px; }
+  @media(min-width:900px){
+    .fyh{ padding:76px 32px 56px; min-height:640px; }
+    .fyh-inner{ max-width:1180px; }
+    .fyh-inner > *{ max-width:560px; }
+    .fyh h1{ font-size:clamp(48px,4.8vw,62px); }
+    .fyh-eyebrow{ font-size:13px; }
+    .fyh-sub{ font-size:18px; }
+    .fyh-photo{ object-position:50% 40%; }
+    .fyh::before{ background:linear-gradient(90deg, rgba(20,36,52,0.9) 0%, rgba(20,36,52,0.62) 42%, rgba(20,36,52,0.2) 100%); }
   }
-  .city-search input::placeholder{ color:#8a919b; }
-  .city-search input:focus{ outline:none; border-color:var(--brass); box-shadow:0 0 0 4px rgba(201,160,80,0.28); }
-  .city-search button[type=submit]{
-    background:var(--ink); color:#fff; border:none; font-weight:700; font-size:15px;
-    padding:0 26px; border-radius:999px; cursor:pointer; white-space:nowrap;
-  }
-  .city-search button[type=submit]:hover{ background:#142434; }
-  .fy-formula{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 0; font-size:13.5px; color:var(--ink-soft); }
-  .fy-formula b{ display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--ink); color:#fff; font-size:11px; margin-right:6px; }
-  .fy-formula span.fy-step{ display:inline-flex; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:5px 12px 5px 6px; color:var(--ink); font-weight:500; }
   .fy-live{ display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0; min-height:0; }
   .fy-live:empty{ display:none; }
   .fy-tag{ font-size:13px; border-radius:999px; padding:5px 12px; background:#f4ecd8; border:1px solid var(--brass); color:#2b3a4c; font-weight:600; }
@@ -120,7 +142,6 @@
   .city-search-note{ font-size:13.5px; color:var(--ink-soft); margin:12px 0 0; line-height:1.5; }
   .city-search-note button{ font:inherit; font-size:13px; cursor:pointer; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:6px 12px; margin:6px 6px 0 0; color:var(--ink); }
   .city-search-note button:hover{ border-color:var(--ink); }
-  @media(max-width:520px){ .fy-row{ flex-direction:column; } .city-search button[type=submit]{ padding:15px; } }
   .browse{ max-width:1100px; margin:0 auto; padding:40px 20px 48px; }
   .browse h2{ font-family:'Source Serif 4',serif; font-size:clamp(22px,3vw,28px); line-height:1.15; margin:0 0 6px; text-wrap:balance; }
   .browse-lede{ color:var(--ink-soft); font-size:15px; line-height:1.5; max-width:46em; margin:0 0 22px; }
@@ -165,7 +186,6 @@
   .skip-row button{ background:none; border:none; color:var(--ink-soft); text-decoration:underline; cursor:pointer; font-size:13px; }
 
   /* ---------------- Case-type cards (built by scripts/build-case-pages.mjs) ---------------- */
-  #wizard{ padding-bottom:18px; }
   .cases{ max-width:1100px; margin:0 auto; padding:8px 20px 36px; }
   .cases h2{ font-family:'Source Serif 4',serif; font-size:clamp(22px,3vw,28px); line-height:1.15; margin:0 0 6px; text-align:center; text-wrap:balance; }
   .cases-sub{ color:var(--ink-soft); font-size:14.5px; line-height:1.5; max-width:40em; margin:0 auto 22px; text-align:center; }
@@ -368,23 +388,26 @@
 })();
 </script>
 
-<div class="wizard" id="wizard">
-  <h1>Find your lawyer</h1>
-  <p class="sub">Type the kind of lawyer you need and the city you're in, the way you'd say it out loud.</p>
+<div class="fyh" id="wizard">
+  <div class="fyh-bg"><img class="fyh-photo" src="images/find-skyline.webp" srcset="images/find-skyline-960.webp 960w, images/find-skyline.webp 1448w" sizes="100vw" alt="" width="1448" height="1086" fetchpriority="high" decoding="async"></div>
+  <div class="fyh-inner">
+    <p class="fyh-eyebrow">Trusted legal help.<br>Across Canada.</p>
+    <span class="fyh-rule"></span>
+    <h1>Find your <em>lawyer</em></h1>
+    <p class="fyh-sub">Type the kind of lawyer you need and the city you&#39;re in, the way you&#39;d say it out loud.</p>
 
-  <form class="city-search" id="citySearchForm" autocomplete="off" role="search">
-    <label class="fy-label" for="citySearchInput">What kind of lawyer, and where?</label>
-    <div class="fy-row">
-      <div class="fy-inp ls-wrap"><div class="ls-field"><svg class="ls-mag" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="text" id="citySearchInput" class="ls-in" aria-describedby="fyHelp" placeholder="e.g. personal injury lawyer in Toronto" enterkeyhint="search" autocomplete="off"><button type="button" class="ls-x" aria-label="Clear search" tabindex="-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-      <div class="ls-sug" id="fySug"></div></div>
-      <button type="submit">Search</button>
-    </div>
-    <datalist id="cityList"></datalist>
-    <div class="fy-formula" id="fyHelp"><span class="fy-step"><b>1</b>Kind of lawyer</span><span aria-hidden="true">+</span><span class="fy-step"><b>2</b>City</span><span aria-hidden="true">=</span><span>"divorce lawyer in Ottawa"</span></div>
-    <div class="fy-live" id="fyLive" aria-live="polite"></div>
+    <form class="fyh-search" id="citySearchForm" autocomplete="off" role="search">
+      <label class="fyh-sr" for="citySearchInput">What kind of lawyer, and where?</label>
+      <div class="ls-wrap"><div class="ls-field"><svg class="ls-mag" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="text" id="citySearchInput" class="ls-in" aria-describedby="fyHelp" placeholder="e.g. personal injury lawyer in Toronto" enterkeyhint="search" autocomplete="off"><button type="button" class="ls-x" aria-label="Clear search" tabindex="-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="ls-sug" id="fySug"></div></div>
+      <button type="submit" class="fyh-go">Search <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <datalist id="cityList"></datalist>
+      <div class="fyh-formula" id="fyHelp"><div><b>1</b><span><strong>Kind of lawyer</strong><small>e.g. family lawyer</small></span></div><i>+</i><span class="fyh-sep"></span><div><b>2</b><span><strong>City</strong><small>e.g. Vancouver</small></span></div></div>
+      <div class="fy-live" id="fyLive" aria-live="polite"></div>
 
-    <div class="city-search-note" id="citySearchError" style="display:none;color:var(--red-deep);" aria-live="polite"></div>
-  </form>
+      <div class="city-search-note" id="citySearchError" style="display:none;color:var(--red-deep);" aria-live="polite"></div>
+    </form>
+  </div>
 </div>
 
 <!--case-cards--><section class="cases" id="cases" aria-labelledby="casesH"><h2 id="casesH">Not sure where to start? Browse by case type</h2><p class="cases-sub">Each guide explains when to hire a lawyer, what the lawyer does and what to ask, and links to firms by province and city.</p><div class="case-cards"><a class="case-card" href="/family-lawyers"><div class="cc-body"><h3>Family Law &amp; Divorce</h3><p>Separation, divorce, parenting time, support and dividing property.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/criminal-defence-lawyers"><div class="cc-body"><h3>Criminal Defence</h3><p>Charges, bail, trials and sentencing, and protecting your rights from the first police contact.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/personal-injury-lawyers"><div class="cc-body"><h3>Personal Injury</h3><p>Car accidents, slips and falls and other injuries caused by someone else&#x27;s carelessness.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/traffic-ticket-lawyers"><div class="cc-body"><h3>Traffic Tickets</h3><p>Speeding, careless driving and other tickets, demerit points and licence risks.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/real-estate-lawyers"><div class="cc-body"><h3>Real Estate</h3><p>Buying, selling or refinancing property, title searches and closings.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/wills-estate-lawyers"><div class="cc-body"><h3>Wills &amp; Estates</h3><p>Wills, powers of attorney, probate and helping families settle an estate.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/business-lawyers"><div class="cc-body"><h3>Business &amp; Corporate</h3><p>Starting or buying a company, shareholder agreements, leases and contracts.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/employment-lawyers"><div class="cc-body"><h3>Employment</h3><p>Dismissal and severance, contracts, harassment, and pay or leave disputes.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/immigration-lawyers"><div class="cc-body"><h3>Immigration</h3><p>Work and study permits, permanent residence, sponsorship, citizenship and refusals.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/litigation-lawyers"><div class="cc-body"><h3>Civil Litigation</h3><p>Contract, debt, property and other disputes, from demand letters to trial.</p><span class="cc-go">Read the guide</span></div></a></div></section><!--/case-cards-->

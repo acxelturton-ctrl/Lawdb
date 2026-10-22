@@ -1,7 +1,7 @@
 // GET /news: LawDB News, built from the database. Falls back to the static page if the database is unavailable.
 import { renderNewsPage } from '../render/news-page.js';
 import { dueFeeds, refreshFirmFeed } from '../lib/feeds.js';
-import { storyPath, isIndexableStory } from '../lib/stories.js';
+import { storyPath, isIndexableStory, dedupeSameSite, isPlaceholderTitle } from '../lib/stories.js';
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -28,14 +28,15 @@ export const SHOWN = 60;
 async function loadPosts(env, featuredOnly, firm = '') {
   const where = [featuredOnly ? 'f.featured = 1' : '', firm ? 'p.firm_slug = ?' : ''].filter(Boolean);
   const stmt = env.DB.prepare(
-    `SELECT p.id, p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, ff.source AS source, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo
+    `SELECT p.id, p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, ff.source AS source, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo, json_extract(f.data, '$.website') AS website
      ${VISIBLE} ${where.length ? 'WHERE ' + where.join(' AND ') : ''}
      ORDER BY p.published_at DESC, p.id DESC LIMIT ${firm ? SHOWN : 600}`
   );
   const { results } = await (firm ? stmt.bind(firm) : stmt).all();
   const seen = new Set();
   const perFirm = new Map();
-  const rows = results
+  const rows = (firm ? results : dedupeSameSite(results))
+    .filter((r) => !isPlaceholderTitle(r.title))
     .filter((r) => (seen.has(r.firmSlug + '|' + r.url) ? false : seen.add(r.firmSlug + '|' + r.url)))
     .filter((r) => firm || (perFirm.set(r.firmSlug, (perFirm.get(r.firmSlug) || 0) + 1), perFirm.get(r.firmSlug) <= PER_FIRM));
   return limitWithoutPicture(rows).slice(0, SHOWN).map((r) => ({ ...r, featured: !!r.featured, indexable: isIndexableStory(r), storyHref: storyPath(r.firmSlug, r.id, r.title) }));
@@ -75,7 +76,8 @@ export async function newsPage({ request, env, ctx }) {
     }
     const firms = info.firms;
     const valid = firms.some((f) => f.slug === selected) ? selected : '';
-    const people = [...firms].sort((a, b) => String(b.latest).localeCompare(String(a.latest))).slice(0, 15);
+    const named = new Set(); // two records of one firm (two offices) are one face
+    const people = [...firms].sort((a, b) => String(b.latest).localeCompare(String(a.latest))).filter((f) => { const k = String(f.name).toLowerCase(); return named.has(k) ? false : named.add(k); }).slice(0, 15);
     const stats = { firms: firms.length, articles: info.articles, latest: info.latest };
     const res = new Response(renderNewsPage({ posts, firms, people, stats, selected: valid }), {
       headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': ttl > 0 && posts.length ? `public, max-age=${ttl}` : 'no-cache', 'x-content-type-options': 'nosniff', 'x-lawdb-source': 'database' },

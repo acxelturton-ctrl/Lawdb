@@ -1,6 +1,7 @@
 // LawDB News with every firm's blog: story pages of non-Featured firms stay out of search engines, and the page stays short however many firms write.
 import { isIndexableStory, STORY_INDEXABLE_SQL } from '../src/lib/stories.js';
 import { renderNewsPage } from '../src/render/news-page.js';
+import { dedupeSameSite, isPlaceholderTitle } from '../src/lib/stories.js';
 import { renderStoryPage } from '../src/render/story-page.js';
 
 let failed = 0;
@@ -26,3 +27,10 @@ ok(!/Featured law firms|Featured members\' blogs/.test(html), 'the page no longe
 
 if (failed) process.exit(1);
 console.log('news checks passed');
+// offices of one firm that share a blog list each article once; different firms keep their own copies
+const mt = [{ id: 31821, firmSlug: 'miller-thomson-llp', website: 'https://www.millerthomson.com/', url: 'https://mt.example/a' }, { id: 33042, firmSlug: 'miller-thomson-llp-calgary', website: 'https://millerthomson.com', url: 'https://mt.example/a' },
+  { id: 5, firmSlug: 'other-a', website: 'https://a.example', url: 'https://shared.example/x' }, { id: 6, firmSlug: 'other-b', website: 'https://b.example', url: 'https://shared.example/x' }, { id: 7, firmSlug: 'no-site-1', website: null, url: 'https://n.example/x' }, { id: 8, firmSlug: 'no-site-2', website: null, url: 'https://n.example/x' }];
+const dd = dedupeSameSite(mt).map((r) => r.firmSlug);
+ok(dd.length === 5 && dd.includes('miller-thomson-llp') && !dd.includes('miller-thomson-llp-calgary') && dd.includes('other-a') && dd.includes('other-b') && dd.includes('no-site-2'), 'an article shared by two offices of one firm (same website) is listed once, under the first record; other firms keep theirs');
+ok(isPlaceholderTitle('hello world') && isPlaceholderTitle('Hello world!') && isPlaceholderTitle('Sample Page') && !isPlaceholderTitle('Hello world: a guide to wills'), 'a WordPress "hello world" starter post is not news');
+

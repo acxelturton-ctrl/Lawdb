@@ -127,14 +127,23 @@
   .browse{ max-width:1100px; margin:0 auto; padding:40px 20px 48px; }
   .browse h2{ font-family:'Source Serif 4',serif; font-size:clamp(22px,3vw,28px); line-height:1.15; margin:0 0 6px; text-wrap:balance; }
   .browse-lede{ color:var(--ink-soft); font-size:15px; line-height:1.5; max-width:46em; margin:0 0 22px; }
-  .browse-prov{ border-top:1px solid var(--line); padding:16px 0 6px; }
-  .browse-prov h3{ font-size:18px; margin:0 0 8px; }
-  .browse-prov a{ color:var(--ink); text-decoration:underline; text-decoration-color:var(--line); text-underline-offset:3px; }
-  .browse-prov a:hover{ color:var(--brass-deep); text-decoration-color:var(--brass-deep); }
-  .browse-label{ margin:10px 0 4px; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
-  .browse-cities{ margin:0; font-size:15px; line-height:1.9; display:flex; flex-wrap:wrap; gap:0 16px; }
-  .browse-cases{ margin:0; padding:0; list-style:none; font-size:15px; line-height:1.7; columns:2 280px; column-gap:28px; }
-  .browse-cases li{ break-inside:avoid; }
+  /* one card per province: its cities as small pills, then its case types as a two-column list with arrows */
+  .browse-prov{ background:#fff; border:1px solid var(--line); border-radius:18px; padding:20px 20px 12px; margin:0 0 16px; box-shadow:0 10px 22px -18px rgba(20,36,52,0.45); }
+  .browse-prov h3{ font-family:'Source Serif 4',serif; font-size:clamp(20px,2.4vw,24px); line-height:1.2; margin:0 0 6px; }
+  .browse-prov h3 a{ color:var(--ink); text-decoration:none; }
+  .browse-prov h3 a::after{ content:' \203A'; color:var(--brass-deep); }
+  .browse-prov h3 a:hover{ color:var(--brass-deep); }
+  .browse-label{ display:flex; align-items:center; gap:12px; margin:16px 0 10px; font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--brass-deep); }
+  .browse-label::after{ content:''; flex:0 0 clamp(40px,10vw,120px); height:1px; background:#e6d4a4; }
+  .browse-cities{ margin:0; font-size:14px; line-height:1; display:flex; flex-wrap:wrap; gap:8px; }
+  .browse-cities a{ display:inline-block; padding:9px 14px; border:1px solid var(--line); border-radius:999px; background:#f5f3ec; color:var(--ink); text-decoration:none; line-height:1.1; }
+  .browse-cities a:hover{ border-color:var(--brass); background:#f4ecd8; color:var(--brass-deep); }
+  .browse-cases{ margin:0; padding:0; list-style:none; font-size:15px; line-height:1.4; columns:2 300px; column-gap:32px; }
+  .browse-cases li{ break-inside:avoid; border-bottom:1px solid var(--line); }
+  .browse-cases a{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 2px; color:var(--ink); text-decoration:none; }
+  .browse-cases a::after{ content:'\203A'; flex:none; font-size:22px; line-height:1; color:var(--ink-soft); }
+  .browse-cases a:hover{ color:var(--brass-deep); }
+  .browse-cases a:hover::after{ color:var(--brass-deep); }
   .res-guides{ margin:34px 0 10px; }
   .res-guides h2{ font-family:'Source Serif 4',serif; font-size:22px; margin:0 0 4px; }
   .res-guides .rg-sub{ color:var(--ink-soft); font-size:14px; margin:0 0 14px; }

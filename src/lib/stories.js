@@ -15,3 +15,15 @@ export function parseStoryPath(pathname) {
 // the firm's own site, and thousands of them would weigh down the site's quality.
 export const STORY_INDEXABLE_SQL = "(f.featured = 1 OR (ff.source = 'manual' AND ff.page_only = 0))";
 export const isIndexableStory = (r) => !!(r.featured || r.source === 'manual');
+
+// A WordPress site's untouched first post is not news.
+export const isPlaceholderTitle = (t) => /^\s*(hello,? world!?|sample page|test( post)?)\s*$/i.test(String(t || ''));
+
+// Offices of one firm (the same website) often share one blog, so the same article would be listed once per office.
+// In the all-firms view each article appears once, under the firm record that was added first.
+export function dedupeSameSite(rows) {
+  const keyOf = (r) => `${r.website ? String(r.website).toLowerCase().replace(/^https?:\/\/(www\.)?/, '').replace(/\/+$/, '') : 'firm:' + r.firmSlug}|${r.url}`;
+  const first = new Map();
+  for (const r of rows) { const k = keyOf(r); if (!first.has(k) || r.id < first.get(k).id) first.set(k, r); }
+  return rows.filter((r) => first.get(keyOf(r)) === r);
+}

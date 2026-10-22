@@ -108,8 +108,13 @@
     prev: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
     next: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
     tick: '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>',
-    loc: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
-    redo: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>'
+    loc: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#142434" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
+    redo: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>',
+    pinG: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>',
+    sliders: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>',
+    plus: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#142434" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+    minus: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#142434" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg>',
+    go: '<svg class="gm-go" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>'
   };
 
   /* ------------------------------------------------------------ item markup */
@@ -119,25 +124,26 @@
   }
   function thumb(f){
     if(f.logoUrl){
-      return '<div class="gm-i-thumb mono" style="background:#2b3a4c">' + esc(initials(f.name)) +
+      return '<div class="gm-i-thumb mono">' + esc(initials(f.name)) +
         '<img src="' + esc(f.logoUrl) + '" alt="' + esc(f.name) + ' logo" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" style="background:' + (f.dark ? '#142434' : '#fff') + '"></div>';
     }
     if(f.type === 'logo' && f.src) return '<div class="gm-i-thumb"><img src="' + esc(ROOT + f.src) + '" alt="' + esc(f.name) + ' logo" loading="lazy"></div>';
-    return '<div class="gm-i-thumb mono" style="background:#2b3a4c">' + esc(initials(f.name)) + '</div>';
+    return '<div class="gm-i-thumb mono">' + esc(initials(f.name)) + '</div>';
   }
   function itemHtml(f, detail){
     var oi = openInfo(f), dist = userPos ? ' · ' + fmtKm(km(userPos.lat, userPos.lng, f.lat, f.lng)) : '';
     var pct = Math.max(0, Math.min(100, (f.rating || 0) / 5 * 100));
     var prof = ROOT + 'firms/' + f.slug;
     return '<article class="gm-item' + (f.featured ? ' is-feat' : '') + (sel && sel.slug === f.slug && !detail ? ' is-sel' : '') + '" data-slug="' + esc(f.slug) + '">' +
+      thumb(f) +
       '<div class="gm-i-main">' +
         (f.featured ? '<span class="gm-i-badge"><i>' + IC.tick + '</i>Featured</span>' : '') +
         '<h3 class="gm-i-name"><a href="' + esc(prof) + '">' + esc(f.name) + '</a></h3>' +
-        '<div class="gm-i-rate"><b>' + f.rating.toFixed(1) + '</b><span class="gm-stars" style="--p:' + pct + '%" aria-hidden="true">★★★★★</span><span>(' + f.count + ')</span></div>' +
+        '<div class="gm-i-rate"><span class="gm-stars" style="--p:' + pct + '%" aria-hidden="true">★★★★★</span><b>' + f.rating.toFixed(1) + '</b><span>(' + f.count + ')</span></div>' +
         '<div class="gm-i-meta">' + esc(firmArea(f)) + ' · ' + esc(f.city) + dist + '</div>' +
         (f.address ? '<div class="gm-i-addr">' + esc(f.address) + '</div>' : '') +
         (oi ? '<div class="gm-i-hours"><span class="' + (oi.open ? 'o' : 'c') + '">' + (oi.open ? 'Open' : 'Closed') + '</span> · ' + esc(oi.text) + '</div>' : '') +
-      '</div>' + thumb(f) +
+      '</div>' + (detail ? '' : IC.go) +
       '<div class="gm-i-acts">' +
         (f.phone ? '<a class="gm-act pri" href="tel:' + esc(f.phone) + '">' + IC.call + 'Call</a>' : '') +
         '<a class="gm-act" href="' + esc(f.dirUrl) + '" target="_blank" rel="noopener">' + IC.dir + 'Directions</a>' +
@@ -216,8 +222,8 @@
     var pages = Math.max(1, Math.ceil(view.length / PER));
     if(page > pages) page = pages;
     $('gmCount').textContent = view.length + ' lawyer' + (view.length === 1 ? '' : 's') + (areaB ? ' in this area' : '');
-    $('gmSub').innerHTML = (areaB ? 'Showing the current map area · <button type="button" id="gmAll">Show all</button>' : esc(placeLabel())) + (pages > 1 ? ' · Page ' + page + ' of ' + pages : '');
-    $('gmSort').firstChild.nodeValue = 'Sort: ' + sortName() + ' ';
+    $('gmSub').innerHTML = (areaB ? 'Showing the current map area · <button type="button" id="gmAll">Show all</button>' : esc(placeLabel())) + (pages > 1 ? ' · <span class="gm-pgno">Page ' + page + ' of ' + pages + '</span>' : '');
+    $('gmSortName').textContent = sortName();
     var note = '';
     if(F.open) note = '<p class="gm-note">Only firms with listed hours are shown. Hours are as published online, so please call to confirm.</p>';
     var html;
@@ -246,12 +252,19 @@
     });
     $('gmChips').innerHTML = h;
   }
+  var shownCase;
   function syncChips(){
-    var chips = $('gmChips').querySelectorAll('.gm-chip');
+    var box = $('gmChips'), chips = box.querySelectorAll('.gm-chip');
     for(var i = 0; i < chips.length; i++){
       var c = chips[i], on = c.dataset.k ? !!F[c.dataset.k] : (c.dataset.case === selectedCase);
       c.classList.toggle('on', on); c.setAttribute('aria-pressed', on ? 'true' : 'false');
       if(c.dataset.case) c.textContent = areaName(c.dataset.case, selectedProvince);
+    }
+    /* a practice area chosen by a link or the search box can sit off to the right: bring it into view, once per choice */
+    if(selectedCase !== shownCase){
+      shownCase = selectedCase;
+      var act = selectedCase && box.querySelector('.gm-chip[data-case].on');
+      if(act){ var bx = box.getBoundingClientRect(), cr = act.getBoundingClientRect(); if(cr.right > bx.right - 30 || cr.left < bx.left) box.scrollLeft += cr.left - bx.left - 24; }
     }
   }
 
@@ -362,6 +375,9 @@
   function setState(name, instant){
     sheetState = name;
     app.dataset.state = name; panel.dataset.state = name;
+    /* fully open on a phone: the heading steps aside so the list gets the screen */
+    var wide = isMobile() && name === 'full';
+    if(document.body.classList.contains('gm-full') !== wide){ document.body.classList.toggle('gm-full', wide); if(wide) window.scrollTo(0, 0); sizeApp(true); }
     if(!isMobile()){ panel.style.removeProperty('--gm-ty'); return; }
     var S = snaps();
     setTy(S[name] != null ? S[name] : S.peek, !instant);
@@ -448,7 +464,7 @@
 
   /* ------------------------------------------------------------ basemap theme */
   var P = {
-    land: '#f5f3ec', water: 'rgba(138,145,155,0.3)', park: '#f4ecd8', wood: '#f4ecd8', grass: '#f5f3ec', resid: '#f5f3ec',
+    land: '#f5f3ec', water: 'rgba(138,145,155,0.3)', park: '#f4ecd8', parkLine: '#e6d4a4', wood: '#f4ecd8', grass: '#f5f3ec', resid: '#f5f3ec',
     road: '#ffffff', casing: '#e3dfd3', major: '#ffffff', motor: '#f4ecd8', motorCasing: '#e6d4a4',
     building: '#e3dfd3', buildingLine: '#e3dfd3', halo: 'rgba(255,255,255,.92)', text: '#142434', textSoft: '#586170', water_txt: '#586170'
   };
@@ -480,8 +496,9 @@
           if(/rail|transit|ferry|aerialway|cablecar/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
           if(/^boundary/.test(id)){
             if(/boundary_3|disputed/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
-            map.setPaintProperty(id, 'line-color', '#e3dfd3'); return;
+            map.setPaintProperty(id, 'line-color', '#e6d4a4'); return;
           }
+          if(/park_outline|outline/.test(id) && !/road|highway|bridge|tunnel/.test(id)){ map.setPaintProperty(id, 'line-color', '#e6d4a4'); return; }
           if(/waterway/.test(id)){ map.setPaintProperty(id, 'line-color', P.water); return; }
           if(/highway|road|bridge|tunnel|link|motorway|trunk|primary|secondary|tertiary|minor|service|path|pier/.test(id)){
             var c = P.road;
@@ -496,7 +513,11 @@
         if(ty === 'background'){ map.setPaintProperty(id, 'background-color', P.land); return; }
         if(ty === 'fill'){
           if(id === 'water' || /^water/.test(id)) map.setPaintProperty(id, 'fill-color', P.water);
-          else if(/^park/.test(id) || /landcover_(wood|forest)/.test(id)) map.setPaintProperty(id, 'fill-color', /wood|forest/.test(id) ? P.wood : P.park);
+          else if(/^park/.test(id) || /landcover_(wood|forest)/.test(id)){
+            map.setPaintProperty(id, 'fill-color', /wood|forest/.test(id) ? P.wood : P.park);
+            if(/^park/.test(id)) map.setPaintProperty(id, 'fill-outline-color', P.parkLine);
+          }
+          else if(/landuse_(pitch|track)/.test(id)) map.setPaintProperty(id, 'fill-color', '#edeae1');
           else if(/landcover_(ice|glacier)/.test(id)) map.setPaintProperty(id, 'fill-color', '#edeae1');
           else if(/landcover_(sand|beach)/.test(id)) map.setPaintProperty(id, 'fill-color', '#f4ecd8');
           else if(/landcover_wetland/.test(id)) map.setPaintProperty(id, 'fill-color', '#e3dfd3');
@@ -516,7 +537,7 @@
   };
 
   /* ------------------------------------------------------------ pins */
-  function pinImage(fill, stroke, scale, gold){
+  function pinImage(fill, stroke, scale, gold, dot){
     var W = Math.round(34 * scale), H = Math.round(46 * scale);
     var c = document.createElement('canvas'); c.width = W * 2; c.height = H * 2;
     var x = c.getContext('2d'); x.scale(2 * scale, 2 * scale);
@@ -533,7 +554,7 @@
       x.strokeStyle = '#ffffff'; x.lineWidth = 1; x.beginPath(); x.ellipse(17, 15.4, 5, 2, 0, 0, Math.PI); x.stroke();
       x.beginPath(); x.ellipse(17, 18.1, 5, 2, 0, 0, Math.PI); x.stroke();
     } else {
-      x.beginPath(); x.arc(17, 16.5, 5.2, 0, Math.PI * 2); x.fillStyle = '#ffffff'; x.fill();
+      x.beginPath(); x.arc(17, 16.5, 5.2, 0, Math.PI * 2); x.fillStyle = dot || '#ffffff'; x.fill();
     }
     return { width: W * 2, height: H * 2, data: x.getImageData(0, 0, W * 2, H * 2).data };
   }
@@ -580,12 +601,14 @@
     map.addSource('firms-feat', { type: 'geojson', data: empty });
     map.addSource('firm-sel', { type: 'geojson', data: empty });
     map.addSource('me', { type: 'geojson', data: empty });
-    var IM = { 'gm-pin': ['#8a919b', '#586170', 1, false], 'gm-pin-gold': ['#c9a050', '#8a6224', 1.12, true], 'gm-pin-sel': ['#142434', '#142434', 1.35, false], 'gm-pin-sel-gold': ['#c9a050', '#8a6224', 1.5, true] };
-    Object.keys(IM).forEach(function(k){ if(!map.hasImage(k)) map.addImage(k, pinImage(IM[k][0], IM[k][1], IM[k][2], IM[k][3]), { pixelRatio: 2 }); });
+    var IM = { 'gm-pin': ['#2b3a4c', '#ffffff', 1, false], 'gm-pin-gold': ['#c9a050', '#ffffff', 1.12, true], 'gm-pin-sel': ['#142434', '#ffffff', 1.35, false, '#c9a050'], 'gm-pin-sel-gold': ['#c9a050', '#142434', 1.5, true] };
+    Object.keys(IM).forEach(function(k){ if(!map.hasImage(k)) map.addImage(k, pinImage(IM[k][0], IM[k][1], IM[k][2], IM[k][3], IM[k][4]), { pixelRatio: 2 }); });
     var font = pickFonts(), tf = font.bold || font.any;
     var size = ['interpolate', ['linear'], ['zoom'], 8, 0.55, 13, 0.8];
     var notCluster = ['!', ['has', 'point_count']];
 
+    map.addLayer({ id: 'firm-cluster-halo', type: 'circle', source: 'firms', filter: ['has', 'point_count'],
+      paint: { 'circle-color': 'rgba(201,160,80,0.2)', 'circle-radius': ['step', ['get', 'point_count'], 24, 5, 28, 15, 33] } });
     map.addLayer({ id: 'firm-cluster', type: 'circle', source: 'firms', filter: ['has', 'point_count'],
       paint: { 'circle-color': '#c9a050', 'circle-radius': ['step', ['get', 'point_count'], 17, 5, 21, 15, 26], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 3 } });
     var cl = { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-allow-overlap': true };
@@ -645,9 +668,7 @@
           attributionControl: false, dragRotate: false, touchPitch: false, pitchWithRotate: false, maxZoom: 18.5
         });
         map.touchZoomRotate.disableRotation();
-        map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
-        map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right');
-        map.addControl(new maplibregl.ScaleControl({ maxWidth: 90, unit: 'metric' }), 'bottom-left');
+        map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left');
         map.on('load', function(){
           if(settled) return; settled = true; clearTimeout(timer);
           try { applyMapTheme(); } catch(e){ console.warn('Map theme skipped:', e); }
@@ -935,6 +956,23 @@
   var chipsBuilt = false;
   function buildChipsOnce(){ if(!chipsBuilt){ buildChips(); chipsBuilt = true; } }
 
+  /* the heading block above the search: an eyebrow, the page's own h1 (its place in gold italic) and one line under it. City and province pages
+     already have their h1 in a .city-hero, which is kept as it is for search engines and only styled; the Find page gets its own. */
+  function buildHead(wrap, before){
+    var head = document.querySelector('.city-hero');
+    if(!head){
+      head = document.createElement('header'); head.className = 'gm-head';
+      head.innerHTML = '<h1>Trusted legal help, <em>near you.</em></h1><p>Search by city or by the kind of lawyer you need. Every firm shows its public Google rating, and none can pay to change it.</p>';
+      wrap.insertBefore(head, before);
+    } else {
+      var h1 = head.querySelector('h1'), m = h1 && !h1.querySelector('em') && h1.textContent.match(/^(Find a Lawyer in )(.+)$/i);
+      if(m) h1.innerHTML = esc(m[1]) + '<em>' + esc(m[2]) + '</em>';
+    }
+    head.classList.add('gm-head');
+    var eb = document.createElement('div'); eb.className = 'gm-eyebrow'; eb.textContent = 'Find a lawyer';
+    head.insertBefore(eb, head.firstChild);
+  }
+
   function build(){
     var wrap = document.querySelector('.results-wrap'), stack = document.querySelector('.content-stack'), card = document.querySelector('.map-card');
     if(!wrap || !stack || !card) return false;
@@ -942,22 +980,31 @@
     app = document.createElement('div'); app.className = 'gm-app'; app.id = 'gmApp'; app.dataset.state = 'peek';
     app.innerHTML =
       '<div class="gm-mapwrap" id="gmMapWrap">' +
-        '<div class="gm-top" id="gmTop"><div class="gm-searchwrap"><div class="gm-search" role="search"><button type="button" class="gm-sbtn" id="gmSearchBtn" aria-label="Search">' + IC.search + '</button>' +
-          '<input class="gm-q" id="gmQ" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search a city or type of lawyer" aria-label="Search lawyers by city or practice area" role="combobox" aria-expanded="false" aria-controls="gmSug">' +
-          '<button type="button" class="gm-x" id="gmX" aria-label="Clear search">' + IC.x + '</button></div>' +
-          '<div class="gm-sug" id="gmSug" role="listbox" hidden></div></div>' +
-          '<div class="gm-chips" id="gmChips" role="group" aria-label="Filters"></div></div>' +
-        '<button type="button" class="gm-area" id="gmArea" hidden>' + IC.redo + 'Search this area</button>' +
-        '<button type="button" class="gm-loc" id="gmLoc" aria-label="Show lawyers near my location">' + IC.loc + '</button>' +
+        '<button type="button" class="gm-area" id="gmArea" hidden>' + IC.pinG + 'Search this area</button>' +
+        '<div class="gm-ctrls" id="gmCtrls">' +
+          '<div class="gm-zoom"><button type="button" class="gm-zbtn" id="gmZin" aria-label="Zoom in">' + IC.plus + '</button><button type="button" class="gm-zbtn" id="gmZout" aria-label="Zoom out">' + IC.minus + '</button></div>' +
+          '<button type="button" class="gm-loc" id="gmLoc" aria-label="Show lawyers near my location">' + IC.loc + '</button>' +
+        '</div>' +
         '<div class="gm-toast" id="gmToast" role="status" hidden></div>' +
       '</div>' +
       '<aside class="gm-panel" id="gmPanel" aria-label="Law firm results">' +
         '<button type="button" class="gm-grab" id="gmGrab" aria-label="Expand or collapse results"><span></span></button>' +
         '<div class="gm-phead"><div><b id="gmCount"></b><small id="gmSub"></small></div>' +
-          '<div class="gm-sortwrap"><button type="button" class="gm-sortbtn" id="gmSort" aria-haspopup="true" aria-expanded="false">Sort: Recommended ' + IC.chev + '</button>' +
+          '<div class="gm-sortwrap"><button type="button" class="gm-sortbtn" id="gmSort" aria-haspopup="true" aria-expanded="false"><span class="gm-sortlbl">Sort:</span><span id="gmSortName">Recommended</span> ' + IC.chev + '</button>' +
           '<div class="gm-menu" id="gmMenu" role="menu" hidden></div></div></div>' +
         '<div class="gm-scroll" id="gmScroll"><div class="gm-sel" id="gmSel" hidden></div><div class="gm-list" id="gmList"></div></div>' +
       '</aside>';
+    /* heading, then the search pill with the filters beside it, then the map card */
+    buildHead(wrap, stack);
+    var bar = document.createElement('div'); bar.className = 'gm-top'; bar.id = 'gmTop';
+    bar.innerHTML =
+      '<div class="gm-searchwrap"><div class="gm-search" role="search"><button type="button" class="gm-sbtn" id="gmSearchBtn" aria-label="Search">' + IC.search + '</button>' +
+        '<input class="gm-q" id="gmQ" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search a city or type of lawyer" aria-label="Search lawyers by city or practice area" role="combobox" aria-expanded="false" aria-controls="gmSug">' +
+        '<button type="button" class="gm-x" id="gmX" aria-label="Clear search">' + IC.x + '</button>' +
+        '<button type="button" class="gm-filter" id="gmFilter" aria-label="Choose a type of lawyer">' + IC.sliders + '</button></div>' +
+        '<div class="gm-sug" id="gmSug" role="listbox" hidden></div></div>' +
+      '<div class="gm-chips" id="gmChips" role="group" aria-label="Filters"></div>';
+    wrap.insertBefore(bar, stack);
     wrap.insertBefore(app, stack);
     mapWrap = $('gmMapWrap'); panel = $('gmPanel'); scrollEl = $('gmScroll'); listEl = $('gmList'); selEl = $('gmSel'); areaBtn = $('gmArea'); locBtn = $('gmLoc');
     mapWrap.insertBefore(card, mapWrap.firstChild);
@@ -1004,6 +1051,10 @@
       if(isMobile() && !sel) setState('half');
     });
     locBtn.addEventListener('click', locate);
+    $('gmZin').addEventListener('click', function(){ if(mapOK) map.zoomIn({ duration: REDUCED ? 0 : 250 }); });
+    $('gmZout').addEventListener('click', function(){ if(mapOK) map.zoomOut({ duration: REDUCED ? 0 : 250 }); });
+    $('gmFilter').addEventListener('mousedown', function(e){ e.preventDefault(); });
+    $('gmFilter').addEventListener('click', function(){ var q = $('gmQ'); if(document.activeElement !== q) q.focus(); q.value = ''; drawSug(); });
 
     /* list / selection delegation */
     function onItem(e){

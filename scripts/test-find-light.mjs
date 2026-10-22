@@ -26,5 +26,8 @@ ok(DROPPED_FIELDS.includes('social'), 'the shared firm list leaves out the socia
 const readers = ['find-lawyers.html', 'suggest.js', 'lawdb-map.js', 'lw-app.js', 'site.js', 'index.html', 'lawdb-places.js'].filter((f) => /\b(f|firm)\.social\b|\.social\b/.test(readFileSync(f, 'utf8')));
 ok(readers.length === 0, `no page or script that loads the shared list reads the social links${readers.length ? ` (found in ${readers.join(', ')})` : ''}`);
 
+// no "popular searches" on the Find page: neither the "Try one" chips under the box nor the Popular search rows in its drop-down
+ok(!html.includes('id="fyTry"') && !html.includes('Try one:') && /popular: false/.test(html) && /opt\.popular!==false/.test(readFileSync('suggest.js', 'utf8')), 'the Find page has no popular searches (no "Try one" chips, and its drop-down leaves out the Popular search rows)');
+
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }
 console.log('All checks passed');

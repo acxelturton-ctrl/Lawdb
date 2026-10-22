@@ -117,9 +117,6 @@
   .fy-live:empty{ display:none; }
   .fy-tag{ font-size:13px; border-radius:999px; padding:5px 12px; background:#f4ecd8; border:1px solid var(--brass); color:#2b3a4c; font-weight:600; }
   .fy-tag.miss{ background:transparent; border:1px dashed #8a919b; color:var(--ink-soft); font-weight:500; }
-  .fy-try{ margin:14px 0 0; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:13px; color:var(--ink-soft); }
-  .fy-try a{ font:inherit; font-size:13px; cursor:pointer; background:var(--card); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:7px 13px; text-decoration:none; }
-  .fy-try a:hover{ border-color:var(--ink); }
   .city-search-note{ font-size:13.5px; color:var(--ink-soft); margin:12px 0 0; line-height:1.5; }
   .city-search-note button{ font:inherit; font-size:13px; cursor:pointer; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:6px 12px; margin:6px 6px 0 0; color:var(--ink); }
   .city-search-note button:hover{ border-color:var(--ink); }
@@ -335,7 +332,7 @@
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="lawdb-search.css?v=1">
 <script src="lawdb-places.js?v=1"></script>
-<script src="suggest.js?v=4"></script>
+<script src="suggest.js?v=5"></script>
 <style>
 </style>
 </head>
@@ -385,7 +382,7 @@
     <datalist id="cityList"></datalist>
     <div class="fy-formula" id="fyHelp"><span class="fy-step"><b>1</b>Kind of lawyer</span><span aria-hidden="true">+</span><span class="fy-step"><b>2</b>City</span><span aria-hidden="true">=</span><span>"divorce lawyer in Ottawa"</span></div>
     <div class="fy-live" id="fyLive" aria-live="polite"></div>
-    <div class="fy-try" id="fyTry"><span>Try one:</span><a href="/ontario/ottawa/family-lawyers" data-q="family lawyer in Ottawa">family lawyer in Ottawa</a><a href="/british-columbia/vancouver/immigration-lawyers" data-q="immigration lawyer in Vancouver">immigration lawyer in Vancouver</a><a href="/ontario/toronto/real-estate-lawyers" data-q="real estate lawyer in Toronto">real estate lawyer in Toronto</a><a href="/alberta/calgary/business-lawyers" data-q="business lawyer in Calgary">business lawyer in Calgary</a><a href="/british-columbia/vancouver/personal-injury-lawyers" data-q="personal injury lawyer in Vancouver">personal injury lawyer in Vancouver</a></div>
+
     <div class="city-search-note" id="citySearchError" style="display:none;color:var(--red-deep);" aria-live="polite"></div>
   </form>
 </div>
@@ -678,15 +675,6 @@ const fyForm = document.getElementById('citySearchForm');
 const fyLive = document.getElementById('fyLive');
 const fySug = document.getElementById('fySug');
 const fyErr = document.getElementById('citySearchError');
-const fyTry = document.getElementById('fyTry');
-// the "Try one" chips are ordinary links to a real page; a plain click runs the search here instead
-fyTry.querySelectorAll('a[data-q]').forEach(a => {
-  a.addEventListener('click', e => {
-    if(e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
-    e.preventDefault(); fyInput.value = a.dataset.q; closeSug(); runSearch();
-  });
-});
-
 function cityLabel(c){ return c.name + ', ' + c.province; }
 function renderLive(){
   const raw = fyInput.value;
@@ -712,7 +700,7 @@ function renderLive(){
 
 /* the suggestion card is the shared LawDB search engine (suggest.js), same as the homepage */
 const fySearch = LawdbSuggest(fyInput, fySug, {
-  root: '', firms: loadFirms,
+  root: '', firms: loadFirms, popular: false,
   onPick: q => { fyInput.value = q; renderLive(); runSearch(); },
   onPlace: (label, caseId) => { fyErr.style.display = 'none'; lookUpPlace(label, caseId); },
   onNear: (pos, caseId) => startNear({ lat: pos.lat, lng: pos.lng, label: 'you', me: true }, caseId)

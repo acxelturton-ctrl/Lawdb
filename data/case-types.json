@@ -290,20 +290,21 @@
       ],
       "photos": {
         "hero": {
-          "src": "/images/guides/real-estate-lawyer-gavel-and-model-house-on-a-contract-1000.webp",
-          "small": "/images/guides/real-estate-lawyer-gavel-and-model-house-on-a-contract-640.webp",
+          "src": "/images/guides/real-estate-lawyer-holding-plans-and-house-key-ring-1000.webp",
+          "small": "/images/guides/real-estate-lawyer-holding-plans-and-house-key-ring-640.webp",
           "w": 1000,
-          "h": 666,
-          "alt": "A hand holding a wooden gavel above a small model house that rests on a contract, with a laptop and small scales behind it and a client sitting with clasped hands",
-          "pos": "50% 40%"
+          "h": 668,
+          "alt": "A person in a dark suit holding a black folder and a roll of plans, with a house-shaped key ring and a key hanging from one hand",
+          "pos": "50% 80%"
         },
         "side": {
-          "src": "/images/guides/real-estate-lawyer-sketching-a-house-floor-plan-1000.webp",
-          "small": "/images/guides/real-estate-lawyer-sketching-a-house-floor-plan-640.webp",
+          "src": "/images/guides/real-estate-lawyer-model-house-and-magnifying-glass-on-plans-1000.webp",
+          "small": "/images/guides/real-estate-lawyer-model-house-and-magnifying-glass-on-plans-640.webp",
           "w": 1000,
-          "h": 625,
-          "alt": "A person in a dark sweater drawing a house floor plan with a pen, with more plan sketches and a pot of coloured pens on a wooden desk",
-          "caption": "A real estate lawyer reviews the paperwork around a property, such as the agreement and the title, and not only the price."
+          "h": 751,
+          "alt": "A small model house with a red front and a grey roof on a floor plan, next to a magnifying glass and a pen, with a pink piggy bank blurred behind it",
+          "pos": "50% 60%",
+          "caption": "A real estate lawyer looks closely at the title and the agreement, so that problems are found before closing day."
         },
         "credit": "Supplied by the site owner as free-to-use photos. The owner to confirm the source (Unsplash, Pexels and Pixabay all allow commercial use)."
       }

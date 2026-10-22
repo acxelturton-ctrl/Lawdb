@@ -92,9 +92,66 @@
 }
 </script>
 <style>
-  .case-updated{ font-size:12.5px; color:var(--ink-soft); margin:2px 0 0; }
-  .wrap h3{ font-family:'Source Serif 4',serif; font-size:18px; margin:22px 0 8px; }
-  .case-prov-block{ clear:both; }
+  /* the guide: a navy header with one next step, then a few calm cards (palette colours only) */
+  .cg-hero{ background:#142434; color:#fff; padding:26px 20px 34px; border-bottom:3px solid #c9a050; }
+  .cg-in{ max-width:1040px; margin:0 auto; }
+  .cg-crumb{ margin:0 0 20px; font-size:12.5px; color:#b4bac4; }
+  .cg-crumb a{ color:#e2bd6a; text-decoration:none; }
+  .cg-eyebrow{ margin:0 0 10px; font:600 12px/1.6 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#e2bd6a; }
+  .cg-hero h1{ margin:0 0 14px; font:700 clamp(30px,7.6vw,46px)/1.1 'Source Serif 4',serif; letter-spacing:-.01em; color:#fff; max-width:19em; text-wrap:balance; }
+  .cg-lede{ margin:0 0 22px; max-width:40em; font-size:16.5px; line-height:1.6; color:#edeae1; }
+  .cg-cta{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; }
+  .cg-btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:52px; padding:0 28px; border-radius:999px; background:linear-gradient(180deg,#e2bd6a 0%,#c9a050 100%); color:#142434; font:600 16.5px Inter,sans-serif; text-decoration:none; box-shadow:0 8px 20px rgba(20,36,52,0.3); }
+  .cg-btn:hover{ background:#e2bd6a; }
+  .cg-jump{ color:#e2bd6a; font:600 15px Inter,sans-serif; text-decoration:none; }
+  .cg-jump:hover{ text-decoration:underline; }
+  .cg-updated{ margin:20px 0 0; font-size:12.5px; line-height:1.5; color:#b4bac4; }
+  .cg-body{ max-width:1040px; margin:0 auto; padding:26px 20px 56px; display:grid; gap:18px; }
+  .cg-row{ display:grid; grid-template-columns:minmax(0,1fr); gap:18px; align-items:start; }
+  .cg-card{ background:#fff; border:1px solid #e3dfd3; border-radius:20px; padding:22px 22px 18px; }
+  .cg-card h2, .cg-where > h2, .cg-faq > h2, .cg-more > h2{ margin:0 0 14px; font:700 21px/1.25 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
+  .cg-list{ list-style:none; margin:0; padding:0; }
+  .cg-list li{ position:relative; margin:0 0 11px; padding-left:30px; font-size:15.5px; line-height:1.55; color:#2b3a4c; }
+  .cg-list li::before{ content:'\2713'; position:absolute; left:0; top:1px; width:20px; height:20px; border-radius:50%; background:#f4ecd8; color:#8a6224; font:700 12px/20px Inter,sans-serif; text-align:center; }
+  ol.cg-list{ counter-reset:q; }
+  ol.cg-list li{ counter-increment:q; }
+  ol.cg-list li::before{ content:counter(q); background:#c9a050; color:#142434; }
+  .cg-note{ background:#f4ecd8; border:1px solid #e6d4a4; border-radius:20px; padding:22px 22px 18px; border-left:5px solid #c9a050; }
+  .cg-note h2{ margin:0 0 10px; font:700 21px/1.25 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
+  .cg-note p{ margin:0 0 6px; font-size:15.5px; line-height:1.65; color:#2b3a4c; }
+  .cg-where > p{ margin:-6px 0 16px; font-size:15px; color:#586170; }
+  .cg-provs{ background:#fff; border:1px solid #e3dfd3; border-radius:20px; padding:2px 20px; }
+  .cg-prov{ display:grid; grid-template-columns:minmax(0,1fr); gap:10px; padding:16px 0; border-top:1px solid #e3dfd3; }
+  .cg-prov:first-child{ border-top:0; }
+  .cg-prov h3{ margin:0; font:700 17px/1.3 'Source Serif 4',serif; }
+  .cg-prov h3 a{ color:#142434; text-decoration:none; border-bottom:2px solid #e6d4a4; }
+  .cg-prov h3 a:hover{ border-bottom-color:#c9a050; }
+  .cg-pills{ display:flex; flex-wrap:wrap; gap:7px; }
+  .cg-pills a, .cg-chips a{ display:inline-block; padding:7px 13px; border:1px solid #e3dfd3; border-radius:999px; background:#f5f3ec; color:#142434; font:600 13.5px/1.3 Inter,sans-serif; text-decoration:none; }
+  .cg-pills a:hover, .cg-chips a:hover{ background:#f4ecd8; border-color:#c9a050; }
+  .cg-faq details{ background:#fff; border:1px solid #e3dfd3; border-radius:14px; margin:0 0 8px; }
+  .cg-faq summary{ cursor:pointer; padding:15px 18px; font:600 15.5px/1.4 Inter,sans-serif; color:#142434; }
+  .cg-faq details[open] summary{ color:#8a6224; }
+  .cg-faq p{ margin:0; padding:0 18px 16px; font-size:15px; line-height:1.7; color:#2b3a4c; }
+  .cg-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .cg-small{ margin:6px 0 0; font-size:12.5px; line-height:1.6; color:#586170; }
+  .cg-small a{ color:#8a6224; }
+  @media(max-width:759px){
+    .cg-lede{ font-size:16px; line-height:1.55; }
+    .cg-card, .cg-note{ padding:18px 18px 10px; }
+    .cg-card h2, .cg-note h2, .cg-where > h2, .cg-faq > h2, .cg-more > h2{ font-size:19.5px; margin-bottom:12px; }
+    .cg-list li{ margin-bottom:9px; padding-left:28px; font-size:15px; line-height:1.5; }
+    .cg-body{ gap:14px; }
+    .cg-row{ gap:14px; }
+  }
+  @media(min-width:760px){
+    .cg-hero{ padding:34px 32px 44px; }
+    .cg-body{ padding:34px 32px 72px; gap:22px; }
+    .cg-row{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+    .cg-card{ padding:26px 28px 20px; }
+    .cg-provs{ padding:4px 28px; }
+    .cg-prov{ grid-template-columns:minmax(0,290px) minmax(0,1fr); gap:28px; align-items:center; }
+  }
 </style>
 <link rel="stylesheet" href="desktop.css">
 <link rel="stylesheet" href="site.css">
@@ -213,29 +270,30 @@
 
 
 
-<div class="wrap">
-  <div class="crumb"><a href="/">Home</a> &rsaquo; <a href="/find-lawyers">Find a lawyer</a> &rsaquo; Traffic Tickets Lawyers</div>
-  <h1>Traffic Ticket Lawyers in Canada</h1>
-  <div class="seo-text"><p>A traffic ticket lawyer helps people who have been given a ticket or summons for a provincial offence such as speeding, careless driving, stunt driving or running a red light. They can explain the penalties, appear for you and challenge the ticket where there is a defence. Because a conviction can add demerit points and raise insurance costs, many drivers ask for advice before they simply pay.</p></div>
-  <p class="case-updated">Last updated October 22, 2026. General information, not legal advice.</p>
-  <h2 class="seo-h">Find a traffic ticket lawyer by province</h2>
-  <div class="seo-chips"><a class="seo-chip" href="/ontario/traffic-ticket-lawyers">Traffic Ticket Lawyers in Ontario</a><a class="seo-chip" href="/quebec/traffic-ticket-lawyers">Traffic Ticket Lawyers in Quebec</a><a class="seo-chip" href="/british-columbia/traffic-ticket-lawyers">Traffic Ticket Lawyers in British Columbia</a></div>
-  <h2 class="seo-h">When to speak to a traffic ticket lawyer</h2>
-  <ul class="seo-ul"><li>You received a ticket and are not sure whether to pay it or dispute it.</li><li>The offence is serious, such as stunt driving or careless driving, or could put your licence at risk.</li><li>You are worried about demerit points or higher insurance premiums.</li><li>You drive for work and a licence suspension would affect your job.</li><li>You missed a deadline to respond or a court date.</li></ul>
-  <h2 class="seo-h">What a traffic ticket lawyer does</h2>
-  <ul class="seo-ul"><li>Explains your options on the ticket, such as paying it, disputing it or asking to resolve it with the prosecutor.</li><li>Reviews the evidence, including how the offence was measured or observed.</li><li>May be able to appear in court on your behalf, so that you do not have to attend.</li><li>Negotiates a lesser charge where that is appropriate.</li><li>Advises on licence suspensions and on how a conviction could affect your insurance.</li></ul>
-  <h2 class="seo-h">How the rules differ across Canada</h2>
-  <div class="seo-text"><p>Traffic offences are mostly provincial, so the penalties, demerit point systems, deadlines and the process for disputing a ticket all differ by province. The ticket itself names the court and explains how to respond. Act quickly: an unanswered ticket can lead to a conviction by default and further penalties.</p></div>
-  <h2 class="seo-h">Questions to ask before you hire a traffic ticket lawyer</h2>
-  <ul class="seo-ul"><li>Have you handled this type of ticket in this court before?</li><li>What are the realistic outcomes, and what will it cost compared with simply paying the fine?</li><li>Do I need to attend in person?</li><li>How will a conviction, or a reduced charge, affect my licence and insurance?</li></ul>
-  <h2 class="seo-h">Traffic Tickets lawyers by city</h2>
-  <div class="case-prov-block"><h3>Quebec</h3><ul class="seo-all"><li><a href="/quebec/granby/traffic-ticket-lawyers">Traffic Tickets Lawyers in Granby, Quebec</a></li><li><a href="/quebec/longueuil/traffic-ticket-lawyers">Traffic Tickets Lawyers in Longueuil, Quebec</a></li><li><a href="/quebec/saint-jerome/traffic-ticket-lawyers">Traffic Tickets Lawyers in Saint-Jerome, Quebec</a></li></ul></div>
-  <h2 class="seo-h">Frequently asked questions</h2>
-  <div class="seo-faq"><details><summary>Should I pay my ticket or fight it?</summary><p>Paying usually counts as a guilty plea, which can bring demerit points and a possible insurance increase. Disputing the ticket keeps your options open. A lawyer can tell you whether it is worth contesting in your situation.</p></details><details><summary>What happens if I ignore a traffic ticket?</summary><p>In most provinces an unanswered ticket results in a conviction by default and can lead to a licence suspension or further penalties. Check the response instructions on your ticket, and get advice before any deadline passes.</p></details><details><summary>Are stunt driving and careless driving serious tickets?</summary><p>They are more serious than a standard speeding ticket and can carry heavier penalties, including licence suspensions in some provinces. If you are charged with one, speak to a lawyer quickly.</p></details><details><summary>How do I find a traffic ticket lawyer near me?</summary><p>Choose your province or city on this page to see the traffic ticket firms LawDB lists there, with their public Google ratings, addresses and phone numbers.</p></details></div>
-  <h2 class="seo-h">Other practice areas</h2>
-  <div class="seo-chips"><a class="seo-chip" href="/family-lawyers">Family Law &amp; Divorce</a><a class="seo-chip" href="/criminal-defence-lawyers">Criminal Defence</a><a class="seo-chip" href="/personal-injury-lawyers">Personal Injury</a><a class="seo-chip" href="/real-estate-lawyers">Real Estate</a><a class="seo-chip" href="/wills-estate-lawyers">Wills &amp; Estates</a><a class="seo-chip" href="/business-lawyers">Business &amp; Corporate</a><a class="seo-chip" href="/employment-lawyers">Employment</a><a class="seo-chip" href="/immigration-lawyers">Immigration</a><a class="seo-chip" href="/litigation-lawyers">Civil Litigation</a></div>
-  <p class="seo-note">This page is general information about legal topics in Canada, not legal advice. Laws change and differ by province, so speak to a licensed lawyer about your situation. LawDB is an independent directory: ratings shown are public Google ratings, and a firm cannot pay to change them. <a href="/find-lawyers">Search by city or case type</a>.</p>
-</div>
+<header class="cg-hero">
+  <div class="cg-in">
+    <div class="cg-crumb"><a href="/">Home</a> &rsaquo; <a href="/find-lawyers">Find a lawyer</a> &rsaquo; Traffic Tickets Lawyers</div>
+    <p class="cg-eyebrow">Case guide</p>
+    <h1>Traffic Ticket Lawyers in Canada</h1>
+    <p class="cg-lede">A traffic ticket lawyer helps people who have been given a ticket or summons for a provincial offence such as speeding, careless driving, stunt driving or running a red light. They can explain the penalties, appear for you and challenge the ticket where there is a defence. Because a conviction can add demerit points and raise insurance costs, many drivers ask for advice before they simply pay.</p>
+    <div class="cg-cta"><a class="cg-btn" href="/find-lawyers?case=traffic">Find a traffic ticket lawyer</a><a class="cg-jump" href="#where">Browse by province and city &darr;</a></div>
+    <p class="cg-updated">Last updated October 22, 2026. General information, not legal advice.</p>
+  </div>
+</header>
+<main class="cg-body">
+  <div class="cg-row">
+    <section class="cg-card"><h2>When to speak to a traffic ticket lawyer</h2><ul class="cg-list"><li>You received a ticket and are not sure whether to pay it or dispute it.</li><li>The offence is serious, such as stunt driving or careless driving, or could put your licence at risk.</li><li>You are worried about demerit points or higher insurance premiums.</li><li>You drive for work and a licence suspension would affect your job.</li><li>You missed a deadline to respond or a court date.</li></ul></section>
+    <section class="cg-card"><h2>What a traffic ticket lawyer does</h2><ul class="cg-list"><li>Explains your options on the ticket, such as paying it, disputing it or asking to resolve it with the prosecutor.</li><li>Reviews the evidence, including how the offence was measured or observed.</li><li>May be able to appear in court on your behalf, so that you do not have to attend.</li><li>Negotiates a lesser charge where that is appropriate.</li><li>Advises on licence suspensions and on how a conviction could affect your insurance.</li></ul></section>
+  </div>
+  <div class="cg-row">
+    <section class="cg-note"><h2>How the rules differ across Canada</h2><p>Traffic offences are mostly provincial, so the penalties, demerit point systems, deadlines and the process for disputing a ticket all differ by province. The ticket itself names the court and explains how to respond. Act quickly: an unanswered ticket can lead to a conviction by default and further penalties.</p></section>
+    <section class="cg-card"><h2>Questions to ask before you hire a traffic ticket lawyer</h2><ol class="cg-list"><li>Have you handled this type of ticket in this court before?</li><li>What are the realistic outcomes, and what will it cost compared with simply paying the fine?</li><li>Do I need to attend in person?</li><li>How will a conviction, or a reduced charge, affect my licence and insurance?</li></ol></section>
+  </div>
+  <section class="cg-where" id="where"><h2>Traffic Tickets lawyers by province and city</h2><p>Pick a province for every firm we list there, or a city to go straight to its lawyers.</p><div class="cg-provs"><div class="cg-prov"><h3><a href="/ontario/traffic-ticket-lawyers">Traffic Ticket Lawyers in Ontario</a></h3></div><div class="cg-prov"><h3><a href="/quebec/traffic-ticket-lawyers">Traffic Ticket Lawyers in Quebec</a></h3><div class="cg-pills"><a href="/quebec/granby/traffic-ticket-lawyers" title="Traffic Tickets Lawyers in Granby, Quebec">Granby</a><a href="/quebec/longueuil/traffic-ticket-lawyers" title="Traffic Tickets Lawyers in Longueuil, Quebec">Longueuil</a><a href="/quebec/saint-jerome/traffic-ticket-lawyers" title="Traffic Tickets Lawyers in Saint-Jerome, Quebec">Saint-Jerome</a></div></div><div class="cg-prov"><h3><a href="/british-columbia/traffic-ticket-lawyers">Traffic Ticket Lawyers in British Columbia</a></h3></div></div></section>
+  <section class="cg-faq"><h2>Frequently asked questions</h2><details><summary>Should I pay my ticket or fight it?</summary><p>Paying usually counts as a guilty plea, which can bring demerit points and a possible insurance increase. Disputing the ticket keeps your options open. A lawyer can tell you whether it is worth contesting in your situation.</p></details><details><summary>What happens if I ignore a traffic ticket?</summary><p>In most provinces an unanswered ticket results in a conviction by default and can lead to a licence suspension or further penalties. Check the response instructions on your ticket, and get advice before any deadline passes.</p></details><details><summary>Are stunt driving and careless driving serious tickets?</summary><p>They are more serious than a standard speeding ticket and can carry heavier penalties, including licence suspensions in some provinces. If you are charged with one, speak to a lawyer quickly.</p></details><details><summary>How do I find a traffic ticket lawyer near me?</summary><p>Choose your province or city on this page to see the traffic ticket firms LawDB lists there, with their public Google ratings, addresses and phone numbers.</p></details></section>
+  <section class="cg-more"><h2>Other practice areas</h2><div class="cg-chips"><a href="/family-lawyers">Family Law &amp; Divorce</a><a href="/criminal-defence-lawyers">Criminal Defence</a><a href="/personal-injury-lawyers">Personal Injury</a><a href="/real-estate-lawyers">Real Estate</a><a href="/wills-estate-lawyers">Wills &amp; Estates</a><a href="/business-lawyers">Business &amp; Corporate</a><a href="/employment-lawyers">Employment</a><a href="/immigration-lawyers">Immigration</a><a href="/litigation-lawyers">Civil Litigation</a></div></section>
+  <p class="cg-small">This page is general information about legal topics in Canada, not legal advice. Laws change and differ by province, so speak to a licensed lawyer about your situation. LawDB is an independent directory: ratings shown are public Google ratings, and a firm cannot pay to change them. <a href="/find-lawyers">Search by city or case type</a>.</p>
+</main>
   <footer class="site-footer">
   <div class="foot-grid">
     <div>

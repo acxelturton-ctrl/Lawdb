@@ -75,7 +75,7 @@ export async function newsPage({ request, env, ctx }) {
     }
     const firms = info.firms;
     const valid = firms.some((f) => f.slug === selected) ? selected : '';
-    const people = [...firms].sort((a, b) => String(b.latest).localeCompare(String(a.latest))).slice(0, 16);
+    const people = [...firms].sort((a, b) => String(b.latest).localeCompare(String(a.latest))).slice(0, 15);
     const stats = { firms: firms.length, articles: info.articles, latest: info.latest };
     const res = new Response(renderNewsPage({ posts, firms, people, stats, selected: valid }), {
       headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': ttl > 0 && posts.length ? `public, max-age=${ttl}` : 'no-cache', 'x-content-type-options': 'nosniff', 'x-lawdb-source': 'database' },

@@ -175,70 +175,83 @@
   .lw-feed .lw-hero .lw-bc-in{grid-column:2;grid-row:2;justify-content:center;padding:10px 28px 28px;gap:14px}
 }
 </style><style>
-/* LawDB News runs edge to edge: a dark masthead, "how it works", then the feed filling the whole screen. */
-.news-band{background:#f4ecd8;background-image:radial-gradient(#e6d4a4 1px,transparent 1.2px);background-size:22px 22px;color:#142434;padding:clamp(34px,6vw,92px) clamp(18px,4vw,72px) clamp(30px,4.5vw,64px)}
-.news-eyebrow{font-size:clamp(12px,1vw,14px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a6224;margin:0 0 12px}
-.news-band h1{font-size:clamp(42px,7vw,104px);line-height:1;margin:0 0 clamp(12px,1.6vw,22px);color:#142434;letter-spacing:-.01em}.news-band h1 .u{background:linear-gradient(#c9a050,#c9a050) no-repeat 0 92%/0 .2em;animation:nwUnder 6s ease-in-out infinite}
-.news-lede{font-family:'Source Serif 4',serif;font-size:clamp(21px,2.6vw,38px);line-height:1.25;color:#142434;margin:0 0 clamp(14px,1.8vw,24px);max-width:26em;text-wrap:balance}
-.news-band .news-intro{font-size:clamp(16px,1.35vw,20px);line-height:1.65;color:#2b3a4c;max-width:40em;margin:0}
-.news-stats{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,64px);margin:clamp(22px,3vw,44px) 0 0;padding-top:clamp(18px,2.4vw,32px);border-top:1px solid #e3dfd3}
-.news-stats div{min-width:0}.news-stats b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(34px,4.2vw,64px);line-height:1;color:#142434}
-.news-stats span{font-size:clamp(12.5px,1vw,15px);color:#586170;letter-spacing:.04em}
-.news-main{padding:clamp(20px,3vw,52px) clamp(16px,4vw,72px) clamp(10px,2vw,30px)}
-.news-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(14px,2vw,30px);margin:0 0 clamp(22px,3vw,44px)}
-.news-step{background:#fff;border:1px solid #e3dfd3;border-radius:14px;padding:clamp(18px,2vw,30px)}
-.news-step i{display:inline-flex;width:clamp(34px,3vw,46px);height:clamp(34px,3vw,46px);border-radius:50%;background:#f4ecd8;border:1px solid #e6d4a4;align-items:center;justify-content:center;font:700 clamp(15px,1.4vw,19px) 'Source Serif 4',serif;font-style:normal;color:#8a6224;margin-bottom:12px}
-.news-step h2{font-size:clamp(19px,1.7vw,25px);margin:0 0 6px}.news-step p{margin:0;font-size:clamp(15px,1.15vw,17px);line-height:1.6;color:#2b3a4c}
-.news-people{display:flex;flex-wrap:wrap;align-items:center;gap:12px clamp(14px,2vw,28px);margin:0 0 clamp(18px,2.4vw,34px)}
-.news-people h2{font-size:clamp(16px,1.3vw,19px);margin:0;color:#586170;font-family:'Inter',sans-serif;font-weight:600}
-.news-people a{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#142434;font-weight:600;font-size:clamp(14px,1.1vw,16px)}
-.news-people .lw-av{width:44px;height:44px;border-radius:50%;background:#edeae1;border:1px solid #e3dfd3;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:700;color:#586170}
+/* LawDB News: a cream page with a serif headline, three numbers, how it works, who is writing, then the feed as picture-and-text cards. */
+.news-band{max-width:1440px;margin:0 auto;box-sizing:border-box;color:#142434;padding:clamp(26px,5vw,64px) clamp(18px,4vw,72px) clamp(8px,1.5vw,20px)}
+.news-eyebrow{display:flex;align-items:center;gap:14px;max-width:300px;margin:0 0 16px;font:700 12px/1 'Inter',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#8a6224}
+.news-eyebrow::after{content:'';flex:1;height:1px;background:#e6d4a4}
+.news-band h1{font-family:'Source Serif 4',serif;font-size:clamp(44px,8vw,84px);line-height:1.02;margin:0 0 12px;color:#142434;letter-spacing:-.02em;font-weight:700}
+.news-lede{font-family:'Source Serif 4',serif;font-size:clamp(22px,3vw,34px);line-height:1.25;color:#142434;margin:0 0 18px;font-weight:600;text-wrap:balance}
+.news-lede em{font-style:italic;font-weight:500;color:#8a6224}
+.news-band .news-intro{font-size:clamp(16px,1.3vw,19px);line-height:1.65;color:#586170;max-width:40em;margin:0}
+.news-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:760px;margin:clamp(22px,3vw,40px) 0 0}
+.news-stats div{min-width:0;padding:4px clamp(8px,2vw,28px);border-left:1px solid #e3dfd3}
+.news-stats div:first-child{padding-left:0;border-left:0}
+.news-stats b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(30px,4vw,52px);line-height:1;color:#8a6224;font-weight:600}
+.news-stats span{display:block;margin-top:8px;font:600 11.5px/1.3 'Inter',sans-serif;letter-spacing:.14em;color:#586170}
+.news-main{max-width:1440px;margin:0 auto;box-sizing:border-box;padding:clamp(22px,3vw,44px) clamp(18px,4vw,72px) clamp(10px,2vw,30px)}
+/* how it works */
+.news-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 clamp(28px,3.5vw,48px)}
+.news-steps .news-step:nth-child(3){grid-column:1/-1}
+@media(min-width:900px){.news-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.news-steps .news-step:nth-child(3){grid-column:auto}}
+a.news-step{position:relative;display:block;background:rgba(255,255,255,.78);border:1px solid #e3dfd3;border-radius:16px;padding:16px 36px 18px 16px;color:inherit;text-decoration:none;box-shadow:0 10px 24px -18px rgba(20,36,52,0.45)}
+a.news-step:hover{border-color:#c9a050}
+.news-step .ns-top{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.news-step i{flex:none;display:inline-flex;width:30px;height:30px;border-radius:50%;background:#f4ecd8;align-items:center;justify-content:center;font:700 14px 'Source Serif 4',serif;font-style:normal;color:#8a6224}
+.news-step .ns-ic{flex:none;color:#8a6224}
+.news-step small{font:700 10.5px/1.25 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8a6224}
+.news-step h2{font-family:'Source Serif 4',serif;font-size:clamp(18px,1.8vw,24px);line-height:1.2;margin:0 0 6px;color:#142434}
+.news-step p{margin:0;font-size:clamp(13.5px,1.1vw,16px);line-height:1.55;color:#586170}
+.news-step .ns-go{position:absolute;top:20px;right:14px;color:#8a919b}
+/* who is writing */
+.news-people{margin:0 0 clamp(22px,3vw,36px)}
+.news-people h2{display:flex;align-items:center;gap:14px;margin:0 0 18px;font:600 clamp(20px,2vw,26px)/1.2 'Source Serif 4',serif;color:#142434}
+.news-people h2::after{content:'';flex:0 0 clamp(56px,16vw,200px);height:1px;background:#c9a050}
+.news-faces{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px 6px}
+@media(min-width:700px){.news-faces{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:20px 10px}}
+.news-faces a{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;text-align:center;text-decoration:none;color:#142434;font:500 11.5px/1.3 'Inter',sans-serif}
+@media(min-width:700px){.news-faces a{font-size:13px}}
+.news-faces a span.nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:break-word}
+.news-people .lw-av{width:clamp(46px,13vw,60px);height:clamp(46px,13vw,60px);border-radius:50%;background:#edeae1;border:1px solid #e3dfd3;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 18px 'Source Serif 4',serif;color:#586170}
 .news-people .lw-av img{width:100%;height:100%;object-fit:contain;background:#fff}
-@media(max-width:640px){.news-people{flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}.news-people>*{flex:none;white-space:nowrap}}
-.news-filter{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 clamp(16px,2vw,28px)}
-.news-filter label{font-weight:600;color:#2b3a4c;font-size:clamp(14px,1.05vw,16px)}
-.news-filter select{max-width:100%;padding:11px 16px;border-radius:999px;border:1px solid #e3dfd3;background:#fff;color:#142434;font:600 clamp(14px,1.05vw,16px) 'Inter',sans-serif}
-.news-filter a{color:#2b3a4c;font-weight:600;font-size:14px}
-.news-people .news-more{white-space:nowrap;color:#586170;font-weight:600;font-size:clamp(14px,1.1vw,16px)}
+.news-people .news-more{display:flex;justify-content:flex-end;margin:12px 0 0;font:600 14px 'Inter',sans-serif;color:#8a6224;text-decoration:none}
+.news-people .news-more:hover{text-decoration:underline}
+/* the firm filter */
+.news-filter{margin:0 0 clamp(16px,2vw,26px)}
+.news-pick{position:relative;display:flex;align-items:center;gap:10px;width:100%;max-width:520px;min-height:50px;padding:0 16px;box-sizing:border-box;border:1px solid #e3dfd3;border-radius:26px;background:rgba(255,255,255,.82);font:500 14px 'Inter',sans-serif;color:#586170;cursor:pointer}
+.news-pick svg{flex:none;color:#8a6224}
+.news-pick b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#142434;font-weight:600}
+.news-pick select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px}
+.news-pick:focus-within{border-color:#c9a050;box-shadow:0 0 0 3px rgba(201,160,80,0.3)}
+.news-filter a{display:inline-block;margin:10px 0 0 4px;color:#8a6224;font-weight:600;font-size:14px}
 .lw-by{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#142434}
 .lw-by a{color:inherit;text-decoration:none}.lw-by a:hover{text-decoration:underline}
 .lw-by .lw-ft{background:#8a6224;color:#fff;border-radius:999px;padding:1px 7px;font-size:10.5px;letter-spacing:.03em}
-/* the feed fills the screen and everything is big */
-.news-main .lw-feed{grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));gap:clamp(16px,2vw,30px)}
-.news-main .lw-feed .lw-bc h3{font-size:clamp(21px,1.7vw,27px)}
-.news-main .lw-feed .lw-bc p{font-size:clamp(15.5px,1.2vw,17.5px)}
-.news-main .lw-feed .lw-bc-head{padding:16px 20px}
-.news-main .lw-feed .lw-av{width:46px;height:46px}
-.news-main .lw-feed .lw-who .lw-by{font-size:clamp(14px,1.1vw,16px)}
-.news-main .lw-feed .lw-bc-in{padding:18px 20px 24px}
-.news-main .lw-feed .lw-bc .lw-go{font-size:clamp(14px,1.1vw,16px);padding:12px 18px}
+/* the feed: a post header, then the picture on the left and the story on the right */
+.news-main .lw-feed{grid-template-columns:1fr;gap:14px}
+@media(min-width:1000px){.news-main .lw-feed{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
+.news-main .lw-feed .lw-bc{position:relative;display:grid;grid-template-columns:minmax(112px,40%) minmax(0,1fr);grid-template-areas:"head head" "img body";gap:12px 14px;align-items:start;padding:14px;border-radius:18px;background:rgba(255,255,255,.86);box-shadow:0 12px 26px -18px rgba(20,36,52,0.5)}
+.news-main .lw-feed .lw-bc:not(:has(.lw-bc-img)){grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "body"}
+.news-main .lw-feed .lw-bc-head{grid-area:head;padding:0}
+.news-main .lw-feed .lw-av{width:40px;height:40px}
+.news-main .lw-feed .lw-who .lw-by{font-size:14px;font-weight:600;flex-wrap:wrap;gap:3px 8px}
+.news-main .lw-feed .lw-who time{font-size:12.5px;color:#586170}
+.news-main .lw-feed .lw-bc-head .lw-fbtn{padding:5px 12px;border-radius:999px;background:#f4ecd8;color:#8a6224;font-size:13px}
+.news-main .lw-feed .lw-bc-img{grid-area:img;aspect-ratio:4/3;border-radius:12px}
+.news-main .lw-feed .lw-bc-in{grid-area:body;position:relative;min-width:0;padding:0 24px 0 0;gap:6px}
+.news-main .lw-feed .lw-bc-in::before{content:'Firm news';font:700 10.5px/1.2 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8a6224}
+.news-main .lw-feed .lw-bc:has(.lw-ft) .lw-bc-in::before{content:'Featured'}
+.news-main .lw-feed .lw-bc h3{font:700 clamp(17px,1.5vw,20px)/1.28 'Source Serif 4',serif;color:#142434}
+.news-main .lw-feed .lw-bc p{font-size:14px;line-height:1.55;color:#586170;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.news-main .lw-feed .lw-row{margin-top:2px}
+.news-main .lw-feed .lw-bc .lw-go{position:absolute;right:0;top:50%;transform:translateY(-50%);width:22px;height:32px;padding:0;background:none;border-radius:0;font-size:0;color:#8a919b}
+.news-main .lw-feed .lw-bc .lw-go::after{content:'\203A';font-size:30px;line-height:30px;color:#8a919b}
+@media(hover:hover){.news-main .lw-feed .lw-bc:hover .lw-go::after{color:#8a6224}}
 .news-empty{background:#fff;border:1px solid #e3dfd3;border-radius:12px;padding:26px;max-width:680px;color:#2b3a4c;font-size:17px;line-height:1.55}
 .news-cta{margin:clamp(24px,3vw,48px) 0 0;background:#f4ecd8;border-block:1px solid #e6d4a4;padding:clamp(22px,3vw,44px) clamp(16px,4vw,72px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
 .news-cta b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(22px,2.4vw,34px);margin-bottom:4px}
 .news-cta span{font-size:clamp(15px,1.2vw,18px);color:#2b3a4c}
 .news-cta a{background:#142434;color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:14px 24px;font-size:clamp(15px,1.15vw,17px)}
 .news-foot{padding:clamp(16px,2vw,28px) clamp(16px,4vw,72px) clamp(26px,3vw,44px);font-size:13px;color:#8a919b;line-height:1.6;max-width:70em;margin:0}
-
-/* masthead artwork */
-.news-band{position:relative;overflow:hidden;isolation:isolate}
-.news-band>*:not(.news-seal):not(.news-sealmid):not(.news-drift){position:relative;z-index:3}
-.news-seal,.news-sealmid{position:absolute;right:clamp(10px,6vw,110px);top:50%;width:clamp(200px,27vw,340px);aspect-ratio:1;z-index:1;pointer-events:none}
-.news-seal{transform:translateY(-50%);animation:nwSpin 40s linear infinite}
-.news-seal text{font:700 13.2px 'Inter',sans-serif;letter-spacing:.2em;fill:#8a6224}
-.news-sealmid{display:flex;align-items:center;justify-content:center;transform:translateY(-50%);animation:nwBreath 5s ease-in-out infinite}
-.news-sealmid svg{width:46%;height:auto}
-.news-drift{position:absolute;inset:0;z-index:2;pointer-events:none}
-.news-card{position:absolute;width:clamp(170px,15vw,230px);padding:12px 14px;background:#fff;border:1px solid #e3dfd3;border-radius:12px;box-shadow:0 10px 26px rgba(43,58,76,0.14);line-height:1.35;opacity:0;animation:nwRise linear infinite}
-.news-card small{display:block;color:#8a6224;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:10.5px;margin-bottom:4px}
-.news-card b{display:block;font:600 clamp(13.5px,1vw,15.5px)/1.25 'Source Serif 4',serif;color:#142434}
-.news-card.k1{left:50%;--r:-3deg;animation-duration:19s}.news-card.k2{left:62%;--r:2deg;animation-duration:23s;animation-delay:-8s}.news-card.k3{left:74%;--r:-2deg;animation-duration:21s;animation-delay:-14s}.news-card.k4{left:86%;--r:3deg;animation-duration:26s;animation-delay:-4s}
-@keyframes nwSpin{to{transform:translateY(-50%) rotate(360deg)}}
-@keyframes nwBreath{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.05)}}
-@keyframes nwRise{0%{transform:translateY(120%) rotate(var(--r));opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateY(-140%) rotate(var(--r));opacity:0}}
-@keyframes nwUnder{0%,15%{background-size:0 .2em}45%,85%{background-size:100% .2em}100%{background-size:0 .2em}}
-@media(max-width:1099px){.news-drift{display:none}.news-seal,.news-sealmid{opacity:.45}}
-@media(max-width:700px){.news-seal,.news-sealmid{opacity:.3;right:-70px}}
-@media(prefers-reduced-motion:reduce){.news-seal,.news-sealmid,.news-card,.news-band h1 .u{animation:none!important}.news-sealmid,.news-seal{transform:translateY(-50%)}.news-card{opacity:1}.news-band h1 .u{background-size:100% .2em}}
 </style><style>
 .st-dlg{border:0;padding:0;width:min(940px,calc(100% - 32px));max-height:92dvh;border-radius:20px;background:#f5f3ec;color:#142434;overflow:auto;margin:auto;box-shadow:0 30px 80px rgba(20,36,52,0.35)}
 .st-dlg::backdrop{background:rgba(27,36,45,0.62)}
@@ -267,12 +280,12 @@
   <a href="/account/">Sign in</a>
   <a class="menu-cta" href="/book-a-call">Request a Consultation</a>
 </nav>
-  <header class="news-band"><svg class="news-seal" viewBox="0 0 300 300" aria-hidden="true" focusable="false"><defs><path id="nwCirc" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0"/></defs><circle cx="150" cy="150" r="140" fill="none" stroke="#c9a050" stroke-width="2"/><circle cx="150" cy="150" r="96" fill="none" stroke="#c9a050" stroke-width="1.2" stroke-dasharray="3 5"/><text><textPath href="#nwCirc">LAWDB NEWS &#183; CANADA'S LEGAL DIRECTORY &#183; STRAIGHT FROM THE FIRMS &#183; </textPath></text></svg><div class="news-sealmid" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><g fill="none" stroke="#8a6224" stroke-width="3" stroke-linecap="round"><path d="M32 10v40M20 50h24M14 20h36"/><path d="M14 20l-7 16a8 6 0 0 0 14 0zM50 20l-7 16a8 6 0 0 0 14 0z"/></g></svg></div><p class="news-eyebrow">Straight from the firms</p><h1><span class="u">LawDB News</span></h1><p class="news-lede">What Canada's law firms are writing, all in one place.</p><p class="news-intro">Every article on this page was written by a lawyer or firm you will find in the LawDB directory. We gather their latest work here so you can see how the people behind the listings think, explain and help, before you ever pick up the phone.</p></header>
+  <header class="news-band"><p class="news-eyebrow">News &amp; insights</p><h1><span class="u">LawDB News</span></h1><p class="news-lede">Real stories. Practical advice. <em>All in one place.</em></p><p class="news-intro">Stay informed with the latest legal news, helpful articles and expert insights from the lawyers and firms listed on LawDB. Every article is written by the firm that publishes it; we gather them here so you can understand a complex topic, or see how a firm explains things, before you pick up the phone.</p></header>
   <main class="news-main">
     <div class="news-steps">
-      <div class="news-step"><i>1</i><h2>The firms write</h2><p>Law firms listed on LawDB publish on their own websites, in their own words. These are real lawyers explaining real situations.</p></div>
-      <div class="news-step"><i>2</i><h2>We bring it together</h2><p>LawDB collects each new headline, date and short preview and keeps them in one feed, so you don't have to visit ten websites.</p></div>
-      <div class="news-step"><i>3</i><h2>You read the real thing</h2><p>Tap any story to read the full article on the firm's own site, and contact the firm directly if it speaks to your situation.</p></div>
+      <a class="news-step" href="#firms"><div class="ns-top"><i>1</i><svg class="ns-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg><small>Legal insights</small></div><h2>The firms write</h2><p>Law firms listed on LawDB publish on their own websites, in their own words. These are real lawyers explaining real situations.</p><svg class="ns-go" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
+      <a class="news-step" href="#news-firm"><div class="ns-top"><i>2</i><svg class="ns-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c2.9.3 5 2.6 5 5.8"/></svg><small>Firm updates</small></div><h2>We bring it together</h2><p>LawDB collects each new headline, date and short preview and keeps them in one feed, so you don't have to visit ten websites.</p><svg class="ns-go" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
+      <a class="news-step" href="#feed"><div class="ns-top"><i>3</i><svg class="ns-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C5 4.4 8 4.4 12 6.5c4-2.1 7-2.1 9-1v13c-2-1.1-5-1.1-9 1-4-2.1-7-2.1-9-1z"/><path d="M12 6.5v13"/></svg><small>Read &amp; learn</small></div><h2>You read the real thing</h2><p>Tap any story to read the full article on the firm's own site, and contact the firm directly if it speaks to your situation.</p><svg class="ns-go" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
     </div>
     
     

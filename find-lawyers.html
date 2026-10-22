@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="./images/favicon-192.png"><link rel="icon" href="./favicon.ico" sizes="any"><link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Find Lawyers Near You | LawDB.ca</title>
-<meta name="description" content="Search Canada's law firm directory by city and practice area. Compare Google ratings and browse firms on a map across Ontario, Quebec, British Columbia, Alberta and Manitoba.">
+<title>Search Lawyers by City and Practice Area | LawDB.ca</title>
+<meta name="description" content="Search Canadian law firms by city and practice area. Compare public Google ratings and see firms on a map in Ontario, Quebec, BC, Alberta and Manitoba.">
 <link rel="canonical" href="https://lawdb.ca/find-lawyers">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lawdb.ca/find-lawyers">
@@ -13,16 +13,16 @@
 <meta property="og:locale" content="en_CA">
 <meta property="og:image" content="https://lawdb.ca/images/og-default.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Find Lawyers Near You | LawDB.ca">
-<meta name="twitter:description" content="Search Canada&#x27;s law firm directory by city and practice area. Compare Google ratings and browse firms on a map across Ontario, Quebec, British Columbia, Alberta and Manitoba.">
+<meta name="twitter:title" content="Search Lawyers by City and Practice Area | LawDB.ca">
+<meta name="twitter:description" content="Search Canadian law firms by city and practice area. Compare public Google ratings and see firms on a map in Ontario, Quebec, BC, Alberta and Manitoba.">
 <meta name="twitter:image" content="https://lawdb.ca/images/og-default.jpg">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
  "@type": "WebPage",
- "name": "Find Lawyers Near You | LawDB.ca",
+ "name": "Search Lawyers by City and Practice Area | LawDB.ca",
  "url": "https://lawdb.ca/find-lawyers",
- "description": "Search Canada's law firm directory by city and practice area. Compare Google ratings and browse firms on a map across Ontario, Quebec, British Columbia, Alberta and Manitoba.",
+ "description": "Search Canadian law firms by city and practice area. Compare public Google ratings and see firms on a map in Ontario, Quebec, BC, Alberta and Manitoba.",
  "isPartOf": {
   "@type": "WebSite",
   "name": "LawDB.ca",
@@ -30,7 +30,7 @@
  }
 }
 </script>
-<meta property="og:title" content="Find Lawyers Near You | LawDB.ca">
+<meta property="og:title" content="Search Lawyers by City and Practice Area | LawDB.ca">
 <meta property="og:description" content="Search Canada's law firm directory by city and practice area, and browse firms on an interactive map.">
 <!-- The map's JS/CSS and vector tiles both come from other origins - starting
      the DNS+TLS handshake now, before the map is even needed, means results
@@ -118,12 +118,23 @@
   .fy-tag{ font-size:13px; border-radius:999px; padding:5px 12px; background:#fff7e3; border:1px solid var(--brass); color:#6b4c0e; font-weight:600; }
   .fy-tag.miss{ background:transparent; border:1px dashed #b3aa9b; color:var(--ink-soft); font-weight:500; }
   .fy-try{ margin:14px 0 0; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:13px; color:var(--ink-soft); }
-  .fy-try button{ font:inherit; font-size:13px; cursor:pointer; background:var(--card); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:7px 13px; }
-  .fy-try button:hover{ border-color:var(--ink); }
+  .fy-try a{ font:inherit; font-size:13px; cursor:pointer; background:var(--card); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:7px 13px; text-decoration:none; }
+  .fy-try a:hover{ border-color:var(--ink); }
   .city-search-note{ font-size:13.5px; color:var(--ink-soft); margin:12px 0 0; line-height:1.5; }
   .city-search-note button{ font:inherit; font-size:13px; cursor:pointer; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:6px 12px; margin:6px 6px 0 0; color:var(--ink); }
   .city-search-note button:hover{ border-color:var(--ink); }
   @media(max-width:520px){ .fy-row{ flex-direction:column; } .city-search button[type=submit]{ padding:15px; } }
+  .browse{ max-width:1100px; margin:0 auto; padding:40px 20px 48px; }
+  .browse h2{ font-family:'Source Serif 4',serif; font-size:clamp(22px,3vw,28px); line-height:1.15; margin:0 0 6px; text-wrap:balance; }
+  .browse-lede{ color:var(--ink-soft); font-size:15px; line-height:1.5; max-width:46em; margin:0 0 22px; }
+  .browse-prov{ border-top:1px solid var(--line); padding:16px 0 6px; }
+  .browse-prov h3{ font-size:18px; margin:0 0 8px; }
+  .browse-prov a{ color:var(--ink); text-decoration:underline; text-decoration-color:var(--line); text-underline-offset:3px; }
+  .browse-prov a:hover{ color:var(--brass-deep); text-decoration-color:var(--brass-deep); }
+  .browse-label{ margin:10px 0 4px; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+  .browse-cities{ margin:0; font-size:15px; line-height:1.9; display:flex; flex-wrap:wrap; gap:0 16px; }
+  .browse-cases{ margin:0; padding:0; list-style:none; font-size:15px; line-height:1.7; columns:2 280px; column-gap:28px; }
+  .browse-cases li{ break-inside:avoid; }
   .res-guides{ margin:34px 0 10px; }
   .res-guides h2{ font-family:'Source Serif 4',serif; font-size:22px; margin:0 0 4px; }
   .res-guides .rg-sub{ color:var(--ink-soft); font-size:14px; margin:0 0 14px; }
@@ -375,7 +386,7 @@
     <datalist id="cityList"></datalist>
     <div class="fy-formula" id="fyHelp"><span class="fy-step"><b>1</b>Kind of lawyer</span><span aria-hidden="true">+</span><span class="fy-step"><b>2</b>City</span><span aria-hidden="true">=</span><span>"divorce lawyer in Ottawa"</span></div>
     <div class="fy-live" id="fyLive" aria-live="polite"></div>
-    <div class="fy-try" id="fyTry"><span>Try one:</span></div>
+    <div class="fy-try" id="fyTry"><span>Try one:</span><a href="/ontario/ottawa/family-lawyers" data-q="family lawyer in Ottawa">family lawyer in Ottawa</a><a href="/british-columbia/vancouver/immigration-lawyers" data-q="immigration lawyer in Vancouver">immigration lawyer in Vancouver</a><a href="/ontario/toronto/real-estate-lawyers" data-q="real estate lawyer in Toronto">real estate lawyer in Toronto</a><a href="/alberta/calgary/business-lawyers" data-q="business lawyer in Calgary">business lawyer in Calgary</a><a href="/british-columbia/vancouver/personal-injury-lawyers" data-q="personal injury lawyer in Vancouver">personal injury lawyer in Vancouver</a></div>
     <div class="city-search-note" id="citySearchError" style="display:none;color:var(--red-deep);" aria-live="polite"></div>
   </form>
   <div class="city-search-divider">or pick a case type below</div>
@@ -435,6 +446,8 @@
     <div class="res-guides" id="resGuides" style="display:none;"></div>
   </div>
 </div>
+
+<!--browse-links--><section class="browse" id="browse" aria-labelledby="browseH"><h2 id="browseH">Browse Canadian lawyers by province, city and case type</h2><p class="browse-lede">Each city page lists every law firm LawDB has there, A to Z, with its public Google rating. Each case-type page lists the firms that take that kind of case.</p><div class="browse-prov"><h3><a href="/ontario/">Lawyers in Ontario</a></h3><p class="browse-label">Cities</p><p class="browse-cities"><a href="/ontario/aurora/">Aurora</a> <a href="/ontario/barrie/">Barrie</a> <a href="/ontario/brampton/">Brampton</a> <a href="/ontario/cookstown/">Cookstown</a> <a href="/ontario/etobicoke/">Etobicoke</a> <a href="/ontario/greater-sudbury/">Greater Sudbury</a> <a href="/ontario/guelph/">Guelph</a> <a href="/ontario/hamilton/">Hamilton</a> <a href="/ontario/kingston/">Kingston</a> <a href="/ontario/kitchener/">Kitchener</a> <a href="/ontario/london/">London</a> <a href="/ontario/markham/">Markham</a> <a href="/ontario/mississauga/">Mississauga</a> <a href="/ontario/niagara-falls/">Niagara Falls</a> <a href="/ontario/north-bay/">North Bay</a> <a href="/ontario/north-york/">North York</a> <a href="/ontario/oakville/">Oakville</a> <a href="/ontario/oshawa/">Oshawa</a> <a href="/ontario/ottawa/">Ottawa</a> <a href="/ontario/peterborough/">Peterborough</a> <a href="/ontario/richmond-hill/">Richmond Hill</a> <a href="/ontario/sarnia/">Sarnia</a> <a href="/ontario/sault-ste-marie/">Sault Ste. Marie</a> <a href="/ontario/st-catharines/">St. Catharines</a> <a href="/ontario/sudbury/">Sudbury</a> <a href="/ontario/thunder-bay/">Thunder Bay</a> <a href="/ontario/timmins/">Timmins</a> <a href="/ontario/toronto/">Toronto</a> <a href="/ontario/waterloo/">Waterloo</a> <a href="/ontario/windsor/">Windsor</a></p><p class="browse-label">Case types</p><ul class="browse-cases"><li><a href="/ontario/business-lawyers">Business &amp; Corporate Lawyers in Ontario</a></li><li><a href="/ontario/criminal-defence-lawyers">Criminal Defence Lawyers in Ontario</a></li><li><a href="/ontario/employment-lawyers">Employment Lawyers in Ontario</a></li><li><a href="/ontario/family-lawyers">Family Law &amp; Divorce Lawyers in Ontario</a></li><li><a href="/ontario/immigration-lawyers">Immigration Lawyers in Ontario</a></li><li><a href="/ontario/litigation-lawyers">Civil Litigation Lawyers in Ontario</a></li><li><a href="/ontario/personal-injury-lawyers">Personal Injury Lawyers in Ontario</a></li><li><a href="/ontario/real-estate-lawyers">Real Estate Lawyers in Ontario (Buying or Selling a Home)</a></li><li><a href="/ontario/traffic-ticket-lawyers">Traffic Ticket Lawyers in Ontario</a></li><li><a href="/ontario/wills-estate-lawyers">Wills, Estates &amp; Power of Attorney Lawyers in Ontario</a></li></ul></div><div class="browse-prov"><h3><a href="/quebec/">Lawyers in Quebec</a></h3><p class="browse-label">Cities</p><p class="browse-cities"><a href="/quebec/brossard/">Brossard</a> <a href="/quebec/drummondville/">Drummondville</a> <a href="/quebec/gatineau/">Gatineau</a> <a href="/quebec/granby/">Granby</a> <a href="/quebec/laval/">Laval</a> <a href="/quebec/levis/">Levis</a> <a href="/quebec/longueuil/">Longueuil</a> <a href="/quebec/montreal/">Montreal</a> <a href="/quebec/quebec-city/">Quebec City</a> <a href="/quebec/repentigny/">Repentigny</a> <a href="/quebec/rimouski/">Rimouski</a> <a href="/quebec/rosemere/">Rosemere</a> <a href="/quebec/rouyn-noranda/">Rouyn-Noranda</a> <a href="/quebec/saguenay/">Saguenay</a> <a href="/quebec/saint-jerome/">Saint-Jerome</a> <a href="/quebec/sherbrooke/">Sherbrooke</a> <a href="/quebec/terrebonne/">Terrebonne</a> <a href="/quebec/trois-rivieres/">Trois-Rivieres</a></p><p class="browse-label">Case types</p><ul class="browse-cases"><li><a href="/quebec/business-lawyers">Business &amp; Corporate Lawyers in Quebec</a></li><li><a href="/quebec/criminal-defence-lawyers">Criminal Defence Lawyers in Quebec</a></li><li><a href="/quebec/employment-lawyers">Employment Lawyers in Quebec</a></li><li><a href="/quebec/family-lawyers">Family Law &amp; Divorce Lawyers in Quebec</a></li><li><a href="/quebec/immigration-lawyers">Immigration Lawyers in Quebec</a></li><li><a href="/quebec/litigation-lawyers">Civil Litigation Lawyers in Quebec</a></li><li><a href="/quebec/personal-injury-lawyers">Personal Injury Lawyers in Quebec</a></li><li><a href="/quebec/real-estate-lawyers">Property Disputes in Quebec</a></li><li><a href="/quebec/traffic-ticket-lawyers">Traffic Ticket Lawyers in Quebec</a></li><li><a href="/quebec/wills-estate-lawyers">Estate Disputes in Quebec</a></li></ul></div><div class="browse-prov"><h3><a href="/british-columbia/">Lawyers in British Columbia</a></h3><p class="browse-label">Cities</p><p class="browse-cities"><a href="/british-columbia/abbotsford/">Abbotsford</a> <a href="/british-columbia/burnaby/">Burnaby</a> <a href="/british-columbia/kamloops/">Kamloops</a> <a href="/british-columbia/kelowna/">Kelowna</a> <a href="/british-columbia/nanaimo/">Nanaimo</a> <a href="/british-columbia/prince-george/">Prince George</a> <a href="/british-columbia/richmond/">Richmond</a> <a href="/british-columbia/surrey/">Surrey</a> <a href="/british-columbia/vancouver/">Vancouver</a> <a href="/british-columbia/victoria/">Victoria</a></p><p class="browse-label">Case types</p><ul class="browse-cases"><li><a href="/british-columbia/business-lawyers">Business &amp; Corporate Lawyers in British Columbia</a></li><li><a href="/british-columbia/criminal-defence-lawyers">Criminal Defence Lawyers in British Columbia</a></li><li><a href="/british-columbia/employment-lawyers">Employment Lawyers in British Columbia</a></li><li><a href="/british-columbia/family-lawyers">Family Law &amp; Divorce Lawyers in British Columbia</a></li><li><a href="/british-columbia/immigration-lawyers">Immigration Lawyers in British Columbia</a></li><li><a href="/british-columbia/litigation-lawyers">Civil Litigation Lawyers in British Columbia</a></li><li><a href="/british-columbia/personal-injury-lawyers">Personal Injury Lawyers in British Columbia</a></li><li><a href="/british-columbia/real-estate-lawyers">Real Estate Lawyers in British Columbia</a></li><li><a href="/british-columbia/traffic-ticket-lawyers">Traffic Ticket Lawyers in British Columbia</a></li><li><a href="/british-columbia/wills-estate-lawyers">Wills &amp; Estates Lawyers in British Columbia</a></li></ul></div><div class="browse-prov"><h3><a href="/alberta/">Lawyers in Alberta</a></h3><p class="browse-label">Cities</p><p class="browse-cities"><a href="/alberta/calgary/">Calgary</a> <a href="/alberta/edmonton/">Edmonton</a></p><p class="browse-label">Case types</p><ul class="browse-cases"><li><a href="/alberta/business-lawyers">Business Lawyers in Alberta</a></li><li><a href="/alberta/employment-lawyers">Employment Lawyers in Alberta</a></li><li><a href="/alberta/family-lawyers">Family Lawyers in Alberta</a></li><li><a href="/alberta/litigation-lawyers">Litigation Lawyers in Alberta</a></li><li><a href="/alberta/real-estate-lawyers">Real Estate Lawyers in Alberta</a></li><li><a href="/alberta/wills-estate-lawyers">Wills &amp; Estates Lawyers in Alberta</a></li></ul></div><div class="browse-prov"><h3><a href="/manitoba/">Lawyers in Manitoba</a></h3><p class="browse-label">Cities</p><p class="browse-cities"><a href="/manitoba/brandon/">Brandon</a> <a href="/manitoba/winnipeg/">Winnipeg</a></p><p class="browse-label">Case types</p><ul class="browse-cases"><li><a href="/manitoba/business-lawyers">Business Lawyers in Manitoba</a></li><li><a href="/manitoba/criminal-defence-lawyers">Criminal Defence Lawyers in Manitoba</a></li><li><a href="/manitoba/employment-lawyers">Employment Lawyers in Manitoba</a></li><li><a href="/manitoba/family-lawyers">Family Lawyers in Manitoba</a></li><li><a href="/manitoba/immigration-lawyers">Immigration Lawyers in Manitoba</a></li><li><a href="/manitoba/litigation-lawyers">Litigation Lawyers in Manitoba</a></li><li><a href="/manitoba/real-estate-lawyers">Real Estate Lawyers in Manitoba</a></li><li><a href="/manitoba/wills-estate-lawyers">Wills &amp; Estates Lawyers in Manitoba</a></li></ul></div></section><!--/browse-links-->
 
 <footer class="site-footer">
   <div class="foot-grid">
@@ -648,7 +661,6 @@ function parseSearch(raw){
 function caseSay(id){ return (SEARCH_CASES.find(c => c.id === id) || {}).say; }
 const POPULAR_CITIES = ['Toronto|ON','Ottawa|ON','Mississauga|ON','Calgary|AB','Vancouver|BC','Montreal|QC','Edmonton|AB','Winnipeg|MB']
   .map(k => { const [n,p] = k.split('|'); return CITY_INDEX.find(c => c.name === n && c.province === p); }).filter(Boolean);
-const TRY_QUERIES = ['family lawyer in Ottawa','immigration lawyer in Vancouver','real estate lawyer in Toronto','business lawyer in Calgary','personal injury lawyer in Vancouver'];
 
 const fyInput = document.getElementById('citySearchInput');
 const fyForm = document.getElementById('citySearchForm');
@@ -656,10 +668,12 @@ const fyLive = document.getElementById('fyLive');
 const fySug = document.getElementById('fySug');
 const fyErr = document.getElementById('citySearchError');
 const fyTry = document.getElementById('fyTry');
-TRY_QUERIES.forEach(t => {
-  const b = document.createElement('button'); b.type = 'button'; b.textContent = t;
-  b.addEventListener('click', () => { fyInput.value = t; closeSug(); runSearch(); });
-  fyTry.appendChild(b);
+// the "Try one" chips are ordinary links to a real page; a plain click runs the search here instead
+fyTry.querySelectorAll('a[data-q]').forEach(a => {
+  a.addEventListener('click', e => {
+    if(e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+    e.preventDefault(); fyInput.value = a.dataset.q; closeSug(); runSearch();
+  });
 });
 
 function cityLabel(c){ return c.name + ', ' + c.province; }

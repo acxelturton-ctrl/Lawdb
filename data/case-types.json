@@ -118,7 +118,26 @@
           "q": "How do I find a criminal defence lawyer near me?",
           "a": "Choose your province or city on this page to see the criminal defence firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
         }
-      ]
+      ],
+      "photos": {
+        "hero": {
+          "src": "/images/guides/criminal-lawyer-lady-justice-scales-and-law-books-1000.webp",
+          "small": "/images/guides/criminal-lawyer-lady-justice-scales-and-law-books-640.webp",
+          "w": 1000,
+          "h": 750,
+          "pos": "50% 8%",
+          "alt": "A statue of Lady Justice holding up her scales beside a row of law books and a globe, in blue-grey light from a window blind"
+        },
+        "side": {
+          "src": "/images/guides/criminal-lawyer-client-in-handcuffs-meeting-lawyer-1000.webp",
+          "small": "/images/guides/criminal-lawyer-client-in-handcuffs-meeting-lawyer-640.webp",
+          "w": 1000,
+          "h": 667,
+          "alt": "A person in handcuffs with their hands clasped, facing a lawyer in a dark suit who is writing notes",
+          "caption": "If you are arrested or detained, you have the right to speak to a lawyer without delay."
+        },
+        "credit": "Supplied by the site owner as free-to-use photos. Confirm the source and licence (Unsplash, Pexels or Pixabay all allow commercial use) before relying on them."
+      }
     },
     "injury": {
       "slug": "personal-injury-lawyers",

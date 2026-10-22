@@ -92,9 +92,66 @@
 }
 </script>
 <style>
-  .case-updated{ font-size:12.5px; color:var(--ink-soft); margin:2px 0 0; }
-  .wrap h3{ font-family:'Source Serif 4',serif; font-size:18px; margin:22px 0 8px; }
-  .case-prov-block{ clear:both; }
+  /* the guide: a navy header with one next step, then a few calm cards (palette colours only) */
+  .cg-hero{ background:#142434; color:#fff; padding:26px 20px 34px; border-bottom:3px solid #c9a050; }
+  .cg-in{ max-width:1040px; margin:0 auto; }
+  .cg-crumb{ margin:0 0 20px; font-size:12.5px; color:#b4bac4; }
+  .cg-crumb a{ color:#e2bd6a; text-decoration:none; }
+  .cg-eyebrow{ margin:0 0 10px; font:600 12px/1.6 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#e2bd6a; }
+  .cg-hero h1{ margin:0 0 14px; font:700 clamp(30px,7.6vw,46px)/1.1 'Source Serif 4',serif; letter-spacing:-.01em; color:#fff; max-width:19em; text-wrap:balance; }
+  .cg-lede{ margin:0 0 22px; max-width:40em; font-size:16.5px; line-height:1.6; color:#edeae1; }
+  .cg-cta{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; }
+  .cg-btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:52px; padding:0 28px; border-radius:999px; background:linear-gradient(180deg,#e2bd6a 0%,#c9a050 100%); color:#142434; font:600 16.5px Inter,sans-serif; text-decoration:none; box-shadow:0 8px 20px rgba(20,36,52,0.3); }
+  .cg-btn:hover{ background:#e2bd6a; }
+  .cg-jump{ color:#e2bd6a; font:600 15px Inter,sans-serif; text-decoration:none; }
+  .cg-jump:hover{ text-decoration:underline; }
+  .cg-updated{ margin:20px 0 0; font-size:12.5px; line-height:1.5; color:#b4bac4; }
+  .cg-body{ max-width:1040px; margin:0 auto; padding:26px 20px 56px; display:grid; gap:18px; }
+  .cg-row{ display:grid; grid-template-columns:minmax(0,1fr); gap:18px; align-items:start; }
+  .cg-card{ background:#fff; border:1px solid #e3dfd3; border-radius:20px; padding:22px 22px 18px; }
+  .cg-card h2, .cg-where > h2, .cg-faq > h2, .cg-more > h2{ margin:0 0 14px; font:700 21px/1.25 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
+  .cg-list{ list-style:none; margin:0; padding:0; }
+  .cg-list li{ position:relative; margin:0 0 11px; padding-left:30px; font-size:15.5px; line-height:1.55; color:#2b3a4c; }
+  .cg-list li::before{ content:'\2713'; position:absolute; left:0; top:1px; width:20px; height:20px; border-radius:50%; background:#f4ecd8; color:#8a6224; font:700 12px/20px Inter,sans-serif; text-align:center; }
+  ol.cg-list{ counter-reset:q; }
+  ol.cg-list li{ counter-increment:q; }
+  ol.cg-list li::before{ content:counter(q); background:#c9a050; color:#142434; }
+  .cg-note{ background:#f4ecd8; border:1px solid #e6d4a4; border-radius:20px; padding:22px 22px 18px; border-left:5px solid #c9a050; }
+  .cg-note h2{ margin:0 0 10px; font:700 21px/1.25 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
+  .cg-note p{ margin:0 0 6px; font-size:15.5px; line-height:1.65; color:#2b3a4c; }
+  .cg-where > p{ margin:-6px 0 16px; font-size:15px; color:#586170; }
+  .cg-provs{ background:#fff; border:1px solid #e3dfd3; border-radius:20px; padding:2px 20px; }
+  .cg-prov{ display:grid; grid-template-columns:minmax(0,1fr); gap:10px; padding:16px 0; border-top:1px solid #e3dfd3; }
+  .cg-prov:first-child{ border-top:0; }
+  .cg-prov h3{ margin:0; font:700 17px/1.3 'Source Serif 4',serif; }
+  .cg-prov h3 a{ color:#142434; text-decoration:none; border-bottom:2px solid #e6d4a4; }
+  .cg-prov h3 a:hover{ border-bottom-color:#c9a050; }
+  .cg-pills{ display:flex; flex-wrap:wrap; gap:7px; }
+  .cg-pills a, .cg-chips a{ display:inline-block; padding:7px 13px; border:1px solid #e3dfd3; border-radius:999px; background:#f5f3ec; color:#142434; font:600 13.5px/1.3 Inter,sans-serif; text-decoration:none; }
+  .cg-pills a:hover, .cg-chips a:hover{ background:#f4ecd8; border-color:#c9a050; }
+  .cg-faq details{ background:#fff; border:1px solid #e3dfd3; border-radius:14px; margin:0 0 8px; }
+  .cg-faq summary{ cursor:pointer; padding:15px 18px; font:600 15.5px/1.4 Inter,sans-serif; color:#142434; }
+  .cg-faq details[open] summary{ color:#8a6224; }
+  .cg-faq p{ margin:0; padding:0 18px 16px; font-size:15px; line-height:1.7; color:#2b3a4c; }
+  .cg-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .cg-small{ margin:6px 0 0; font-size:12.5px; line-height:1.6; color:#586170; }
+  .cg-small a{ color:#8a6224; }
+  @media(max-width:759px){
+    .cg-lede{ font-size:16px; line-height:1.55; }
+    .cg-card, .cg-note{ padding:18px 18px 10px; }
+    .cg-card h2, .cg-note h2, .cg-where > h2, .cg-faq > h2, .cg-more > h2{ font-size:19.5px; margin-bottom:12px; }
+    .cg-list li{ margin-bottom:9px; padding-left:28px; font-size:15px; line-height:1.5; }
+    .cg-body{ gap:14px; }
+    .cg-row{ gap:14px; }
+  }
+  @media(min-width:760px){
+    .cg-hero{ padding:34px 32px 44px; }
+    .cg-body{ padding:34px 32px 72px; gap:22px; }
+    .cg-row{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+    .cg-card{ padding:26px 28px 20px; }
+    .cg-provs{ padding:4px 28px; }
+    .cg-prov{ grid-template-columns:minmax(0,290px) minmax(0,1fr); gap:28px; align-items:center; }
+  }
 </style>
 <link rel="stylesheet" href="desktop.css">
 <link rel="stylesheet" href="site.css">
@@ -213,29 +270,30 @@
 
 
 
-<div class="wrap">
-  <div class="crumb"><a href="/">Home</a> &rsaquo; <a href="/find-lawyers">Find a lawyer</a> &rsaquo; Immigration Lawyers</div>
-  <h1>Immigration Lawyers in Canada</h1>
-  <div class="seo-text"><p>An immigration lawyer helps people apply to live, work, study or stay in Canada, and represents people in immigration disputes. That includes work and study permits, permanent residence, family sponsorship, citizenship, refugee claims, and appeals or reviews after a refusal.</p></div>
-  <p class="case-updated">Last updated October 22, 2026. General information, not legal advice.</p>
-  <h2 class="seo-h">Find a immigration lawyer by province</h2>
-  <div class="seo-chips"><a class="seo-chip" href="/ontario/immigration-lawyers">Immigration Lawyers in Ontario</a><a class="seo-chip" href="/quebec/immigration-lawyers">Immigration Lawyers in Quebec</a><a class="seo-chip" href="/british-columbia/immigration-lawyers">Immigration Lawyers in British Columbia</a><a class="seo-chip" href="/manitoba/immigration-lawyers">Immigration Lawyers in Manitoba</a></div>
-  <h2 class="seo-h">When to speak to a immigration lawyer</h2>
-  <ul class="seo-ul"><li>You want to work, study or settle in Canada and are unsure which program fits you.</li><li>Your application was refused, or you received a letter asking you to respond to a concern.</li><li>You or a family member is facing removal or a hearing before the Immigration and Refugee Board.</li><li>Your case is complicated by a past refusal, a criminal record or a medical issue.</li><li>You want to sponsor a spouse, partner, child or parent.</li></ul>
-  <h2 class="seo-h">What a immigration lawyer does</h2>
-  <ul class="seo-ul"><li>Assesses which program or permit you may be eligible for.</li><li>Prepares the application and supporting documents so that they are complete and consistent.</li><li>Responds to requests from Immigration, Refugees and Citizenship Canada or the Canada Border Services Agency.</li><li>Represents you at hearings and in appeals or applications for judicial review.</li><li>Explains your status, your obligations and the effect of changes in your situation.</li></ul>
-  <h2 class="seo-h">How the rules differ across Canada</h2>
-  <div class="seo-text"><p>Immigration is mainly federal, so the core rules are the same across the country, although Quebec and some provinces also run their own selection programs with separate requirements. Only authorized representatives, such as lawyers who are members of a law society, Quebec notaries and regulated immigration consultants, can charge for immigration advice or representation. Check a person&#x27;s licence before you hire.</p></div>
-  <h2 class="seo-h">Questions to ask before you hire a immigration lawyer</h2>
-  <ul class="seo-ul"><li>Are you a member in good standing of a law society, and can I verify that?</li><li>Have you handled applications like mine, and what is the realistic outlook?</li><li>What does your fee cover, and what is not included, such as government fees?</li><li>How will we communicate, and who will prepare my documents?</li></ul>
-  <h2 class="seo-h">Immigration lawyers by city</h2>
-  <div class="case-prov-block"><h3>Ontario</h3><ul class="seo-all"><li><a href="/ontario/mississauga/immigration-lawyers">Immigration Lawyers in Mississauga, Ontario</a></li><li><a href="/ontario/north-york/immigration-lawyers">Immigration Lawyers in North York, Ontario</a></li><li><a href="/ontario/ottawa/immigration-lawyers">Immigration Lawyers in Ottawa, Ontario</a></li><li><a href="/ontario/toronto/immigration-lawyers">Immigration Lawyers in Toronto, Ontario</a></li></ul></div><div class="case-prov-block"><h3>Quebec</h3><ul class="seo-all"><li><a href="/quebec/montreal/immigration-lawyers">Immigration Lawyers in Montreal, Quebec</a></li><li><a href="/quebec/quebec-city/immigration-lawyers">Immigration Lawyers in Quebec City, Quebec</a></li></ul></div><div class="case-prov-block"><h3>British Columbia</h3><ul class="seo-all"><li><a href="/british-columbia/vancouver/immigration-lawyers">Immigration Lawyers in Vancouver, British Columbia</a></li></ul></div><div class="case-prov-block"><h3>Alberta</h3><ul class="seo-all"><li><a href="/alberta/calgary/immigration-lawyers">Immigration Lawyers in Calgary, Alberta</a></li><li><a href="/alberta/edmonton/immigration-lawyers">Immigration Lawyers in Edmonton, Alberta</a></li></ul></div><div class="case-prov-block"><h3>Manitoba</h3><ul class="seo-all"><li><a href="/manitoba/winnipeg/immigration-lawyers">Immigration Lawyers in Winnipeg, Manitoba</a></li></ul></div>
-  <h2 class="seo-h">Frequently asked questions</h2>
-  <div class="seo-faq"><details><summary>Do I need a lawyer to apply for immigration to Canada?</summary><p>No, you may apply yourself. A lawyer or another authorized representative can help when your case is complex, when you have had a refusal, or when you want help making sure the application is complete, because mistakes can cause delays or refusals.</p></details><details><summary>What is the difference between a lawyer and an immigration consultant?</summary><p>Both can be authorized to advise on and represent immigration applications. Lawyers are regulated by provincial and territorial law societies and can also act in court, while regulated immigration consultants are licensed by the College of Immigration and Citizenship Consultants.</p></details><details><summary>What can I do if my application is refused?</summary><p>Depending on the program there may be a review, an appeal or the option to apply again with a stronger application. Time limits can be short, so get advice quickly.</p></details><details><summary>How do I find an immigration lawyer near me?</summary><p>Choose your province or city on this page to see the immigration firms LawDB lists there, with their public Google ratings, addresses and phone numbers.</p></details></div>
-  <h2 class="seo-h">Other practice areas</h2>
-  <div class="seo-chips"><a class="seo-chip" href="/family-lawyers">Family Law &amp; Divorce</a><a class="seo-chip" href="/criminal-defence-lawyers">Criminal Defence</a><a class="seo-chip" href="/personal-injury-lawyers">Personal Injury</a><a class="seo-chip" href="/traffic-ticket-lawyers">Traffic Tickets</a><a class="seo-chip" href="/real-estate-lawyers">Real Estate</a><a class="seo-chip" href="/wills-estate-lawyers">Wills &amp; Estates</a><a class="seo-chip" href="/business-lawyers">Business &amp; Corporate</a><a class="seo-chip" href="/employment-lawyers">Employment</a><a class="seo-chip" href="/litigation-lawyers">Civil Litigation</a></div>
-  <p class="seo-note">This page is general information about legal topics in Canada, not legal advice. Laws change and differ by province, so speak to a licensed lawyer about your situation. LawDB is an independent directory: ratings shown are public Google ratings, and a firm cannot pay to change them. <a href="/find-lawyers">Search by city or case type</a>.</p>
-</div>
+<header class="cg-hero">
+  <div class="cg-in">
+    <div class="cg-crumb"><a href="/">Home</a> &rsaquo; <a href="/find-lawyers">Find a lawyer</a> &rsaquo; Immigration Lawyers</div>
+    <p class="cg-eyebrow">Case guide</p>
+    <h1>Immigration Lawyers in Canada</h1>
+    <p class="cg-lede">An immigration lawyer helps people apply to live, work, study or stay in Canada, and represents people in immigration disputes. That includes work and study permits, permanent residence, family sponsorship, citizenship, refugee claims, and appeals or reviews after a refusal.</p>
+    <div class="cg-cta"><a class="cg-btn" href="/find-lawyers?case=immigration">Find a immigration lawyer</a><a class="cg-jump" href="#where">Browse by province and city &darr;</a></div>
+    <p class="cg-updated">Last updated October 22, 2026. General information, not legal advice.</p>
+  </div>
+</header>
+<main class="cg-body">
+  <div class="cg-row">
+    <section class="cg-card"><h2>When to speak to a immigration lawyer</h2><ul class="cg-list"><li>You want to work, study or settle in Canada and are unsure which program fits you.</li><li>Your application was refused, or you received a letter asking you to respond to a concern.</li><li>You or a family member is facing removal or a hearing before the Immigration and Refugee Board.</li><li>Your case is complicated by a past refusal, a criminal record or a medical issue.</li><li>You want to sponsor a spouse, partner, child or parent.</li></ul></section>
+    <section class="cg-card"><h2>What a immigration lawyer does</h2><ul class="cg-list"><li>Assesses which program or permit you may be eligible for.</li><li>Prepares the application and supporting documents so that they are complete and consistent.</li><li>Responds to requests from Immigration, Refugees and Citizenship Canada or the Canada Border Services Agency.</li><li>Represents you at hearings and in appeals or applications for judicial review.</li><li>Explains your status, your obligations and the effect of changes in your situation.</li></ul></section>
+  </div>
+  <div class="cg-row">
+    <section class="cg-note"><h2>How the rules differ across Canada</h2><p>Immigration is mainly federal, so the core rules are the same across the country, although Quebec and some provinces also run their own selection programs with separate requirements. Only authorized representatives, such as lawyers who are members of a law society, Quebec notaries and regulated immigration consultants, can charge for immigration advice or representation. Check a person&#x27;s licence before you hire.</p></section>
+    <section class="cg-card"><h2>Questions to ask before you hire a immigration lawyer</h2><ol class="cg-list"><li>Are you a member in good standing of a law society, and can I verify that?</li><li>Have you handled applications like mine, and what is the realistic outlook?</li><li>What does your fee cover, and what is not included, such as government fees?</li><li>How will we communicate, and who will prepare my documents?</li></ol></section>
+  </div>
+  <section class="cg-where" id="where"><h2>Immigration lawyers by province and city</h2><p>Pick a province for every firm we list there, or a city to go straight to its lawyers.</p><div class="cg-provs"><div class="cg-prov"><h3><a href="/ontario/immigration-lawyers">Immigration Lawyers in Ontario</a></h3><div class="cg-pills"><a href="/ontario/mississauga/immigration-lawyers" title="Immigration Lawyers in Mississauga, Ontario">Mississauga</a><a href="/ontario/north-york/immigration-lawyers" title="Immigration Lawyers in North York, Ontario">North York</a><a href="/ontario/ottawa/immigration-lawyers" title="Immigration Lawyers in Ottawa, Ontario">Ottawa</a><a href="/ontario/toronto/immigration-lawyers" title="Immigration Lawyers in Toronto, Ontario">Toronto</a></div></div><div class="cg-prov"><h3><a href="/quebec/immigration-lawyers">Immigration Lawyers in Quebec</a></h3><div class="cg-pills"><a href="/quebec/montreal/immigration-lawyers" title="Immigration Lawyers in Montreal, Quebec">Montreal</a><a href="/quebec/quebec-city/immigration-lawyers" title="Immigration Lawyers in Quebec City, Quebec">Quebec City</a></div></div><div class="cg-prov"><h3><a href="/british-columbia/immigration-lawyers">Immigration Lawyers in British Columbia</a></h3><div class="cg-pills"><a href="/british-columbia/vancouver/immigration-lawyers" title="Immigration Lawyers in Vancouver, British Columbia">Vancouver</a></div></div><div class="cg-prov"><h3>Alberta</h3><div class="cg-pills"><a href="/alberta/calgary/immigration-lawyers" title="Immigration Lawyers in Calgary, Alberta">Calgary</a><a href="/alberta/edmonton/immigration-lawyers" title="Immigration Lawyers in Edmonton, Alberta">Edmonton</a></div></div><div class="cg-prov"><h3><a href="/manitoba/immigration-lawyers">Immigration Lawyers in Manitoba</a></h3><div class="cg-pills"><a href="/manitoba/winnipeg/immigration-lawyers" title="Immigration Lawyers in Winnipeg, Manitoba">Winnipeg</a></div></div></div></section>
+  <section class="cg-faq"><h2>Frequently asked questions</h2><details><summary>Do I need a lawyer to apply for immigration to Canada?</summary><p>No, you may apply yourself. A lawyer or another authorized representative can help when your case is complex, when you have had a refusal, or when you want help making sure the application is complete, because mistakes can cause delays or refusals.</p></details><details><summary>What is the difference between a lawyer and an immigration consultant?</summary><p>Both can be authorized to advise on and represent immigration applications. Lawyers are regulated by provincial and territorial law societies and can also act in court, while regulated immigration consultants are licensed by the College of Immigration and Citizenship Consultants.</p></details><details><summary>What can I do if my application is refused?</summary><p>Depending on the program there may be a review, an appeal or the option to apply again with a stronger application. Time limits can be short, so get advice quickly.</p></details><details><summary>How do I find an immigration lawyer near me?</summary><p>Choose your province or city on this page to see the immigration firms LawDB lists there, with their public Google ratings, addresses and phone numbers.</p></details></section>
+  <section class="cg-more"><h2>Other practice areas</h2><div class="cg-chips"><a href="/family-lawyers">Family Law &amp; Divorce</a><a href="/criminal-defence-lawyers">Criminal Defence</a><a href="/personal-injury-lawyers">Personal Injury</a><a href="/traffic-ticket-lawyers">Traffic Tickets</a><a href="/real-estate-lawyers">Real Estate</a><a href="/wills-estate-lawyers">Wills &amp; Estates</a><a href="/business-lawyers">Business &amp; Corporate</a><a href="/employment-lawyers">Employment</a><a href="/litigation-lawyers">Civil Litigation</a></div></section>
+  <p class="cg-small">This page is general information about legal topics in Canada, not legal advice. Laws change and differ by province, so speak to a licensed lawyer about your situation. LawDB is an independent directory: ratings shown are public Google ratings, and a firm cannot pay to change them. <a href="/find-lawyers">Search by city or case type</a>.</p>
+</main>
   <footer class="site-footer">
   <div class="foot-grid">
     <div>

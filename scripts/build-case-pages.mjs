@@ -1,5 +1,5 @@
 // Builds the national case-type guide pages (/family-lawyers, /criminal-defence-lawyers ... ten of them) from data/case-types.json, the
-// "Browse lawyers by case type" cards on /find-lawyers (between <!--case-cards--> markers) and the "Or pick a case type" list on the
+// case-type tiles in the hero of /find-lawyers (between <!--case-cards--> markers) and the "Or pick a case type" list on the
 // home page (index.html, between <!--home-cases--> markers; the icons are symbols in the page's own sprite). Each guide is answer-first, general
 // information about one kind of case, with plain links down to every province page and city page that exists for it, so the national page,
 // the province page and the city page of a case type form one chain: /family-lawyers -> /ontario/family-lawyers -> /ontario/toronto/family-lawyers.
@@ -106,12 +106,12 @@ function pageHtml([id, t]) {
   return SHELL.replace('%%HEAD%%', () => head).replace('%%BODY%%', () => body);
 }
 
-// the cards on /find-lawyers
+// the case-type tiles in the hero of /find-lawyers (glass tiles on the skyline photo, in the home page's order, with the home page's labels and icons)
 function cardsHtml() {
-  const cards = TYPES.map(([, t]) => `<a class="case-card" href="/${t.slug}"><div class="cc-body"><h3>${esc(t.name)}</h3><p>${esc(t.card)}</p><span class="cc-go">Read the guide</span></div></a>`).join('');
-  return '<!--case-cards--><section class="cases" id="cases" aria-labelledby="casesH"><h2 id="casesH">Not sure where to start? Browse by case type</h2>'
-    + '<p class="cases-sub">Each guide explains when to hire a lawyer, what the lawyer does and what to ask, and links to firms by province and city.</p>'
-    + `<div class="case-cards">${cards}</div></section><!--/case-cards-->`;
+  const order = ['traffic', 'criminal', 'family', 'injury', 'realestate', 'wills', 'business', 'employment', 'immigration', 'litigation'];
+  const li = (k) => { const t = DATA.types[k]; return `<li><a class="fyh-tile" href="/${t.slug}" title="${esc(t.card)}"><span class="fyh-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-${t.icon}"/></svg></span><span class="fyh-cl">${esc(t.homeLabel)}</span><svg class="fyh-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li>`; };
+  return '<!--case-cards--><div class="fyh-cases" id="cases"><p class="fyh-ch"><span>Or browse by case type</span></p>'
+    + `<ul class="fyh-grid">${order.map(li).join('')}</ul></div><!--/case-cards-->`;
 }
 
 // the "Or pick a case type" list on the home page

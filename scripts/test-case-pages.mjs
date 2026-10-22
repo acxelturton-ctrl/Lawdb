@@ -53,7 +53,7 @@ for (const [id, t] of entries) {
   }
   ok(missing.length === 0, `${id}: links to every province and city page for it${missing.length ? ` (missing: ${missing.slice(0, 4).join(', ')})` : ''}`);
   ok(entries.filter(([k]) => k !== id).every(([, o]) => html.includes(`href="/${o.slug}"`)), `${id}: links to the other nine guides`);
-  ok(find.includes(`<a class="case-card" href="/${t.slug}">`), `${id}: has a card on /find-lawyers`);
+  ok(find.includes(`<a class="fyh-tile" href="/${t.slug}"`), `${id}: has a tile in the hero of /find-lawyers`);
   prose.push(...[t.lede, t.differ, t.card, t.description, ...t.when, ...t.does, ...t.ask, ...t.faqs.flatMap((f) => [f.q, f.a])].map((s) => ({ id, s })));
 }
 
@@ -65,8 +65,8 @@ ok(dup.length === 0, `no sentence is repeated on two guides${dup.length ? `: ${d
 
 // /find-lawyers: the pick-a-case-type wizard is gone, replaced by the cards (and the deep links still work)
 ok(!find.includes('id="stepCase"') && !find.includes('id="stepLocation"') && !find.includes('or pick a case type below'), '/find-lawyers no longer has the step 1 / step 2 wizard');
-ok((find.match(/<a class="case-card"/g) || []).length === entries.length, `/find-lawyers has ${entries.length} case cards`);
-ok(!/<a class="case-card"[^>]*><img/.test(find) && !existsSync('images/cases') && entries.every(([, t]) => !('image' in t)), 'the case cards have no pictures and images/cases is gone (add pictures only when the site owns them)');
+ok((find.match(/<a class="fyh-tile"/g) || []).length === entries.length && /<div class="fyh-cases" id="cases">/.test(find), `/find-lawyers has ${entries.length} case-type tiles in the hero (and #cases, which the footer link "Browse by Case Type" lands on)`);
+ok(!/<a class="fyh-tile"[^>]*><img/.test(find) && !existsSync('images/cases') && entries.every(([, t]) => !('image' in t)), 'the case tiles have no pictures and images/cases is gone (add pictures only when the site owns them)');
 ok(find.includes("function setWizard(show)") && !find.includes('provinceRow') && !find.includes('caseGrid.'), '/find-lawyers has no leftover code for the removed steps');
 
 // the home page: the "Or pick a case type" list links every guide, in the old picker's order, and the hero keeps what the rest of the site relies on

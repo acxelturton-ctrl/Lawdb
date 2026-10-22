@@ -126,7 +126,7 @@
       if(!p.q){
         html+=head('Try');
         if(opt.near!==false) html+=rowNear(null);
-        POPULAR.forEach(function(x){ var c=cityObj(x[1],x[2]); if(!c) return; html+=rowCombo('search',BYID[x[0]].plural+' in '+c.c+', '+c.p,'Popular search',BYID[x[0]].say+' in '+c.c,cityCount(c,x[0])); });
+        if(opt.popular!==false) POPULAR.forEach(function(x){ var c=cityObj(x[1],x[2]); if(!c) return; html+=rowCombo('search',BYID[x[0]].plural+' in '+c.c+', '+c.p,'Popular search',BYID[x[0]].say+' in '+c.c,cityCount(c,x[0])); });
         html+=head('Or pick a practice area')+'<div class="ls-pills">'+CASES.slice(0,8).map(function(c){ return '<div class="ls-i ls-pill" role="option" data-k="fill" data-q="'+esc(c.say+' in ')+'">'+esc(c.label)+'</div>'; }).join('')+'</div>';
         return html;
       }

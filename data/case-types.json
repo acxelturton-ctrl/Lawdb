@@ -287,7 +287,26 @@
           "q": "How do I find a real estate lawyer near me?",
           "a": "Choose your province or city on this page to see the real estate firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
         }
-      ]
+      ],
+      "photos": {
+        "hero": {
+          "src": "/images/guides/real-estate-lawyer-gavel-and-model-house-on-a-contract-1000.webp",
+          "small": "/images/guides/real-estate-lawyer-gavel-and-model-house-on-a-contract-640.webp",
+          "w": 1000,
+          "h": 666,
+          "alt": "A hand holding a wooden gavel above a small model house that rests on a contract, with a laptop and small scales behind it and a client sitting with clasped hands",
+          "pos": "50% 40%"
+        },
+        "side": {
+          "src": "/images/guides/real-estate-lawyer-sketching-a-house-floor-plan-1000.webp",
+          "small": "/images/guides/real-estate-lawyer-sketching-a-house-floor-plan-640.webp",
+          "w": 1000,
+          "h": 625,
+          "alt": "A person in a dark sweater drawing a house floor plan with a pen, with more plan sketches and a pot of coloured pens on a wooden desk",
+          "caption": "A real estate lawyer reviews the paperwork around a property, such as the agreement and the title, and not only the price."
+        },
+        "credit": "Supplied by the site owner as free-to-use photos. The owner to confirm the source (Unsplash, Pexels and Pixabay all allow commercial use)."
+      }
     },
     "wills": {
       "slug": "wills-estate-lawyers",

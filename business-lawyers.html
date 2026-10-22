@@ -105,6 +105,10 @@
   .cg-btn:hover{ background:#e2bd6a; }
   .cg-jump{ color:#e2bd6a; font:600 15px Inter,sans-serif; text-decoration:none; }
   .cg-jump:hover{ text-decoration:underline; }
+  .cg-photo{ margin:0; }
+  .cg-photo img{ display:block; width:100%; height:auto; border-radius:20px; }
+  .cg-split .cg-photo{ margin-top:24px; }
+  .cg-col{ display:grid; gap:14px; align-content:start; }
   .cg-updated{ margin:20px 0 0; font-size:12.5px; line-height:1.5; color:#b4bac4; }
   .cg-body{ max-width:1040px; margin:0 auto; padding:26px 20px 56px; display:grid; gap:18px; }
   .cg-row{ display:grid; grid-template-columns:minmax(0,1fr); gap:18px; align-items:start; }
@@ -143,6 +147,11 @@
     .cg-list li{ margin-bottom:9px; padding-left:28px; font-size:15px; line-height:1.5; }
     .cg-body{ gap:14px; }
     .cg-row{ gap:14px; }
+  }
+  @media(min-width:900px){
+    .cg-split{ display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); gap:48px; align-items:center; }
+    .cg-split .cg-photo{ margin-top:0; }
+    .cg-split .cg-photo img{ box-shadow:0 18px 40px rgba(20,36,52,0.35); }
   }
   @media(min-width:760px){
     .cg-hero{ padding:34px 32px 44px; }
@@ -272,12 +281,15 @@
 
 <header class="cg-hero">
   <div class="cg-in">
+    <div class="cg-copy">
     <div class="cg-crumb"><a href="/">Home</a> &rsaquo; <a href="/find-lawyers">Find a lawyer</a> &rsaquo; Business &amp; Corporate Lawyers</div>
     <p class="cg-eyebrow">Case guide</p>
     <h1>Business &amp; Corporate Lawyers in Canada</h1>
     <p class="cg-lede">A business lawyer advises owners and founders on the legal structure and everyday contracts of a company: incorporating, shareholder and partnership agreements, commercial leases, buying or selling a business, and dealing with suppliers, customers and regulators. The aim is to prevent disputes, and to be ready when one happens.</p>
     <div class="cg-cta"><a class="cg-btn" href="/find-lawyers?case=business">Find a business lawyer</a><a class="cg-jump" href="#where">Browse by province and city &darr;</a></div>
     <p class="cg-updated">Last updated October 22, 2026. General information, not legal advice.</p>
+    </div>
+    
   </div>
 </header>
 <main class="cg-body">

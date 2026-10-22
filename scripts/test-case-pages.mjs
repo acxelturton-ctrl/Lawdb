@@ -34,7 +34,9 @@ for (const [id, t] of entries) {
   ok((html.match(/<h1[^>]*>/g) || []).length === 1, `${id}: exactly one h1`);
   ok(indexable(html), `${id}: not noindex`);
   ok(sitemap.includes(`<loc>https://lawdb.ca/${t.slug}</loc>`), `${id}: in the sitemap`);
-  ok(!/<img/i.test(html.slice(html.indexOf('<h1'), html.indexOf('</h1>') + 400)) && !/class="case-hero"/.test(html), `${id}: no picture (the site has none of its own for case types yet)`);
+  const photos = t.photos ? [t.photos.hero, t.photos.side].filter(Boolean) : [];
+  const imgs = [...html.matchAll(/<img[^>]*>/g)].map((m) => m[0]).filter((i) => /\/images\/guides\//.test(i));
+  ok(!/class="case-hero"/.test(html) && imgs.length === photos.length && photos.every((p) => existsSync(p.src.slice(1)) && existsSync(p.small.slice(1)) && p.alt.length >= 20 && imgs.some((i) => i.includes(`src="${p.src}"`) && i.includes(`width="${p.w}"`) && i.includes(`height="${p.h}"`) && i.includes('alt="'))), `${id}: ${photos.length ? photos.length + ' photo(s), each with size, alt text and a file that exists' : 'no picture (only guides with photos in the data show any)'}`);
   ok(t.faqs.length >= 3 && (html.match(/<summary>/g) || []).length === t.faqs.length, `${id}: ${t.faqs.length} questions shown`);
   let lds = [];
   try { lds = [...html.matchAll(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/g)].map((m) => JSON.parse(m[1])); } catch { /* checked below */ }

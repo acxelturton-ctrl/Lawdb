@@ -105,6 +105,10 @@
   .cg-btn:hover{ background:#e2bd6a; }
   .cg-jump{ color:#e2bd6a; font:600 15px Inter,sans-serif; text-decoration:none; }
   .cg-jump:hover{ text-decoration:underline; }
+  .cg-photo{ margin:0; }
+  .cg-photo img{ display:block; width:100%; height:auto; border-radius:20px; }
+  .cg-split .cg-photo{ margin-top:24px; }
+  .cg-col{ display:grid; gap:14px; align-content:start; }
   .cg-updated{ margin:20px 0 0; font-size:12.5px; line-height:1.5; color:#b4bac4; }
   .cg-body{ max-width:1040px; margin:0 auto; padding:26px 20px 56px; display:grid; gap:18px; }
   .cg-row{ display:grid; grid-template-columns:minmax(0,1fr); gap:18px; align-items:start; }
@@ -143,6 +147,11 @@
     .cg-list li{ margin-bottom:9px; padding-left:28px; font-size:15px; line-height:1.5; }
     .cg-body{ gap:14px; }
     .cg-row{ gap:14px; }
+  }
+  @media(min-width:900px){
+    .cg-split{ display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); gap:48px; align-items:center; }
+    .cg-split .cg-photo{ margin-top:0; }
+    .cg-split .cg-photo img{ box-shadow:0 18px 40px rgba(20,36,52,0.35); }
   }
   @media(min-width:760px){
     .cg-hero{ padding:34px 32px 44px; }
@@ -271,13 +280,16 @@
 
 
 <header class="cg-hero">
-  <div class="cg-in">
+  <div class="cg-in cg-split">
+    <div class="cg-copy">
     <div class="cg-crumb"><a href="/">Home</a> &rsaquo; <a href="/find-lawyers">Find a lawyer</a> &rsaquo; Family Law &amp; Divorce Lawyers</div>
     <p class="cg-eyebrow">Case guide</p>
     <h1>Family Law &amp; Divorce Lawyers in Canada</h1>
     <p class="cg-lede">A family lawyer helps with the legal side of separation and divorce: where the children will live and how decisions about them are made, child and spousal support, and how property and debts are divided. Many also draft marriage contracts and separation agreements, so arrangements are clear before a dispute starts.</p>
     <div class="cg-cta"><a class="cg-btn" href="/find-lawyers?case=family">Find a family lawyer</a><a class="cg-jump" href="#where">Browse by province and city &darr;</a></div>
     <p class="cg-updated">Last updated October 22, 2026. General information, not legal advice.</p>
+    </div>
+    <figure class="cg-photo"><img src="/images/guides/family-lawyer-family-silhouette-sunset-1000.webp" srcset="/images/guides/family-lawyer-family-silhouette-sunset-640.webp 640w, /images/guides/family-lawyer-family-silhouette-sunset-1000.webp 1000w" sizes="(min-width:900px) 460px, 100vw" width="1000" height="666" alt="A family of four holding hands in silhouette against an orange sunset by the sea" fetchpriority="high" decoding="async"></figure>
   </div>
 </header>
 <main class="cg-body">
@@ -286,7 +298,7 @@
     <section class="cg-card"><h2>What a family lawyer does</h2><ul class="cg-list"><li>Explains your rights and options under the Divorce Act and your province&#x27;s family law.</li><li>Negotiates a separation agreement, or represents you in mediation or collaborative law.</li><li>Prepares court documents and appears for you if the matter cannot be settled.</li><li>Helps with financial disclosure, the records both sides must exchange.</li><li>Drafts or reviews marriage contracts, cohabitation agreements and parenting plans.</li></ul></section>
   </div>
   <div class="cg-row">
-    <section class="cg-note"><h2>How the rules differ across Canada</h2><p>Divorce is governed by the federal Divorce Act, but the division of property and many questions about children and support are decided under provincial law, and Quebec has its own Civil Code rules. The same facts can lead to different results in Ontario, Alberta or Quebec, so hire someone who practises family law in your province.</p></section>
+    <div class="cg-col"><section class="cg-note"><h2>How the rules differ across Canada</h2><p>Divorce is governed by the federal Divorce Act, but the division of property and many questions about children and support are decided under provincial law, and Quebec has its own Civil Code rules. The same facts can lead to different results in Ontario, Alberta or Quebec, so hire someone who practises family law in your province.</p></section><figure class="cg-photo"><img src="/images/guides/law-library-books-and-busts-1000.webp" srcset="/images/guides/law-library-books-and-busts-640.webp 640w, /images/guides/law-library-books-and-busts-1000.webp 1000w" sizes="(min-width:760px) 480px, 100vw" width="1000" height="667" alt="Shelves of old leather-bound law books beside a row of marble busts in a long library" loading="lazy" decoding="async"></figure></div>
     <section class="cg-card"><h2>Questions to ask before you hire a family lawyer</h2><ol class="cg-list"><li>How much of your practice is family law, and have you handled cases like mine?</li><li>Do you recommend mediation or a negotiated agreement before going to court?</li><li>How do you bill, what retainer do you require, and what is billed separately?</li><li>What should I do, and not do, before we speak again?</li></ol></section>
   </div>
   <section class="cg-where" id="where"><h2>Family Law &amp; Divorce lawyers by province and city</h2><p>Pick a province for every firm we list there, or a city to go straight to its lawyers.</p><div class="cg-provs"><div class="cg-prov"><h3><a href="/ontario/family-lawyers">Family Law &amp; Divorce Lawyers in Ontario</a></h3><div class="cg-pills"><a href="/ontario/barrie/family-lawyers" title="Family Lawyers in Barrie, Ontario">Barrie</a><a href="/ontario/brampton/family-lawyers" title="Family Lawyers in Brampton, Ontario">Brampton</a><a href="/ontario/london/family-lawyers" title="Family Lawyers in London, Ontario">London</a><a href="/ontario/mississauga/family-lawyers" title="Family Lawyers in Mississauga, Ontario">Mississauga</a><a href="/ontario/north-york/family-lawyers" title="Family Lawyers in North York, Ontario">North York</a><a href="/ontario/ottawa/family-lawyers" title="Family Lawyers in Ottawa, Ontario">Ottawa</a><a href="/ontario/toronto/family-lawyers" title="Family Lawyers in Toronto, Ontario">Toronto</a></div></div><div class="cg-prov"><h3><a href="/quebec/family-lawyers">Family Law &amp; Divorce Lawyers in Quebec</a></h3><div class="cg-pills"><a href="/quebec/drummondville/family-lawyers" title="Family Lawyers in Drummondville, Quebec">Drummondville</a><a href="/quebec/gatineau/family-lawyers" title="Family Lawyers in Gatineau, Quebec">Gatineau</a><a href="/quebec/laval/family-lawyers" title="Family Lawyers in Laval, Quebec">Laval</a><a href="/quebec/montreal/family-lawyers" title="Family Lawyers in Montreal, Quebec">Montreal</a><a href="/quebec/quebec-city/family-lawyers" title="Family Lawyers in Quebec City, Quebec">Quebec City</a><a href="/quebec/rouyn-noranda/family-lawyers" title="Family Lawyers in Rouyn-Noranda, Quebec">Rouyn-Noranda</a><a href="/quebec/saguenay/family-lawyers" title="Family Lawyers in Saguenay, Quebec">Saguenay</a><a href="/quebec/saint-jerome/family-lawyers" title="Family Lawyers in Saint-Jerome, Quebec">Saint-Jerome</a><a href="/quebec/sherbrooke/family-lawyers" title="Family Lawyers in Sherbrooke, Quebec">Sherbrooke</a><a href="/quebec/trois-rivieres/family-lawyers" title="Family Lawyers in Trois-Rivieres, Quebec">Trois-Rivieres</a></div></div><div class="cg-prov"><h3><a href="/british-columbia/family-lawyers">Family Law &amp; Divorce Lawyers in British Columbia</a></h3><div class="cg-pills"><a href="/british-columbia/kelowna/family-lawyers" title="Family Lawyers in Kelowna, British Columbia">Kelowna</a><a href="/british-columbia/surrey/family-lawyers" title="Family Lawyers in Surrey, British Columbia">Surrey</a><a href="/british-columbia/vancouver/family-lawyers" title="Family Lawyers in Vancouver, British Columbia">Vancouver</a><a href="/british-columbia/victoria/family-lawyers" title="Family Lawyers in Victoria, British Columbia">Victoria</a></div></div><div class="cg-prov"><h3><a href="/alberta/family-lawyers">Family Lawyers in Alberta</a></h3><div class="cg-pills"><a href="/alberta/calgary/family-lawyers" title="Family Lawyers in Calgary, Alberta">Calgary</a><a href="/alberta/edmonton/family-lawyers" title="Family Lawyers in Edmonton, Alberta">Edmonton</a></div></div><div class="cg-prov"><h3><a href="/manitoba/family-lawyers">Family Lawyers in Manitoba</a></h3><div class="cg-pills"><a href="/manitoba/brandon/family-lawyers" title="Family Lawyers in Brandon, Manitoba">Brandon</a><a href="/manitoba/winnipeg/family-lawyers" title="Family Lawyers in Winnipeg, Manitoba">Winnipeg</a></div></div></div></section>

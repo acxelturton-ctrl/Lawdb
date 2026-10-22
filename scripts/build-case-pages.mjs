@@ -59,6 +59,10 @@ const EXTRA_CSS = `<style>
   .cg-btn:hover{ background:#e2bd6a; }
   .cg-jump{ color:#e2bd6a; font:600 15px Inter,sans-serif; text-decoration:none; }
   .cg-jump:hover{ text-decoration:underline; }
+  .cg-photo{ margin:0; }
+  .cg-photo img{ display:block; width:100%; height:auto; border-radius:20px; }
+  .cg-split .cg-photo{ margin-top:24px; }
+  .cg-col{ display:grid; gap:14px; align-content:start; }
   .cg-updated{ margin:20px 0 0; font-size:12.5px; line-height:1.5; color:#b4bac4; }
   .cg-body{ max-width:1040px; margin:0 auto; padding:26px 20px 56px; display:grid; gap:18px; }
   .cg-row{ display:grid; grid-template-columns:minmax(0,1fr); gap:18px; align-items:start; }
@@ -98,6 +102,11 @@ const EXTRA_CSS = `<style>
     .cg-body{ gap:14px; }
     .cg-row{ gap:14px; }
   }
+  @media(min-width:900px){
+    .cg-split{ display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); gap:48px; align-items:center; }
+    .cg-split .cg-photo{ margin-top:0; }
+    .cg-split .cg-photo img{ box-shadow:0 18px 40px rgba(20,36,52,0.35); }
+  }
   @media(min-width:760px){
     .cg-hero{ padding:34px 32px 44px; }
     .cg-body{ padding:34px 32px 72px; gap:22px; }
@@ -136,15 +145,24 @@ function pageHtml([id, t]) {
   const others = TYPES.filter(([k]) => k !== id).map(([, o]) => `<a href="/${o.slug}">${esc(o.name)}</a>`).join('');
   const faq = t.faqs.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('');
 
+  // optional photos (only the guides whose data has them): one beside the header text, one under the "rules differ" note
+  const pic = (p, hero) => (p ? `<figure class="cg-photo"><img src="${p.src}" srcset="${p.small} 640w, ${p.src} ${p.w}w" sizes="${hero ? '(min-width:900px) 460px, 100vw' : '(min-width:760px) 480px, 100vw'}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}"${hero ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async"></figure>` : '');
+  const heroPic = pic(t.photos && t.photos.hero, true);
+  const sidePic = pic(t.photos && t.photos.side, false);
+  const note = `<section class="cg-note"><h2>How the rules differ across Canada</h2><p>${esc(t.differ)}</p></section>`;
+
   const body = `
 <header class="cg-hero">
-  <div class="cg-in">
+  <div class="cg-in${heroPic ? ' cg-split' : ''}">
+    <div class="cg-copy">
     <div class="cg-crumb"><a href="/">Home</a> &rsaquo; <a href="/find-lawyers">Find a lawyer</a> &rsaquo; ${esc(crumbName)}</div>
     <p class="cg-eyebrow">Case guide</p>
     <h1>${esc(t.h1)}</h1>
     <p class="cg-lede">${esc(t.lede)}</p>
     <div class="cg-cta"><a class="cg-btn" href="/find-lawyers?case=${id}">Find a ${esc(t.noun)}</a><a class="cg-jump" href="#where">Browse by province and city &darr;</a></div>
     <p class="cg-updated">Last updated ${longDate(DATA.updated)}. General information, not legal advice.</p>
+    </div>
+    ${heroPic}
   </div>
 </header>
 <main class="cg-body">
@@ -153,7 +171,7 @@ function pageHtml([id, t]) {
     <section class="cg-card"><h2>What a ${esc(t.noun)} does</h2>${list(t.does)}</section>
   </div>
   <div class="cg-row">
-    <section class="cg-note"><h2>How the rules differ across Canada</h2><p>${esc(t.differ)}</p></section>
+    ${sidePic ? `<div class="cg-col">${note}${sidePic}</div>` : note}
     <section class="cg-card"><h2>Questions to ask before you hire a ${esc(t.noun)}</h2>${list(t.ask, 'ol')}</section>
   </div>
   <section class="cg-where" id="where"><h2>${esc(t.name)} lawyers by province and city</h2><p>Pick a province for every firm we list there, or a city to go straight to its lawyers.</p><div class="cg-provs">${where}</div></section>

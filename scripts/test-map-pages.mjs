@@ -17,7 +17,7 @@ const used = new Set([...js.matchAll(/\$\('(\w+)'\)/g)].map((m) => m[1]));
 const missing = [...used].filter((id) => !made.has(id) && !PAGE_IDS.has(id));
 ok(missing.length === 0, `every id the script reads is built by it${missing.length ? ` (missing: ${missing.join(', ')})` : ''}`);
 ok(['gmTop', 'gmQ', 'gmFilter', 'gmChips', 'gmZin', 'gmZout', 'gmLoc', 'gmArea', 'gmPanel', 'gmSort', 'gmSortName'].every((id) => made.has(id)), 'the search pill, filter button, chips, zoom, locate, Search this area, list and sort are all built');
-ok(/function buildHead\(/.test(js) && /className = 'gm-eyebrow'/.test(js) && /Trusted legal help, <em>near you\.<\/em>/.test(js), 'the heading block has an eyebrow and the Find page\'s own h1');
+ok(/function buildHead\(/.test(js) && /className = 'gm-eyebrow'/.test(js) && /Trusted legal help,<span class="gm-brk"><\/span> <em>near you\.<\/em>/.test(js), 'the heading block has an eyebrow and the Find page\'s own h1');
 ok(!/NavigationControl|ScaleControl/.test(js), 'the library\'s own zoom group and scale bar are not used (the round zoom buttons are)');
 
 // the classes the script writes are styled
@@ -59,7 +59,7 @@ const theme = (js.match(/var P = \{([\s\S]*?)\};/) || [])[1] || '';
 const lit = [...theme.matchAll(/#[0-9a-fA-F]{6}\b|rgba?\([^)]*\)/g)].map((m) => m[0]);
 const off = lit.filter((c) => { const v = parseColor(c); return !v || !PALETTE_HEX.has('#' + [v.r, v.g, v.b].map((n) => n.toString(16).padStart(2, '0')).join('')); });
 ok(lit.length >= 12 && off.length === 0, `the basemap theme uses only palette colours (${lit.length} checked${off.length ? `, off: ${off.join(', ')}` : ''})`);
-ok(/'circle-color': '#c9a050'/.test(js) && /'circle-stroke-color': '#ffffff'/.test(js), 'clusters are gold with a white ring');
+ok(/'circle-color': '#8a6224'/.test(js) && /'circle-stroke-color': '#ffffff'/.test(js) && /'text-color': '#ffffff'/.test(js), 'clusters are dark gold (white numbers reach 5.4:1) with a white ring');
 
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }
 console.log('All checks passed');

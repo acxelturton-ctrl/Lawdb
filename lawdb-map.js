@@ -110,6 +110,7 @@
     tick: '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>',
     loc: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#142434" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
     redo: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>',
+    pinS: '<svg class="gm-pin" width="14" height="14" viewBox="0 0 24 24" fill="#8a6224" aria-hidden="true"><path d="M12 22s-7-6.4-7-12a7 7 0 0 1 14 0c0 5.6-7 12-7 12zm0-9.2a2.8 2.8 0 1 0 0-5.6 2.8 2.8 0 0 0 0 5.6z"/></svg>',
     pinG: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>',
     sliders: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>',
     plus: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#142434" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
@@ -139,9 +140,9 @@
       '<div class="gm-i-main">' +
         (f.featured ? '<span class="gm-i-badge"><i>' + IC.tick + '</i>Featured</span>' : '') +
         '<h3 class="gm-i-name"><a href="' + esc(prof) + '">' + esc(f.name) + '</a></h3>' +
-        '<div class="gm-i-rate"><span class="gm-stars" style="--p:' + pct + '%" aria-hidden="true">★★★★★</span><b>' + f.rating.toFixed(1) + '</b><span>(' + f.count + ')</span></div>' +
+        '<div class="gm-i-rate"><b>' + f.rating.toFixed(1) + '</b><span class="gm-stars" style="--p:' + pct + '%" aria-hidden="true">★★★★★</span><span>(' + f.count + ')</span></div>' +
         '<div class="gm-i-meta">' + esc(firmArea(f)) + ' · ' + esc(f.city) + dist + '</div>' +
-        (f.address ? '<div class="gm-i-addr">' + esc(f.address) + '</div>' : '') +
+        (f.address ? '<div class="gm-i-addr">' + IC.pinS + '<span>' + esc(f.address) + '</span></div>' : '') +
         (oi ? '<div class="gm-i-hours"><span class="' + (oi.open ? 'o' : 'c') + '">' + (oi.open ? 'Open' : 'Closed') + '</span> · ' + esc(oi.text) + '</div>' : '') +
       '</div>' + (detail ? '' : IC.go) +
       '<div class="gm-i-acts">' +
@@ -292,7 +293,7 @@
   }
   function pad(){
     var m = isMobile();
-    return m ? { top: 128, bottom: 168 + 70, left: 40, right: 84 } : { top: 120, bottom: 60, left: 60, right: 90 };
+    return m ? { top: 50, bottom: 214 + 40, left: 40, right: 70 } : { top: 60, bottom: 60, left: 60, right: 90 };
   }
   /* Frame the person (or the town searched) and the few firms really near them. One far-off firm must not drag the view out, and a block of
      offices must not zoom the map in to rooftops: the view is at least about a kilometre across and never closer than street level. */
@@ -363,7 +364,7 @@
   function snaps(){
     var H = panel.offsetHeight, A = app.clientHeight;
     var selVis = 26 + (selEl.hidden ? 0 : selEl.offsetHeight) + 6;
-    return { full: 0, half: Math.max(0, H - Math.round(A * 0.5)), peek: Math.max(0, H - 168), sel: Math.max(0, H - selVis) };
+    return { full: 0, half: Math.max(0, H - Math.round(A * 0.5)), peek: Math.max(0, H - 214), sel: Math.max(0, H - selVis) };
   }
   function setTy(ty, animate){
     var H = panel.offsetHeight;
@@ -608,12 +609,12 @@
     var notCluster = ['!', ['has', 'point_count']];
 
     map.addLayer({ id: 'firm-cluster-halo', type: 'circle', source: 'firms', filter: ['has', 'point_count'],
-      paint: { 'circle-color': 'rgba(201,160,80,0.2)', 'circle-radius': ['step', ['get', 'point_count'], 24, 5, 28, 15, 33] } });
+      paint: { 'circle-color': 'rgba(138,98,36,0.2)', 'circle-radius': ['step', ['get', 'point_count'], 24, 5, 28, 15, 33] } });
     map.addLayer({ id: 'firm-cluster', type: 'circle', source: 'firms', filter: ['has', 'point_count'],
-      paint: { 'circle-color': '#c9a050', 'circle-radius': ['step', ['get', 'point_count'], 17, 5, 21, 15, 26], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 3 } });
+      paint: { 'circle-color': '#8a6224', 'circle-radius': ['step', ['get', 'point_count'], 17, 5, 21, 15, 26], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 3 } });
     var cl = { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-allow-overlap': true };
     if(tf) cl['text-font'] = tf;
-    map.addLayer({ id: 'firm-cluster-count', type: 'symbol', source: 'firms', filter: ['has', 'point_count'], layout: cl, paint: { 'text-color': '#142434' } });
+    map.addLayer({ id: 'firm-cluster-count', type: 'symbol', source: 'firms', filter: ['has', 'point_count'], layout: cl, paint: { 'text-color': '#ffffff' } });
 
     map.addLayer({ id: 'firm-pin', type: 'symbol', source: 'firms', filter: notCluster,
       layout: { 'icon-image': 'gm-pin', 'icon-size': size, 'icon-anchor': 'bottom', 'icon-allow-overlap': true, 'symbol-sort-key': ['get', 'prio'] } });
@@ -962,7 +963,7 @@
     var head = document.querySelector('.city-hero');
     if(!head){
       head = document.createElement('header'); head.className = 'gm-head';
-      head.innerHTML = '<h1>Trusted legal help, <em>near you.</em></h1><p>Search by city or by the kind of lawyer you need. Every firm shows its public Google rating, and none can pay to change it.</p>';
+      head.innerHTML = '<h1>Trusted legal help,<span class="gm-brk"></span> <em>near you.</em></h1><p>Search by location, practice area or firm name. Every firm shows its public Google rating, and none can pay to change it.</p>';
       wrap.insertBefore(head, before);
     } else {
       var h1 = head.querySelector('h1'), m = h1 && !h1.querySelector('em') && h1.textContent.match(/^(Find a Lawyer in )(.+)$/i);

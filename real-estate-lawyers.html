@@ -92,33 +92,56 @@
 }
 </script>
 <style>
-  /* the guide: a navy header with one next step, then a few calm cards (palette colours only) */
-  .cg-hero{ background:#142434; color:#fff; padding:26px 20px 34px; border-bottom:3px solid #c9a050; }
-  .cg-in{ max-width:1040px; margin:0 auto; }
-  .cg-crumb{ margin:0 0 20px; font-size:12.5px; color:#b4bac4; }
-  .cg-crumb a{ color:#e2bd6a; text-decoration:none; }
-  .cg-eyebrow{ margin:0 0 10px; font:600 12px/1.6 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#e2bd6a; }
-  .cg-hero h1{ margin:0 0 14px; font:700 clamp(30px,7.6vw,46px)/1.1 'Source Serif 4',serif; letter-spacing:-.01em; color:#fff; max-width:19em; text-wrap:balance; }
-  .cg-lede{ margin:0 0 22px; max-width:40em; font-size:16.5px; line-height:1.6; color:#edeae1; }
-  .cg-cta{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; }
-  .cg-btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:52px; padding:0 28px; border-radius:999px; background:linear-gradient(180deg,#e2bd6a 0%,#c9a050 100%); color:#142434; font:600 16.5px Inter,sans-serif; text-decoration:none; box-shadow:0 8px 20px rgba(20,36,52,0.3); }
+  /* the guide reads like a blog post: a headline, a photo, one readable column and a sticky side card (palette colours only) */
+  .cg-wrap{ max-width:1100px; margin:0 auto; padding:0 20px; }
+  .cg-top{ background:#f5f3ec; padding:26px 0 0; }
+  .cg-crumb{ margin:0 0 18px; font-size:12.5px; color:#586170; }
+  .cg-crumb a{ color:#8a6224; text-decoration:none; }
+  .cg-eyebrow{ margin:0 0 10px; font:600 12px/1.6 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#8a6224; }
+  .cg-top h1{ margin:0 0 14px; font:700 clamp(32px,6.6vw,54px)/1.08 'Source Serif 4',serif; letter-spacing:-.01em; color:#142434; max-width:17em; text-wrap:balance; }
+  .cg-meta{ display:flex; flex-wrap:wrap; gap:4px 16px; margin:0; padding:0; list-style:none; font:500 13.5px/1.5 Inter,sans-serif; color:#586170; }
+  .cg-feature{ margin:0 0 24px; }
+  .cg-feature img{ display:block; width:100%; height:auto; aspect-ratio:16 / 9; object-fit:cover; object-position:50% 62%; border-radius:18px; }
+  .cg-layout{ max-width:1100px; margin:0 auto; padding:30px 20px 10px; display:grid; grid-template-columns:minmax(0,1fr); gap:30px; }
+  .cg-article{ font-size:17px; line-height:1.75; color:#2b3a4c; min-width:0; }
+  .cg-lede{ margin:0 0 22px; font:400 clamp(19px,2.4vw,22px)/1.6 'Source Serif 4',serif; color:#142434; }
+  .cg-cta{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; margin:0 0 6px; }
+  .cg-btn{ display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:0 28px; border-radius:999px; background:linear-gradient(180deg,#e2bd6a 0%,#c9a050 100%); color:#142434; font:600 16.5px Inter,sans-serif; text-decoration:none; box-shadow:0 8px 20px rgba(20,36,52,0.2); }
   .cg-btn:hover{ background:#e2bd6a; }
-  .cg-jump{ color:#e2bd6a; font:600 15px Inter,sans-serif; text-decoration:none; }
+  .cg-jump{ color:#8a6224; font:600 15px Inter,sans-serif; text-decoration:none; }
   .cg-jump:hover{ text-decoration:underline; }
-  .cg-updated{ margin:20px 0 0; font-size:12.5px; line-height:1.5; color:#b4bac4; }
-  .cg-body{ max-width:1040px; margin:0 auto; padding:26px 20px 56px; display:grid; gap:18px; }
-  .cg-row{ display:grid; grid-template-columns:minmax(0,1fr); gap:18px; align-items:start; }
-  .cg-card{ background:#fff; border:1px solid #e3dfd3; border-radius:20px; padding:22px 22px 18px; }
-  .cg-card h2, .cg-where > h2, .cg-faq > h2, .cg-more > h2{ margin:0 0 14px; font:700 21px/1.25 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
+  .cg-article h2{ margin:46px 0 14px; font:700 clamp(24px,3.4vw,30px)/1.2 'Source Serif 4',serif; color:#142434; text-wrap:balance; scroll-margin-top:84px; }
+  .cg-article h2::before{ content:''; display:block; width:44px; height:3px; margin:0 0 14px; background:#c9a050; }
   .cg-list{ list-style:none; margin:0; padding:0; }
-  .cg-list li{ position:relative; margin:0 0 11px; padding-left:30px; font-size:15.5px; line-height:1.55; color:#2b3a4c; }
-  .cg-list li::before{ content:'\2713'; position:absolute; left:0; top:1px; width:20px; height:20px; border-radius:50%; background:#f4ecd8; color:#8a6224; font:700 12px/20px Inter,sans-serif; text-align:center; }
+  .cg-list li{ position:relative; margin:0 0 12px; padding-left:34px; }
+  .cg-list li::before{ content:'\2713'; position:absolute; left:0; top:4px; width:22px; height:22px; border-radius:50%; background:#f4ecd8; color:#8a6224; font:700 12px/22px Inter,sans-serif; text-align:center; }
   ol.cg-list{ counter-reset:q; }
   ol.cg-list li{ counter-increment:q; }
   ol.cg-list li::before{ content:counter(q); background:#c9a050; color:#142434; }
-  .cg-note{ background:#f4ecd8; border:1px solid #e6d4a4; border-radius:20px; padding:22px 22px 18px; border-left:5px solid #c9a050; }
-  .cg-note h2{ margin:0 0 10px; font:700 21px/1.25 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
-  .cg-note p{ margin:0 0 6px; font-size:15.5px; line-height:1.65; color:#2b3a4c; }
+  .cg-note{ margin:34px 0 0; padding:22px 24px; background:#f4ecd8; border:1px solid #e6d4a4; border-left:5px solid #c9a050; border-radius:18px; }
+  .cg-note h2{ margin:0 0 10px; font-size:22px; }
+  .cg-note h2::before{ display:none; }
+  .cg-note p{ margin:0; }
+  .cg-figure{ margin:34px 0 0; max-width:520px; }
+  .cg-figure img{ display:block; width:100%; height:auto; aspect-ratio:16 / 10; object-fit:cover; border-radius:18px; }
+  .cg-figure figcaption{ margin:10px 4px 0; font-size:13.5px; line-height:1.55; color:#586170; }
+  .cg-faq details{ background:#fff; border:1px solid #e3dfd3; border-radius:14px; margin:0 0 8px; }
+  .cg-faq summary{ cursor:pointer; padding:15px 18px; font:600 15.5px/1.45 Inter,sans-serif; color:#142434; }
+  .cg-faq details[open] summary{ color:#8a6224; }
+  .cg-faq p{ margin:0; padding:0 18px 16px; font-size:15.5px; line-height:1.7; }
+  .cg-side{ display:none; }
+  .cg-card{ background:#fff; border:1px solid #e3dfd3; border-radius:20px; padding:22px; }
+  .cg-card h2{ margin:0 0 6px; font:700 19px/1.25 'Source Serif 4',serif; color:#142434; }
+  .cg-card h2::before{ display:none; }
+  .cg-card p{ margin:0 0 14px; font-size:14.5px; line-height:1.55; color:#586170; }
+  .cg-card .cg-btn{ width:100%; min-height:48px; font-size:15.5px; }
+  .cg-toc{ list-style:none; margin:0; padding:0; font-size:14.5px; line-height:1.4; }
+  .cg-toc li{ margin:0; border-top:1px solid #e3dfd3; }
+  .cg-toc li:first-child{ border-top:0; }
+  .cg-toc a{ display:block; padding:9px 0; color:#142434; text-decoration:none; font-weight:500; }
+  .cg-toc a:hover{ color:#8a6224; }
+  .cg-after{ max-width:1100px; margin:0 auto; padding:0 20px 64px; display:grid; gap:34px; }
+  .cg-after h2{ margin:0 0 14px; font:700 clamp(22px,3vw,26px)/1.25 'Source Serif 4',serif; color:#142434; }
   .cg-where > p{ margin:-6px 0 16px; font-size:15px; color:#586170; }
   .cg-provs{ background:#fff; border:1px solid #e3dfd3; border-radius:20px; padding:2px 20px; }
   .cg-prov{ display:grid; grid-template-columns:minmax(0,1fr); gap:10px; padding:16px 0; border-top:1px solid #e3dfd3; }
@@ -126,31 +149,24 @@
   .cg-prov h3{ margin:0; font:700 17px/1.3 'Source Serif 4',serif; }
   .cg-prov h3 a{ color:#142434; text-decoration:none; border-bottom:2px solid #e6d4a4; }
   .cg-prov h3 a:hover{ border-bottom-color:#c9a050; }
-  .cg-pills{ display:flex; flex-wrap:wrap; gap:7px; }
+  .cg-pills, .cg-chips{ display:flex; flex-wrap:wrap; gap:7px; }
   .cg-pills a, .cg-chips a{ display:inline-block; padding:7px 13px; border:1px solid #e3dfd3; border-radius:999px; background:#f5f3ec; color:#142434; font:600 13.5px/1.3 Inter,sans-serif; text-decoration:none; }
+  .cg-chips a{ background:#fff; }
   .cg-pills a:hover, .cg-chips a:hover{ background:#f4ecd8; border-color:#c9a050; }
-  .cg-faq details{ background:#fff; border:1px solid #e3dfd3; border-radius:14px; margin:0 0 8px; }
-  .cg-faq summary{ cursor:pointer; padding:15px 18px; font:600 15.5px/1.4 Inter,sans-serif; color:#142434; }
-  .cg-faq details[open] summary{ color:#8a6224; }
-  .cg-faq p{ margin:0; padding:0 18px 16px; font-size:15px; line-height:1.7; color:#2b3a4c; }
-  .cg-chips{ display:flex; flex-wrap:wrap; gap:8px; }
-  .cg-small{ margin:6px 0 0; font-size:12.5px; line-height:1.6; color:#586170; }
+  .cg-small{ margin:0; font-size:12.5px; line-height:1.6; color:#586170; }
   .cg-small a{ color:#8a6224; }
-  @media(max-width:759px){
-    .cg-lede{ font-size:16px; line-height:1.55; }
-    .cg-card, .cg-note{ padding:18px 18px 10px; }
-    .cg-card h2, .cg-note h2, .cg-where > h2, .cg-faq > h2, .cg-more > h2{ font-size:19.5px; margin-bottom:12px; }
-    .cg-list li{ margin-bottom:9px; padding-left:28px; font-size:15px; line-height:1.5; }
-    .cg-body{ gap:14px; }
-    .cg-row{ gap:14px; }
-  }
   @media(min-width:760px){
-    .cg-hero{ padding:34px 32px 44px; }
-    .cg-body{ padding:34px 32px 72px; gap:22px; }
-    .cg-row{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
-    .cg-card{ padding:26px 28px 20px; }
-    .cg-provs{ padding:4px 28px; }
+    .cg-meta li + li::before{ content:'\00b7'; margin-right:16px; color:#8a919b; }
+    .cg-top{ padding-top:34px; }
+    .cg-feature img{ aspect-ratio:2 / 1; }
+    .cg-layout{ padding-top:40px; }
     .cg-prov{ grid-template-columns:minmax(0,290px) minmax(0,1fr); gap:28px; align-items:center; }
+    .cg-provs{ padding:4px 28px; }
+  }
+  @media(min-width:1000px){
+    .cg-layout{ grid-template-columns:minmax(0,700px) 300px; justify-content:space-between; gap:56px; padding:46px 32px 10px; }
+    .cg-wrap, .cg-after{ padding-left:32px; padding-right:32px; }
+    .cg-side{ display:grid; gap:16px; align-content:start; position:sticky; top:84px; align-self:start; }
   }
 </style>
 <link rel="stylesheet" href="desktop.css">
@@ -270,30 +286,39 @@
 
 
 
-<header class="cg-hero">
-  <div class="cg-in">
+<header class="cg-top">
+  <div class="cg-wrap">
     <div class="cg-crumb"><a href="/">Home</a> &rsaquo; <a href="/find-lawyers">Find a lawyer</a> &rsaquo; Real Estate Lawyers</div>
     <p class="cg-eyebrow">Case guide</p>
     <h1>Real Estate Lawyers in Canada</h1>
-    <p class="cg-lede">A real estate lawyer handles the legal work of buying, selling or refinancing property. They review the agreement, search the title to confirm who owns the property and what claims are registered against it, prepare the closing documents, move the funds and register the transfer. They also act in property disputes, such as boundary and condominium conflicts.</p>
-    <div class="cg-cta"><a class="cg-btn" href="/find-lawyers?case=realestate">Find a real estate lawyer</a><a class="cg-jump" href="#where">Browse by province and city &darr;</a></div>
-    <p class="cg-updated">Last updated October 22, 2026. General information, not legal advice.</p>
+    <ul class="cg-meta"><li>Updated October 22, 2026</li><li>2 min read</li><li>General information, not legal advice</li></ul>
   </div>
 </header>
-<main class="cg-body">
-  <div class="cg-row">
-    <section class="cg-card"><h2>When to speak to a real estate lawyer</h2><ul class="cg-list"><li>You are about to sign an agreement of purchase and sale, or have just accepted one with conditions.</li><li>You are selling a home and need the sale closed correctly.</li><li>You are refinancing, taking out a mortgage, or adding or removing someone from the title.</li><li>You are buying a condominium and want the documents reviewed.</li><li>A neighbour, builder, seller or buyer is in a dispute with you about the property.</li></ul></section>
-    <section class="cg-card"><h2>What a real estate lawyer does</h2><ul class="cg-list"><li>Reviews the purchase or sale agreement and explains its conditions.</li><li>Searches the title and checks for liens, easements and other registered interests.</li><li>Prepares and registers the transfer and mortgage documents.</li><li>Holds and moves the funds on closing day and reports the adjustments.</li><li>Advises on title insurance and on problems that turn up before closing.</li></ul></section>
-  </div>
-  <div class="cg-row">
-    <section class="cg-note"><h2>How the rules differ across Canada</h2><p>Property law is provincial, and the process differs. In Quebec, home purchases are normally completed by a notary, so LawDB&#x27;s Quebec pages cover property disputes handled by lawyers. In other provinces lawyers usually handle closings, and in some provinces notaries do this work too. Land title and registration systems, and the taxes and fees on a transfer, also vary by province.</p></section>
-    <section class="cg-card"><h2>Questions to ask before you hire a real estate lawyer</h2><ol class="cg-list"><li>Will you review the agreement before I sign, and what will you check?</li><li>What is your fee, and which costs, such as title insurance, searches and registration, are extra?</li><li>Who at your firm will handle my file and answer my questions?</li><li>What happens if a problem appears with the title before closing?</li></ol></section>
-  </div>
+<div class="cg-layout">
+  <article class="cg-article">
+    
+    <p class="cg-lede">A real estate lawyer handles the legal work of buying, selling or refinancing property. They review the agreement, search the title to confirm who owns the property and what claims are registered against it, prepare the closing documents, move the funds and register the transfer. They also act in property disputes, such as boundary and condominium conflicts.</p>
+    <div class="cg-cta"><a class="cg-btn" href="/find-lawyers?case=realestate">Find a real estate lawyer</a><a class="cg-jump" href="#where">Browse by province and city &darr;</a></div>
+    <h2 id="when">When to speak to a real estate lawyer</h2>
+    <ul class="cg-list"><li>You are about to sign an agreement of purchase and sale, or have just accepted one with conditions.</li><li>You are selling a home and need the sale closed correctly.</li><li>You are refinancing, taking out a mortgage, or adding or removing someone from the title.</li><li>You are buying a condominium and want the documents reviewed.</li><li>A neighbour, builder, seller or buyer is in a dispute with you about the property.</li></ul>
+    <h2 id="does">What a real estate lawyer does</h2>
+    <ul class="cg-list"><li>Reviews the purchase or sale agreement and explains its conditions.</li><li>Searches the title and checks for liens, easements and other registered interests.</li><li>Prepares and registers the transfer and mortgage documents.</li><li>Holds and moves the funds on closing day and reports the adjustments.</li><li>Advises on title insurance and on problems that turn up before closing.</li></ul>
+    
+    <section class="cg-note" id="rules"><h2>How the rules differ across Canada</h2><p>Property law is provincial, and the process differs. In Quebec, home purchases are normally completed by a notary, so LawDB&#x27;s Quebec pages cover property disputes handled by lawyers. In other provinces lawyers usually handle closings, and in some provinces notaries do this work too. Land title and registration systems, and the taxes and fees on a transfer, also vary by province.</p></section>
+    <h2 id="ask">Questions to ask before you hire a real estate lawyer</h2>
+    <ol class="cg-list"><li>Will you review the agreement before I sign, and what will you check?</li><li>What is your fee, and which costs, such as title insurance, searches and registration, are extra?</li><li>Who at your firm will handle my file and answer my questions?</li><li>What happens if a problem appears with the title before closing?</li></ol>
+    <section class="cg-faq" id="faq"><h2>Frequently asked questions</h2><details><summary>Do I need a lawyer to buy a house in Canada?</summary><p>In most provinces a lawyer, or in some places a notary, is involved at closing because the transfer and the mortgage must be properly registered. Even where it is not strictly required, many buyers have a lawyer review the agreement before they sign.</p></details><details><summary>When should I contact a real estate lawyer?</summary><p>Ideally before you sign. The agreement of purchase and sale sets out your obligations, and it is easier to fix a problem before you are bound by it.</p></details><details><summary>What is title insurance?</summary><p>A policy, usually paid for once at closing, that protects owners and lenders against certain problems with the title, such as fraud or registration errors. Your lawyer can explain what a policy covers and what it does not.</p></details><details><summary>How do I find a real estate lawyer near me?</summary><p>Choose your province or city on this page to see the real estate firms LawDB lists there, with their public Google ratings, addresses and phone numbers.</p></details></section>
+  </article>
+  <aside class="cg-side" aria-label="About this guide">
+    <div class="cg-card"><h2>Find a real estate lawyer</h2><p>Search by city and see public Google ratings. Firms cannot pay to change them.</p><a class="cg-btn" href="/find-lawyers?case=realestate">Start your search</a></div>
+    <div class="cg-card"><h2>In this guide</h2><ul class="cg-toc"><li><a href="#when">When to speak to a real estate lawyer</a></li><li><a href="#does">What a real estate lawyer does</a></li><li><a href="#rules">How the rules differ across Canada</a></li><li><a href="#ask">Questions to ask before you hire a real estate lawyer</a></li><li><a href="#faq">Frequently asked questions</a></li><li><a href="#where">Real Estate lawyers by province and city</a></li></ul></div>
+  </aside>
+</div>
+<div class="cg-after">
   <section class="cg-where" id="where"><h2>Real Estate lawyers by province and city</h2><p>Pick a province for every firm we list there, or a city to go straight to its lawyers.</p><div class="cg-provs"><div class="cg-prov"><h3><a href="/ontario/real-estate-lawyers">Real Estate Lawyers in Ontario (Buying or Selling a Home)</a></h3><div class="cg-pills"><a href="/ontario/barrie/real-estate-lawyers" title="Real Estate Lawyers in Barrie, Ontario">Barrie</a><a href="/ontario/brampton/real-estate-lawyers" title="Real Estate Lawyers in Brampton, Ontario">Brampton</a><a href="/ontario/etobicoke/real-estate-lawyers" title="Real Estate Lawyers in Etobicoke, Ontario">Etobicoke</a><a href="/ontario/greater-sudbury/real-estate-lawyers" title="Real Estate Lawyers in Greater Sudbury, Ontario">Greater Sudbury</a><a href="/ontario/guelph/real-estate-lawyers" title="Real Estate Lawyers in Guelph, Ontario">Guelph</a><a href="/ontario/kingston/real-estate-lawyers" title="Real Estate Lawyers in Kingston, Ontario">Kingston</a><a href="/ontario/kitchener/real-estate-lawyers" title="Real Estate Lawyers in Kitchener, Ontario">Kitchener</a><a href="/ontario/london/real-estate-lawyers" title="Real Estate Lawyers in London, Ontario">London</a><a href="/ontario/markham/real-estate-lawyers" title="Real Estate Lawyers in Markham, Ontario">Markham</a><a href="/ontario/mississauga/real-estate-lawyers" title="Real Estate Lawyers in Mississauga, Ontario">Mississauga</a><a href="/ontario/niagara-falls/real-estate-lawyers" title="Real Estate Lawyers in Niagara Falls, Ontario">Niagara Falls</a><a href="/ontario/north-york/real-estate-lawyers" title="Real Estate Lawyers in North York, Ontario">North York</a><a href="/ontario/oakville/real-estate-lawyers" title="Real Estate Lawyers in Oakville, Ontario">Oakville</a><a href="/ontario/ottawa/real-estate-lawyers" title="Real Estate Lawyers in Ottawa, Ontario">Ottawa</a><a href="/ontario/peterborough/real-estate-lawyers" title="Real Estate Lawyers in Peterborough, Ontario">Peterborough</a><a href="/ontario/richmond-hill/real-estate-lawyers" title="Real Estate Lawyers in Richmond Hill, Ontario">Richmond Hill</a><a href="/ontario/sarnia/real-estate-lawyers" title="Real Estate Lawyers in Sarnia, Ontario">Sarnia</a><a href="/ontario/sault-ste-marie/real-estate-lawyers" title="Real Estate Lawyers in Sault Ste. Marie, Ontario">Sault Ste. Marie</a><a href="/ontario/st-catharines/real-estate-lawyers" title="Real Estate Lawyers in St. Catharines, Ontario">St. Catharines</a><a href="/ontario/thunder-bay/real-estate-lawyers" title="Real Estate Lawyers in Thunder Bay, Ontario">Thunder Bay</a><a href="/ontario/timmins/real-estate-lawyers" title="Real Estate Lawyers in Timmins, Ontario">Timmins</a><a href="/ontario/toronto/real-estate-lawyers" title="Real Estate Lawyers in Toronto, Ontario">Toronto</a><a href="/ontario/windsor/real-estate-lawyers" title="Real Estate Lawyers in Windsor, Ontario">Windsor</a></div></div><div class="cg-prov"><h3><a href="/quebec/real-estate-lawyers">Property Disputes in Quebec</a></h3></div><div class="cg-prov"><h3><a href="/british-columbia/real-estate-lawyers">Real Estate Lawyers in British Columbia</a></h3><div class="cg-pills"><a href="/british-columbia/burnaby/real-estate-lawyers" title="Real Estate Lawyers in Burnaby, British Columbia">Burnaby</a><a href="/british-columbia/kelowna/real-estate-lawyers" title="Real Estate Lawyers in Kelowna, British Columbia">Kelowna</a><a href="/british-columbia/richmond/real-estate-lawyers" title="Real Estate Lawyers in Richmond, British Columbia">Richmond</a><a href="/british-columbia/surrey/real-estate-lawyers" title="Real Estate Lawyers in Surrey, British Columbia">Surrey</a><a href="/british-columbia/vancouver/real-estate-lawyers" title="Real Estate Lawyers in Vancouver, British Columbia">Vancouver</a></div></div><div class="cg-prov"><h3><a href="/alberta/real-estate-lawyers">Real Estate Lawyers in Alberta</a></h3><div class="cg-pills"><a href="/alberta/calgary/real-estate-lawyers" title="Real Estate Lawyers in Calgary, Alberta">Calgary</a><a href="/alberta/edmonton/real-estate-lawyers" title="Real Estate Lawyers in Edmonton, Alberta">Edmonton</a></div></div><div class="cg-prov"><h3><a href="/manitoba/real-estate-lawyers">Real Estate Lawyers in Manitoba</a></h3><div class="cg-pills"><a href="/manitoba/brandon/real-estate-lawyers" title="Real Estate Lawyers in Brandon, Manitoba">Brandon</a><a href="/manitoba/winnipeg/real-estate-lawyers" title="Real Estate Lawyers in Winnipeg, Manitoba">Winnipeg</a></div></div></div></section>
-  <section class="cg-faq"><h2>Frequently asked questions</h2><details><summary>Do I need a lawyer to buy a house in Canada?</summary><p>In most provinces a lawyer, or in some places a notary, is involved at closing because the transfer and the mortgage must be properly registered. Even where it is not strictly required, many buyers have a lawyer review the agreement before they sign.</p></details><details><summary>When should I contact a real estate lawyer?</summary><p>Ideally before you sign. The agreement of purchase and sale sets out your obligations, and it is easier to fix a problem before you are bound by it.</p></details><details><summary>What is title insurance?</summary><p>A policy, usually paid for once at closing, that protects owners and lenders against certain problems with the title, such as fraud or registration errors. Your lawyer can explain what a policy covers and what it does not.</p></details><details><summary>How do I find a real estate lawyer near me?</summary><p>Choose your province or city on this page to see the real estate firms LawDB lists there, with their public Google ratings, addresses and phone numbers.</p></details></section>
   <section class="cg-more"><h2>Other practice areas</h2><div class="cg-chips"><a href="/family-lawyers">Family Law &amp; Divorce</a><a href="/criminal-defence-lawyers">Criminal Defence</a><a href="/personal-injury-lawyers">Personal Injury</a><a href="/traffic-ticket-lawyers">Traffic Tickets</a><a href="/wills-estate-lawyers">Wills &amp; Estates</a><a href="/business-lawyers">Business &amp; Corporate</a><a href="/employment-lawyers">Employment</a><a href="/immigration-lawyers">Immigration</a><a href="/litigation-lawyers">Civil Litigation</a></div></section>
   <p class="cg-small">This page is general information about legal topics in Canada, not legal advice. Laws change and differ by province, so speak to a licensed lawyer about your situation. LawDB is an independent directory: ratings shown are public Google ratings, and a firm cannot pay to change them. <a href="/find-lawyers">Search by city or case type</a>.</p>
-</main>
+</div>
   <footer class="site-footer">
   <div class="foot-grid">
     <div>

@@ -34,11 +34,41 @@
         "What should I do, and not do, before we speak again?"
       ],
       "faqs": [
-        { "q": "Do I need a lawyer to get a divorce in Canada?", "a": "You are not required to hire one, and some people complete an uncontested divorce themselves. A lawyer is worth considering when there are children, property, pensions or a business involved, or when you and your spouse disagree, because agreements you sign can be hard to change later." },
-        { "q": "What is the difference between mediation and going to court?", "a": "In mediation a neutral person helps the two of you reach an agreement that you control. In court a judge decides if you cannot agree. Many lawyers try to settle first because it is usually faster and less adversarial, and court remains available if it is needed." },
-        { "q": "Can a support or parenting order be changed later?", "a": "Often yes, when circumstances have changed in a meaningful way, such as a change in income or in a child's needs. A lawyer can tell you whether your situation meets the test that applies in your province or under the Divorce Act." },
-        { "q": "How do I find a family lawyer near me?", "a": "Choose your province or city on this page to see the family law firms LawDB lists there, with their public Google ratings, addresses and phone numbers." }
-      ]
+        {
+          "q": "Do I need a lawyer to get a divorce in Canada?",
+          "a": "You are not required to hire one, and some people complete an uncontested divorce themselves. A lawyer is worth considering when there are children, property, pensions or a business involved, or when you and your spouse disagree, because agreements you sign can be hard to change later."
+        },
+        {
+          "q": "What is the difference between mediation and going to court?",
+          "a": "In mediation a neutral person helps the two of you reach an agreement that you control. In court a judge decides if you cannot agree. Many lawyers try to settle first because it is usually faster and less adversarial, and court remains available if it is needed."
+        },
+        {
+          "q": "Can a support or parenting order be changed later?",
+          "a": "Often yes, when circumstances have changed in a meaningful way, such as a change in income or in a child's needs. A lawyer can tell you whether your situation meets the test that applies in your province or under the Divorce Act."
+        },
+        {
+          "q": "How do I find a family lawyer near me?",
+          "a": "Choose your province or city on this page to see the family law firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
+        }
+      ],
+      "photos": {
+        "hero": {
+          "src": "/images/guides/family-lawyer-family-silhouette-sunset-1000.webp",
+          "small": "/images/guides/family-lawyer-family-silhouette-sunset-640.webp",
+          "w": 1000,
+          "h": 666,
+          "alt": "A family of four holding hands in silhouette against an orange sunset by the sea"
+        },
+        "side": {
+          "src": "/images/guides/law-library-books-and-busts-1000.webp",
+          "small": "/images/guides/law-library-books-and-busts-640.webp",
+          "w": 1000,
+          "h": 667,
+          "alt": "Shelves of old leather-bound law books beside a row of marble busts in a long library",
+          "caption": "The rules behind a family law case come from federal and provincial law, and they differ from one province to the next."
+        },
+        "credit": "Supplied by the site owner as free-to-use photos. Confirm the source and licence (Unsplash, Pexels or Pixabay all allow commercial use) before this goes live."
+      }
     },
     "criminal": {
       "slug": "criminal-defence-lawyers",
@@ -72,10 +102,22 @@
         "How are fees set, and what is included if the case goes to trial?"
       ],
       "faqs": [
-        { "q": "Do I have to speak to police if I am arrested?", "a": "You have the right to speak to a lawyer without delay when you are arrested or detained, and you have the right to remain silent. Many people choose to say little until they have spoken to a lawyer. This page is general information, not advice about your situation." },
-        { "q": "Can I get legal help if I cannot afford a lawyer?", "a": "In many cases, yes. Duty counsel are usually available at court, and each province runs a legal aid program with its own eligibility rules. Ask the court or your provincial legal aid office what is available to you." },
-        { "q": "Will a conviction show up on a background check?", "a": "It can. What appears depends on the type of check and on whether a record has been suspended, and the options differ depending on the offence. A lawyer can explain how this applies to you." },
-        { "q": "How do I find a criminal defence lawyer near me?", "a": "Choose your province or city on this page to see the criminal defence firms LawDB lists there, with their public Google ratings, addresses and phone numbers." }
+        {
+          "q": "Do I have to speak to police if I am arrested?",
+          "a": "You have the right to speak to a lawyer without delay when you are arrested or detained, and you have the right to remain silent. Many people choose to say little until they have spoken to a lawyer. This page is general information, not advice about your situation."
+        },
+        {
+          "q": "Can I get legal help if I cannot afford a lawyer?",
+          "a": "In many cases, yes. Duty counsel are usually available at court, and each province runs a legal aid program with its own eligibility rules. Ask the court or your provincial legal aid office what is available to you."
+        },
+        {
+          "q": "Will a conviction show up on a background check?",
+          "a": "It can. What appears depends on the type of check and on whether a record has been suspended, and the options differ depending on the offence. A lawyer can explain how this applies to you."
+        },
+        {
+          "q": "How do I find a criminal defence lawyer near me?",
+          "a": "Choose your province or city on this page to see the criminal defence firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
+        }
       ]
     },
     "injury": {
@@ -110,10 +152,22 @@
         "What do you need from me, and what should I avoid saying to the other side's insurer?"
       ],
       "faqs": [
-        { "q": "How much is my injury claim worth?", "a": "It depends on the injuries, your recovery, lost income and the rules that apply in your province, so no website can tell you. A lawyer can assess your case once they have seen your medical records and the circumstances of the accident." },
-        { "q": "Should I accept the insurer's first offer?", "a": "Not before you understand what it covers. Early offers may not account for future treatment or lost earning capacity, and signing a release usually ends the claim. Consider getting advice first." },
-        { "q": "What does a contingency fee mean?", "a": "The lawyer is paid a share of the amount recovered instead of hourly fees, on the terms set out in a written agreement. Rules about these agreements differ by province, so ask what you would owe in each possible outcome." },
-        { "q": "How do I find a personal injury lawyer near me?", "a": "Choose your province or city on this page to see the personal injury firms LawDB lists there, with their public Google ratings, addresses and phone numbers." }
+        {
+          "q": "How much is my injury claim worth?",
+          "a": "It depends on the injuries, your recovery, lost income and the rules that apply in your province, so no website can tell you. A lawyer can assess your case once they have seen your medical records and the circumstances of the accident."
+        },
+        {
+          "q": "Should I accept the insurer's first offer?",
+          "a": "Not before you understand what it covers. Early offers may not account for future treatment or lost earning capacity, and signing a release usually ends the claim. Consider getting advice first."
+        },
+        {
+          "q": "What does a contingency fee mean?",
+          "a": "The lawyer is paid a share of the amount recovered instead of hourly fees, on the terms set out in a written agreement. Rules about these agreements differ by province, so ask what you would owe in each possible outcome."
+        },
+        {
+          "q": "How do I find a personal injury lawyer near me?",
+          "a": "Choose your province or city on this page to see the personal injury firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
+        }
       ]
     },
     "traffic": {
@@ -148,10 +202,22 @@
         "How will a conviction, or a reduced charge, affect my licence and insurance?"
       ],
       "faqs": [
-        { "q": "Should I pay my ticket or fight it?", "a": "Paying usually counts as a guilty plea, which can bring demerit points and a possible insurance increase. Disputing the ticket keeps your options open. A lawyer can tell you whether it is worth contesting in your situation." },
-        { "q": "What happens if I ignore a traffic ticket?", "a": "In most provinces an unanswered ticket results in a conviction by default and can lead to a licence suspension or further penalties. Check the response instructions on your ticket, and get advice before any deadline passes." },
-        { "q": "Are stunt driving and careless driving serious tickets?", "a": "They are more serious than a standard speeding ticket and can carry heavier penalties, including licence suspensions in some provinces. If you are charged with one, speak to a lawyer quickly." },
-        { "q": "How do I find a traffic ticket lawyer near me?", "a": "Choose your province or city on this page to see the traffic ticket firms LawDB lists there, with their public Google ratings, addresses and phone numbers." }
+        {
+          "q": "Should I pay my ticket or fight it?",
+          "a": "Paying usually counts as a guilty plea, which can bring demerit points and a possible insurance increase. Disputing the ticket keeps your options open. A lawyer can tell you whether it is worth contesting in your situation."
+        },
+        {
+          "q": "What happens if I ignore a traffic ticket?",
+          "a": "In most provinces an unanswered ticket results in a conviction by default and can lead to a licence suspension or further penalties. Check the response instructions on your ticket, and get advice before any deadline passes."
+        },
+        {
+          "q": "Are stunt driving and careless driving serious tickets?",
+          "a": "They are more serious than a standard speeding ticket and can carry heavier penalties, including licence suspensions in some provinces. If you are charged with one, speak to a lawyer quickly."
+        },
+        {
+          "q": "How do I find a traffic ticket lawyer near me?",
+          "a": "Choose your province or city on this page to see the traffic ticket firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
+        }
       ]
     },
     "realestate": {
@@ -186,10 +252,22 @@
         "What happens if a problem appears with the title before closing?"
       ],
       "faqs": [
-        { "q": "Do I need a lawyer to buy a house in Canada?", "a": "In most provinces a lawyer, or in some places a notary, is involved at closing because the transfer and the mortgage must be properly registered. Even where it is not strictly required, many buyers have a lawyer review the agreement before they sign." },
-        { "q": "When should I contact a real estate lawyer?", "a": "Ideally before you sign. The agreement of purchase and sale sets out your obligations, and it is easier to fix a problem before you are bound by it." },
-        { "q": "What is title insurance?", "a": "A policy, usually paid for once at closing, that protects owners and lenders against certain problems with the title, such as fraud or registration errors. Your lawyer can explain what a policy covers and what it does not." },
-        { "q": "How do I find a real estate lawyer near me?", "a": "Choose your province or city on this page to see the real estate firms LawDB lists there, with their public Google ratings, addresses and phone numbers." }
+        {
+          "q": "Do I need a lawyer to buy a house in Canada?",
+          "a": "In most provinces a lawyer, or in some places a notary, is involved at closing because the transfer and the mortgage must be properly registered. Even where it is not strictly required, many buyers have a lawyer review the agreement before they sign."
+        },
+        {
+          "q": "When should I contact a real estate lawyer?",
+          "a": "Ideally before you sign. The agreement of purchase and sale sets out your obligations, and it is easier to fix a problem before you are bound by it."
+        },
+        {
+          "q": "What is title insurance?",
+          "a": "A policy, usually paid for once at closing, that protects owners and lenders against certain problems with the title, such as fraud or registration errors. Your lawyer can explain what a policy covers and what it does not."
+        },
+        {
+          "q": "How do I find a real estate lawyer near me?",
+          "a": "Choose your province or city on this page to see the real estate firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
+        }
       ]
     },
     "wills": {
@@ -224,10 +302,22 @@
         "Where will the originals be stored?"
       ],
       "faqs": [
-        { "q": "Is a will the same as a power of attorney?", "a": "No. A will takes effect after you die and says who inherits and who administers your estate. A power of attorney lets someone you choose manage your finances while you are alive but unable to act, and health decisions are usually covered by a separate document." },
-        { "q": "What happens if someone dies without a will?", "a": "Provincial law decides who inherits, and a court appoints an administrator. The result may not match what the person would have wanted, and it can be slower and more costly for the family." },
-        { "q": "Do I need a lawyer to make a will?", "a": "Not always, but a lawyer can make sure the will meets your province's formal requirements and avoid mistakes that cause disputes later, which matters when your situation is more than simple." },
-        { "q": "How do I find a wills and estates lawyer near me?", "a": "Choose your province or city on this page to see the wills and estates firms LawDB lists there, with their public Google ratings, addresses and phone numbers." }
+        {
+          "q": "Is a will the same as a power of attorney?",
+          "a": "No. A will takes effect after you die and says who inherits and who administers your estate. A power of attorney lets someone you choose manage your finances while you are alive but unable to act, and health decisions are usually covered by a separate document."
+        },
+        {
+          "q": "What happens if someone dies without a will?",
+          "a": "Provincial law decides who inherits, and a court appoints an administrator. The result may not match what the person would have wanted, and it can be slower and more costly for the family."
+        },
+        {
+          "q": "Do I need a lawyer to make a will?",
+          "a": "Not always, but a lawyer can make sure the will meets your province's formal requirements and avoid mistakes that cause disputes later, which matters when your situation is more than simple."
+        },
+        {
+          "q": "How do I find a wills and estates lawyer near me?",
+          "a": "Choose your province or city on this page to see the wills and estates firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
+        }
       ]
     },
     "business": {
@@ -262,10 +352,22 @@
         "Can you coordinate with my accountant?"
       ],
       "faqs": [
-        { "q": "Do I need a lawyer to incorporate a business?", "a": "It is not required, and online filing services exist. A lawyer adds the most value when there are several owners, investors or intellectual property, because the share structure and the shareholder agreement are hard to fix later." },
-        { "q": "What is a shareholder agreement?", "a": "A contract between a company's owners that sets out how decisions are made, what happens if someone wants to leave, and how disputes are resolved. It is most useful when it is written before a disagreement, not after." },
-        { "q": "Should I incorporate federally or in my province?", "a": "It depends on where you plan to operate and what name protection you need. A business lawyer or accountant can explain the trade-offs for your plans." },
-        { "q": "How do I find a business lawyer near me?", "a": "Choose your province or city on this page to see the business and corporate firms LawDB lists there, with their public Google ratings, addresses and phone numbers." }
+        {
+          "q": "Do I need a lawyer to incorporate a business?",
+          "a": "It is not required, and online filing services exist. A lawyer adds the most value when there are several owners, investors or intellectual property, because the share structure and the shareholder agreement are hard to fix later."
+        },
+        {
+          "q": "What is a shareholder agreement?",
+          "a": "A contract between a company's owners that sets out how decisions are made, what happens if someone wants to leave, and how disputes are resolved. It is most useful when it is written before a disagreement, not after."
+        },
+        {
+          "q": "Should I incorporate federally or in my province?",
+          "a": "It depends on where you plan to operate and what name protection you need. A business lawyer or accountant can explain the trade-offs for your plans."
+        },
+        {
+          "q": "How do I find a business lawyer near me?",
+          "a": "Choose your province or city on this page to see the business and corporate firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
+        }
       ]
     },
     "employment": {
@@ -300,10 +402,22 @@
         "What is a realistic outcome, and how long might it take?"
       ],
       "faqs": [
-        { "q": "Do I have to sign the severance package I was offered?", "a": "No. You can ask for time to review it, and it may be possible to negotiate. Signing usually releases the employer from further claims, so many people get advice first." },
-        { "q": "What is wrongful dismissal?", "a": "A dismissal without just cause, or without the notice or pay in lieu that the law or your contract requires. Whether it applies depends on your province, your contract and your role and length of service." },
-        { "q": "Can an employer fire me without cause?", "a": "Generally yes, but they must give the notice or pay in lieu that the law and your contract require, and they cannot end your employment for reasons that breach human rights or other protections." },
-        { "q": "How do I find an employment lawyer near me?", "a": "Choose your province or city on this page to see the employment firms LawDB lists there, with their public Google ratings, addresses and phone numbers." }
+        {
+          "q": "Do I have to sign the severance package I was offered?",
+          "a": "No. You can ask for time to review it, and it may be possible to negotiate. Signing usually releases the employer from further claims, so many people get advice first."
+        },
+        {
+          "q": "What is wrongful dismissal?",
+          "a": "A dismissal without just cause, or without the notice or pay in lieu that the law or your contract requires. Whether it applies depends on your province, your contract and your role and length of service."
+        },
+        {
+          "q": "Can an employer fire me without cause?",
+          "a": "Generally yes, but they must give the notice or pay in lieu that the law and your contract require, and they cannot end your employment for reasons that breach human rights or other protections."
+        },
+        {
+          "q": "How do I find an employment lawyer near me?",
+          "a": "Choose your province or city on this page to see the employment firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
+        }
       ]
     },
     "immigration": {
@@ -338,10 +452,22 @@
         "How will we communicate, and who will prepare my documents?"
       ],
       "faqs": [
-        { "q": "Do I need a lawyer to apply for immigration to Canada?", "a": "No, you may apply yourself. A lawyer or another authorized representative can help when your case is complex, when you have had a refusal, or when you want help making sure the application is complete, because mistakes can cause delays or refusals." },
-        { "q": "What is the difference between a lawyer and an immigration consultant?", "a": "Both can be authorized to advise on and represent immigration applications. Lawyers are regulated by provincial and territorial law societies and can also act in court, while regulated immigration consultants are licensed by the College of Immigration and Citizenship Consultants." },
-        { "q": "What can I do if my application is refused?", "a": "Depending on the program there may be a review, an appeal or the option to apply again with a stronger application. Time limits can be short, so get advice quickly." },
-        { "q": "How do I find an immigration lawyer near me?", "a": "Choose your province or city on this page to see the immigration firms LawDB lists there, with their public Google ratings, addresses and phone numbers." }
+        {
+          "q": "Do I need a lawyer to apply for immigration to Canada?",
+          "a": "No, you may apply yourself. A lawyer or another authorized representative can help when your case is complex, when you have had a refusal, or when you want help making sure the application is complete, because mistakes can cause delays or refusals."
+        },
+        {
+          "q": "What is the difference between a lawyer and an immigration consultant?",
+          "a": "Both can be authorized to advise on and represent immigration applications. Lawyers are regulated by provincial and territorial law societies and can also act in court, while regulated immigration consultants are licensed by the College of Immigration and Citizenship Consultants."
+        },
+        {
+          "q": "What can I do if my application is refused?",
+          "a": "Depending on the program there may be a review, an appeal or the option to apply again with a stronger application. Time limits can be short, so get advice quickly."
+        },
+        {
+          "q": "How do I find an immigration lawyer near me?",
+          "a": "Choose your province or city on this page to see the immigration firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
+        }
       ]
     },
     "litigation": {
@@ -376,10 +502,22 @@
         "Who will handle my file day to day?"
       ],
       "faqs": [
-        { "q": "What is the difference between small claims court and a lawsuit in superior court?", "a": "Small claims court handles disputes up to a limit set by each province, with simpler procedures and lower costs, and people often represent themselves. Larger or more complex claims go to the province's superior court, where a lawyer is usually needed." },
-        { "q": "How long do I have to start a lawsuit?", "a": "Each province sets time limits, called limitation periods, for different kinds of claims, and missing one can end your right to sue. Because the rules vary, get advice as soon as a dispute starts." },
-        { "q": "Is it worth suing?", "a": "It depends on the strength of the evidence, the amount involved, the other side's ability to pay and the cost of getting to a result. A lawyer can give you a realistic assessment before you commit." },
-        { "q": "How do I find a civil litigation lawyer near me?", "a": "Choose your province or city on this page to see the litigation firms LawDB lists there, with their public Google ratings, addresses and phone numbers." }
+        {
+          "q": "What is the difference between small claims court and a lawsuit in superior court?",
+          "a": "Small claims court handles disputes up to a limit set by each province, with simpler procedures and lower costs, and people often represent themselves. Larger or more complex claims go to the province's superior court, where a lawyer is usually needed."
+        },
+        {
+          "q": "How long do I have to start a lawsuit?",
+          "a": "Each province sets time limits, called limitation periods, for different kinds of claims, and missing one can end your right to sue. Because the rules vary, get advice as soon as a dispute starts."
+        },
+        {
+          "q": "Is it worth suing?",
+          "a": "It depends on the strength of the evidence, the amount involved, the other side's ability to pay and the cost of getting to a result. A lawyer can give you a realistic assessment before you commit."
+        },
+        {
+          "q": "How do I find a civil litigation lawyer near me?",
+          "a": "Choose your province or city on this page to see the litigation firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
+        }
       ]
     }
   }

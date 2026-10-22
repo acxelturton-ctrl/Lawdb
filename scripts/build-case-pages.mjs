@@ -54,8 +54,8 @@ const EXTRA_CSS = `<style>
   .cg-eyebrow{ margin:0 0 10px; font:600 12px/1.6 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#8a6224; }
   .cg-top h1{ margin:0 0 14px; font:700 clamp(32px,6.6vw,54px)/1.08 'Source Serif 4',serif; letter-spacing:-.01em; color:#142434; max-width:17em; text-wrap:balance; }
   .cg-meta{ display:flex; flex-wrap:wrap; gap:4px 16px; margin:0; padding:0; list-style:none; font:500 13.5px/1.5 Inter,sans-serif; color:#586170; }
-  .cg-feature{ margin:24px 0 0; }
-  .cg-feature img{ display:block; width:100%; height:auto; aspect-ratio:4 / 3; object-fit:cover; object-position:50% 60%; border-radius:22px; }
+  .cg-feature{ margin:0 0 24px; }
+  .cg-feature img{ display:block; width:100%; height:auto; aspect-ratio:16 / 9; object-fit:cover; object-position:50% 62%; border-radius:18px; }
   .cg-layout{ max-width:1100px; margin:0 auto; padding:30px 20px 10px; display:grid; grid-template-columns:minmax(0,1fr); gap:30px; }
   .cg-article{ font-size:17px; line-height:1.75; color:#2b3a4c; min-width:0; }
   .cg-lede{ margin:0 0 22px; font:400 clamp(19px,2.4vw,22px)/1.6 'Source Serif 4',serif; color:#142434; }
@@ -76,8 +76,8 @@ const EXTRA_CSS = `<style>
   .cg-note h2{ margin:0 0 10px; font-size:22px; }
   .cg-note h2::before{ display:none; }
   .cg-note p{ margin:0; }
-  .cg-figure{ margin:36px 0 0; }
-  .cg-figure img{ display:block; width:100%; height:auto; border-radius:20px; }
+  .cg-figure{ margin:34px 0 0; max-width:520px; }
+  .cg-figure img{ display:block; width:100%; height:auto; aspect-ratio:16 / 10; object-fit:cover; border-radius:18px; }
   .cg-figure figcaption{ margin:10px 4px 0; font-size:13.5px; line-height:1.55; color:#586170; }
   .cg-faq details{ background:#fff; border:1px solid #e3dfd3; border-radius:14px; margin:0 0 8px; }
   .cg-faq summary{ cursor:pointer; padding:15px 18px; font:600 15.5px/1.45 Inter,sans-serif; color:#142434; }
@@ -154,8 +154,8 @@ function pageHtml([id, t]) {
 
   // optional photos (only the guides whose data has them): a featured photo under the headline and one inside the article
   const img = (p, attrs) => `<img src="${p.src}" srcset="${p.small} 640w, ${p.src} ${p.w}w" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" ${attrs} decoding="async">`;
-  const feature = t.photos && t.photos.hero ? `<figure class="cg-feature">${img(t.photos.hero, 'sizes="(min-width:1100px) 1036px, 100vw" fetchpriority="high"')}</figure>` : '';
-  const inline = t.photos && t.photos.side ? `<figure class="cg-figure">${img(t.photos.side, 'sizes="(min-width:1000px) 700px, 100vw" loading="lazy"')}${t.photos.side.caption ? `<figcaption>${esc(t.photos.side.caption)}</figcaption>` : ''}</figure>` : '';
+  const feature = t.photos && t.photos.hero ? `<figure class="cg-feature">${img(t.photos.hero, 'sizes="(min-width:1000px) 700px, 100vw" fetchpriority="high"')}</figure>` : '';
+  const inline = t.photos && t.photos.side ? `<figure class="cg-figure">${img(t.photos.side, 'sizes="(min-width:560px) 520px, 100vw" loading="lazy"')}${t.photos.side.caption ? `<figcaption>${esc(t.photos.side.caption)}</figcaption>` : ''}</figure>` : '';
   const words = [t.lede, t.differ, ...t.when, ...t.does, ...t.ask, ...t.faqs.flatMap((f) => [f.q, f.a])].join(' ').split(/\s+/).length;
   const minutes = Math.max(2, Math.round(words / 200));
   const heads = { when: `When to speak to a ${t.noun}`, does: `What a ${t.noun} does`, rules: 'How the rules differ across Canada', ask: `Questions to ask before you hire a ${t.noun}`, faq: 'Frequently asked questions' };
@@ -168,11 +168,11 @@ function pageHtml([id, t]) {
     <p class="cg-eyebrow">Case guide</p>
     <h1>${esc(t.h1)}</h1>
     <ul class="cg-meta"><li>Updated ${longDate(DATA.updated)}</li><li>${minutes} min read</li><li>General information, not legal advice</li></ul>
-    ${feature}
   </div>
 </header>
 <div class="cg-layout">
   <article class="cg-article">
+    ${feature}
     <p class="cg-lede">${esc(t.lede)}</p>
     <div class="cg-cta"><a class="cg-btn" href="/find-lawyers?case=${id}">Find a ${esc(t.noun)}</a><a class="cg-jump" href="#where">Browse by province and city &darr;</a></div>
     <h2 id="when">${esc(heads.when)}</h2>

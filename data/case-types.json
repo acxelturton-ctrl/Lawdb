@@ -67,7 +67,7 @@
           "alt": "Shelves of old leather-bound law books beside a row of marble busts in a long library",
           "caption": "The rules behind a family law case come from federal and provincial law, and they differ from one province to the next."
         },
-        "credit": "Supplied by the site owner as free-to-use photos. Confirm the source and licence (Unsplash, Pexels or Pixabay all allow commercial use) before this goes live."
+        "credit": "Downloaded from Pixabay (confirmed by the site owner, Oct 22 2026). The Pixabay Content Licence allows commercial use without attribution."
       }
     },
     "criminal": {
@@ -136,7 +136,7 @@
           "alt": "A person in handcuffs with their hands clasped, facing a lawyer in a dark suit who is writing notes",
           "caption": "If you are arrested or detained, you have the right to speak to a lawyer without delay."
         },
-        "credit": "Supplied by the site owner as free-to-use photos. Confirm the source and licence (Unsplash, Pexels or Pixabay all allow commercial use) before relying on them."
+        "credit": "Downloaded from Pixabay (confirmed by the site owner, Oct 22 2026). The Pixabay Content Licence allows commercial use without attribution."
       }
     },
     "injury": {
@@ -387,7 +387,34 @@
           "q": "How do I find a business lawyer near me?",
           "a": "Choose your province or city on this page to see the business and corporate firms LawDB lists there, with their public Google ratings, addresses and phone numbers."
         }
-      ]
+      ],
+      "photos": {
+        "hero": {
+          "src": "/images/guides/business-lawyers-meeting-around-a-table-1000.webp",
+          "small": "/images/guides/business-lawyers-meeting-around-a-table-640.webp",
+          "w": 1000,
+          "h": 666,
+          "alt": "Five lawyers in business clothes talking around a meeting table, with an open law book, a laptop and a small statue of Lady Justice in front of them",
+          "pos": "50% 40%"
+        },
+        "side": {
+          "src": "/images/guides/business-lawyer-signing-a-contract-1000.webp",
+          "small": "/images/guides/business-lawyer-signing-a-contract-640.webp",
+          "w": 1000,
+          "h": 666,
+          "alt": "A person in a dark suit signing a form on a wooden desk with a silver pen",
+          "caption": "Contracts, leases and agreements are the paperwork a business lawyer reviews before you sign."
+        },
+        "extra": {
+          "src": "/images/guides/business-lawyer-calculator-and-financial-statement-1000.webp",
+          "small": "/images/guides/business-lawyer-calculator-and-financial-statement-640.webp",
+          "w": 1000,
+          "h": 589,
+          "alt": "A calculator, a pen and a printed financial statement with handwritten notes on a desk",
+          "caption": "Many business decisions involve the numbers as well as the law, so ask whether the lawyer can work with your accountant."
+        },
+        "credit": "Downloaded from Pixabay (confirmed by the site owner, Oct 22 2026). The Pixabay Content Licence allows commercial use without attribution."
+      }
     },
     "employment": {
       "slug": "employment-lawyers",

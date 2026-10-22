@@ -144,13 +144,8 @@
   .rg-card small{ display:block; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--brass-deep); font-weight:700; margin-bottom:6px; }
   .rg-card b{ display:block; font-family:'Source Serif 4',serif; font-size:16.5px; line-height:1.3; margin-bottom:6px; }
   .rg-card span{ font-size:13.5px; color:var(--ink-soft); line-height:1.5; }
-  .city-search-divider{ display:flex; align-items:center; gap:12px; color:#8d9197; font-size:12px;
-    text-transform:uppercase; letter-spacing:0.06em; margin:0 0 26px; }
-  .city-search-divider::before, .city-search-divider::after{ content:''; flex:1; height:1px; background:var(--line); }
   .wizard h1, .wizard h2{ font-family:'Source Serif 4',serif; font-size:28px; margin:0 0 6px; text-align:center; font-weight:700; }
   .wizard .sub{ text-align:center; color:var(--ink-soft); font-size:14px; margin:0 0 34px; }
-  .step{ margin-bottom:14px; }
-  .step-label{ font-size:11px; text-transform:uppercase; letter-spacing:0.06em; font-weight:700; color:var(--brass-deep); margin-bottom:12px; }
   .case-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:8px; }
   @media (max-width:560px){ .case-grid{ grid-template-columns:repeat(2,1fr); } }
   .case-tile{
@@ -163,26 +158,22 @@
   .skip-row{ text-align:center; margin:14px 0 0; }
   .skip-row button{ background:none; border:none; color:var(--ink-soft); text-decoration:underline; cursor:pointer; font-size:13px; }
 
-  #stepLocation{ display:none; }
-  .province-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
-  .province-chip{
-    padding:10px 18px; border-radius:24px; border:1.5px solid var(--line); background:#fff;
-    font-size:13.5px; font-weight:600; cursor:pointer; color:var(--ink);
-  }
-  .province-chip.active{ border-color:var(--red); background:var(--red-tint); color:var(--red-deep); }
-  .province-chip.disabled{ opacity:0.45; cursor:not-allowed; }
-  .locate-inline{
-    background:none; border:none; color:var(--green); font-weight:600; font-size:13px; cursor:pointer;
-    text-decoration:underline; padding:0; margin-bottom:20px; display:inline-block;
-  }
-  #regionWrap{ display:none; }
-  .region-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  @media (max-width:560px){ .region-grid{ grid-template-columns:1fr; } }
-  .region-tile{
-    background:#fff; border:1.5px solid var(--line); border-radius:8px; padding:14px 16px; text-align:left;
-    cursor:pointer; font-size:13.5px; font-weight:600;
-  }
-  .region-tile:hover{ border-color:var(--brass); }
+  /* ---------------- Case-type cards (built by scripts/build-case-pages.mjs) ---------------- */
+  #wizard{ padding-bottom:18px; }
+  .cases{ max-width:1100px; margin:0 auto; padding:8px 20px 36px; }
+  .cases h2{ font-family:'Source Serif 4',serif; font-size:clamp(22px,3vw,28px); line-height:1.15; margin:0 0 6px; text-align:center; text-wrap:balance; }
+  .cases-sub{ color:var(--ink-soft); font-size:14.5px; line-height:1.5; max-width:40em; margin:0 auto 22px; text-align:center; }
+  .case-cards{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  @media(min-width:720px){ .case-cards{ grid-template-columns:repeat(3,1fr); gap:18px; } }
+  @media(min-width:1020px){ .case-cards{ grid-template-columns:repeat(5,1fr); } }
+  .case-card{ display:flex; flex-direction:column; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; text-decoration:none; color:var(--ink); transition:border-color .15s, transform .15s, box-shadow .15s; }
+  .case-card:hover, .case-card:focus-visible{ border-color:var(--brass); transform:translateY(-2px); box-shadow:0 8px 20px rgba(31,35,40,.08); }
+  .case-card img{ display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; background:var(--red-tint); }
+  .cc-body{ display:flex; flex-direction:column; gap:6px; padding:12px 14px 14px; flex:1; }
+  .cc-body h3{ font-family:'Source Serif 4',serif; font-size:17px; line-height:1.2; margin:0; }
+  .cc-body p{ margin:0; font-size:13px; line-height:1.45; color:var(--ink-soft); }
+  .cc-go{ margin-top:auto; padding-top:4px; font-size:13px; font-weight:700; color:var(--brass-deep); }
+  .case-card:hover .cc-go{ text-decoration:underline; }
 
   /* ---------------- Results page ---------------- */
   .results{ display:none; }
@@ -389,23 +380,9 @@
     <div class="fy-try" id="fyTry"><span>Try one:</span><a href="/ontario/ottawa/family-lawyers" data-q="family lawyer in Ottawa">family lawyer in Ottawa</a><a href="/british-columbia/vancouver/immigration-lawyers" data-q="immigration lawyer in Vancouver">immigration lawyer in Vancouver</a><a href="/ontario/toronto/real-estate-lawyers" data-q="real estate lawyer in Toronto">real estate lawyer in Toronto</a><a href="/alberta/calgary/business-lawyers" data-q="business lawyer in Calgary">business lawyer in Calgary</a><a href="/british-columbia/vancouver/personal-injury-lawyers" data-q="personal injury lawyer in Vancouver">personal injury lawyer in Vancouver</a></div>
     <div class="city-search-note" id="citySearchError" style="display:none;color:var(--red-deep);" aria-live="polite"></div>
   </form>
-  <div class="city-search-divider">or pick a case type below</div>
-
-  <div class="step" id="stepCase">
-    <div class="step-label">Step 1: What's your case about?</div>
-    <div class="case-grid" id="caseGrid"></div>
-  </div>
-
-  <div class="step" id="stepLocation">
-    <div class="step-label">Step 2: Where are you?</div>
-    <div class="province-row" id="provinceRow"></div>
-    <button class="locate-inline" id="locateInline">Use my location instead</button>
-    <div id="regionWrap">
-      <div class="step-label" id="regionStepLabel">Which region?</div>
-      <div class="region-grid" id="regionGrid"></div>
-    </div>
-  </div>
 </div>
+
+<!--case-cards--><section class="cases" id="cases" aria-labelledby="casesH"><h2 id="casesH">Not sure where to start? Browse by case type</h2><p class="cases-sub">Each guide explains when to hire a lawyer, what the lawyer does and what to ask, and links to firms by province and city.</p><div class="case-cards"><a class="case-card" href="/family-lawyers"><img src="/images/cases/family.webp" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>Family Law &amp; Divorce</h3><p>Separation, divorce, parenting time, support and dividing property.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/criminal-defence-lawyers"><img src="/images/cases/criminal.webp" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>Criminal Defence</h3><p>Charges, bail, trials and sentencing, and protecting your rights from the first police contact.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/personal-injury-lawyers"><img src="/images/cases/injury.svg" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>Personal Injury</h3><p>Car accidents, slips and falls and other injuries caused by someone else&#x27;s carelessness.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/traffic-ticket-lawyers"><img src="/images/cases/traffic.svg" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>Traffic Tickets</h3><p>Speeding, careless driving and other tickets, demerit points and licence risks.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/real-estate-lawyers"><img src="/images/cases/realestate.webp" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>Real Estate</h3><p>Buying, selling or refinancing property, title searches and closings.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/wills-estate-lawyers"><img src="/images/cases/wills.svg" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>Wills &amp; Estates</h3><p>Wills, powers of attorney, probate and helping families settle an estate.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/business-lawyers"><img src="/images/cases/business.webp" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>Business &amp; Corporate</h3><p>Starting or buying a company, shareholder agreements, leases and contracts.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/employment-lawyers"><img src="/images/cases/employment.webp" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>Employment</h3><p>Dismissal and severance, contracts, harassment, and pay or leave disputes.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/immigration-lawyers"><img src="/images/cases/immigration.svg" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>Immigration</h3><p>Work and study permits, permanent residence, sponsorship, citizenship and refusals.</p><span class="cc-go">Read the guide</span></div></a><a class="case-card" href="/litigation-lawyers"><img src="/images/cases/litigation.webp" alt="" width="640" height="400" loading="lazy" decoding="async"><div class="cc-body"><h3>Civil Litigation</h3><p>Contract, debt, property and other disputes, from demand letters to trial.</p><span class="cc-go">Read the guide</span></div></a></div></section><!--/case-cards-->
 
 <div class="wizard" id="cityGate" style="display:none;">
   <h2 id="cityGateHeading">What are you looking for?</h2>
@@ -542,7 +519,7 @@ function findCity(query){
 }
 
 function showCityGate(cityMatch){
-  document.getElementById('wizard').style.display = 'none';
+  setWizard(false);
   document.getElementById('results').classList.remove('active');
   const gate = document.getElementById('cityGate');
   gate.style.display = 'block';
@@ -579,11 +556,6 @@ function goToCity(cityMatch, skipGate, caseId, inline){
   selectedProvince = cityMatch.province;
   selectedRegion = cityMatch.region;
   selectedCityName = cityMatch.name;
-  const chip = provinceRow.querySelector(`[data-p="${cityMatch.province}"]`);
-  if(chip){
-    provinceRow.querySelectorAll('.province-chip').forEach(b=>b.classList.remove('active'));
-    chip.classList.add('active');
-  }
   const url = new URL(window.location);
   url.searchParams.set('city', cityMatch.name);
   url.searchParams.set('province', cityMatch.province);
@@ -730,7 +702,7 @@ function lookUpPlace(text, caseId, raw){
       showSearchHelp(`We couldn't find a place called <strong>${text.replace(/</g,'&lt;')}</strong>. Try the nearest bigger town, for example <strong>${caseSay(caseId)} in Toronto</strong>.<br>${btns}`);
       fyErr.querySelectorAll('button[data-q]').forEach(b => b.addEventListener('click', () => { fyInput.value = b.dataset.q; runSearch(); }));
     } else {
-      showSearchHelp(`We couldn't find a city or a type of lawyer in "${shown}". Try something like <strong>family lawyer in Ottawa</strong>, or pick a case type below. We cover Ontario, Quebec, British Columbia, Alberta and Manitoba.`);
+      showSearchHelp(`We couldn't find a city or a type of lawyer in "${shown}". Try something like <strong>family lawyer in Ottawa</strong>, or browse by case type below. We cover Ontario, Quebec, British Columbia, Alberta and Manitoba.`);
     }
   }).catch(() => showSearchHelp('We could not look that town up just now. Check your connection and try again, or pick a bigger city nearby.'));
 }
@@ -795,8 +767,6 @@ function runSearch(){
   }
   if(p.prov && p.caseId){
     selectedCase = p.caseId; selectedProvince = p.prov; selectedRegion = null; selectedCityName = null;
-    const chip = provinceRow.querySelector(`[data-p="${p.prov}"]`);
-    if(chip){ provinceRow.querySelectorAll('.province-chip').forEach(b => b.classList.remove('active')); chip.classList.add('active'); }
     showResults();
     return;
   }
@@ -810,7 +780,7 @@ function runSearch(){
     fyErr.querySelectorAll('button[data-q]').forEach(b => b.addEventListener('click', () => { fyInput.value = b.dataset.q; runSearch(); }));
     return;
   }
-  showSearchHelp(`We couldn't find a city or a type of lawyer in "${raw.replace(/</g,'&lt;')}". Try something like <strong>family lawyer in Ottawa</strong>, or pick a case type below. We cover Ontario, Quebec, British Columbia, Alberta and Manitoba.`);
+  showSearchHelp(`We couldn't find a city or a type of lawyer in "${raw.replace(/</g,'&lt;')}". Try something like <strong>family lawyer in Ottawa</strong>, or browse by case type below. We cover Ontario, Quebec, British Columbia, Alberta and Manitoba.`);
 }
 fyForm.addEventListener('submit', e => { e.preventDefault(); closeSug(); runSearch(); });
 
@@ -830,72 +800,10 @@ function scrollToEl(el, offset){
   window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
 }
 
-/* ---------------- Step 1: case type ---------------- */
-const caseGrid = document.getElementById('caseGrid');
-caseGrid.innerHTML = CASE_TYPES.map(c =>
-  `<div class="case-tile" data-c="${c.id}"><div class="case-label">${c.label}</div></div>`
-).join('') + `<div class="case-tile" data-c=""><div class="case-label">Not sure yet</div></div>`;
-caseGrid.querySelectorAll('.case-tile').forEach(tile=>{
-  tile.addEventListener('click', ()=>{
-    caseGrid.querySelectorAll('.case-tile').forEach(t=>t.classList.remove('selected'));
-    tile.classList.add('selected');
-    selectedCase = tile.dataset.c || null;
-    const stepLocation = document.getElementById('stepLocation');
-    stepLocation.style.display = 'block';
-    setTimeout(()=> scrollToEl(stepLocation), 30);
-  });
-});
-
-/* ---------------- Step 2: province + region ---------------- */
-const provinceRow = document.getElementById('provinceRow');
-const COMING_SOON = ["Manitoba","Saskatchewan","Nova Scotia"];
-const liveChips = PROVINCES.map(p =>
-  `<button class="province-chip" data-p="${p.code}">${p.label}</button>`).join('');
-const soonChips = COMING_SOON.map(p =>
-  `<button class="province-chip disabled" disabled title="Coming soon">${p} (soon)</button>`).join('');
-provinceRow.innerHTML = liveChips + soonChips;
-
-const regionGrid = document.getElementById('regionGrid');
-
-function renderRegionTiles(provinceCode){
-  const list = REGIONS_BY_PROVINCE[provinceCode] || [];
-  const lbl = document.getElementById('regionStepLabel');
-  if(lbl) lbl.textContent = `Which part of ${PROVINCE_LABEL[provinceCode]}?`;
-  // The two notarial case types get renamed once we know the province.
-  caseGrid.querySelectorAll('.case-tile[data-c]').forEach(t=>{
-    const id = t.dataset.c;
-    if(!id) return;
-    const el = t.querySelector('.case-label');
-    if(el) el.textContent = caseLabel(id, provinceCode);
-  });
-  regionGrid.innerHTML = list.map(r =>
-    `<div class="region-tile" data-r="${r.id}">${r.label}</div>`
-  ).join('') + `<div class="region-tile" data-r="">All of ${PROVINCE_LABEL[provinceCode]}</div>`;
-  regionGrid.querySelectorAll('.region-tile').forEach(tile=>{
-    tile.addEventListener('click', ()=>{ selectedRegion = tile.dataset.r || null; selectedCityName = null; showResults(); });
-  });
+// The search box (#wizard) and the case-type cards under it show together, and hide together when the results or the city question take over.
+function setWizard(show){
+  ['wizard','cases'].forEach(id => { const el = document.getElementById(id); if(el) el.style.display = show ? '' : 'none'; });
 }
-
-provinceRow.querySelectorAll('.province-chip:not(.disabled)').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    provinceRow.querySelectorAll('.province-chip').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    selectedProvince = btn.dataset.p;
-    renderRegionTiles(selectedProvince);
-    const regionWrap = document.getElementById('regionWrap');
-    regionWrap.style.display = 'block';
-    setTimeout(()=> scrollToEl(regionWrap), 30);
-  });
-});
-
-document.getElementById('locateInline').addEventListener('click', ()=>{
-  // "Use my location": the firms closest to wherever the person is (no guessing a region first)
-  if(!navigator.geolocation){ alert("Your browser can't share its location. Pick a region manually."); return; }
-  navigator.geolocation.getCurrentPosition(
-    pos => startNear({ lat: pos.coords.latitude, lng: pos.coords.longitude, label: 'you', me: true }, selectedCase),
-    () => { alert("Couldn't get your location. Pick a region manually."); },
-    { timeout: 9000, maximumAge: 600000 });
-});
 
 /* ---------------- URL deep link (?province=xx&case=xxx&region=yyy from the homepage tiles, or ?city=xxx from a city search) ---------------- */
 const params = new URLSearchParams(location.search);
@@ -903,19 +811,8 @@ const deepCase = params.get('case');
 const deepProvince = params.get('province');
 const deepRegion = params.get('region');
 const deepCity = params.get('city');
-if(deepProvince && PROVINCE_LABEL[deepProvince]){
-  selectedProvince = deepProvince;
-  const chip = provinceRow.querySelector(`[data-p="${deepProvince}"]`);
-  if(chip){
-    provinceRow.querySelectorAll('.province-chip').forEach(b=>b.classList.remove('active'));
-    chip.classList.add('active');
-  }
-}
-if(deepCase && CASE_LABEL[deepCase]){
-  selectedCase = deepCase;
-  caseGrid.querySelector(`[data-c="${deepCase}"]`)?.classList.add('selected');
-  if(!deepProvince) document.getElementById('stepLocation').style.display = 'block';
-}
+if(deepProvince && PROVINCE_LABEL[deepProvince]) selectedProvince = deepProvince;
+if(deepCase && CASE_LABEL[deepCase]) selectedCase = deepCase;
 if(deepCity){
   const cityMatch = findCity(deepCity + (deepProvince ? ', ' + deepProvince : ''));
   if(cityMatch){
@@ -935,18 +832,17 @@ if(deepCity){
   var q = new URLSearchParams(window.location.search).get('q');
   if(q && q.trim()){ fyInput.value = q.trim(); renderLive(); runSearch(); }
 })();
-// With both a province and a case type in hand, skip the wizard entirely -
-// this is the "click your case type on the homepage, land straight on the
-// map" path. A region/city in the URL too zooms straight to that area
-// instead of the whole province.
-if(!deepCity && !params.get('near') && deepProvince && PROVINCE_LABEL[deepProvince]){
-  renderRegionTiles(deepProvince);
-  document.getElementById('regionWrap').style.display = 'block';
-  if(deepRegion && REGION_PROVINCE[deepRegion] === deepProvince){
-    selectedRegion = deepRegion;
-    regionGrid.querySelector(`[data-r="${deepRegion}"]`)?.classList.add('selected');
-  }
+// With a province in hand (and a case type, or not), go straight to the map - the path the map tiles on
+// the location pages use. A region in the URL too zooms to that area instead of the whole province.
+if(!deepCity && !params.get('near') && !params.get('q') && deepProvince && PROVINCE_LABEL[deepProvince]){
+  if(deepRegion && REGION_PROVINCE[deepRegion] === deepProvince) selectedRegion = deepRegion;
   showResults();
+}
+// A case type with no place yet (?case=family, the "Search by Location" link on the province pages): start the sentence
+// in the search box, "family lawyer in ", and let the person finish it with a city.
+if(selectedCase && !deepCity && !deepProvince && !params.get('near') && !params.get('q')){
+  fyInput.value = caseSay(selectedCase) + ' in ';
+  renderLive();
 }
 
 /* ---------------- Results ---------------- */
@@ -1137,7 +1033,7 @@ function showResults(skipScroll){
   const near = selectedNear ? LawdbPlaces.nearest(firms, selectedNear.lat, selectedNear.lng, { caseId: selectedCase, max: 40 }) : null;
   const nearName = selectedNear ? (selectedNear.me ? 'you' : selectedNear.label) : '';
   if(near && !selectedProvince && near.list.length) selectedProvince = near.list[0].f.province;
-  document.getElementById('wizard').style.display = 'none';
+  setWizard(false);
   document.getElementById('results').classList.add('active');
   document.getElementById('casePill').textContent = selectedCase ? caseLabel(selectedCase, selectedProvince) : 'Any case type';
   document.getElementById('regionPill').textContent = selectedNear
@@ -1317,7 +1213,7 @@ document.getElementById('changeFilters').addEventListener('click', ()=>{
     // area, not province/region we already know from the city itself.
     showCityGate({ name: selectedCityName, province: selectedProvince });
   } else {
-    document.getElementById('wizard').style.display = 'block';
+    setWizard(true);
   }
 });
 

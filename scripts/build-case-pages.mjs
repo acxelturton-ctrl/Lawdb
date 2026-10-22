@@ -153,7 +153,7 @@ function pageHtml([id, t]) {
   const faq = t.faqs.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('');
 
   // optional photos (only the guides whose data has them): a featured photo under the headline and one inside the article
-  const img = (p, attrs) => `<img src="${p.src}" srcset="${p.small} 640w, ${p.src} ${p.w}w" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" ${attrs} decoding="async">`;
+  const img = (p, attrs) => `<img src="${p.src}" srcset="${p.small} 640w, ${p.src} ${p.w}w" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" ${/^\d+% \d+%$/.test(p.pos || '') ? `style="object-position:${p.pos}" ` : ''}${attrs} decoding="async">`; // `pos` (optional, like "50% 8%") keeps the important part of a photo in frame when it is cropped
   const feature = t.photos && t.photos.hero ? `<figure class="cg-feature">${img(t.photos.hero, 'sizes="(min-width:1000px) 700px, 100vw" fetchpriority="high"')}</figure>` : '';
   const inline = t.photos && t.photos.side ? `<figure class="cg-figure">${img(t.photos.side, 'sizes="(min-width:560px) 520px, 100vw" loading="lazy"')}${t.photos.side.caption ? `<figcaption>${esc(t.photos.side.caption)}</figcaption>` : ''}</figure>` : '';
   const words = [t.lede, t.differ, ...t.when, ...t.does, ...t.ask, ...t.faqs.flatMap((f) => [f.q, f.a])].join(' ').split(/\s+/).length;

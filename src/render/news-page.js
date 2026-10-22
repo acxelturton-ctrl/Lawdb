@@ -69,8 +69,7 @@ a.news-step:hover{border-color:#c9a050}
 .news-main .lw-feed .lw-bc-head .lw-fbtn{padding:4px 11px;border-radius:999px;background:#f4ecd8;color:#8a6224;font-size:12px}
 .news-main .lw-feed .lw-bc-img{grid-area:img;aspect-ratio:4/3;border-radius:12px}
 .news-main .lw-feed .lw-bc-in{grid-area:body;position:relative;min-width:0;padding:0 24px 0 0;gap:6px}
-.news-main .lw-feed .lw-bc-in::before{content:'Firm news';font:700 9.5px/1.2 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8a6224}
-.news-main .lw-feed .lw-bc:has(.lw-ft) .lw-bc-in::before{content:'Featured'}
+.news-main .lw-feed .lw-bc:has(.lw-ft) .lw-bc-in::before{content:'Featured';font:700 9.5px/1.2 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8a6224}
 .news-main .lw-feed .lw-bc h3{font:700 clamp(15.5px,1.5vw,20px)/1.28 'Source Serif 4',serif;color:#142434}
 .news-main .lw-feed .lw-bc p{font-size:clamp(12.5px,1.05vw,14px);line-height:1.5;color:#586170;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .news-main .lw-feed .lw-row{margin-top:2px}

@@ -1,7 +1,7 @@
 // Public pages and data files that are rendered from the database at the edge.
 //
-// The static site ships firms_data.json, blog_data.json, firms_hours.json, and 65 pages (find-lawyers,
-// the city hubs, two province hubs) with the whole firm list baked into an inline <script>. Those
+// The static site ships firms_data.json, blog_data.json, firms_hours.json, and 64 pages (the city hubs and
+// two province hubs) with the firm list baked into an inline <script>. /find-lawyers no longer has one: it fetches /firms_data.json on demand. Those
 // static files are now only the FALLBACK: when the database answers, visitors get live data, so admin
 // edits show up everywhere within the cache window. If the database fails for any reason, the static
 // file is served unchanged, so these pages can never go down because of the database.
@@ -13,9 +13,9 @@ const cacheSeconds = (env) => {
 };
 
 // What the browser needs to list and map a firm. These stay in the database (and on the firm's own page) but are not sent with the
-// directory list: a Maps link nobody reads, a one-line blurb, the picture files of the firm's own page, and the Directions link, which the
-// page rebuilds from the address (see SHIM). Together they were about a third of the list.
-export const DROPPED_FIELDS = ['mapsUrl', 'blurb', 'dirUrl', 'heroImage', 'bioImage', 'details', 'bookingUrl'];
+// directory list: a Maps link nobody reads, a one-line blurb, the picture files of the firm's own page, the Directions link, which the
+// page rebuilds from the address (see SHIM), and the social links, which only the firm's own page shows (about a sixth of the list).
+export const DROPPED_FIELDS = ['mapsUrl', 'blurb', 'dirUrl', 'heroImage', 'bioImage', 'details', 'bookingUrl', 'social'];
 const slimRow = (json) => {
   const o = JSON.parse(json);
   for (const k of DROPPED_FIELDS) delete o[k];
@@ -30,7 +30,7 @@ async function firmsBody(env, province = null) {
   return '[' + results.map((r) => slimRow(r.data)).join(',') + ']';
 }
 
-// A city page or province hub lists one province; /find-lawyers and anything else gets everything.
+// A city page or province hub lists one province; anything else gets everything.
 const SCOPES = { ontario: 'ON', quebec: 'QC', 'british-columbia': 'BC', alberta: 'AB', manitoba: 'MB' };
 export const scopeOf = (pathname) => SCOPES[pathname.split('/')[1]] || null;
 

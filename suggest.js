@@ -47,7 +47,7 @@
 
     function load(){
       if(pending) return pending;
-      pending=(opt.firms?Promise.resolve(opt.firms):fetch(root+'firms_data.json').then(function(r){return r.json();})).then(function(d){
+      pending=(typeof opt.firms==='function'?Promise.resolve(opt.firms()):opt.firms?Promise.resolve(opt.firms):fetch(root+'firms_data.json').then(function(r){return r.json();})).then(function(d){
         firms=d; var seen={}; cities=[];
         d.forEach(function(f){ var k=f.city+'|'+f.province; if(!seen[k]){ seen[k]=1; cities.push({c:f.city,p:f.province,n:norm(f.city)}); } });
         cities.sort(function(a,b){ return b.n.length-a.n.length; });

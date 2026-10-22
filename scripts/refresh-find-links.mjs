@@ -1,7 +1,10 @@
-// Writes the "Browse by province, city and case type" block at the bottom of /find-lawyers (find-lawyers.html), between <!--browse-links-->
-// markers, so it can be re-run. The page builds its case-type buttons and firm list in the browser, so on its own it showed a crawler one
-// sentence and no links to any city or case-type page. These are ordinary links (no script needed) to every province page, every city hub
-// and every province case-type page that exists and is not marked noindex.
+// Writes two things into /find-lawyers (find-lawyers.html), each between markers, so the script can be re-run:
+//  1. the "Browse by province, city and case type" block at the bottom (<!--browse-links-->). The page builds its firm list in the browser, so
+//     on its own it showed a crawler one sentence and no links to any city or case-type page. These are ordinary links (no script needed) to
+//     every province page, every city hub and every province case-type page that exists and is not marked noindex.
+//  2. the list of cities the search understands (/*city-seed*/). The firm list is no longer inside the page (it is fetched on demand), but the
+//     search box has to know the cities the moment the page opens, so they are written in from the firm data: name, province, region and
+//     a position. The page adds any city that arrives later with the firm list.
 //   node scripts/refresh-find-links.mjs          rewrites the block
 //   node scripts/refresh-find-links.mjs --check  fails if the block is out of date
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
@@ -43,6 +46,25 @@ const block = '<!--browse-links--><section class="browse" id="browse" aria-label
   + PROVINCES.map(provinceBlock).join('')
   + '</section><!--/browse-links-->';
 
+// the firms the site lists: firms_data.json plus the released batches (same as refresh-hub-counts.mjs)
+function loadFirms() {
+  const all = JSON.parse(readFileSync('firms_data.json', 'utf8'));
+  const released = new Set(JSON.parse(readFileSync('data/release.json', 'utf8')).released);
+  for (const file of readdirSync('data').filter((f) => /^firms-batch-\d+\.json$/.test(f)).sort()) {
+    if (released.has(Number(file.match(/\d+/)[0]))) all.push(...JSON.parse(readFileSync(`data/${file}`, 'utf8')));
+  }
+  return all;
+}
+function citySeed() {
+  const byKey = new Map();
+  for (const f of loadFirms()) {
+    const key = `${f.city.toLowerCase()}|${f.province}`;
+    if (!byKey.has(key)) byKey.set(key, { name: f.city, province: f.province, region: f.region, lat: f.lat, lng: f.lng });
+  }
+  return [...byKey.values()].sort((a, b) => a.name.localeCompare(b.name, 'en'));
+}
+const seedBlock = () => `/*city-seed*/const CITY_SEED = ${JSON.stringify(citySeed())};/*/city-seed*/`;
+
 const old = readFileSync(FILE, 'utf8');
 let html;
 if (old.includes('<!--browse-links-->')) html = old.replace(/<!--browse-links-->[\s\S]*?<!--\/browse-links-->/, () => block);
@@ -51,6 +73,8 @@ else {
   if (old.split(anchor).length !== 2) { console.error(`anchor not found exactly once in ${FILE}: ${anchor}`); process.exit(1); }
   html = old.replace(anchor, () => `${block}\n\n${anchor}`);
 }
-if (html === old) console.log(CHECK ? 'find-lawyers browse links are up to date' : 'find-lawyers browse links unchanged');
+if (!html.includes('/*city-seed*/')) { console.error(`${FILE} has no /*city-seed*/ marker`); process.exit(1); }
+html = html.replace(/\/\*city-seed\*\/[\s\S]*?\/\*\/city-seed\*\//, () => seedBlock());
+if (html === old) console.log(CHECK ? 'find-lawyers browse links and city list are up to date' : 'find-lawyers browse links and city list unchanged');
 else if (CHECK) { console.error(`out of date: ${FILE}`); process.exit(1); }
-else { writeFileSync(FILE, html); console.log('find-lawyers browse links written'); }
+else { writeFileSync(FILE, html); console.log('find-lawyers browse links and city list written'); }

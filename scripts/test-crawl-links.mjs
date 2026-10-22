@@ -38,5 +38,18 @@ for (const [key, html] of hubOf) {
 }
 ok(true, 'each hub\'s A to Z list matches its heading');
 
+// /find-lawyers builds its buttons and firm list in the browser, so it has to link to every city hub in plain HTML too, be in the sitemap,
+// and not share its title with the home page (both would then compete for the same search)
+const findPage = readFileSync('find-lawyers.html', 'utf8');
+const hubHrefs = [];
+for (const dir of Object.values(PROV)) {
+  for (const d of readdirSync(dir, { withFileTypes: true })) if (d.isDirectory() && existsSync(`${dir}/${d.name}/index.html`)) hubHrefs.push(`/${dir}/${d.name}/`);
+}
+const notOnFind = hubHrefs.filter((h) => !findPage.includes(`href="${h}"`));
+ok(notOnFind.length === 0, `/find-lawyers links to all ${hubHrefs.length} city hubs${notOnFind.length ? ` (missing: ${notOnFind.slice(0, 5).join(', ')})` : ''}`);
+ok(readFileSync('sitemap.xml', 'utf8').includes('<loc>https://lawdb.ca/find-lawyers</loc>'), '/find-lawyers is in the sitemap');
+const titleOf = (h) => (h.match(/<title>([^<]*)<\/title>/) || [])[1];
+ok(titleOf(findPage) && titleOf(findPage) !== titleOf(readFileSync('index.html', 'utf8')), '/find-lawyers has its own title, different from the home page');
+
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }
 console.log('All checks passed');

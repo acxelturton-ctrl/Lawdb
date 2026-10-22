@@ -315,26 +315,6 @@
 <link rel="stylesheet" href="lawdb-search.css?v=1">
 <link rel="stylesheet" href="lwa.css?v=2">
 <style id="home3">
-  .hero3{ background:radial-gradient(900px 380px at 50% -20%, #f3ecd8 0%, rgba(243,236,216,0) 70%), #fdfcf9; padding:56px 20px 40px; text-align:center; border-bottom:1px solid var(--line); }
-  .h3-inner{ max-width:760px; margin:0 auto; }
-  .hero3 h1{ font-family:'Source Serif 4',serif; font-weight:700; font-size:clamp(36px,6vw,56px); line-height:1.08; margin:0 0 14px; color:var(--ink); }
-  .h3-sub{ font-size:17px; color:var(--ink-soft); line-height:1.5; margin:0 auto 26px; max-width:560px; }
-  .h3-search{ position:relative; text-align:left; }
-  .h3-label{ display:block; font-family:'Source Serif 4',serif; font-weight:700; font-size:16px; margin:0 0 8px 6px; }
-  .h3-row{ display:flex; gap:8px; }
-  .h3-row input{ flex:1; min-width:0; padding:17px 22px; border:2px solid var(--ink); border-radius:999px; font:500 17px 'Inter',sans-serif; background:#fff; color:var(--ink); }
-  .h3-row input::placeholder{ color:#8a8277; }
-  .h3-row input:focus{ outline:none; border-color:var(--brass); box-shadow:0 0 0 4px rgba(232,169,31,.28); }
-  .h3-row button{ background:var(--ink); color:#fff; border:none; border-radius:999px; font:700 15px 'Inter',sans-serif; padding:0 30px; cursor:pointer; }
-  .h3-row button:hover{ background:#000; }
-  .hero3 .hero-suggest{ left:0; right:0; top:calc(100% + 6px); border-radius:16px; text-align:left; z-index:40; }
-  .h3-formula{ display:flex; justify-content:center; align-items:center; gap:10px; margin:16px 0 0; font-size:13.5px; color:var(--ink-soft); }
-  .h3-formula span{ display:inline-flex; align-items:center; background:#fff; border:1px solid var(--line); border-radius:999px; padding:5px 12px 5px 6px; color:var(--ink); font-weight:500; }
-  .h3-formula b{ display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--ink); color:#fff; font-size:11px; margin-right:6px; }
-  .h3-formula i{ font-style:normal; }
-  .h3-stats{ display:flex; justify-content:center; gap:34px; margin:34px 0 0; flex-wrap:wrap; }
-  .h3-stats b{ display:block; font-family:'Source Serif 4',serif; font-size:28px; color:var(--brass-deep); line-height:1; }
-  .h3-stats span{ font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); }
   .citybrowse .cb-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:18px; }
   .cb-col{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 16px 10px; }
   .cb-col h3{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 8px; }
@@ -355,22 +335,83 @@
   .why3-steps span:not(.n){ font-size:13.5px; color:#b9b2a4; line-height:1.5; }
   .firms-divider{ max-width:1080px; margin:20px auto 0; padding:0 20px; display:flex; align-items:center; gap:14px; color:var(--brass-deep); font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
   .firms-divider::before,.firms-divider::after{ content:''; flex:1; height:1px; background:var(--line); }
-.hero.hero3{ position:relative; isolation:isolate; text-align:center; padding:72px 20px 84px; background:#fdfcf9; }
-  .hero.hero3::before{ content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse 60% 76% at 50% 46%, rgba(253,252,249,.66) 0%, rgba(253,252,249,.46) 55%, rgba(253,252,249,.04) 100%), url('images/hero-photo.webp') center 30%/cover no-repeat, #fdfcf9; }
-  @media(max-width:700px){ .hero.hero3{ padding:56px 16px 64px; } .hero.hero3::before{ background:linear-gradient(rgba(253,252,249,.6), rgba(253,252,249,.46)), url('images/hero-photo.webp') 46% 30%/cover no-repeat, #fdfcf9; } }
-  /* The second hero photo fades in over the first and back out, every 5 seconds (10-second loop). It is added by a small script after the page has loaded (class xf), so it never competes with the first photo, and not at all when the visitor prefers reduced motion. */
-  .hero.hero3.xf::after{ content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse 60% 76% at 50% 46%, rgba(253,252,249,.66) 0%, rgba(253,252,249,.46) 55%, rgba(253,252,249,.04) 100%), url('images/hero-photo-2.webp') center 62%/cover no-repeat, #fdfcf9; opacity:0; animation:heroXfade 10s ease-in-out infinite; }
-  @media(max-width:700px){ .hero.hero3.xf::after{ background:linear-gradient(rgba(253,252,249,.6), rgba(253,252,249,.46)), url('images/hero-photo-2.webp') 50% 62%/cover no-repeat, #fdfcf9; } }
-  @keyframes heroXfade{ 0%,40%{ opacity:0; } 50%,90%{ opacity:1; } 100%{ opacity:0; } }
-  .hero.hero3 h1{ max-width:none; margin:0 0 14px; text-align:center; font-size:clamp(36px,6vw,56px); text-shadow:0 0 18px rgba(253,252,249,.9), 0 0 4px rgba(253,252,249,.7); }
-  .hero.hero3 .h3-sub, .hero.hero3 .h3-label{ text-shadow:0 0 12px rgba(253,252,249,.95), 0 0 3px rgba(253,252,249,.8); }
-  .hero.hero3 .h3-stats span{ color:#3d434b; font-weight:600; text-shadow:0 0 10px rgba(253,252,249,.95); }
-  .hero.hero3 .h3-sub{ text-align:center; color:#454b53; }
-  #cases{ padding-bottom:10px; }
-  .hero3 ~ section{ padding-top:34px; padding-bottom:34px; }
-  .hero3 ~ section .section-head{ margin-bottom:24px; }
   @media(max-width:860px){ .citybrowse .cb-grid{ grid-template-columns:repeat(2,1fr); } .why3-grid,.why3-steps{ grid-template-columns:1fr; } }
-  @media(max-width:520px){ .h3-row{ flex-direction:column; } .h3-row button{ padding:16px; } .h3-stats{ gap:20px; } .citybrowse .cb-grid{ grid-template-columns:1fr; } .hero3{ padding:40px 16px 32px; } }
+  @media(max-width:520px){ .citybrowse .cb-grid{ grid-template-columns:1fr; } }
+</style>
+<style id="home4">
+  :root{ --gold:#b5821a; --gold-ink:#8a5f12; --gold-hi:#e3b04b; --h4-bg:#f8f6f1; }
+  .h4-sprite{ position:absolute; width:0; height:0; overflow:hidden; }
+  .h4-sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .hero4{ position:relative; z-index:5; isolation:isolate; margin:0 auto; background:var(--h4-bg); padding:26px 20px 30px; }
+  .h4-bg{ position:absolute; inset:0; z-index:-2; overflow:hidden; pointer-events:none; }
+  .h4-photo{ position:absolute; top:-8px; right:-44%; height:380px; width:auto; max-width:none;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 46%),linear-gradient(180deg,#000 60%,transparent 100%); -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent 0,#000 46%),linear-gradient(180deg,#000 60%,transparent 100%); mask-composite:intersect; }
+  .hero4::before{ content:''; position:absolute; inset:0; z-index:-1; pointer-events:none; background:linear-gradient(90deg, rgba(248,246,241,.78) 0%, rgba(248,246,241,.5) 30%, rgba(248,246,241,0) 60%); }
+  .h4-inner{ position:relative; max-width:640px; margin:0 auto; }
+  .h4-eyebrow{ margin:0 0 14px; font:600 11.5px/1.55 Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-ink); }
+  .hero4 h1{ font-family:'Source Serif 4',serif; font-weight:700; font-size:clamp(30px,8vw,40px); line-height:1.06; letter-spacing:-.01em; margin:0 0 12px; color:var(--ink); max-width:9.2em; text-wrap:balance; text-shadow:0 0 16px rgba(248,246,241,.95), 0 0 4px rgba(248,246,241,.8); }
+  .hero4 h1 em{ font-style:italic; font-weight:600; color:var(--gold); }
+  .h4-sub{ font-size:15.5px; line-height:1.5; color:#3a3f45; margin:0 0 20px; max-width:19em; text-shadow:0 0 12px rgba(248,246,241,.95), 0 0 3px rgba(248,246,241,.8); }
+  .h4-search{ position:relative; display:block; margin:0; }
+  .hero4 .ls-field{ height:58px; box-shadow:0 6px 18px rgba(60,45,15,.16), 0 0 0 1px rgba(181,130,26,.28); }
+  .hero4 .ls-field:focus-within{ box-shadow:0 6px 18px rgba(60,45,15,.18), 0 0 0 2px var(--gold-hi), 0 0 0 7px rgba(227,176,75,.28); }
+  .h4-go{ flex:0 0 auto; width:46px; height:46px; margin-left:4px; border:0; border-radius:50%; display:grid; place-items:center; cursor:pointer; color:#fff;
+    background:linear-gradient(135deg,#e3b04b,#b5821a); box-shadow:0 2px 8px rgba(138,95,18,.45); }
+  .h4-go:hover{ filter:brightness(1.07); }
+  .hero4 .ls-sug{ z-index:70; }
+  .h4-actions{ display:grid; grid-template-columns:repeat(3,1fr); margin:14px 0 0; border-radius:22px; overflow:hidden; background:linear-gradient(135deg,#1c1710,#2d2317); box-shadow:0 12px 26px rgba(28,23,16,.3); }
+  .h4-actions a{ position:relative; display:flex; flex-direction:column; align-items:center; gap:8px; padding:15px 6px 13px; text-align:center; color:#fff; text-decoration:none; }
+  .h4-actions a + a::before{ content:''; position:absolute; left:0; top:20%; bottom:20%; width:1px; background:rgba(227,176,75,.38); }
+  .h4-actions .h4-ic{ width:40px; height:40px; border-radius:50%; border:1.5px solid var(--gold-hi); display:grid; place-items:center; color:var(--gold-hi); flex:none; }
+  .h4-actions b{ display:block; font:600 13.5px/1.2 Inter,sans-serif; }
+  .h4-actions small{ display:block; margin-top:2px; font:400 11.5px/1.3 Inter,sans-serif; color:#d3cab6; }
+  .h4-actions a:hover .h4-ic{ background:rgba(227,176,75,.16); }
+  @media(min-width:560px){ .h4-actions a{ flex-direction:row; justify-content:center; text-align:left; gap:12px; padding:16px 12px; } .h4-actions b{ font-size:15px; } .h4-actions small{ font-size:12.5px; } }
+
+  .hero4 ~ section.h4-cases{ padding:20px 16px 6px; }
+  .h4-wrap{ max-width:1100px; margin:0 auto; }
+  .h4-cases-card{ background:#fff; border:1px solid #eee5d0; border-radius:22px; padding:16px 14px 14px; box-shadow:0 8px 26px rgba(60,45,15,.07); }
+  .h4-cases-head{ display:flex; align-items:center; gap:12px; padding:2px 6px 14px; }
+  .h4-scales{ flex:none; width:44px; height:44px; border-radius:50%; background:#fbf4e3; border:1px solid #efe1bd; display:grid; place-items:center; color:var(--gold); }
+  .h4-cases-head h2{ margin:0; flex:1; padding-left:12px; border-left:1px solid #e5dbc3; font:600 12px/1.3 Inter,sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#3a3f45; }
+  .h4-all{ flex:none; display:inline-flex; align-items:center; gap:4px; font:600 13px Inter,sans-serif; color:var(--gold-ink); text-decoration:none; }
+  .h4-all:hover{ text-decoration:underline; }
+  .h4-case-grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+  .h4-case-grid a{ display:flex; align-items:center; gap:10px; min-height:64px; padding:8px 10px; background:#fcf9f1; border:1px solid #f1e9d5; border-radius:14px; color:var(--ink); text-decoration:none; transition:border-color .15s, background .15s; }
+  .h4-case-grid a:hover, .h4-case-grid a:focus-visible{ border-color:var(--gold-hi); background:#fff8e6; }
+  .h4-case-grid .h4-ic{ flex:none; width:42px; height:42px; border-radius:50%; background:#fff; box-shadow:0 1px 5px rgba(60,45,15,.14); display:grid; place-items:center; color:var(--gold); }
+  .h4-cl{ flex:1; min-width:0; font:500 14px/1.25 Inter,sans-serif; }
+  .h4-chev{ flex:none; color:#b8ad95; }
+  .h4-banner{ position:relative; display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px; padding:20px 18px 20px 34px; border-radius:18px; overflow:hidden; color:#fff; text-decoration:none;
+    background:linear-gradient(110deg,#16120b 0%,#241c10 58%,#3b2b11 100%); box-shadow:0 10px 24px rgba(28,23,16,.25); }
+  .h4-banner::before{ content:''; position:absolute; left:18px; top:24%; bottom:24%; width:2px; background:var(--gold-hi); }
+  .h4-banner small{ display:block; font:600 10.5px/1.4 Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-hi); }
+  .h4-banner b{ display:flex; align-items:center; gap:8px; margin-top:6px; font:600 clamp(20px,5.6vw,26px)/1.15 'Source Serif 4',serif; }
+  .h4-banner b svg{ flex:none; color:var(--gold-hi); }
+  .h4-gavel{ flex:none; width:108px; height:auto; margin:-8px -4px -8px 0; opacity:.95; }
+  .h4-banner:hover b svg{ transform:translateX(3px); transition:transform .15s; }
+  @media(min-width:900px){
+    .hero4{ padding:56px 32px 52px; min-height:560px; }
+    .h4-photo{ right:0; top:0; height:100%; min-height:560px; }
+    .hero4::before{ display:none; }
+    .h4-inner{ max-width:1180px; }
+    .h4-inner > *{ max-width:600px; }
+    .hero4 h1{ font-size:clamp(48px,5vw,64px); max-width:9.2em; }
+    .h4-eyebrow{ font-size:12.5px; }
+    .h4-sub{ font-size:18px; }
+    .hero4 ~ section.h4-cases{ padding-top:26px; }
+  }
+  @media(min-width:1100px){
+    .h4-case-grid{ grid-template-columns:repeat(5,1fr); gap:10px; }
+    .h4-case-grid a{ flex-direction:column; justify-content:center; text-align:center; gap:8px; min-height:112px; padding:14px 10px; }
+    .h4-cl{ flex:none; }
+    .h4-chev{ display:none; }
+    .h4-gavel{ width:150px; }
+  }
+  @media(max-width:480px){ .h4-chev{ display:none; } .h4-case-grid a{ gap:9px; padding:8px 9px; } .h4-case-grid .h4-ic{ width:38px; height:38px; } .h4-cl{ font-size:13.5px; } }
+  .hero4 ~ section{ padding-top:34px; padding-bottom:34px; }
+  .hero4 ~ section .section-head{ margin-bottom:24px; }
 </style>
 </head>
 <body class="pg-home">
@@ -407,24 +448,55 @@
 
 
 
-<div class="hero hero3">
- <div class="h3-inner">
-  <h1>Find your lawyer</h1>
-  <p class="h3-sub">Type the kind of lawyer you need and your city. We show real firms with their public Google ratings.</p>
-  <form id="heroForm" class="h3-search" action="/find-lawyers" method="get" role="search" autocomplete="off">
-    <label class="h3-label" for="heroInput">What kind of lawyer, and where?</label>
-    <div class="h3-row">
-      <div class="ls-wrap"><div class="ls-field"><svg class="ls-mag" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="heroInput" class="ls-in" name="q" type="text" placeholder="e.g. personal injury lawyer in Toronto" enterkeyhint="search" autocomplete="off"><button type="button" class="ls-x" aria-label="Clear search" tabindex="-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+<div class="hero4">
+<svg class="h4-sprite" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-city" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l6-3v15M11 21V11l8 3v7"/><path d="M8 11h.01M8 15h.01M15 16.5h.01M15 19h.01"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6h.01"/></symbol>
+<symbol id="i-scales" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7l-3 7a3.2 3.2 0 006 0L5 7zM19 7l-3 7a3.2 3.2 0 006 0l-3-7z"/></symbol>
+<symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17v2.5M19 17v2.5"/><path d="M3.5 17h17v-4.2l-1.8-4A2 2 0 0016.9 7.6H7.1a2 2 0 00-1.8 1.2l-1.8 4V17z"/><path d="M3.5 12.5h17M7.5 14.8h.01M16.5 14.8h.01"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.2c0 4.4-2.9 8-7 9.8-4.1-1.8-7-5.4-7-9.8V6l7-3z"/><path d="M9 11.5l2.2 2.2 4-4.2"/></symbol>
+<symbol id="i-family" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="7.5" r="2.7"/><circle cx="17" cy="9" r="2.2"/><path d="M3 20v-1.2A4.8 4.8 0 017.8 14h.4a4.8 4.8 0 014.8 4.8V20M14.5 14.4A4 4 0 0121 18.2V20"/></symbol>
+<symbol id="i-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></symbol>
+<symbol id="i-house" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11L12 3.8 20.5 11"/><path d="M5.5 9.8V20h13V9.8"/><path d="M10 20v-5.5h4V20"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8l4 4V12M6 3.5v17h6"/><path d="M14 3.5v4h4M9 11h6M9 14.5h3"/><path d="M14.5 21l.6-3 5.6-5.6a1.4 1.4 0 012 2L17.1 20l-2.6 1z"/></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12.5" rx="2"/><path d="M9 7.5V5.5A1.5 1.5 0 0110.5 4h3A1.5 1.5 0 0115 5.5v2M3 13h18M12 12v2.5"/></symbol>
+<symbol id="i-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5a7.5 7.5 0 0115 0"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+<symbol id="i-gavel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4.5l5.5 5.5-3 3-5.5-5.5 3-3z"/><path d="M10.7 8.3L4 15l3 3 6.7-6.7M3 21h8"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</defs></svg>
+  <div class="h4-bg"><img class="h4-photo" src="images/home-courthouse.webp" alt="" width="998" height="796" fetchpriority="high" decoding="async"></div>
+  <div class="h4-inner">
+    <p class="h4-eyebrow">Trusted legal help.<br>Closer than you think.</p>
+    <h1>Find the right lawyer for <em>your</em> situation.</h1>
+    <p class="h4-sub">Real firms. Public Google ratings. Across Canada.</p>
+    <form id="heroForm" class="h4-search" action="/find-lawyers" method="get" role="search" autocomplete="off">
+      <label class="h4-sr" for="heroInput">What kind of lawyer, and where?</label>
+      <div class="ls-wrap"><div class="ls-field"><svg class="ls-mag" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b5821a" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="heroInput" class="ls-in" name="q" type="text" placeholder="e.g. personal injury lawyer in Toronto" enterkeyhint="search" autocomplete="off"><button type="button" class="ls-x" aria-label="Clear search" tabindex="-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><button type="submit" class="h4-go" aria-label="Search"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
         <div id="heroSuggest" class="ls-sug"></div></div>
-      <button type="submit">Search</button>
-    </div>
-  </form>
-  <div class="h3-formula"><span><b>1</b> Kind of lawyer</span><i>+</i><span><b>2</b> City</span></div>
-  <div class="h3-stats"><div><b data-live="firms">1,092</b><span>law firms</span></div><div><b data-live="cities">62</b><span>cities</span></div><div><b>5</b><span>provinces</span></div><div><b>10</b><span>practice areas</span></div></div>
- </div>
+    </form>
+    <nav class="h4-actions" aria-label="Quick links">
+      <a href="/find-lawyers?near=me"><span class="h4-ic"><svg width="20" height="20" aria-hidden="true"><use href="#i-pin"/></svg></span><span><b>Near me</b><small>Closest firms first</small></span></a>
+      <a href="#cities"><span class="h4-ic"><svg width="20" height="20" aria-hidden="true"><use href="#i-city"/></svg></span><span><b>Browse cities</b><small><span data-live="cities">62</span> cities</small></span></a>
+      <a href="/how-it-works"><span class="h4-ic"><svg width="20" height="20" aria-hidden="true"><use href="#i-info"/></svg></span><span><b>How it works</b><small>Ratings explained</small></span></a>
+    </nav>
+  </div>
 </div>
 <script src="suggest.js?v=4"></script>
 <script>LawdbSuggest(document.getElementById('heroInput'),document.getElementById('heroSuggest'),{root:''});</script>
+
+<section class="h4-cases" id="cases" aria-labelledby="h4CasesH"><div class="h4-wrap">
+  <div class="h4-cases-card">
+    <div class="h4-cases-head"><span class="h4-scales"><svg width="24" height="24" aria-hidden="true"><use href="#i-scales"/></svg></span><h2 id="h4CasesH">Or pick a case type</h2><a class="h4-all" href="/find-lawyers#cases">View all <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+    <!--home-cases--><ul class="h4-case-grid"><li><a href="/traffic-ticket-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-car"/></svg></span><span class="h4-cl">Traffic Ticket</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/criminal-defence-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-shield"/></svg></span><span class="h4-cl">Criminal Charges</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/family-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-family"/></svg></span><span class="h4-cl">Family Law / Divorce</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/personal-injury-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-cross"/></svg></span><span class="h4-cl">Personal Injury / Accident</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/real-estate-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-house"/></svg></span><span class="h4-cl">Buying or Selling a Home</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/wills-estate-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="h4-cl">Wills, Estates &amp; Power of Attorney</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/business-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-briefcase"/></svg></span><span class="h4-cl">Business / Corporate</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/employment-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-person"/></svg></span><span class="h4-cl">Employment Dispute</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/immigration-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-globe"/></svg></span><span class="h4-cl">Immigration</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/litigation-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-gavel"/></svg></span><span class="h4-cl">Civil Lawsuit / Litigation</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li></ul><!--/home-cases-->
+  </div>
+  <a class="h4-banner" href="/find-lawyers"><span><small>Legal support when it matters most</small><b>Get the right lawyer. Faster. <svg width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg></b></span>
+    <svg class="h4-gavel" viewBox="0 0 160 112" aria-hidden="true" focusable="false"><defs><linearGradient id="gvA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0cf80"/><stop offset=".55" stop-color="#c8963a"/><stop offset="1" stop-color="#8a5f12"/></linearGradient><linearGradient id="gvB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a520f"/><stop offset=".5" stop-color="#d9ab55"/><stop offset="1" stop-color="#7a520f"/></linearGradient></defs>
+      <g transform="rotate(-32 84 52)"><rect x="52" y="20" width="64" height="32" rx="7" fill="url(#gvA)"/><rect x="45" y="24" width="10" height="24" rx="3.5" fill="url(#gvB)"/><rect x="113" y="24" width="10" height="24" rx="3.5" fill="url(#gvB)"/><rect x="79" y="50" width="10" height="62" rx="5" fill="url(#gvB)"/></g>
+      <rect x="14" y="96" width="82" height="12" rx="5" fill="url(#gvA)" opacity=".9"/></svg></a>
+</div></section>
 
 <style>
 section.hn{max-width:1440px;margin:0 auto;padding:44px 20px 12px}
@@ -503,7 +575,6 @@ section.feat-swipe{ padding-top:36px !important; padding-bottom:0 !important; }
 .feat-swipe .lw-track{ padding-bottom:4px; }
 section.citystrip{ padding:28px 20px 36px !important; }
 .cs-prov{ text-align:center; font-size:15px; color:var(--ink-soft); margin:22px 0 0; } .cs-prov a{ color:var(--brass-deep); font-weight:600; text-decoration:none; } .cs-prov a:hover{ text-decoration:underline; }
-section#cases{ padding-bottom:36px; }
 </style>
 <section class="citystrip" id="cities">
   <div class="cs-head"><h2>Browse by city</h2><span>or <a href="/find-lawyers">search any city</a></span></div>
@@ -656,14 +727,6 @@ section#cases{ padding-bottom:36px; }
   </div>
 </footer>
 
-<script>
-(function(){
-  var h=document.querySelector('.hero3');
-  if(!h||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
-  function go(){var i=new Image();i.onload=function(){h.classList.add('xf');};i.src='images/hero-photo-2.webp';}
-  if(document.readyState==='complete')go();else addEventListener('load',go);
-})();
-</script>
 <script src="site.js" defer></script>
 <script src="lwa.js?v=2" defer></script>
 <script src="/follow.js" defer></script>

@@ -68,5 +68,18 @@ ok(!find.includes('id="stepCase"') && !find.includes('id="stepLocation"') && !fi
 ok((find.match(/<a class="case-card"/g) || []).length === entries.length, `/find-lawyers has ${entries.length} case cards`);
 ok(find.includes("function setWizard(show)") && !find.includes('provinceRow') && !find.includes('caseGrid.'), '/find-lawyers has no leftover code for the removed steps');
 
+// the home page: the "Or pick a case type" list links every guide, in the old picker's order, and the hero keeps what the rest of the site relies on
+const home = readFileSync('index.html', 'utf8');
+const homeList = (home.match(/<!--home-cases-->([\s\S]*?)<!--\/home-cases-->/) || [])[1] || '';
+const order = ['traffic', 'criminal', 'family', 'injury', 'realestate', 'wills', 'business', 'employment', 'immigration', 'litigation'];
+ok(JSON.stringify([...homeList.matchAll(/<li><a href="\/([a-z-]+)">/g)].map((m) => m[1])) === JSON.stringify(order.map((k) => data.types[k].slug)), 'the home page lists all ten case types, each linking to its guide');
+ok(/id="cases"/.test(home) && /id="cities"/.test(home), 'the home page has #cases and #cities (the footer link "Browse by Case Type" and the "Browse cities" button land on them)');
+ok(entries.every(([, t]) => { const icon = (homeList.match(new RegExp(`href="/${t.slug}">.*?#i-(\\w+)`)) || [])[1]; return icon === t.icon && home.includes(`<symbol id="i-${t.icon}"`); }), 'every home list icon exists in the page\'s sprite');
+ok((home.match(/<h1[\s>]/g) || []).length === 1 && home.includes('<em>your</em>'), 'the home page has one h1');
+ok(!/popular searches/i.test(home), 'the home page has no "Popular searches" row');
+ok(/<img class="h4-photo" src="images\/home-courthouse\.webp" alt="" width="\d+" height="\d+"/.test(home) && existsSync('images/home-courthouse.webp'), 'the hero picture has a size and exists');
+ok(/data-live="firms">[\d,]+</.test(home) && /data-live="cities">\d+</.test(home), 'the home page still shows the live firm and city totals');
+ok(home.includes("LawdbSuggest(document.getElementById('heroInput'),document.getElementById('heroSuggest')") && /<form id="heroForm"[^>]*action="\/find-lawyers"/.test(home), 'the hero search box is still wired to the shared search');
+
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }
 console.log('All checks passed');

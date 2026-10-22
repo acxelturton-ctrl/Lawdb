@@ -1,10 +1,12 @@
 {
-  "_about": "The ten case types: the cards on /find-lawyers and the national guide pages (/family-lawyers ...). Plain, general, evergreen information only: no fees, deadlines or figures, and nothing that depends on a single province unless it says so. Built by scripts/build-case-pages.mjs.",
+  "_about": "The ten case types: the cards on /find-lawyers, the list on the home page and the national guide pages (/family-lawyers ...). Plain, general, evergreen information only: no fees, deadlines or figures, and nothing that depends on a single province unless it says so. Built by scripts/build-case-pages.mjs.",
   "updated": "2026-10-22",
   "types": {
     "family": {
       "slug": "family-lawyers",
       "name": "Family Law & Divorce",
+      "homeLabel": "Family Law / Divorce",
+      "icon": "family",
       "noun": "family lawyer",
       "h1": "Family Law & Divorce Lawyers in Canada",
       "image": "family.webp",
@@ -43,6 +45,8 @@
     "criminal": {
       "slug": "criminal-defence-lawyers",
       "name": "Criminal Defence",
+      "homeLabel": "Criminal Charges",
+      "icon": "shield",
       "noun": "criminal defence lawyer",
       "h1": "Criminal Defence Lawyers in Canada",
       "image": "criminal.webp",
@@ -81,6 +85,8 @@
     "injury": {
       "slug": "personal-injury-lawyers",
       "name": "Personal Injury",
+      "homeLabel": "Personal Injury / Accident",
+      "icon": "cross",
       "noun": "personal injury lawyer",
       "h1": "Personal Injury Lawyers in Canada",
       "image": "injury.svg",
@@ -119,6 +125,8 @@
     "traffic": {
       "slug": "traffic-ticket-lawyers",
       "name": "Traffic Tickets",
+      "homeLabel": "Traffic Ticket",
+      "icon": "car",
       "noun": "traffic ticket lawyer",
       "h1": "Traffic Ticket Lawyers in Canada",
       "image": "traffic.svg",
@@ -157,6 +165,8 @@
     "realestate": {
       "slug": "real-estate-lawyers",
       "name": "Real Estate",
+      "homeLabel": "Buying or Selling a Home",
+      "icon": "house",
       "noun": "real estate lawyer",
       "h1": "Real Estate Lawyers in Canada",
       "image": "realestate.webp",
@@ -195,6 +205,8 @@
     "wills": {
       "slug": "wills-estate-lawyers",
       "name": "Wills & Estates",
+      "homeLabel": "Wills, Estates & Power of Attorney",
+      "icon": "doc",
       "noun": "wills and estates lawyer",
       "h1": "Wills & Estates Lawyers in Canada",
       "image": "wills.svg",
@@ -233,6 +245,8 @@
     "business": {
       "slug": "business-lawyers",
       "name": "Business & Corporate",
+      "homeLabel": "Business / Corporate",
+      "icon": "briefcase",
       "noun": "business lawyer",
       "h1": "Business & Corporate Lawyers in Canada",
       "image": "business.webp",
@@ -271,6 +285,8 @@
     "employment": {
       "slug": "employment-lawyers",
       "name": "Employment",
+      "homeLabel": "Employment Dispute",
+      "icon": "person",
       "noun": "employment lawyer",
       "h1": "Employment Lawyers in Canada",
       "image": "employment.webp",
@@ -309,6 +325,8 @@
     "immigration": {
       "slug": "immigration-lawyers",
       "name": "Immigration",
+      "homeLabel": "Immigration",
+      "icon": "globe",
       "noun": "immigration lawyer",
       "h1": "Immigration Lawyers in Canada",
       "image": "immigration.svg",
@@ -347,6 +365,8 @@
     "litigation": {
       "slug": "litigation-lawyers",
       "name": "Civil Litigation",
+      "homeLabel": "Civil Lawsuit / Litigation",
+      "icon": "gavel",
       "noun": "civil litigation lawyer",
       "h1": "Civil Litigation Lawyers in Canada",
       "image": "litigation.webp",

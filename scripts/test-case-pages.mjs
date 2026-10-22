@@ -34,7 +34,7 @@ for (const [id, t] of entries) {
   ok((html.match(/<h1[^>]*>/g) || []).length === 1, `${id}: exactly one h1`);
   ok(indexable(html), `${id}: not noindex`);
   ok(sitemap.includes(`<loc>https://lawdb.ca/${t.slug}</loc>`), `${id}: in the sitemap`);
-  const photos = t.photos ? [t.photos.hero, t.photos.side].filter(Boolean) : [];
+  const photos = t.photos ? [t.photos.hero, t.photos.side, t.photos.extra].filter(Boolean) : [];
   const imgs = [...html.matchAll(/<img[^>]*>/g)].map((m) => m[0]).filter((i) => /\/images\/guides\//.test(i));
   ok(!/class="case-hero"/.test(html) && imgs.length === photos.length && photos.every((p) => existsSync(p.src.slice(1)) && existsSync(p.small.slice(1)) && p.alt.length >= 20 && imgs.some((i) => i.includes(`src="${p.src}"`) && i.includes(`width="${p.w}"`) && i.includes(`height="${p.h}"`) && i.includes('alt="'))), `${id}: ${photos.length ? photos.length + ' photo(s), each with size, alt text and a file that exists' : 'no picture (only guides with photos in the data show any)'}`);
   ok(t.faqs.length >= 3 && (html.match(/<summary>/g) || []).length === t.faqs.length, `${id}: ${t.faqs.length} questions shown`);

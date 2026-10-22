@@ -46,7 +46,7 @@ function pagesFor(slug) {
 }
 
 const EXTRA_CSS = `<style>
-  .case-hero{ margin:4px 0 16px; border-radius:14px; overflow:hidden; max-width:520px; background:#fff3d4; }
+  .case-hero{ margin:4px 0 16px; border-radius:14px; overflow:hidden; max-width:520px; background:#f4ecd8; }
   .case-hero img{ display:block; width:100%; height:auto; }
   @media(min-width:860px){ .case-hero{ float:right; width:340px; margin:6px 0 16px 28px; } }
   .case-updated{ font-size:12.5px; color:var(--ink-soft); margin:2px 0 0; }

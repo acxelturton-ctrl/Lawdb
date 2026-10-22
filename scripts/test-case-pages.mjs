@@ -73,13 +73,14 @@ const home = readFileSync('index.html', 'utf8');
 const homeList = (home.match(/<!--home-cases-->([\s\S]*?)<!--\/home-cases-->/) || [])[1] || '';
 const order = ['traffic', 'criminal', 'family', 'injury', 'realestate', 'wills', 'business', 'employment', 'immigration', 'litigation'];
 ok(JSON.stringify([...homeList.matchAll(/<li><a href="\/([a-z-]+)">/g)].map((m) => m[1])) === JSON.stringify(order.map((k) => data.types[k].slug)), 'the home page lists all ten case types, each linking to its guide');
-ok(/id="cases"/.test(home) && /id="cities"/.test(home), 'the home page has #cases and #cities (the footer link "Browse by Case Type" and the "Browse cities" button land on them)');
+ok(/id="cases"/.test(home) && /id="cities"/.test(home), 'the home page has #cases and #cities (the footer link "Browse by Case Type", the hero filter icon and the city list land on them)');
 ok(entries.every(([, t]) => { const icon = (homeList.match(new RegExp(`href="/${t.slug}">.*?#i-(\\w+)`)) || [])[1]; return icon === t.icon && home.includes(`<symbol id="i-${t.icon}"`); }), 'every home list icon exists in the page\'s sprite');
 ok((home.match(/<h1[\s>]/g) || []).length === 1 && home.includes('<em>your</em>'), 'the home page has one h1');
 ok(!/popular searches/i.test(home), 'the home page has no "Popular searches" row');
-ok(/<img class="h4-photo" src="images\/home-courthouse\.webp" alt="" width="\d+" height="\d+"/.test(home) && existsSync('images/home-courthouse.webp'), 'the hero picture has a size and exists');
-ok(/data-live="firms">[\d,]+</.test(home) && /data-live="cities">\d+</.test(home), 'the home page still shows the live firm and city totals');
+ok(/<img class="h5-photo" src="images\/home-courthouse\.webp" alt="" width="\d+" height="\d+"/.test(home) && existsSync('images/home-courthouse.webp'), 'the hero picture has a size and exists');
+ok(/data-live="firms">[\d,]+</.test(home) && /data-live="cities">\d+</.test(home) && /class="h5-stats-in h3-stats"/.test(home), 'the home page shows the live firm and city totals in the stats band (site.js counts them up)');
 ok(home.includes("LawdbSuggest(document.getElementById('heroInput'),document.getElementById('heroSuggest')") && /<form id="heroForm"[^>]*action="\/find-lawyers"/.test(home), 'the hero search box is still wired to the shared search');
+ok(home.indexOf('id="homeNews"') < home.indexOf('id="cases"') && home.indexOf('class="h5-stats"') < home.indexOf('id="homeNews"'), 'the home page order is hero, numbers, news, case types');
 
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }
 console.log('All checks passed');

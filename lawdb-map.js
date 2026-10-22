@@ -97,8 +97,8 @@
 
   /* ------------------------------------------------------------ icons */
   var IC = {
-    search: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
-    x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+    search: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+    x: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     call: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
     dir: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>',
     web: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>',
@@ -108,7 +108,7 @@
     prev: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
     next: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
     tick: '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>',
-    loc: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
+    loc: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
     redo: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>'
   };
 
@@ -119,11 +119,11 @@
   }
   function thumb(f){
     if(f.logoUrl){
-      return '<div class="gm-i-thumb mono" style="background:' + esc(f.color || '#636870') + '">' + esc(initials(f.name)) +
-        '<img src="' + esc(f.logoUrl) + '" alt="' + esc(f.name) + ' logo" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" style="background:' + (f.dark ? '#1f2328' : '#fff') + '"></div>';
+      return '<div class="gm-i-thumb mono" style="background:#2b3a4c">' + esc(initials(f.name)) +
+        '<img src="' + esc(f.logoUrl) + '" alt="' + esc(f.name) + ' logo" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" style="background:' + (f.dark ? '#142434' : '#fff') + '"></div>';
     }
     if(f.type === 'logo' && f.src) return '<div class="gm-i-thumb"><img src="' + esc(ROOT + f.src) + '" alt="' + esc(f.name) + ' logo" loading="lazy"></div>';
-    return '<div class="gm-i-thumb mono" style="background:' + esc(f.color || '#636870') + '">' + esc(initials(f.name)) + '</div>';
+    return '<div class="gm-i-thumb mono" style="background:#2b3a4c">' + esc(initials(f.name)) + '</div>';
   }
   function itemHtml(f, detail){
     var oi = openInfo(f), dist = userPos ? ' · ' + fmtKm(km(userPos.lat, userPos.lng, f.lat, f.lng)) : '';
@@ -448,9 +448,9 @@
 
   /* ------------------------------------------------------------ basemap theme */
   var P = {
-    land: '#f4f1e8', water: '#bfe0ee', park: '#d3ebc6', wood: '#c7e4b8', grass: '#e0eed3', resid: '#efece2',
-    road: '#ffffff', casing: '#e2ddd0', major: '#ffffff', motor: '#e4eaf1', motorCasing: '#b8c3cf',
-    building: '#e8e3d6', buildingLine: '#d9d3c4', halo: 'rgba(255,255,255,.92)', text: '#1f2328', textSoft: '#636870', water_txt: '#5b8fa8'
+    land: '#f5f3ec', water: 'rgba(138,145,155,0.3)', park: '#f4ecd8', wood: '#f4ecd8', grass: '#f5f3ec', resid: '#f5f3ec',
+    road: '#ffffff', casing: '#e3dfd3', major: '#ffffff', motor: '#f4ecd8', motorCasing: '#e6d4a4',
+    building: '#e3dfd3', buildingLine: '#e3dfd3', halo: 'rgba(255,255,255,.92)', text: '#142434', textSoft: '#586170', water_txt: '#586170'
   };
   window.__gmPalette = P;
   applyMapTheme = function(){
@@ -480,7 +480,7 @@
           if(/rail|transit|ferry|aerialway|cablecar/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
           if(/^boundary/.test(id)){
             if(/boundary_3|disputed/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
-            map.setPaintProperty(id, 'line-color', '#c9c2b0'); return;
+            map.setPaintProperty(id, 'line-color', '#e3dfd3'); return;
           }
           if(/waterway/.test(id)){ map.setPaintProperty(id, 'line-color', P.water); return; }
           if(/highway|road|bridge|tunnel|link|motorway|trunk|primary|secondary|tertiary|minor|service|path|pier/.test(id)){
@@ -488,7 +488,7 @@
             if(/casing/.test(id)) c = /motorway|trunk/.test(id) ? P.motorCasing : P.casing;
             else if(/motorway|trunk/.test(id)) c = P.motor;
             else if(/major|primary|secondary|link/.test(id)) c = P.major;
-            else if(/path|track/.test(id)) c = '#e2ddd0';
+            else if(/path|track/.test(id)) c = '#e3dfd3';
             map.setPaintProperty(id, 'line-color', c);
           }
           return;
@@ -497,14 +497,14 @@
         if(ty === 'fill'){
           if(id === 'water' || /^water/.test(id)) map.setPaintProperty(id, 'fill-color', P.water);
           else if(/^park/.test(id) || /landcover_(wood|forest)/.test(id)) map.setPaintProperty(id, 'fill-color', /wood|forest/.test(id) ? P.wood : P.park);
-          else if(/landcover_(ice|glacier)/.test(id)) map.setPaintProperty(id, 'fill-color', '#f1efe8');
-          else if(/landcover_(sand|beach)/.test(id)) map.setPaintProperty(id, 'fill-color', '#efe6cc');
-          else if(/landcover_wetland/.test(id)) map.setPaintProperty(id, 'fill-color', '#d5e8cf');
+          else if(/landcover_(ice|glacier)/.test(id)) map.setPaintProperty(id, 'fill-color', '#edeae1');
+          else if(/landcover_(sand|beach)/.test(id)) map.setPaintProperty(id, 'fill-color', '#f4ecd8');
+          else if(/landcover_wetland/.test(id)) map.setPaintProperty(id, 'fill-color', '#e3dfd3');
           else if(/landcover/.test(id)) map.setPaintProperty(id, 'fill-color', P.grass);
           else if(/landuse_residential/.test(id)) map.setPaintProperty(id, 'fill-color', P.resid);
-          else if(/landuse_cemetery/.test(id)) map.setPaintProperty(id, 'fill-color', '#d3ebc6');
-          else if(/landuse_hospital/.test(id)) map.setPaintProperty(id, 'fill-color', '#f0e3df');
-          else if(/landuse_school/.test(id)) map.setPaintProperty(id, 'fill-color', '#ece7d3');
+          else if(/landuse_cemetery/.test(id)) map.setPaintProperty(id, 'fill-color', '#e3dfd3');
+          else if(/landuse_hospital/.test(id)) map.setPaintProperty(id, 'fill-color', '#edeae1');
+          else if(/landuse_school/.test(id)) map.setPaintProperty(id, 'fill-color', '#f4ecd8');
           else if(id === 'building'){
             map.setPaintProperty(id, 'fill-color', P.building); map.setPaintProperty(id, 'fill-outline-color', P.buildingLine);
             map.setPaintProperty(id, 'fill-opacity', ['interpolate', ['linear'], ['zoom'], 14, 0, 15.5, 1]);
@@ -520,14 +520,14 @@
     var W = Math.round(34 * scale), H = Math.round(46 * scale);
     var c = document.createElement('canvas'); c.width = W * 2; c.height = H * 2;
     var x = c.getContext('2d'); x.scale(2 * scale, 2 * scale);
-    x.shadowColor = 'rgba(0,0,0,.35)'; x.shadowBlur = 3; x.shadowOffsetY = 1.5;
+    x.shadowColor = 'rgba(20,36,52,0.35)'; x.shadowBlur = 3; x.shadowOffsetY = 1.5;
     x.beginPath(); x.moveTo(17, 44);
     x.bezierCurveTo(17, 44, 3, 28, 3, 16.5); x.arc(17, 16.5, 14, Math.PI, 0, false); x.bezierCurveTo(31, 28, 17, 44, 17, 44); x.closePath();
     x.fillStyle = fill; x.fill(); x.shadowColor = 'transparent'; x.lineWidth = 1.4; x.strokeStyle = stroke; x.stroke();
     if(gold){
       // a white disc with the LawDB database-stack mark in gold
       x.beginPath(); x.arc(17, 16.5, 8.6, 0, Math.PI * 2); x.fillStyle = '#ffffff'; x.fill();
-      x.fillStyle = '#e8a91f';
+      x.fillStyle = '#c9a050';
       x.beginPath(); x.ellipse(17, 12.6, 5, 2.1, 0, 0, Math.PI * 2); x.fill();
       x.beginPath(); x.moveTo(12, 12.6); x.lineTo(12, 20.4); x.ellipse(17, 20.4, 5, 2.1, 0, Math.PI, 0, true); x.lineTo(22, 12.6); x.closePath(); x.fill();
       x.strokeStyle = '#ffffff'; x.lineWidth = 1; x.beginPath(); x.ellipse(17, 15.4, 5, 2, 0, 0, Math.PI); x.stroke();
@@ -555,7 +555,7 @@
     return FONTS;
   }
   function textField(feat){
-    var F2 = pickFonts(), nm = { 'font-scale': 1, 'text-color': feat ? '#7a5512' : '#1f2328' }, sb = { 'font-scale': 0.88, 'text-color': '#636870' };
+    var F2 = pickFonts(), nm = { 'font-scale': 1, 'text-color': feat ? '#2b3a4c' : '#142434' }, sb = { 'font-scale': 0.88, 'text-color': '#586170' };
     if(F2.bold) nm['text-font'] = ['literal', F2.bold];
     if(F2.reg) sb['text-font'] = ['literal', F2.reg];
     return ['format', ['get', 'name'], nm, '\n', {}, ['get', 'sub'], sb];
@@ -567,7 +567,7 @@
     };
     var font = F2.reg || F2.any; if(font) lay['text-font'] = font;
     var def = { id: id, type: 'symbol', source: source, layout: lay,
-      paint: { 'text-color': '#1f2328', 'text-halo-color': 'rgba(248,246,241,.95)', 'text-halo-width': 1.8,
+      paint: { 'text-color': '#142434', 'text-halo-color': 'rgba(245,243,236,0.95)', 'text-halo-width': 1.8,
         'text-opacity': feat ? 1 : ['interpolate', ['linear'], ['zoom'], 10.5, 0, 11.5, 1] } };
     if(filter) def.filter = filter;
     try { map.addLayer(def); } catch(e){}
@@ -580,17 +580,17 @@
     map.addSource('firms-feat', { type: 'geojson', data: empty });
     map.addSource('firm-sel', { type: 'geojson', data: empty });
     map.addSource('me', { type: 'geojson', data: empty });
-    var IM = { 'gm-pin': ['#6f757d', '#4a4f56', 1, false], 'gm-pin-gold': ['#f0b429', '#c98a0a', 1.12, true], 'gm-pin-sel': ['#1f2328', '#14110f', 1.35, false], 'gm-pin-sel-gold': ['#f0b429', '#c98a0a', 1.5, true] };
+    var IM = { 'gm-pin': ['#8a919b', '#586170', 1, false], 'gm-pin-gold': ['#c9a050', '#8a6224', 1.12, true], 'gm-pin-sel': ['#142434', '#142434', 1.35, false], 'gm-pin-sel-gold': ['#c9a050', '#8a6224', 1.5, true] };
     Object.keys(IM).forEach(function(k){ if(!map.hasImage(k)) map.addImage(k, pinImage(IM[k][0], IM[k][1], IM[k][2], IM[k][3]), { pixelRatio: 2 }); });
     var font = pickFonts(), tf = font.bold || font.any;
     var size = ['interpolate', ['linear'], ['zoom'], 8, 0.55, 13, 0.8];
     var notCluster = ['!', ['has', 'point_count']];
 
     map.addLayer({ id: 'firm-cluster', type: 'circle', source: 'firms', filter: ['has', 'point_count'],
-      paint: { 'circle-color': '#f0b429', 'circle-radius': ['step', ['get', 'point_count'], 17, 5, 21, 15, 26], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 3 } });
+      paint: { 'circle-color': '#c9a050', 'circle-radius': ['step', ['get', 'point_count'], 17, 5, 21, 15, 26], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 3 } });
     var cl = { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-allow-overlap': true };
     if(tf) cl['text-font'] = tf;
-    map.addLayer({ id: 'firm-cluster-count', type: 'symbol', source: 'firms', filter: ['has', 'point_count'], layout: cl, paint: { 'text-color': '#1f2328' } });
+    map.addLayer({ id: 'firm-cluster-count', type: 'symbol', source: 'firms', filter: ['has', 'point_count'], layout: cl, paint: { 'text-color': '#142434' } });
 
     map.addLayer({ id: 'firm-pin', type: 'symbol', source: 'firms', filter: notCluster,
       layout: { 'icon-image': 'gm-pin', 'icon-size': size, 'icon-anchor': 'bottom', 'icon-allow-overlap': true, 'symbol-sort-key': ['get', 'prio'] } });
@@ -603,8 +603,8 @@
     map.addLayer({ id: 'firm-pin-sel', type: 'symbol', source: 'firm-sel',
       layout: { 'icon-image': ['case', ['==', ['get', 'featured'], 1], 'gm-pin-sel-gold', 'gm-pin-sel'], 'icon-size': 0.82, 'icon-anchor': 'bottom', 'icon-allow-overlap': true } });
 
-    map.addLayer({ id: 'me-halo', type: 'circle', source: 'me', paint: { 'circle-radius': 20, 'circle-color': '#b45309', 'circle-opacity': 0.2 } });
-    map.addLayer({ id: 'me-dot', type: 'circle', source: 'me', paint: { 'circle-radius': 7.5, 'circle-color': '#b45309', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2.5 } });
+    map.addLayer({ id: 'me-halo', type: 'circle', source: 'me', paint: { 'circle-radius': 20, 'circle-color': '#8a6224', 'circle-opacity': 0.2 } });
+    map.addLayer({ id: 'me-dot', type: 'circle', source: 'me', paint: { 'circle-radius': 7.5, 'circle-color': '#8a6224', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2.5 } });
 
     var tapLayers = ['firm-pin', 'firm-label', 'firm-feat-pin', 'firm-feat-label', 'firm-pin-sel'];
     function pick(e){
@@ -799,10 +799,10 @@
     return items.slice(0, 9);
   }
   var SUGICO = {
-    search: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
-    pin: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
-    near: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
-    firm: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#636870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg>'
+    search: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+    pin: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+    near: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8a6224" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>',
+    firm: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#586170" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg>'
   };
   var sugItems = [], sugIdx = -1;
   function drawSug(){

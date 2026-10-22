@@ -8,8 +8,8 @@ import { BLOG_CSS, cardHtml, safePostUrl } from './blog-cards.js';
 // The masthead artwork, "The Press": a slowly turning gold seal with the scales of justice, and up to four of the page's own latest
 // stories drifting up the right side like a newsroom. Pure SVG and CSS (no pictures to load), decorative (hidden from screen readers),
 // and still for visitors who ask their device for less motion.
-const SEAL = `<svg class="news-seal" viewBox="0 0 300 300" aria-hidden="true" focusable="false"><defs><path id="nwCirc" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0"/></defs><circle cx="150" cy="150" r="140" fill="none" stroke="#e0a93a" stroke-width="2"/><circle cx="150" cy="150" r="96" fill="none" stroke="#e0a93a" stroke-width="1.2" stroke-dasharray="3 5"/><text><textPath href="#nwCirc">LAWDB NEWS &#183; CANADA'S LEGAL DIRECTORY &#183; STRAIGHT FROM THE FIRMS &#183; </textPath></text></svg>` +
-  `<div class="news-sealmid" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><g fill="none" stroke="#b45309" stroke-width="3" stroke-linecap="round"><path d="M32 10v40M20 50h24M14 20h36"/><path d="M14 20l-7 16a8 6 0 0 0 14 0zM50 20l-7 16a8 6 0 0 0 14 0z"/></g></svg></div>`;
+const SEAL = `<svg class="news-seal" viewBox="0 0 300 300" aria-hidden="true" focusable="false"><defs><path id="nwCirc" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0"/></defs><circle cx="150" cy="150" r="140" fill="none" stroke="#c9a050" stroke-width="2"/><circle cx="150" cy="150" r="96" fill="none" stroke="#c9a050" stroke-width="1.2" stroke-dasharray="3 5"/><text><textPath href="#nwCirc">LAWDB NEWS &#183; CANADA'S LEGAL DIRECTORY &#183; STRAIGHT FROM THE FIRMS &#183; </textPath></text></svg>` +
+  `<div class="news-sealmid" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><g fill="none" stroke="#8a6224" stroke-width="3" stroke-linecap="round"><path d="M32 10v40M20 50h24M14 20h36"/><path d="M14 20l-7 16a8 6 0 0 0 14 0zM50 20l-7 16a8 6 0 0 0 14 0z"/></g></svg></div>`;
 const cutText = (t, n) => (t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, '') + '\u2026' : t);
 function pressArt(posts) {
   const cards = posts.filter((p) => p.title).slice(0, 4).map((p, i) =>
@@ -19,33 +19,33 @@ function pressArt(posts) {
 
 const CSS = `<style>
 /* LawDB News runs edge to edge: a dark masthead, "how it works", then the feed filling the whole screen. */
-.news-band{background:#fff3d4;background-image:radial-gradient(#e9dfc6 1px,transparent 1.2px);background-size:22px 22px;color:#1f2328;padding:clamp(34px,6vw,92px) clamp(18px,4vw,72px) clamp(30px,4.5vw,64px)}
-.news-eyebrow{font-size:clamp(12px,1vw,14px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#b45309;margin:0 0 12px}
-.news-band h1{font-size:clamp(42px,7vw,104px);line-height:1;margin:0 0 clamp(12px,1.6vw,22px);color:#1f2328;letter-spacing:-.01em}.news-band h1 .u{background:linear-gradient(#e0a93a,#e0a93a) no-repeat 0 92%/0 .2em;animation:nwUnder 6s ease-in-out infinite}
-.news-lede{font-family:'Source Serif 4',serif;font-size:clamp(21px,2.6vw,38px);line-height:1.25;color:#1f2328;margin:0 0 clamp(14px,1.8vw,24px);max-width:26em;text-wrap:balance}
-.news-band .news-intro{font-size:clamp(16px,1.35vw,20px);line-height:1.65;color:#3f444b;max-width:40em;margin:0}
-.news-stats{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,64px);margin:clamp(22px,3vw,44px) 0 0;padding-top:clamp(18px,2.4vw,32px);border-top:1px solid #e3dfd5}
-.news-stats div{min-width:0}.news-stats b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(34px,4.2vw,64px);line-height:1;color:#1f2328}
-.news-stats span{font-size:clamp(12.5px,1vw,15px);color:#7a7266;letter-spacing:.04em}
+.news-band{background:#f4ecd8;background-image:radial-gradient(#e6d4a4 1px,transparent 1.2px);background-size:22px 22px;color:#142434;padding:clamp(34px,6vw,92px) clamp(18px,4vw,72px) clamp(30px,4.5vw,64px)}
+.news-eyebrow{font-size:clamp(12px,1vw,14px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a6224;margin:0 0 12px}
+.news-band h1{font-size:clamp(42px,7vw,104px);line-height:1;margin:0 0 clamp(12px,1.6vw,22px);color:#142434;letter-spacing:-.01em}.news-band h1 .u{background:linear-gradient(#c9a050,#c9a050) no-repeat 0 92%/0 .2em;animation:nwUnder 6s ease-in-out infinite}
+.news-lede{font-family:'Source Serif 4',serif;font-size:clamp(21px,2.6vw,38px);line-height:1.25;color:#142434;margin:0 0 clamp(14px,1.8vw,24px);max-width:26em;text-wrap:balance}
+.news-band .news-intro{font-size:clamp(16px,1.35vw,20px);line-height:1.65;color:#2b3a4c;max-width:40em;margin:0}
+.news-stats{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,64px);margin:clamp(22px,3vw,44px) 0 0;padding-top:clamp(18px,2.4vw,32px);border-top:1px solid #e3dfd3}
+.news-stats div{min-width:0}.news-stats b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(34px,4.2vw,64px);line-height:1;color:#142434}
+.news-stats span{font-size:clamp(12.5px,1vw,15px);color:#586170;letter-spacing:.04em}
 .news-main{padding:clamp(20px,3vw,52px) clamp(16px,4vw,72px) clamp(10px,2vw,30px)}
 .news-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(14px,2vw,30px);margin:0 0 clamp(22px,3vw,44px)}
-.news-step{background:#fff;border:1px solid #e3dfd5;border-radius:14px;padding:clamp(18px,2vw,30px)}
-.news-step i{display:inline-flex;width:clamp(34px,3vw,46px);height:clamp(34px,3vw,46px);border-radius:50%;background:#fff3d4;border:1px solid #f6dc9a;align-items:center;justify-content:center;font:700 clamp(15px,1.4vw,19px) 'Source Serif 4',serif;font-style:normal;color:#b45309;margin-bottom:12px}
-.news-step h2{font-size:clamp(19px,1.7vw,25px);margin:0 0 6px}.news-step p{margin:0;font-size:clamp(15px,1.15vw,17px);line-height:1.6;color:#3f444b}
+.news-step{background:#fff;border:1px solid #e3dfd3;border-radius:14px;padding:clamp(18px,2vw,30px)}
+.news-step i{display:inline-flex;width:clamp(34px,3vw,46px);height:clamp(34px,3vw,46px);border-radius:50%;background:#f4ecd8;border:1px solid #e6d4a4;align-items:center;justify-content:center;font:700 clamp(15px,1.4vw,19px) 'Source Serif 4',serif;font-style:normal;color:#8a6224;margin-bottom:12px}
+.news-step h2{font-size:clamp(19px,1.7vw,25px);margin:0 0 6px}.news-step p{margin:0;font-size:clamp(15px,1.15vw,17px);line-height:1.6;color:#2b3a4c}
 .news-people{display:flex;flex-wrap:wrap;align-items:center;gap:12px clamp(14px,2vw,28px);margin:0 0 clamp(18px,2.4vw,34px)}
-.news-people h2{font-size:clamp(16px,1.3vw,19px);margin:0;color:#636870;font-family:'Inter',sans-serif;font-weight:600}
-.news-people a{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#1f2328;font-weight:600;font-size:clamp(14px,1.1vw,16px)}
-.news-people .lw-av{width:44px;height:44px;border-radius:50%;background:#f0ede5;border:1px solid #e3dfd5;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:700;color:#5d5f63}
+.news-people h2{font-size:clamp(16px,1.3vw,19px);margin:0;color:#586170;font-family:'Inter',sans-serif;font-weight:600}
+.news-people a{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#142434;font-weight:600;font-size:clamp(14px,1.1vw,16px)}
+.news-people .lw-av{width:44px;height:44px;border-radius:50%;background:#edeae1;border:1px solid #e3dfd3;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:700;color:#586170}
 .news-people .lw-av img{width:100%;height:100%;object-fit:contain;background:#fff}
 @media(max-width:640px){.news-people{flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}.news-people>*{flex:none;white-space:nowrap}}
 .news-filter{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 clamp(16px,2vw,28px)}
-.news-filter label{font-weight:600;color:#3f444b;font-size:clamp(14px,1.05vw,16px)}
-.news-filter select{max-width:100%;padding:11px 16px;border-radius:999px;border:1px solid #e3dfd5;background:#fff;color:#1f2328;font:600 clamp(14px,1.05vw,16px) 'Inter',sans-serif}
-.news-filter a{color:#3f444b;font-weight:600;font-size:14px}
-.news-people .news-more{white-space:nowrap;color:#636870;font-weight:600;font-size:clamp(14px,1.1vw,16px)}
-.lw-by{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#1f2328}
+.news-filter label{font-weight:600;color:#2b3a4c;font-size:clamp(14px,1.05vw,16px)}
+.news-filter select{max-width:100%;padding:11px 16px;border-radius:999px;border:1px solid #e3dfd3;background:#fff;color:#142434;font:600 clamp(14px,1.05vw,16px) 'Inter',sans-serif}
+.news-filter a{color:#2b3a4c;font-weight:600;font-size:14px}
+.news-people .news-more{white-space:nowrap;color:#586170;font-weight:600;font-size:clamp(14px,1.1vw,16px)}
+.lw-by{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#142434}
 .lw-by a{color:inherit;text-decoration:none}.lw-by a:hover{text-decoration:underline}
-.lw-by .lw-ft{background:#b45309;color:#fff;border-radius:999px;padding:1px 7px;font-size:10.5px;letter-spacing:.03em}
+.lw-by .lw-ft{background:#8a6224;color:#fff;border-radius:999px;padding:1px 7px;font-size:10.5px;letter-spacing:.03em}
 /* the feed fills the screen and everything is big */
 .news-main .lw-feed{grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));gap:clamp(16px,2vw,30px)}
 .news-main .lw-feed .lw-bc h3{font-size:clamp(21px,1.7vw,27px)}
@@ -55,25 +55,25 @@ const CSS = `<style>
 .news-main .lw-feed .lw-who .lw-by{font-size:clamp(14px,1.1vw,16px)}
 .news-main .lw-feed .lw-bc-in{padding:18px 20px 24px}
 .news-main .lw-feed .lw-bc .lw-go{font-size:clamp(14px,1.1vw,16px);padding:12px 18px}
-.news-empty{background:#fff;border:1px solid #e3dfd5;border-radius:12px;padding:26px;max-width:680px;color:#3f444b;font-size:17px;line-height:1.55}
-.news-cta{margin:clamp(24px,3vw,48px) 0 0;background:#fff3d4;border-block:1px solid #f6dc9a;padding:clamp(22px,3vw,44px) clamp(16px,4vw,72px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.news-empty{background:#fff;border:1px solid #e3dfd3;border-radius:12px;padding:26px;max-width:680px;color:#2b3a4c;font-size:17px;line-height:1.55}
+.news-cta{margin:clamp(24px,3vw,48px) 0 0;background:#f4ecd8;border-block:1px solid #e6d4a4;padding:clamp(22px,3vw,44px) clamp(16px,4vw,72px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
 .news-cta b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(22px,2.4vw,34px);margin-bottom:4px}
-.news-cta span{font-size:clamp(15px,1.2vw,18px);color:#3f444b}
-.news-cta a{background:#1f2328;color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:14px 24px;font-size:clamp(15px,1.15vw,17px)}
-.news-foot{padding:clamp(16px,2vw,28px) clamp(16px,4vw,72px) clamp(26px,3vw,44px);font-size:13px;color:#8d9197;line-height:1.6;max-width:70em;margin:0}
+.news-cta span{font-size:clamp(15px,1.2vw,18px);color:#2b3a4c}
+.news-cta a{background:#142434;color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:14px 24px;font-size:clamp(15px,1.15vw,17px)}
+.news-foot{padding:clamp(16px,2vw,28px) clamp(16px,4vw,72px) clamp(26px,3vw,44px);font-size:13px;color:#8a919b;line-height:1.6;max-width:70em;margin:0}
 
 /* masthead artwork */
 .news-band{position:relative;overflow:hidden;isolation:isolate}
 .news-band>*:not(.news-seal):not(.news-sealmid):not(.news-drift){position:relative;z-index:3}
 .news-seal,.news-sealmid{position:absolute;right:clamp(10px,6vw,110px);top:50%;width:clamp(200px,27vw,340px);aspect-ratio:1;z-index:1;pointer-events:none}
 .news-seal{transform:translateY(-50%);animation:nwSpin 40s linear infinite}
-.news-seal text{font:700 13.2px 'Inter',sans-serif;letter-spacing:.2em;fill:#b45309}
+.news-seal text{font:700 13.2px 'Inter',sans-serif;letter-spacing:.2em;fill:#8a6224}
 .news-sealmid{display:flex;align-items:center;justify-content:center;transform:translateY(-50%);animation:nwBreath 5s ease-in-out infinite}
 .news-sealmid svg{width:46%;height:auto}
 .news-drift{position:absolute;inset:0;z-index:2;pointer-events:none}
-.news-card{position:absolute;width:clamp(170px,15vw,230px);padding:12px 14px;background:#fff;border:1px solid #e3dfd5;border-radius:12px;box-shadow:0 10px 26px rgba(90,60,10,.14);line-height:1.35;opacity:0;animation:nwRise linear infinite}
-.news-card small{display:block;color:#b45309;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:10.5px;margin-bottom:4px}
-.news-card b{display:block;font:600 clamp(13.5px,1vw,15.5px)/1.25 'Source Serif 4',serif;color:#1f2328}
+.news-card{position:absolute;width:clamp(170px,15vw,230px);padding:12px 14px;background:#fff;border:1px solid #e3dfd3;border-radius:12px;box-shadow:0 10px 26px rgba(43,58,76,0.14);line-height:1.35;opacity:0;animation:nwRise linear infinite}
+.news-card small{display:block;color:#8a6224;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:10.5px;margin-bottom:4px}
+.news-card b{display:block;font:600 clamp(13.5px,1vw,15.5px)/1.25 'Source Serif 4',serif;color:#142434}
 .news-card.k1{left:50%;--r:-3deg;animation-duration:19s}.news-card.k2{left:62%;--r:2deg;animation-duration:23s;animation-delay:-8s}.news-card.k3{left:74%;--r:-2deg;animation-duration:21s;animation-delay:-14s}.news-card.k4{left:86%;--r:3deg;animation-duration:26s;animation-delay:-4s}
 @keyframes nwSpin{to{transform:translateY(-50%) rotate(360deg)}}
 @keyframes nwBreath{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.05)}}
@@ -86,10 +86,10 @@ const CSS = `<style>
 
 // The story that opens over the page (also used by the home page news feed).
 export const DIALOG_CSS = `<style>
-.st-dlg{border:0;padding:0;width:min(940px,calc(100% - 32px));max-height:92dvh;border-radius:20px;background:#f8f6f1;color:#1f2328;overflow:auto;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,.35)}
-.st-dlg::backdrop{background:rgba(31,28,25,.62)}
+.st-dlg{border:0;padding:0;width:min(940px,calc(100% - 32px));max-height:92dvh;border-radius:20px;background:#f5f3ec;color:#142434;overflow:auto;margin:auto;box-shadow:0 30px 80px rgba(20,36,52,0.35)}
+.st-dlg::backdrop{background:rgba(27,36,45,0.62)}
 .st-dlg .st{padding:clamp(18px,3vw,38px)}
-.st-x{position:sticky;top:10px;float:right;margin:10px 12px 0 0;z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid #e3dfd5;background:#fff;color:#1f2328;font-size:26px;line-height:1;cursor:pointer}
+.st-x{position:sticky;top:10px;float:right;margin:10px 12px 0 0;z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid #e3dfd3;background:#fff;color:#142434;font-size:26px;line-height:1;cursor:pointer}
 @media(max-width:700px){.st-dlg{width:100%;height:100dvh;max-height:100dvh;border-radius:0}}
 </style>`;
 

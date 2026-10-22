@@ -117,32 +117,32 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap');
   :root{
-    --ink:#1f2328; --ink-soft:#636870; --brass:#e8a91f; --brass-deep:#b45309;
-    --red:#e8a91f; --red-deep:#b45309; --red-tint:#fff3d4; --red-border:#f6dc9a;
-    --cream:#f8f6f1; --card:#ffffff; --line:#e3dfd5; --dark:#15181c; --dark-2:#15181c; --green:#1f6f6b;
+    --ink:#142434; --ink-soft:#586170; --brass:#c9a050; --brass-deep:#8a6224;
+    --red:#c9a050; --red-deep:#8a6224; --red-tint:#f4ecd8; --red-border:#e6d4a4;
+    --cream:#f5f3ec; --card:#ffffff; --line:#e3dfd3; --dark:#1b242d; --dark-2:#1b242d; --green:#2b3a4c;
   }
   *{box-sizing:border-box;}
   body{margin:0; font-family:'Inter',sans-serif; color:var(--ink); background:var(--cream);}
   a{color:inherit;}
   
-  .site-header{ height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:var(--dark,#15181c); color:#fff; position:sticky; top:0; z-index:500; }
+  .site-header{ height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:var(--dark,#1b242d); color:#fff; position:sticky; top:0; z-index:500; }
   .site-header .mark{ font-family:'Source Serif 4',serif; font-size:19px; font-weight:700; text-decoration:none; color:#fff; display:flex; align-items:center; gap:8px; }
   .brand-icon{ flex-shrink:0; display:block; }
   .site-header .header-right{ display:flex; align-items:center; gap:12px; }
-  .site-header .back-link{ font-size:12px; color:#8d9197; text-decoration:none; white-space:nowrap; }
+  .site-header .back-link{ font-size:12px; color:#8a919b; text-decoration:none; white-space:nowrap; }
   .site-header .back-link:hover{ color:#fff; }
-  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#1f2328; background:var(--brass,#e0a93a); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
+  .add-firm-btn{ font-size:12.5px; font-weight:700; color:#142434; background:var(--brass,#c9a050); padding:8px 14px; border-radius:4px; text-decoration:none; white-space:nowrap; }
   .add-firm-btn:hover{ filter:brightness(1.08); }
   .hamburger-btn{ background:none; border:none; cursor:pointer; padding:6px; display:flex; flex-direction:column; gap:4px; }
   .hamburger-btn span{ display:block; width:22px; height:2px; background:#fff; border-radius:2px; }
-  .menu-overlay{ position:fixed; inset:0; background:rgba(6,8,11,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
+  .menu-overlay{ position:fixed; inset:0; background:rgba(20,36,52,0.6); z-index:900; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
   .menu-overlay.open{ opacity:1; pointer-events:auto; }
-  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#15181c; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
-  .menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(0,0,0,0.35); }
-  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#8d9197; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
-  .menu-drawer a{ color:#f0ede5; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #2a2f35; }
-  .menu-drawer a:hover{ color:var(--brass,#e0a93a); }
-  .menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#e0342f); color:#fff; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
+  .menu-drawer{ position:fixed; top:0; right:0; height:100%; width:280px; max-width:82vw; background:#1b242d; z-index:901; transform:translateX(100%); transition:transform 0.25s ease; padding:22px 20px; display:flex; flex-direction:column; gap:2px; }
+  .menu-drawer.open{ transform:translateX(0); box-shadow:-6px 0 24px rgba(20,36,52,0.35); }
+  .menu-drawer .menu-close{ align-self:flex-end; background:none; border:none; color:#8a919b; font-size:26px; line-height:1; cursor:pointer; margin-bottom:14px; }
+  .menu-drawer a{ color:#edeae1; text-decoration:none; font-size:15px; font-weight:600; padding:14px 4px; border-bottom:1px solid #2b3a4c; }
+  .menu-drawer a:hover{ color:var(--brass,#c9a050); }
+  .menu-drawer .menu-cta{ margin-top:18px; background:var(--red,#c9a050); color:#142434; text-align:center; border-radius:4px; padding:13px; border-bottom:none; font-weight:700; }
 
 
   .wrap{ max-width:720px; margin:0 auto; padding:36px 20px 80px; }
@@ -151,15 +151,15 @@
   .crumb a{ text-decoration:none; color:var(--ink-soft); }
   .crumb a:hover{ color:var(--brass-deep); }
   .post-meta{ font-size:12.5px; color:var(--ink-soft); margin-bottom:10px; }
-  .post-meta .city-pill{ display:inline-block; background:#eef0f2; color:var(--ink); padding:2px 10px;
+  .post-meta .city-pill{ display:inline-block; background:#edeae1; color:var(--ink); padding:2px 10px;
     border-radius:20px; font-weight:600; font-size:11.5px; margin-right:8px; }
   h1{ font-family:'Source Serif 4',serif; font-size:30px; line-height:1.28; margin:0 0 18px; }
   .hero-img{ width:100%; height:280px; object-fit:cover; border-radius:8px; margin-bottom:26px; border:1px solid var(--line); }
   .hero-banner{ width:100%; height:220px; border-radius:8px; margin-bottom:26px; display:flex;
     align-items:flex-end; padding:26px; color:#fff; }
   .hero-banner span{ font-family:'Source Serif 4',serif; font-size:20px; font-weight:600;
-    text-shadow:0 1px 3px rgba(0,0,0,0.25); }
-  .post-body{ font-size:16px; line-height:1.8; color:#30353b; }
+    text-shadow:0 1px 3px rgba(20,36,52,0.25); }
+  .post-body{ font-size:16px; line-height:1.8; color:#2b3a4c; }
   .post-body h2{ font-family:'Source Serif 4',serif; font-size:21px; color:var(--ink); margin:32px 0 12px; }
   .post-body p{ margin:0 0 18px; }
   .post-cta{ background:var(--card); border:1px solid var(--line); border-left:3px solid var(--brass);
@@ -168,21 +168,21 @@
   .post-cta p{ margin:0; font-size:14px; color:var(--ink-soft); }
   .post-cta a{ color:var(--brass-deep); font-weight:600; text-decoration:none; }
   .post-cta a:hover{ text-decoration:underline; }
-  .fine{ font-size:11.5px; color:#8d9197; margin-top:30px; line-height:1.6; }
+  .fine{ font-size:11.5px; color:#8a919b; margin-top:30px; line-height:1.6; }
 
   
-  .site-footer{ background:var(--dark,#15181c); color:#8d9197; padding:48px 20px 24px; }
-  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2a2f35; }
+  .site-footer{ background:var(--dark,#1b242d); color:#b4bac4; padding:48px 20px 24px; }
+  .site-footer .foot-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:32px; border-bottom:1px solid #2b3a4c; }
   @media (max-width:760px){ .site-footer .foot-grid{ grid-template-columns:1fr 1fr; } }
   .site-footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:19px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
   .site-footer .fblurb{ font-size:13px; line-height:1.7; max-width:280px; }
-  .site-footer h4{ color:#c7cfda; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px; font-weight:700; }
+  .site-footer h4{ color:#e3dfd3; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px; font-weight:700; }
   .site-footer ul{ list-style:none; margin:0; padding:0; }
   .site-footer li{ margin-bottom:10px; }
-  .site-footer a{ color:#8d9197; text-decoration:none; font-size:13.5px; }
+  .site-footer a{ color:#8a919b; text-decoration:none; font-size:13.5px; }
   .site-footer a:hover{ color:#fff; }
-  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#e0a93a); color:#1f2328; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
-  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#636870; }
+  .site-footer .foot-cta{ display:inline-block; margin-top:2px; background:var(--brass,#c9a050); color:#142434; font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:4px; text-decoration:none; }
+  .site-footer .foot-bottom{ max-width:1100px; margin:20px auto 0; font-size:11.5px; line-height:1.7; color:#586170; }
 
   footer .fmark{ font-family:'Source Serif 4',serif; color:#fff; font-size:16px; margin-bottom:6px; display:block; }
 
@@ -193,20 +193,20 @@
     .site-header .mark .wordmark .name{ font-size:22px; }
     .site-header .mark .wordmark .tagline{ font-size:8.5px; }
     .desktop-nav{ display:flex; align-items:center; }
-    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#1f2328; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
-    .desktop-nav a:hover{ color:#b45309; }
-    .desktop-nav .nav-cta{ background:#e8a91f; color:#ffffff; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
-    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#b45309; }
+    .desktop-nav a{ font-size:15.5px; font-weight:600; color:#142434; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
+    .desktop-nav a:hover{ color:#8a6224; }
+    .desktop-nav .nav-cta{ background:#c9a050; color:#142434; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
+    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#8a6224; }
     .hamburger-btn{ display:none; }
   }
 
   .post-body ul{ margin:0 0 18px; padding-left:20px; }
-  .src-note{ font-size:13px; color:var(--ink-soft); background:#f1ede1; border-radius:6px; padding:10px 14px; margin:0 0 22px; line-height:1.6; }
+  .src-note{ font-size:13px; color:var(--ink-soft); background:#edeae1; border-radius:6px; padding:10px 14px; margin:0 0 22px; line-height:1.6; }
   .faq{ margin:36px 0 10px; }
   .faq h2{ font-family:'Source Serif 4',serif; font-size:21px; margin:0 0 14px; }
   .faq .q{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:4px 18px; margin:0 0 10px; }
   .faq .q h3{ font-size:15.5px; margin:14px 0 6px; color:var(--ink); }
-  .faq .q p{ font-size:14.5px; line-height:1.7; color:#30353b; margin:0 0 14px; }
+  .faq .q p{ font-size:14.5px; line-height:1.7; color:#2b3a4c; margin:0 0 14px; }
   .more{ margin:30px 0 0; }
   .more h2{ font-family:'Source Serif 4',serif; font-size:19px; margin:0 0 10px; }
   .more a{ display:block; padding:11px 0; border-bottom:1px solid var(--line); text-decoration:none; color:var(--ink); font-weight:600; font-size:14.5px; }
@@ -268,7 +268,7 @@
   </div>
   <div class="post-cta"><h3>Firm spotlight: Gowling WLG (Canada) LLP</h3><p>Gowling WLG’s Calgary office has operated locally for almost 50 years and describes itself as one of the largest groups of legal professionals in Western Canada. The firm traces its roots to 1887 and became Gowling WLG in February 2016, when Canada’s Gowlings combined with the UK’s Wragge Lawrence Graham &amp; Co. <a href="/firms/gowling-wlg-canada-llp-calgary">See the full Gowling WLG (Canada) LLP profile</a>. Read more from <a href="https://gowlingwlg.com/en/offices/canada/calgary/" target="_blank" rel="noopener">Gowling WLG’s Calgary office page</a>.</p></div>
   <div class="faq"><h2>Frequently asked questions</h2><div class="q"><h3>What does the CCAA do?</h3><p>It lets larger insolvent companies reorganize under court supervision with a stay of creditor actions.</p></div><div class="q"><h3>What is a BIA proposal?</h3><p>A structured process under the Bankruptcy and Insolvency Act in which a debtor offers creditors a plan to avoid bankruptcy.</p></div><div class="q"><h3>What was the Redwater decision?</h3><p>A 2019 Supreme Court of Canada ruling that an insolvent oil company’s environmental obligations must be satisfied before creditors are paid from its assets.</p></div><div class="q"><h3>Do unsecured creditors get paid?</h3><p>It depends on the plan and the assets. Secured creditors generally rank ahead.</p></div><div class="q"><h3>Should directors worry personally?</h3><p>In some situations, yes, so directors should get legal advice as soon as solvency is in doubt.</p></div></div>
-  <div class="post-cta"><h3>Alberta firms to look at</h3><div style="margin-top:8px;"><a href='/firms/gowling-wlg-canada-llp-calgary' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd5;text-decoration:none;color:#1f2328;"><span style="font-weight:600;font-size:14.5px;">Gowling WLG (Canada) LLP</span><span style="font-size:13px;color:#b45309;white-space:nowrap;margin-left:12px;">&#9733; 3.5 <span style="color:#8d9197;">(28)</span></span></a><a href='/firms/hoare-claxton-criminal-defence' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd5;text-decoration:none;color:#1f2328;"><span style="font-weight:600;font-size:14.5px;">Hoare Claxton Criminal Defence</span><span style="font-size:13px;color:#b45309;white-space:nowrap;margin-left:12px;">&#9733; 5.0 <span style="color:#8d9197;">(27)</span></span></a><a href='/firms/cuming-gillespie-llp' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd5;text-decoration:none;color:#1f2328;"><span style="font-weight:600;font-size:14.5px;">Cuming &amp; Gillespie LLP</span><span style="font-size:13px;color:#b45309;white-space:nowrap;margin-left:12px;">&#9733; 4.7 <span style="color:#8d9197;">(80)</span></span></a><a href='/firms/mccarthy-t-trault-llp-calgary' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd5;text-decoration:none;color:#1f2328;"><span style="font-weight:600;font-size:14.5px;">McCarthy Tétrault LLP</span><span style="font-size:13px;color:#b45309;white-space:nowrap;margin-left:12px;">&#9733; 4.6 <span style="color:#8d9197;">(12)</span></span></a></div>
+  <div class="post-cta"><h3>Alberta firms to look at</h3><div style="margin-top:8px;"><a href='/firms/gowling-wlg-canada-llp-calgary' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd3;text-decoration:none;color:#142434;"><span style="font-weight:600;font-size:14.5px;">Gowling WLG (Canada) LLP</span><span style="font-size:13px;color:#8a6224;white-space:nowrap;margin-left:12px;">&#9733; 3.5 <span style="color:#8a919b;">(28)</span></span></a><a href='/firms/hoare-claxton-criminal-defence' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd3;text-decoration:none;color:#142434;"><span style="font-weight:600;font-size:14.5px;">Hoare Claxton Criminal Defence</span><span style="font-size:13px;color:#8a6224;white-space:nowrap;margin-left:12px;">&#9733; 5.0 <span style="color:#8a919b;">(27)</span></span></a><a href='/firms/cuming-gillespie-llp' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd3;text-decoration:none;color:#142434;"><span style="font-weight:600;font-size:14.5px;">Cuming &amp; Gillespie LLP</span><span style="font-size:13px;color:#8a6224;white-space:nowrap;margin-left:12px;">&#9733; 4.7 <span style="color:#8a919b;">(80)</span></span></a><a href='/firms/mccarthy-t-trault-llp-calgary' style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3dfd3;text-decoration:none;color:#142434;"><span style="font-weight:600;font-size:14.5px;">McCarthy Tétrault LLP</span><span style="font-size:13px;color:#8a6224;white-space:nowrap;margin-left:12px;">&#9733; 4.6 <span style="color:#8a919b;">(12)</span></span></a></div>
     <p style="margin-top:12px;"><a href="../alberta/calgary/">See all Calgary law firms</a> &middot; <a href="../alberta/">All Alberta law firms</a></p></div>
   <div class="more"><h2>More Alberta guides</h2><a href="/blog/duty-to-consult-indigenous-mining-energy-alberta">The Duty to Consult in Alberta: What Resource Projects Need to Know<span>Indigenous Law &middot; Calgary, AB</span></a><a href="/blog/mediation-and-arbitration-alberta-business-disputes">Mediation or Arbitration? Resolving a Business Dispute in Alberta Without a Trial<span>Dispute Resolution &middot; Calgary, AB</span></a><a href="/blog/buying-a-home-in-alberta-what-your-lawyer-does">Buying a Home in Alberta: What Your Real Estate Lawyer Does Between Offer and Keys<span>Real Estate &middot; Edmonton, AB</span></a></div>
   <div class="fine">General information for readers in Alberta, not legal advice for any specific situation. Laws, thresholds and deadlines change, so confirm current rules with a lawyer before relying on anything above. LawDB is an independent directory and is not affiliated with Gowling WLG (Canada) LLP; firm details come from the firm’s own published descriptions and public listings.</div>

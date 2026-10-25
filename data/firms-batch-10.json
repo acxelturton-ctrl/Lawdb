@@ -1,30 +1,69 @@
 [
  {
-  "name": "Gold Family Law",
+  "name": "Anita Perera Law Professional Corp. Lawyers & Notary Public",
   "city": "Brampton",
   "featured": false,
   "tags": [
-   "Family Law"
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates",
+   "Immigration"
   ],
   "caseTypes": [
-   "family"
+   "family",
+   "realestate",
+   "wills",
+   "immigration"
   ],
   "region": "peel-halton",
   "province": "ON",
-  "lat": 43.6863175,
-  "lng": -79.7592399,
-  "address": "21 Queen St E #300, Brampton, ON L6W 3P1",
-  "phone": "+19054514646",
-  "rating": 4.5,
-  "count": 121,
-  "slug": "gold-family-law-brampton",
-  "mapsUrl": "https://www.google.com/maps/search/Gold+Family+Law+Brampton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=21+Queen+St+E+%23300%2C+Brampton%2C+ON+L6W+3P1",
-  "website": "https://www.goldfamilylaw.ca",
-  "blurb": "Family Law in Brampton. Rated 4.5 from 121 Google reviews.",
+  "lat": 43.7514339,
+  "lng": -79.7386292,
+  "address": "2260 Bovaird Dr E Unit 121, Brampton, ON L6R 0W3",
+  "phone": "+16474609143",
+  "rating": 4.8,
+  "count": 288,
+  "slug": "anita-perera-law-professional-corp-lawyers-and-notary-public-brampton",
+  "mapsUrl": "https://www.google.com/maps/search/Anita+Perera+Law+Professional+Corp.+Lawyers+%26+Notary+Public+Brampton+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2260+Bovaird+Dr+E+Unit+121%2C+Brampton%2C+ON+L6R+0W3",
+  "website": "https://anitapereralaw.ca",
+  "blurb": "Family Law / Real Estate in Brampton. Rated 4.8 from 288 Google reviews.",
   "type": "logo",
-  "about": "Gold Family Law is a law firm in Brampton, Ontario that practises family law. Clients rate the firm 4.5 out of 5 from 121 public Google reviews. The office is at 21 Queen St E #300, Brampton, ON L6W 3P1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/gold-family-law-brampton.png"
+  "about": "Anita Perera Law Professional Corp. Lawyers & Notary Public is a law firm in Brampton, Ontario that practises family law, real estate, wills and estates and immigration. Clients rate the firm 4.8 out of 5 from 288 public Google reviews. The office is at 2260 Bovaird Dr E Unit 121, Brampton, ON L6R 0W3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/anita-perera-law-professional-corp-lawyers-and-notary-public-brampton.png"
+ },
+ {
+  "name": "Prudentia Law Professional Corporation 普诚律师事务所",
+  "city": "Markham",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8582483,
+  "lng": -79.3402784,
+  "address": "200 Town Centre Blvd Ste 302, Markham, ON L3R 8J5",
+  "phone": "+14165293982",
+  "rating": 5,
+  "count": 42,
+  "slug": "prudentia-law-professional-corporation-markham",
+  "mapsUrl": "https://www.google.com/maps/search/Prudentia+Law+Professional+Corporation+%E6%99%AE%E8%AF%9A%E5%BE%8B%E5%B8%88%E4%BA%8B%E5%8A%A1%E6%89%80+Markham+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=200+Town+Centre+Blvd+Ste+302%2C+Markham%2C+ON+L3R+8J5",
+  "website": "https://www.prudentialawpc.com",
+  "blurb": "Family Law / Real Estate in Markham. Rated 5.0 from 42 Google reviews.",
+  "type": "logo",
+  "about": "Prudentia Law Professional Corporation 普诚律师事务所 is a law firm in Markham, Ontario that practises family law, real estate, wills and estates and business law. Clients rate the firm 5.0 out of 5 from 42 public Google reviews. The office is at 200 Town Centre Blvd Ste 302, Markham, ON L3R 8J5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Founded in 2024, Prudentia Law Professional Corporation practices Real Estate, Business Transactions, Contracts, Will and Notarization. Prudentia Law 普诚律师事务所是一家位于多伦多的杰出精品律师事务所，专注于房地产法、公司法和商业法以及遗产法。我们坚定不移地致力于为企业和个人提供卓越的法律服务，这是我们秉承的核心价值观。我们以与客户的目标和愿望保持一致为荣，并努力帮助他们实现愿景。”",
+  "src": "images/logos/prudentia-law-professional-corporation-markham.png"
  },
  {
   "name": "Falcon Law PC",
@@ -60,85 +99,273 @@
   "src": "images/logos/falcon-law-pc-mississauga.png"
  },
  {
-  "name": "GOOSELAW Immigration Law Firm",
+  "name": "The Legal Pillars PC",
   "city": "Mississauga",
   "featured": false,
   "tags": [
+   "Family Law",
+   "Criminal Defence",
+   "Real Estate",
    "Immigration"
   ],
   "caseTypes": [
+   "family",
+   "criminal",
+   "realestate",
    "immigration"
   ],
   "region": "peel-halton",
   "province": "ON",
-  "lat": 43.5894494,
-  "lng": -79.6415552,
-  "address": "201 City Centre Dr Ste 200, Mississauga, ON L5B 3A3",
-  "phone": "+12898720678",
-  "rating": 4.5,
-  "count": 140,
-  "slug": "gooselaw-immigration-law-firm-mississauga",
-  "mapsUrl": "https://www.google.com/maps/search/GOOSELAW+Immigration+Law+Firm+Mississauga+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=201+City+Centre+Dr+Ste+200%2C+Mississauga%2C+ON+L5B+3A3",
-  "website": "https://gooselaw.com",
-  "blurb": "Immigration in Mississauga. Rated 4.5 from 140 Google reviews.",
+  "lat": 43.6242476,
+  "lng": -79.6567411,
+  "address": "409 Matheson Blvd E, Mississauga, ON L4Z 1R5",
+  "phone": "+14166970818",
+  "rating": 4.9,
+  "count": 90,
+  "slug": "the-legal-pillars-pc-mississauga",
+  "mapsUrl": "https://www.google.com/maps/search/The+Legal+Pillars+PC+Mississauga+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=409+Matheson+Blvd+E%2C+Mississauga%2C+ON+L4Z+1R5",
+  "website": "https://www.thelegalpillars.com",
+  "blurb": "Family Law / Criminal Defence in Mississauga. Rated 4.9 from 90 Google reviews.",
   "type": "logo",
-  "about": "GOOSELAW Immigration Law Firm is a law firm in Mississauga, Ontario that practises immigration. Clients rate the firm 4.5 out of 5 from 140 public Google reviews. The office is at 201 City Centre Dr Ste 200, Mississauga, ON L5B 3A3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/gooselaw-immigration-law-firm-mississauga.png"
+  "about": "The Legal Pillars PC is a law firm in Mississauga, Ontario that practises family law, criminal defence, real estate and immigration. Clients rate the firm 4.9 out of 5 from 90 public Google reviews. The office is at 409 Matheson Blvd E, Mississauga, ON L4Z 1R5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/the-legal-pillars-pc-mississauga.png"
  },
  {
-  "name": "Prudent Law",
-  "city": "Mississauga",
+  "name": "Acosta Legal Services",
+  "city": "North York",
   "featured": false,
   "tags": [
-   "Real Estate"
+   "Criminal Defence",
+   "Traffic Tickets"
   ],
   "caseTypes": [
-   "realestate"
+   "criminal",
+   "traffic"
   ],
-  "region": "peel-halton",
+  "region": "toronto",
   "province": "ON",
-  "lat": 43.5973442,
-  "lng": -79.6360638,
-  "address": "4 Robert Speck Pkwy #360, Mississauga, ON L4Z 1S1",
-  "phone": "+19053619789",
-  "rating": 4.5,
-  "count": 74,
-  "slug": "prudent-law-mississauga",
-  "mapsUrl": "https://www.google.com/maps/search/Prudent+Law+Mississauga+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4+Robert+Speck+Pkwy+%23360%2C+Mississauga%2C+ON+L4Z+1S1",
-  "website": "https://prudentlaw.ca",
-  "blurb": "Real Estate in Mississauga. Rated 4.5 from 74 Google reviews.",
+  "lat": 43.7608784,
+  "lng": -79.4121799,
+  "address": "25 Sheppard Ave W, North York, ON M2N 6S6",
+  "phone": "+16473854222",
+  "rating": 4.9,
+  "count": 341,
+  "slug": "acosta-legal-services-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Acosta+Legal+Services+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=25+Sheppard+Ave+W%2C+North+York%2C+ON+M2N+6S6",
+  "website": "https://acostalegalservices.com",
+  "blurb": "Criminal Defence / Traffic Tickets in North York. Rated 4.9 from 341 Google reviews.",
   "type": "logo",
-  "about": "Prudent Law is a law firm in Mississauga, Ontario that practises real estate. Clients rate the firm 4.5 out of 5 from 74 public Google reviews. The office is at 4 Robert Speck Pkwy #360, Mississauga, ON L4Z 1S1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/prudent-law-mississauga.png"
+  "about": "Acosta Legal Services is a law firm in North York, Ontario that practises criminal defence and traffic tickets. Clients rate the firm 4.9 out of 5 from 341 public Google reviews. The office is at 25 Sheppard Ave W, North York, ON M2N 6S6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/acosta-legal-services-north-york.webp"
  },
  {
-  "name": "Jamal Family Law",
-  "city": "Oakville",
+  "name": "Barapp Personal Injury Lawyers Toronto",
+  "city": "North York",
   "featured": false,
   "tags": [
-   "Family Law"
+   "Personal Injury"
   ],
   "caseTypes": [
-   "family"
+   "injury"
   ],
-  "region": "peel-halton",
+  "region": "toronto",
   "province": "ON",
-  "lat": 43.5108545,
-  "lng": -79.6717862,
-  "address": "2030 Bristol Cir, Oakville, ON L6H 0H2",
-  "phone": "+19059013746",
-  "rating": 4.5,
-  "count": 74,
-  "slug": "jamal-family-law-oakville",
-  "mapsUrl": "https://www.google.com/maps/search/Jamal+Family+Law+Oakville+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2030+Bristol+Cir%2C+Oakville%2C+ON+L6H+0H2",
-  "website": "https://www.jamalfamilylaw.com",
-  "blurb": "Family Law in Oakville. Rated 4.5 from 74 Google reviews.",
+  "lat": 43.7689715,
+  "lng": -79.4686739,
+  "address": "1000 Finch Ave W #500, North York, ON M3J 2V5",
+  "phone": "+18444357911",
+  "rating": 4.6,
+  "count": 524,
+  "slug": "barapp-personal-injury-lawyers-toronto-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Barapp+Personal+Injury+Lawyers+Toronto+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1000+Finch+Ave+W+%23500%2C+North+York%2C+ON+M3J+2V5",
+  "website": "https://barapplaw.com",
+  "blurb": "Personal Injury in North York. Rated 4.6 from 524 Google reviews.",
   "type": "logo",
-  "about": "Jamal Family Law is a law firm in Oakville, Ontario that practises family law. Clients rate the firm 4.5 out of 5 from 74 public Google reviews. The office is at 2030 Bristol Cir, Oakville, ON L6H 0H2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/jamal-family-law-oakville.png"
+  "about": "Barapp Personal Injury Lawyers Toronto is a law firm in North York, Ontario that practises personal injury. Clients rate the firm 4.6 out of 5 from 524 public Google reviews. The office is at 1000 Finch Ave W #500, North York, ON M3J 2V5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/barapp-personal-injury-lawyers-toronto-north-york.jpg"
+ },
+ {
+  "name": "Borna Law Professional Corporation",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Criminal Defence",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "criminal",
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7648979,
+  "lng": -79.4126239,
+  "address": "4950 Yonge St #2200, North York, ON M2N 6K1",
+  "phone": "+14379809697",
+  "rating": 5,
+  "count": 21,
+  "slug": "borna-law-professional-corporation-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Borna+Law+Professional+Corporation+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4950+Yonge+St+%232200%2C+North+York%2C+ON+M2N+6K1",
+  "website": "https://bornalaw.ca",
+  "blurb": "Family Law / Criminal Defence in North York. Rated 5.0 from 21 Google reviews.",
+  "type": "logo",
+  "about": "Borna Law Professional Corporation is a law firm in North York, Ontario that practises family law, criminal defence and wills and estates. Clients rate the firm 5.0 out of 5 from 21 public Google reviews. The office is at 4950 Yonge St #2200, North York, ON M2N 6K1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/borna-law-professional-corporation-north-york.png"
+ },
+ {
+  "name": "CP Legal Solutions",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7273393,
+  "lng": -79.4375048,
+  "address": "77 Sultana Ave, North York, ON M6A 1T4",
+  "phone": "+14163029661",
+  "rating": 5,
+  "count": 20,
+  "slug": "cp-legal-solutions-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/CP+Legal+Solutions+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=77+Sultana+Ave%2C+North+York%2C+ON+M6A+1T4",
+  "website": "https://www.cplegalsolutions.com",
+  "blurb": "Family Law / Real Estate in North York. Rated 5.0 from 20 Google reviews.",
+  "type": "logo",
+  "about": "CP Legal Solutions is a law firm in North York, Ontario that practises family law, real estate, wills and estates and business law. Clients rate the firm 5.0 out of 5 from 20 public Google reviews. The office is at 77 Sultana Ave, North York, ON M6A 1T4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/cp-legal-solutions-north-york.png"
+ },
+ {
+  "name": "Da Silva Legal",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7607818,
+  "lng": -79.4122746,
+  "address": "25 Sheppard Ave W #300, North York, ON M2N 6S6",
+  "phone": "+14167430522",
+  "rating": 5,
+  "count": 21,
+  "slug": "da-silva-legal-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Da+Silva+Legal+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=25+Sheppard+Ave+W+%23300%2C+North+York%2C+ON+M2N+6S6",
+  "website": "https://www.dasilvalegal.com",
+  "blurb": "Civil Litigation in North York. Rated 5.0 from 21 Google reviews.",
+  "type": "logo",
+  "about": "Da Silva Legal is a law firm in North York, Ontario that practises civil litigation. Clients rate the firm 5.0 out of 5 from 21 public Google reviews. The office is at 25 Sheppard Ave W #300, North York, ON M2N 6S6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/da-silva-legal-north-york.png"
+ },
+ {
+  "name": "Gold Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Criminal Defence",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "criminal",
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7789096,
+  "lng": -79.4204484,
+  "address": "56 Finch Ave W, North York, ON M2N 2H2",
+  "phone": "+14169998389",
+  "rating": 5,
+  "count": 42,
+  "slug": "gold-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/Gold+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=56+Finch+Ave+W%2C+North+York%2C+ON+M2N+2H2",
+  "website": "https://goldlaw.ca",
+  "blurb": "Criminal Defence / Civil Litigation in North York. Rated 5.0 from 42 Google reviews.",
+  "type": "logo",
+  "about": "Gold Law is a law firm in North York, Ontario that practises criminal defence and civil litigation. Clients rate the firm 5.0 out of 5 from 42 public Google reviews. The office is at 56 Finch Ave W, North York, ON M2N 2H2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/gold-law-north-york.webp"
+ },
+ {
+  "name": "RLC Law",
+  "city": "North York",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "business",
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7278015,
+  "lng": -79.3393776,
+  "address": "895 Don Mills Rd. #900, North York, ON M3C 1W3",
+  "phone": "+16474015738",
+  "rating": 5,
+  "count": 31,
+  "slug": "rlc-law-north-york",
+  "mapsUrl": "https://www.google.com/maps/search/RLC+Law+North+York+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=895+Don+Mills+Rd.+%23900%2C+North+York%2C+ON+M3C+1W3",
+  "website": "https://www.rlclegal.ca",
+  "blurb": "Real Estate / Wills & Estates in North York. Rated 5.0 from 31 Google reviews.",
+  "type": "logo",
+  "about": "RLC Law is a law firm in North York, Ontario that practises real estate, wills and estates, business law and civil litigation. Clients rate the firm 5.0 out of 5 from 31 public Google reviews. The office is at 895 Don Mills Rd. #900, North York, ON M3C 1W3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/rlc-law-north-york.png"
+ },
+ {
+  "name": "HazloLaw-Business Lawyers",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Business Law"
+  ],
+  "caseTypes": [
+   "business"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.4284747,
+  "lng": -75.6956564,
+  "address": "449 Sussex Dr Ste 300, Ottawa, ON K1N 6Z1",
+  "phone": "+16137472459",
+  "rating": 4.6,
+  "count": 38,
+  "slug": "hazlolaw-business-lawyers-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/HazloLaw-Business+Lawyers+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=449+Sussex+Dr+Ste+300%2C+Ottawa%2C+ON+K1N+6Z1",
+  "website": "https://hazlolaw.com",
+  "blurb": "Business Law in Ottawa. Rated 4.6 from 38 Google reviews.",
+  "type": "logo",
+  "about": "HazloLaw-Business Lawyers is a law firm in Ottawa, Ontario that practises business law. Clients rate the firm 4.6 out of 5 from 38 public Google reviews. The office is at 449 Sussex Dr Ste 300, Ottawa, ON K1N 6Z1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/hazlolaw-business-lawyers-ottawa.png"
  },
  {
   "name": "Immigration Law Firm of Matthew Jeffery",
@@ -170,33 +397,6 @@
   "src": "images/logos/immigration-law-firm-of-matthew-jeffery-richmond-hill.webp"
  },
  {
-  "name": "Bondy Immigration Law",
-  "city": "Toronto",
-  "featured": false,
-  "tags": [
-   "Immigration"
-  ],
-  "caseTypes": [
-   "immigration"
-  ],
-  "region": "toronto",
-  "province": "ON",
-  "lat": 43.6442937,
-  "lng": -79.3684503,
-  "address": "West Tower, 130 Queens Quay E Suite 1208, Toronto, ON M5A 0P6",
-  "phone": "+14163230339",
-  "rating": 4.5,
-  "count": 55,
-  "slug": "bondy-immigration-law-toronto",
-  "mapsUrl": "https://www.google.com/maps/search/Bondy+Immigration+Law+Toronto+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=West+Tower%2C+130+Queens+Quay+E+Suite+1208%2C+Toronto%2C+ON+M5A+0P6",
-  "website": "https://bondyimmigration.com",
-  "blurb": "Immigration in Toronto. Rated 4.5 from 55 Google reviews.",
-  "type": "logo",
-  "about": "Bondy Immigration Law is a law firm in Toronto, Ontario that practises immigration. Clients rate the firm 4.5 out of 5 from 55 public Google reviews. The office is at West Tower, 130 Queens Quay E Suite 1208, Toronto, ON M5A 0P6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/bondy-immigration-law-toronto.png"
- },
- {
   "name": "Feld Kalia Professional Corporation",
   "city": "Toronto",
   "featured": false,
@@ -224,31 +424,37 @@
   "src": "images/logos/feld-kalia-professional-corporation-toronto.jpg"
  },
  {
-  "name": "Levitt LLP",
+  "name": "Ghabryal Law Professional Corporation",
   "city": "Toronto",
   "featured": false,
   "tags": [
-   "Employment Law"
+   "Family Law",
+   "Wills & Estates",
+   "Business Law",
+   "Immigration"
   ],
   "caseTypes": [
-   "employment"
+   "family",
+   "wills",
+   "business",
+   "immigration"
   ],
   "region": "toronto",
   "province": "ON",
-  "lat": 43.64963,
-  "lng": -79.383759,
-  "address": "130 Adelaide St W Ste 801, Toronto, ON M5H 2K4",
-  "phone": "+14165943900",
-  "rating": 4.5,
-  "count": 410,
-  "slug": "levitt-llp-toronto",
-  "mapsUrl": "https://www.google.com/maps/search/Levitt+LLP+Toronto+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=130+Adelaide+St+W+Ste+801%2C+Toronto%2C+ON+M5H+2K4",
-  "website": "https://www.levittllp.com",
-  "blurb": "Employment Law in Toronto. Rated 4.5 from 410 Google reviews.",
+  "lat": 43.6500191,
+  "lng": -79.3811921,
+  "address": "330 Bay St., Toronto, ON M5H 3S2",
+  "phone": "+14373777770",
+  "rating": 4.9,
+  "count": 251,
+  "slug": "ghabryal-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Ghabryal+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=330+Bay+St.%2C+Toronto%2C+ON+M5H+3S2",
+  "website": "https://www.ghabryal.ca",
+  "blurb": "Family Law / Wills & Estates in Toronto. Rated 4.9 from 251 Google reviews.",
   "type": "logo",
-  "about": "Levitt LLP is a law firm in Toronto, Ontario that practises employment law. Clients rate the firm 4.5 out of 5 from 410 public Google reviews. The office is at 130 Adelaide St W Ste 801, Toronto, ON M5H 2K4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/levitt-llp-toronto.webp"
+  "about": "Ghabryal Law Professional Corporation is a law firm in Toronto, Ontario that practises family law, wills and estates, business law and immigration. Clients rate the firm 4.9 out of 5 from 251 public Google reviews. The office is at 330 Bay St., Toronto, ON M5H 3S2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ghabryal-law-professional-corporation-toronto.png"
  },
  {
   "name": "Lex Magnus Law Professional Corporation",
@@ -282,6 +488,124 @@
   "type": "logo",
   "about": "Lex Magnus Law Professional Corporation is a law firm in Toronto, Ontario that practises immigration, civil litigation and family law. Clients rate the firm 4.7 out of 5 from 94 public Google reviews. The office is at 1585 Markham Rd Suite 212, Scarborough, ON M1B 0B3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Lex Magnus Law is a Toronto law firm serving the GTA in criminal defence, family law, immigration, civil litigation, real estate, and wills and estates.”",
   "src": "images/logos/lex-magnus-law-professional-corporation-toronto.png"
+ },
+ {
+  "name": "MacLeod Law Firm",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6704775,
+  "lng": -79.3872741,
+  "address": "2 Bloor St W #729, Toronto, ON M4W 3E2",
+  "phone": "+16472048107",
+  "rating": 5,
+  "count": 41,
+  "slug": "macleod-law-firm-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/MacLeod+Law+Firm+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2+Bloor+St+W+%23729%2C+Toronto%2C+ON+M4W+3E2",
+  "website": "https://www.macleodlawfirm.ca",
+  "blurb": "Employment Law in Toronto. Rated 5.0 from 41 Google reviews.",
+  "type": "logo",
+  "about": "MacLeod Law Firm is a law firm in Toronto, Ontario that practises employment law. Clients rate the firm 5.0 out of 5 from 41 public Google reviews. The office is at 2 Bloor St W #729, Toronto, ON M4W 3E2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/macleod-law-firm-toronto.jpg"
+ },
+ {
+  "name": "Maqbool Law",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.801444,
+  "lng": -79.236199,
+  "address": "100 McLevin Ave #209, Scarborough, ON M1B 5K1",
+  "phone": "+14163351506",
+  "rating": 4.9,
+  "count": 269,
+  "slug": "maqbool-law-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Maqbool+Law+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=100+McLevin+Ave+%23209%2C+Scarborough%2C+ON+M1B+5K1",
+  "website": "https://maqboollaw.com",
+  "blurb": "Real Estate / Wills & Estates in Toronto. Rated 4.9 from 269 Google reviews.",
+  "type": "logo",
+  "about": "Maqbool Law is a law firm in Toronto, Ontario that practises real estate, wills and estates and business law. Clients rate the firm 4.9 out of 5 from 269 public Google reviews. The office is at 100 McLevin Ave #209, Scarborough, ON M1B 5K1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/maqbool-law-toronto.png"
+ },
+ {
+  "name": "Pokharel Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Business Law",
+   "Immigration",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "family",
+   "business",
+   "immigration",
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.6704494,
+  "lng": -79.3871548,
+  "address": "2 Bloor St W suite 700, Toronto, ON M4W 3E2",
+  "phone": "+16478730837",
+  "rating": 5,
+  "count": 38,
+  "slug": "pokharel-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Pokharel+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2+Bloor+St+W+suite+700%2C+Toronto%2C+ON+M4W+3E2",
+  "website": "https://pokharel.ca",
+  "blurb": "Family Law / Business Law in Toronto. Rated 5.0 from 38 Google reviews.",
+  "type": "logo",
+  "about": "Pokharel Law Professional Corporation is a law firm in Toronto, Ontario that practises family law, business law, immigration and civil litigation. Clients rate the firm 5.0 out of 5 from 38 public Google reviews. The office is at 2 Bloor St W suite 700, Toronto, ON M4W 3E2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/pokharel-law-professional-corporation-toronto.png"
+ },
+ {
+  "name": "Sutharsan Law Professional Corporation",
+  "city": "Toronto",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7894193,
+  "lng": -79.236172,
+  "address": "305 Milner Ave Ste 908, Scarborough, ON M1B 3V4",
+  "phone": "+14164442929",
+  "rating": 4.8,
+  "count": 361,
+  "slug": "sutharsan-law-professional-corporation-toronto",
+  "mapsUrl": "https://www.google.com/maps/search/Sutharsan+Law+Professional+Corporation+Toronto+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=305+Milner+Ave+Ste+908%2C+Scarborough%2C+ON+M1B+3V4",
+  "website": "https://spblaw.ca",
+  "blurb": "Criminal Defence in Toronto. Rated 4.8 from 361 Google reviews.",
+  "type": "logo",
+  "about": "Sutharsan Law Professional Corporation is a law firm in Toronto, Ontario that practises criminal defence. Clients rate the firm 4.8 out of 5 from 361 public Google reviews. The office is at 305 Milner Ave Ste 908, Scarborough, ON M1B 3V4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/sutharsan-law-professional-corporation-toronto.png"
  },
  {
   "name": "协成大律师楼 Yeung & Associates Law Professional Corporation",
@@ -365,149 +689,93 @@
   "src": "images/logos/amberstone-law-civil-litigation-lawyers-calgary.png"
  },
  {
-  "name": "ANKR Legal",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Personal Injury",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "injury",
-   "wills"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0429453,
-  "lng": -114.0760424,
-  "address": "638 11 Ave SW #200, Calgary, AB T2R 0E2",
-  "phone": "+15878993800",
-  "rating": 5,
-  "count": 17,
-  "slug": "ankr-legal-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/ANKR+Legal+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=638+11+Ave+SW+%23200%2C+Calgary%2C+AB+T2R+0E2",
-  "website": "https://ankrlegal.ca",
-  "blurb": "Personal Injury / Wills & Estates in Calgary. Rated 5.0 from 17 Google reviews.",
-  "type": "logo",
-  "about": "ANKR Legal is a law firm in Calgary, Alberta that practises personal injury and wills and estates. Clients rate the firm 5.0 out of 5 from 17 public Google reviews. The office is at 638 11 Ave SW #200, Calgary, AB T2R 0E2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/ankr-legal-calgary.webp"
- },
- {
-  "name": "Baker Law Firm",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Business Law",
-   "Civil Litigation"
-  ],
-  "caseTypes": [
-   "realestate",
-   "business",
-   "litigation"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0465358,
-  "lng": -114.0708404,
-  "address": "421 7 Ave SW #3000, Calgary, AB T2P 4K9",
-  "phone": "+14034550339",
-  "rating": 4.8,
-  "count": 16,
-  "slug": "baker-law-firm-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Baker+Law+Firm+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=421+7+Ave+SW+%233000%2C+Calgary%2C+AB+T2P+4K9",
-  "website": "https://bakerlawfirm.ca",
-  "blurb": "Real Estate / Business Law in Calgary. Rated 4.8 from 16 Google reviews.",
-  "type": "logo",
-  "about": "Baker Law Firm is a law firm in Calgary, Alberta that practises real estate, business law and civil litigation. Clients rate the firm 4.8 out of 5 from 16 public Google reviews. The office is at 421 7 Ave SW #3000, Calgary, AB T2P 4K9, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Baker Law Firm is a Calgary, Alberta litigation practice: commercial litigation, insolvency, defamation, professional negligence, civil sexual assault claims, and appeals.”",
-  "src": "images/logos/baker-law-firm-calgary.png"
- },
- {
-  "name": "Borja Law",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0672652,
-  "lng": -114.0743415,
-  "address": "602 16 Ave NW Ste 208, Calgary, AB T2M 0J7",
-  "phone": "+15873232275",
-  "rating": 4.5,
-  "count": 38,
-  "slug": "borja-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Borja+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=602+16+Ave+NW+Ste+208%2C+Calgary%2C+AB+T2M+0J7",
-  "website": "https://www.borjalaw.ca",
-  "blurb": "Family Law in Calgary. Rated 4.5 from 38 Google reviews.",
-  "type": "logo",
-  "about": "Borja Law is a law firm in Calgary, Alberta that practises family law. Clients rate the firm 4.5 out of 5 from 38 public Google reviews. The office is at 602 16 Ave NW Ste 208, Calgary, AB T2M 0J7, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/borja-law-calgary.png"
- },
- {
-  "name": "Bruce & Birklein Law",
+  "name": "Bayview Law",
   "city": "Calgary",
   "featured": false,
   "tags": [
    "Family Law",
    "Real Estate",
-   "Wills & Estates"
+   "Wills & Estates",
+   "Business Law"
   ],
   "caseTypes": [
    "family",
    "realestate",
-   "wills"
+   "wills",
+   "business"
   ],
   "region": "ab-calgary",
   "province": "AB",
-  "lat": 50.9638893,
-  "lng": -114.0063151,
-  "address": "110 Quarry Pk Blvd S E #135, Calgary, AB T2C 5V7",
-  "phone": "+14034609627",
-  "rating": 4.5,
-  "count": 30,
-  "slug": "bruce-and-birklein-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Bruce+%26+Birklein+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=110+Quarry+Pk+Blvd+S+E+%23135%2C+Calgary%2C+AB+T2C+5V7",
-  "website": "https://www.brucebirkleinlaw.com",
-  "blurb": "Family Law / Real Estate in Calgary. Rated 4.5 from 30 Google reviews.",
+  "lat": 51.044642,
+  "lng": -114.1031925,
+  "address": "1822 10 Ave SW Unit 200, Calgary, AB T3C 0J8",
+  "phone": "+15875666019",
+  "rating": 4.9,
+  "count": 97,
+  "slug": "bayview-law-calgary",
+  "mapsUrl": "https://www.google.com/maps/search/Bayview+Law+Calgary+Alberta",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1822+10+Ave+SW+Unit+200%2C+Calgary%2C+AB+T3C+0J8",
+  "website": "https://www.bayviewlaw.ca",
+  "blurb": "Family Law / Real Estate in Calgary. Rated 4.9 from 97 Google reviews.",
   "type": "logo",
-  "about": "Bruce & Birklein Law is a law firm in Calgary, Alberta that practises family law, real estate and wills and estates. Clients rate the firm 4.5 out of 5 from 30 public Google reviews. The office is at 110 Quarry Pk Blvd S E #135, Calgary, AB T2C 5V7, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/bruce-and-birklein-law-calgary.png"
+  "about": "Bayview Law is a law firm in Calgary, Alberta that practises family law, real estate, wills and estates and business law. Clients rate the firm 4.9 out of 5 from 97 public Google reviews. The office is at 1822 10 Ave SW Unit 200, Calgary, AB T3C 0J8, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/bayview-law-calgary.png"
  },
  {
-  "name": "Bruni Law",
+  "name": "CASlaw",
   "city": "Calgary",
   "featured": false,
   "tags": [
-   "Wills & Estates"
+   "Business Law",
+   "Immigration"
   ],
   "caseTypes": [
-   "wills"
+   "business",
+   "immigration"
   ],
   "region": "ab-calgary",
   "province": "AB",
-  "lat": 51.0228488,
-  "lng": -114.1051421,
-  "address": "3501A 18 Street SW #1, Calgary, AB T2T 4T9",
-  "phone": "+14032665664",
-  "rating": 4.7,
-  "count": 11,
-  "slug": "bruni-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Bruni+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3501A+18+Street+SW+%231%2C+Calgary%2C+AB+T2T+4T9",
-  "website": "https://brunilaw.com",
-  "blurb": "Wills & Estates in Calgary. Rated 4.7 from 11 Google reviews.",
+  "lat": 51.1143876,
+  "lng": -114.3017464,
+  "address": "423 Rodeo Ridge, Calgary, AB T3Z 3G2",
+  "phone": "+13067159464",
+  "rating": 5,
+  "count": 21,
+  "slug": "caslaw-calgary",
+  "mapsUrl": "https://www.google.com/maps/search/CASlaw+Calgary+Alberta",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=423+Rodeo+Ridge%2C+Calgary%2C+AB+T3Z+3G2",
+  "website": "https://caslaw.ca",
+  "blurb": "Business Law / Immigration in Calgary. Rated 5.0 from 21 Google reviews.",
   "type": "logo",
-  "about": "Bruni Law is a law firm in Calgary, Alberta that practises wills and estates. Clients rate the firm 4.7 out of 5 from 11 public Google reviews. The office is at 3501A 18 Street SW #1, Calgary, AB T2T 4T9, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/bruni-law-calgary.png"
+  "about": "CASlaw is a law firm in Calgary, Alberta that practises business law and immigration. Clients rate the firm 5.0 out of 5 from 21 public Google reviews. The office is at 423 Rodeo Ridge, Calgary, AB T3Z 3G2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/caslaw-calgary.png"
+ },
+ {
+  "name": "Car Accident Lawyer Group",
+  "city": "Calgary",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "ab-calgary",
+  "province": "AB",
+  "lat": 51.0302398,
+  "lng": -114.060333,
+  "address": "#210, 2505 Macleod Trail, Calgary, AB T2G 5J4, Calgary, AB T2H 0S6",
+  "phone": "+14035364002",
+  "rating": 5,
+  "count": 103,
+  "slug": "car-accident-lawyer-group-calgary",
+  "mapsUrl": "https://www.google.com/maps/search/Car+Accident+Lawyer+Group+Calgary+Alberta",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=%23210%2C+2505+Macleod+Trail%2C+Calgary%2C+AB+T2G+5J4%2C+Calgary%2C+AB+T2H+0S6",
+  "website": "https://personal-injurylawyercalgary.com",
+  "blurb": "Personal Injury in Calgary. Rated 5.0 from 103 Google reviews.",
+  "type": "logo",
+  "about": "Car Accident Lawyer Group is a law firm in Calgary, Alberta that practises personal injury. Clients rate the firm 5.0 out of 5 from 103 public Google reviews. The office is at #210, 2505 Macleod Trail, Calgary, AB T2G 5J4, Calgary, AB T2H 0S6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/car-accident-lawyer-group-calgary.png"
  },
  {
   "name": "Craig Law",
@@ -543,226 +811,31 @@
   "src": "images/logos/craig-law-calgary.png"
  },
  {
-  "name": "Cunningham Family Law",
+  "name": "Du Plooy Law",
   "city": "Calgary",
   "featured": false,
   "tags": [
-   "Family Law"
+   "Business Law"
   ],
   "caseTypes": [
-   "family"
+   "business"
   ],
   "region": "ab-calgary",
   "province": "AB",
-  "lat": 51.0376493,
-  "lng": -114.0823698,
-  "address": "909 17 Ave SW Ste 400, Calgary, AB T2T 0A4",
-  "phone": "+14038040497",
-  "rating": 5,
-  "count": 14,
-  "slug": "cunningham-family-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Cunningham+Family+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=909+17+Ave+SW+Ste+400%2C+Calgary%2C+AB+T2T+0A4",
-  "website": "https://cunninghamfamilylaw.com",
-  "blurb": "Family Law in Calgary. Rated 5.0 from 14 Google reviews.",
-  "type": "logo",
-  "about": "Cunningham Family Law is a law firm in Calgary, Alberta that practises family law. Clients rate the firm 5.0 out of 5 from 14 public Google reviews. The office is at 909 17 Ave SW Ste 400, Calgary, AB T2T 0A4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/cunningham-family-law-calgary.png"
- },
- {
-  "name": "Dahlem Criminal Defence Lawyers",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Criminal Defence",
-   "Civil Litigation"
-  ],
-  "caseTypes": [
-   "criminal",
-   "litigation"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0481226,
-  "lng": -114.0776438,
-  "address": "736 6 Ave SW #1800, Calgary, AB T2P 3T7",
-  "phone": "+14038798041",
-  "rating": 4.5,
-  "count": 74,
-  "slug": "dahlem-criminal-defence-lawyers-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Dahlem+Criminal+Defence+Lawyers+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=736+6+Ave+SW+%231800%2C+Calgary%2C+AB+T2P+3T7",
-  "website": "https://dahlemdefence.com",
-  "blurb": "Criminal Defence / Civil Litigation in Calgary. Rated 4.5 from 74 Google reviews.",
-  "type": "logo",
-  "about": "Dahlem Criminal Defence Lawyers is a law firm in Calgary, Alberta that practises criminal defence and civil litigation. Clients rate the firm 4.5 out of 5 from 74 public Google reviews. The office is at 736 6 Ave SW #1800, Calgary, AB T2P 3T7, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/dahlem-criminal-defence-lawyers-calgary.jpg"
- },
- {
-  "name": "Employment Law Advocates",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Employment Law"
-  ],
-  "caseTypes": [
-   "employment"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0689212,
-  "lng": -114.1163249,
-  "address": "1816 Crowchild Trail NW Ste 700, Calgary, AB T2M 3Y7",
-  "phone": "+14035366960",
-  "rating": 5,
-  "count": 14,
-  "slug": "employment-law-advocates-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Employment+Law+Advocates+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1816+Crowchild+Trail+NW+Ste+700%2C+Calgary%2C+AB+T2M+3Y7",
-  "website": "https://employmentlawadvocates.ca",
-  "blurb": "Employment Law in Calgary. Rated 5.0 from 14 Google reviews.",
-  "type": "logo",
-  "about": "Employment Law Advocates is a law firm in Calgary, Alberta that practises employment law. Clients rate the firm 5.0 out of 5 from 14 public Google reviews. The office is at 1816 Crowchild Trail NW Ste 700, Calgary, AB T2M 3Y7, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/employment-law-advocates-calgary.webp"
- },
- {
-  "name": "Eryn B. Logie Family Law",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0441579,
-  "lng": -114.0819592,
-  "address": "999 8 Street SW Suite 340, Calgary, AB T2R 1J5",
-  "phone": "+15874403070",
-  "rating": 4.5,
-  "count": 15,
-  "slug": "eryn-b-logie-family-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Eryn+B.+Logie+Family+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=999+8+Street+SW+Suite+340%2C+Calgary%2C+AB+T2R+1J5",
-  "website": "https://eblfamilylaw.com",
-  "blurb": "Family Law in Calgary. Rated 4.5 from 15 Google reviews.",
-  "type": "logo",
-  "about": "Eryn B. Logie Family Law is a law firm in Calgary, Alberta that practises family law. Clients rate the firm 4.5 out of 5 from 15 public Google reviews. The office is at 999 8 Street SW Suite 340, Calgary, AB T2R 1J5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/eryn-b-logie-family-law-calgary.png"
- },
- {
-  "name": "Evolution Legal",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Employment Law"
-  ],
-  "caseTypes": [
-   "employment"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0427106,
-  "lng": -114.064263,
-  "address": "110 11 Ave SW Ste 206, Calgary, AB T2R 0B8",
-  "phone": "+14034654538",
-  "rating": 4.9,
-  "count": 18,
-  "slug": "evolution-legal-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Evolution+Legal+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=110+11+Ave+SW+Ste+206%2C+Calgary%2C+AB+T2R+0B8",
-  "website": "https://evolutionlegal.ca",
-  "blurb": "Employment Law in Calgary. Rated 4.9 from 18 Google reviews.",
-  "type": "logo",
-  "about": "Evolution Legal is a law firm in Calgary, Alberta that practises employment law. Clients rate the firm 4.9 out of 5 from 18 public Google reviews. The office is at 110 11 Ave SW Ste 206, Calgary, AB T2R 0B8, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/evolution-legal-calgary.png"
- },
- {
-  "name": "Family Law Solutions",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.047067,
-  "lng": -114.069717,
-  "address": "350 7 Ave SW #2800, Calgary, AB T2P 3N9",
-  "phone": "+15873156490",
+  "lat": 51.0457582,
+  "lng": -114.0602552,
+  "address": "714 1st St SE 2nd floor, Calgary, AB T2G 2G8",
+  "phone": "+14037189877",
   "rating": 4.7,
-  "count": 13,
-  "slug": "family-law-solutions-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Family+Law+Solutions+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=350+7+Ave+SW+%232800%2C+Calgary%2C+AB+T2P+3N9",
-  "website": "https://www.flslaw.ca",
-  "blurb": "Family Law in Calgary. Rated 4.7 from 13 Google reviews.",
+  "count": 54,
+  "slug": "du-plooy-law-calgary",
+  "mapsUrl": "https://www.google.com/maps/search/Du+Plooy+Law+Calgary+Alberta",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=714+1st+St+SE+2nd+floor%2C+Calgary%2C+AB+T2G+2G8",
+  "website": "https://duplooylaw.com",
+  "blurb": "Business Law in Calgary. Rated 4.7 from 54 Google reviews.",
   "type": "logo",
-  "about": "Family Law Solutions is a law firm in Calgary, Alberta that practises family law. Clients rate the firm 4.7 out of 5 from 13 public Google reviews. The office is at 350 7 Ave SW #2800, Calgary, AB T2P 3N9, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/family-law-solutions-calgary.png"
- },
- {
-  "name": "Foothills Law",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Real Estate",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "family",
-   "realestate",
-   "wills"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 50.9249007,
-  "lng": -113.9435595,
-  "address": "2099 Brightoncrest Common SE, Calgary, AB T2Z 1E8",
-  "phone": "+14039843600",
-  "rating": 4.5,
-  "count": 11,
-  "slug": "foothills-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Foothills+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2099+Brightoncrest+Common+SE%2C+Calgary%2C+AB+T2Z+1E8",
-  "website": "https://www.foothillslaw.ca",
-  "blurb": "Family Law / Real Estate in Calgary. Rated 4.5 from 11 Google reviews.",
-  "type": "logo",
-  "about": "Foothills Law is a law firm in Calgary, Alberta that practises family law, real estate and wills and estates. Clients rate the firm 4.5 out of 5 from 11 public Google reviews. The office is at 2099 Brightoncrest Common SE, Calgary, AB T2Z 1E8, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/foothills-law-calgary.png"
- },
- {
-  "name": "Forte Law",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Employment Law"
-  ],
-  "caseTypes": [
-   "employment"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0429453,
-  "lng": -114.0760424,
-  "address": "638 11 Ave SW #200, Calgary, AB T2R 0E2",
-  "phone": "+15873914815",
-  "rating": 5,
-  "count": 10,
-  "slug": "forte-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Forte+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=638+11+Ave+SW+%23200%2C+Calgary%2C+AB+T2R+0E2",
-  "website": "https://fortelaw.ca",
-  "blurb": "Employment Law in Calgary. Rated 5.0 from 10 Google reviews.",
-  "type": "logo",
-  "about": "Forte Law is a law firm in Calgary, Alberta that practises employment law. Clients rate the firm 5.0 out of 5 from 10 public Google reviews. The office is at 638 11 Ave SW #200, Calgary, AB T2R 0E2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/forte-law-calgary.png"
+  "about": "Du Plooy Law is a law firm in Calgary, Alberta that practises business law. Clients rate the firm 4.7 out of 5 from 54 public Google reviews. The office is at 714 1st St SE 2nd floor, Calgary, AB T2G 2G8, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/du-plooy-law-calgary.webp"
  },
  {
   "name": "Goodfellow & Schuettlaw",
@@ -792,35 +865,6 @@
   "type": "logo",
   "about": "Goodfellow & Schuettlaw is a law firm in Calgary, Alberta that practises real estate and wills and estates. Clients rate the firm 4.7 out of 5 from 27 public Google reviews. The office is at 602 11 Ave SW Ste 200, Calgary, AB T2R 1J8, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Construction law and real estate law firm, based in Edmonton and Calgary. Goodfellow & Schuettlaw is a full service law office in the city's downtown core.”",
   "src": "images/logos/goodfellow-and-schuettlaw-calgary.png"
- },
- {
-  "name": "Hayher Lee LLP",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "family",
-   "wills"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0443855,
-  "lng": -114.0668385,
-  "address": "215 9 Ave SW #1900, Calgary, AB T2P 1K3",
-  "phone": "+15873912150",
-  "rating": 4.5,
-  "count": 26,
-  "slug": "hayher-lee-llp-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Hayher+Lee+LLP+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=215+9+Ave+SW+%231900%2C+Calgary%2C+AB+T2P+1K3",
-  "website": "https://hayherlee.com",
-  "blurb": "Family Law / Wills & Estates in Calgary. Rated 4.5 from 26 Google reviews.",
-  "type": "logo",
-  "about": "Hayher Lee LLP is a law firm in Calgary, Alberta that practises family law and wills and estates. Clients rate the firm 4.5 out of 5 from 26 public Google reviews. The office is at 215 9 Ave SW #1900, Calgary, AB T2P 1K3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/hayher-lee-llp-calgary.jpg"
  },
  {
   "name": "JKB Law",
@@ -908,39 +952,6 @@
   "src": "images/logos/kazmi-law-office-calgary.webp"
  },
  {
-  "name": "Kuefler Stevenson Bennett LLP",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Real Estate",
-   "Wills & Estates",
-   "Employment Law"
-  ],
-  "caseTypes": [
-   "family",
-   "realestate",
-   "wills",
-   "employment"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0466514,
-  "lng": -114.0777205,
-  "address": "717 7 Ave SW Ste 1400, Calgary, AB T2P 0Z3",
-  "phone": "+14032370123",
-  "rating": 4.5,
-  "count": 15,
-  "slug": "kuefler-stevenson-bennett-llp-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Kuefler+Stevenson+Bennett+LLP+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=717+7+Ave+SW+Ste+1400%2C+Calgary%2C+AB+T2P+0Z3",
-  "website": "https://ksblawyers.com",
-  "blurb": "Family Law / Real Estate in Calgary. Rated 4.5 from 15 Google reviews.",
-  "type": "logo",
-  "about": "Kuefler Stevenson Bennett LLP is a law firm in Calgary, Alberta that practises family law, real estate, wills and estates and employment law. Clients rate the firm 4.5 out of 5 from 15 public Google reviews. The office is at 717 7 Ave SW Ste 1400, Calgary, AB T2P 0Z3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/kuefler-stevenson-bennett-llp-calgary.png"
- },
- {
   "name": "Loberg Ector LLP",
   "city": "Calgary",
   "featured": false,
@@ -968,182 +979,33 @@
   "src": "images/logos/loberg-ector-llp-calgary.webp"
  },
  {
-  "name": "McNeill Family Law",
+  "name": "Mann Law",
   "city": "Calgary",
   "featured": false,
   "tags": [
-   "Family Law"
+   "Personal Injury",
+   "Criminal Defence"
   ],
   "caseTypes": [
-   "family"
+   "injury",
+   "criminal"
   ],
   "region": "ab-calgary",
   "province": "AB",
-  "lat": 51.042996,
-  "lng": -114.0761603,
-  "address": "638 11 Ave SW 200 Unit 200, Calgary, AB T2R 0E2",
-  "phone": "+15879569300",
-  "rating": 4.7,
-  "count": 13,
-  "slug": "mcneill-family-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/McNeill+Family+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=638+11+Ave+SW+200+Unit+200%2C+Calgary%2C+AB+T2R+0E2",
-  "website": "https://mcneillfamilylaw.ca",
-  "blurb": "Family Law in Calgary. Rated 4.7 from 13 Google reviews.",
-  "type": "logo",
-  "about": "McNeill Family Law is a law firm in Calgary, Alberta that practises family law. Clients rate the firm 4.7 out of 5 from 13 public Google reviews. The office is at 638 11 Ave SW 200 Unit 200, Calgary, AB T2R 0E2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/mcneill-family-law-calgary.png"
- },
- {
-  "name": "Moph Legal",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates",
-   "Business Law"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills",
-   "business"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0418425,
-  "lng": -114.0854097,
-  "address": "1023 12 Ave SW, Calgary, AB T2R 0J5",
-  "phone": "+15874433251",
-  "rating": 5,
-  "count": 18,
-  "slug": "moph-legal-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Moph+Legal+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1023+12+Ave+SW%2C+Calgary%2C+AB+T2R+0J5",
-  "website": "https://mophlegal.ca",
-  "blurb": "Real Estate / Wills & Estates in Calgary. Rated 5.0 from 18 Google reviews.",
-  "type": "logo",
-  "about": "Moph Legal is a law firm in Calgary, Alberta that practises real estate, wills and estates and business law. Clients rate the firm 5.0 out of 5 from 18 public Google reviews. The office is at 1023 12 Ave SW, Calgary, AB T2R 0J5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/moph-legal-calgary.png"
- },
- {
-  "name": "Mosaicstone Law",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0420741,
-  "lng": -114.0753965,
-  "address": "620 12 Ave SW #201, Calgary, AB T2R 0H5",
-  "phone": "+14032265830",
-  "rating": 4.5,
-  "count": 22,
-  "slug": "mosaicstone-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Mosaicstone+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=620+12+Ave+SW+%23201%2C+Calgary%2C+AB+T2R+0H5",
-  "website": "https://mosaicstonelaw.com",
-  "blurb": "Family Law in Calgary. Rated 4.5 from 22 Google reviews.",
-  "type": "logo",
-  "about": "Mosaicstone Law is a law firm in Calgary, Alberta that practises family law. Clients rate the firm 4.5 out of 5 from 22 public Google reviews. The office is at 620 12 Ave SW #201, Calgary, AB T2R 0H5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/mosaicstone-law-calgary.jpg"
- },
- {
-  "name": "Mullen & Company",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Real Estate",
-   "Wills & Estates",
-   "Business Law"
-  ],
-  "caseTypes": [
-   "family",
-   "realestate",
-   "wills",
-   "business"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 50.9734472,
-  "lng": -114.0729171,
-  "address": "8989 Macleod Trl SW #118, Calgary, AB T2H 0M2",
-  "phone": "+14032719710",
+  "lat": 51.0379936,
+  "lng": -113.9975504,
+  "address": "2710 17 Ave SE, Calgary, AB T2A 0P6",
+  "phone": "+14034555181",
   "rating": 4.8,
-  "count": 19,
-  "slug": "mullen-and-company-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Mullen+%26+Company+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8989+Macleod+Trl+SW+%23118%2C+Calgary%2C+AB+T2H+0M2",
-  "website": "https://www.mullenco.ca",
-  "blurb": "Family Law / Real Estate in Calgary. Rated 4.8 from 19 Google reviews.",
+  "count": 34,
+  "slug": "mann-law-calgary",
+  "mapsUrl": "https://www.google.com/maps/search/Mann+Law+Calgary+Alberta",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2710+17+Ave+SE%2C+Calgary%2C+AB+T2A+0P6",
+  "website": "https://rsmannlaw.ca",
+  "blurb": "Personal Injury / Criminal Defence in Calgary. Rated 4.8 from 34 Google reviews.",
   "type": "logo",
-  "about": "Mullen & Company is a law firm in Calgary, Alberta that practises family law, real estate, wills and estates and business law. Clients rate the firm 4.8 out of 5 from 19 public Google reviews. The office is at 8989 Macleod Trl SW #118, Calgary, AB T2H 0M2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/mullen-and-company-calgary.png"
- },
- {
-  "name": "Nicholson Family Law",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0444994,
-  "lng": -114.1001275,
-  "address": "1716 10 Ave SW, Calgary, AB T3C 0J8",
-  "phone": "+14032507100",
-  "rating": 5,
-  "count": 12,
-  "slug": "nicholson-family-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Nicholson+Family+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1716+10+Ave+SW%2C+Calgary%2C+AB+T3C+0J8",
-  "website": "https://www.nicholsonfamilylaw.ca",
-  "blurb": "Family Law in Calgary. Rated 5.0 from 12 Google reviews.",
-  "type": "logo",
-  "about": "Nicholson Family Law is a law firm in Calgary, Alberta that practises family law. Clients rate the firm 5.0 out of 5 from 12 public Google reviews. The office is at 1716 10 Ave SW, Calgary, AB T3C 0J8, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/nicholson-family-law-calgary.png"
- },
- {
-  "name": "Priority Law",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Real Estate",
-   "Wills & Estates",
-   "Civil Litigation"
-  ],
-  "caseTypes": [
-   "family",
-   "realestate",
-   "wills",
-   "litigation"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.067105,
-  "lng": -114.068267,
-  "address": "318 16 Ave NW #215, Calgary, AB T2M 0H6",
-  "phone": "+14039170996",
-  "rating": 5,
-  "count": 10,
-  "slug": "priority-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Priority+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=318+16+Ave+NW+%23215%2C+Calgary%2C+AB+T2M+0H6",
-  "website": "https://prioritylaw.ca",
-  "blurb": "Family Law / Real Estate in Calgary. Rated 5.0 from 10 Google reviews.",
-  "type": "logo",
-  "about": "Priority Law is a law firm in Calgary, Alberta that practises family law, real estate, wills and estates and civil litigation. Clients rate the firm 5.0 out of 5 from 10 public Google reviews. The office is at 318 16 Ave NW #215, Calgary, AB T2M 0H6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/priority-law-calgary.jpg"
+  "about": "Mann Law is a law firm in Calgary, Alberta that practises personal injury and criminal defence. Clients rate the firm 4.8 out of 5 from 34 public Google reviews. The office is at 2710 17 Ave SE, Calgary, AB T2A 0P6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/mann-law-calgary.png"
  },
  {
   "name": "Resolute Law Group",
@@ -1262,62 +1124,6 @@
   "src": "images/logos/royalridge-law-calgary.png"
  },
  {
-  "name": "Sherritt Greene Immigration Law",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Immigration"
-  ],
-  "caseTypes": [
-   "immigration"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.038415,
-  "lng": -114.0810913,
-  "address": "1550 8 Street SW Ste 301, Calgary, AB T2R 1K1",
-  "phone": "+14032370202",
-  "rating": 4.5,
-  "count": 94,
-  "slug": "sherritt-greene-immigration-law-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Sherritt+Greene+Immigration+Law+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1550+8+Street+SW+Ste+301%2C+Calgary%2C+AB+T2R+1K1",
-  "website": "https://sherrittgreene.com",
-  "blurb": "Immigration in Calgary. Rated 4.5 from 94 Google reviews.",
-  "type": "logo",
-  "about": "Sherritt Greene Immigration Law is a law firm in Calgary, Alberta that practises immigration. Clients rate the firm 4.5 out of 5 from 94 public Google reviews. The office is at 1550 8 Street SW Ste 301, Calgary, AB T2R 1K1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/sherritt-greene-immigration-law-calgary.png"
- },
- {
-  "name": "Stokes Law LLP",
-  "city": "Calgary",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Civil Litigation"
-  ],
-  "caseTypes": [
-   "family",
-   "litigation"
-  ],
-  "region": "ab-calgary",
-  "province": "AB",
-  "lat": 51.0429336,
-  "lng": -114.077997,
-  "address": "724 11 Ave SW Unit 201, Calgary, AB T2R 0E4",
-  "phone": "+15874334623",
-  "rating": 4.5,
-  "count": 57,
-  "slug": "stokes-law-llp-calgary",
-  "mapsUrl": "https://www.google.com/maps/search/Stokes+Law+LLP+Calgary+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=724+11+Ave+SW+Unit+201%2C+Calgary%2C+AB+T2R+0E4",
-  "website": "https://www.stokeslaw.ca",
-  "blurb": "Family Law / Civil Litigation in Calgary. Rated 4.5 from 57 Google reviews.",
-  "type": "logo",
-  "about": "Stokes Law LLP is a law firm in Calgary, Alberta that practises family law and civil litigation. Clients rate the firm 4.5 out of 5 from 57 public Google reviews. The office is at 724 11 Ave SW Unit 201, Calgary, AB T2R 0E4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/stokes-law-llp-calgary.png"
- },
- {
   "name": "TC Legal",
   "city": "Calgary",
   "featured": false,
@@ -1343,6 +1149,33 @@
   "type": "logo",
   "about": "TC Legal is a law firm in Calgary, Alberta that practises criminal defence. Clients rate the firm 5.0 out of 5 from 39 public Google reviews. The office is at 1144 29 Ave NE #101E, Calgary, AB T2E 7P1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "src": "images/logos/tc-legal-calgary.png"
+ },
+ {
+  "name": "Bassili Law",
+  "city": "Edmonton",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "ab-edmonton",
+  "province": "AB",
+  "lat": 53.5559589,
+  "lng": -113.4703684,
+  "address": "8340 Jasper Ave #303, Edmonton, AB T5H 4C6",
+  "phone": "+15873307900",
+  "rating": 5,
+  "count": 39,
+  "slug": "bassili-law-edmonton",
+  "mapsUrl": "https://www.google.com/maps/search/Bassili+Law+Edmonton+Alberta",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8340+Jasper+Ave+%23303%2C+Edmonton%2C+AB+T5H+4C6",
+  "website": "https://bassililaw.ca",
+  "blurb": "Employment Law in Edmonton. Rated 5.0 from 39 Google reviews.",
+  "type": "logo",
+  "about": "Bassili Law is a law firm in Edmonton, Alberta that practises employment law. Clients rate the firm 5.0 out of 5 from 39 public Google reviews. The office is at 8340 Jasper Ave #303, Edmonton, AB T5H 4C6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/bassili-law-edmonton.png"
  },
  {
   "name": "Beresh Law",
@@ -1405,85 +1238,37 @@
   "src": "images/logos/chahal-law-edmonton.png"
  },
  {
-  "name": "Daryl Royer Criminal Defence Lawyer",
+  "name": "GSS LAW FIRM",
   "city": "Edmonton",
   "featured": false,
   "tags": [
-   "Criminal Defence"
+   "Family Law",
+   "Criminal Defence",
+   "Real Estate",
+   "Immigration"
   ],
   "caseTypes": [
-   "criminal"
+   "family",
+   "criminal",
+   "realestate",
+   "immigration"
   ],
   "region": "ab-edmonton",
   "province": "AB",
-  "lat": 53.5442004,
-  "lng": -113.511867,
-  "address": "10235 111 St NW Unit 1, Edmonton, AB T5K 2V5",
-  "phone": "+17804518700",
+  "lat": 53.4913404,
+  "lng": -113.4167964,
+  "address": "4915 55 Ave NW, Edmonton, AB T6B 3S3",
+  "phone": "+17804859510",
   "rating": 5,
-  "count": 18,
-  "slug": "daryl-royer-criminal-defence-lawyer-edmonton",
-  "mapsUrl": "https://www.google.com/maps/search/Daryl+Royer+Criminal+Defence+Lawyer+Edmonton+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10235+111+St+NW+Unit+1%2C+Edmonton%2C+AB+T5K+2V5",
-  "website": "https://www.darylroyer.ca",
-  "blurb": "Criminal Defence in Edmonton. Rated 5.0 from 18 Google reviews.",
+  "count": 44,
+  "slug": "gss-law-firm-edmonton",
+  "mapsUrl": "https://www.google.com/maps/search/GSS+LAW+FIRM+Edmonton+Alberta",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4915+55+Ave+NW%2C+Edmonton%2C+AB+T6B+3S3",
+  "website": "https://www.gsslaw.ca",
+  "blurb": "Family Law / Criminal Defence in Edmonton. Rated 5.0 from 44 Google reviews.",
   "type": "logo",
-  "about": "Daryl Royer Criminal Defence Lawyer is a law firm in Edmonton, Alberta that practises criminal defence. Clients rate the firm 5.0 out of 5 from 18 public Google reviews. The office is at 10235 111 St NW Unit 1, Edmonton, AB T5K 2V5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/daryl-royer-criminal-defence-lawyer-edmonton.png"
- },
- {
-  "name": "EDMONTON TOP LAW",
-  "city": "Edmonton",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "ab-edmonton",
-  "province": "AB",
-  "lat": 53.5412398,
-  "lng": -113.493303,
-  "address": "10080 Jasper Ave #303, Edmonton, AB T5J 1V6",
-  "phone": "+17804717133",
-  "rating": 5,
-  "count": 17,
-  "slug": "edmonton-top-law-edmonton",
-  "mapsUrl": "https://www.google.com/maps/search/EDMONTON+TOP+LAW+Edmonton+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10080+Jasper+Ave+%23303%2C+Edmonton%2C+AB+T5J+1V6",
-  "website": "https://www.edmontontoplaw.ca",
-  "blurb": "Family Law in Edmonton. Rated 5.0 from 17 Google reviews.",
-  "type": "logo",
-  "about": "EDMONTON TOP LAW is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 5.0 out of 5 from 17 public Google reviews. The office is at 10080 Jasper Ave #303, Edmonton, AB T5J 1V6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/edmonton-top-law-edmonton.png"
- },
- {
-  "name": "Giardino Law",
-  "city": "Edmonton",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "ab-edmonton",
-  "province": "AB",
-  "lat": 53.5413332,
-  "lng": -113.498988,
-  "address": "10113 104 Street NW #218, Edmonton, AB T5J 1A1",
-  "phone": "+17804737779",
-  "rating": 4.5,
-  "count": 42,
-  "slug": "giardino-law-edmonton",
-  "mapsUrl": "https://www.google.com/maps/search/Giardino+Law+Edmonton+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10113+104+Street+NW+%23218%2C+Edmonton%2C+AB+T5J+1A1",
-  "website": "https://myedmontonlawyer.com",
-  "blurb": "Real Estate in Edmonton. Rated 4.5 from 42 Google reviews.",
-  "type": "logo",
-  "about": "Giardino Law is a law firm in Edmonton, Alberta that practises real estate. Clients rate the firm 4.5 out of 5 from 42 public Google reviews. The office is at 10113 104 Street NW #218, Edmonton, AB T5J 1A1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/giardino-law-edmonton.webp"
+  "about": "GSS LAW FIRM is a law firm in Edmonton, Alberta that practises family law, criminal defence, real estate and immigration. Clients rate the firm 5.0 out of 5 from 44 public Google reviews. The office is at 4915 55 Ave NW, Edmonton, AB T6B 3S3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/gss-law-firm-edmonton.png"
  },
  {
   "name": "Gibson Meardi Barristers & Solicitors",
@@ -1517,66 +1302,6 @@
   "type": "logo",
   "about": "Gibson Meardi Barristers & Solicitors is a law firm in Edmonton, Alberta that practises family law, real estate, wills and estates and business law. Clients rate the firm 4.8 out of 5 from 20 public Google reviews. The office is at 11150 Jasper Ave #555, Edmonton, AB T5K 0C7, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "src": "images/logos/gibson-meardi-barristers-and-solicitors-edmonton.webp"
- },
- {
-  "name": "Goodfellow & Schuettlaw",
-  "city": "Edmonton",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "ab-edmonton",
-  "province": "AB",
-  "lat": 53.5411321,
-  "lng": -113.5135157,
-  "address": "11150 Jasper Ave #375, Edmonton, AB T5K 0C7",
-  "phone": "+17806283531",
-  "rating": 5,
-  "count": 18,
-  "slug": "goodfellow-and-schuettlaw-edmonton",
-  "mapsUrl": "https://www.google.com/maps/search/Goodfellow+%26+Schuettlaw+Edmonton+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=11150+Jasper+Ave+%23375%2C+Edmonton%2C+AB+T5K+0C7",
-  "website": "https://www.gfslaw.ca",
-  "blurb": "Real Estate in Edmonton. Rated 5.0 from 18 Google reviews.",
-  "type": "logo",
-  "about": "Goodfellow & Schuettlaw is a law firm in Edmonton, Alberta that practises real estate. Clients rate the firm 5.0 out of 5 from 18 public Google reviews. The office is at 11150 Jasper Ave #375, Edmonton, AB T5K 0C7, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Construction law and real estate law firm, based in Edmonton and Calgary. Goodfellow & Schuettlaw is a full service law office in the city's downtown core.”",
-  "src": "images/logos/goodfellow-and-schuettlaw-edmonton.png"
- },
- {
-  "name": "GSS LAW FIRM",
-  "city": "Edmonton",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Criminal Defence",
-   "Real Estate",
-   "Immigration"
-  ],
-  "caseTypes": [
-   "family",
-   "criminal",
-   "realestate",
-   "immigration"
-  ],
-  "region": "ab-edmonton",
-  "province": "AB",
-  "lat": 53.4913404,
-  "lng": -113.4167964,
-  "address": "4915 55 Ave NW, Edmonton, AB T6B 3S3",
-  "phone": "+17804859510",
-  "rating": 5,
-  "count": 44,
-  "slug": "gss-law-firm-edmonton",
-  "mapsUrl": "https://www.google.com/maps/search/GSS+LAW+FIRM+Edmonton+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4915+55+Ave+NW%2C+Edmonton%2C+AB+T6B+3S3",
-  "website": "https://www.gsslaw.ca",
-  "blurb": "Family Law / Criminal Defence in Edmonton. Rated 5.0 from 44 Google reviews.",
-  "type": "logo",
-  "about": "GSS LAW FIRM is a law firm in Edmonton, Alberta that practises family law, criminal defence, real estate and immigration. Clients rate the firm 5.0 out of 5 from 44 public Google reviews. The office is at 4915 55 Ave NW, Edmonton, AB T6B 3S3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/gss-law-firm-edmonton.png"
  },
  {
   "name": "Helm Family Law LLP",
@@ -1639,37 +1364,6 @@
   "src": "images/logos/hladun-and-company-edmonton.png"
  },
  {
-  "name": "Jomha Karout Jomha Law",
-  "city": "Edmonton",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Criminal Defence",
-   "Immigration"
-  ],
-  "caseTypes": [
-   "family",
-   "criminal",
-   "immigration"
-  ],
-  "region": "ab-edmonton",
-  "province": "AB",
-  "lat": 53.5397592,
-  "lng": -113.6056801,
-  "address": "16418 100 Ave NW, Edmonton, AB T5P 4Y2",
-  "phone": "+17809942226",
-  "rating": 5,
-  "count": 19,
-  "slug": "jomha-karout-jomha-law-edmonton",
-  "mapsUrl": "https://www.google.com/maps/search/Jomha+Karout+Jomha+Law+Edmonton+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=16418+100+Ave+NW%2C+Edmonton%2C+AB+T5P+4Y2",
-  "website": "https://jomhakaroutlaw.com",
-  "blurb": "Family Law / Criminal Defence in Edmonton. Rated 5.0 from 19 Google reviews.",
-  "type": "logo",
-  "about": "Jomha Karout Jomha Law is a law firm in Edmonton, Alberta that practises family law, criminal defence and immigration. Clients rate the firm 5.0 out of 5 from 19 public Google reviews. The office is at 16418 100 Ave NW, Edmonton, AB T5P 4Y2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/jomha-karout-jomha-law-edmonton.jpg"
- },
- {
   "name": "Manucci Allen LLP",
   "city": "Edmonton",
   "featured": false,
@@ -1695,68 +1389,6 @@
   "type": "logo",
   "about": "Manucci Allen LLP is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 4.8 out of 5 from 49 public Google reviews. The office is at 10080 Jasper Ave Ste 801, Edmonton, AB T5J 1V6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "src": "images/logos/manucci-allen-llp-edmonton.webp"
- },
- {
-  "name": "Maynes & Radovici",
-  "city": "Edmonton",
-  "featured": false,
-  "tags": [
-   "Personal Injury",
-   "Criminal Defence"
-  ],
-  "caseTypes": [
-   "injury",
-   "criminal"
-  ],
-  "region": "ab-edmonton",
-  "province": "AB",
-  "lat": 53.540705,
-  "lng": -113.504004,
-  "address": "14th Floor, First Edmonton Place, 10665 Jasper Ave, Edmonton, AB T5J 3S9",
-  "phone": "+17802353377",
-  "rating": 4.5,
-  "count": 29,
-  "slug": "maynes-and-radovici-edmonton",
-  "mapsUrl": "https://www.google.com/maps/search/Maynes+%26+Radovici+Edmonton+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=14th+Floor%2C+First+Edmonton+Place%2C+10665+Jasper+Ave%2C+Edmonton%2C+AB+T5J+3S9",
-  "website": "https://www.mayradlaw.com",
-  "blurb": "Personal Injury / Criminal Defence in Edmonton. Rated 4.5 from 29 Google reviews.",
-  "type": "logo",
-  "about": "Maynes & Radovici is a law firm in Edmonton, Alberta that practises personal injury and criminal defence. Clients rate the firm 4.5 out of 5 from 29 public Google reviews. The office is at 14th Floor, First Edmonton Place, 10665 Jasper Ave, Edmonton, AB T5J 3S9, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/maynes-and-radovici-edmonton.png"
- },
- {
-  "name": "McCuaig Desrochers LLP",
-  "city": "Edmonton",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates",
-   "Immigration",
-   "Civil Litigation"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills",
-   "immigration",
-   "litigation"
-  ],
-  "region": "ab-edmonton",
-  "province": "AB",
-  "lat": 53.5433862,
-  "lng": -113.4930433,
-  "address": "TD Tower #1801, 10088, 102 Ave NW, Edmonton, AB T5J 0E1",
-  "phone": "+17804264660",
-  "rating": 4.5,
-  "count": 87,
-  "slug": "mccuaig-desrochers-llp-edmonton",
-  "mapsUrl": "https://www.google.com/maps/search/McCuaig+Desrochers+LLP+Edmonton+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=TD+Tower+%231801%2C+10088%2C+102+Ave+NW%2C+Edmonton%2C+AB+T5J+0E1",
-  "website": "https://www.mccuaig.com",
-  "blurb": "Real Estate / Wills & Estates in Edmonton. Rated 4.5 from 87 Google reviews.",
-  "type": "logo",
-  "about": "McCuaig Desrochers LLP is a law firm in Edmonton, Alberta that practises real estate, wills and estates, immigration and civil litigation. Clients rate the firm 4.5 out of 5 from 87 public Google reviews. The office is at TD Tower #1801, 10088, 102 Ave NW, Edmonton, AB T5J 0E1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/mccuaig-desrochers-llp-edmonton.png"
  },
  {
   "name": "PABLAWS",
@@ -1790,37 +1422,6 @@
   "type": "logo",
   "about": "PABLAWS is a law firm in Edmonton, Alberta that practises family law, criminal defence, real estate and immigration. Clients rate the firm 4.9 out of 5 from 48 public Google reviews. The office is at 9637 41 Ave NW #200, Edmonton, AB T6E 5X7, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "src": "images/logos/pablaws-edmonton.webp"
- },
- {
-  "name": "Patterson Family Law Office",
-  "city": "Edmonton",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Wills & Estates",
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "family",
-   "wills",
-   "realestate"
-  ],
-  "region": "ab-edmonton",
-  "province": "AB",
-  "lat": 53.4874732,
-  "lng": -113.4659945,
-  "address": "8925 51 Ave NW, Edmonton, AB T6E 5J3",
-  "phone": "+17804663390",
-  "rating": 4.6,
-  "count": 15,
-  "slug": "patterson-family-law-office-edmonton",
-  "mapsUrl": "https://www.google.com/maps/search/Patterson+Family+Law+Office+Edmonton+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8925+51+Ave+NW%2C+Edmonton%2C+AB+T6E+5J3",
-  "website": "https://www.pattersonfamilylaw.ca",
-  "blurb": "Family Law / Wills & Estates in Edmonton. Rated 4.6 from 15 Google reviews.",
-  "type": "logo",
-  "about": "Patterson Family Law Office is a law firm in Edmonton, Alberta that practises family law, wills and estates and real estate. Clients rate the firm 4.6 out of 5 from 15 public Google reviews. The office is at 8925 51 Ave NW, Edmonton, AB T6E 5J3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/patterson-family-law-office-edmonton.png"
  },
  {
   "name": "R K Sidhu Law Office",
@@ -1879,33 +1480,6 @@
   "src": "images/logos/robinson-llp-edmonton.webp"
  },
  {
-  "name": "Steven M Reid Lawyer",
-  "city": "Edmonton",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "ab-edmonton",
-  "province": "AB",
-  "lat": 53.5438768,
-  "lng": -113.6270072,
-  "address": "10215 178 St NW, Edmonton, AB T5S 1M3",
-  "phone": "+17807601200",
-  "rating": 5,
-  "count": 16,
-  "slug": "steven-m-reid-lawyer-edmonton",
-  "mapsUrl": "https://www.google.com/maps/search/Steven+M+Reid+Lawyer+Edmonton+Alberta",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10215+178+St+NW%2C+Edmonton%2C+AB+T5S+1M3",
-  "website": "https://www.stevenreid.ca",
-  "blurb": "Real Estate in Edmonton. Rated 5.0 from 16 Google reviews.",
-  "type": "logo",
-  "about": "Steven M Reid Lawyer is a law firm in Edmonton, Alberta that practises real estate. Clients rate the firm 5.0 out of 5 from 16 public Google reviews. The office is at 10215 178 St NW, Edmonton, AB T5S 1M3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/steven-m-reid-lawyer-edmonton.png"
- },
- {
   "name": "Summit Point Law",
   "city": "Edmonton",
   "featured": false,
@@ -1960,8 +1534,39 @@
   "src": "images/logos/tidal-law-llp-edmonton.png"
  },
  {
-  "name": "Clarity Family Law",
-  "city": "Abbotsford",
+  "name": "North Road Law & Notary Public",
+  "city": "Burnaby",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "bc-burnaby",
+  "province": "BC",
+  "lat": 49.2438468,
+  "lng": -122.8937377,
+  "address": "4501 North Rd Unit 208, Burnaby, BC V3N 4J5",
+  "phone": "+16044444566",
+  "rating": 4.6,
+  "count": 47,
+  "slug": "north-road-law-and-notary-public-burnaby",
+  "mapsUrl": "https://www.google.com/maps/search/North+Road+Law+%26+Notary+Public+Burnaby+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4501+North+Rd+Unit+208%2C+Burnaby%2C+BC+V3N+4J5",
+  "website": "https://www.northroadlaw.com",
+  "blurb": "Real Estate / Wills & Estates in Burnaby. Rated 4.6 from 47 Google reviews.",
+  "type": "logo",
+  "about": "North Road Law & Notary Public is a law firm in Burnaby, British Columbia that practises real estate, wills and estates and business law. Clients rate the firm 4.6 out of 5 from 47 public Google reviews. The office is at 4501 North Rd Unit 208, Burnaby, BC V3N 4J5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/north-road-law-and-notary-public-burnaby.png"
+ },
+ {
+  "name": "Ali Family Law",
+  "city": "Surrey",
   "featured": false,
   "tags": [
    "Family Law"
@@ -1971,240 +1576,119 @@
   ],
   "region": "bc-fraser",
   "province": "BC",
-  "lat": 49.0503507,
-  "lng": -122.2900204,
-  "address": "33771 George Ferguson Wy 630 A, Abbotsford, BC V2S 2M5",
-  "phone": "+16042102462",
-  "rating": 4.6,
-  "count": 17,
-  "slug": "clarity-family-law-abbotsford",
-  "mapsUrl": "https://www.google.com/maps/search/Clarity+Family+Law+Abbotsford+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=33771+George+Ferguson+Wy+630+A%2C+Abbotsford%2C+BC+V2S+2M5",
-  "website": "https://www.clarityfamilylaw.ca",
-  "blurb": "Family Law in Abbotsford. Rated 4.6 from 17 Google reviews.",
-  "type": "logo",
-  "about": "Clarity Family Law is a law firm in Abbotsford, British Columbia that practises family law. Clients rate the firm 4.6 out of 5 from 17 public Google reviews. The office is at 33771 George Ferguson Wy 630 A, Abbotsford, BC V2S 2M5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/clarity-family-law-abbotsford.png"
- },
- {
-  "name": "Gill & Gill Lawyers",
-  "city": "Abbotsford",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "bc-fraser",
-  "province": "BC",
-  "lat": 49.0562775,
-  "lng": -122.3159858,
-  "address": "2975 Gladwin Rd #203, Abbotsford, BC V2T 5T4",
-  "phone": "+16047574455",
-  "rating": 4.6,
-  "count": 11,
-  "slug": "gill-and-gill-lawyers-abbotsford",
-  "mapsUrl": "https://www.google.com/maps/search/Gill+%26+Gill+Lawyers+Abbotsford+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2975+Gladwin+Rd+%23203%2C+Abbotsford%2C+BC+V2T+5T4",
-  "website": "https://gillandgilllaw.ca",
-  "blurb": "Family Law in Abbotsford. Rated 4.6 from 11 Google reviews.",
-  "type": "logo",
-  "about": "Gill & Gill Lawyers is a law firm in Abbotsford, British Columbia that practises family law. Clients rate the firm 4.6 out of 5 from 11 public Google reviews. The office is at 2975 Gladwin Rd #203, Abbotsford, BC V2T 5T4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/gill-and-gill-lawyers-abbotsford.png"
- },
- {
-  "name": "Legatum Estate Litigation",
-  "city": "Abbotsford",
-  "featured": false,
-  "tags": [
-   "Civil Litigation"
-  ],
-  "caseTypes": [
-   "litigation"
-  ],
-  "region": "bc-fraser",
-  "province": "BC",
-  "lat": 49.0562775,
-  "lng": -122.3159858,
-  "address": "2975 Gladwin Rd #104, Abbotsford, BC V2T 5T4",
-  "phone": "+16044250340",
-  "rating": 4.8,
-  "count": 16,
-  "slug": "legatum-estate-litigation-abbotsford",
-  "mapsUrl": "https://www.google.com/maps/search/Legatum+Estate+Litigation+Abbotsford+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2975+Gladwin+Rd+%23104%2C+Abbotsford%2C+BC+V2T+5T4",
-  "website": "https://www.legatumestatelitigation.com",
-  "blurb": "Civil Litigation in Abbotsford. Rated 4.8 from 16 Google reviews.",
-  "type": "logo",
-  "about": "Legatum Estate Litigation is a law firm in Abbotsford, British Columbia that practises civil litigation. Clients rate the firm 4.8 out of 5 from 16 public Google reviews. The office is at 2975 Gladwin Rd #104, Abbotsford, BC V2T 5T4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/legatum-estate-litigation-abbotsford.png"
- },
- {
-  "name": "Danielle Ching McNamee Law Corporation",
-  "city": "Kamloops",
-  "featured": false,
-  "tags": [
-   "Criminal Defence"
-  ],
-  "caseTypes": [
-   "criminal"
-  ],
-  "region": "bc-thompson",
-  "province": "BC",
-  "lat": 50.672511,
-  "lng": -120.3339929,
-  "address": "310 Nicola St #103, Kamloops, BC V2C 2P5",
-  "phone": "+17784717200",
+  "lat": 49.0453536,
+  "lng": -122.7964161,
+  "address": "15388 24 Ave Unit 202, Surrey, BC V4A 2J2",
+  "phone": "+16042544120",
   "rating": 5,
-  "count": 13,
-  "slug": "danielle-ching-mcnamee-law-corporation-kamloops",
-  "mapsUrl": "https://www.google.com/maps/search/Danielle+Ching+McNamee+Law+Corporation+Kamloops+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=310+Nicola+St+%23103%2C+Kamloops%2C+BC+V2C+2P5",
-  "website": "https://www.smithlitigation.com",
-  "blurb": "Criminal Defence in Kamloops. Rated 5.0 from 13 Google reviews.",
+  "count": 31,
+  "slug": "ali-family-law-surrey",
+  "mapsUrl": "https://www.google.com/maps/search/Ali+Family+Law+Surrey+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=15388+24+Ave+Unit+202%2C+Surrey%2C+BC+V4A+2J2",
+  "website": "https://www.alifamilylaw.ca",
+  "blurb": "Family Law in Surrey. Rated 5.0 from 31 Google reviews.",
   "type": "logo",
-  "about": "Danielle Ching McNamee Law Corporation is a law firm in Kamloops, British Columbia that practises criminal defence. Clients rate the firm 5.0 out of 5 from 13 public Google reviews. The office is at 310 Nicola St #103, Kamloops, BC V2C 2P5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/danielle-ching-mcnamee-law-corporation-kamloops.jpg"
+  "about": "Ali Family Law is a law firm in Surrey, British Columbia that practises family law. Clients rate the firm 5.0 out of 5 from 31 public Google reviews. The office is at 15388 24 Ave Unit 202, Surrey, BC V4A 2J2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ali-family-law-surrey.webp"
  },
  {
-  "name": "Cori L. McGuire Law Corporation",
-  "city": "Kelowna",
+  "name": "K S Lawyers",
+  "city": "Surrey",
   "featured": false,
   "tags": [
-   "Family Law"
+   "Family Law",
+   "Real Estate",
+   "Business Law",
+   "Immigration"
   ],
   "caseTypes": [
-   "family"
+   "family",
+   "realestate",
+   "business",
+   "immigration"
   ],
-  "region": "bc-okanagan",
+  "region": "bc-fraser",
   "province": "BC",
-  "lat": 49.8892559,
-  "lng": -119.4940812,
-  "address": "460 Doyle Ave #106, Kelowna, BC V1Y 0C2",
-  "phone": "+12507170926",
-  "rating": 4.6,
-  "count": 10,
-  "slug": "cori-l-mcguire-law-corporation-kelowna",
-  "mapsUrl": "https://www.google.com/maps/search/Cori+L.+McGuire+Law+Corporation+Kelowna+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=460+Doyle+Ave+%23106%2C+Kelowna%2C+BC+V1Y+0C2",
-  "website": "https://www.kelownalawyer.com",
-  "blurb": "Family Law in Kelowna. Rated 4.6 from 10 Google reviews.",
+  "lat": 49.1546643,
+  "lng": -122.8673603,
+  "address": "8388 128 St #203, Surrey, BC V3W 4G2",
+  "phone": "+16045030556",
+  "rating": 4.7,
+  "count": 91,
+  "slug": "k-s-lawyers-surrey",
+  "mapsUrl": "https://www.google.com/maps/search/K+S+Lawyers+Surrey+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8388+128+St+%23203%2C+Surrey%2C+BC+V3W+4G2",
+  "website": "https://www.kslawyers.ca",
+  "blurb": "Family Law / Real Estate in Surrey. Rated 4.7 from 91 Google reviews.",
   "type": "logo",
-  "about": "Cori L. McGuire Law Corporation is a law firm in Kelowna, British Columbia that practises family law. Clients rate the firm 4.6 out of 5 from 10 public Google reviews. The office is at 460 Doyle Ave #106, Kelowna, BC V1Y 0C2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Parenting Coordination, Family Arbitration, Child Voices, Separation Agreements, and Family Law Services across British Columbia. Help for high conflict parents to move forward.”",
-  "src": "images/logos/cori-l-mcguire-law-corporation-kelowna.png"
+  "about": "K S Lawyers is a law firm in Surrey, British Columbia that practises family law, real estate, business law and immigration. Clients rate the firm 4.7 out of 5 from 91 public Google reviews. The office is at 8388 128 St #203, Surrey, BC V3W 4G2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/k-s-lawyers-surrey.png"
  },
  {
-  "name": "Jenson & Co.",
-  "city": "Kelowna",
+  "name": "Neha Bains Law Corporation",
+  "city": "Surrey",
   "featured": false,
   "tags": [
-   "Criminal Defence"
+   "Family Law",
+   "Wills & Estates",
+   "Immigration"
   ],
   "caseTypes": [
-   "criminal"
+   "family",
+   "wills",
+   "immigration"
   ],
-  "region": "bc-okanagan",
+  "region": "bc-fraser",
   "province": "BC",
-  "lat": 49.880282,
-  "lng": -119.461269,
-  "address": "1631, Landmark 6 11th floor, Dickson Ave, Kelowna, BC V1Y 7W6",
-  "phone": "+17784848260",
-  "rating": 4.8,
-  "count": 16,
-  "slug": "jenson-and-co-kelowna",
-  "mapsUrl": "https://www.google.com/maps/search/Jenson+%26+Co.+Kelowna+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1631%2C+Landmark+6+11th+floor%2C+Dickson+Ave%2C+Kelowna%2C+BC+V1Y+7W6",
-  "website": "https://jensonlaw.com",
-  "blurb": "Criminal Defence in Kelowna. Rated 4.8 from 16 Google reviews.",
-  "type": "logo",
-  "about": "Jenson & Co. is a law firm in Kelowna, British Columbia that practises criminal defence. Clients rate the firm 4.8 out of 5 from 16 public Google reviews. The office is at 1631, Landmark 6 11th floor, Dickson Ave, Kelowna, BC V1Y 7W6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/jenson-and-co-kelowna.png"
- },
- {
-  "name": "Price-Stephens Family Law",
-  "city": "Kelowna",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "bc-okanagan",
-  "province": "BC",
-  "lat": 49.8847241,
-  "lng": -119.4952247,
-  "address": "1630 Pandosy St #502, Kelowna, BC V1Y 1P7",
-  "phone": "+17785833133",
+  "lat": 49.1474099,
+  "lng": -122.8671027,
+  "address": "12830 80 Ave #109, Surrey, BC V3W 3A8",
+  "phone": "+17785640411",
   "rating": 5,
-  "count": 13,
-  "slug": "price-stephens-family-law-kelowna",
-  "mapsUrl": "https://www.google.com/maps/search/Price-Stephens+Family+Law+Kelowna+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1630+Pandosy+St+%23502%2C+Kelowna%2C+BC+V1Y+1P7",
-  "website": "https://www.pricestephensfamilylaw.ca",
-  "blurb": "Family Law in Kelowna. Rated 5.0 from 13 Google reviews.",
+  "count": 35,
+  "slug": "neha-bains-law-corporation-surrey",
+  "mapsUrl": "https://www.google.com/maps/search/Neha+Bains+Law+Corporation+Surrey+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=12830+80+Ave+%23109%2C+Surrey%2C+BC+V3W+3A8",
+  "website": "https://bainslaw.ca",
+  "blurb": "Family Law / Wills & Estates in Surrey. Rated 5.0 from 35 Google reviews.",
   "type": "logo",
-  "about": "Price-Stephens Family Law is a law firm in Kelowna, British Columbia that practises family law. Clients rate the firm 5.0 out of 5 from 13 public Google reviews. The office is at 1630 Pandosy St #502, Kelowna, BC V1Y 1P7, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/price-stephens-family-law-kelowna.png"
+  "about": "Neha Bains Law Corporation is a law firm in Surrey, British Columbia that practises family law, wills and estates and immigration. Clients rate the firm 5.0 out of 5 from 35 public Google reviews. The office is at 12830 80 Ave #109, Surrey, BC V3W 3A8, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/neha-bains-law-corporation-surrey.png"
  },
  {
-  "name": "Levine & Company",
-  "city": "Prince George",
+  "name": "Patrola Law Corporation",
+  "city": "Surrey",
   "featured": false,
   "tags": [
-   "Criminal Defence"
-  ],
-  "caseTypes": [
-   "criminal"
-  ],
-  "region": "bc-north",
-  "province": "BC",
-  "lat": 53.9164099,
-  "lng": -122.7435,
-  "address": "1140 3rd Ave, Prince George, BC V2L 3E5",
-  "phone": "+12509602169",
-  "rating": 4.6,
-  "count": 17,
-  "slug": "levine-and-company-prince-george",
-  "mapsUrl": "https://www.google.com/maps/search/Levine+%26+Company+Prince+George+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1140+3rd+Ave%2C+Prince+George%2C+BC+V2L+3E5",
-  "website": "https://www.levineandco.ca",
-  "blurb": "Criminal Defence in Prince George. Rated 4.6 from 17 Google reviews.",
-  "type": "logo",
-  "about": "Levine & Company is a law firm in Prince George, British Columbia that practises criminal defence. Clients rate the firm 4.6 out of 5 from 17 public Google reviews. The office is at 1140 3rd Ave, Prince George, BC V2L 3E5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/levine-and-company-prince-george.png"
- },
- {
-  "name": "West Coast Workplace Law",
-  "city": "Richmond",
-  "featured": false,
-  "tags": [
+   "Wills & Estates",
+   "Immigration",
    "Employment Law"
   ],
   "caseTypes": [
+   "wills",
+   "immigration",
    "employment"
   ],
-  "region": "bc-richmond",
+  "region": "bc-fraser",
   "province": "BC",
-  "lat": 49.1666824,
-  "lng": -123.135496,
-  "address": "6388 Number 3 Rd Ste 720, Richmond, BC V6Y 0L4",
-  "phone": "+16049693636",
-  "rating": 5,
-  "count": 12,
-  "slug": "west-coast-workplace-law-richmond",
-  "mapsUrl": "https://www.google.com/maps/search/West+Coast+Workplace+Law+Richmond+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=6388+Number+3+Rd+Ste+720%2C+Richmond%2C+BC+V6Y+0L4",
-  "website": "https://westcoastworkplacelaw.ca",
-  "blurb": "Employment Law in Richmond. Rated 5.0 from 12 Google reviews.",
+  "lat": 49.1033992,
+  "lng": -122.7977015,
+  "address": "5577 153A St #207, Surrey, BC V3S 5K7",
+  "phone": "+17785654700",
+  "rating": 4.7,
+  "count": 194,
+  "slug": "patrola-law-corporation-surrey",
+  "mapsUrl": "https://www.google.com/maps/search/Patrola+Law+Corporation+Surrey+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5577+153A+St+%23207%2C+Surrey%2C+BC+V3S+5K7",
+  "website": "https://patrolalaw.com",
+  "blurb": "Wills & Estates / Immigration in Surrey. Rated 4.7 from 194 Google reviews.",
   "type": "logo",
-  "about": "West Coast Workplace Law is a law firm in Richmond, British Columbia that practises employment law. Clients rate the firm 5.0 out of 5 from 12 public Google reviews. The office is at 6388 Number 3 Rd Ste 720, Richmond, BC V6Y 0L4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/west-coast-workplace-law-richmond.png"
+  "about": "Patrola Law Corporation is a law firm in Surrey, British Columbia that practises wills and estates, immigration and employment law. Clients rate the firm 4.7 out of 5 from 194 public Google reviews. The office is at 5577 153A St #207, Surrey, BC V3S 5K7, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/patrola-law-corporation-surrey.png"
  },
  {
-  "name": "Broadhurst & Kooy LLP",
-  "city": "Vancouver",
+  "name": "Recovery Family Law",
+  "city": "Surrey",
   "featured": false,
   "tags": [
    "Family Law"
@@ -2212,76 +1696,49 @@
   "caseTypes": [
    "family"
   ],
-  "region": "bc-vancouver",
+  "region": "bc-fraser",
   "province": "BC",
-  "lat": 49.2813375,
-  "lng": -123.1254744,
-  "address": "970 Burrard St, Vancouver, BC V6Z 2R4",
-  "phone": "+16044248488",
+  "lat": 49.1684715,
+  "lng": -122.8000284,
+  "address": "15243 91 Ave #9, Surrey, BC V3R 9K2",
+  "phone": "+16045840007",
+  "rating": 4.9,
+  "count": 39,
+  "slug": "recovery-family-law-surrey",
+  "mapsUrl": "https://www.google.com/maps/search/Recovery+Family+Law+Surrey+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=15243+91+Ave+%239%2C+Surrey%2C+BC+V3R+9K2",
+  "website": "https://www.recoveryfamilylaw.ca",
+  "blurb": "Family Law in Surrey. Rated 4.9 from 39 Google reviews.",
+  "type": "logo",
+  "about": "Recovery Family Law is a law firm in Surrey, British Columbia that practises family law. Clients rate the firm 4.9 out of 5 from 39 public Google reviews. The office is at 15243 91 Ave #9, Surrey, BC V3R 9K2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/recovery-family-law-surrey.webp"
+ },
+ {
+  "name": "SiLaw Group Family Lawyers",
+  "city": "Surrey",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.0581891,
+  "lng": -122.7997597,
+  "address": "3108 Croydon Dr Ste 201, Surrey, BC V3S 0E5",
+  "phone": "+17783819977",
   "rating": 4.8,
-  "count": 18,
-  "slug": "broadhurst-and-kooy-llp-vancouver",
-  "mapsUrl": "https://www.google.com/maps/search/Broadhurst+%26+Kooy+LLP+Vancouver+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=970+Burrard+St%2C+Vancouver%2C+BC+V6Z+2R4",
-  "website": "https://www.bkfamilylaw.ca",
-  "blurb": "Family Law in Vancouver. Rated 4.8 from 18 Google reviews.",
+  "count": 85,
+  "slug": "silaw-group-family-lawyers-surrey",
+  "mapsUrl": "https://www.google.com/maps/search/SiLaw+Group+Family+Lawyers+Surrey+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3108+Croydon+Dr+Ste+201%2C+Surrey%2C+BC+V3S+0E5",
+  "website": "https://www.silawgroup.ca",
+  "blurb": "Family Law in Surrey. Rated 4.8 from 85 Google reviews.",
   "type": "logo",
-  "about": "Broadhurst & Kooy LLP is a law firm in Vancouver, British Columbia that practises family law. Clients rate the firm 4.8 out of 5 from 18 public Google reviews. The office is at 970 Burrard St, Vancouver, BC V6Z 2R4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/broadhurst-and-kooy-llp-vancouver.png"
- },
- {
-  "name": "England Lam Family Law",
-  "city": "Vancouver",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "bc-vancouver",
-  "province": "BC",
-  "lat": 49.2631012,
-  "lng": -123.117323,
-  "address": "601 W Broadway, Vancouver, BC V5Z 4C2",
-  "phone": "+16046756996",
-  "rating": 4.6,
-  "count": 18,
-  "slug": "england-lam-family-law-vancouver",
-  "mapsUrl": "https://www.google.com/maps/search/England+Lam+Family+Law+Vancouver+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=601+W+Broadway%2C+Vancouver%2C+BC+V5Z+4C2",
-  "website": "https://www.englandlam.com",
-  "blurb": "Family Law in Vancouver. Rated 4.6 from 18 Google reviews.",
-  "type": "logo",
-  "about": "England Lam Family Law is a law firm in Vancouver, British Columbia that practises family law. Clients rate the firm 4.6 out of 5 from 18 public Google reviews. The office is at 601 W Broadway, Vancouver, BC V5Z 4C2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/england-lam-family-law-vancouver.webp"
- },
- {
-  "name": "Harris & Brun Law Corporation",
-  "city": "Vancouver",
-  "featured": false,
-  "tags": [
-   "Personal Injury"
-  ],
-  "caseTypes": [
-   "injury"
-  ],
-  "region": "bc-vancouver",
-  "province": "BC",
-  "lat": 49.2815294,
-  "lng": -123.1163281,
-  "address": "555 W Georgia St #500, Vancouver, BC V6B 1Z5",
-  "phone": "+16046832466",
-  "rating": 4.5,
-  "count": 10,
-  "slug": "harris-and-brun-law-corporation-vancouver",
-  "mapsUrl": "https://www.google.com/maps/search/Harris+%26+Brun+Law+Corporation+Vancouver+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=555+W+Georgia+St+%23500%2C+Vancouver%2C+BC+V6B+1Z5",
-  "website": "https://harrisbrun.com",
-  "blurb": "Personal Injury in Vancouver. Rated 4.5 from 10 Google reviews.",
-  "type": "logo",
-  "about": "Harris & Brun Law Corporation is a law firm in Vancouver, British Columbia that practises personal injury. Clients rate the firm 4.5 out of 5 from 10 public Google reviews. The office is at 555 W Georgia St #500, Vancouver, BC V6B 1Z5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/harris-and-brun-law-corporation-vancouver.png"
+  "about": "SiLaw Group Family Lawyers is a law firm in Surrey, British Columbia that practises family law. Clients rate the firm 4.8 out of 5 from 85 public Google reviews. The office is at 3108 Croydon Dr Ste 201, Surrey, BC V3S 0E5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/silaw-group-family-lawyers-surrey.png"
  },
  {
   "name": "HHBG Lawyers",
@@ -2338,120 +1795,6 @@
   "src": "images/logos/orr-ewing-law-group-vancouver.webp"
  },
  {
-  "name": "Paine Edmonds LLP",
-  "city": "Vancouver",
-  "featured": false,
-  "tags": [
-   "Personal Injury",
-   "Employment Law",
-   "Wills & Estates",
-   "Family Law"
-  ],
-  "caseTypes": [
-   "injury",
-   "employment",
-   "wills",
-   "family"
-  ],
-  "region": "bc-vancouver",
-  "province": "BC",
-  "lat": 49.2859669,
-  "lng": -123.1175792,
-  "address": "510 Burrard St #1100, Vancouver, BC V6C 3A8",
-  "phone": "+16046831211",
-  "rating": 4.6,
-  "count": 19,
-  "slug": "paine-edmonds-llp-vancouver",
-  "mapsUrl": "https://www.google.com/maps/search/Paine+Edmonds+LLP+Vancouver+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=510+Burrard+St+%231100%2C+Vancouver%2C+BC+V6C+3A8",
-  "website": "https://pelawyers.com",
-  "blurb": "Personal Injury / Employment Law in Vancouver. Rated 4.6 from 19 Google reviews.",
-  "type": "logo",
-  "about": "Paine Edmonds LLP is a law firm in Vancouver, British Columbia that practises personal injury, employment law and wills and estates. Clients rate the firm 4.6 out of 5 from 19 public Google reviews. The office is at 510 Burrard St #1100, Vancouver, BC V6C 3A8, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/paine-edmonds-llp-vancouver.png"
- },
- {
-  "name": "Patriam Immigration Law",
-  "city": "Vancouver",
-  "featured": false,
-  "tags": [
-   "Immigration"
-  ],
-  "caseTypes": [
-   "immigration"
-  ],
-  "region": "bc-vancouver",
-  "province": "BC",
-  "lat": 49.2636099,
-  "lng": -123.1179998,
-  "address": "601 W Broadway #400, Vancouver, BC V5Z 3C4",
-  "phone": "+17786543878",
-  "rating": 4.8,
-  "count": 17,
-  "slug": "patriam-immigration-law-vancouver",
-  "mapsUrl": "https://www.google.com/maps/search/Patriam+Immigration+Law+Vancouver+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=601+W+Broadway+%23400%2C+Vancouver%2C+BC+V5Z+3C4",
-  "website": "https://www.patriamlaw.com",
-  "blurb": "Immigration in Vancouver. Rated 4.8 from 17 Google reviews.",
-  "type": "logo",
-  "about": "Patriam Immigration Law is a law firm in Vancouver, British Columbia that practises immigration. Clients rate the firm 4.8 out of 5 from 17 public Google reviews. The office is at 601 W Broadway #400, Vancouver, BC V5Z 3C4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/patriam-immigration-law-vancouver.webp"
- },
- {
-  "name": "Paul Ladner Law Corp.",
-  "city": "Vancouver",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "bc-vancouver",
-  "province": "BC",
-  "lat": 49.2642633,
-  "lng": -123.1375081,
-  "address": "1462 W 8th Ave #200, Vancouver, BC V6H 1E1",
-  "phone": "+16047071207",
-  "rating": 5,
-  "count": 15,
-  "slug": "paul-ladner-law-corp-vancouver",
-  "mapsUrl": "https://www.google.com/maps/search/Paul+Ladner+Law+Corp.+Vancouver+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1462+W+8th+Ave+%23200%2C+Vancouver%2C+BC+V6H+1E1",
-  "website": "https://www.paulladner.com",
-  "blurb": "Family Law in Vancouver. Rated 5.0 from 15 Google reviews.",
-  "type": "logo",
-  "about": "Paul Ladner Law Corp. is a law firm in Vancouver, British Columbia that practises family law. Clients rate the firm 5.0 out of 5 from 15 public Google reviews. The office is at 1462 W 8th Ave #200, Vancouver, BC V6H 1E1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/paul-ladner-law-corp-vancouver.png"
- },
- {
-  "name": "Pazder Law Corporation",
-  "city": "Vancouver",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "bc-vancouver",
-  "province": "BC",
-  "lat": 49.28532,
-  "lng": -123.1163529,
-  "address": "800 W Pender St #1410, Vancouver, BC V6C 2V6",
-  "phone": "+16046821509",
-  "rating": 4.6,
-  "count": 19,
-  "slug": "pazder-law-corporation-vancouver",
-  "mapsUrl": "https://www.google.com/maps/search/Pazder+Law+Corporation+Vancouver+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=800+W+Pender+St+%231410%2C+Vancouver%2C+BC+V6C+2V6",
-  "website": "https://www.pazderlaw.com",
-  "blurb": "Real Estate in Vancouver. Rated 4.6 from 19 Google reviews.",
-  "type": "logo",
-  "about": "Pazder Law Corporation is a law firm in Vancouver, British Columbia that practises real estate. Clients rate the firm 4.6 out of 5 from 19 public Google reviews. The office is at 800 W Pender St #1410, Vancouver, BC V6C 2V6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/pazder-law-corporation-vancouver.jpg"
- },
- {
   "name": "Ronald Kumar Law Corporation",
   "city": "Vancouver",
   "featured": false,
@@ -2479,58 +1822,31 @@
   "src": "images/logos/ronald-kumar-law-corporation-vancouver.png"
  },
  {
-  "name": "Yaletown Law Corporation",
+  "name": "Taylor Janis Workplace Lawyers",
   "city": "Vancouver",
   "featured": false,
   "tags": [
-   "Wills & Estates"
+   "Employment Law"
   ],
   "caseTypes": [
-   "wills"
+   "employment"
   ],
   "region": "bc-vancouver",
   "province": "BC",
-  "lat": 49.2743299,
-  "lng": -123.1231956,
-  "address": "1228 Hamilton St #301, Vancouver, BC V6B 6L2",
-  "phone": "+16046843323",
-  "rating": 5,
-  "count": 14,
-  "slug": "yaletown-law-corporation-vancouver",
-  "mapsUrl": "https://www.google.com/maps/search/Yaletown+Law+Corporation+Vancouver+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1228+Hamilton+St+%23301%2C+Vancouver%2C+BC+V6B+6L2",
-  "website": "https://yaletownlaw.ca",
-  "blurb": "Wills & Estates in Vancouver. Rated 5.0 from 14 Google reviews.",
+  "lat": 49.2840955,
+  "lng": -123.106071,
+  "address": "134 Abbott St Ste 603A, Vancouver, BC V6B 2K4",
+  "phone": "+16044232646",
+  "rating": 4.9,
+  "count": 264,
+  "slug": "taylor-janis-workplace-lawyers-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/Taylor+Janis+Workplace+Lawyers+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=134+Abbott+St+Ste+603A%2C+Vancouver%2C+BC+V6B+2K4",
+  "website": "https://www.tjworkplacelaw.com",
+  "blurb": "Employment Law in Vancouver. Rated 4.9 from 264 Google reviews.",
   "type": "logo",
-  "about": "Yaletown Law Corporation is a law firm in Vancouver, British Columbia that practises wills and estates. Clients rate the firm 5.0 out of 5 from 14 public Google reviews. The office is at 1228 Hamilton St #301, Vancouver, BC V6B 6L2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/yaletown-law-corporation-vancouver.png"
- },
- {
-  "name": "Swiftsure Law",
-  "city": "Victoria",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "bc-victoria",
-  "province": "BC",
-  "lat": 48.421593,
-  "lng": -123.3623147,
-  "address": "821 Burdett Ave #203, Victoria, BC V8W 1B3",
-  "phone": "+12509403593",
-  "rating": 4.6,
-  "count": 19,
-  "slug": "swiftsure-law-victoria",
-  "mapsUrl": "https://www.google.com/maps/search/Swiftsure+Law+Victoria+British+Columbia",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=821+Burdett+Ave+%23203%2C+Victoria%2C+BC+V8W+1B3",
-  "website": "https://www.swiftsurelaw.ca",
-  "blurb": "Family Law in Victoria. Rated 4.6 from 19 Google reviews.",
-  "type": "logo",
-  "about": "Swiftsure Law is a law firm in Victoria, British Columbia that practises family law. Clients rate the firm 4.6 out of 5 from 19 public Google reviews. The office is at 821 Burdett Ave #203, Victoria, BC V8W 1B3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/swiftsure-law-victoria.png"
+  "about": "Taylor Janis Workplace Lawyers is a law firm in Vancouver, British Columbia that practises employment law. Clients rate the firm 4.9 out of 5 from 264 public Google reviews. The office is at 134 Abbott St Ste 603A, Vancouver, BC V6B 2K4, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/taylor-janis-workplace-lawyers-vancouver.png"
  },
  {
   "name": "Potvin Immigration",
@@ -2585,276 +1901,5 @@
   "type": "logo",
   "about": "Primus Immigration is a law firm in Montreal, Quebec that practises immigration. Clients rate the firm 4.6 out of 5 from 90 public Google reviews. The office is at 2006 R. Atateken, Montréal, QC H2L 3L8, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "src": "images/logos/primus-immigration-montreal.png"
- },
- {
-  "name": "Leblanc Hurtubise Laroche Avocats",
-  "city": "Quebec City",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "qc-quebec",
-  "province": "QC",
-  "lat": 46.8070012,
-  "lng": -71.2157706,
-  "address": "686 Grande Allée E 1er étage, Québec, QC G1R 3N8",
-  "phone": "+14184760597",
-  "rating": 5,
-  "count": 11,
-  "slug": "leblanc-hurtubise-laroche-avocats-quebec-city",
-  "mapsUrl": "https://www.google.com/maps/search/Leblanc+Hurtubise+Laroche+Avocats+Quebec+City+Quebec",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=686+Grande+All%C3%A9e+E+1er+%C3%A9tage%2C+Qu%C3%A9bec%2C+QC+G1R+3N8",
-  "website": "https://www.lhlavocats.ca",
-  "blurb": "Family Law in Quebec City. Rated 5.0 from 11 Google reviews.",
-  "type": "logo",
-  "about": "Leblanc Hurtubise Laroche Avocats is a law firm in Quebec City, Quebec that practises family law. Clients rate the firm 5.0 out of 5 from 11 public Google reviews. The office is at 686 Grande Allée E 1er étage, Québec, QC G1R 3N8, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/leblanc-hurtubise-laroche-avocats-quebec-city.webp"
- },
- {
-  "name": "Dussault Côté Avocats",
-  "city": "Sherbrooke",
-  "featured": false,
-  "tags": [
-   "Criminal Defence"
-  ],
-  "caseTypes": [
-   "criminal"
-  ],
-  "region": "qc-estrie",
-  "province": "QC",
-  "lat": 45.3982942,
-  "lng": -71.9000447,
-  "address": "780 Rue King Ouest, Sherbrooke, QC J1H 1R7",
-  "phone": "+18197917888",
-  "rating": 4.8,
-  "count": 17,
-  "slug": "dussault-cote-avocats-sherbrooke",
-  "mapsUrl": "https://www.google.com/maps/search/Dussault+C%C3%B4t%C3%A9+Avocats+Sherbrooke+Quebec",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=780+Rue+King+Ouest%2C+Sherbrooke%2C+QC+J1H+1R7",
-  "website": "https://dcavocats.ca",
-  "blurb": "Criminal Defence in Sherbrooke. Rated 4.8 from 17 Google reviews.",
-  "type": "logo",
-  "about": "Dussault Côté Avocats is a law firm in Sherbrooke, Quebec that practises criminal defence. Clients rate the firm 4.8 out of 5 from 17 public Google reviews. The office is at 780 Rue King Ouest, Sherbrooke, QC J1H 1R7, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/dussault-cote-avocats-sherbrooke.png"
- },
- {
-  "name": "Carlyle Peterson Lawyers LLP.",
-  "city": "London",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates",
-   "Business Law"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills",
-   "business"
-  ],
-  "region": "southwestern",
-  "province": "ON",
-  "lat": 42.9941549,
-  "lng": -81.2529191,
-  "address": "717 Richmond St #7, London, ON N6A 1S2",
-  "phone": "+15194320632",
-  "rating": 4.5,
-  "count": 51,
-  "slug": "carlyle-peterson-lawyers-llp-london",
-  "mapsUrl": "https://www.google.com/maps/search/Carlyle+Peterson+Lawyers+LLP.+London+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=717+Richmond+St+%237%2C+London%2C+ON+N6A+1S2",
-  "website": "https://www.cplaw.com",
-  "blurb": "Real Estate / Wills & Estates in London. Rated 4.5 from 51 Google reviews.",
-  "type": "logo",
-  "about": "Carlyle Peterson Lawyers LLP. is a law firm in London, Ontario that practises real estate, wills and estates and business law. Clients rate the firm 4.5 out of 5 from 51 public Google reviews. The office is at 717 Richmond St #7, London, ON N6A 1S2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/carlyle-peterson-lawyers-llp-london.webp"
- },
- {
-  "name": "MBAA Law Professional Corporation",
-  "city": "Oshawa",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates",
-   "Business Law",
-   "Employment Law"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills",
-   "business",
-   "employment"
-  ],
-  "region": "york-durham",
-  "province": "ON",
-  "lat": 43.8951837,
-  "lng": -78.8644719,
-  "address": "73 Centre St S, Oshawa, ON L1H 4A1",
-  "phone": "+19057287335",
-  "rating": 4.5,
-  "count": 48,
-  "slug": "mbaa-law-professional-corporation-oshawa",
-  "mapsUrl": "https://www.google.com/maps/search/MBAA+Law+Professional+Corporation+Oshawa+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=73+Centre+St+S%2C+Oshawa%2C+ON+L1H+4A1",
-  "website": "https://www.mbaalaw.com",
-  "blurb": "Real Estate / Wills & Estates in Oshawa. Rated 4.5 from 48 Google reviews.",
-  "type": "logo",
-  "about": "MBAA Law Professional Corporation is a law firm in Oshawa, Ontario that practises real estate, wills and estates, business law and employment law. Clients rate the firm 4.5 out of 5 from 48 public Google reviews. The office is at 73 Centre St S, Oshawa, ON L1H 4A1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/mbaa-law-professional-corporation-oshawa.jpg"
- },
- {
-  "name": "Gold Law",
-  "city": "North York",
-  "featured": false,
-  "tags": [
-   "Criminal Defence",
-   "Civil Litigation"
-  ],
-  "caseTypes": [
-   "criminal",
-   "litigation"
-  ],
-  "region": "toronto",
-  "province": "ON",
-  "lat": 43.7789096,
-  "lng": -79.4204484,
-  "address": "56 Finch Ave W, North York, ON M2N 2H2",
-  "phone": "+14169998389",
-  "rating": 5,
-  "count": 42,
-  "slug": "gold-law-north-york",
-  "mapsUrl": "https://www.google.com/maps/search/Gold+Law+North+York+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=56+Finch+Ave+W%2C+North+York%2C+ON+M2N+2H2",
-  "website": "https://goldlaw.ca",
-  "blurb": "Criminal Defence / Civil Litigation in North York. Rated 5.0 from 42 Google reviews.",
-  "type": "logo",
-  "about": "Gold Law is a law firm in North York, Ontario that practises criminal defence and civil litigation. Clients rate the firm 5.0 out of 5 from 42 public Google reviews. The office is at 56 Finch Ave W, North York, ON M2N 2H2, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/gold-law-north-york.webp"
- },
- {
-  "name": "Prudentia Law Professional Corporation 普诚律师事务所",
-  "city": "Markham",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Real Estate",
-   "Wills & Estates",
-   "Business Law"
-  ],
-  "caseTypes": [
-   "family",
-   "realestate",
-   "wills",
-   "business"
-  ],
-  "region": "york-durham",
-  "province": "ON",
-  "lat": 43.8582483,
-  "lng": -79.3402784,
-  "address": "200 Town Centre Blvd Ste 302, Markham, ON L3R 8J5",
-  "phone": "+14165293982",
-  "rating": 5,
-  "count": 42,
-  "slug": "prudentia-law-professional-corporation-markham",
-  "mapsUrl": "https://www.google.com/maps/search/Prudentia+Law+Professional+Corporation+%E6%99%AE%E8%AF%9A%E5%BE%8B%E5%B8%88%E4%BA%8B%E5%8A%A1%E6%89%80+Markham+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=200+Town+Centre+Blvd+Ste+302%2C+Markham%2C+ON+L3R+8J5",
-  "website": "https://www.prudentialawpc.com",
-  "blurb": "Family Law / Real Estate in Markham. Rated 5.0 from 42 Google reviews.",
-  "type": "logo",
-  "about": "Prudentia Law Professional Corporation 普诚律师事务所 is a law firm in Markham, Ontario that practises family law, real estate, wills and estates and business law. Clients rate the firm 5.0 out of 5 from 42 public Google reviews. The office is at 200 Town Centre Blvd Ste 302, Markham, ON L3R 8J5, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Founded in 2024, Prudentia Law Professional Corporation practices Real Estate, Business Transactions, Contracts, Will and Notarization. Prudentia Law 普诚律师事务所是一家位于多伦多的杰出精品律师事务所，专注于房地产法、公司法和商业法以及遗产法。我们坚定不移地致力于为企业和个人提供卓越的法律服务，这是我们秉承的核心价值观。我们以与客户的目标和愿望保持一致为荣，并努力帮助他们实现愿景。”",
-  "src": "images/logos/prudentia-law-professional-corporation-markham.png"
- },
- {
-  "name": "Aasara Lawyers Professional Corporation",
-  "city": "Brampton",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates",
-   "Business Law",
-   "Immigration"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills",
-   "business",
-   "immigration"
-  ],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.7238805,
-  "lng": -79.717224,
-  "address": "490 Bramalea Rd #502, Brampton, ON L6T 0G1",
-  "phone": "+19054562020",
-  "rating": 4.5,
-  "count": 43,
-  "slug": "aasara-lawyers-professional-corporation-brampton",
-  "mapsUrl": "https://www.google.com/maps/search/Aasara+Lawyers+Professional+Corporation+Brampton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=490+Bramalea+Rd+%23502%2C+Brampton%2C+ON+L6T+0G1",
-  "website": "https://www.aasaralawyers.com",
-  "blurb": "Real Estate / Wills & Estates in Brampton. Rated 4.5 from 43 Google reviews.",
-  "type": "logo",
-  "about": "Aasara Lawyers Professional Corporation is a law firm in Brampton, Ontario that practises real estate, wills and estates, business law and immigration. Clients rate the firm 4.5 out of 5 from 43 public Google reviews. The office is at 490 Bramalea Rd #502, Brampton, ON L6T 0G1, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/aasara-lawyers-professional-corporation-brampton.jpg"
- },
- {
-  "name": "Chu & Huang Law",
-  "city": "Toronto",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "toronto",
-  "province": "ON",
-  "lat": 43.668802,
-  "lng": -79.3949649,
-  "address": "180 Bloor St W Ste 1201, Toronto, ON M5S 2V6",
-  "phone": "+16476608259",
-  "rating": 4.5,
-  "count": 36,
-  "slug": "chu-and-huang-law-toronto",
-  "mapsUrl": "https://www.google.com/maps/search/Chu+%26+Huang+Law+Toronto+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=180+Bloor+St+W+Ste+1201%2C+Toronto%2C+ON+M5S+2V6",
-  "website": "https://chuhuanglaw.com",
-  "blurb": "Real Estate in Toronto. Rated 4.5 from 36 Google reviews.",
-  "type": "logo",
-  "about": "Chu & Huang Law is a law firm in Toronto, Ontario that practises real estate. Clients rate the firm 4.5 out of 5 from 36 public Google reviews. The office is at 180 Bloor St W Ste 1201, Toronto, ON M5S 2V6, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/chu-and-huang-law-toronto.png"
- },
- {
-  "name": "GoldenGate Barristers and Solicitors Professional Corporation",
-  "city": "Niagara Falls",
-  "featured": false,
-  "tags": [
-   "Criminal Defence",
-   "Real Estate",
-   "Immigration"
-  ],
-  "caseTypes": [
-   "criminal",
-   "realestate",
-   "immigration"
-  ],
-  "region": "hamilton-niagara",
-  "province": "ON",
-  "lat": 43.1064452,
-  "lng": -79.0728542,
-  "address": "4786 Queen St Unit 202, Niagara Falls, ON L2E 2M3",
-  "phone": "+19053538100",
-  "rating": 4.5,
-  "count": 34,
-  "slug": "goldengate-barristers-and-solicitors-professional-corporation-niagara-falls",
-  "mapsUrl": "https://www.google.com/maps/search/GoldenGate+Barristers+and+Solicitors+Professional+Corporation+Niagara+Falls+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4786+Queen+St+Unit+202%2C+Niagara+Falls%2C+ON+L2E+2M3",
-  "website": "https://www.goldengatelawyers.ca",
-  "blurb": "Criminal Defence / Real Estate in Niagara Falls. Rated 4.5 from 34 Google reviews.",
-  "type": "logo",
-  "about": "GoldenGate Barristers and Solicitors Professional Corporation is a law firm in Niagara Falls, Ontario that practises criminal defence, real estate and immigration. Clients rate the firm 4.5 out of 5 from 34 public Google reviews. The office is at 4786 Queen St Unit 202, Niagara Falls, ON L2E 2M3, and you can visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/goldengate-barristers-and-solicitors-professional-corporation-niagara-falls.png"
  }
 ]

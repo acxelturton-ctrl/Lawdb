@@ -3326,12 +3326,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://lawdb.ca/british-columbia/abbotsford/family-lawyers</loc>
-    <lastmod>2026-10-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://lawdb.ca/british-columbia/vancouver/employment-lawyers</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>monthly</changefreq>
@@ -3344,12 +3338,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://lawdb.ca/ontario/london/business-lawyers</loc>
-    <lastmod>2026-10-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://lawdb.ca/ontario/markham/business-lawyers</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>monthly</changefreq>
@@ -3357,6 +3345,18 @@
   </url>
   <url>
     <loc>https://lawdb.ca/ontario/mississauga/business-lawyers</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lawdb.ca/british-columbia/surrey/immigration-lawyers</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lawdb.ca/ontario/north-york/wills-estate-lawyers</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

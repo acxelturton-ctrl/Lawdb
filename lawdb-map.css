@@ -318,3 +318,16 @@ html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color
 /* the map library's own controls, in the site palette */
 .maplibregl-ctrl, .maplibregl-ctrl-attrib, .maplibregl-ctrl-attrib a{ color:#586170; }
 .maplibregl-ctrl-group button + button{ border-top-color:#e3dfd3; }
+
+/* ----------------------------------------------- phones: a full-screen map, the search floats over it */
+@media (max-width:899px){
+  /* the heading stays in the page for search engines and screen readers; the place name is in the sheet */
+  html body.gm-on .gm-head{ position:absolute !important; width:1px !important; height:1px !important; margin:0 !important; padding:0 !important; overflow:hidden !important; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; border:0 !important; }
+  html body.gm-on .results-wrap{ position:relative; }
+  html body.gm-on .gm-app{ margin:0; border:0; }
+  .gm-top{ position:absolute; top:0; left:0; right:0; margin:0; padding:12px 12px 0; pointer-events:none; }
+  .gm-top > *{ pointer-events:auto; }
+  .gm-search{ box-shadow:0 2px 8px rgba(20,36,52,0.28); border-color:transparent; }
+  .gm-chips{ margin:0 -12px; padding:2px 12px 4px; }
+  .gm-chip:not(.on){ background:#fff; border-color:transparent; box-shadow:0 1px 4px rgba(20,36,52,0.25); }
+}

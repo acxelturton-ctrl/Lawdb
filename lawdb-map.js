@@ -463,77 +463,12 @@
     }, { enableHighAccuracy: false, timeout: 9000, maximumAge: 120000 });
   }
 
-  /* ------------------------------------------------------------ basemap theme */
-  var P = {
-    land: '#f5f3ec', water: 'rgba(138,145,155,0.3)', park: '#f4ecd8', parkLine: '#e6d4a4', wood: '#f4ecd8', grass: '#f5f3ec', resid: '#f5f3ec',
-    road: '#ffffff', casing: '#e3dfd3', major: '#ffffff', motor: '#f4ecd8', motorCasing: '#e6d4a4',
-    building: '#e3dfd3', buildingLine: '#e3dfd3', halo: 'rgba(255,255,255,.92)', text: '#142434', textSoft: '#586170', water_txt: '#586170'
-  };
-  window.__gmPalette = P;
+  /* ------------------------------------------------------------ basemap */
+  // The basemap is OpenFreeMap's "bright" style, which is drawn like Google Maps: pale land, white roads with a grey edge, green parks
+  // and blue water. Only its points of interest are hidden, so the lawyers' pins are the only markers on the map.
   applyMapTheme = function(){
-    var layers = map.getStyle().layers || [];
-    layers.forEach(function(l){
-      var id = l.id, ty = l.type;
-      try {
-        if(/^poi|^airport|aeroway|natural_earth|building-3d/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
-        if(ty === 'symbol'){
-          if(/highway-name|road_|waterway_line_label/.test(id)){
-            map.setLayoutProperty(id, 'visibility', 'visible');
-            map.setPaintProperty(id, 'text-color', /water/.test(id) ? P.water_txt : P.textSoft);
-            map.setPaintProperty(id, 'text-halo-color', P.halo); map.setPaintProperty(id, 'text-halo-width', 1.5);
-            if(/highway-name|road_/.test(id)) map.setLayerZoomRange(id, 13, 24);
-          } else if(/shield|junction|aerialway/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); }
-          else if(/water_name/.test(id)){
-            map.setPaintProperty(id, 'text-color', P.water_txt); map.setPaintProperty(id, 'text-halo-color', P.halo); map.setPaintProperty(id, 'text-halo-width', 1.2);
-          } else if(/^label_(city|town|village|state|other|country)/.test(id)){
-            map.setLayoutProperty(id, 'visibility', 'visible');
-            var dark = /city|town|state|country/.test(id);
-            map.setPaintProperty(id, 'text-color', dark ? P.text : P.textSoft);
-            map.setPaintProperty(id, 'text-halo-color', P.halo); map.setPaintProperty(id, 'text-halo-width', 1.6);
-          }
-          return;
-        }
-        if(ty === 'line'){
-          if(/rail|transit|ferry|aerialway|cablecar/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
-          if(/^boundary/.test(id)){
-            if(/boundary_3|disputed/.test(id)){ map.setLayoutProperty(id, 'visibility', 'none'); return; }
-            map.setPaintProperty(id, 'line-color', '#e6d4a4'); return;
-          }
-          if(/park_outline|outline/.test(id) && !/road|highway|bridge|tunnel/.test(id)){ map.setPaintProperty(id, 'line-color', '#e6d4a4'); return; }
-          if(/waterway/.test(id)){ map.setPaintProperty(id, 'line-color', P.water); return; }
-          if(/highway|road|bridge|tunnel|link|motorway|trunk|primary|secondary|tertiary|minor|service|path|pier/.test(id)){
-            var c = P.road;
-            if(/casing/.test(id)) c = /motorway|trunk/.test(id) ? P.motorCasing : P.casing;
-            else if(/motorway|trunk/.test(id)) c = P.motor;
-            else if(/major|primary|secondary|link/.test(id)) c = P.major;
-            else if(/path|track/.test(id)) c = '#e3dfd3';
-            map.setPaintProperty(id, 'line-color', c);
-          }
-          return;
-        }
-        if(ty === 'background'){ map.setPaintProperty(id, 'background-color', P.land); return; }
-        if(ty === 'fill'){
-          if(id === 'water' || /^water/.test(id)) map.setPaintProperty(id, 'fill-color', P.water);
-          else if(/^park/.test(id) || /landcover_(wood|forest)/.test(id)){
-            map.setPaintProperty(id, 'fill-color', /wood|forest/.test(id) ? P.wood : P.park);
-            if(/^park/.test(id)) map.setPaintProperty(id, 'fill-outline-color', P.parkLine);
-          }
-          else if(/landuse_(pitch|track)/.test(id)) map.setPaintProperty(id, 'fill-color', '#edeae1');
-          else if(/landcover_(ice|glacier)/.test(id)) map.setPaintProperty(id, 'fill-color', '#edeae1');
-          else if(/landcover_(sand|beach)/.test(id)) map.setPaintProperty(id, 'fill-color', '#f4ecd8');
-          else if(/landcover_wetland/.test(id)) map.setPaintProperty(id, 'fill-color', '#e3dfd3');
-          else if(/landcover/.test(id)) map.setPaintProperty(id, 'fill-color', P.grass);
-          else if(/landuse_residential/.test(id)) map.setPaintProperty(id, 'fill-color', P.resid);
-          else if(/landuse_cemetery/.test(id)) map.setPaintProperty(id, 'fill-color', '#e3dfd3');
-          else if(/landuse_hospital/.test(id)) map.setPaintProperty(id, 'fill-color', '#edeae1');
-          else if(/landuse_school/.test(id)) map.setPaintProperty(id, 'fill-color', '#f4ecd8');
-          else if(id === 'building'){
-            map.setPaintProperty(id, 'fill-color', P.building); map.setPaintProperty(id, 'fill-outline-color', P.buildingLine);
-            map.setPaintProperty(id, 'fill-opacity', ['interpolate', ['linear'], ['zoom'], 14, 0, 15.5, 1]);
-            map.setLayoutProperty(id, 'visibility', 'visible');
-          }
-        }
-      } catch(e){}
+    (map.getStyle().layers || []).forEach(function(l){
+      if(/^poi|^airport|aeroway/.test(l.id)){ try { map.setLayoutProperty(l.id, 'visibility', 'none'); } catch(e){} }
     });
   };
 
@@ -665,7 +600,7 @@
       var timer = setTimeout(function(){ if(!settled){ settled = true; reject(new Error('Map load timed out')); } }, 12000);
       try {
         map = new maplibregl.Map({
-          container: 'map', style: 'https://tiles.openfreemap.org/styles/liberty', center: [-82.5, 44.5], zoom: 5.4,
+          container: 'map', style: 'https://tiles.openfreemap.org/styles/bright', center: [-82.5, 44.5], zoom: 5.4,
           attributionControl: false, dragRotate: false, touchPitch: false, pitchWithRotate: false, maxZoom: 18.5
         });
         map.touchZoomRotate.disableRotation();

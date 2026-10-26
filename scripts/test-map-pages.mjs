@@ -3,7 +3,6 @@
 // already have, so these checks keep the pieces that have to agree in step: the ids the script reads, the pages that load the two files (all on the
 // same ?v= so a change reaches visitors), the heading on every city and province page and the colours of the map itself.
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
-import { PALETTE_HEX, parseColor } from './palette.mjs';
 
 let bad = 0;
 const ok = (c, label) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${label}`); if (!c) bad++; };
@@ -54,11 +53,8 @@ for (const p of withMap.filter((x) => x !== 'find-lawyers.html')) {
 }
 ok(noHero.length === 0 && odd.length === 0, `every city and province page has one h1, "Find a Lawyer in …", in its .city-hero${noHero.length + odd.length ? ` (${[...noHero, ...odd].slice(0, 3).join(', ')})` : ''}`);
 
-// the map's own colours (the basemap theme and the pins) are palette colours
-const theme = (js.match(/var P = \{([\s\S]*?)\};/) || [])[1] || '';
-const lit = [...theme.matchAll(/#[0-9a-fA-F]{6}\b|rgba?\([^)]*\)/g)].map((m) => m[0]);
-const off = lit.filter((c) => { const v = parseColor(c); return !v || !PALETTE_HEX.has('#' + [v.r, v.g, v.b].map((n) => n.toString(16).padStart(2, '0')).join('')); });
-ok(lit.length >= 12 && off.length === 0, `the basemap theme uses only palette colours (${lit.length} checked${off.length ? `, off: ${off.join(', ')}` : ''})`);
+// the basemap is OpenFreeMap's "bright" style, drawn like Google Maps; the page only hides its points of interest and no longer repaints it
+ok(js.includes("styles/bright") && !js.includes("styles/liberty") && !/var P = \{/.test(js) && js.includes("/^poi|^airport|aeroway/.test(l.id)"), "the basemap is the bright style with its points of interest hidden, and the page no longer repaints it");
 ok(/'circle-color': '#8a6224'/.test(js) && /'circle-stroke-color': '#ffffff'/.test(js) && /'text-color': '#ffffff'/.test(js), 'clusters are dark gold (white numbers reach 5.4:1) with a white ring');
 
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }

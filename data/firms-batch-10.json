@@ -1323,7 +1323,7 @@
   "website": "https://gfslaw.ca",
   "blurb": "Real Estate / Wills & Estates in Calgary. Rated 4.7 from 27 Google reviews.",
   "type": "logo",
-  "about": "Goodfellow & Schuettlaw is a law firm with offices in Calgary and Edmonton, practising mainly in construction and real estate law.\n\nThe firm also handles corporate and commercial, condominium, builders' lien, private lending, litigation and estate planning matters, including development projects that involve financing and permitting. Its site notes that it can act for clients in other provinces and territories.",
+  "about": "Goodfellow & Schuettlaw is a Calgary law firm with a second office in Edmonton, practising mainly in construction and real estate law.\n\nThe firm's work covers condominium law, builders' lien, and development projects that involve financing and permitting. It also handles corporate and commercial, private lending, litigation and estate planning matters, and says it can act for clients in other provinces and territories.",
   "src": "images/logos/goodfellow-and-schuettlaw-calgary.png"
  },
  {
@@ -1648,16 +1648,12 @@
   "city": "Calgary",
   "featured": false,
   "tags": [
-   "Family Law",
-   "Real Estate",
-   "Business Law",
-   "Immigration"
+   "Immigration",
+   "Wills & Estates"
   ],
   "caseTypes": [
-   "family",
-   "realestate",
-   "business",
-   "immigration"
+   "immigration",
+   "wills"
   ],
   "region": "ab-calgary",
   "province": "AB",
@@ -1671,7 +1667,7 @@
   "mapsUrl": "https://www.google.com/maps/search/Rocky+Mountain+German+Law+Ltd.+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8989+Macleod+Trail+S%2C+Calgary%2C+AB+T2H+0M2",
   "website": "https://www.rockygerman.law",
-  "blurb": "Family Law / Real Estate in Calgary. Rated 5.0 from 24 Google reviews.",
+  "blurb": "Immigration / Wills & Estates in Calgary. Rated 5.0 from 24 Google reviews.",
   "type": "logo",
   "about": "Rocky Mountain German Law is a Calgary firm advising Canadians on German citizenship, inheritance and tax law.\n\nThe firm works with a network of lawyers and tax advisors in Germany, and its team includes a foreign legal consultant registered in Alberta. It provides advice on German law issues on site in Canada.",
   "src": "images/logos/rocky-mountain-german-law-ltd-calgary.png"
@@ -2011,7 +2007,7 @@
   "website": "https://www.gfslaw.ca",
   "blurb": "Real Estate in Edmonton. Rated 5.0 from 18 Google reviews.",
   "type": "logo",
-  "about": "Goodfellow & Schuettlaw is an Edmonton firm with offices in Edmonton and Calgary, practising mainly in construction and real estate law.\n\nThe firm's construction work covers builders' lien, condominium construction and development projects with financing and permitting. It also handles corporate and commercial, litigation, private lending and estate planning matters, and says it has acted in other provinces and territories.",
+  "about": "Goodfellow & Schuettlaw is an Edmonton law firm with a second office in Calgary, practising mainly in construction and real estate law.\n\nIts construction work covers builders' lien and condominium construction. The firm also handles private lending, litigation, corporate and commercial, and estate planning matters, and says it has acted in other provinces and territories.",
   "src": "images/logos/goodfellow-and-schuettlaw-edmonton.png"
  },
  {

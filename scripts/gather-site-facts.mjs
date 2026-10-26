@@ -1,5 +1,5 @@
 // Reads what each firm says about itself on its own public website, for writing one-of-a-kind profile text.
-//   NODE_USE_ENV_PROXY=1 node scripts/gather-site-facts.mjs <out-dir> [--limit=N]
+//   NODE_USE_ENV_PROXY=1 node scripts/gather-site-facts.mjs <out-dir> [--limit=N] [--batch=N]
 // For every firm (the original 370 and every data/firms-batch-N.json) it fetches the home page and up to three
 // inner pages that look like About / Practice areas / Team / Services pages (public https only, same site only), and
 // writes <out-dir>/<slug>.json with the page title, description, headings, structured-data facts and a few hundred
@@ -7,8 +7,9 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 
 const out = process.argv[2];
-if (!out) { console.error('usage: node scripts/gather-site-facts.mjs <out-dir> [--limit=N]'); process.exit(1); }
+if (!out) { console.error('usage: node scripts/gather-site-facts.mjs <out-dir> [--limit=N] [--batch=N]'); process.exit(1); }
 const limit = Number((process.argv.find((a) => a.startsWith('--limit=')) || '').split('=')[1]) || Infinity;
+const onlyBatch = (process.argv.find((a) => a.startsWith('--batch=')) || '').split('=')[1];
 mkdirSync(out, { recursive: true });
 const UA = 'LawDB-ProfileReader/1.0 (+https://lawdb.ca; info@lawdb.ca)';
 
@@ -101,7 +102,8 @@ async function one(f) {
   return rec;
 }
 
-const todo = firms.filter((f) => f.website && !existsSync(`${out}/${f.slug}.json`)).slice(0, limit);
+const batchSlugs = onlyBatch ? new Set(JSON.parse(readFileSync(`data/firms-batch-${onlyBatch}.json`, 'utf8')).map((f) => f.slug)) : null;
+const todo = firms.filter((f) => f.website && (!batchSlugs || batchSlugs.has(f.slug)) && !existsSync(`${out}/${f.slug}.json`)).slice(0, limit);
 let i = 0, ok = 0;
 await Promise.all(Array.from({ length: 16 }, async () => { while (i < todo.length) { const f = todo[i++]; if ((await one(f)).ok) ok++; process.stdout.write('.'); } }));
 console.log(`\nread ${ok} of ${todo.length} websites`);

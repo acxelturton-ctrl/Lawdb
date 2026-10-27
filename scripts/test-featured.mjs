@@ -1,5 +1,5 @@
-// Who is marked Featured, and the "Firms to explore" strip on the home page. Only Blottman Legal Services and Barbarian Law have a commission
-// arrangement with LawDB, so only they carry the Featured badge, tick and line; the strip also carries strong firms that have a booking link.
+// Who is marked Featured, and the firm strip on the home page. Only Blottman Legal Services and Barbarian Law have a commission arrangement with
+// LawDB, so only they carry the Featured badge, tick and line. The strip lists the best-rated firms that have a cover photo and their own logo.
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 
 let bad = 0;
@@ -38,21 +38,23 @@ const mig = readFileSync('migrations/0030_unfeature_partners.sql', 'utf8');
 const named = [...(mig.match(/slug IN \(([^)]*)\)/) || [, ''])[1].matchAll(/'([a-z0-9-]+)'/g)].map((m) => m[1]).sort();
 ok(JSON.stringify(named) === JSON.stringify([...DROPPED].sort()) && /featured = 1/.test(mig) && !/barbarian|blottman/.test(mig), 'the migration switches off exactly the four firms and never touches Barbarian or Blottman');
 
-// the home page strip
+// the home page: the firm strip lists the best-rated firms that have a cover photo and their own logo (data/home-firms.json, in order)
 const home = readFileSync('index.html', 'utf8');
-const strip = home.slice(home.indexOf('<div class="lw-track"'), home.indexOf('</section>', home.indexOf('<div class="lw-track"')));
+const strip = home.slice(home.indexOf('<!--more-firms-->'), home.indexOf('<!--/more-firms-->'));
 const cards = strip.match(/<article class="lc">[\s\S]*?<\/article>/g) || [];
 const slugOf = (c) => (c.match(/<h3><a href="\/firms\/([^"]+)">/) || [])[1];
-const badged = cards.filter((c) => c.includes('lc-feat">Featured')).map(slugOf).sort();
-ok(JSON.stringify(badged) === JSON.stringify(KEEP), 'on the home page strip only Barbarian Law and Blottman Legal Services carry the Featured badge');
-for (const slug of [...DROPPED, 'gupta-law-firm']) ok(cards.some((c) => slugOf(c) === slug) && !cards.find((c) => slugOf(c) === slug).includes('lc-feat'), `${slug} is still on the strip, without a badge`);
 const slugs = cards.map(slugOf);
-ok(new Set(slugs).size === slugs.length && slugs.every(Boolean), 'no firm is on the strip twice');
 const added = JSON.parse(readFileSync('data/home-firms.json', 'utf8')).firms;
-const booking = JSON.parse(readFileSync('data/firm-booking.json', 'utf8'));
-ok(added.length >= 10 && added.every((s) => booking[s] && slugs.includes(s)), `${added.length} strong firms with a booking link are on the strip as well as the first seven`);
-ok(slugs.slice(0, 7).join() === 'daniel-brown-law-llp,nelligan-law,gupta-law-firm,amlea-avocats,gagan-nahal-criminal-lawyer,blottman-legal-services,barbarian-law', 'the seven firms that were on the strip first are still first, in the same order');
-ok(cards.every((c) => /<img src="images\/logos\/[^"]+"/.test(c) || c.includes('lc-logo mono')) && added.every((s) => cards.find((c) => slugOf(c) === s) && existsSync(`images/logos/${(cards.find((c) => slugOf(c) === s).match(/images\/logos\/([^"]+)"/) || [])[1]}`)), 'every added card shows the firm\'s own logo, and the file exists');
+ok(JSON.stringify(slugs) === JSON.stringify(added) && added.length === 12, `the home page strip lists the ${added.length} firms in data/home-firms.json, in order`);
+ok(new Set(slugs).size === slugs.length, 'no firm is on the strip twice');
+const badged = cards.filter((c) => c.includes('lc-feat">Featured')).map(slugOf);
+ok(badged.every((s) => KEEP.includes(s)), 'a Featured badge on the strip can only belong to one of the two partner firms');
+const pathOf = (c, re) => (c.match(re) || [])[1];
+ok(cards.every((c) => { const cover = pathOf(c, /class="lc-media"[^>]*><img src="([^"]+)"/); const logo = pathOf(c, /<span class="lc-logo"><img src="([^"]+)"/); return !!cover && existsSync(cover) && !!logo && existsSync(logo); }), 'every card on the strip shows a cover photo and the firm\'s own logo, and both files exist');
+const everyFirm = new Map();
+for (const f of originals) everyFirm.set(f.slug, f);
+for (const x of readdirSync('data').filter((y) => /^firms-batch-\d+\.json$/.test(y))) for (const f of JSON.parse(readFileSync(`data/${x}`, 'utf8'))) everyFirm.set(f.slug, f);
+ok(added.every((s) => { const f = everyFirm.get(s); return !!f && f.rating >= 4.8 && f.count >= 50 && !f.featured; }), 'every firm on the strip is rated 4.8 or more from 50 or more Google reviews, and is not Featured');
 
 if (bad) { console.log(`\n${bad} FAILED`); process.exit(1); }
 console.log('\nfeatured firms and home strip checks passed');

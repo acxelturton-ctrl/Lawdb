@@ -754,7 +754,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const home = await getRaw('/');
   ok(/<section class="hn" id="homeNews"(?! hidden)/.test(home.text) && /<div class="lw-bc-grid lw-feed hn-track" id="homeNewsGrid"[^>]*>\s*<article class="lw-bc/.test(home.text), 'the home page shows a short news row under the search bar (the section is un-hidden once there are articles)');
   ok(/<a class="hn-seeall" href="\/news">See all LawDB News/.test(home.text) && !home.text.includes('homeNewsMore') && (home.text.match(/<article class="lw-bc[ "]/g) || []).length <= 6, 'the row is short and ends with a link to the full LawDB News page (no long feed on the home page)');
-  ok(home.text.indexOf('id="homeNews"') > home.text.indexOf('id="heroForm"') && home.text.indexOf('id="homeNews"') < home.text.indexOf('id="cities"'), 'it sits between the search bar and the city strip');
+  ok(home.text.indexOf('id="homeNews"') > home.text.indexOf('id="heroForm"') && home.text.indexOf('id="homeNews"') > home.text.indexOf('id="cities"'), 'it sits below the search bar, after the city strip');
   ok(!home.text.includes('Find a lawyer with real reviews') && !home.text.includes('lawdb-banner'), 'the old banner is gone');
   const slice = JSON.parse((await getRaw('/api/home-news?offset=0')).text);
   ok(typeof slice.html === 'string' && slice.html.includes('<article class="lw-bc') && 'next' in slice && typeof slice.total === 'number', 'the feed slices come from /api/home-news');
@@ -1482,7 +1482,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const acctJs = readFileSync(new URL('../account/account.js', import.meta.url), 'utf8');
     ok(acctJs.includes('Continue with Google') && acctJs.includes('Continue with LinkedIn') && acctJs.includes('social.length ? null : form') && acctJs.includes('/api/auth/${k}/start'), 'the sign-in card offers Google and LinkedIn, and shows the e-mail form only when neither is set up');
     const home = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-    ok(home.indexOf('class="citystrip"') > 0 && home.indexOf('class="citystrip"') < home.indexOf('<section class="feat-swipe">') && !/<h2>Featured Partners<\/h2>/.test(home) && home.includes('<h2>Firms to explore</h2>') && /lc-feat">Featured</.test(home), 'the homepage no longer opens with paid partners: cities come first and the strip is "Firms to explore", with each Featured firm still clearly marked');
+    ok(home.indexOf('class="top-c"') > 0 && home.indexOf('class="top-c"') < home.indexOf('class="citystrip"') && !/<h2>Featured Partners<\/h2>/.test(home) && home.includes('<h2 id="topH">Top-rated lawyers across Canada</h2>'), 'the homepage opens with the top-rated firms (not paid partners), then the city strip, and has no paid partners block');
 
     // "Use your LinkedIn photo?": the provider's profile picture is offered once, and only copied when the person says yes
     {

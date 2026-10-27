@@ -83,7 +83,7 @@ ok(!/popular searches/i.test(home), 'the home page has no "Popular searches" row
 ok(/<img class="h5-photo" src="images\/home-courthouse\.webp" alt="" width="\d+" height="\d+"/.test(home) && existsSync('images/home-courthouse.webp'), 'the hero picture has a size and exists');
 ok(/data-live="firms">[\d,]+</.test(home) && /data-live="cities">\d+</.test(home) && /class="h5-stats-in h3-stats"/.test(home), 'the home page shows the live firm and city totals in the stats band (site.js counts them up)');
 ok(home.includes("LawdbSuggest(document.getElementById('heroInput'),document.getElementById('heroSuggest')") && /<form id="heroForm"[^>]*action="\/find-lawyers"/.test(home), 'the hero search box is still wired to the shared search');
-ok(home.indexOf('id="homeNews"') < home.indexOf('id="cases"') && home.indexOf('class="h5-stats"') < home.indexOf('id="homeNews"'), 'the home page order is hero, numbers, news, case types');
+ok(home.indexOf('class="h5-stats"') < home.indexOf('class="top-c"') && home.indexOf('class="top-c"') < home.indexOf('id="cases"') && home.indexOf('id="cases"') < home.indexOf('id="cities"') && home.indexOf('id="cities"') < home.indexOf('id="homeNews"'), 'the home page order is hero, numbers, the top-rated firms, case types, cities, news');
 
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }
 console.log('All checks passed');

@@ -59,8 +59,8 @@ async function renderLogin() {
   mount(h('div', { class: 'wrap ac-login' },
     h('div', { class: 'center card' },
       badge,
-      h('h1', null, join ? 'Create your free LawDB account' : 'Log in to LawDB'),
-      h('p', { class: 'muted' }, 'Follow law firms, save stories, rate the firms you have worked with, and manage your firm. Free. New here? The same sign-in creates your account.'),
+      h('h1', null, join ? 'Create your free LawDB account' : 'Sign in'),
+      h('p', { class: 'muted' }, 'Choose how you want to sign in. New here? The same sign-in creates your account, and it is free.'),
       ...social,
       social.length ? null : form, msg,
       h('p', { class: 'muted small' }, social.length

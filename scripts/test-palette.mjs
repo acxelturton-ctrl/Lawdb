@@ -1,5 +1,7 @@
 // The palette (scripts/palette.mjs) has to stay readable: the pairs the site actually uses must meet WCAG contrast (4.5:1 for text), and no colour may
-// be listed twice. That every colour in the site IS one of these is checked by scripts/recolor-site.mjs --check.
+// be listed twice. Gold text on a light page is the logo's lighter gold, which is under 4.5:1 on cream and white; that is the owner's choice, so
+// those pairs are printed as NOTE lines with their ratio instead of failing. That every colour in the site IS one of these is checked by
+// scripts/recolor-site.mjs --check.
 import { PALETTE } from './palette.mjs';
 
 let bad = 0;
@@ -12,13 +14,16 @@ const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
 const P = PALETTE;
 
 const hexes = Object.values(P);
-ok(new Set(hexes).size === hexes.length && hexes.length === 15, `${hexes.length} palette colours, none repeated`);
+ok(new Set(hexes).size === hexes.length && hexes.length === 14, `${hexes.length} palette colours, none repeated`);
 for (const [fg, bg, why] of [
   ['ink', 'cream', 'text on the page'], ['ink', 'white', 'text on a card'], ['slate', 'cream', 'secondary text on the page'], ['slate', 'white', 'secondary text on a card'],
-  ['goldDeep', 'cream', 'gold links on the page'], ['goldDeep', 'white', 'gold links on a card'], ['goldDeep', 'goldTint', 'gold text on a gold tint'], ['goldDeep', 'cream2', 'gold numbers on the band'],
   ['ink', 'gold', 'text on a gold button'], ['white', 'ink', 'white on navy'], ['white', 'panel', 'white on a dark panel'], ['white', 'ink2', 'white on a monogram'],
   ['goldLight', 'panel', 'gold on a dark panel'], ['slate3', 'panel', 'muted text on a dark panel'], ['slate3', 'ink', 'muted text on navy'],
+  ['ink', 'goldLight', 'navy numbers on a gold map cluster'],
 ]) ok(ratio(P[fg], P[bg]) >= 4.5, `${why}: ${fg} on ${bg} is ${ratio(P[fg], P[bg]).toFixed(1)}:1 (4.5 needed)`);
+for (const [fg, bg, why] of [
+  ['goldLight', 'cream', 'gold text on the page'], ['goldLight', 'white', 'gold text on a card'], ['goldLight', 'goldTint', 'gold text on a gold tint'], ['goldLight', 'cream2', 'gold numbers on the band'],
+]) console.log(`NOTE  ${why}: ${fg} on ${bg} is ${ratio(P[fg], P[bg]).toFixed(1)}:1 (accepted: the logo's gold, see scripts/palette.mjs)`);
 // white on the gold fill is the one thing that must never be used
 ok(ratio(P.white, P.gold) < 3, `white on gold is only ${ratio(P.white, P.gold).toFixed(1)}:1, so buttons use navy text (scripts/recolor-site.mjs fixes any white-on-gold)`);
 

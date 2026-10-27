@@ -17,9 +17,9 @@ const EXT = new Set(['.html', '.css', '.js', '.mjs', '.svg']);
 // what a few colours stand for on this site (the rest follow the rules in palette.mjs)
 const OVERRIDES = {
   '#1f2328': '#142434', '#15181c': '#1b242d', '#8d9197': '#8a919b', '#636870': '#586170', '#30353b': '#2b3a4c', '#3f444b': '#2b3a4c',
-  '#e8a91f': '#c9a050', '#e0a93a': '#c9a050', '#b45309': '#8a6224', '#e3dfd5': '#e3dfd3', '#f8f6f1': '#f5f3ec', '#fdfcf9': '#ffffff',
+  '#e8a91f': '#c9a050', '#e0a93a': '#c9a050', '#b45309': '#e2bd6a', '#e3dfd5': '#e3dfd3', '#f8f6f1': '#f5f3ec', '#fdfcf9': '#ffffff',
   '#fff3d4': '#f4ecd8', '#f6dc9a': '#e6d4a4', '#f0ede5': '#edeae1', '#eef0f2': '#edeae1', '#c7cfda': '#e3dfd3', '#e0342f': '#c9a050',
-  '#b91c1c': '#8a6224', '#1f6f6b': '#2b3a4c', '#e8f2e2': '#edeae1', '#f3a9a5': '#e6d4a4',
+  '#b91c1c': '#e2bd6a', '#1f6f6b': '#2b3a4c', '#e8f2e2': '#edeae1', '#f3a9a5': '#e6d4a4',
   // the monogram colours firms had for their avatar: all the same navy now
   '#2f4858': '#2b3a4c', '#1c2a3a': '#2b3a4c', '#2e4a43': '#2b3a4c', '#3f4a5a': '#2b3a4c', '#4a3b52': '#2b3a4c', '#3d5a6c': '#2b3a4c', '#5a4632': '#2b3a4c',
   '#4a5d5f': '#2b3a4c', '#4a3a1e': '#2b3a4c', '#3a3a1c': '#2b3a4c', '#3a2a1c': '#2b3a4c', '#2a3a2c': '#2b3a4c', '#3a1c2a': '#2b3a4c', '#2a1c3a': '#2b3a4c', '#1c3a3a': '#2b3a4c',
@@ -54,7 +54,7 @@ function recolor(text, semantic, file) {
 }
 
 // Text on a gold button or badge is navy, not white (white on this gold is only 2.4:1; navy is 6.5:1).
-const GOLD_BG = /background(?:-color)?\s*:\s*(?:#c9a050|var\(--(?:brass|red|gold)(?![\w-])[^)]*\))/i;
+const GOLD_BG = /background(?:-color)?\s*:\s*(?:#c9a050|#e2bd6a|var\(--(?:brass|red|gold)(?![\w-])[^)]*\))/i;
 const WHITE_TEXT = /(^|[;{\s"'])(color\s*:\s*)(#fff(?:fff)?|white)(?![\w-])/i;
 const fixOnGold = (block) => (GOLD_BG.test(block) && WHITE_TEXT.test(block) ? block.replace(WHITE_TEXT, '$1$2#142434') : block);
 // Muted text in a block that has a dark background is the lighter slate (the darker one is for light pages).

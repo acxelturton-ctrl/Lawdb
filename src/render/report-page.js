@@ -21,7 +21,7 @@ export function renderReportPage({ slug = '', firmName = '' }) {
 .rp label{display:block;font-weight:600;font-size:14px;margin:14px 0 4px}
 .rp input,.rp select,.rp textarea{width:100%;box-sizing:border-box;padding:10px 12px;font:inherit;border:1px solid #e3dfd3;border-radius:6px;background:#fff}
 .rp textarea{min-height:110px}.rp button{margin-top:16px;background:#142434;color:#fff;border:0;border-radius:6px;padding:12px 22px;font-weight:700;font:inherit;cursor:pointer}
-.rp .ok{background:#edeae1;color:#2b3a4c;padding:12px;border-radius:8px}.rp .err{background:#edeae1;color:#8a6224;padding:10px;border-radius:8px;margin-top:12px}`;
+.rp .ok{background:#edeae1;color:#2b3a4c;padding:12px;border-radius:8px}.rp .err{background:#edeae1;color:#e2bd6a;padding:10px;border-radius:8px;margin-top:12px}`;
   return [
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n' + C.FAVICONS + '\n<meta name="viewport" content="width=device-width, initial-scale=1.0">',
     `<title>${label} | LawDB</title>\n<meta name="robots" content="noindex, nofollow">`,

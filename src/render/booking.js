@@ -12,7 +12,7 @@ const CSS = '<style>.li-book-row{margin:10px 0 0;max-width:470px}' +
   '.li-book-row .li-btn{width:100%;flex:none;gap:8px;cursor:pointer;font-family:inherit}' +
   '.li-book-row .ic{width:19px;height:19px;flex:none}' +
   '.li-book{background:#f4ecd8;border:1.5px solid #c9a050;color:#2b3a4c}' +
-  '.li-book .ic{color:#8a6224}' +
+  '.li-book .ic{color:#e2bd6a}' +
   '.li-book-off .ic{color:#8a919b}' +
   '.li-book:hover{background:#e6d4a4;color:#2b3a4c}' +
   '.li-book-off{background:#edeae1;border:1.5px dashed #e3dfd3;color:#8a919b}' +

@@ -5,14 +5,14 @@
   // Follow is plain text in the site's link colour, like on other social platforms (no box). Save keeps its pill.
   var css = '.lw-sbtn{font:600 13px Inter,system-ui,sans-serif;border:1.5px solid #142434;background:#fff;color:#142434;border-radius:999px;padding:6px 14px;cursor:pointer;line-height:1.2;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px}' +
     '.lw-sbtn:hover{background:#f4ecd8;border-color:#c9a050}.lw-sbtn[disabled]{opacity:.6;cursor:wait}' +
-    '.lw-fbtn{font:700 14px Inter,system-ui,sans-serif;border:0;background:none;color:#8a6224;padding:2px 0;margin:0;cursor:pointer;line-height:1.2;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;text-decoration:none}' +
+    '.lw-fbtn{font:700 14px Inter,system-ui,sans-serif;border:0;background:none;color:#e2bd6a;padding:2px 0;margin:0;cursor:pointer;line-height:1.2;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;text-decoration:none}' +
     '.lw-fbtn:hover{text-decoration:underline;text-underline-offset:3px}.lw-fbtn[disabled]{opacity:.6;cursor:wait}' +
-    '.lw-fbtn[aria-pressed="true"]{color:#586170;font-weight:600}@media(hover:hover){.lw-fbtn[aria-pressed="true"]:hover{color:#8a6224}.lw-fbtn[aria-pressed="true"]:hover .lw-a{display:none}.lw-fbtn[aria-pressed="true"]:hover .lw-b{display:inline}}' +
+    '.lw-fbtn[aria-pressed="true"]{color:#586170;font-weight:600}@media(hover:hover){.lw-fbtn[aria-pressed="true"]:hover{color:#e2bd6a}.lw-fbtn[aria-pressed="true"]:hover .lw-a{display:none}.lw-fbtn[aria-pressed="true"]:hover .lw-b{display:inline}}' +
     '.lw-fbtn .lw-b{display:none}' +
     '.lw-sbtn[aria-pressed="true"]{background:#142434;color:#fff}' +
     '.lc .lw-fbtn{position:static;margin-left:10px;font-size:13px}' +
     '.frow .lw-fbtn{position:absolute;top:12px;right:14px;z-index:2}.fcard-actions .lw-fbtn,.ra-actions .lw-fbtn{font-size:13px}' +
-    '.lw-claim{margin:10px 0 0;font:600 13.5px Inter,system-ui,sans-serif}.lw-claim a{color:#8a6224;text-decoration:underline;text-underline-offset:2px}.lw-claim a:hover{color:#142434}.lw-claimed{color:#2b3a4c}' +
+    '.lw-claim{margin:10px 0 0;font:600 13.5px Inter,system-ui,sans-serif}.lw-claim a{color:#e2bd6a;text-decoration:underline;text-underline-offset:2px}.lw-claim a:hover{color:#142434}.lw-claimed{color:#2b3a4c}' +
     '.lw-fcount{margin:0;font:600 13.5px Inter,system-ui,sans-serif;color:#586170}' +
     '.lw-fline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px}.lw-fline .lw-fcount:empty{display:none}.lw-fline .lw-fcount:not(:empty)::after{content:"\\00b7";margin-left:10px;color:#8a919b}' +
     '.li-actions{flex-wrap:wrap}';
@@ -188,11 +188,11 @@
 
   // ---- member ratings: <div data-rate="<firm slug>"> becomes the rating box
   var rcss = '.lw-rate{max-width:640px;margin:18px auto;padding:16px 18px;background:#fff;border:1px solid #e3dfd3;border-radius:12px;font:15px/1.5 Inter,system-ui,sans-serif;color:#142434}' +
-    '.lw-rate h2{font:700 17px "Source Serif 4",Georgia,serif;margin:0 0 6px}.lw-rate .lw-avg{font-size:26px;font-weight:700;color:#8a6224}.lw-rate .lw-sub{color:#586170;font-size:14px}' +
+    '.lw-rate h2{font:700 17px "Source Serif 4",Georgia,serif;margin:0 0 6px}.lw-rate .lw-avg{font-size:26px;font-weight:700;color:#e2bd6a}.lw-rate .lw-sub{color:#586170;font-size:14px}' +
     '.lw-rate .lw-row2{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:6px 0}.lw-rate button{font:600 14px Inter,system-ui,sans-serif;border:1px solid #142434;background:transparent;color:#142434;border-radius:8px;padding:9px 16px;cursor:pointer}' +
     '.lw-rate button.go{background:#142434;color:#fff}.lw-rate button[disabled]{opacity:.6}.lw-stars button{border:0;background:none;font-size:30px;line-height:1;padding:2px 4px;color:#e3dfd3;cursor:pointer}.lw-stars button.on{color:#c9a050}' +
     '.lw-rate textarea{width:100%;min-height:80px;border:1px solid #e3dfd3;border-radius:8px;padding:10px;font:15px Inter,system-ui,sans-serif;margin:8px 0}.lw-rate .lw-note{font-size:12.5px;color:#8a919b}' +
-    '.lw-rate .lw-cm{border-top:1px solid #edeae1;padding:10px 0 0;margin-top:10px}.lw-rate .lw-cm b{color:#c9a050}.lw-rate .lw-err{color:#8a6224;font-size:14px}';
+    '.lw-rate .lw-cm{border-top:1px solid #edeae1;padding:10px 0 0;margin-top:10px}.lw-rate .lw-cm b{color:#c9a050}.lw-rate .lw-err{color:#e2bd6a;font-size:14px}';
   var rs = document.createElement('style'); rs.textContent = rcss; document.head.appendChild(rs);
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function stars(n) { return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n); }

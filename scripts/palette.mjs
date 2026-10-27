@@ -1,14 +1,14 @@
 // The site's colours: navy, gold and cream (plus white and two greys), taken from the home page design. Every colour in the site's CSS, inline
 // styles, SVG attributes and scripts has to be one of these (scripts/test-palette.mjs fails otherwise); scripts/recolor-site.mjs maps any other
 // colour to the nearest of them, by hue family and lightness, so it is safe to run again after pasting in something from elsewhere.
-//   gold on a light page is only for fills, borders and large type; small gold text uses goldDeep (4.7:1 on cream), and text on a gold button is ink.
+//   gold on a light page is the logo's lighter gold (goldLight): text, links and fills alike. It is low contrast on cream and white (about 1.6:1 and 1.8:1),
+//   which is the owner's choice; scripts/test-palette.mjs reports it rather than failing. Text on a gold button is navy.
 export const PALETTE = {
   ink: '#142434',       // text and headings (navy)
   ink2: '#2b3a4c',      // a lighter navy: avatars, lines on dark panels, dark chips
   panel: '#1b242d',     // dark panels: footer, menu drawer, the Kind of lawyer + City bar
   gold: '#c9a050',      // buttons, fills, icons, borders
-  goldDeep: '#8a6224',  // gold text and links on cream or white (4.9:1 on cream)
-  goldLight: '#e2bd6a', // gold on a dark panel
+  goldLight: '#e2bd6a', // the logo's lighter gold: text, links and numbers, and gold on a dark panel
   goldEdge: '#e6d4a4',  // a gold-tinted border
   goldTint: '#f4ecd8',  // a gold-tinted background (hover, chips, notes)
   cream: '#f5f3ec',     // the page
@@ -66,7 +66,7 @@ export function nearest(rgb, { semantic = false } = {}) {
   if (l >= 0.7) return warm && s >= 0.6 ? P.goldLight : P.line;
   if (l >= 0.55) return (warm || red) && s >= 0.45 ? P.gold : P.slate2;
   if (l >= 0.45) return warm || red ? P.gold : neutral ? P.slate2 : P.slate;
-  if (l >= 0.3) return warm || red ? P.goldDeep : P.slate;
+  if (l >= 0.3) return warm || red ? P.goldLight : P.slate;
   if (l >= 0.165) return neutral ? (l >= 0.17 ? P.ink2 : P.ink) : P.ink2;
   if (l >= 0.12) return neutral ? P.ink : P.ink2;
   return neutral ? P.panel : P.ink;

@@ -49,7 +49,7 @@ for (const slug of list) {
 const phone = (p) => { const m = String(p || '').match(/^\+1(\d{3})(\d{3})(\d{4})$/); return m ? `(${m[1]}) ${m[2]}-${m[3]}` : String(p || ''); };
 const card = (f) => {
   const href = '/firms/' + esc(f.slug);
-  const tel = f.phone ? '<a class="lc-call" href="tel:' + esc(f.phone) + '">Call</a>' : '';
+  const tel = f.phone ? '<a class="lc-call" href="tel:' + esc(f.phone) + '">Call now</a>' : '';
   return '<article class="lc">' +
     '<a class="lc-media" href="' + href + '" tabindex="-1" aria-hidden="true"><img src="' + esc(f.heroImage) + '" alt="" loading="lazy"><span class="lc-logo"><img src="' + esc(f.src) + '" alt="' + esc(f.name) + ' logo" loading="lazy"></span></a>' +
     '<div class="lc-body">' +
@@ -58,7 +58,7 @@ const card = (f) => {
     '<p class="lc-rate"><b>&#9733; ' + Number(f.rating).toFixed(1) + '</b> from ' + Number(f.count).toLocaleString('en-CA') + ' Google reviews</p>' +
     '<p class="lc-serves">' + esc(f.city) + ', ' + esc(PROVINCES[f.province] || f.province) + '</p>' +
     (f.phone ? '<p class="lc-phone">' + esc(phone(f.phone)) + '</p>' : '') +
-    '<div class="lc-btns"><a class="lc-view" href="' + href + '">View profile</a>' + tel + '</div>' +
+    '<div class="lc-btns"><a class="lc-view" href="' + href + '">See profile</a>' + tel + '</div>' +
     '</div></article>';
 };
 

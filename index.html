@@ -570,6 +570,41 @@ section.hn{max-width:1440px;margin:0 auto;padding:44px 20px 12px}
 .hn-end{color:var(--ink-soft);font-size:15px}.hn-end a{color:var(--brass-deep);font-weight:700}
 @media(max-width:600px){section.hn{padding:30px 14px 8px}}
 </style>
+<style>
+/* why LawDB: four plain reasons before the news, each with an icon in a gold disc */
+section.why{ background:#f5f3ec; padding:44px 28px 12px; }
+.why-in{ max-width:none; }
+.why-eyebrow{ margin:0 0 10px; font:600 12px/1.6 Inter,sans-serif; letter-spacing:.18em; text-transform:uppercase; color:#8a6224; }
+.why h2{ margin:0 0 10px; font:700 clamp(26px,5vw,34px)/1.15 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
+.why-sub{ margin:0 0 26px; max-width:620px; font-size:16px; line-height:1.6; color:#586170; }
+.why-grid{ display:grid; grid-template-columns:minmax(0,1fr); gap:14px; }
+@media (min-width:700px){ .why-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (min-width:1000px){ .why-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+.why-card{ background:#ffffff; border:1px solid #e3dfd3; border-radius:16px; padding:22px 20px; box-shadow:0 1px 2px rgba(20,36,52,0.05); }
+.why-ic{ display:grid; place-items:center; width:48px; height:48px; border-radius:50%; background:#c9a050; color:#142434; margin-bottom:14px; }
+.why-card h3{ margin:0 0 8px; font:700 19px/1.25 'Source Serif 4',serif; color:#142434; }
+.why-card p{ margin:0; font-size:15px; line-height:1.6; color:#586170; }
+.why-btns{ display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+.why-btns a{ display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:0 22px; border-radius:999px; font:600 15px Inter,sans-serif; text-decoration:none; }
+.why-solid{ background:#142434; color:#ffffff; }
+.why-solid:hover{ background:#2b3a4c; }
+.why-ghost{ border:1.5px solid #142434; color:#142434; }
+.why-ghost:hover{ background:#f4ecd8; }
+</style>
+<section class="why" aria-labelledby="whyH">
+  <div class="why-in">
+    <p class="why-eyebrow">Why LawDB</p>
+    <h2 id="whyH">Check a lawyer before you call</h2>
+    <p class="why-sub">LawDB puts each firm's public record in one place, so you can compare before you pick up the phone.</p>
+    <div class="why-grid">
+    <article class="why-card"><span class="why-ic" aria-hidden="true"><svg width="24" height="24"><use href="#i-scales"/></svg></span><h3>Real, reviewed firms</h3><p>Every firm shows its public Google rating and review count, straight from its Google Business profile.</p></article>
+    <article class="why-card"><span class="why-ic" aria-hidden="true"><svg width="24" height="24"><use href="#i-pin"/></svg></span><h3>Find it near you</h3><p>Search by the kind of case and the city. Each listing shows the address, phone number and practice areas.</p></article>
+    <article class="why-card"><span class="why-ic" aria-hidden="true"><svg width="24" height="24"><use href="#i-doc"/></svg></span><h3>Plain-language guides</h3><p>Browse 10 practice areas, with guides on what to ask before you call.</p></article>
+    <article class="why-card"><span class="why-ic" aria-hidden="true"><svg width="24" height="24"><use href="#i-shield"/></svg></span><h3>Free and independent</h3><p>Free to search, with no account needed. LawDB is an independent directory, not a law firm, and does not endorse any listing.</p></article>
+    </div>
+    <div class="why-btns"><a class="why-solid" href="/find-lawyers">Search lawyers</a><a class="why-ghost" href="/how-it-works">How LawDB works</a></div>
+  </div>
+</section>
 <section class="hn" id="homeNews" hidden aria-label="LawDB News">
   <div class="hn-head">
     <div><p class="hn-eyebrow">LawDB News</p><h2>What Canada's best-rated law firms are writing</h2><p class="hn-sub">New articles from the firms in the directory, strongest profiles and highest Google ratings first. Tap one to read a preview here; the full article is on the firm&rsquo;s own website.</p></div>

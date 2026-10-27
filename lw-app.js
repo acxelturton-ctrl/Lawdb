@@ -83,6 +83,7 @@
     // avatar in the header (replaces the Sign in / My account link in the top menu)
     var right = $('.site-header .header-right');
     all('.desktop-nav a[href="/account/"]').forEach(function (a) { a.remove(); });
+    all('.hdr-auth').forEach(function (el) { el.remove(); }); // the Log in / Sign up pair on the home page
     all('.menu-drawer a[href="/account/"]').forEach(function (a) { a.textContent = 'My account'; });
     if (right && !$('.lw-ava', right)) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'lw-ava'; b.setAttribute('aria-label', 'Your account'); b.innerHTML = face(m);

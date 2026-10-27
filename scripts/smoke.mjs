@@ -837,7 +837,12 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const labels = (h) => [...h.matchAll(/<a[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]);
   for (const f of ['index.html', 'firms/torkin-manes-llp.html', 'ontario/toronto/family-lawyers.html', 'ontario/immigration-lawyers.html', 'for-firms.html']) {
     const h = pageFile(f);
-    ok(isDeepStrictEqual(labels(navOf(h)), ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Request a Consultation']) && isDeepStrictEqual(labels(drawerOf(h)), ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Contact Us', 'Request a Consultation']), `${f}: the menu has three items, Sign in, Contact Us and the consultation button (Contact Us only in the hamburger menu)`);
+    // the home page top bar carries Log in and Sign up (not in the nav), so its menu lists only the three links, the consultation button and Contact Us
+    const home = f === 'index.html';
+    const navWant = home ? ['Find Your Lawyer', 'LawDB News', 'For Law Firms'] : ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Request a Consultation'];
+    const drawerWant = home ? ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Contact Us', 'Request a Consultation'] : ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Contact Us', 'Request a Consultation'];
+    const topBar = home ? /<div class="hdr-auth"><a class="hdr-login" href="\/account\/">Log in<\/a><a class="hdr-signup" href="\/account\/\?join=1">Sign up<\/a><\/div>/.test(h) : true;
+    ok(isDeepStrictEqual(labels(navOf(h)), navWant) && isDeepStrictEqual(labels(drawerOf(h)), drawerWant) && topBar, `${f}: the menu has three items, Sign in, Contact Us and the consultation button (Contact Us only in the hamburger menu)${home ? '; the home page top bar has Log in and Sign up' : ''}`);
     const firmsCol = (h.match(/<h4>For Law Firms<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
     ok(isDeepStrictEqual(labels(firmsCol), ['For Law Firms', 'List Your Firm (Free)', 'Get Featured', 'Manage Your Listing', 'Grow Your Practice']), `${f}: the footer's firms column has no repeats`);
     const clientsCol = (h.match(/<h4>For Clients<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';

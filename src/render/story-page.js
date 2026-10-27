@@ -15,19 +15,19 @@ const isoDay = (d) => { const t = d ? new Date(String(d).replace(' ', 'T') + 'Z'
 
 const CSS = `<style>
 .st-wrap{max-width:860px;margin:0 auto;padding:clamp(18px,3vw,40px) clamp(16px,4vw,32px) 60px}
-.st-crumb{font-size:13.5px;color:#586170;margin:0 0 14px}.st-crumb a{color:#8a6224;text-decoration:none;font-weight:600}
+.st-crumb{font-size:13.5px;color:#586170;margin:0 0 14px}.st-crumb a{color:#e2bd6a;text-decoration:none;font-weight:600}
 .st-img{display:block;border-radius:16px;overflow:hidden;background:#edeae1;aspect-ratio:16/9;margin:0 0 clamp(16px,2.4vw,26px)}
 .st-img img{display:block;width:100%;height:100%;object-fit:cover}
 .st-firm{display:flex;align-items:center;gap:12px;margin:0 0 12px}
 .st-av{flex:none;width:48px;height:48px;border-radius:50%;background:#edeae1;border:1px solid #e3dfd3;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:700;color:#586170}
 .st-av img{width:100%;height:100%;object-fit:contain;background:#fff}
 .st-firm a.n{font-weight:700;color:#142434;text-decoration:none;font-size:16px}.st-firm a.n:hover{text-decoration:underline}
-.st-firm .ft{background:#8a6224;color:#fff;border-radius:999px;padding:1px 8px;font-size:11px;font-weight:700;margin-left:8px}
+.st-firm .ft{background:#e2bd6a;color:#142434;border-radius:999px;padding:1px 8px;font-size:11px;font-weight:700;margin-left:8px}
 .st-firm small{display:block;color:#8a919b;font-size:13px}
 .st h1{font:700 clamp(28px,4.4vw,46px)/1.12 'Source Serif 4',serif;margin:0 0 14px;text-wrap:balance}
 .st .pre{font-size:clamp(16.5px,1.5vw,19px);line-height:1.7;color:#2b3a4c;margin:0 0 20px}
 .st-go{display:inline-block;background:#142434;color:#fff;border-radius:10px;padding:14px 22px;font-weight:700;text-decoration:none;font-size:16px}
-.st-go:hover{background:#8a6224}
+.st-go:hover{background:#e2bd6a}
 .st-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .st-note{font-size:13px;color:#8a919b;margin:12px 0 0;line-height:1.55}
 .st-box{background:#fff;border:1px solid #e3dfd3;border-radius:14px;padding:18px 20px;margin:26px 0 0}

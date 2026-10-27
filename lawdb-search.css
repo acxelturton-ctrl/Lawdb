@@ -43,10 +43,10 @@
 .ls-t b{ font:600 14.5px/1.3 Inter,system-ui,sans-serif; color:#142434; display:flex; align-items:center; gap:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .ls-t small{ font:400 12.5px/1.35 Inter,system-ui,sans-serif; color:#586170; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .ls-r{ flex:0 0 auto; font:400 12.5px Inter,system-ui,sans-serif; color:#586170; white-space:nowrap; }
-.ls-rate b{ display:inline; color:#8a6224; font:700 12.5px Inter,system-ui,sans-serif; margin-right:2px; }
+.ls-rate b{ display:inline; color:#e2bd6a; font:700 12.5px Inter,system-ui,sans-serif; margin-right:2px; }
 .ls-all{ margin-top:4px; border-top:1px solid #edeae1; padding-top:12px; padding-bottom:12px; }
 .ls-all .ls-t b{ font-weight:600; font-size:13.5px; }
-.ls-all .ls-r{ color:#8a6224; font-weight:600; font-size:11.5px; }
+.ls-all .ls-r{ color:#e2bd6a; font-weight:600; font-size:11.5px; }
 .ls-firm.is-feat{ background:linear-gradient(90deg,#f4ecd8,#fff); }
 .ls-firm.is-feat.is-active{ background:#f5f3ec; }
 .ls-logo{ position:relative; flex:0 0 32px; width:32px; height:32px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; color:#fff; font:700 12px 'Source Serif 4',Georgia,serif; border:1px solid #e3dfd3; box-sizing:border-box; }

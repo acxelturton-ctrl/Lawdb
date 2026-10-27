@@ -41,8 +41,8 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,800&family=Inter:wght@400;500;600;700&display=swap');
   :root{
-    --ink:#142434; --ink-soft:#586170; --brass:#c9a050; --brass-deep:#8a6224;
-    --red:#c9a050; --red-deep:#8a6224; --red-tint:#f4ecd8; --red-border:#e6d4a4;
+    --ink:#142434; --ink-soft:#586170; --brass:#c9a050; --brass-deep:#e2bd6a;
+    --red:#c9a050; --red-deep:#e2bd6a; --red-tint:#f4ecd8; --red-border:#e6d4a4;
     --cream:#f5f3ec; --card:#ffffff; --line:#e3dfd3; --dark:#1b242d; --dark-2:#1b242d; --green:#2b3a4c;
   }
   .fc-more-btn{ font:inherit; font-weight:600; font-size:14px; cursor:pointer; background:#fff; color:var(--ink);
@@ -59,7 +59,7 @@
   .site-header .mark .wordmark{ display:flex; flex-direction:column; line-height:1; }
   .site-header .mark .wordmark .name{ font-family:'Inter',sans-serif; font-size:19px; font-weight:800; letter-spacing:-0.01em; color:#142434; }
   .site-header .mark .wordmark .name .db{ color:#c9a050; }
-  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#8a6224; margin-top:2px; }
+  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#e2bd6a; margin-top:2px; }
   .brand-icon{ flex-shrink:0; display:block; }
   .site-header .header-right{ display:flex; align-items:center; gap:12px; }
   .site-header .back-link{ font-size:12px; color:#586170; text-decoration:none; white-space:nowrap; }
@@ -94,7 +94,7 @@
   .prov-tabs{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:20px; }
   .prov-tab{ padding:9px 20px; border-radius:22px; border:1.5px solid var(--line); background:#fff;
     font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; color:var(--ink); cursor:pointer; }
-  .prov-tab.active{ border-color:var(--red); background:var(--red-tint,#edeae1); color:var(--red-deep,#8a6224); }
+  .prov-tab.active{ border-color:var(--red); background:var(--red-tint,#edeae1); color:var(--red-deep,#e2bd6a); }
 
   .hero{ text-align:center; padding:56px 20px 60px; background:#ffffff; }
   .hero h1{ font-family:'Source Serif 4',serif; font-size:32px; margin:0 0 24px; line-height:1.28;
@@ -202,7 +202,7 @@
   }
   .firm-card .ribbon{
     display:inline-flex; align-items:center; gap:6px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
-    color:#142434; background:linear-gradient(135deg,#e6d4a4,#c9a050 55%,#8a6224); padding:3px 11px 3px 3px; border-radius:20px; margin-bottom:10px;
+    color:#142434; background:linear-gradient(135deg,#e6d4a4,#c9a050 55%,#e2bd6a); padding:3px 11px 3px 3px; border-radius:20px; margin-bottom:10px;
   }
   .firm-card .ribbon .r-tick{ width:16px; height:16px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
   .firm-card .ribbon .r-tick svg{ width:9px; height:9px; }
@@ -224,9 +224,9 @@
     .site-header .mark .wordmark .tagline{ font-size:8.5px; }
     .desktop-nav{ display:flex; align-items:center; }
     .desktop-nav a{ font-size:15.5px; font-weight:600; color:#142434; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
-    .desktop-nav a:hover{ color:#8a6224; }
+    .desktop-nav a:hover{ color:#e2bd6a; }
     .desktop-nav .nav-cta{ background:#c9a050; color:#142434; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
-    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#8a6224; }
+    .desktop-nav .nav-cta:hover{ color:#142434; background:#e2bd6a; }
     .hamburger-btn{ display:none; }
   }
 
@@ -283,9 +283,9 @@
   .hero2 .hero-suggest{ right:0; top:calc(100% + 6px); }
   .hero2 .hero-stats{ display:grid; grid-template-columns:1fr 1fr; gap:18px 12px; }
   .hero2 .hs{ display:flex; align-items:center; gap:12px; }
-  .hero2 .hs-ico{ width:34px; height:34px; color:#8a6224; flex-shrink:0; }
+  .hero2 .hs-ico{ width:34px; height:34px; color:#e2bd6a; flex-shrink:0; }
   .hero2 .hs-ico svg{ width:100%; height:100%; display:block; }
-  .hero2 .hs b{ display:block; font-family:'Source Serif 4',serif; font-size:27px; line-height:1; color:#8a6224; font-weight:700; }
+  .hero2 .hs b{ display:block; font-family:'Source Serif 4',serif; font-size:27px; line-height:1; color:#e2bd6a; font-weight:700; }
   .hero2 .hs i{ white-space:nowrap; display:block; font-style:normal; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#586170; margin-top:4px; }
   .hero2 .hero-panel{ position:relative; width:auto; max-width:none; margin:0; padding:0; background:none; border:none; border-radius:0; }
   .hero2 .hero-map-wrap{ position:relative; padding:0; }
@@ -357,7 +357,7 @@
   .h5-search{ position:relative; display:block; margin:0; }
   .hero5 .ls-field{ height:56px; background:rgba(255,255,255,0.96); box-shadow:0 10px 26px rgba(20,36,52,0.4); }
   .hero5 .ls-field:focus-within{ box-shadow:0 10px 26px rgba(20,36,52,0.4), 0 0 0 2px #e2bd6a, 0 0 0 7px rgba(226,189,106,0.3); }
-  .h5-filter{ flex:none; display:grid; place-items:center; width:48px; height:34px; margin-left:4px; border-left:1px solid #e3dfd3; color:#8a6224; text-decoration:none; }
+  .h5-filter{ flex:none; display:grid; place-items:center; width:48px; height:34px; margin-left:4px; border-left:1px solid #e3dfd3; color:#e2bd6a; text-decoration:none; }
   .hero5 .ls-sug{ z-index:70; }
   .h5-go{ display:flex; align-items:center; justify-content:center; gap:10px; width:100%; height:54px; margin-top:12px; border:0; border-radius:999px; cursor:pointer;
     font:600 17px Inter,sans-serif; color:#142434; background:linear-gradient(180deg,#e2bd6a 0%,#c9a050 100%); box-shadow:0 8px 20px rgba(20,36,52,0.3); }
@@ -376,19 +376,19 @@
   .h5-stats-in{ display:grid; grid-template-columns:repeat(4,1fr); max-width:1000px; margin:0 auto; }
   .h5-stats-in > div{ text-align:center; padding:4px 6px; }
   .h5-stats-in > div + div{ border-left:1px solid #e3dfd3; }
-  .h5-stats b{ display:block; font:600 clamp(30px,8.4vw,46px)/1 'Source Serif 4',serif; color:#8a6224; }
+  .h5-stats b{ display:block; font:600 clamp(30px,8.4vw,46px)/1 'Source Serif 4',serif; color:#e2bd6a; }
   .h5-stats span{ display:block; margin-top:9px; font:600 10.5px/1.4 Inter,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#586170; text-wrap:balance; }
 
   /* LawDB News: a list of rows, a picture on the left and an arrow on the right */
   section.hn{ max-width:1100px; margin:0 auto; padding:38px 20px 8px; }
   section.hn .hn-head{ display:block; margin:0 0 18px; }
-  section.hn .hn-eyebrow{ display:flex; align-items:center; gap:14px; margin:0 0 12px; font:600 12px/1 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#8a6224; }
+  section.hn .hn-eyebrow{ display:flex; align-items:center; gap:14px; margin:0 0 12px; font:600 12px/1 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#e2bd6a; }
   section.hn .hn-eyebrow::after{ content:''; width:56px; height:1px; background:#c9a050; }
   section.hn h2{ margin:0 0 14px; max-width:13em; font:700 clamp(28px,8vw,40px)/1.1 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
   section.hn .hn-sub{ margin:0 0 16px; max-width:36em; font-size:16px; line-height:1.6; color:#586170; }
   section.hn .hn-tools{ display:block; }
   section.hn .hn-nav, section.hn .hn-chips{ display:none; }
-  section.hn .hn-all{ font:600 17px Inter,sans-serif; color:#8a6224; text-decoration:none; white-space:normal; }
+  section.hn .hn-all{ font:600 17px Inter,sans-serif; color:#e2bd6a; text-decoration:none; white-space:normal; }
   section.hn .hn-all:hover{ text-decoration:underline; }
   section.hn .hn-track{ display:flex; flex-direction:column; gap:12px; overflow:visible; scroll-snap-type:none; padding:2px 0 8px; }
   section.hn .hn-track > .lw-bc{ position:relative; flex:none; max-width:none; scroll-snap-align:none; display:grid; grid-template-columns:auto minmax(0,1fr) 24px;
@@ -397,12 +397,12 @@
   section.hn .lw-bc-head, section.hn .lw-bc-in, section.hn .lw-who, section.hn .lw-by{ display:contents; }
   section.hn .lw-av, section.hn .lw-fbtn, section.hn .lw-teaser, section.hn .lw-row, section.hn .lw-more{ display:none; }
   section.hn .lw-bc-img{ grid-area:img; align-self:center; width:104px; height:80px; aspect-ratio:auto; border-radius:10px; }
-  section.hn .lw-ft{ grid-area:kick; align-self:end; justify-self:start; padding:0; background:none; border:0; font:600 11px/1.2 Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#8a6224; }
+  section.hn .lw-ft{ grid-area:kick; align-self:end; justify-self:start; padding:0; background:none; border:0; font:600 11px/1.2 Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#e2bd6a; }
   section.hn .lw-bc h3{ grid-area:title; margin:0; font:700 17px/1.28 'Source Serif 4',serif; color:#142434; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
   section.hn .lw-bc h3 a::after{ content:''; position:absolute; inset:0; }
   section.hn .lw-by a{ grid-area:meta; justify-self:start; position:relative; z-index:1; max-width:60%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:500 12.5px/1.3 Inter,sans-serif; color:#586170; text-decoration:none; }
   section.hn .lw-who time{ grid-area:meta; justify-self:end; font:500 12.5px/1.3 Inter,sans-serif; letter-spacing:0; text-transform:none; color:#586170; }
-  section.hn .lw-bc::after{ content:'\2192'; grid-area:arrow; justify-self:end; font-size:20px; color:#8a6224; }
+  section.hn .lw-bc::after{ content:'\2192'; grid-area:arrow; justify-self:end; font-size:20px; color:#e2bd6a; }
   section.hn .hn-more{ padding:14px 0 4px; }
   @media(min-width:900px){
     section.hn .hn-track{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
@@ -415,14 +415,14 @@
   .h4-wrap{ max-width:1100px; margin:0 auto; }
   .h4-cases-card{ background:#fff; border:1px solid #f4ecd8; border-radius:22px; padding:16px 14px 14px; box-shadow:0 8px 26px rgba(43,58,76,0.07); }
   .h4-cases-head{ display:flex; align-items:center; gap:12px; padding:2px 6px 14px; }
-  .h4-scales{ flex:none; width:44px; height:44px; border-radius:50%; background:#f4ecd8; border:1px solid #e6d4a4; display:grid; place-items:center; color:#8a6224; }
+  .h4-scales{ flex:none; width:44px; height:44px; border-radius:50%; background:#f4ecd8; border:1px solid #e6d4a4; display:grid; place-items:center; color:#e2bd6a; }
   .h4-cases-head h2{ margin:0; flex:1; padding-left:12px; border-left:1px solid #e3dfd3; font:600 12px/1.3 Inter,sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#2b3a4c; }
-  .h4-all{ flex:none; display:inline-flex; align-items:center; gap:4px; font:600 13px Inter,sans-serif; color:#8a6224; text-decoration:none; }
+  .h4-all{ flex:none; display:inline-flex; align-items:center; gap:4px; font:600 13px Inter,sans-serif; color:#e2bd6a; text-decoration:none; }
   .h4-all:hover{ text-decoration:underline; }
   .h4-case-grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
   .h4-case-grid a{ display:flex; align-items:center; gap:10px; min-height:64px; padding:8px 10px; background:#f5f3ec; border:1px solid #f4ecd8; border-radius:14px; color:#142434; text-decoration:none; transition:border-color .15s, background .15s; }
   .h4-case-grid a:hover, .h4-case-grid a:focus-visible{ border-color:#c9a050; background:#f4ecd8; }
-  .h4-case-grid .h4-ic{ flex:none; width:42px; height:42px; border-radius:50%; background:#fff; box-shadow:0 1px 5px rgba(43,58,76,0.14); display:grid; place-items:center; color:#8a6224; }
+  .h4-case-grid .h4-ic{ flex:none; width:42px; height:42px; border-radius:50%; background:#fff; box-shadow:0 1px 5px rgba(43,58,76,0.14); display:grid; place-items:center; color:#e2bd6a; }
   .h4-cl{ flex:1; min-width:0; font:500 14px/1.25 Inter,sans-serif; }
   .h4-chev{ flex:none; color:#8a919b; }
   .h4-banner{ position:relative; display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px; padding:20px 18px 20px 34px; border-radius:18px; overflow:hidden; color:#fff; text-decoration:none;
@@ -457,16 +457,12 @@
   .hero5 ~ section .section-head{ margin-bottom:24px; }
   section.hn{ padding-top:38px; padding-bottom:8px; }
 
-  /* header: Log in (text) and Sign up (navy pill), both the height of the logo (34px on phones, 46px on desktop) */
-  .hdr-auth{ display:flex; align-items:center; gap:14px; flex:none; }
-  .hdr-login,.hdr-signup{ display:inline-flex; align-items:center; height:34px; font:600 14px/1 Inter,sans-serif; text-decoration:none; white-space:nowrap; transition:background .2s ease, color .2s ease; }
-  .hdr-login{ color:#142434; }
-  .hdr-login:hover{ color:#8a6224; }
-  .hdr-signup{ padding:0 16px; border-radius:999px; background:#142434; color:#ffffff; }
-  .hdr-signup:hover{ background:#2b3a4c; }
-  @media (min-width:1100px){ .hdr-auth{ gap:18px; } .hdr-login,.hdr-signup{ height:46px; font-size:15px; } .hdr-signup{ padding:0 24px; } }
-  @media (max-width:400px){ .site-header .mark .wordmark .tagline{ display:none; } .hdr-auth{ gap:10px; } .hdr-signup{ padding:0 14px; } }
-  @media (max-width:374px){ .hdr-auth{ gap:6px; } .hdr-signup{ padding:0 12px; } }
+  /* header: one Sign in button (navy pill), the height of the logo (34px on phones, 46px on desktop) */
+  .hdr-auth{ display:flex; align-items:center; flex:none; }
+  .hdr-signin{ display:inline-flex; align-items:center; height:34px; padding:0 18px; border-radius:999px; background:#142434; color:#ffffff; font:600 14px/1 Inter,sans-serif; text-decoration:none; white-space:nowrap; transition:background .2s ease; }
+  .hdr-signin:hover{ background:#2b3a4c; }
+  @media (min-width:1100px){ .hdr-signin{ height:46px; font-size:15px; padding:0 24px; } }
+  @media (max-width:400px){ .site-header .mark .wordmark .tagline{ display:none; } .hdr-signin{ padding:0 14px; } }
 </style>
 </head>
 <body class="pg-home">
@@ -475,7 +471,7 @@
   <a class="mark" href="/"><img src="images/logo-icon.png" alt="LawDB"><span class="wordmark"><span class="name"><span class="law">Law</span><span class="db">DB</span><sup style="font-size:.4em;font-weight:600;margin-left:1px;vertical-align:super;line-height:0;">&trade;</sup></span><span class="tagline">Canada&#39;s Legal Directory</span></span></a>
   <div class="header-right">
     <nav class="desktop-nav" aria-label="Primary"><a href="/find-lawyers">Find Your Lawyer</a><a href="/news">LawDB News</a><a href="/for-firms">For Law Firms</a></nav>
-    <div class="hdr-auth"><a class="hdr-login" href="/account/">Log in</a><a class="hdr-signup" href="/account/?join=1">Sign up</a></div>
+    <div class="hdr-auth"><a class="hdr-signin" href="/account/">Sign in</a></div>
     <button class="hamburger-btn" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -570,9 +566,138 @@ section.hn{max-width:1440px;margin:0 auto;padding:44px 20px 12px}
 .hn-end{color:var(--ink-soft);font-size:15px}.hn-end a{color:var(--brass-deep);font-weight:700}
 @media(max-width:600px){section.hn{padding:30px 14px 8px}}
 </style>
+<style>
+/* shared: the firm card (cover photo, logo badge, rating, two buttons) */
+.lc{ max-width:none; flex:none; background:#fff; border:1px solid #e3dfd3; border-radius:16px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 1px 2px rgba(20,36,52,0.06); }
+.lc-media{ position:relative; display:block; aspect-ratio:16/9; background:#2b3a4c; }
+.lc-media > img{ display:block; width:100%; height:100%; object-fit:cover; border-radius:16px 16px 0 0; }
+.lc-logo{ position:absolute; left:18px; bottom:-28px; width:58px; height:58px; border-radius:12px; background:#fff; border:2px solid #fff; box-shadow:0 2px 10px rgba(20,36,52,0.2); display:grid; place-items:center; overflow:hidden; }
+.lc-logo img{ width:100%; height:100%; object-fit:contain; padding:6px; }
+.lc-body{ position:relative; display:flex; flex-direction:column; gap:6px; padding:36px 18px 18px; flex:1; }
+.lc-cat{ font:600 12px/1.4 Inter,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#e2bd6a; }
+.lc h3{ margin:0; font:700 21px/1.25 'Source Serif 4',Georgia,serif; color:#142434; }
+.lc h3 a{ color:inherit; text-decoration:none; }
+.lc h3 a:hover{ text-decoration:underline; }
+.lc-rate{ margin:0; font-size:14px; color:#586170; }
+.lc-rate b{ color:#e2bd6a; }
+.lc-serves{ margin:0; font-size:14px; font-weight:600; color:#2b3a4c; }
+.lc-phone{ margin:0; font-size:13.5px; color:#586170; font-variant-numeric:tabular-nums; }
+.lc-btns{ display:flex; gap:10px; margin-top:auto; padding-top:10px; }
+.lc-btns a{ flex:1; min-height:44px; display:flex; align-items:center; justify-content:center; border-radius:999px; font:600 15px Inter,sans-serif; text-decoration:none; }
+.lc-btns .lc-view{ background:#142434 !important; color:#ffffff !important; border:1.5px solid #142434; }
+.lc-btns .lc-call{ background:#ffffff; color:#142434; border:1.5px solid #142434; }
+/* shared: section heads */
+.fh{ display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 14px; justify-content:space-between; }
+.fh h2{ margin:0; font:700 clamp(26px,5vw,32px)/1.15 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
+.fh a{ font:600 15px Inter,sans-serif; color:#e2bd6a; text-decoration:none; }
+.fh a:hover{ text-decoration:underline; }
+.eyebrow{ margin:0 0 10px; font:600 12px/1.6 Inter,sans-serif; letter-spacing:.18em; text-transform:uppercase; color:#e2bd6a; }
+/* shared: the lede under a heading, and how it works (three numbered steps) */
+.why-lede{ margin:0 0 20px; max-width:640px; font-size:16px; line-height:1.6; color:#586170; }
+.why-b .why-lede{ color:#b4bac4; }
+section.how{ padding:44px 20px; background:#f5f3ec; }
+.how h2{ margin:0 0 4px; font:700 clamp(26px,5vw,32px)/1.15 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
+.how-steps{ display:grid; grid-template-columns:minmax(0,1fr); gap:14px; margin-top:22px; }
+@media (min-width:800px){ .how-steps{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; } }
+.how-step{ background:#ffffff; border:1px solid #e3dfd3; border-radius:16px; padding:22px 20px; }
+.how-num{ display:grid; place-items:center; width:42px; height:42px; border-radius:50%; background:#c9a050; color:#142434; font:700 19px 'Source Serif 4',serif; margin-bottom:14px; }
+.how-step h3{ margin:0 0 6px; font:700 19px/1.25 'Source Serif 4',serif; color:#142434; }
+.how-step p{ margin:0; font-size:15px; line-height:1.55; color:#586170; }
+/* shared: the sign-up band and the For law firms band */
+section.join-c{ background:#f4ecd8; color:#142434; padding:44px 20px; }
+.join-c-in{ max-width:720px; margin:0 auto; }
+.join-c h2{ margin:0 0 10px; font:700 clamp(26px,5vw,34px)/1.15 'Source Serif 4',serif; color:#142434; text-wrap:balance; }
+.join-c p{ margin:0 0 22px; font-size:16px; line-height:1.6; color:#2b3a4c; }
+.join-solid{ display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 26px; border-radius:999px; background:#142434; color:#ffffff; font:600 16px Inter,sans-serif; text-decoration:none; }
+.join-solid:hover{ background:#2b3a4c; }
+section.hz-firms{ background:#1b242d; color:#ffffff; padding:44px 20px; }
+.hz-firms-in{ max-width:720px; margin:0 auto; }
+.hz-firms .eyebrow{ color:#e2bd6a; }
+.hz-firms h2{ margin:0 0 12px; font:700 clamp(26px,5vw,34px)/1.15 'Source Serif 4',serif; color:#ffffff; text-wrap:balance; }
+.hz-firms p{ margin:0 0 22px; font-size:16px; line-height:1.6; color:#b4bac4; }
+.hz-btns{ display:flex; flex-wrap:wrap; gap:12px; }
+.hz-btns a{ display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:0 22px; border-radius:999px; font:600 15px Inter,sans-serif; text-decoration:none; }
+.hz-solid{ background:#c9a050; color:#142434; }
+.hz-ghost{ border:1.5px solid #e2bd6a; color:#e2bd6a; }
+/* shared: the sign-up sheet on phones (the markup stays at the end of the page) */
+.join-sheet{ position:fixed; left:0; right:0; bottom:0; z-index:450; display:none; background:#ffffff; border-radius:18px 18px 0 0; box-shadow:0 -10px 30px rgba(20,36,52,0.18); padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px)); }
+@media (max-width:760px){ .join-sheet:not([hidden]){ display:block; } body.has-sheet{ padding-bottom:104px; } body.has-sheet .to-top{ bottom:112px; } }
+.join-sheet-in{ display:flex; align-items:center; gap:12px; max-width:560px; margin:0 auto; }
+.join-sheet-txt{ flex:1; min-width:0; }
+.join-sheet-txt b{ display:block; font:700 16px/1.25 'Source Serif 4',serif; color:#142434; }
+.join-sheet-txt span{ display:block; margin-top:2px; font-size:13px; color:#586170; }
+.join-sheet-btn{ flex:none; display:inline-flex; align-items:center; height:44px; padding:0 22px; border-radius:999px; background:#142434; color:#ffffff; font:600 15px Inter,sans-serif; text-decoration:none; }
+.join-sheet-x{ flex:none; width:36px; height:36px; border:0; background:none; color:#586170; font-size:26px; line-height:1; cursor:pointer; }
+
+/* concept B: a navy "why" band, a swipe row of top firms, the case types and cities as tiles, the news after them */
+.why-b{ background:#1b242d; color:#ffffff; padding:40px 20px; }
+.why-b h2{ margin:0 0 20px; font:700 clamp(26px,5vw,32px)/1.15 'Source Serif 4',serif; color:#ffffff; text-wrap:balance; }
+.why-b .eyebrow{ color:#e2bd6a; }
+.why-b-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px 18px; }
+@media (min-width:900px){ .why-b-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+.why-b-item b{ display:block; margin:10px 0 4px; font:700 18px/1.25 'Source Serif 4',serif; color:#ffffff; }
+.why-b-item p{ margin:0; font-size:14px; line-height:1.5; color:#b4bac4; }
+.why-b-ic{ display:grid; place-items:center; width:40px; height:40px; border-radius:50%; background:#c9a050; color:#142434; }
+section.top-c{ padding:40px 0 8px; background:#f5f3ec; }
+section.top-c .fh{ padding:0 20px; }
+.top-track{ display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding:8px 20px 22px; scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-padding-inline:20px; }
+.top-track::-webkit-scrollbar{ display:none; }
+.top-track .lc{ flex:0 0 82%; max-width:340px; scroll-snap-align:start; }
+@media (min-width:760px){ .top-track .lc{ flex:0 0 310px; } }
+.top-hint{ margin:0 20px; font-size:13.5px; color:#8a919b; }
+/* the city strip as tiles, two or more across */
+.cs-chips{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+@media (min-width:700px){ .cs-chips{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+.cs-chips .cc{ justify-content:space-between; }
+</style>
+<section class="why-b" aria-labelledby="whyBH">
+  <p class="eyebrow">Why LawDB</p>
+  <h2 id="whyBH">Find your lawyer, faster.</h2>
+  <p class="why-lede">Real, reviewed law firms near you, with the ratings and practice areas to choose the right one.</p>
+  <div class="why-b-grid">
+    <div class="why-b-item"><span class="why-b-ic" aria-hidden="true"><svg width="18" height="18"><use href="#i-scales"/></svg></span><b>Real Google reviews</b><p>Pulled straight from each firm's public profile.</p></div>
+    <div class="why-b-item"><span class="why-b-ic" aria-hidden="true"><svg width="18" height="18"><use href="#i-pin"/></svg></span><b>Matched to your case</b><p>Search by the kind of case and the city you are in.</p></div>
+    <div class="why-b-item"><span class="why-b-ic" aria-hidden="true"><svg width="18" height="18"><use href="#i-doc"/></svg></span><b>Know what to ask</b><p>Plain-language guides for each practice area.</p></div>
+    <div class="why-b-item"><span class="why-b-ic" aria-hidden="true"><svg width="18" height="18"><use href="#i-shield"/></svg></span><b>Free to search</b><p>No account needed to look around.</p></div>
+  </div>
+</section>
+<section class="top-c" id="firms" aria-labelledby="topH">
+  <div class="fh"><h2 id="topH">Top-rated lawyers across Canada</h2><a href="/find-lawyers">See all</a></div>
+  <div class="top-track"><!--more-firms--><article class="lc"><a class="lc-media" href="/firms/grover-law-firm-calgary" tabindex="-1" aria-hidden="true"><img src="images/hero/grover-law-firm-calgary.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/grover-law-firm-calgary.webp" alt="Grover Law Firm logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Personal Injury</span><h3><a href="/firms/grover-law-firm-calgary">Grover Law Firm</a></h3><p class="lc-rate"><b>&#9733; 5.0</b> from 769 Google reviews</p><p class="lc-serves">Calgary, Alberta</p><p class="lc-phone">(403) 253-1029</p><div class="lc-btns"><a class="lc-view" href="/firms/grover-law-firm-calgary">See profile</a><a class="lc-call" href="tel:+14032531029">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/tabuchi-law-mississauga" tabindex="-1" aria-hidden="true"><img src="images/hero/tabuchi-law-mississauga.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/tabuchi-law-mississauga.png" alt="Tabuchi Law logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Real Estate</span><h3><a href="/firms/tabuchi-law-mississauga">Tabuchi Law</a></h3><p class="lc-rate"><b>&#9733; 5.0</b> from 510 Google reviews</p><p class="lc-serves">Mississauga, Ontario</p><p class="lc-phone">(416) 477-5673</p><div class="lc-btns"><a class="lc-view" href="/firms/tabuchi-law-mississauga">See profile</a><a class="lc-call" href="tel:+14164775673">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/pollack-tsimerman-llp-north-york" tabindex="-1" aria-hidden="true"><img src="images/hero/pollack-tsimerman-llp-north-york.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/pollack-tsimerman-llp-north-york.png" alt="Pollack Tsimerman LLP logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Personal Injury</span><h3><a href="/firms/pollack-tsimerman-llp-north-york">Pollack Tsimerman LLP</a></h3><p class="lc-rate"><b>&#9733; 5.0</b> from 408 Google reviews</p><p class="lc-serves">North York, Ontario</p><p class="lc-phone">(416) 491-0111</p><div class="lc-btns"><a class="lc-view" href="/firms/pollack-tsimerman-llp-north-york">See profile</a><a class="lc-call" href="tel:+14164910111">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/amer-ali-law-ottawa" tabindex="-1" aria-hidden="true"><img src="images/hero/amer-ali-law-ottawa.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/amer-ali-law-ottawa.png" alt="Amer Ali Law logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Real Estate</span><h3><a href="/firms/amer-ali-law-ottawa">Amer Ali Law</a></h3><p class="lc-rate"><b>&#9733; 5.0</b> from 388 Google reviews</p><p class="lc-serves">Ottawa, Ontario</p><p class="lc-phone">(343) 633-5997</p><div class="lc-btns"><a class="lc-view" href="/firms/amer-ali-law-ottawa">See profile</a><a class="lc-call" href="tel:+13436335997">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/abramovich-immigration-law-toronto" tabindex="-1" aria-hidden="true"><img src="images/hero/abramovich-immigration-law-toronto.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/abramovich-immigration-law-toronto.webp" alt="Abramovich Immigration Law logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Immigration</span><h3><a href="/firms/abramovich-immigration-law-toronto">Abramovich Immigration Law</a></h3><p class="lc-rate"><b>&#9733; 5.0</b> from 341 Google reviews</p><p class="lc-serves">Toronto, Ontario</p><p class="lc-phone">(416) 551-1757</p><div class="lc-btns"><a class="lc-view" href="/firms/abramovich-immigration-law-toronto">See profile</a><a class="lc-call" href="tel:+14165511757">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/mcintosh-and-zayed-s-r-l-winnipeg" tabindex="-1" aria-hidden="true"><img src="images/hero/mcintosh-and-zayed-s-r-l-winnipeg.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/mcintosh-and-zayed-s-r-l-winnipeg.png" alt="McIntosh &amp; Zayed s.r.l. logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Personal Injury</span><h3><a href="/firms/mcintosh-and-zayed-s-r-l-winnipeg">McIntosh &amp; Zayed s.r.l.</a></h3><p class="lc-rate"><b>&#9733; 5.0</b> from 205 Google reviews</p><p class="lc-serves">Winnipeg, Manitoba</p><p class="lc-phone">(204) 666-2503</p><div class="lc-btns"><a class="lc-view" href="/firms/mcintosh-and-zayed-s-r-l-winnipeg">See profile</a><a class="lc-call" href="tel:+12046662503">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/b-kay-law-office-edmonton" tabindex="-1" aria-hidden="true"><img src="images/hero/b-kay-law-office-edmonton.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/b-kay-law-office-edmonton.webp" alt="B.Kay Law Office logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Immigration</span><h3><a href="/firms/b-kay-law-office-edmonton">B.Kay Law Office</a></h3><p class="lc-rate"><b>&#9733; 5.0</b> from 167 Google reviews</p><p class="lc-serves">Edmonton, Alberta</p><p class="lc-phone">(780) 800-4050</p><div class="lc-btns"><a class="lc-view" href="/firms/b-kay-law-office-edmonton">See profile</a><a class="lc-call" href="tel:+17808004050">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/pringle-law-edmonton" tabindex="-1" aria-hidden="true"><img src="images/hero/pringle-law-edmonton.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/pringle-law-edmonton.webp" alt="Pringle Law logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Criminal Defence</span><h3><a href="/firms/pringle-law-edmonton">Pringle Law</a></h3><p class="lc-rate"><b>&#9733; 4.9</b> from 541 Google reviews</p><p class="lc-serves">Edmonton, Alberta</p><p class="lc-phone">(780) 424-8866</p><div class="lc-btns"><a class="lc-view" href="/firms/pringle-law-edmonton">See profile</a><a class="lc-call" href="tel:+17804248866">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/clark-and-clark-lawyers-calgary" tabindex="-1" aria-hidden="true"><img src="images/hero/clark-and-clark-lawyers-calgary.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/clark-and-clark-lawyers-calgary.png" alt="Clark &amp; Clark Lawyers logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Real Estate</span><h3><a href="/firms/clark-and-clark-lawyers-calgary">Clark &amp; Clark Lawyers</a></h3><p class="lc-rate"><b>&#9733; 4.9</b> from 535 Google reviews</p><p class="lc-serves">Calgary, Alberta</p><p class="lc-phone">(403) 777-1444</p><div class="lc-btns"><a class="lc-view" href="/firms/clark-and-clark-lawyers-calgary">See profile</a><a class="lc-call" href="tel:+14037771444">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/ginzburg-legal-montreal" tabindex="-1" aria-hidden="true"><img src="images/hero/ginzburg-legal-montreal.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/ginzburg-legal-montreal.png" alt="Ginzburg Legal logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Criminal Defence</span><h3><a href="/firms/ginzburg-legal-montreal">Ginzburg Legal</a></h3><p class="lc-rate"><b>&#9733; 4.9</b> from 221 Google reviews</p><p class="lc-serves">Montreal, Quebec</p><p class="lc-phone">(514) 710-6749</p><div class="lc-btns"><a class="lc-view" href="/firms/ginzburg-legal-montreal">See profile</a><a class="lc-call" href="tel:+15147106749">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/westcoast-wills-and-estates-vancouver" tabindex="-1" aria-hidden="true"><img src="images/hero/westcoast-wills-and-estates-vancouver.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/westcoast-wills-and-estates-vancouver.png" alt="Westcoast Wills &amp; Estates logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Wills &amp; Estates</span><h3><a href="/firms/westcoast-wills-and-estates-vancouver">Westcoast Wills &amp; Estates</a></h3><p class="lc-rate"><b>&#9733; 5.0</b> from 91 Google reviews</p><p class="lc-serves">Vancouver, British Columbia</p><p class="lc-phone">(604) 230-1068</p><div class="lc-btns"><a class="lc-view" href="/firms/westcoast-wills-and-estates-vancouver">See profile</a><a class="lc-call" href="tel:+16042301068">Call now</a></div></div></article><article class="lc"><a class="lc-media" href="/firms/leiter-rahme-attorneys-inc-montreal" tabindex="-1" aria-hidden="true"><img src="images/hero/leiter-rahme-attorneys-inc-montreal.webp" alt="" loading="lazy"><span class="lc-logo"><img src="images/logos/leiter-rahme-attorneys-inc-montreal.png" alt="Leiter Rahme Attorneys Inc. logo" loading="lazy"></span></a><div class="lc-body"><span class="lc-cat">Immigration</span><h3><a href="/firms/leiter-rahme-attorneys-inc-montreal">Leiter Rahme Attorneys Inc.</a></h3><p class="lc-rate"><b>&#9733; 4.9</b> from 129 Google reviews</p><p class="lc-serves">Montreal, Quebec</p><p class="lc-phone">(514) 395-2010</p><div class="lc-btns"><a class="lc-view" href="/firms/leiter-rahme-attorneys-inc-montreal">See profile</a><a class="lc-call" href="tel:+15143952010">Call now</a></div></div></article><!--/more-firms--></div>
+</section>
+
+<section class="h4-cases" id="cases" aria-labelledby="h4CasesH"><div class="h4-wrap">
+  <div class="h4-cases-card">
+    <div class="h4-cases-head"><span class="h4-scales"><svg width="24" height="24" aria-hidden="true"><use href="#i-scales"/></svg></span><h2 id="h4CasesH">What do you need help with?</h2><a class="h4-all" href="/find-lawyers#cases">View all <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+    <!--home-cases--><ul class="h4-case-grid"><li><a href="/traffic-ticket-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-car"/></svg></span><span class="h4-cl">Traffic Ticket</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/criminal-defence-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-shield"/></svg></span><span class="h4-cl">Criminal Charges</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/family-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-family"/></svg></span><span class="h4-cl">Family Law / Divorce</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/personal-injury-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-cross"/></svg></span><span class="h4-cl">Personal Injury / Accident</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/real-estate-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-house"/></svg></span><span class="h4-cl">Buying or Selling a Home</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/wills-estate-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="h4-cl">Wills, Estates &amp; Power of Attorney</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/business-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-briefcase"/></svg></span><span class="h4-cl">Business / Corporate</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/employment-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-person"/></svg></span><span class="h4-cl">Employment Dispute</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/immigration-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-globe"/></svg></span><span class="h4-cl">Immigration</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/litigation-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-gavel"/></svg></span><span class="h4-cl">Civil Lawsuit / Litigation</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li></ul><!--/home-cases-->
+  </div>
+  <a class="h4-banner" href="/find-lawyers"><span><small>Legal support when it matters most</small><b>Get the right lawyer. Faster. <svg width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg></b></span>
+    <svg class="h4-gavel" viewBox="0 0 160 112" aria-hidden="true" focusable="false"><defs><linearGradient id="gvA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2bd6a"/><stop offset=".55" stop-color="#c9a050"/><stop offset="1" stop-color="#e2bd6a"/></linearGradient><linearGradient id="gvB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2b3a4c"/><stop offset=".5" stop-color="#c9a050"/><stop offset="1" stop-color="#2b3a4c"/></linearGradient></defs>
+      <g transform="rotate(-32 84 52)"><rect x="52" y="20" width="64" height="32" rx="7" fill="url(#gvA)"/><rect x="45" y="24" width="10" height="24" rx="3.5" fill="url(#gvB)"/><rect x="113" y="24" width="10" height="24" rx="3.5" fill="url(#gvB)"/><rect x="79" y="50" width="10" height="62" rx="5" fill="url(#gvB)"/></g>
+      <rect x="14" y="96" width="82" height="12" rx="5" fill="url(#gvA)" opacity=".9"/></svg></a>
+</div></section>
+<style>
+section.citystrip{ padding:8px 20px 40px; }
+.cs-head{ display:flex; align-items:baseline; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:26px; text-align:center; }
+.cs-head h2{ font-family:'Source Serif 4',serif; font-size:32px; margin:0; }
+.cs-head span{ font-size:16px; color:var(--ink-soft); } .cs-head a{ color:var(--brass-deep); font-weight:600; text-decoration:none; } .cs-head a:hover{ text-decoration:underline; }
+.cs-chips{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; max-width:1100px; margin:0 auto; }
+.cc{ display:inline-flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:15px 26px; font:600 17px Inter,sans-serif; color:var(--ink); text-decoration:none; transition:background .15s,border-color .15s,transform .15s; }
+.cc span{ font-weight:500; font-size:12px; color:#8a919b; }
+@media (hover:hover){ .cc:hover{ background:#f4ecd8; border-color:#c9a050; transform:translateY(-1px); } }
+section.feat-swipe{ padding-top:36px !important; padding-bottom:0 !important; }
+.feat-swipe .lw-track{ padding-bottom:4px; }
+section.citystrip{ padding:28px 20px 36px !important; }
+.cs-prov{ text-align:center; font-size:15px; color:var(--ink-soft); margin:22px 0 0; } .cs-prov a{ color:var(--brass-deep); font-weight:600; text-decoration:none; } .cs-prov a:hover{ text-decoration:underline; }
+</style>
+<section class="citystrip" id="cities">
+  <div class="cs-head"><h2>Lawyers in your city</h2><span>or <a href="/find-lawyers">search any city</a></span></div>
+  <div class="cs-chips"><a class="cc" href="ontario/toronto/">Toronto<span data-live="city:ON|Toronto">150</span></a><a class="cc" href="alberta/calgary/">Calgary<span data-live="city:AB|Calgary">119</span></a><a class="cc" href="alberta/edmonton/">Edmonton<span data-live="city:AB|Edmonton">80</span></a><a class="cc" href="ontario/ottawa/">Ottawa<span data-live="city:ON|Ottawa">68</span></a><a class="cc" href="british-columbia/vancouver/">Vancouver<span data-live="city:BC|Vancouver">63</span></a><a class="cc" href="quebec/montreal/">Montreal<span data-live="city:QC|Montreal">62</span></a><a class="cc" href="ontario/mississauga/">Mississauga<span data-live="city:ON|Mississauga">61</span></a><a class="cc" href="ontario/north-york/">North York<span data-live="city:ON|North York">58</span></a><a class="cc" href="manitoba/winnipeg/">Winnipeg<span data-live="city:MB|Winnipeg">52</span></a><a class="cc" href="ontario/brampton/">Brampton<span data-live="city:ON|Brampton">39</span></a><a class="cc" href="british-columbia/surrey/">Surrey<span data-live="city:BC|Surrey">29</span></a><a class="cc" href="ontario/london/">London<span data-live="city:ON|London">26</span></a></div>
+<p class="cs-prov">Browse by province: <a href="ontario/">Ontario</a> &middot; <a href="quebec/">Quebec</a> &middot; <a href="british-columbia/">British Columbia</a> &middot; <a href="alberta/">Alberta</a> &middot; <a href="manitoba/">Manitoba</a></p>
+</section>
 <section class="hn" id="homeNews" hidden aria-label="LawDB News">
   <div class="hn-head">
-    <div><p class="hn-eyebrow">LawDB News</p><h2>What Canada's best-rated law firms are writing</h2><p class="hn-sub">New articles from the firms in the directory, strongest profiles and highest Google ratings first. Tap one to read a preview here; the full article is on the firm&rsquo;s own website.</p></div>
+    <div><p class="hn-eyebrow">LawDB News</p><h2>Straight from the firms</h2><p class="hn-sub">Articles from the firms in our directory, on the cases they handle. Tap one to read a preview here, or open it on the firm's own site.</p></div>
     <div class="hn-tools"><div class="lw-car-nav hn-nav"><button type="button" class="hn-prev" aria-label="Previous articles">&#8249;</button><button type="button" class="hn-next" aria-label="Next articles">&#8250;</button></div><a class="hn-all" href="/news">All LawDB News &rarr;</a></div>
   </div>
   <div class="hn-chips" role="group" aria-label="Show articles about"><button type="button" data-type="" class="on" aria-pressed="true">All</button><button type="button" data-type="family" aria-pressed="false">Family</button><button type="button" data-type="injury" aria-pressed="false">Injury</button><button type="button" data-type="criminal" aria-pressed="false">Criminal</button><button type="button" data-type="realestate" aria-pressed="false">Real estate</button><button type="button" data-type="immigration" aria-pressed="false">Immigration</button><button type="button" data-type="business" aria-pressed="false">Business</button><button type="button" data-type="employment" aria-pressed="false">Employment</button><button type="button" data-type="wills" aria-pressed="false">Wills &amp; estates</button><button type="button" data-type="litigation" aria-pressed="false">Litigation</button><button type="button" data-type="traffic" aria-pressed="false">Traffic</button></div>
@@ -603,147 +728,13 @@ section.hn{max-width:1440px;margin:0 auto;padding:44px 20px 12px}
   edges();
 })();
 </script>
-
-<section class="h4-cases" id="cases" aria-labelledby="h4CasesH"><div class="h4-wrap">
-  <div class="h4-cases-card">
-    <div class="h4-cases-head"><span class="h4-scales"><svg width="24" height="24" aria-hidden="true"><use href="#i-scales"/></svg></span><h2 id="h4CasesH">Or pick a case type</h2><a class="h4-all" href="/find-lawyers#cases">View all <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
-    <!--home-cases--><ul class="h4-case-grid"><li><a href="/traffic-ticket-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-car"/></svg></span><span class="h4-cl">Traffic Ticket</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/criminal-defence-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-shield"/></svg></span><span class="h4-cl">Criminal Charges</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/family-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-family"/></svg></span><span class="h4-cl">Family Law / Divorce</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/personal-injury-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-cross"/></svg></span><span class="h4-cl">Personal Injury / Accident</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/real-estate-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-house"/></svg></span><span class="h4-cl">Buying or Selling a Home</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/wills-estate-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="h4-cl">Wills, Estates &amp; Power of Attorney</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/business-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-briefcase"/></svg></span><span class="h4-cl">Business / Corporate</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/employment-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-person"/></svg></span><span class="h4-cl">Employment Dispute</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/immigration-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-globe"/></svg></span><span class="h4-cl">Immigration</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li><li><a href="/litigation-lawyers"><span class="h4-ic"><svg width="22" height="22" aria-hidden="true"><use href="#i-gavel"/></svg></span><span class="h4-cl">Civil Lawsuit / Litigation</span><svg class="h4-chev" width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></a></li></ul><!--/home-cases-->
-  </div>
-  <a class="h4-banner" href="/find-lawyers"><span><small>Legal support when it matters most</small><b>Get the right lawyer. Faster. <svg width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg></b></span>
-    <svg class="h4-gavel" viewBox="0 0 160 112" aria-hidden="true" focusable="false"><defs><linearGradient id="gvA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2bd6a"/><stop offset=".55" stop-color="#c9a050"/><stop offset="1" stop-color="#8a6224"/></linearGradient><linearGradient id="gvB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2b3a4c"/><stop offset=".5" stop-color="#c9a050"/><stop offset="1" stop-color="#2b3a4c"/></linearGradient></defs>
-      <g transform="rotate(-32 84 52)"><rect x="52" y="20" width="64" height="32" rx="7" fill="url(#gvA)"/><rect x="45" y="24" width="10" height="24" rx="3.5" fill="url(#gvB)"/><rect x="113" y="24" width="10" height="24" rx="3.5" fill="url(#gvB)"/><rect x="79" y="50" width="10" height="62" rx="5" fill="url(#gvB)"/></g>
-      <rect x="14" y="96" width="82" height="12" rx="5" fill="url(#gvA)" opacity=".9"/></svg></a>
-</div></section>
-
-
-
-
-
-<style>
-section.citystrip{ padding:8px 20px 40px; }
-.cs-head{ display:flex; align-items:baseline; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:26px; text-align:center; }
-.cs-head h2{ font-family:'Source Serif 4',serif; font-size:32px; margin:0; }
-.cs-head span{ font-size:16px; color:var(--ink-soft); } .cs-head a{ color:var(--brass-deep); font-weight:600; text-decoration:none; } .cs-head a:hover{ text-decoration:underline; }
-.cs-chips{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; max-width:1100px; margin:0 auto; }
-.cc{ display:inline-flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:15px 26px; font:600 17px Inter,sans-serif; color:var(--ink); text-decoration:none; transition:background .15s,border-color .15s,transform .15s; }
-.cc span{ font-weight:500; font-size:12px; color:#8a919b; }
-@media (hover:hover){ .cc:hover{ background:#f4ecd8; border-color:#c9a050; transform:translateY(-1px); } }
-section.feat-swipe{ padding-top:36px !important; padding-bottom:0 !important; }
-.feat-swipe .lw-track{ padding-bottom:4px; }
-section.citystrip{ padding:28px 20px 36px !important; }
-.cs-prov{ text-align:center; font-size:15px; color:var(--ink-soft); margin:22px 0 0; } .cs-prov a{ color:var(--brass-deep); font-weight:600; text-decoration:none; } .cs-prov a:hover{ text-decoration:underline; }
-</style>
-<section class="citystrip" id="cities">
-  <div class="cs-head"><h2>Browse by city</h2><span>or <a href="/find-lawyers">search any city</a></span></div>
-  <div class="cs-chips"><a class="cc" href="ontario/toronto/">Toronto<span data-live="city:ON|Toronto">150</span></a><a class="cc" href="alberta/calgary/">Calgary<span data-live="city:AB|Calgary">119</span></a><a class="cc" href="alberta/edmonton/">Edmonton<span data-live="city:AB|Edmonton">80</span></a><a class="cc" href="ontario/ottawa/">Ottawa<span data-live="city:ON|Ottawa">68</span></a><a class="cc" href="british-columbia/vancouver/">Vancouver<span data-live="city:BC|Vancouver">63</span></a><a class="cc" href="quebec/montreal/">Montreal<span data-live="city:QC|Montreal">62</span></a><a class="cc" href="ontario/mississauga/">Mississauga<span data-live="city:ON|Mississauga">61</span></a><a class="cc" href="ontario/north-york/">North York<span data-live="city:ON|North York">58</span></a><a class="cc" href="manitoba/winnipeg/">Winnipeg<span data-live="city:MB|Winnipeg">52</span></a><a class="cc" href="ontario/brampton/">Brampton<span data-live="city:ON|Brampton">39</span></a><a class="cc" href="british-columbia/surrey/">Surrey<span data-live="city:BC|Surrey">29</span></a><a class="cc" href="ontario/london/">London<span data-live="city:ON|London">26</span></a></div>
-<p class="cs-prov">Browse by province: <a href="ontario/">Ontario</a> &middot; <a href="quebec/">Quebec</a> &middot; <a href="british-columbia/">British Columbia</a> &middot; <a href="alberta/">Alberta</a> &middot; <a href="manitoba/">Manitoba</a></p>
-</section>
-
-<style>
-.feat-swipe .lc{ flex:0 0 86%; max-width:340px; }
-@media (min-width:700px){ .feat-swipe .lc{ flex:0 0 360px; max-width:360px; } }
-.feat-swipe .lc-cover{ height:176px; }
-.feat-swipe .lc-cover.brand{ padding:26px 34px; }
-.feat-swipe .lc-logo{ top:144px; width:60px; height:60px; }
-.feat-swipe .lc-body{ padding:40px 20px 20px; gap:8px; }
-.feat-swipe .lc-cover.brand + .lc-body{ padding-top:20px; }
-.feat-swipe .lc-body h3{ font-size:18px; }
-.feat-swipe .lc-rate{ font-size:14px; }
-.feat-swipe .lc-serves{ font-size:13px; font-weight:600; color:#8a6224; }
-.feat-swipe .lc-addr{ font-size:13px; }
-.feat-swipe .lc-phone{ font-size:13px; color:#2b3a4c; font-variant-numeric:tabular-nums; }
-.feat-swipe .lc-tags span{ font-size:12px; padding:4px 10px; }
-.feat-swipe .lc-btns a{ min-height:42px; font-size:14px; }
-.feat-swipe .lw-car-head{ justify-content:flex-end; margin-bottom:10px; }
-.feat-swipe .lw-track{ gap:18px; scroll-padding-left:2px; }
-</style>
-<section class="feat-swipe">
-  <div class="section-head">
-    <h2>Firms to explore</h2>
-    <p>A selection of firms on LawDB, including partners who support the directory (marked Featured). Every firm shows the same public Google rating data. Swipe to browse.</p>
-  </div>
-  <div class="lw-car" aria-label="Firms to explore"><div class="lw-car-head"><div class="lw-car-nav"><button type="button" class="lw-prev" aria-label="Previous">&#8249;</button><button type="button" class="lw-next" aria-label="Next">&#8250;</button></div></div><div class="lw-track" tabindex="0"><article class="lc"><div class="lc-cover brand"><img src="images/logos/daniel-brown-law-llp.jpg" alt="Daniel Brown Law LLP logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/daniel-brown-law-llp">Daniel Brown Law LLP</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 156 Google reviews</i></span><div class="lc-serves">Serving Toronto, Ontario</div><div class="lc-addr">103 Church St #400, Toronto, ON M5C 2G3</div><div class="lc-phone">(416) 297-7200</div><div class="lc-tags"><span>Criminal Defence</span><span>Appeals</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14162977200">Call</a><a class="lc-view" href="/firms/daniel-brown-law-llp">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/nelligan-law.png" alt="Nelligan Law logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/nelligan-law">Nelligan Law</a></h3><span class="lc-rate"><b>&#9733; 4.7</b> <i>from 260 Google reviews</i></span><div class="lc-serves">Serving Ottawa, Ontario</div><div class="lc-addr">50 O&#x27;Connor St #300, Ottawa, ON K1P 6L2</div><div class="lc-phone">(613) 238-8080</div><div class="lc-tags"><span>Employment</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16132388080">Call</a><a class="lc-view" href="/firms/nelligan-law">View profile</a></div></div></article><article class="lc"><div class="lc-cover gen"><span>Brampton</span></div><span class="lc-logo mono">GU</span><div class="lc-body"><h3><a href="/firms/gupta-law-firm">Gupta Law Firm</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 213 Google reviews</i></span><div class="lc-serves">Serving Brampton, Ontario</div><div class="lc-addr">2250 Bovaird Dr E #314, Brampton, ON L6R 0W3</div><div class="lc-phone">(416) 999-6665</div><div class="lc-tags"><span>Personal Injury</span><span>Civil Litigation</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14169996665">Call</a><a class="lc-view" href="/firms/gupta-law-firm">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/amlea-avocats.png" alt="Amlea Avocats logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/amlea-avocats">Amlea Avocats</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 338 Google reviews</i></span><div class="lc-serves">Serving Montreal, Quebec</div><div class="lc-addr">500 Place d&#x27;Armes Ste 1800, Montreal, QC H2Y 2W2</div><div class="lc-phone">(514) 317-2887</div><div class="lc-tags"><span>Business Law</span><span>Corporate</span></div><div class="lc-btns"><a class="lc-call" href="tel:+15143172887">Call</a><a class="lc-view" href="/firms/amlea-avocats">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/gagan-nahal-criminal-lawyer.png" alt="Gagan Nahal Criminal Lawyer logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/gagan-nahal-criminal-lawyer">Gagan Nahal Criminal Lawyer</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 257 Google reviews</i></span><div class="lc-serves">Serving Surrey, British Columbia</div><div class="lc-addr">6625 152A St #202, Surrey, BC V3S 3L4</div><div class="lc-phone">(604) 527-4769</div><div class="lc-tags"><span>Criminal Defence</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16045274769">Call</a><a class="lc-view" href="/firms/gagan-nahal-criminal-lawyer">View profile</a></div></div></article><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover brand"><img src="images/logos/blottman-legal-services.png" alt="Blottman Legal Services logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/blottman-legal-services">Blottman Legal Services</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 102 Google reviews</i></span><div class="lc-serves">Serving Cookstown, Ontario</div><div class="lc-addr">29 Queen St Unit 2, Cookstown, ON</div><div class="lc-phone">(647) 794-7750</div><div class="lc-tags"><span>Traffic Tickets</span><span>Driving Under Suspension</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16477947750">Call</a><a class="lc-view" href="/firms/blottman-legal-services">View profile</a></div></div></article><article class="lc"><span class="lc-feat">Featured</span><div class="lc-cover brand"><img src="images/logos/barbarian-law.jpg" alt="Barbarian Law logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/barbarian-law">Barbarian Law</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 166 Google reviews</i></span><div class="lc-serves">Serving Aurora, Ontario</div><div class="lc-addr">14981 Yonge Street (Upstairs), Aurora, ON L4G 1M5</div><div class="lc-phone">(905) 727-4466</div><div class="lc-tags"><span>Real Estate Closings</span><span>Corporate &amp; Wills</span></div><div class="lc-btns"><a class="lc-call" href="tel:+19057274466">Call</a><a class="lc-view" href="/firms/barbarian-law">View profile</a></div></div></article><!--more-firms--><article class="lc"><div class="lc-cover brand"><img src="images/logos/grover-law-firm-calgary.webp" alt="Grover Law Firm logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/grover-law-firm-calgary">Grover Law Firm</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 769 Google reviews</i></span><div class="lc-serves">Serving Calgary, Alberta</div><div class="lc-addr">Sovereign Centre, 6700 Macleod Trl SE Ste 390, Calgary, AB T2H 0L3</div><div class="lc-phone">(403) 253-1029</div><div class="lc-tags"><span>Personal Injury</span><span>Civil Litigation</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14032531029">Call</a><a class="lc-view" href="/firms/grover-law-firm-calgary">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/tabuchi-law-mississauga.png" alt="Tabuchi Law logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/tabuchi-law-mississauga">Tabuchi Law</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 510 Google reviews</i></span><div class="lc-serves">Serving Mississauga, Ontario</div><div class="lc-addr">120 Watline Ave #5, Mississauga, ON L4Z 2C1</div><div class="lc-phone">(416) 477-5673</div><div class="lc-tags"><span>Real Estate</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14164775673">Call</a><a class="lc-view" href="/firms/tabuchi-law-mississauga">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/marwah-law-ottawa.png" alt="Marwah Law logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/marwah-law-ottawa">Marwah Law</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 468 Google reviews</i></span><div class="lc-serves">Serving Ottawa, Ontario</div><div class="lc-addr">38 Auriga Dr 2nd Floor, Ottawa, ON K2E 8A5</div><div class="lc-phone">(343) 804-0844</div><div class="lc-tags"><span>Immigration</span><span>Real Estate</span></div><div class="lc-btns"><a class="lc-call" href="tel:+13438040844">Call</a><a class="lc-view" href="/firms/marwah-law-ottawa">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/abramovich-immigration-law-toronto.webp" alt="Abramovich Immigration Law logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/abramovich-immigration-law-toronto">Abramovich Immigration Law</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 341 Google reviews</i></span><div class="lc-serves">Serving Toronto, Ontario</div><div class="lc-addr">60 Bloor St W Ste 400, Toronto, ON M5R 3P5</div><div class="lc-phone">(416) 551-1757</div><div class="lc-tags"><span>Immigration</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14165511757">Call</a><a class="lc-view" href="/firms/abramovich-immigration-law-toronto">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/badre-law-professional-corporation-ottawa.webp" alt="Badre Law Professional Corporation logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/badre-law-professional-corporation-ottawa">Badre Law Professional Corporation</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 310 Google reviews</i></span><div class="lc-serves">Serving Ottawa, Ontario</div><div class="lc-addr">1505 Laperriere Ave #210, Ottawa, ON K1Z 7T1</div><div class="lc-phone">(613) 695-4443</div><div class="lc-tags"><span>Personal Injury</span><span>Civil Litigation</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16136954443">Call</a><a class="lc-view" href="/firms/badre-law-professional-corporation-ottawa">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/john-cintosun-law-professional-corporation-toronto.png" alt="John Cintosun Law Professional Corporation logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/john-cintosun-law-professional-corporation-toronto">John Cintosun Law Professional Corporation</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 266 Google reviews</i></span><div class="lc-serves">Serving Toronto, Ontario</div><div class="lc-addr">700 Bay St. #405, Toronto, ON M5G 1Z6</div><div class="lc-phone">(416) 824-8155</div><div class="lc-tags"><span>General Practice</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14168248155">Call</a><a class="lc-view" href="/firms/john-cintosun-law-professional-corporation-toronto">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/infinity-law-firm-mississauga.jpg" alt="Infinity Law Firm logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/infinity-law-firm-mississauga">Infinity Law Firm</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 239 Google reviews</i></span><div class="lc-serves">Serving Mississauga, Ontario</div><div class="lc-addr">2798 Thamesgate Dr #1, Mississauga, ON L4T 4E8</div><div class="lc-phone">(416) 939-5457</div><div class="lc-tags"><span>General Practice</span></div><div class="lc-btns"><a class="lc-call" href="tel:+14169395457">Call</a><a class="lc-view" href="/firms/infinity-law-firm-mississauga">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/aviron-law-professional-corporation-brampton.png" alt="Aviron Law Professional Corporation logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/aviron-law-professional-corporation-brampton">Aviron Law Professional Corporation</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 211 Google reviews</i></span><div class="lc-serves">Serving Brampton, Ontario</div><div class="lc-addr">159 Rutherford Rd S 2nd Floor, Brampton, ON L6W 3N5</div><div class="lc-phone">(905) 497-1200</div><div class="lc-tags"><span>Real Estate</span></div><div class="lc-btns"><a class="lc-call" href="tel:+19054971200">Call</a><a class="lc-view" href="/firms/aviron-law-professional-corporation-brampton">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/ang-law-professional-corporation-north-york.png" alt="Ang Law Professional Corporation logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/ang-law-professional-corporation-north-york">Ang Law Professional Corporation</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 193 Google reviews</i></span><div class="lc-serves">Serving North York, Ontario</div><div class="lc-addr">150 Duncan Mill Rd Unit 2, North York, ON M3B 3M4</div><div class="lc-phone">(647) 598-1998</div><div class="lc-tags"><span>Real Estate</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16475981998">Call</a><a class="lc-view" href="/firms/ang-law-professional-corporation-north-york">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/menon-b-droit-des-arts.svg" alt="MENON B - Droit des Arts logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/menon-b-droit-des-arts">MENON B - Droit des Arts</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 192 Google reviews</i></span><div class="lc-serves">Serving Sherbrooke, Quebec</div><div class="lc-addr">41 Rue King Ouest #3, Sherbrooke, QC J1H 1P1</div><div class="lc-phone">(514) 602-9507</div><div class="lc-tags"><span>Business Law</span><span>Contracts</span></div><div class="lc-btns"><a class="lc-call" href="tel:+15146029507">Call</a><a class="lc-view" href="/firms/menon-b-droit-des-arts">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/james-h-brown-and-associates-edmonton.webp" alt="James H. Brown &amp; Associates logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/james-h-brown-and-associates-edmonton">James H. Brown &amp; Associates</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 1701 Google reviews</i></span><div class="lc-serves">Serving Edmonton, Alberta</div><div class="lc-addr">10123 99 St NW, Edmonton, AB T5J 3H1</div><div class="lc-phone">(780) 428-0088</div><div class="lc-tags"><span>Personal Injury</span><span>Civil Litigation</span></div><div class="lc-btns"><a class="lc-call" href="tel:+17804280088">Call</a><a class="lc-view" href="/firms/james-h-brown-and-associates-edmonton">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/b-kay-law-office-edmonton.webp" alt="B.Kay Law Office logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/b-kay-law-office-edmonton">B.Kay Law Office</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 167 Google reviews</i></span><div class="lc-serves">Serving Edmonton, Alberta</div><div class="lc-addr">5737 50 St NW, Edmonton, AB T6B 3W5</div><div class="lc-phone">(780) 800-4050</div><div class="lc-tags"><span>Immigration</span></div><div class="lc-btns"><a class="lc-call" href="tel:+17808004050">Call</a><a class="lc-view" href="/firms/b-kay-law-office-edmonton">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/lecker-and-associates-north-york.jpg" alt="Lecker &amp; Associates logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/lecker-and-associates-north-york">Lecker &amp; Associates</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 704 Google reviews</i></span><div class="lc-serves">Serving North York, Ontario</div><div class="lc-addr">4789 Yonge St #514, North York, ON M2N 0G3</div><div class="lc-phone">(647) 873-1961</div><div class="lc-tags"><span>Employment Law</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16478731961">Call</a><a class="lc-view" href="/firms/lecker-and-associates-north-york">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/marc-sabourin-montreal.png" alt="Marc Sabourin logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/marc-sabourin-montreal">Marc Sabourin</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 446 Google reviews</i></span><div class="lc-serves">Serving Montreal, Quebec</div><div class="lc-addr">68 7e Avenue, Lachine, QC H8S 2J4</div><div class="lc-phone">(514) 639-5611</div><div class="lc-tags"><span>Family Law</span></div><div class="lc-btns"><a class="lc-call" href="tel:+15146395611">Call</a><a class="lc-view" href="/firms/marc-sabourin-montreal">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/olex-legal-calgary.png" alt="Olex Legal logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/olex-legal-calgary">Olex Legal</a></h3><span class="lc-rate"><b>&#9733; 5.0</b> <i>from 112 Google reviews</i></span><div class="lc-serves">Serving Calgary, Alberta</div><div class="lc-addr">160 Quarry Pk Blvd S E Ste 300, Calgary, AB T2C 3G3</div><div class="lc-phone">(587) 966-4629</div><div class="lc-tags"><span>General Practice</span></div><div class="lc-btns"><a class="lc-call" href="tel:+15879664629">Call</a><a class="lc-view" href="/firms/olex-legal-calgary">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/sondhi-defence-professional-corporation-aurora.png" alt="Sondhi Defence Professional Corporation logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/sondhi-defence-professional-corporation-aurora">Sondhi Defence Professional Corporation</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 287 Google reviews</i></span><div class="lc-serves">Serving Aurora, Ontario</div><div class="lc-addr">15483 Yonge St Ste 9, Aurora, ON L4G 1P3</div><div class="lc-phone">(855) 476-6344</div><div class="lc-tags"><span>Criminal Defence</span><span>Civil Litigation</span></div><div class="lc-btns"><a class="lc-call" href="tel:+18554766344">Call</a><a class="lc-view" href="/firms/sondhi-defence-professional-corporation-aurora">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/crossroads-law-vancouver.png" alt="Crossroads Law logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/crossroads-law-vancouver">Crossroads Law</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 270 Google reviews</i></span><div class="lc-serves">Serving Vancouver, British Columbia</div><div class="lc-addr">999 W Hastings St Ste 1660, Vancouver, BC V6C 2W2</div><div class="lc-phone">(800) 466-1838</div><div class="lc-tags"><span>Family Law</span><span>Civil Litigation</span></div><div class="lc-btns"><a class="lc-call" href="tel:+18004661838">Call</a><a class="lc-view" href="/firms/crossroads-law-vancouver">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/parr-business-law-vancouver.webp" alt="Parr Business Law logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/parr-business-law-vancouver">Parr Business Law</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 205 Google reviews</i></span><div class="lc-serves">Serving Vancouver, British Columbia</div><div class="lc-addr">525 W 8th Ave #800, Vancouver, BC V5Z 1C6</div><div class="lc-phone">(604) 283-8622</div><div class="lc-tags"><span>Business Law</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16042838622">Call</a><a class="lc-view" href="/firms/parr-business-law-vancouver">View profile</a></div></div></article><article class="lc"><div class="lc-cover brand"><img src="images/logos/pacific-point-law-corporation-surrey.webp" alt="Pacific Point Law Corporation logo" loading="lazy"></div><div class="lc-body"><h3><a href="/firms/pacific-point-law-corporation-surrey">Pacific Point Law Corporation</a></h3><span class="lc-rate"><b>&#9733; 4.9</b> <i>from 139 Google reviews</i></span><div class="lc-serves">Serving Surrey, British Columbia</div><div class="lc-addr">15585 24 Ave Unit 107, Surrey, BC V4A 2J4</div><div class="lc-phone">(604) 738-8837</div><div class="lc-tags"><span>Family Law</span><span>Immigration</span></div><div class="lc-btns"><a class="lc-call" href="tel:+16047388837">Call</a><a class="lc-view" href="/firms/pacific-point-law-corporation-surrey">View profile</a></div></div></article><!--/more-firms--></div></div>
-</section>
-<script>
-(function(){
-  var root=document.querySelector('.feat-swipe .lw-track'); if(!root) return;
-  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var paused=false,visible=true,timer=null,resume=null;
-  function step(){
-    if(paused||!visible) return;
-    var card=root.querySelector('.lc'); if(!card) return;
-    var w=card.getBoundingClientRect().width+18;
-    if(root.scrollLeft+root.clientWidth>=root.scrollWidth-6){ root.scrollTo({left:0,behavior:'smooth'}); }
-    else{ root.scrollBy({left:w,behavior:'smooth'}); }
-  }
-  function start(){ if(!timer) timer=setInterval(step,2500); }
-  function hold(){ paused=true; clearTimeout(resume); }
-  function release(ms){ clearTimeout(resume); resume=setTimeout(function(){ paused=false; },ms||2500); }
-  root.addEventListener('mouseenter',hold); root.addEventListener('mouseleave',function(){ release(800); });
-  root.addEventListener('touchstart',hold,{passive:true}); root.addEventListener('touchend',function(){ release(3500); },{passive:true});
-  root.addEventListener('focusin',hold); root.addEventListener('focusout',function(){ release(800); });
-  var nav=document.querySelector('.feat-swipe .lw-car-nav');
-  if(nav) nav.addEventListener('click',function(){ hold(); release(4000); });
-  if('IntersectionObserver' in window){ new IntersectionObserver(function(e){ visible=e[0].isIntersecting; },{threshold:0.2}).observe(root); }
-  start();
-})();
-</script>
-
-<!-- ABOUT-LAWDB -->
-<section class="about" id="about">
-  <div class="about-top">
-    <div>
-      <div class="about-eyebrow">About LawDB</div>
-      <h2>Canada&rsquo;s independent law firm directory</h2>
-      <p class="about-lead">LawDB helps people find a real, reviewed law firm near them, by the kind of case they have. We list <span data-live="firms">1,092</span> firms across <span data-live="cities">62</span> cities in Ontario, Quebec, British Columbia, Alberta and Manitoba, and show every firm&rsquo;s real Google rating and review count so you can compare them yourself.</p>
-      <ul class="about-checks">
-        <li>Ratings and review counts come straight from each firm&rsquo;s public Google Business profile</li>
-        <li>Browse by 10 practice areas, with plain-language guides on what to ask before you call</li>
-        <li>Free to search, with no account needed</li>
-      </ul>
-      <div class="about-btns"><a class="about-btn primary" href="/find-lawyers">Find Your Lawyer</a><a class="about-btn ghost" href="/how-it-works">How LawDB works</a></div>
-    </div>
-    <div class="about-photo">
-      <img class="about-img" src="images/about-signature.jpg" alt="A professional signing a document on a phone using a digital checklist" loading="lazy">
-      <div class="about-stat"><div><b data-live="firms">1,092</b><span>Firms</span></div><div><b data-live="cities">62</b><span>Cities</span></div><div><b>5</b><span>Provinces</span></div></div>
-    </div>
-  </div>
-  <div class="about-pillars">
-    <div class="pillar"><img class="about-img" src="images/business-meeting.jpg" alt="Lawyers meeting in a boardroom" loading="lazy"><div><h3>Compare on real ratings</h3><p>Every listing is shown with the same underlying Google rating data, so firms are compared on what clients actually said, not on who has the biggest ad.</p></div></div>
-    <div class="pillar"><img class="about-img" src="images/criminal-consultation.jpg" alt="A lawyer reviewing a case with a client" loading="lazy"><div><h3>Find the right kind of lawyer</h3><p>Traffic tickets to wills, real estate to litigation: pick your case type and we match you with firms that handle it in your area.</p></div></div>
-    <div class="pillar"><img class="about-img" src="images/about-lady-justice.jpg" alt="Statue of Lady Justice holding the scales in front of a courthouse" loading="lazy"><div><h3>Clearly labelled Featured firms</h3><p>Firms can pay to be highlighted. Featured placements are always marked, and every firm, Featured or not, shows the same rating data.</p></div></div>
-  </div>
-  <div class="about-steps">
-    <h3>How it works</h3>
-    <div class="astep"><span class="n">1</span><div><b>Choose your case type</b><span>Tell us what you need help with and where you are.</span></div></div>
-    <div class="astep"><span class="n">2</span><div><b>Compare firms near you</b><span>See real Google ratings, reviews and services side by side.</span></div></div>
-    <div class="astep"><span class="n">3</span><div><b>Call or send a message</b><span>Contact a firm directly, or use Request a Consultation and we&rsquo;ll pass your inquiry on.</span></div></div>
-  </div>
-  <p class="about-fine">LawDB is an independent directory. We are not a law firm, we do not give legal advice, and we are not affiliated with the firms we list. Ratings are a snapshot of public Google data and may have changed.</p>
-</section>
-
-
-<div class="firms-divider" id="for-firms"><span>For law firms</span></div>
-<div class="lwa-sec">
-<h2 class="lwa-h">How a Featured listing gets found</h2>
-<p class="lwa-lede">As a client types what they need and where, LawDB suggests matching firms. Here is where a Featured firm lands.</p>
-<section class="lwa lwa--search lwa--fast" data-steps='[{"t":"A client searches","p":"Someone who needs a lawyer types what they need and where they are, or taps a practice area and a city."},{"t":"LawDB suggests matching firms","p":"As they type, a dropdown lists the firms that match. A free listing is included, ranked by its Google rating."},{"t":"Featured goes first","p":"A Featured firm is listed above standard ones for your practice area and city, with a gold Featured badge. It also gets a gold pin on the map and a spot in the Featured Partners strip."},{"t":"They contact you","p":"The first firm people see is the first firm they call or visit."}]'>
-<div class="lwa-stage" data-s="1" role="img" aria-label="Illustration: a client types a search, LawDB suggests matching firms, and a Featured firm is listed first">
- <div class="lwa-page">
-  <div class="lwa-q"><span class="lwa-typed">personal injury lawyer in Toronto</span><span class="lwa-cur"></span></div>
-  <div class="lwa-cnt">4 firms in Toronto</div>
-  <div class="lwa-list">
-   <div class="lwa-row lwa-r1"><div class="lwa-av">H</div><div class="lwa-info"><div class="lwa-nm">Harlow &amp; Reid LLP</div><div class="lwa-ds">Toronto · Personal injury</div></div></div>
-   <div class="lwa-row lwa-r2"><div class="lwa-av">M</div><div class="lwa-info"><div class="lwa-nm">Mercer Law Office</div><div class="lwa-ds">Toronto · Personal injury</div></div></div>
-   <div class="lwa-row lwa-r3"><div class="lwa-av">B</div><div class="lwa-info"><div class="lwa-nm">Bayview Legal</div><div class="lwa-ds">Toronto · Personal injury</div></div></div>
-   <div class="lwa-row lwa-you"><div class="lwa-av">Y</div><div class="lwa-info"><div class="lwa-nm">Your Firm LLP<span class="lwa-tick"><svg viewBox="0 0 12 12"><path d="M2.5 6.4 5 8.8 9.6 3.4" fill="none" stroke="#142434" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="lwa-ds">Toronto · Personal injury</div></div><span class="lwa-feat">Featured</span><div class="lwa-btns"><span class="lwa-pill p">Call</span><span class="lwa-pill">Website</span></div></div>
-  </div>
- </div>
- <div class="lwa-note">New enquiry for Your Firm LLP</div><div class="lwa-ill">Illustration</div>
-</div>
-<div class="lwa-cap" aria-live="polite"><h3></h3><p></p></div><div class="lwa-ctl"><div class="lwa-steps"></div><button class="lwa-pp" type="button">Pause</button></div>
-</section>
-</div>
+<section class="how" aria-labelledby="howH"><div class="how-in"><p class="eyebrow">How it works</p><h2 id="howH">Three steps to the right lawyer</h2><div class="how-steps">
+  <article class="how-step"><span class="how-num">1</span><h3>Tell us what you need</h3><p>Search in your own words, or pick a case type and a city.</p></article>
+  <article class="how-step"><span class="how-num">2</span><h3>Compare the firms</h3><p>Each listing shows its Google rating, review count, practice areas and address.</p></article>
+  <article class="how-step"><span class="how-num">3</span><h3>Call or visit</h3><p>Call straight from a card, or open the profile for more.</p></article>
+</div></div></section>
+<section class="join-c" aria-labelledby="joinH"><div class="join-c-in"><p class="eyebrow">Free to join</p><h2 id="joinH">Find your lawyer. Stay in touch.</h2><p>Sign in free to follow firms, save their stories and see news from the firms you follow.</p><a class="join-solid" href="/account/">Sign in free</a></div></section>
+<section class="hz-firms" aria-labelledby="hzFirmsH"><div class="hz-firms-in"><p class="eyebrow">For law firms</p><h2 id="hzFirmsH">Be found by people who are searching now</h2><p>Every firm on LawDB shows its public Google rating and review count. List your firm for free to add your photos, practice areas and contact details, or get Featured to stand out in your city.</p><div class="hz-btns"><a class="hz-solid" href="/list-your-firm">List your firm free</a><a class="hz-ghost" href="/for-firms">See how it works</a></div></div></section>
 <footer class="site-footer">
   <div class="foot-grid">
     <div>
@@ -784,6 +775,21 @@ section.citystrip{ padding:28px 20px 36px !important; }
   </div>
 </footer>
 
+<div class="join-sheet" id="joinSheet" hidden role="region" aria-label="Sign up">
+  <div class="join-sheet-in">
+    <div class="join-sheet-txt"><b>Find a lawyer you can trust</b><span>Sign in free to follow firms and save stories.</span></div>
+    <a class="join-sheet-btn" href="/account/">Sign in</a>
+    <button type="button" class="join-sheet-x" aria-label="Close">&times;</button>
+  </div>
+</div>
+<script>
+(function(){
+  var el=document.getElementById('joinSheet'); if(!el) return;
+  try{ if(sessionStorage.getItem('lawdb_sheet')==='closed'||localStorage.getItem('lawdb_in')==='1') return; }catch(e){}
+  el.hidden=false; document.body.classList.add('has-sheet');
+  el.querySelector('.join-sheet-x').addEventListener('click',function(){ el.hidden=true; document.body.classList.remove('has-sheet'); try{ sessionStorage.setItem('lawdb_sheet','closed'); }catch(e){} });
+})();
+</script>
 <script src="site.js" defer></script>
 <script src="lwa.js?v=2" defer></script>
 <script src="/follow.js" defer></script>

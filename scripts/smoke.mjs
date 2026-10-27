@@ -754,7 +754,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const home = await getRaw('/');
   ok(/<section class="hn" id="homeNews"(?! hidden)/.test(home.text) && /<div class="lw-bc-grid lw-feed hn-track" id="homeNewsGrid"[^>]*>\s*<article class="lw-bc/.test(home.text), 'the home page shows a short news row under the search bar (the section is un-hidden once there are articles)');
   ok(/<a class="hn-seeall" href="\/news">See all LawDB News/.test(home.text) && !home.text.includes('homeNewsMore') && (home.text.match(/<article class="lw-bc[ "]/g) || []).length <= 6, 'the row is short and ends with a link to the full LawDB News page (no long feed on the home page)');
-  ok(home.text.indexOf('id="homeNews"') > home.text.indexOf('id="heroForm"') && home.text.indexOf('id="homeNews"') < home.text.indexOf('id="cities"'), 'it sits between the search bar and the city strip');
+  ok(home.text.indexOf('id="homeNews"') > home.text.indexOf('id="heroForm"') && home.text.indexOf('id="homeNews"') > home.text.indexOf('id="cities"'), 'it sits below the search bar, after the city strip');
   ok(!home.text.includes('Find a lawyer with real reviews') && !home.text.includes('lawdb-banner'), 'the old banner is gone');
   const slice = JSON.parse((await getRaw('/api/home-news?offset=0')).text);
   ok(typeof slice.html === 'string' && slice.html.includes('<article class="lw-bc') && 'next' in slice && typeof slice.total === 'number', 'the feed slices come from /api/home-news');
@@ -837,12 +837,12 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const labels = (h) => [...h.matchAll(/<a[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]);
   for (const f of ['index.html', 'firms/torkin-manes-llp.html', 'ontario/toronto/family-lawyers.html', 'ontario/immigration-lawyers.html', 'for-firms.html']) {
     const h = pageFile(f);
-    // the home page top bar carries Log in and Sign up (not in the nav), so its menu lists only the three links, the consultation button and Contact Us
+    // the home page top bar carries one Sign in button (not in the nav), so its menu lists only the three links, the consultation button and Contact Us
     const home = f === 'index.html';
     const navWant = home ? ['Find Your Lawyer', 'LawDB News', 'For Law Firms'] : ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Request a Consultation'];
     const drawerWant = home ? ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Contact Us', 'Request a Consultation'] : ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Contact Us', 'Request a Consultation'];
-    const topBar = home ? /<div class="hdr-auth"><a class="hdr-login" href="\/account\/">Log in<\/a><a class="hdr-signup" href="\/account\/\?join=1">Sign up<\/a><\/div>/.test(h) : true;
-    ok(isDeepStrictEqual(labels(navOf(h)), navWant) && isDeepStrictEqual(labels(drawerOf(h)), drawerWant) && topBar, `${f}: the menu has three items, Sign in, Contact Us and the consultation button (Contact Us only in the hamburger menu)${home ? '; the home page top bar has Log in and Sign up' : ''}`);
+    const topBar = home ? /<div class="hdr-auth"><a class="hdr-signin" href="\/account\/">Sign in<\/a><\/div>/.test(h) : true;
+    ok(isDeepStrictEqual(labels(navOf(h)), navWant) && isDeepStrictEqual(labels(drawerOf(h)), drawerWant) && topBar, `${f}: the menu has three items, Sign in, Contact Us and the consultation button (Contact Us only in the hamburger menu)${home ? '; the home page top bar has one Sign in button' : ''}`);
     const firmsCol = (h.match(/<h4>For Law Firms<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
     ok(isDeepStrictEqual(labels(firmsCol), ['For Law Firms', 'List Your Firm (Free)', 'Get Featured', 'Manage Your Listing', 'Grow Your Practice']), `${f}: the footer's firms column has no repeats`);
     const clientsCol = (h.match(/<h4>For Clients<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
@@ -1482,7 +1482,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const acctJs = readFileSync(new URL('../account/account.js', import.meta.url), 'utf8');
     ok(acctJs.includes('Continue with Google') && acctJs.includes('Continue with LinkedIn') && acctJs.includes('social.length ? null : form') && acctJs.includes('/api/auth/${k}/start'), 'the sign-in card offers Google and LinkedIn, and shows the e-mail form only when neither is set up');
     const home = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-    ok(home.indexOf('class="citystrip"') > 0 && home.indexOf('class="citystrip"') < home.indexOf('<section class="feat-swipe">') && !/<h2>Featured Partners<\/h2>/.test(home) && home.includes('<h2>Firms to explore</h2>') && /lc-feat">Featured</.test(home), 'the homepage no longer opens with paid partners: cities come first and the strip is "Firms to explore", with each Featured firm still clearly marked');
+    ok(home.indexOf('class="top-c"') > 0 && home.indexOf('class="top-c"') < home.indexOf('class="citystrip"') && !/<h2>Featured Partners<\/h2>/.test(home) && home.includes('<h2 id="topH">Top-rated lawyers across Canada</h2>'), 'the homepage opens with the top-rated firms (not paid partners), then the city strip, and has no paid partners block');
 
     // "Use your LinkedIn photo?": the provider's profile picture is offered once, and only copied when the person says yes
     {

@@ -84,8 +84,8 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap');
   :root{
-    --ink:#142434; --ink-soft:#586170; --brass:#c9a050; --brass-deep:#8a6224;
-    --red:#c9a050; --red-deep:#8a6224; --red-tint:#f4ecd8; --red-border:#e6d4a4;
+    --ink:#142434; --ink-soft:#586170; --brass:#c9a050; --brass-deep:#e2bd6a;
+    --red:#c9a050; --red-deep:#e2bd6a; --red-tint:#f4ecd8; --red-border:#e6d4a4;
     --cream:#f5f3ec; --card:#ffffff; --line:#e3dfd3; --dark:#1b242d; --dark-2:#1b242d; --green:#2b3a4c;
   }
   *{box-sizing:border-box;}
@@ -99,7 +99,7 @@
   .site-header .mark .wordmark{ display:flex; flex-direction:column; line-height:1; }
   .site-header .mark .wordmark .name{ font-family:'Inter',sans-serif; font-size:19px; font-weight:800; letter-spacing:-0.01em; color:#142434; }
   .site-header .mark .wordmark .name .db{ color:#c9a050; }
-  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#8a6224; margin-top:2px; }
+  .site-header .mark .wordmark .tagline{ font-size:7.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#e2bd6a; margin-top:2px; }
   .brand-icon{ flex-shrink:0; display:block; }
   .site-header .header-right{ display:flex; align-items:center; gap:12px; }
   .site-header .back-link{ font-size:12px; color:#586170; text-decoration:none; white-space:nowrap; }
@@ -189,9 +189,9 @@
     .site-header .mark .wordmark .tagline{ font-size:8.5px; }
     .desktop-nav{ display:flex; align-items:center; }
     .desktop-nav a{ font-size:15.5px; font-weight:600; color:#142434; text-decoration:none; white-space:nowrap; margin-right:30px; display:inline-block; }
-    .desktop-nav a:hover{ color:#8a6224; }
+    .desktop-nav a:hover{ color:#e2bd6a; }
     .desktop-nav .nav-cta{ background:#c9a050; color:#142434; padding:12px 24px; border-radius:5px; font-weight:700; margin-right:0; font-size:15px; }
-    .desktop-nav .nav-cta:hover{ color:#ffffff; background:#8a6224; }
+    .desktop-nav .nav-cta:hover{ color:#142434; background:#e2bd6a; }
     .hamburger-btn{ display:none; }
   }
 
@@ -300,12 +300,12 @@
             status.textContent = 'Message sent \u2014 Jessie S. Brar Criminal Defence will be in touch soon.';
             form.querySelectorAll('input,textarea,button').forEach(function(el){ el.style.display='none'; });
           } else {
-            status.style.color = '#8a6224';
+            status.style.color = '#e2bd6a';
             status.textContent = 'Something went wrong. Please try again or call directly.';
             btn.disabled = false; btn.textContent = 'Send Message';
           }
         }).catch(function(){
-          status.style.color = '#8a6224';
+          status.style.color = '#e2bd6a';
           status.textContent = 'Something went wrong. Please try again or call directly.';
           btn.disabled = false; btn.textContent = 'Send Message';
         });

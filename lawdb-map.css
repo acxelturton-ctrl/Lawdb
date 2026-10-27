@@ -4,7 +4,7 @@
    Desktop: the list panel on the left and the map on the right, in one rounded card.
    Colours are the site palette only (scripts/palette.mjs). */
 
-body.gm-on{ --gm-ink:#142434; --gm-sub:#586170; --gm-line:#e3dfd3; --gm-gold:#c9a050; --gm-gold-deep:#8a6224; --gm-vis:214px; --gm-top:96px; }
+body.gm-on{ --gm-ink:#142434; --gm-sub:#586170; --gm-line:#e3dfd3; --gm-gold:#c9a050; --gm-gold-deep:#e2bd6a; --gm-vis:214px; --gm-top:96px; }
 body.gm-on .results-header,
 body.gm-on #cityRefine,
 body.gm-on #featuredStrip,
@@ -18,14 +18,14 @@ html body.gm-on .res-guides{ max-width:1440px; margin:34px auto 10px; padding:0 
 html body.gm-on .gm-head{ max-width:1440px !important; margin:0 auto !important; padding:30px 40px 0 !important; box-sizing:border-box; }
 .gm-eyebrow{
   display:flex; align-items:center; gap:12px; max-width:250px; margin:0 0 12px;
-  font:700 12px/1 'Inter',sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#8a6224;
+  font:700 12px/1 'Inter',sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#e2bd6a;
 }
 .gm-eyebrow::after{ content:''; flex:1; height:1px; background:#e6d4a4; }
 html body.gm-on .gm-head h1{
   font-family:'Source Serif 4',serif !important; font-weight:600; font-size:clamp(30px,4.4vw,44px) !important; line-height:1.08;
   letter-spacing:-.015em; color:#142434 !important; margin:0 0 10px !important; text-wrap:balance;
 }
-.gm-head h1 em{ font-style:italic; font-weight:500; color:#8a6224; }
+.gm-head h1 em{ font-style:italic; font-weight:500; color:#e2bd6a; }
 html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color:#586170 !important; margin:0 !important; max-width:66ch; }
 @media (max-width:899px){
   body.gm-on{ --gm-top:72px; }
@@ -66,7 +66,7 @@ html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color
 .gm-x:hover{ background:#f5f3ec; }
 .gm-filter{
   flex:none; display:grid; place-items:center; width:44px; height:38px; margin-left:4px; padding:0; border:0; border-left:1px solid #e3dfd3; border-radius:0;
-  background:none; color:#8a6224; cursor:pointer;
+  background:none; color:#e2bd6a; cursor:pointer;
 }
 .gm-filter:hover{ color:#142434; }
 .gm-top.searching{ z-index:30; }
@@ -97,11 +97,11 @@ html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color
   box-shadow:0 1px 2px rgba(20,36,52,0.06);
 }
 .gm-chip svg{ flex-shrink:0; }
-.gm-chip.on{ background:#8a6224; border-color:#8a6224; color:#fff; box-shadow:0 4px 10px -4px rgba(138,98,36,0.55); }
+.gm-chip.on{ background:#e2bd6a; border-color:#e2bd6a; color:#142434; box-shadow:0 4px 10px -4px rgba(226,189,106,0.55); }
 .gm-chip.on::before{ content:"\2713"; font-size:12px; font-weight:700; }
 .gm-chip-sep{ flex-shrink:0; width:1px; background:#e3dfd3; margin:8px 4px; }
 @media (hover:hover){ .gm-chip:not(.on):hover{ border-color:#c9a050; background:#f4ecd8; } }
-.gm-chip:focus-visible, .gm-filter:focus-visible, .gm-x:focus-visible, .gm-zbtn:focus-visible, .gm-loc:focus-visible, .gm-area:focus-visible, .gm-sortbtn:focus-visible{ outline:2px solid #8a6224; outline-offset:2px; }
+.gm-chip:focus-visible, .gm-filter:focus-visible, .gm-x:focus-visible, .gm-zbtn:focus-visible, .gm-loc:focus-visible, .gm-area:focus-visible, .gm-sortbtn:focus-visible{ outline:2px solid #e2bd6a; outline-offset:2px; }
 @media (max-width:899px){
   .gm-top{ width:auto; margin:14px 0 0; padding:0 20px; flex-direction:column; align-items:stretch; gap:10px; }
   .gm-search{ height:50px; }
@@ -153,7 +153,7 @@ html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color
 }
 @media (hover:hover){ .gm-zbtn:hover, .gm-loc:hover{ background:#f5f3ec; } }
 .gm-loc.busy svg{ animation:gm-pulse 1s ease-in-out infinite; }
-.gm-loc.on svg path, .gm-loc.on svg circle{ stroke:#8a6224; }
+.gm-loc.on svg path, .gm-loc.on svg circle{ stroke:#e2bd6a; }
 @keyframes gm-pulse{ 50%{ opacity:.35; } }
 
 .gm-toast{
@@ -177,7 +177,7 @@ html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color
 .gm-phead b{ display:block; font-family:'Source Serif 4',serif; font-size:21px; line-height:1.15; font-weight:600; letter-spacing:-.005em; }
 .gm-phead small{ display:block; font-size:12.5px; color:var(--gm-sub); margin-top:3px; }
 .gm-pgno{ white-space:nowrap; }
-.gm-phead small button{ background:none; border:0; padding:0; color:#8a6224; font-size:inherit; font-weight:600; cursor:pointer; }
+.gm-phead small button{ background:none; border:0; padding:0; color:#e2bd6a; font-size:inherit; font-weight:600; cursor:pointer; }
 .gm-sortwrap{ position:relative; flex-shrink:0; }
 .gm-sortbtn{
   height:38px; padding:0 14px; border:1px solid #e3dfd3; background:#fff; border-radius:19px; font-size:13.5px; font-weight:500; cursor:pointer;
@@ -210,7 +210,7 @@ html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color
 @media (hover:hover){ .gm-item:hover{ border-color:var(--gm-gold); } }
 .gm-i-main{ min-width:0; }
 .gm-go{ align-self:center; color:#8a919b; transition:transform .15s, color .15s; }
-@media (hover:hover){ .gm-item:hover .gm-go{ color:#8a6224; transform:translateX(2px); } }
+@media (hover:hover){ .gm-item:hover .gm-go{ color:#e2bd6a; transform:translateX(2px); } }
 .gm-i-badge{
   display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:700; color:var(--gm-gold-deep);
   background:#f4ecd8; border:1px solid #e6d4a4; border-radius:10px; padding:2px 8px 2px 4px; margin-bottom:5px;
@@ -233,7 +233,7 @@ html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color
 .gm-i-addr span{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .gm-i-hours{ font-size:13.5px; margin-top:2px; color:var(--gm-sub); }
 .gm-i-hours .o{ color:#2b3a4c; font-weight:600; }
-.gm-i-hours .c{ color:#8a6224; font-weight:600; }
+.gm-i-hours .c{ color:#e2bd6a; font-weight:600; }
 .gm-i-thumb{ width:58px; height:58px; border-radius:14px; overflow:hidden; align-self:start; position:relative; display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid var(--gm-line); }
 .gm-i-thumb img{ width:100%; height:100%; object-fit:contain; padding:6px; }
 .gm-i-thumb.mono{ border:0; background:#2b3a4c; color:#c9a050; font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:21px; letter-spacing:.02em; }
@@ -241,17 +241,17 @@ html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color
 .gm-i-acts{ grid-column:1 / -1; display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; position:relative; z-index:2; }
 .gm-act{
   display:inline-flex; align-items:center; justify-content:center; gap:6px; height:36px; padding:0 14px; border-radius:18px;
-  border:1px solid #e3dfd3; background:#fff; color:#8a6224; font-size:13.5px; font-weight:600; text-decoration:none; cursor:pointer;
+  border:1px solid #e3dfd3; background:#fff; color:#e2bd6a; font-size:13.5px; font-weight:600; text-decoration:none; cursor:pointer;
 }
 .gm-act.pri{ background:#c9a050; border-color:#c9a050; color:#142434; }
 .gm-act svg{ flex-shrink:0; }
-@media (hover:hover){ .gm-act:hover{ background:#f5f3ec; } .gm-act.pri:hover{ background:#8a6224; border-color:#8a6224; color:#fff; } }
+@media (hover:hover){ .gm-act:hover{ background:#f5f3ec; } .gm-act.pri:hover{ background:#e2bd6a; border-color:#e2bd6a; color:#142434; } }
 
 /* ---------------------------------------------------- selected firm */
 .gm-sel{ border-bottom:8px solid #edeae1; background:#fff; }
 .gm-sel[hidden]{ display:none; }
 .gm-sel-bar{ display:flex; align-items:center; gap:6px; padding:8px 8px 0 8px; }
-.gm-sel-back{ display:inline-flex; align-items:center; gap:6px; height:36px; padding:0 10px 0 6px; border:0; background:none; border-radius:18px; color:#8a6224; font-size:13.5px; font-weight:600; cursor:pointer; }
+.gm-sel-back{ display:inline-flex; align-items:center; gap:6px; height:36px; padding:0 10px 0 6px; border:0; background:none; border-radius:18px; color:#e2bd6a; font-size:13.5px; font-weight:600; cursor:pointer; }
 .gm-sel .gm-item{ margin:0; border:0; border-radius:0; background:#fff; box-shadow:none; padding:6px 16px 14px; grid-template-columns:72px minmax(0,1fr); cursor:default; }
 .gm-sel .gm-i-thumb{ width:72px; height:72px; border-radius:16px; font-size:26px; }
 .gm-sel .gm-i-name{ font-size:20px; }

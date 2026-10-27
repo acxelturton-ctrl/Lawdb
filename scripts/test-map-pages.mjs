@@ -55,7 +55,7 @@ ok(noHero.length === 0 && odd.length === 0, `every city and province page has on
 
 // the basemap is OpenFreeMap's "bright" style, drawn like Google Maps; the page only hides its points of interest and no longer repaints it
 ok(js.includes("styles/bright") && !js.includes("styles/liberty") && !/var P = \{/.test(js) && js.includes("/^poi|^airport|aeroway/.test(l.id)"), "the basemap is the bright style with its points of interest hidden, and the page no longer repaints it");
-ok(/'circle-color': '#8a6224'/.test(js) && /'circle-stroke-color': '#ffffff'/.test(js) && /'text-color': '#ffffff'/.test(js), 'clusters are dark gold (white numbers reach 5.4:1) with a white ring');
+ok(/'circle-color': '#e2bd6a'/.test(js) && /'circle-stroke-color': '#ffffff'/.test(js) && /'firm-cluster-count'[^\n]*'text-color': '#142434'/.test(js), 'clusters are the logo gold with navy numbers (8.8:1) and a white ring');
 
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }
 console.log('All checks passed');

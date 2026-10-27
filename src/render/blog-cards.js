@@ -18,7 +18,7 @@ export const BLOG_CSS = `<style>
 .lw-bc h3 a{color:inherit;text-decoration:none}.lw-bc h3 a:hover{text-decoration:underline}
 .lw-bc p{margin:0;font-size:13.5px;line-height:1.55;color:#2b3a4c}
 .lw-bc details{margin-top:2px}
-.lw-bc summary{cursor:pointer;color:#8a6224;font-weight:700;font-size:12.5px;list-style:none;padding:2px 0}
+.lw-bc summary{cursor:pointer;color:#e2bd6a;font-weight:700;font-size:12.5px;list-style:none;padding:2px 0}
 .lw-bc summary::-webkit-details-marker{display:none}
 .lw-bc summary::after{content:' \\25BE'}.lw-bc details[open] summary::after{content:' \\25B4'}
 .lw-bc details[open] summary{margin-bottom:6px}

@@ -42,7 +42,7 @@ export const mailInBackground = (env, exec, message) =>
   );
 
 const button = (link, label) =>
-  `<p><a href="${esc(link)}" style="background:#8a6224;color:#fff;padding:12px 20px;border-radius:6px;text-decoration:none;display:inline-block">${esc(label)}</a></p>`;
+  `<p><a href="${esc(link)}" style="background:#e2bd6a;color:#142434;padding:12px 20px;border-radius:6px;text-decoration:none;display:inline-block">${esc(label)}</a></p>`;
 const small = (text) => `<p style="color:#586170;font-size:13px">${esc(text)}</p>`;
 
 export function loginEmail(link) {

@@ -36,5 +36,14 @@ ok(noLi.includes('data-profiles') && noLi.includes('linkedin.com/search/results'
 const hostile = renderFirmPage({ firm: { ...firm, social: { x: 'https://x.com/a"><script>alert(1)</script>' } } });
 ok(!hostile.includes('<script>alert(1)') && !hostile.includes('data-profiles'), 'a hostile address is refused, not injected');
 
+// Offices: every office is listed with its address as a link to directions, and the by-appointment note shows; a firm with no offices gets no section.
+const withOffices = renderFirmPage({ firm: { name: 'Foo Law', city: 'Surrey', province: 'BC', address: '1 Main St, Surrey, BC V3S 1A1', offices: [{ name: 'Surrey', address: '1 Main St, Surrey, BC V3S 1A1' }, { name: 'Vancouver', address: '#1300 - 1500 West Georgia Street, Vancouver, BC V6G 2Z6' }], appointmentOnly: true, slug: 'foo-law', type: 'mono' }, hours: null, images: [], posts: [], nearby: [], origin: 'https://lawdb.ca', stats: null });
+const officeBlock = (withOffices.match(/<section class="offices"[\s\S]*?<\/section>/) || [''])[0];
+ok(officeBlock.includes('<span class="office-name">Vancouver</span>') && (officeBlock.match(/<li>/g) || []).length === 2, 'both offices are listed under Offices');
+ok((officeBlock.match(/href="https:\/\/www\.google\.com\/maps\/dir\/\?api=1&amp;destination=/g) || []).length === 2, 'each office address is a link to directions');
+ok(officeBlock.includes('All offices are by appointment only.'), 'the by-appointment note shows under the offices');
+const noOffices = renderFirmPage({ firm: { name: 'Bar Law', city: 'Surrey', province: 'BC', address: '2 Main St, Surrey, BC V3S 1A1', slug: 'bar-law', type: 'mono' }, hours: null, images: [], posts: [], nearby: [], origin: 'https://lawdb.ca', stats: null });
+ok(!noOffices.includes('<section class="offices"'), 'a firm with no offices gets no Offices section');
+
 if (bad) { console.log(`\n${bad} FAILED`); process.exit(1); }
 console.log('\nprofile checks passed');

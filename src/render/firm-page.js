@@ -158,6 +158,7 @@ function practiceHtml(f, cards) {
 }
 
 const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#586170}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
+const OFFICES_CSS = '<style>.offices{margin:22px 0}.offices h2{font-size:18px;margin:0 0 10px}.offices ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;line-height:1.5}.offices li{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.offices .office-name{font-weight:700;color:#142434}.offices a{color:#142434;text-decoration:underline;text-decoration-color:#c9a050;text-underline-offset:3px}.offices a:hover{text-decoration-color:#142434}.offices-note{margin:10px 0 0;font-size:14px;color:#586170}</style>';
 const IMG_ID = /^[0-9a-f]{24}$/;
 
 // Facts the firm's own website states (see src/lib/details.js): shown as a plain list, never as claims of our own.
@@ -173,6 +174,18 @@ function glanceHtml(f) {
     d.areas ? row('Areas of law listed', `<ul>${d.areas.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>`) : '',
   ].filter(Boolean);
   return rows.length ? `\n    <section class="glance" aria-label="${esc(f.name)} at a glance"><h2>At a glance</h2><dl>${rows.join('')}</dl></section>` : '';
+}
+
+// Every office of the firm, each address a link to directions. Shown only when the record has offices (most firms have one address).
+function officesHtml(f) {
+  const offices = (Array.isArray(f.offices) ? f.offices : []).filter((o) => o && typeof o.address === 'string' && o.address.trim()).slice(0, 8);
+  if (!offices.length) return '';
+  const items = offices.map((o) => {
+    const dir = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(o.address.trim()).replace(/%20/g, '+')}`;
+    return `<li>${o.name ? `<span class="office-name">${esc(o.name)}</span>` : ''}<a href="${esc(dir)}" target="_blank" rel="noopener">${esc(o.address.trim())}</a></li>`;
+  }).join('');
+  const note = f.appointmentOnly ? '<p class="offices-note">All offices are by appointment only.</p>' : '';
+  return `\n    <section class="offices" aria-label="${esc(f.name)} offices"><h2>Offices</h2><ul>${items}</ul>${note}</section>`;
 }
 
 // "199 Bay St #5300, Toronto, ON M5L 1B9" -> street, and postal code, the way schema.org wants them.
@@ -270,9 +283,9 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
     `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
-    C.STYLE + PHOTO_CSS + GLANCE_CSS + (f.block && f.block.image ? BLOCK_CSS : '') + (stats?.rank || (stats?.practice || []).length ? RANK_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
+    C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (f.block && f.block.image ? BLOCK_CSS : '') + (stats?.rank || (stats?.practice || []).length ? RANK_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm">\n  ' + C.HEADER,
-    '  <div class="wrap">\n    ' + card + rankHtml(f, stats?.rank) + aboutHtml + profilesHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + practiceHtml(f, cards) + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap">\n    ' + card + officesHtml(f) + rankHtml(f, stats?.rank) + aboutHtml + profilesHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + practiceHtml(f, cards) + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     '    ' + fill(C.LEAD_SLIM, toks),
     carousel(f, nearby),
     '\n\n    ' + leadScript,

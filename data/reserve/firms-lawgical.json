@@ -35,6 +35,8 @@
         "name": "Vancouver",
         "address": "#1300 - 1500 West Georgia Street, Vancouver, BC V6G 2Z6"
       }
-    ]
+    ],
+    "heroImage": "images/hero/lawgical-law-corporation-surrey.webp",
+    "heroPos": "center 25%"
   }
 ]

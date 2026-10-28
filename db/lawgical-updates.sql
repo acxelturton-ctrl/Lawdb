@@ -7,3 +7,5 @@ UPDATE firms SET data = json_set(data, '$.phone', '+17785983785'), updated_at = 
 UPDATE firms SET data = json_set(data, '$.website', 'https://lawgicalcorp.com'), updated_at = datetime('now') WHERE slug = 'lawgical-law-corporation-surrey' AND json_extract(data, '$.website') IS NULL;
 -- Both offices, each address linked to directions on the profile. All offices are by appointment only.
 UPDATE firms SET data = json_set(data, '$.offices', json('[{"name":"Surrey","address":"5455 152 St #208, Surrey, BC V3S 5A5"},{"name":"Vancouver","address":"#1300 - 1500 West Georgia Street, Vancouver, BC V6G 2Z6"}]'), '$.appointmentOnly', json('true')), updated_at = datetime('now') WHERE slug = 'lawgical-law-corporation-surrey' AND json_extract(data, '$.offices') IS NULL;
+-- Cover: the team photo the firm sent in (images/hero/lawgical-law-corporation-surrey.webp), cropped so the three faces stay in the banner.
+UPDATE firms SET data = json_set(data, '$.heroImage', 'images/hero/lawgical-law-corporation-surrey.webp', '$.heroPos', 'center 25%'), updated_at = datetime('now') WHERE slug = 'lawgical-law-corporation-surrey' AND json_extract(data, '$.heroImage') IS NULL;

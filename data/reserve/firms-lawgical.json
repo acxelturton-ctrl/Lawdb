@@ -1,0 +1,40 @@
+[
+  {
+    "name": "Lawgical Law Corporation",
+    "city": "Surrey",
+    "featured": false,
+    "tags": [
+      "Immigration",
+      "Family Law",
+      "Wills & Estates"
+    ],
+    "caseTypes": [
+      "immigration",
+      "family",
+      "wills"
+    ],
+    "region": "bc-fraser",
+    "province": "BC",
+    "lat": null,
+    "lng": null,
+    "address": "5455 152 St #208, Surrey, BC V3S 5A5",
+    "phone": null,
+    "rating": null,
+    "count": null,
+    "slug": "lawgical-law-corporation-surrey",
+    "website": null,
+    "type": "mono",
+    "about": null,
+    "appointmentOnly": true,
+    "offices": [
+      {
+        "name": "Surrey",
+        "address": "5455 152 St #208, Surrey, BC V3S 5A5"
+      },
+      {
+        "name": "Vancouver",
+        "address": "#1300 - 1500 West Georgia Street, Vancouver, BC V6G 2Z6"
+      }
+    ]
+  }
+]

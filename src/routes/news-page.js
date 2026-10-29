@@ -16,11 +16,13 @@ export const getSetting = async (env, key, fallback = '') => {
 
 // A firm's posts show on News unless an admin held it to its own page (page_only); Featured firms always show.
 const VISIBLE = `FROM firm_posts p JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live' AND (ff.page_only = 0 OR f.featured = 1)`;
+// LawDB News lists articles that have their own picture only, so the counts and the firm list match the cards on the page.
+const PHOTO = "p.image_url IS NOT NULL AND p.image_url != ''";
 export const PER_FIRM = 3; // in the all-firms view, so one busy blog never fills the page
 export const SHOWN = 60;
 
 async function loadPosts(env, featuredOnly, firm = '') {
-  const where = [featuredOnly ? 'f.featured = 1' : '', firm ? 'p.firm_slug = ?' : ''].filter(Boolean);
+  const where = [PHOTO, featuredOnly ? 'f.featured = 1' : '', firm ? 'p.firm_slug = ?' : ''].filter(Boolean);
   const stmt = env.DB.prepare(
     `SELECT p.id, p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, ff.source AS source, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo, json_extract(f.data, '$.website') AS website
      ${VISIBLE} ${where.length ? 'WHERE ' + where.join(' AND ') : ''}
@@ -39,7 +41,7 @@ async function loadPosts(env, featuredOnly, firm = '') {
 
 // Every firm that has articles on the page (for the filter and the "firms writing here" strip), and the totals.
 async function loadFirms(env, featuredOnly) {
-  const where = featuredOnly ? 'WHERE f.featured = 1' : '';
+  const where = `WHERE ${PHOTO}${featuredOnly ? ' AND f.featured = 1' : ''}`;
   const [{ results }, totals] = await Promise.all([
     env.DB.prepare(`SELECT p.firm_slug AS slug, json_extract(f.data, '$.name') AS name, json_extract(f.data, '$.src') AS logo, MAX(p.published_at) AS latest ${VISIBLE} ${where} GROUP BY p.firm_slug ORDER BY name`).all(),
     env.DB.prepare(`SELECT COUNT(*) AS articles, MAX(p.published_at) AS latest ${VISIBLE} ${where}`).first(),

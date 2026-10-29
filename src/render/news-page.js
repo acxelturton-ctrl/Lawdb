@@ -73,7 +73,7 @@ a.news-step:hover{border-color:#c9a050}
 .news-main .lw-feed .lw-bc-act{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px 8px;margin-top:10px;border-top:1px solid #edeae1}
 .news-main .lw-feed .lw-bc-act .lw-go{position:static;transform:none;width:auto;height:auto;padding:8px 14px;background:#142434;color:#fff;border-radius:999px;font-size:13px;font-weight:700;text-decoration:none}
 .news-main .lw-feed .lw-bc-act .lw-go::after{content:none}
-.news-main .lw-feed .lw-bc-act .lw-sbtn{padding:8px 14px;border-radius:999px;border:1px solid #c9d0da;background:#fff;color:#142434;font-size:13px;font-weight:700;cursor:pointer}
+.news-main .lw-feed .lw-bc-act .lw-sbtn{padding:8px 14px;border-radius:999px;border:1px solid #e3dfd3;background:#fff;color:#142434;font-size:13px;font-weight:700;cursor:pointer}
 .news-empty{background:#fff;border:1px solid #e3dfd3;border-radius:12px;padding:26px;max-width:680px;color:#2b3a4c;font-size:17px;line-height:1.55}
 .news-cta{margin:clamp(24px,3vw,48px) 0 0;background:#f4ecd8;border-block:1px solid #e6d4a4;padding:clamp(22px,3vw,44px) clamp(16px,4vw,72px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
 .news-cta b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(22px,2.4vw,34px);margin-bottom:4px}

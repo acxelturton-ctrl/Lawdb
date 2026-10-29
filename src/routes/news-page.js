@@ -24,7 +24,7 @@ export const SHOWN = 60;
 async function loadPosts(env, featuredOnly, firm = '') {
   const where = [PHOTO, featuredOnly ? 'f.featured = 1' : '', firm ? 'p.firm_slug = ?' : ''].filter(Boolean);
   const stmt = env.DB.prepare(
-    `SELECT p.id, p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, ff.source AS source, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo, json_extract(f.data, '$.website') AS website
+    `SELECT p.id, p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, ff.source AS source, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo, json_extract(f.data, '$.website') AS website, f.city AS city, f.province AS province
      ${VISIBLE} ${where.length ? 'WHERE ' + where.join(' AND ') : ''}
      ORDER BY p.published_at DESC, p.id DESC LIMIT ${firm ? SHOWN : 600}`
   );

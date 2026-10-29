@@ -49,7 +49,7 @@ export const isPracticeType = (t) => Object.prototype.hasOwnProperty.call(PRACTI
 export async function loadCandidates(env) {
   const { results } = await env.DB.prepare(
     `SELECT p.id, p.firm_slug AS firmSlug, json_extract(f.data, '$.name') AS firmName, f.featured AS featured, ff.source AS source,
-            p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo, json_extract(f.data, '$.website') AS website,
+            p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, json_extract(f.data, '$.src') AS logo, json_extract(f.data, '$.website') AS website, f.city AS city, f.province AS province,
             f.rating AS rating, f.review_count AS reviewCount, f.about AS about,
             (json_extract(f.data, '$.details') IS NOT NULL) AS hasDetails, (json_extract(f.data, '$.src') IS NOT NULL) AS hasLogo,
             (json_extract(f.data, '$.heroImage') IS NOT NULL) AS hasCover, (f.hours IS NOT NULL) AS hasHours, json_extract(f.data, '$.caseTypes') AS ct

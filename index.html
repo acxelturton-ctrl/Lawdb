@@ -390,7 +390,7 @@
   section.hn .hn-nav, section.hn .hn-chips{ display:none; }
   section.hn .hn-all{ font:600 17px Inter,sans-serif; color:#e2bd6a; text-decoration:none; white-space:normal; }
   section.hn .hn-all:hover{ text-decoration:underline; }
-  section.hn .hn-track{ display:flex; flex-direction:column; gap:12px; overflow:visible; scroll-snap-type:none; padding:2px 0 8px; }
+  section.hn .hn-track{ display:flex; flex-direction:column; gap:12px; overflow:visible; scroll-snap-type:none; padding:2px 0 8px; margin:0; }
   section.hn .hn-more{ padding:14px 0 4px; }
 
   /* "Or pick a case type" and the banner */
@@ -536,13 +536,7 @@ section.hn{max-width:1440px;margin:0 auto;padding:44px 20px 12px}
 .hn-chips button:hover{border-color:var(--brass)}
 .hn-chips button.on{background:var(--ink);border-color:var(--ink);color:#fff}
 .hn-tools{display:flex;align-items:center;gap:18px}
-.hn .lw-feed.hn-track{display:flex;grid-template-columns:none;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;padding:2px 2px 14px;transition:opacity .15s}
-.hn .hn-track::-webkit-scrollbar{display:none}
-.hn .hn-track>.lw-bc{flex:0 0 84%;max-width:340px;scroll-snap-align:start}
-@media(min-width:900px){.hn .hn-track>.lw-bc{flex:0 0 340px}}
 .hn .hn-track>.hn-end{flex:1;padding:36px 0;text-align:center}
-.hn .lw-feed .lw-bc h3{font-size:19px}.hn .lw-feed .lw-bc p{font-size:15px}
-.hn .lw-feed .lw-bc-img{aspect-ratio:16/10}
 .hn-more{display:flex;justify-content:center;padding:18px 0 8px}
 .hn-seeall{display:inline-block;background:var(--ink);color:#fff;border-radius:999px;padding:14px 30px;font:700 16px Inter,sans-serif;text-decoration:none}
 .hn-seeall:hover{background:var(--brass-deep)}

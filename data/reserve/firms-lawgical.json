@@ -21,7 +21,7 @@
     "phone": "+17785983785",
     "rating": 5,
     "count": 120,
-    "slug": "lawgical-law-corporation-surrey",
+    "slug": "lawgical-law-corporation",
     "website": "https://lawgicalcorp.com",
     "type": "mono",
     "about": null,
@@ -36,7 +36,7 @@
         "address": "#1300 - 1500 West Georgia Street, Vancouver, BC V6G 2Z6"
       }
     ],
-    "heroImage": "images/hero/lawgical-law-corporation-surrey.webp",
+    "heroImage": "images/hero/lawgical-law-corporation.webp",
     "heroPos": "center 25%"
   }
 ]

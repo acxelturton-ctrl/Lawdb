@@ -2,6 +2,7 @@ import { json, cached, clampInt, HttpError, isEmail } from '../lib/http.js';
 import { mailInBackground, leadEmail, reportEmail } from '../lib/email.js';
 import { sha256Hex } from '../lib/crypto.js';
 import { adminEmails } from '../lib/auth.js';
+import { PRACTICE } from '../lib/practice.js';
 
 export async function listFirms({ url, env }) {
   const p = url.searchParams;
@@ -23,6 +24,12 @@ export async function listFirms({ url, env }) {
     `ORDER BY featured DESC, rating DESC, review_count DESC, name LIMIT ? OFFSET ?`;
   const { results } = await env.DB.prepare(sql).bind(...args, limit, offset).all();
   return cached(results.map((r) => JSON.parse(r.data)));
+}
+
+// The live numbers for the sign-in page: how many firms, cities and provinces are listed, and how many practice areas the site covers.
+export async function totals({ env }) {
+  const row = await env.DB.prepare("SELECT COUNT(*) AS firms, COUNT(DISTINCT province || '|' || city) AS cities, COUNT(DISTINCT province) AS provinces FROM firms WHERE status = 'live'").first();
+  return cached({ firms: row.firms, cities: row.cities, provinces: row.provinces, practiceAreas: Object.keys(PRACTICE).length }, 300);
 }
 
 export async function getFirm({ params, env }) {

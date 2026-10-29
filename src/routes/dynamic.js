@@ -58,16 +58,16 @@ const INLINE_FIRMS = /^const firms = \[.*\];$/gm;
 // The numbers in the file are the fallback; when the database answers, the page shows today's count, so a firm that lists itself or a batch
 // that is released never leaves a stale number behind.
 async function liveStats(env) {
-  const total = await env.DB.prepare("SELECT COUNT(*) AS firms, COUNT(DISTINCT province || '|' || city) AS cities FROM firms WHERE status = 'live'").first();
+  const total = await env.DB.prepare("SELECT COUNT(*) AS firms, COUNT(DISTINCT province || '|' || city) AS cities, COUNT(DISTINCT province) AS provinces FROM firms WHERE status = 'live'").first();
   const { results } = await env.DB.prepare("SELECT province || '|' || city AS k, COUNT(*) AS n FROM firms WHERE status = 'live' GROUP BY 1").all();
-  return { firms: total.firms, cities: total.cities, byCity: Object.fromEntries(results.map((r) => [r.k, r.n])) };
+  return { firms: total.firms, cities: total.cities, provinces: total.provinces, byCity: Object.fromEntries(results.map((r) => [r.k, r.n])) };
 }
 const withLiveStats = async (html, stats) => {
   const num = (n) => Number(n).toLocaleString('en-CA');
   return new HTMLRewriter().on('[data-live]', {
     element(el) {
       const k = el.getAttribute('data-live');
-      const v = k === 'firms' ? stats.firms : k === 'cities' ? stats.cities : k.startsWith('city:') ? stats.byCity[k.slice(5)] : undefined;
+      const v = k === 'firms' ? stats.firms : k === 'cities' ? stats.cities : k === 'provinces' ? stats.provinces : k.startsWith('city:') ? stats.byCity[k.slice(5)] : undefined;
       if (v !== undefined) el.setInnerContent(num(v));
     },
   }).transform(new Response(html)).text();

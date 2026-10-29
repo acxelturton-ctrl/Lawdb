@@ -54,6 +54,7 @@ const ROUTES = [
   }),
 
   route('GET', '/api/firms', pub.listFirms),
+  route('GET', '/api/totals', pub.totals),
   route('GET', '/api/firms/:slug', pub.getFirm),
   route('GET', '/api/blog', pub.listBlog),
   route('GET', '/api/home-news', homeNews.homeNewsApi),

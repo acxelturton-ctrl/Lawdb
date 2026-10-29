@@ -17,7 +17,7 @@ ok(/<meta name="robots" content="noindex,follow">/.test(renderStoryPage({ post, 
 
 const firms = Array.from({ length: 90 }, (_, i) => ({ slug: `firm-${i}`, name: `Firm ${i}`, logo: null, latest: `2026-01-${String(1 + (i % 28)).padStart(2, '0')}` }));
 const posts = [{ firmSlug: 'firm-1', firmName: 'Firm 1', featured: false, indexable: false, logo: null, title: 'Hello world article', url: 'https://f1.example/hello', publishedAt: '2026-01-05', excerpt: 'Preview text.', image: '', storyHref: '/news/firm-1/hello-world-article-1', id: 1 },
-  { firmSlug: 'firm-2', firmName: 'Firm 2', featured: true, indexable: true, logo: null, title: 'Featured article here', url: 'https://f2.example/a', publishedAt: '2026-01-04', excerpt: 'Preview text.', image: '', storyHref: '/news/firm-2/featured-article-here-2', id: 2 }];
+  { firmSlug: 'firm-2', firmName: 'Firm 2', featured: true, indexable: true, logo: null, title: 'Featured article here', url: 'https://f2.example/a', publishedAt: '2026-01-04', excerpt: 'Preview text.', image: 'https://f2.example/a.jpg', storyHref: '/news/firm-2/featured-article-here-2', id: 2 }];
 const html = renderNewsPage({ posts, firms, people: firms.slice(0, 15), stats: { firms: 90, articles: 400, latest: '2026-01-05' } });
 ok((html.match(/<option value="firm-/g) || []).length === 90 && html.includes('All 90 firms'), 'the filter lists every firm that writes');
 ok((html.match(/class="news-people"[\s\S]*?<\/div>/)[0].match(/<a href="\/news\?firm=/g) || []).length === 15 && html.includes('and 75 more'), 'the "firms writing here" grid shows 15 and says how many more');

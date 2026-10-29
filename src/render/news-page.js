@@ -57,25 +57,23 @@ a.news-step:hover{border-color:#c9a050}
 .lw-by{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#142434}
 .lw-by a{color:inherit;text-decoration:none}.lw-by a:hover{text-decoration:underline}
 .lw-by .lw-ft{background:#e2bd6a;color:#142434;border-radius:999px;padding:1px 7px;font-size:10.5px;letter-spacing:.03em}
-/* the feed: a post header, then the picture on the left and the story on the right */
-.news-main .lw-feed{grid-template-columns:1fr;gap:14px}
-@media(min-width:1000px){.news-main .lw-feed{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
-.news-main .lw-feed .lw-bc{position:relative;display:grid;grid-template-columns:minmax(100px,38%) minmax(0,1fr);grid-template-areas:"head head" "img body";gap:10px 12px;align-items:start;padding:clamp(11px,1.4vw,14px);border-radius:16px;background:rgba(255,255,255,.86);box-shadow:0 12px 26px -18px rgba(20,36,52,0.5)}
-.news-main .lw-feed .lw-bc:not(:has(.lw-bc-img)){grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "body"}
-.news-main .lw-feed .lw-bc-head{grid-area:head;padding:0}
-.news-main .lw-feed .lw-av{width:clamp(30px,3vw,40px);height:clamp(30px,3vw,40px)}
-.news-main .lw-feed .lw-who .lw-by{font-size:clamp(12.5px,1.1vw,14px);font-weight:600;flex-wrap:wrap;gap:3px 8px}
-.news-main .lw-feed .lw-who time{font-size:clamp(11px,1vw,12.5px);color:#586170}
-.news-main .lw-feed .lw-bc-head .lw-fbtn{padding:4px 11px;border-radius:999px;background:#f4ecd8;color:#e2bd6a;font-size:12px}
-.news-main .lw-feed .lw-bc-img{grid-area:img;aspect-ratio:4/3;border-radius:12px}
-.news-main .lw-feed .lw-bc-in{grid-area:body;position:relative;min-width:0;padding:0 24px 0 0;gap:6px}
-.news-main .lw-feed .lw-bc:has(.lw-ft) .lw-bc-in::before{content:'Featured';font:700 9.5px/1.2 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#e2bd6a}
-.news-main .lw-feed .lw-bc h3{font:700 clamp(15.5px,1.5vw,20px)/1.28 'Source Serif 4',serif;color:#142434}
-.news-main .lw-feed .lw-bc p{font-size:clamp(12.5px,1.05vw,14px);line-height:1.5;color:#586170;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.news-main .lw-feed .lw-row{margin-top:2px}
-.news-main .lw-feed .lw-bc .lw-go{position:absolute;right:0;top:50%;transform:translateY(-50%);width:22px;height:32px;padding:0;background:none;border-radius:0;font-size:0;color:#8a919b}
-.news-main .lw-feed .lw-bc .lw-go::after{content:'\\203A';font-size:30px;line-height:30px;color:#8a919b}
-@media(hover:hover){.news-main .lw-feed .lw-bc:hover .lw-go::after{color:#e2bd6a}}
+/* the feed: one column of posts, like a professional network's feed: the firm's header, the headline and preview, the picture, then the actions */
+.news-main .lw-feed{grid-template-columns:1fr;gap:12px;max-width:620px;margin:0 auto}
+.news-main .lw-feed .lw-bc{position:relative;display:flex;flex-direction:column;padding:0 0 2px;border-radius:12px;background:#fff;border:1px solid #e3dfd3;box-shadow:none;overflow:hidden}
+.news-main .lw-feed .lw-bc-head{padding:14px 16px 0;display:flex;align-items:center;gap:12px}
+.news-main .lw-feed .lw-av{width:48px;height:48px;border-radius:50%;flex:none}
+.news-main .lw-feed .lw-who .lw-by{font-size:14px;font-weight:700;color:#142434;flex-wrap:wrap;gap:3px 8px}
+.news-main .lw-feed .lw-who time{font-size:12px;color:#586170}
+.news-main .lw-feed .lw-bc-head .lw-fbtn{margin-left:auto;padding:6px 14px;border-radius:999px;border:1px solid #142434;background:#fff;color:#142434;font-size:13px;font-weight:700}
+.news-main .lw-feed .lw-bc-in{position:relative;min-width:0;padding:10px 16px 0;gap:6px}
+.news-main .lw-feed .lw-bc:has(.lw-ft) .lw-bc-in::before{content:'Featured';font:700 9.5px/1.2 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#586170}
+.news-main .lw-feed .lw-bc h3{font:700 17px/1.35 'Inter',sans-serif;color:#142434}
+.news-main .lw-feed .lw-bc p{font-size:14px;line-height:1.5;color:#2b3a4c;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.news-main .lw-feed .lw-bc-img{display:block;aspect-ratio:16/9;border-radius:0;margin-top:12px}
+.news-main .lw-feed .lw-bc-act{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px 8px;margin-top:10px;border-top:1px solid #edeae1}
+.news-main .lw-feed .lw-bc-act .lw-go{position:static;transform:none;width:auto;height:auto;padding:8px 14px;background:#142434;color:#fff;border-radius:999px;font-size:13px;font-weight:700;text-decoration:none}
+.news-main .lw-feed .lw-bc-act .lw-go::after{content:none}
+.news-main .lw-feed .lw-bc-act .lw-sbtn{padding:8px 14px;border-radius:999px;border:1px solid #e3dfd3;background:#fff;color:#142434;font-size:13px;font-weight:700;cursor:pointer}
 .news-empty{background:#fff;border:1px solid #e3dfd3;border-radius:12px;padding:26px;max-width:680px;color:#2b3a4c;font-size:17px;line-height:1.55}
 .news-cta{margin:clamp(24px,3vw,48px) 0 0;background:#f4ecd8;border-block:1px solid #e6d4a4;padding:clamp(22px,3vw,44px) clamp(16px,4vw,72px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
 .news-cta b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(22px,2.4vw,34px);margin-bottom:4px}
@@ -118,8 +116,11 @@ const headOf = (p) => ({
 });
 
 // The cards of a feed, as HTML. With `lead`, the newest post that has a picture leads as one large card.
+// A post is shown in the feed only with its photo: a feed of pictures reads as more professional, and a card without one looks unfinished.
+const withPhoto = (p) => Boolean(p.image && safePostUrl(p.image));
+
 export function newsCardsHtml(posts, { lead = false } = {}) {
-  const shown = posts.filter((p) => safePostUrl(p.url));
+  const shown = posts.filter((p) => safePostUrl(p.url) && withPhoto(p));
   const first = lead ? shown.find((p) => p.image) || null : null;
   return (first ? [cardHtml(first, { head: headOf(first), hero: true })] : []).concat(shown.filter((p) => p !== first).map((p) => cardHtml(p, { head: headOf(p) }))).join('');
 }
@@ -132,7 +133,7 @@ const fmtDay = (d) => {
 // posts: [{ firmSlug, firmName, featured, logo, title, url, publishedAt, excerpt, image }]; firms: [{ slug, name, logo }] (people strip and filter chips)
 // stats: { firms, articles, latest } for the whole page (not just the filtered view)
 export function renderNewsPage({ posts, firms, people: strip = null, selected = '', stats = null }) {
-  const shown = posts.filter((p) => safePostUrl(p.url));
+  const shown = posts.filter((p) => safePostUrl(p.url) && withPhoto(p));
   const st = stats || { firms: firms.length, articles: shown.length, latest: shown[0]?.publishedAt || null };
   const ICON = { filter: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>',
     down: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',

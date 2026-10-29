@@ -5,6 +5,7 @@
 // in the feed, and only articles that have a picture (it is a visual feed; News has the rest). Pure functions here, the query in loadCandidates.
 import { PRACTICE } from './practice.js';
 import { dedupeSameSite, isPlaceholderTitle } from './stories.js';
+import { isBlogPhotoPost } from './post-photos.js';
 
 export const PER_FIRM = 2;
 export const FRESH_DAYS = 120;
@@ -60,6 +61,7 @@ export async function loadCandidates(env) {
   const seen = new Set();
   return dedupeSameSite(results)
     .filter((r) => !isPlaceholderTitle(r.title))
+    .filter(isBlogPhotoPost)
     .filter((r) => (seen.has(r.firmSlug + '|' + r.url) ? false : seen.add(r.firmSlug + '|' + r.url)))
     .map((r) => {
       let caseTypes = [];

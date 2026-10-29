@@ -738,13 +738,13 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const news = await getRaw('/news');
   ok(news.status === 200 && news.headers.get('x-lawdb-source') === 'database' && /<h1><span class="u">LawDB News<\/span><\/h1>/.test(news.text), 'LawDB News is built from the database');
   const nCards = (news.text.match(/<article class="lw-bc[ "]/g) || []).length;
-  ok(nCards === 6 && news.text.includes('Daniel Brown Law LLP') && news.text.includes('Achkar Law'), 'it shows cards from every firm that has its blog switched on, at most three per firm so one busy blog never fills the page');
+  ok(nCards === 4 && news.text.includes('Daniel Brown Law LLP') && news.text.includes('Achkar Law'), 'it shows cards from every firm that has its blog switched on, only articles with their own picture, at most three per firm so one busy blog never fills the page');
   const noPic = news.text.split(/<article class="lw-bc[ "]/).slice(1).filter((c) => !c.includes('class="lw-bc-img"')).length;
-  ok(noPic === 2 && (news.text.match(/class="lw-bc-img"/g) || []).length === 4 && noPic <= 3, 'posts with a picture are shown, and never more than three without');
+  ok(noPic === 0 && (news.text.match(/class="lw-bc-img"/g) || []).length === 4, 'every card has its article picture: posts without one are left out of LawDB News');
   ok(news.text.includes('class="lw-bc-grid lw-feed"') && news.text.includes('class="lw-bc-head"') && news.text.includes('/images/logos/daniel-brown-law-llp.jpg') && /class="lw-av">[A-Z]</.test(news.text), 'the News page is laid out as a feed with a post header: the firm logo, or its initial');
   ok(!/class="lw-bc lw-hero"/.test(news.text) && /<article class="lw-bc"><div class="lw-bc-head">/.test(news.text), 'every story is the same card: a post header, then the picture beside the story (no lead card)');
   ok(/<header class="news-band"><p class="news-eyebrow">News &amp; insights<\/p>/.test(news.text) && /Real stories\. Practical advice\. <em>All in one place\.<\/em>/.test(news.text) && !news.text.includes('news-drift') && !news.text.includes('news-seal'), 'the masthead is a plain cream header: eyebrow, headline and the line "Real stories. Practical advice. All in one place."');
-  ok(/<header class="news-band">/.test(news.text) && news.text.includes('class="news-steps"') && (news.text.match(/class="news-step"/g) || []).length === 3 && news.text.includes('The firms writing here') && /<b>2<\/b><span>FIRMS WRITING/.test(news.text) && /<b>10<\/b><span>RECENT ARTICLES/.test(news.text), 'the page opens with a masthead, how it works, who is writing, and real counts (firms and articles)');
+  ok(/<header class="news-band">/.test(news.text) && news.text.includes('class="news-steps"') && (news.text.match(/class="news-step"/g) || []).length === 3 && news.text.includes('The firms writing here') && /<b>2<\/b><span>FIRMS WRITING/.test(news.text) && /<b>4<\/b><span>RECENT ARTICLES/.test(news.text), 'the page opens with a masthead, how it works, who is writing, and real counts (firms and articles)');
   ok(!news.text.includes('Back to results'), 'the News page header has no stray "Back to results" link');
   ok(/Daniel Brown Law LLP<\/a><span class="lw-ft">Featured<\/span>/.test(news.text) && !/Achkar Law<\/a><span class="lw-ft">/.test(news.text), 'only Featured firms carry the Featured badge');
   ok(news.text.includes('data-story') && news.text.includes('<dialog id="story-dlg"') && news.text.includes('partial=1') && /href="\/news\/daniel-brown-law-llp\/[a-z0-9-]+-\d+"/.test(news.text) && !news.text.includes(`href="${origin}/blog/impaired"`) && !news.text.includes('evil.example') && !news.text.includes('<script>alert') && !news.text.includes('onerror=alert'), 'cards open the story over the page (its own address, Back closes it), and nothing unsafe gets in');
@@ -763,7 +763,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const emp = JSON.parse((await getRaw('/api/home-news?offset=0&type=employment')).text);
   ok(none.html === '' && none.next === null && emp.html.includes('Achkar Law') && !emp.html.includes('Daniel Brown Law LLP') && JSON.parse((await getRaw('/api/home-news?offset=0&type=__proto__')).text).total === slice.total, 'the practice-area filter keeps only that area (empty when there is none), and an unknown area is ignored');
   const only = await getRaw('/news?firm=achkar-law');
-  ok((only.text.match(/<article class="lw-bc[ "]/g) || []).length === 5 && !only.text.includes('Daniel Brown Law LLP</a><span'), 'a firm filter shows only that firm\'s cards');
+  ok((only.text.match(/<article class="lw-bc[ "]/g) || []).length === 2 &&!only.text.includes('Daniel Brown Law LLP</a><span'), 'a firm filter shows only that firm\'s cards');
   as(adminJar);
   const nAdmin = await call('GET', '/api/admin/news');
   ok(nAdmin.status === 200 && nAdmin.data.featuredOnly === false && nAdmin.data.firms.some((f) => f.slug === featSlug && f.featured && f.enabled && f.status === 'ok' && f.posts === 5), 'the admin sees which firms are on the page, and their status');

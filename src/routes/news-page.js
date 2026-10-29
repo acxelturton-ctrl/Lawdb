@@ -2,6 +2,7 @@
 import { renderNewsPage } from '../render/news-page.js';
 import { dueFeeds, refreshFirmFeed } from '../lib/feeds.js';
 import { storyPath, isIndexableStory, dedupeSameSite, isPlaceholderTitle } from '../lib/stories.js';
+import { isBlogPhotoPost } from '../lib/post-photos.js';
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -12,13 +13,6 @@ export const getSetting = async (env, key, fallback = '') => {
   const r = await env.DB.prepare('SELECT value FROM site_settings WHERE key = ?').bind(key).first();
   return r ? r.value : fallback;
 };
-
-// The page is a picture feed: every post with a picture, but only a few without one (the newest), so it never turns into a wall of text.
-export const MAX_WITHOUT_PICTURE = 3;
-export function limitWithoutPicture(posts, max = MAX_WITHOUT_PICTURE) {
-  let plain = 0;
-  return posts.filter((p) => p.image || ++plain <= max);
-}
 
 // A firm's posts show on News unless an admin held it to its own page (page_only); Featured firms always show.
 const VISIBLE = `FROM firm_posts p JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live' AND (ff.page_only = 0 OR f.featured = 1)`;
@@ -37,9 +31,10 @@ async function loadPosts(env, featuredOnly, firm = '') {
   const perFirm = new Map();
   const rows = (firm ? results : dedupeSameSite(results))
     .filter((r) => !isPlaceholderTitle(r.title))
+    .filter(isBlogPhotoPost) // a blog article with its own picture: no headshots, logos, templates or people announcements
     .filter((r) => (seen.has(r.firmSlug + '|' + r.url) ? false : seen.add(r.firmSlug + '|' + r.url)))
     .filter((r) => firm || (perFirm.set(r.firmSlug, (perFirm.get(r.firmSlug) || 0) + 1), perFirm.get(r.firmSlug) <= PER_FIRM));
-  return limitWithoutPicture(rows).slice(0, SHOWN).map((r) => ({ ...r, featured: !!r.featured, indexable: isIndexableStory(r), storyHref: storyPath(r.firmSlug, r.id, r.title) }));
+  return rows.slice(0, SHOWN).map((r) => ({ ...r, featured: !!r.featured, indexable: isIndexableStory(r), storyHref: storyPath(r.firmSlug, r.id, r.title) }));
 }
 
 // Every firm that has articles on the page (for the filter and the "firms writing here" strip), and the totals.

@@ -1,6 +1,7 @@
-// Which posts count as a blog article with its own photo. A post is left out only when its picture is clearly a headshot, logo,
-// template or social card, or its headline is a welcome, award, event or people announcement. Everything else stays, so legal
-// articles such as "Tribunal Awards $50,000" or "Spousal Sponsorship" are not caught by accident.
+// Which posts count as a high-quality blog article with its own photo. Used by LawDB News and the home strip only; a firm's profile
+// keeps every post it has. A post is left out only when its picture is clearly a headshot, logo, template or social card, or its
+// headline is a welcome, award, event or people announcement. Everything else stays, so legal articles such as "Tribunal Awards
+// $50,000" or "Spousal Sponsorship" are not caught by accident.
 
 // Matched against the lower-cased path of the picture.
 const PICTURE_NOT_ARTICLE = /(headshot|portrait|avatar|[-_/]profile|author[-_.]|our-team|meet-the|team-photo|staff-photo|logo|favicon|feature-image-socials|social-card|socials-\d|blog-bg-|thumbnail-default|default-(image|post|featured)|placeholder|image-template|template-blank|og-image)/;

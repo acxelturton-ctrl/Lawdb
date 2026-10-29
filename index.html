@@ -379,7 +379,7 @@
   .h5-stats b{ display:block; font:600 clamp(30px,8.4vw,46px)/1 'Source Serif 4',serif; color:#e2bd6a; }
   .h5-stats span{ display:block; margin-top:9px; font:600 10.5px/1.4 Inter,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#586170; text-wrap:balance; }
 
-  /* LawDB News: a list of rows, a picture on the left and an arrow on the right */
+  /* LawDB News: the same posts as the News page (the card styles are in BLOG_CSS) */
   section.hn{ max-width:1100px; margin:0 auto; padding:38px 20px 8px; }
   section.hn .hn-head{ display:block; margin:0 0 18px; }
   section.hn .hn-eyebrow{ display:flex; align-items:center; gap:14px; margin:0 0 12px; font:600 12px/1 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#e2bd6a; }
@@ -390,25 +390,8 @@
   section.hn .hn-nav, section.hn .hn-chips{ display:none; }
   section.hn .hn-all{ font:600 17px Inter,sans-serif; color:#e2bd6a; text-decoration:none; white-space:normal; }
   section.hn .hn-all:hover{ text-decoration:underline; }
-  section.hn .hn-track{ display:flex; flex-direction:column; gap:12px; overflow:visible; scroll-snap-type:none; padding:2px 0 8px; }
-  section.hn .hn-track > .lw-bc{ position:relative; flex:none; max-width:none; scroll-snap-align:none; display:grid; grid-template-columns:auto minmax(0,1fr) 24px;
-    grid-template-areas:"img kick arrow" "img title arrow" "img meta arrow"; column-gap:14px; row-gap:3px; align-items:center; align-content:center; padding:10px 14px 10px 10px;
-    background:#fff; border:1px solid #e3dfd3; border-radius:16px; box-shadow:0 4px 14px rgba(20,36,52,0.06); }
-  section.hn .lw-bc-head, section.hn .lw-bc-in, section.hn .lw-who, section.hn .lw-by{ display:contents; }
-  section.hn .lw-av, section.hn .lw-fbtn, section.hn .lw-teaser, section.hn .lw-row, section.hn .lw-more{ display:none; }
-  section.hn .lw-bc-img{ grid-area:img; align-self:center; width:104px; height:80px; aspect-ratio:auto; border-radius:10px; }
-  section.hn .lw-ft{ grid-area:kick; align-self:end; justify-self:start; padding:0; background:none; border:0; font:600 11px/1.2 Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#e2bd6a; }
-  section.hn .lw-bc h3{ grid-area:title; margin:0; font:700 17px/1.28 'Source Serif 4',serif; color:#142434; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-  section.hn .lw-bc h3 a::after{ content:''; position:absolute; inset:0; }
-  section.hn .lw-by a{ grid-area:meta; justify-self:start; position:relative; z-index:1; max-width:60%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:500 12.5px/1.3 Inter,sans-serif; color:#586170; text-decoration:none; }
-  section.hn .lw-who time{ grid-area:meta; justify-self:end; font:500 12.5px/1.3 Inter,sans-serif; letter-spacing:0; text-transform:none; color:#586170; }
-  section.hn .lw-bc::after{ content:'\2192'; grid-area:arrow; justify-self:end; font-size:20px; color:#e2bd6a; }
+  section.hn .hn-track{ display:flex; flex-direction:column; gap:12px; overflow:visible; scroll-snap-type:none; padding:2px 0 8px; margin:0; }
   section.hn .hn-more{ padding:14px 0 4px; }
-  @media(min-width:900px){
-    section.hn .hn-track{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    section.hn .lw-bc-img{ width:132px; height:96px; }
-    section.hn .lw-bc h3{ font-size:19px; }
-  }
 
   /* "Or pick a case type" and the banner */
   .hero5 ~ section.h4-cases{ padding:26px 16px 6px; }
@@ -553,13 +536,7 @@ section.hn{max-width:1440px;margin:0 auto;padding:44px 20px 12px}
 .hn-chips button:hover{border-color:var(--brass)}
 .hn-chips button.on{background:var(--ink);border-color:var(--ink);color:#fff}
 .hn-tools{display:flex;align-items:center;gap:18px}
-.hn .lw-feed.hn-track{display:flex;grid-template-columns:none;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;padding:2px 2px 14px;transition:opacity .15s}
-.hn .hn-track::-webkit-scrollbar{display:none}
-.hn .hn-track>.lw-bc{flex:0 0 84%;max-width:340px;scroll-snap-align:start}
-@media(min-width:900px){.hn .hn-track>.lw-bc{flex:0 0 340px}}
 .hn .hn-track>.hn-end{flex:1;padding:36px 0;text-align:center}
-.hn .lw-feed .lw-bc h3{font-size:19px}.hn .lw-feed .lw-bc p{font-size:15px}
-.hn .lw-feed .lw-bc-img{aspect-ratio:16/10}
 .hn-more{display:flex;justify-content:center;padding:18px 0 8px}
 .hn-seeall{display:inline-block;background:var(--ink);color:#fff;border-radius:999px;padding:14px 30px;font:700 16px Inter,sans-serif;text-decoration:none}
 .hn-seeall:hover{background:var(--brass-deep)}

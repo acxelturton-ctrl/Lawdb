@@ -57,23 +57,6 @@ a.news-step:hover{border-color:#c9a050}
 .lw-by{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#142434}
 .lw-by a{color:inherit;text-decoration:none}.lw-by a:hover{text-decoration:underline}
 .lw-by .lw-ft{background:#e2bd6a;color:#142434;border-radius:999px;padding:1px 7px;font-size:10.5px;letter-spacing:.03em}
-/* the feed: one column of posts, like a professional network's feed: the firm's header, the headline and preview, the picture, then the actions */
-.news-main .lw-feed{grid-template-columns:1fr;gap:12px;max-width:620px;margin:0 auto}
-.news-main .lw-feed .lw-bc{position:relative;display:flex;flex-direction:column;padding:0 0 2px;border-radius:12px;background:#fff;border:1px solid #e3dfd3;box-shadow:none;overflow:hidden}
-.news-main .lw-feed .lw-bc-head{padding:14px 16px 0;display:flex;align-items:center;gap:12px}
-.news-main .lw-feed .lw-av{width:48px;height:48px;border-radius:50%;flex:none}
-.news-main .lw-feed .lw-who .lw-by{font-size:14px;font-weight:700;color:#142434;flex-wrap:wrap;gap:3px 8px}
-.news-main .lw-feed .lw-who time{font-size:12px;color:#586170}
-.news-main .lw-feed .lw-bc-head .lw-fbtn{margin-left:auto;padding:6px 14px;border-radius:999px;border:1px solid #142434;background:#fff;color:#142434;font-size:13px;font-weight:700}
-.news-main .lw-feed .lw-bc-in{position:relative;min-width:0;padding:10px 16px 0;gap:6px}
-.news-main .lw-feed .lw-bc:has(.lw-ft) .lw-bc-in::before{content:'Featured';font:700 9.5px/1.2 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#586170}
-.news-main .lw-feed .lw-bc h3{font:700 17px/1.35 'Inter',sans-serif;color:#142434}
-.news-main .lw-feed .lw-bc p{font-size:14px;line-height:1.5;color:#2b3a4c;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.news-main .lw-feed .lw-bc-img{display:block;aspect-ratio:16/9;border-radius:0;margin-top:12px}
-.news-main .lw-feed .lw-bc-act{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px 8px;margin-top:10px;border-top:1px solid #edeae1}
-.news-main .lw-feed .lw-bc-act .lw-go{position:static;transform:none;width:auto;height:auto;padding:8px 14px;background:#142434;color:#fff;border-radius:999px;font-size:13px;font-weight:700;text-decoration:none}
-.news-main .lw-feed .lw-bc-act .lw-go::after{content:none}
-.news-main .lw-feed .lw-bc-act .lw-sbtn{padding:8px 14px;border-radius:999px;border:1px solid #e3dfd3;background:#fff;color:#142434;font-size:13px;font-weight:700;cursor:pointer}
 .news-empty{background:#fff;border:1px solid #e3dfd3;border-radius:12px;padding:26px;max-width:680px;color:#2b3a4c;font-size:17px;line-height:1.55}
 .news-cta{margin:clamp(24px,3vw,48px) 0 0;background:#f4ecd8;border-block:1px solid #e6d4a4;padding:clamp(22px,3vw,44px) clamp(16px,4vw,72px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
 .news-cta b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(22px,2.4vw,34px);margin-bottom:4px}
@@ -108,11 +91,15 @@ const avatarOf = (logo, name) => {
   const l = safeUrl(logo);
   return l ? `<img src="${esc(/^https:/.test(l) || l.startsWith('/') ? l : '/' + l)}" alt="" loading="lazy" width="44" height="44">` : initial(name);
 };
-// A post's header on a card: the firm's logo (or initial), its name with the Featured badge, and a Follow button.
+const PROVINCE = { AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', NB: 'New Brunswick', NL: 'Newfoundland and Labrador', NS: 'Nova Scotia', NT: 'Northwest Territories', NU: 'Nunavut', ON: 'Ontario', PE: 'Prince Edward Island', QC: 'Quebec', SK: 'Saskatchewan', YT: 'Yukon' };
+// A post's header on a card: the firm's logo (or initial), its name with the Featured badge, where the firm is, and a Follow button for the menu.
 const headOf = (p) => ({
   avatar: avatarOf(p.logo, p.firmName),
-  who: `<span class="lw-by"><a href="/firms/${esc(p.firmSlug)}">${esc(p.firmName)}</a>${p.featured ? '<span class="lw-ft">Featured</span>' : ''}</span>`,
-  action: `<button class="lw-fbtn" type="button" data-follow="${esc(p.firmSlug)}">Follow</button>`,
+  name: p.firmName,
+  href: `/firms/${p.firmSlug}`,
+  featured: !!p.featured,
+  place: [p.city, PROVINCE[p.province] || p.province].filter(Boolean).join(', '),
+  follow: `<button class="lw-fbtn" type="button" data-follow="${esc(p.firmSlug)}">Follow</button>`,
 });
 
 // The cards of a feed, as HTML. With `lead`, the newest post that has a picture leads as one large card.

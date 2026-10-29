@@ -23,7 +23,7 @@
     "count": 120,
     "slug": "lawgical-law-corporation",
     "website": "https://lawgicalcorp.com",
-    "type": "mono",
+    "type": "logo",
     "about": null,
     "appointmentOnly": true,
     "offices": [
@@ -37,6 +37,8 @@
       }
     ],
     "heroImage": "images/hero/lawgical-law-corporation.webp",
-    "heroPos": "center 25%"
+    "heroPos": "center center",
+    "src": "images/logos/lawgical-law-corporation.png",
+    "bioImage": "images/bio/lawgical-law-corporation-team.webp"
   }
 ]

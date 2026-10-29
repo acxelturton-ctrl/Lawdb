@@ -45,5 +45,13 @@ ok(officeBlock.includes('All offices are by appointment only.'), 'the by-appoint
 const noOffices = renderFirmPage({ firm: { name: 'Bar Law', city: 'Surrey', province: 'BC', address: '2 Main St, Surrey, BC V3S 1A1', slug: 'bar-law', type: 'mono' }, hours: null, images: [], posts: [], nearby: [], origin: 'https://lawdb.ca', stats: null });
 ok(!noOffices.includes('<section class="offices"'), 'a firm with no offices gets no Offices section');
 
+// The contact form sits directly under the description and above the photos; a firm with no description keeps it in the same place, under its header card.
+const formIdx = (h) => h.indexOf('<div class="lead-slim">');
+const aboutText = 'We practise family law in Surrey.';
+const formFirm = renderFirmPage({ firm: { name: 'Form Law', city: 'Surrey', province: 'BC', slug: 'form-law', type: 'mono', about: aboutText }, hours: null, images: [{ id: '0123456789abcdef01234567', alt: 'Team' }], posts: [], nearby: [], origin: 'https://lawdb.ca', stats: null });
+ok(formIdx(formFirm) > formFirm.indexOf(aboutText) && formIdx(formFirm) < formFirm.indexOf('<div class="photos">'), 'the contact form comes after the description and before the photos');
+const plainFirm = renderFirmPage({ firm: { name: 'Quiet Law', city: 'Surrey', province: 'BC', slug: 'quiet-law', type: 'mono' }, hours: null, images: [], posts: [], nearby: [], origin: 'https://lawdb.ca', stats: null });
+ok(formIdx(plainFirm) > plainFirm.indexOf('<section class="li-card"') && formIdx(plainFirm) < plainFirm.indexOf('<footer'), 'a firm with no description has the contact form in the same place, under its header card');
+
 if (bad) { console.log(`\n${bad} FAILED`); process.exit(1); }
 console.log('\nprofile checks passed');

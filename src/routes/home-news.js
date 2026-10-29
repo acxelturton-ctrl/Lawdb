@@ -4,6 +4,7 @@ import { loadCandidates, rankPosts, isPracticeType } from '../lib/home-feed.js';
 import { newsCardsHtml, DIALOG_CSS, STORY_JS, dialogHtml } from '../render/news-page.js';
 import { BLOG_CSS } from '../render/blog-cards.js';
 import { storyPath } from '../lib/stories.js';
+import { cached } from '../lib/http.js';
 
 export const FIRST = 6; // cards in the page itself (a swipe row, not a long feed)
 export const STEP = 6;  // cards per request
@@ -50,4 +51,17 @@ export async function withHomeNews(html, env) {
     .on('div#homeNewsGrid', { element(el) { el.setInnerContent(first.html, { html: true }); } })
     .on('div#homeNewsDlg', { element(el) { el.setInnerContent(dialogHtml + '<script>' + STORY_JS + '</script><script src="/follow.js" defer></script>', { html: true }); } })
     .transform(new Response(html)).text();
+}
+
+// Articles from the firms in one city, for the Find page (under the results for a city search): GET /api/news?province=ON&city=Toronto.
+const dayOf = (d) => {
+  const t = d ? new Date(String(d).replace(' ', 'T') + 'Z') : null;
+  return t && !Number.isNaN(t.getTime()) ? t.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) : '';
+};
+export async function newsNearApi({ url, env }) {
+  const province = (url.searchParams.get('province') || '').toUpperCase().slice(0, 3);
+  const city = (url.searchParams.get('city') || '').toLowerCase().slice(0, 80);
+  if (!province || !city) return cached([], 300);
+  const posts = (await loadCandidates(env)).filter((r) => r.province === province && String(r.city || '').toLowerCase() === city).slice(0, 6);
+  return cached(posts.map((r) => ({ title: r.title, firm: r.firmName, date: dayOf(r.publishedAt), href: storyPath(r.firmSlug, r.id, r.title) })), 300);
 }

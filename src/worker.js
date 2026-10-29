@@ -58,6 +58,7 @@ const ROUTES = [
   route('GET', '/api/firms/:slug', pub.getFirm),
   route('GET', '/api/blog', pub.listBlog),
   route('GET', '/api/home-news', homeNews.homeNewsApi),
+  route('GET', '/api/news', homeNews.newsNearApi),
   route('POST', '/api/leads', pub.createLead),
   route('POST', '/api/a', stats.collect),
 

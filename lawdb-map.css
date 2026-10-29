@@ -331,3 +331,11 @@ html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color
   .gm-chips{ margin:0 -12px; padding:2px 12px 4px; }
   .gm-chip:not(.on){ background:#fff; border-color:transparent; box-shadow:0 1px 4px rgba(20,36,52,0.25); }
 }
+
+/* Articles from the firms in the searched city, under the lawyers */
+.gm-news{ margin:18px 16px 6px; padding-top:14px; border-top:1px solid #e3dfd3; }
+.gm-news h3{ font:600 15px/1.3 'Source Serif 4',Georgia,serif; color:#142434; margin:0 0 6px; }
+.gm-news-i{ display:block; padding:10px 0; border-bottom:1px solid #edeae1; text-decoration:none; color:#142434; }
+.gm-news-i b{ display:block; font:600 14px/1.35 Inter,system-ui,sans-serif; }
+.gm-news-i span{ display:block; margin-top:3px; font:500 12px/1.3 Inter,system-ui,sans-serif; color:#586170; }
+

@@ -219,6 +219,23 @@
     if(document.activeElement !== q) q.value = t;
     q.title = t;
   }
+  /* Articles from the firms in the city the visitor searched, shown under the lawyers (fetched once per city). */
+  var newsKey = '', newsList = null;
+  function placeNews(){
+    if(!selectedCityName || !selectedProvince) return '';
+    var key = selectedCityName + '|' + selectedProvince;
+    if(newsKey !== key){
+      newsKey = key; newsList = null;
+      fetch(ROOT + 'api/news?province=' + encodeURIComponent(selectedProvince) + '&city=' + encodeURIComponent(selectedCityName))
+        .then(function(r){ return r.ok ? r.json() : []; })
+        .then(function(list){ if(newsKey === key){ newsList = list; renderPanel(); } })
+        .catch(function(){ if(newsKey === key) newsList = []; });
+    }
+    if(!newsList || !newsList.length) return '';
+    return '<section class="gm-news"><h3>Latest from firms in ' + esc(selectedCityName) + '</h3>' +
+      newsList.map(function(n){ return '<a class="gm-news-i" href="' + esc(n.href) + '"><b>' + esc(n.title) + '</b><span>' + esc(n.firm) + ' · ' + esc(n.date) + '</span></a>'; }).join('') +
+      '</section>';
+  }
   function renderPanel(){
     var pages = Math.max(1, Math.ceil(view.length / PER));
     if(page > pages) page = pages;
@@ -235,7 +252,7 @@
     } else {
       html = view.slice((page - 1) * PER, page * PER).map(function(f){ return itemHtml(f); }).join('') + pagerHtml(pages);
     }
-    listEl.innerHTML = note + html;
+    listEl.innerHTML = note + html + (view.length ? placeNews() : '');
     var lb = $('listBody'); if(lb) lb.style.display = base.length ? 'none' : '';
     syncChips();
   }
@@ -325,7 +342,7 @@
     var w = Infinity, e = -Infinity, s = Infinity, n = -Infinity;
     use.forEach(function(f){ w = Math.min(w, f.lng); e = Math.max(e, f.lng); s = Math.min(s, f.lat); n = Math.max(n, f.lat); });
     userMoved = false;
-    map.fitBounds([[w, s], [e, n]], { padding: pad(), maxZoom: cityPts.length ? 14 : 12, duration: 0 });
+    map.fitBounds([[w, s], [e, n]], { padding: pad(), maxZoom: cityPts.length ? 14 : 12, duration: 450 });
   }
   function setSelSource(){
     if(!mapOK) return;
@@ -843,9 +860,9 @@
   }
   function wireSearch(){
     var q = $('gmQ'), box = $('gmSug');
-    q.addEventListener('focus', function(){ setTimeout(function(){ try { q.select(); } catch(e){} }, 0); drawSug(); if(isMobile() && !sel) setState('peek'); ensureAllFirms().then(function(){ if(document.activeElement === q) drawSug(); }); });
+    q.addEventListener('focus', function(){ typing = true; setTimeout(function(){ try { q.select(); } catch(e){} }, 0); drawSug(); if(isMobile() && !sel) setState('peek'); ensureAllFirms().then(function(){ if(document.activeElement === q) drawSug(); }); });
     q.addEventListener('input', function(){ drawSug(); if(q.value.length >= 3 && !placesReady) loadPlacesLib().then(function(){ if(document.activeElement === q) drawSug(); }); });
-    q.addEventListener('blur', function(){ setTimeout(function(){ closeSug(); renderQuery(); }, 160); });
+    q.addEventListener('blur', function(){ setTimeout(function(){ typing = false; closeSug(); renderQuery(); sizeApp(true); }, 160); });
     q.addEventListener('keydown', function(e){
       var n = sugItems.length;
       if(e.key === 'ArrowDown'){ e.preventDefault(); if(box.hidden) drawSug(); sugIdx = n ? (sugIdx + 1) % n : -1; markSug(); }
@@ -877,8 +894,11 @@
 
   /* fit the whole app into what is left of the screen below the page header/intro */
   var lastW = 0, lastH = 0;
+  /* true while the results search box has focus: the phone keyboard shrinks the visible viewport, and that must not resize the map */
+  var typing = false;
   function sizeApp(force){
     if(!app) return;
+    if(typing && !force) return;
     var vh = (window.visualViewport && window.visualViewport.height) || window.innerHeight, vw = window.innerWidth;
     if(!force && vw === lastW && Math.abs(vh - lastH) < 120) return;
     lastW = vw; lastH = vh;
@@ -1014,7 +1034,7 @@
     panel.addEventListener('click', onItem);
 
     setupSheet();
-    var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ sizeApp(false); if(mapOK) map.resize(); if(view.length > PER && pageSlots() !== lastSlots) renderPanel(); }, 120); });
+    var rt; window.addEventListener('resize', function(){ if(typing) return; clearTimeout(rt); rt = setTimeout(function(){ sizeApp(false); if(mapOK) map.resize(); if(view.length > PER && pageSlots() !== lastSlots) renderPanel(); }, 120); });
     window.addEventListener('orientationchange', function(){ setTimeout(function(){ sizeApp(true); }, 250); });
     var onMQ = function(){ setState(sheetState === 'sel' && !sel ? 'peek' : sheetState, true); if(mapOK) setTimeout(function(){ map.resize(); }, 50); };
     if(MQ.addEventListener) MQ.addEventListener('change', onMQ); else if(MQ.addListener) MQ.addListener(onMQ);

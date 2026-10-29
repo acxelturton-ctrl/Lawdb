@@ -54,7 +54,16 @@ async function renderLogin() {
     h('div', { class: 'lw-badge-text' }, h('b', null, 'LawDB.ca'), h('span', null, 'Canada\u2019s Legal Directory')),
     LAWDB_LINKEDIN && h('a', { class: 'lw-badge-li', href: LAWDB_LINKEDIN, target: '_blank', rel: 'noopener', 'aria-label': 'LawDB on LinkedIn' }, icon('linkedin'), 'LinkedIn'));
   const join = new URLSearchParams(location.search).get('join') === '1';
-  const stat = (n, label) => h('div', null, h('b', null, n), h('span', null, label));
+  // The four numbers come from the database (/api/totals), so they stay current; the figures are blank until the answer arrives.
+  const figs = { firms: h('b', null, ''), cities: h('b', null, ''), areas: h('b', null, ''), provinces: h('b', null, '') };
+  const stat = (b, label) => h('div', null, b, h('span', null, label));
+  fetch('/api/totals').then((r) => (r.ok ? r.json() : null)).then((t) => {
+    if (!t) return;
+    figs.firms.textContent = `${Number(t.firms).toLocaleString('en-CA')}+`;
+    figs.cities.textContent = Number(t.cities).toLocaleString('en-CA');
+    figs.areas.textContent = String(t.practiceAreas);
+    figs.provinces.textContent = String(t.provinces);
+  }).catch(() => {});
   const perk = (t, d) => h('div', null, h('h3', null, t), h('p', null, d));
   mount(h('div', { class: 'wrap ac-login' },
     h('div', { class: 'center card' },
@@ -66,7 +75,7 @@ async function renderLogin() {
       h('p', { class: 'muted small' }, social.length
         ? 'No password to remember or lose. We use your name and email to set up your account, and never post anything on your behalf.'
         : 'No password to remember or lose: we email you a one-time link.')),
-    h('div', { class: 'ac-stats' }, stat('370+', 'law firms'), stat('62', 'cities'), stat('10', 'practice areas'), stat('5', 'provinces')),
+    h('div', { class: 'ac-stats' }, stat(figs.firms, 'law firms'), stat(figs.cities, 'cities'), stat(figs.areas, 'practice areas'), stat(figs.provinces, 'provinces')),
     h('div', { class: 'ac-perks' },
       perk('Follow firms', 'See new stories from the firms you care about in your own feed.'),
       perk('Save stories', 'Keep the articles you want to read again in one list.'),

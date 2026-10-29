@@ -116,8 +116,11 @@ const headOf = (p) => ({
 });
 
 // The cards of a feed, as HTML. With `lead`, the newest post that has a picture leads as one large card.
+// A post is shown in the feed only with its photo: a feed of pictures reads as more professional, and a card without one looks unfinished.
+const withPhoto = (p) => Boolean(p.image && safePostUrl(p.image));
+
 export function newsCardsHtml(posts, { lead = false } = {}) {
-  const shown = posts.filter((p) => safePostUrl(p.url));
+  const shown = posts.filter((p) => safePostUrl(p.url) && withPhoto(p));
   const first = lead ? shown.find((p) => p.image) || null : null;
   return (first ? [cardHtml(first, { head: headOf(first), hero: true })] : []).concat(shown.filter((p) => p !== first).map((p) => cardHtml(p, { head: headOf(p) }))).join('');
 }
@@ -130,7 +133,7 @@ const fmtDay = (d) => {
 // posts: [{ firmSlug, firmName, featured, logo, title, url, publishedAt, excerpt, image }]; firms: [{ slug, name, logo }] (people strip and filter chips)
 // stats: { firms, articles, latest } for the whole page (not just the filtered view)
 export function renderNewsPage({ posts, firms, people: strip = null, selected = '', stats = null }) {
-  const shown = posts.filter((p) => safePostUrl(p.url));
+  const shown = posts.filter((p) => safePostUrl(p.url) && withPhoto(p));
   const st = stats || { firms: firms.length, articles: shown.length, latest: shown[0]?.publishedAt || null };
   const ICON = { filter: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>',
     down: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',

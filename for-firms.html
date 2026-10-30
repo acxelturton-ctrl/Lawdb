@@ -182,12 +182,13 @@
   /* ---- full-width hero: copy on the left, an interactive mock-up of a Featured listing on the right ---- */
   .hx{ position:relative; overflow:hidden; background:linear-gradient(180deg,#f5f3ec 0%,#f4ecd8 100%); }
   .hx::after{ content:''; position:absolute; left:-10%; right:-10%; bottom:-120px; height:220px; background:radial-gradient(60% 100% at 50% 100%,#e6d4a4 0,rgba(230,212,164,0) 70%); pointer-events:none; }
-  .hx-in{ position:relative; z-index:1; max-width:1240px; margin:0 auto; padding:44px 20px 56px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.12fr); grid-template-areas:'head stage' 'body stage'; grid-template-rows:auto 1fr; gap:0 36px; align-items:start; }
-  .hx-head{ grid-area:head; align-self:end; } .hx-body{ grid-area:body; } .hx-stage{ grid-area:stage; align-self:center; }
+  .hx-in{ position:relative; z-index:1; max-width:1040px; margin:0 auto; padding:56px 20px 60px; text-align:center; }
+  .hx-head{ max-width:760px; margin:0 auto; } .hx-body{ margin-top:34px; } .hx-stage{ margin-top:36px; }
   .hx-eyebrow{ font:700 12.5px 'Inter',sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#c9a050; margin:0 0 10px; }
   .hx h1{ font-family:'Source Serif 4',serif; font-size:clamp(38px,5.4vw,64px); line-height:1.04; letter-spacing:-.01em; margin:0 0 14px; color:#142434; }
-  .hx-sub{ font-size:17px; line-height:1.6; color:#2b3a4c; margin:0 0 20px; max-width:520px; }
-  .hx-feats{ list-style:none; margin:0 0 22px; padding:0; display:grid; gap:8px; }
+  .hx-sub{ font-size:17px; line-height:1.6; color:#2b3a4c; margin:0 auto; max-width:560px; }
+  .hx-feats{ list-style:none; margin:0 0 22px; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; text-align:left; }
+  @media (max-width:979px){ .hx-feats{ grid-template-columns:1fr; gap:8px; } }
   .hx-feat{ display:flex; gap:14px; align-items:flex-start; width:100%; text-align:left; background:transparent; border:1.5px solid transparent; border-radius:14px; padding:10px 12px; cursor:pointer; font:inherit; color:inherit; transition:background .25s,border-color .25s,transform .25s; }
   .hx-feat:hover{ background:rgba(255,255,255,.6); }
   .hx-feat[aria-pressed="true"]{ background:#fff; border-color:#c9a050; box-shadow:0 6px 20px rgba(201,160,80,0.18); transform:translateX(4px); }
@@ -197,7 +198,7 @@
   .hx-feat[aria-pressed="true"] .hx-ico svg{ fill:#142434; }
   .hx-feat b{ display:block; font:700 16.5px 'Inter',sans-serif; color:#142434; }
   .hx-feat span.d{ display:block; font-size:14px; line-height:1.5; color:#586170; margin-top:2px; }
-  .hx .promo-links{ margin:0; }
+  .hx .promo-links{ margin:26px 0 0; justify-content:center; }
   .hx-stage{ position:relative; perspective:1400px; }
   .hx-frame{ position:relative; aspect-ratio:981/938; width:100%; transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); transition:transform .25s ease-out; will-change:transform; animation:hxfloat 7s ease-in-out infinite; }
   .hx-frame img{ position:absolute; inset:0; width:100%; height:100%; display:block;
@@ -212,7 +213,7 @@
   @keyframes hxpulse{ 0%,100%{ box-shadow:0 0 0 4px rgba(201,160,80,0.22),0 0 22px rgba(201,160,80,0.45); } 50%{ box-shadow:0 0 0 12px rgba(201,160,80,0.1),0 0 38px rgba(201,160,80,0.7); } }
   @media (max-width:979px){ .hx-in{ grid-template-columns:1fr; grid-template-areas:'head' 'stage' 'body'; grid-template-rows:auto; padding:28px 18px 44px; } .hx-stage{ max-width:640px; margin:0 auto 18px; width:100%; } .hx-sub{ font-size:16px; margin-bottom:6px; } }
   /* the mock-up is the point of the page, so it gets the room: a wider column on a computer; the full screen width on a phone, where tapping a feature zooms in on its card */
-  @media (min-width:980px){ .hx-in{ max-width:1360px; grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr); } }
+  @media (min-width:980px){ .hx-in{ max-width:1080px; } }
   .hx-hint{ display:none; }
   @media (max-width:979px){
     .hx-stage{ width:calc(100% + 36px); max-width:none; margin:0 -18px 12px; overflow:hidden; perspective:none; }
@@ -233,6 +234,21 @@
   .hub-card em{ font-style:normal; font-weight:700; font-size:13px; color:#e2bd6a; }
   .hub-card.feat{ background:#f4ecd8; border-color:#e6d4a4; }
   .hub-card:hover{ border-color:#e2bd6a; }
+
+  /* the law-firm page, in the style of a directory's firm page: centred intro, icon rows, and a navy band for the plans */
+  .center{ text-align:center; }
+  .lede.center{ margin-left:auto; margin-right:auto; }
+  .why-grid{ grid-template-columns:1fr; gap:14px; }
+  .why{ display:grid; grid-template-columns:44px minmax(0,1fr); column-gap:16px; align-items:start; }
+  .why::before{ content:"\2605"; grid-column:1; grid-row:1 / span 2; width:44px; height:44px; border-radius:50%; background:#f4ecd8; color:#c9a050; display:grid; place-items:center; font-size:18px; }
+  .why h3{ margin-top:2px; }
+  .tiers{ background:#142434; border-radius:16px; padding:42px 22px 30px; margin:8px 0 46px; }
+  .tiers h2{ color:#fff; }
+  .tiers .lede{ color:#e3dfd3; }
+  .tiers .plans{ margin-bottom:0; }
+  .tiers .plans-note{ color:#b4bac4; margin:24px auto 0; text-align:center; }
+  .plan li:before{ content:"\25C6"; color:#c9a050; font-size:9px; top:14px; }
+  .plan.feat .price{ color:#142434; }
 </style>
 <link rel="stylesheet" href="desktop.css">
 <link rel="stylesheet" href="site.css">
@@ -273,9 +289,15 @@
 <section class="hx" aria-labelledby="hxh">
   <div class="hx-in">
     <div class="hx-head">
-      <p class="hx-eyebrow">Featured law firm members</p>
-      <h1 id="hxh">Be Seen. Get More Clients.</h1>
+      <p class="hx-eyebrow">For law firms</p>
+      <h1 id="hxh">Grow Leads to Your Law Firm</h1>
       <p class="hx-sub">Stand out on LawDB with premium placement, more visibility and a custom profile that showcases what makes your firm unique.</p>
+      <div class="promo-links">
+        <a class="promo-go" href="/list-your-firm?plan=featured">Get Featured: $89 / month</a>
+        <a href="/list-your-firm">List your firm (free)</a>
+        <a href="/account/">Manage your listing</a>
+        <a href="/grow-your-practice">Grow your practice</a>
+      </div>
     </div>
     <div class="hx-body">
       <ul class="hx-feats">
@@ -284,12 +306,6 @@
         <li><button class="hx-feat" type="button" data-i="2" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5Z"/></svg></span><span><b>Custom Profile Page</b><span class="d">Showcase your firm with a detailed profile, including your team, services, credentials, photos and company blogs.</span></span></button></li>
         <li><button class="hx-feat" type="button" data-i="3" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM9 12v1.8h8V12H9Zm0 4v1.8h8V16H9Z"/></svg></span><span><b>Showcase Your Expertise</b><span class="d">Keep clients informed and build trust with your latest news, articles and legal insights.</span></span></button></li>
       </ul>
-      <div class="promo-links">
-        <a class="promo-go" href="/list-your-firm?plan=featured">Get Featured: $89 / month</a>
-        <a href="/list-your-firm">List your firm (free)</a>
-        <a href="/account/">Manage your listing</a>
-        <a href="/grow-your-practice">Grow your practice</a>
-      </div>
     </div>
     <div class="hx-stage" id="hxStage">
       <div class="hx-frame" id="hxFrame">
@@ -343,8 +359,8 @@
 
 <div class="wrap">
 
-  <h2>Why list with us</h2>
-  <p class="lede">We are a young directory and we would rather tell you exactly what a listing does and
+  <h2 class="center">Why list with us</h2>
+  <p class="lede center">We are a young directory and we would rather tell you exactly what a listing does and
   does not do than sell you a number we cannot back up.</p>
 
   <div class="why-grid">
@@ -390,8 +406,9 @@
 <div class="lwa-cap" aria-live="polite"><h3></h3><p></p></div><div class="lwa-ctl"><div class="lwa-steps"></div><button class="lwa-pp" type="button">Pause</button></div>
 </section>
 </div>
-  <h2>Free or Featured</h2>
-  <p class="lede">Every firm in the directory can be listed at no cost. Featured is for firms that want
+  <div class="tiers">
+  <h2 class="center">Free or Featured</h2>
+  <p class="lede center">Every firm in the directory can be listed at no cost. Featured is for firms that want
   priority placement in their city and case types.</p>
 
   <div class="plans">
@@ -426,6 +443,8 @@
   </div>
   <p class="plans-note">Featured changes where and how your firm is shown on LawDB. It does not guarantee calls, clients or search-engine rankings, and LawDB is a new directory, so we do not quote traffic or lead numbers. Featured is a monthly subscription you can cancel any time. You fill in the listing form first, then continue to secure checkout; Featured placement starts once payment is confirmed.</p>
 
+
+  </div>
 
   <div class="fx-sec">
     <h2>What Featured looks like in search</h2>

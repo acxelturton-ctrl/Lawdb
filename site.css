@@ -345,3 +345,18 @@ a.seo-chip:hover{ background:#f4ecd8; border-color:#c9a050; }
 
 /* Follow buttons sit at the right of firm rows on city and practice pages; the room is reserved here so nothing jumps when they appear. */
 .frow{ position:relative; padding-right:112px !important; }
+
+/* the hamburger menu's promo for law firms: it sits at the bottom of the drawer, on the drawer's dark ground */
+.menu-drawer{ overflow-y:auto; }
+.menu-promo{ margin-top:auto; padding:16px 0 4px; border-top:1px solid #2b3a4c; }
+.menu-promo .mp-eyebrow{ margin:0 0 8px; font:700 11px/1 'Inter',system-ui,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#e2bd6a; }
+.menu-promo .mp-head{ margin:0 0 12px; font:700 20px/1.2 'Source Serif 4',Georgia,serif; color:#fff; }
+.menu-promo .mp-list{ list-style:none; margin:0 0 12px; padding:0; display:grid; gap:11px; }
+.menu-promo .mp-list li{ display:flex; gap:12px; align-items:flex-start; font-size:13px; line-height:1.45; color:#b4bac4; }
+.menu-promo .mp-list b{ display:block; margin-bottom:2px; font-size:14px; font-weight:700; color:#edeae1; }
+.menu-promo .mp-ic{ flex:none; width:36px; height:36px; border-radius:50%; background:#2b3a4c; display:grid; place-items:center; }
+.menu-promo .mp-ic svg{ width:18px; height:18px; fill:none; stroke:#e2bd6a; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.menu-drawer .mp-cta{ display:block; text-align:center; background:#c9a050; color:#142434; border-radius:999px; padding:13px 16px; font-weight:700; font-size:15px; border-bottom:none; }
+.menu-drawer .mp-cta:hover{ background:#e2bd6a; color:#142434; padding-left:16px; }
+.menu-promo .mp-note{ margin:10px 0 0; font-size:12.5px; line-height:1.5; color:#8a919b; text-align:center; }
+.menu-drawer .mp-alt{ display:block; text-align:center; margin-top:8px; padding:8px 4px; font-size:14px; color:#edeae1; border-bottom:none; }

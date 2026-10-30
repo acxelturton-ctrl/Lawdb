@@ -196,6 +196,31 @@ function postal(f) {
   return { '@type': 'PostalAddress', streetAddress: street, addressLocality: f.city, addressRegion: f.province, ...(m && m[3].toUpperCase() === f.province ? { postalCode: m[4].toUpperCase().replace(/^(\w{3})-?(\w{3})$/, '$1 $2') } : {}), addressCountry: 'CA' };
 }
 
+// The Location map on a profile: MapLibre (the same map as the Find page), with the office pin and a shaded, dotted area around it that
+// shows the rough area the firm serves. Google's embed cannot draw an area and the site has no Google Maps key, so the map is drawn here,
+// with a link to the same place on Google Maps. The radius is an approximation, not the firm's exact service boundary.
+const SERVICE_RADIUS_M = 8000;
+function firmMapHtml(f){
+  const lat = Number(f.lat), lng = Number(f.lng);
+  const script = `(function(){var lng=${lng},lat=${lat};` +
+    'function circle(r){var pts=[];for(var i=0;i<=64;i++){var a=i/64*2*Math.PI;pts.push([lng+r*Math.sin(a)/(111320*Math.cos(lat*Math.PI/180)),lat+r*Math.cos(a)/111320]);}return pts;}' +
+    "window.addEventListener('load',function(){var el=document.getElementById('firmMap');if(!el||!window.maplibregl)return;" +
+    "var map=new maplibregl.Map({container:el,style:'https://tiles.openfreemap.org/styles/liberty',center:[lng,lat],zoom:12,dragRotate:false,touchPitch:false});" +
+    "map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');" +
+    "map.on('load',function(){" +
+    `map.addSource('area',{type:'geojson',data:{type:'Feature',properties:{},geometry:{type:'Polygon',coordinates:[circle(${SERVICE_RADIUS_M})]}}});` +
+    "map.addLayer({id:'area-fill',type:'fill',source:'area',paint:{'fill-color':'#e2bd6a','fill-opacity':0.3}});" +
+    "map.addLayer({id:'area-line',type:'line',source:'area',paint:{'line-color':'#c9a050','line-width':2,'line-dasharray':[2,2]}});" +
+    `var c=circle(${SERVICE_RADIUS_M}),xs=c.map(function(p){return p[0]}),ys=c.map(function(p){return p[1]});map.fitBounds([[Math.min.apply(null,xs),Math.min.apply(null,ys)],[Math.max.apply(null,xs),Math.max.apply(null,ys)]],{padding:24,duration:0,maxZoom:13});new maplibregl.Marker({color:'#c9a050'}).setLngLat([lng,lat]).addTo(map);});});})();`;
+  return '<div class="map-embed">\n      <h2>Location</h2>\n' +
+    '      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.css">\n' +
+    '      <style>.firm-map{height:320px;border-radius:12px;overflow:hidden;background:#edeae1;max-width:100%}.firm-map-note{margin:8px 0 0;font-size:12.5px;color:#586170;line-height:1.5}</style>\n' +
+    `      <div id="firmMap" class="firm-map" role="img" aria-label="Map of ${esc(f.name)} and the area around its office"></div>\n` +
+    `      <p class="firm-map-note">Shaded: the approximate area the firm serves, about ${SERVICE_RADIUS_M / 1000} km around the office. <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank" rel="noopener">Open in Google Maps</a></p>\n` +
+    '      <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.js" defer></script>\n' +
+    `      <script>${script}</script>\n    </div>`;
+}
+
 export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], origin = 'https://lawdb.ca', stats = null }) {
   const prov = PROVINCES[f.province] || f.province;
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
@@ -264,7 +289,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `      <a href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.pin2}<span>View on Google Maps</span></a>\n    </div>`;
 
   const toks = { NAME: esc(f.name), SLUG: esc(f.slug), LAT: esc(f.lat), LNG: esc(f.lng) };
-  const mapHtml = num(f.lat) && num(f.lng) && !f.approxCoords ? fill(C.MAP_EMBED, toks) : '';
+  const mapHtml = num(f.lat) && num(f.lng) && !f.approxCoords ? firmMapHtml(f) : '';
   // The lead script is JavaScript, so the name goes in as a JS-safe string, not HTML.
   const jsName = String(f.name).replace(/[\\'"<>&\n\r]/g, ' ');
   const leadScript = fill(C.LEAD_SCRIPT, { SLUG: String(f.slug).replace(/[^a-z0-9-]/g, ''), NAME: jsName });

@@ -149,6 +149,7 @@ export function reportEmail(origin, { slug, reason, name, email, message }) {
 
 // What a Featured firm gets, as the site does it today (the same list the owner's plan card shows).
 const FEATURED_GETS = [
+  'A page that is yours to customize: your own description, a book-a-call button, and your logo, cover and photos',
   'Listed above Basic firms in search results for your city and case type, with a Featured Partner card at the top of the Find results',
   'First in the live search box, with a gold Featured badge',
   'A gold pin on the map, and a gold tick and Featured badge on your profile',

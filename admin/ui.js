@@ -87,7 +87,9 @@ export const field = (label, el, hint) => [h('label', null, label), el, hint && 
 // ---------------------------------------------------------------- pictures
 // Logo, cover and photos for one firm. `base` is the images endpoint (owner or admin). Each upload or removal
 // is saved straight away; it does not wait for the profile form's Save button.
-export function picturesPanel(base) {
+// `locked`: a Basic firm. Adding or changing pictures is a Featured benefit, so the upload controls are left out; the pictures it
+// already has stay, and it can still remove them.
+export function picturesPanel(base, { locked = false } = {}) {
   const root = h('div', { class: 'card pics' });
   const out = h('div');
   const MAX = 3 * 1024 * 1024;
@@ -131,14 +133,16 @@ export function picturesPanel(base) {
       h('div', { class: 'thumbs' }, imgs.map((img) => h('figure', null,
         h('img', { src: img.url, alt: img.alt || title, loading: 'lazy' }),
         h('button', { type: 'button', onclick: () => remove(img) }, 'Remove')))),
-      h('div', { class: 'row' }, input, alt, go));
+      locked ? null : h('div', { class: 'row' }, input, alt, go));
   }
 
   function draw(images) {
     const by = (k) => images.filter((i) => i.kind === k);
     root.replaceChildren(
       h('h2', null, 'Pictures'),
-      h('p', { class: 'muted' }, 'JPEG, PNG or WebP, up to 3 MB each. Only upload pictures you own or have permission to use, and do not show clients without their consent.'),
+      locked
+        ? h('p', { class: 'muted' }, h('b', null, 'Adding and changing pictures is a Featured benefit. '), 'Upgrade to Featured to add your logo, cover and photos. Pictures you already have stay, and you can remove them.')
+        : h('p', { class: 'muted' }, 'JPEG, PNG or WebP, up to 3 MB each. Only upload pictures you own or have permission to use, and do not show clients without their consent.'),
       section('Logo', 'logo', by('logo'), 'Shown on your listing and page. A square picture works best.', false),
       section('Cover picture', 'cover', by('cover'), 'The wide picture at the top of your page.', false),
       section('Photos', 'photo', by('photo'), 'Up to 6 photos, shown on your page.', true),
@@ -206,9 +210,10 @@ export function feedPanel(base) {
 // ---------------------------------------------------------------- plan and billing (owner)
 // Shows Basic or Featured, and the right button: upgrade (opens the Stripe checkout with the firm and email attached)
 // or manage billing (Stripe's own page, where the card can be changed or the subscription cancelled).
-// What Featured really changes on LawDB: every line is something the site does today. A Basic listing already has a full profile
-// (logo, cover, description, photos), every enquiry by email, and its blog posts shown as cards.
+// What Featured really changes on LawDB: every line is something the site does today. A Basic listing keeps its facts up to date
+// (name, phone, address, website, hours, practice areas), gets every enquiry by email, and has its blog posts shown as cards.
 export const FEATURED_PERKS = [
+  ['A page that is yours to customize.', 'Write your own description, add a book-a-call button, and add your logo, cover and photos.'],
   ['Listed above Basic firms.', 'In search results for your city and case type, with a large Featured Partner card at the top of the Find results.'],
   ['First in the search box.', 'Shown first in the live suggestions, with a gold Featured badge, as people type their case and city.'],
   ['A gold pin and a gold tick.', 'A highlighted pin on the map, and a gold tick and Featured badge on your profile and wherever your firm appears.'],
@@ -240,7 +245,7 @@ export function planPanel(base) {
         perks()),
       !featured && h('div', null,
         h('p', null, h('b', null, `Why get Featured, ${p.price}`)),
-        h('p', { class: 'muted' }, 'Your Basic listing already has your profile, your pictures, every enquiry emailed to you and your blog posts as cards. Featured adds:'),
+        h('p', { class: 'muted' }, 'Your Basic listing keeps your facts up to date (name, phone, address, website, hours and practice areas), has every enquiry emailed to you, and shows your blog posts as cards. Featured adds:'),
         perks(),
         h('p', { class: 'muted' }, 'Featured changes where and how your firm is shown on LawDB. It does not guarantee calls, clients or search-engine rankings, and you can cancel any time.'),
         p.upgradeUrl ? h('a', { href: p.upgradeUrl, target: '_blank', rel: 'noopener' }, h('button', { class: 'primary', type: 'button' }, 'Upgrade to Featured')) : h('p', { class: 'muted' }, 'Upgrading is not available right now.'),

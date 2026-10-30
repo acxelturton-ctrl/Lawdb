@@ -7,6 +7,7 @@
 import { HttpError } from './http.js';
 import { audit } from './audit.js';
 import { checkOwnerText } from './content-rules.js';
+import { FEATURED_LOCK } from './firm-edit.js';
 
 export const IMAGE_RULES = { maxBytes: 3 * 1024 * 1024, minSide: 64, maxSide: 8000, maxPhotos: 6, perUserPerHour: 20 };
 const KINDS = ['logo', 'cover', 'photo'];
@@ -97,8 +98,10 @@ export async function addImage(env, actor, slug, request, { admin }) {
   let alt = (url.searchParams.get('alt') || '').trim().slice(0, 120);
   if (alt && !admin) checkOwnerText('Picture description', alt);
 
-  const firm = await env.DB.prepare('SELECT name FROM firms WHERE slug = ?').bind(slug).first();
+  const firm = await env.DB.prepare('SELECT name, featured FROM firms WHERE slug = ?').bind(slug).first();
   if (!firm) throw new HttpError(404, 'Firm not found');
+  // Adding a logo, cover or photos is part of customizing the page, a Featured benefit (a firm keeps what it already has, and can remove it).
+  if (!admin && !firm.featured) throw new HttpError(403, `Adding pictures ${FEATURED_LOCK}`);
 
   const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM firm_images WHERE uploaded_by = ? AND created_at > datetime('now','-1 hour')").bind(actor.id).first();
   if (recent.n >= (admin ? 300 : IMAGE_RULES.perUserPerHour)) throw new HttpError(429, 'Too many uploads this hour. Please try again later.');

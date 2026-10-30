@@ -56,5 +56,21 @@ for (const f of originals) everyFirm.set(f.slug, f);
 for (const x of readdirSync('data').filter((y) => /^firms-batch-\d+\.json$/.test(y))) for (const f of JSON.parse(readFileSync(`data/${x}`, 'utf8'))) everyFirm.set(f.slug, f);
 ok(added.every((s) => { const f = everyFirm.get(s); return !!f && f.rating >= 4.8 && f.count >= 50 && !f.featured; }), 'every firm on the strip is rated 4.8 or more from 50 or more Google reviews, and is not Featured');
 
+// What the site SAYS Featured gives must be what the site DOES. Every pitch page lists only real benefits, and none still promises
+// something that is gone (a Featured showcase on the home page) or that every firm already has (a cover image, a full description).
+const read = (p) => readFileSync(p, 'utf8');
+const has = (p, re) => re.test(read(p));
+ok(has('lawdb-map.js', /f\.featured \? 0 : 10/) && has('suggest.js', /\(b\.featured\?1:0\)-\(a\.featured\?1:0\)/) && has('find-lawyers.html', /Featured Partners for this case type/), 'Featured firms really are ranked first in results and in the search box, with a Featured Partners strip on the Find page');
+ok(has('src/routes/firm-page.js', /ORDER BY featured DESC/) && has('src/routes/story-page.js', /ORDER BY featured DESC/), 'Featured firms really are listed first among nearby firms');
+ok(has('src/lib/leads.js', /export async function isFeatured/) && has('src/routes/account.js', /Exporting enquiries is a Featured benefit/), 'the enquiries dashboard and export really are Featured-only');
+ok(has('src/lib/stories.js', /f\.featured = 1/) && has('src/lib/home-feed.js', /f\.featured \? 25 : 0/), 'Featured stories really get a page search engines can find, and a boost in the home page news strip');
+
+const PITCH = ['for-firms.html', 'list-your-firm.html', 'how-it-works.html', 'book-a-call.html', 'admin/ui.js', 'src/lib/email.js'];
+const GONE = [/Featured (?:Partners )?showcase/i, /auto-sliding/i, /slides automatically/i, /homepage showcase/i, /Featured adds a cover image/i, /Expanded profile/i, /blog cards from your website/i, /priority placement at the top of results/i, /Cover image, full description, practice-area tags/i];
+for (const p of PITCH) ok(!GONE.some((re) => re.test(read(p))), `${p}: no untrue or out-of-date claim about what Featured gives`);
+const GIVES = [/above Basic firms/i, /Featured Partner/i, /live search box/i, /gold pin|gold highlighted/i, /Enquiries dashboard/i, /LawDB (?:story )?page/i, /nearby firms/i];
+for (const p of ['for-firms.html', 'list-your-firm.html']) ok(GIVES.every((re) => re.test(read(p))), `${p}: lists everything Featured really gives`);
+ok(has('admin/ui.js', /FEATURED_PERKS/) && has('src/lib/email.js', /FEATURED_GETS/), "the owner's plan card and the Featured email carry the same list");
+
 if (bad) { console.log(`\n${bad} FAILED`); process.exit(1); }
 console.log('\nfeatured firms and home strip checks passed');

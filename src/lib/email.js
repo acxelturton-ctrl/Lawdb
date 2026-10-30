@@ -128,7 +128,7 @@ export function leadDigestEmail(origin, { firmName, week, fresh, featured }) {
   const n = (c, w) => `${c} ${c === 1 ? w : w + 's'}`;
   const pitch = featured
     ? `${fresh} ${fresh === 1 ? 'is' : 'are'} still marked new. Open your dashboard to reply, add notes or export them.`
-    : `Featured members read and manage enquiries in a dashboard, with notes, filters and a spreadsheet export. Your enquiry emails keep coming either way.`;
+    : `Featured firms are listed above Basic firms in their city and case type, and read and manage enquiries in a dashboard, with notes, filters and a spreadsheet export. Your enquiry emails keep coming either way.`;
   return {
     subject: `${firmName}: ${n(week, 'enquiry').replace('enquirys', 'enquiries')} on LawDB this week`,
     text: `${firmName} received ${n(week, 'enquiry').replace('enquirys', 'enquiries')} through LawDB in the last 7 days.\n\n${pitch}\n\n${featured ? 'Open your enquiries' : 'See your plan'}: ${link}`,
@@ -147,12 +147,22 @@ export function reportEmail(origin, { slug, reason, name, email, message }) {
   };
 }
 
+// What a Featured firm gets, as the site does it today (the same list the owner's plan card shows).
+const FEATURED_GETS = [
+  'Listed above Basic firms in search results for your city and case type, with a Featured Partner card at the top of the Find results',
+  'First in the live search box, with a gold Featured badge',
+  'A gold pin on the map, and a gold tick and Featured badge on your profile',
+  'Listed first among nearby firms on other firms\' profiles and story pages',
+  'An enquiries dashboard with filters, private notes, one-tap reply and a spreadsheet export',
+  'A Featured badge on your stories in LawDB News, a LawDB page search engines can find for each article, and higher placement in the home page news strip',
+];
+
 export function featuredOnEmail(origin, { firmName }) {
   const link = `${origin}/account/`;
   return {
     subject: `${firmName} is now Featured on LawDB`,
-    text: `Thank you. Your payment went through and ${firmName} is now a Featured listing: priority placement, a highlighted marker and blog cards from your website.\n\nManage your listing: ${link}`,
-    html: `<p>Thank you. Your payment went through and <b>${esc(firmName)}</b> is now a <b>Featured</b> listing: priority placement, a highlighted marker and blog cards from your website.</p>${button(link, 'Open my dashboard')}`,
+    text: `Thank you. Your payment went through and ${firmName} is now a Featured listing. Here is what it includes:\n\n${FEATURED_GETS.map((g) => `- ${g}`).join('\n')}\n\nManage your listing: ${link}`,
+    html: `<p>Thank you. Your payment went through and <b>${esc(firmName)}</b> is now a <b>Featured</b> listing. Here is what it includes:</p><ul>${FEATURED_GETS.map((g) => `<li>${esc(g)}</li>`).join('')}</ul>${button(link, 'Open my dashboard')}`,
   };
 }
 

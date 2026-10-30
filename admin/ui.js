@@ -206,9 +206,21 @@ export function feedPanel(base) {
 // ---------------------------------------------------------------- plan and billing (owner)
 // Shows Basic or Featured, and the right button: upgrade (opens the Stripe checkout with the firm and email attached)
 // or manage billing (Stripe's own page, where the card can be changed or the subscription cancelled).
+// What Featured really changes on LawDB: every line is something the site does today. A Basic listing already has a full profile
+// (logo, cover, description, photos), every enquiry by email, and its blog posts shown as cards.
+export const FEATURED_PERKS = [
+  ['Listed above Basic firms.', 'In search results for your city and case type, with a large Featured Partner card at the top of the Find results.'],
+  ['First in the search box.', 'Shown first in the live suggestions, with a gold Featured badge, as people type their case and city.'],
+  ['A gold pin and a gold tick.', 'A highlighted pin on the map, and a gold tick and Featured badge on your profile and wherever your firm appears.'],
+  ['Listed first among nearby firms.', 'On other firms\' profiles and story pages, your firm comes first in the nearby firms row.'],
+  ['An enquiries dashboard.', 'Read, filter, add private notes, reply with one tap and export your enquiries to a spreadsheet.'],
+  ['Articles that work harder.', 'A Featured badge on each story on LawDB News, a LawDB page for every article that search engines can find, and higher placement in the home page news strip.'],
+];
+
 export function planPanel(base) {
   const root = h('div', { class: 'card planp' });
   const fmt = (d) => (d ? new Date(d.replace(' ', 'T') + 'Z').toLocaleDateString([], { dateStyle: 'long' }) : '');
+  const perks = () => h('ul', { class: 'perks', style: 'margin:8px 0 14px;padding-left:20px;line-height:1.55' }, FEATURED_PERKS.map(([t, d]) => h('li', null, h('b', null, t), ' ', d)));
 
   function draw(p) {
     const featured = p.featured;
@@ -223,8 +235,14 @@ export function planPanel(base) {
     root.replaceChildren(h('div', null,
       h('div', { class: 'row spread' }, h('h2', null, 'Your plan'), h('span', { class: 'badge' + (featured ? ' featured' : '') }, featured ? 'Featured' : 'Basic')),
       h('p', null, line),
+      featured && h('div', null,
+        h('p', null, h('b', null, 'What your Featured listing includes')),
+        perks()),
       !featured && h('div', null,
-        h('p', { class: 'muted' }, `Featured is ${p.price}. You get priority placement at the top of results, a highlighted marker, and your latest blog posts shown on your page.`),
+        h('p', null, h('b', null, `Why get Featured, ${p.price}`)),
+        h('p', { class: 'muted' }, 'Your Basic listing already has your profile, your pictures, every enquiry emailed to you and your blog posts as cards. Featured adds:'),
+        perks(),
+        h('p', { class: 'muted' }, 'Featured changes where and how your firm is shown on LawDB. It does not guarantee calls, clients or search-engine rankings, and you can cancel any time.'),
         p.upgradeUrl ? h('a', { href: p.upgradeUrl, target: '_blank', rel: 'noopener' }, h('button', { class: 'primary', type: 'button' }, 'Upgrade to Featured')) : h('p', { class: 'muted' }, 'Upgrading is not available right now.'),
         p.upgradeUrl && h('p', { class: 'muted' }, 'Checkout opens on Stripe. Your listing becomes Featured automatically once the payment goes through. Please pay with the same email address you sign in with, so the payment can be matched to your firm.')),
       p.portalUrl && h('div', { class: 'row' }, h('a', { href: p.portalUrl, target: '_blank', rel: 'noopener' }, h('button', { type: 'button' }, 'Manage billing')))));

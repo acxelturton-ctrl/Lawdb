@@ -233,13 +233,16 @@ function viewFind(slug) {
 async function viewEdit(slug) {
   const { firm, hours, pageMode } = await api('GET', '/api/account/firms/' + encodeURIComponent(slug));
   const out = h('div');
+  // Customizing the page (description, booking link, pictures) is a Featured benefit; a Basic firm keeps what it has and can still update its facts.
+  const locked = !firm.featured;
+  const lockHint = 'A Featured benefit. Upgrade to write your own.';
   const f = {
     name: h('input', { type: 'text', value: firm.name, maxlength: 200 }),
-    blurb: h('textarea', { maxlength: 500 }, firm.blurb || ''),
-    about: h('textarea', { class: 'tall', maxlength: 2000 }, firm.about || ''),
+    blurb: h('textarea', { maxlength: 500, disabled: locked }, firm.blurb || ''),
+    about: h('textarea', { class: 'tall', maxlength: 2000, disabled: locked }, firm.about || ''),
     phone: h('input', { type: 'text', value: firm.phone || '', maxlength: 30 }),
     website: h('input', { type: 'text', value: firm.website || '', maxlength: 300 }),
-    bookingUrl: h('input', { type: 'text', value: firm.bookingUrl || '', maxlength: 500, placeholder: 'https://' }),
+    bookingUrl: h('input', { type: 'text', value: firm.bookingUrl || '', maxlength: 500, placeholder: 'https://', disabled: locked }),
     address: h('input', { type: 'text', value: firm.address || '', maxlength: 300 }),
     tags: h('input', { type: 'text', value: (firm.tags || []).join(', ') }),
   };
@@ -264,17 +267,18 @@ async function viewEdit(slug) {
     } },
       h('div', { class: 'row spread' }, h('h2', null, firm.name), h('a', { href: `/firms/${slug}`, target: '_blank', rel: 'noopener' }, 'View public page')),
       pageMode !== 'dynamic' && note('msg-err', 'Your page has a custom layout that we update for you. Your changes still appear in the directory, search and map. Write to info@lawdb.ca to have the page itself updated.'),
-      field('Firm name', f.name), field('Short description (shown in lists)', f.blurb),
-      field('About the firm (shown on your page)', f.about, 'Plain text. A blank line starts a new paragraph.'),
+      locked && h('p', { class: 'muted' }, h('b', null, 'Customizing your page is a Featured benefit. '), 'You can always keep your facts up to date here: name, phone, address, website, practice areas and opening hours. Upgrade to Featured to write your own description, add a booking button, and add your logo, cover and photos.'),
+      field('Firm name', f.name), field('Short description (shown in lists)', f.blurb, locked ? lockHint : undefined),
+      field('About the firm (shown on your page)', f.about, locked ? lockHint : 'Plain text. A blank line starts a new paragraph.'),
       field('Phone', f.phone), field('Website', f.website),
-      field('Booking link', f.bookingUrl, 'Optional. Your calendar (Calendly, Clio, Microsoft Bookings...) or the page on your site where people book a call. It turns on the Book a call button on your page; leave it blank to switch the button off.'),
+      field('Booking link', f.bookingUrl, locked ? lockHint : 'Optional. Your calendar (Calendly, Clio, Microsoft Bookings...) or the page on your site where people book a call. It turns on the Book a call button on your page; leave it blank to switch the button off.'),
       field('Address', f.address),
       field('Practice areas (comma separated)', f.tags),
       h('label', null, 'Categories'), cats.el,
       h('label', null, 'Opening hours'), hrs.el,
       h('p', { class: 'muted' }, 'Your rating and review count come from Google and update on their own.'),
       h('div', { class: 'row' }, save), out),
-    picturesPanel(`/api/account/firms/${encodeURIComponent(slug)}/images`),
+    picturesPanel(`/api/account/firms/${encodeURIComponent(slug)}/images`, { locked }),
     feedPanel(`/api/account/firms/${encodeURIComponent(slug)}/feed`));
 }
 

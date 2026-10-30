@@ -76,6 +76,11 @@ export function normalizeHours(h) {
 // ---------------------------------------------------------------- edit
 const OWNER_TEXT_FIELDS = { name: 'Firm name', blurb: 'Short description', tags: 'Practice areas' };
 
+// Customizing the page is a Featured benefit. An owner on the Basic plan still corrects the facts (name, phone, address, website, hours,
+// practice areas) and can clear a description or a booking link, but cannot write or change them, and cannot add pictures (see addImage).
+export const FEATURED_LOCK = 'is a Featured benefit. Upgrade to Featured from your dashboard to customize your page.';
+const CUSTOMIZING = { about: 'Writing your own description', blurb: 'Writing your own description', bookingUrl: 'Adding a booking link' };
+
 // `admin` may also change the featured flag and the page style; owners may not.
 export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   const keys = Object.keys(body);
@@ -88,12 +93,14 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   const row = await env.DB.prepare('SELECT data, hours, page_mode, about FROM firms WHERE slug = ?').bind(slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
   const firm = JSON.parse(row.data);
+  const customizing = admin || !!firm.featured;
 
   const changes = {};
   let pageMode = row.page_mode;
   let aboutText = row.about;
   if ('about' in body) {
     const next = str(body.about, 0, 2000) || null;
+    if (next && next !== (row.about || null) && !customizing) throw new HttpError(403, `${CUSTOMIZING.about} ${FEATURED_LOCK}`);
     if (next !== (row.about || null) && !admin) checkOwnerText('About the firm', next);
     if (next !== (row.about || null)) { changes.about = { from: row.about || null, to: next }; aboutText = next; }
   }
@@ -110,6 +117,7 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   for (const k of keys.filter((k) => fieldKeys.includes(k))) {
     const next = FIRM_FIELDS[k](body[k]);
     if (JSON.stringify(firm[k]) !== JSON.stringify(next)) {
+      if (CUSTOMIZING[k] && next && !customizing) throw new HttpError(403, `${CUSTOMIZING[k]} ${FEATURED_LOCK}`);
       if (!admin && OWNER_TEXT_FIELDS[k]) checkOwnerText(OWNER_TEXT_FIELDS[k], next);
       changes[k] = { from: firm[k] ?? null, to: next };
       firm[k] = next;

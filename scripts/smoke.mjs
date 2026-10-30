@@ -481,14 +481,25 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', '/api/account/firms/achkar-law', { featured: true })).status === 422, 'an owner cannot make themselves featured');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { pageMode: 'static' })).status === 422, 'an owner cannot change the page style');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { rating: 5 })).status === 422, 'an owner cannot change the rating');
+  // customizing the page is a Featured benefit: a Basic owner corrects the facts, but cannot write the description or add a booking button
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'A description of my own' })).status === 403, 'a Basic owner cannot write the description (a Featured benefit)');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { blurb: 'A short one of my own' })).status === 403, 'a Basic owner cannot write the short description');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { bookingUrl: 'https://calendly.com/achkar' })).status === 403, 'a Basic owner cannot add a booking button');
+  const facts = await call('PATCH', '/api/account/firms/achkar-law', { phone: '613-555-0100' });
+  ok(facts.status === 200 && facts.data.changed.includes('phone'), 'a Basic owner can still correct the facts');
+  as(adminJar);
+  ok((await call('PATCH', '/api/admin/firms/achkar-law', { featured: true })).status === 200, 'the firm is made Featured for the description checks');
+  as(o1.jar);
   ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'Hello <script>alert(1)</script>' })).status === 422, 'an owner cannot enter HTML');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'See www.spam-site.com for deals' })).status === 422, 'an owner cannot put links in the description');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'We are the best lawyers in Ontario' })).status === 422, 'an owner cannot make prohibited advertising claims');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { blurb: 'Guaranteed results' })).status === 422, 'the short description is checked too');
   const edit = await call('PATCH', '/api/account/firms/achkar-law', { about: 'Owner wrote this & that "quoted" text', phone: '613-555-0100' });
-  ok(edit.status === 200 && edit.data.changed.includes('about'), 'an owner edits their own firm');
+  ok(edit.status === 200 && edit.data.changed.includes('about'), 'a Featured owner edits their own firm');
   const opage = await getRaw('/firms/achkar-law');
   ok(opage.text.includes('Owner wrote this &amp; that &quot;quoted&quot; text') && opage.text.includes('613-555-0100'), 'the owner\'s text is on the page and escaped');
+  as(adminJar);
+  await call('PATCH', '/api/admin/firms/achkar-law', { featured: false });
   const featuredBefore = (await call('GET', '/api/firms/achkar-law')).data.featured;
   ok(featuredBefore === false, 'the firm is still not featured');
 
@@ -590,7 +601,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('POST', '/api/account/firms', newBody)).status === 401, 'still needs sign-in');
   as(o2.jar);
   ok((await call('POST', '/api/account/firms', { ...newBody, name: hostile })).status === 409, 'listing a firm that already exists is refused');
-  ok((await call('PATCH', `/api/account/firms/${nslug}`, { about: 'Edited after going live', hours: { 1: [['08:00', '16:30']] } })).status === 200, 'the owner of a new listing can edit it once live');
+  ok((await call('PATCH', `/api/account/firms/${nslug}`, { phone: '613-555-0155', hours: { 1: [['08:00', '16:30']] } })).status === 200, 'the owner of a new listing can edit it once live');
   cookie = '';
   ok(isDeepStrictEqual((await call('GET', '/api/firms/' + nslug)).data.hours, { 1: [['08:00', '16:30']] }), 'owner hours reach the public data');
 
@@ -845,7 +856,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     // the home page top bar carries one Sign in button (not in the nav), so its menu lists only the three links, the consultation button and Contact Us
     const home = f === 'index.html';
     const navWant = home ? ['Find Your Lawyer', 'LawDB News', 'For Law Firms'] : ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Request a Consultation'];
-    const drawerWant = home ? ['Find Your Lawyer', 'LawDB News', 'New listed firms', 'Grow Leads to Your Law Firm', 'Contact Us', 'Request a Consultation'] : ['Find Your Lawyer', 'LawDB News', 'New listed firms', 'Grow Leads to Your Law Firm', 'Sign in', 'Contact Us', 'Request a Consultation'];
+    const drawerWant = home ? ['Find Your Lawyer', 'LawDB News', 'New listed firms', 'Grow Leads to Your Law Firm', 'Contact Us', 'Request a Consultation', 'Get Featured', 'List your firm free'] : ['Find Your Lawyer', 'LawDB News', 'New listed firms', 'Grow Leads to Your Law Firm', 'Sign in', 'Contact Us', 'Request a Consultation', 'Get Featured', 'List your firm free'];
     const topBar = home ? /<div class="hdr-auth"><a class="hdr-signin" href="\/account\/">Sign in<\/a><\/div>/.test(h) : true;
     ok(isDeepStrictEqual(labels(navOf(h)), navWant) && isDeepStrictEqual(labels(drawerOf(h)), drawerWant) && topBar, `${f}: the menu has three items, Sign in, Contact Us and the consultation button (Contact Us only in the hamburger menu)${home ? '; the home page top bar has one Sign in button' : ''}`);
     const firmsCol = (h.match(/<h4>For Law Firms<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
@@ -864,6 +875,11 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await rawCall('POST', base + '?kind=logo', makePng(100, 100), 'image/png')).status === 401, 'uploading a picture needs sign-in');
   as(o2.jar);
   ok((await rawCall('POST', base + '?kind=logo', makePng(100, 100), 'image/png')).status === 403, 'another owner cannot upload pictures for this firm');
+  as(o1.jar);
+  ok((await rawCall('POST', base + '?kind=logo', makePng(100, 100), 'image/png')).status === 403, 'a Basic owner cannot add pictures (a Featured benefit)');
+  ok((await rawCall('POST', base + '?kind=cover', makeJpeg(1200, 400), 'image/jpeg')).status === 403 && (await rawCall('POST', base + '?kind=photo', makePng(200, 150), 'image/png')).status === 403, 'nor a cover or a photo');
+  as(adminJar);
+  ok((await call('PATCH', '/api/admin/firms/achkar-law', { featured: true })).status === 200, 'the firm is made Featured for the picture checks');
   as(o1.jar);
   const logo1 = await rawCall('POST', base + '?kind=logo', makePng(100, 100, 120), 'image/png');
   ok(logo1.status === 201 && /^\/img\/[0-9a-f]{24}$/.test(logo1.data.image.url), 'an owner uploads a logo');
@@ -934,6 +950,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   for (const img of (await call('GET', '/api/admin/firms/achkar-law/images')).data.images) await call('DELETE', `/api/admin/firms/achkar-law/images/${img.id}`);
   ok((await call('GET', '/api/admin/firms/achkar-law/images')).data.images.length === 0, 'the admin cleared the test pictures');
   ok((await call('GET', '/api/firms/achkar-law')).data.heroImage === origFirm.heroImage || (origFirm.heroImage === undefined && (await call('GET', '/api/firms/achkar-law')).data.heroImage === undefined), 'removing the cover restores the firm\'s original');
+  await call('PATCH', '/api/admin/firms/achkar-law', { featured: false });
   as(o1.jar);
 
   // Stripe: a signed payment makes a verified owner's firm Featured; the end of the subscription reverses it

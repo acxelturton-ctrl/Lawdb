@@ -666,7 +666,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(setFeed.status === 200 && setFeed.data.feed.status === 'ok' && setFeed.data.posts.length === 5, 'the admin sets a firm\'s feed and it is read at once');
   const featPage = (await getRaw('/firms/' + featSlug)).text;
   const cardCount = (featPage.match(/<article class="lw-bc">/g) || []).length;
-  ok(cardCount === 3 && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="from-firm"') && featPage.indexOf('class="lw-blog"') < featPage.indexOf('class="fine"'), 'three cards sit between "From the Firm" and the fine print');
+  ok(cardCount === 3 && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="from-firm"') && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="firm-serves"') && featPage.indexOf('class="lw-blog"') < featPage.indexOf('<footer'), 'three cards sit after the line under the map and before the footer');
   ok(featPage.includes('Charged With Impaired Driving') && featPage.includes('Tom &amp; Jerry&#x27;s Guide') && !featPage.includes('evil.example') && !featPage.includes('<script>alert') && !featPage.includes('onerror=alert'), 'card text is escaped and off-site links never appear');
   const storyHref = (/href="(\/news\/daniel-brown-law-llp\/charged-with-impaired-driving-what-happens-next-\d+)"/.exec(featPage) || [])[1];
   ok(!!storyHref && featPage.includes('data-story') && !featPage.includes(`href="${origin}/blog/impaired"`), 'each card opens the story\'s own LawDB page');
@@ -1093,7 +1093,8 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(rp.status === 200 && rp.text.includes('Report: Achkar Law') && rp.text.includes('value="achkar-law"'), 'the report page names the firm');
   ok(rp.text.indexOf('id="rp-out"') > rp.text.indexOf('</form>'), 'the report page\'s thank-you message is outside the form it hides');
   ok((await getRaw('/report-listing?firm=nope')).text.includes('Report a listing'), 'the report page works for an unknown firm');
-  ok((await getRaw('/firms/achkar-law')).text.includes('/report-listing?firm=achkar-law'), 'profile pages link to the report page');
+  const profileText = (await getRaw('/firms/achkar-law')).text;
+  ok(!profileText.includes('Report this listing') && !profileText.includes('Shaded:') && profileText.includes('Law firm serving Ontario, Canada.'), 'profile: no disclaimer or map caption; the line under the map names the province');
   const rep = await call('POST', '/api/leads', { name: 'Reporter', email: `reporter-${run}@example.com`, form: 'report-listing', reportedFirm: 'achkar-law', reason: 'inaccurate', message: 'The phone number is wrong' });
   ok(rep.status === 201, 'a visitor reports a listing');
   as(adminJar);

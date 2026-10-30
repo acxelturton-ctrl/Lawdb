@@ -214,11 +214,16 @@ function firmMapHtml(f){
     `var c=circle(${SERVICE_RADIUS_M}),xs=c.map(function(p){return p[0]}),ys=c.map(function(p){return p[1]});map.fitBounds([[Math.min.apply(null,xs),Math.min.apply(null,ys)],[Math.max.apply(null,xs),Math.max.apply(null,ys)]],{padding:24,duration:0,maxZoom:13});new maplibregl.Marker({color:'#c9a050'}).setLngLat([lng,lat]).addTo(map);});});})();`;
   return '<div class="map-embed">\n      <h2>Location</h2>\n' +
     '      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.css">\n' +
-    '      <style>.firm-map{height:320px;border-radius:12px;overflow:hidden;background:#edeae1;max-width:100%}.firm-map-note{margin:8px 0 0;font-size:12.5px;color:#586170;line-height:1.5}</style>\n' +
+    '      <style>.firm-map{height:320px;border-radius:12px;overflow:hidden;background:#edeae1;max-width:100%}</style>\n' +
     `      <div id="firmMap" class="firm-map" role="img" aria-label="Map of ${esc(f.name)} and the area around its office"></div>\n` +
-    `      <p class="firm-map-note">Shaded: the approximate area the firm serves, about ${SERVICE_RADIUS_M / 1000} km around the office. <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank" rel="noopener">Open in Google Maps</a></p>\n` +
     '      <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.js" defer></script>\n' +
     `      <script>${script}</script>\n    </div>`;
+}
+
+// The line under the map, in the words MSPdatabase uses under its map ("Managed services provider serving Florida, USA.").
+// Hand-built pages carry the same line in the same place.
+export function servesHtml(f) {
+  return `<p class="firm-serves" style="margin:14px 0 0;font-size:16px;line-height:1.5;color:#142434">Law firm serving ${esc(PROVINCES[f.province] || f.province)}, Canada.</p>`;
 }
 
 export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], origin = 'https://lawdb.ca', stats = null }) {
@@ -316,7 +321,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     carousel(f, nearby),
     '\n\n    ' + leadScript,
     mapHtml ? '\n    ' + mapHtml : '',
+    '\n    ' + servesHtml(f),
     articlesHtml ? '\n    ' + articlesHtml : '',
-    '    ' + fill(C.FINE, toks) + '\n  </div>\n  ' + C.FOOTER,
+    '\n  </div>\n  ' + C.FOOTER,
   ].join('\n');
 }

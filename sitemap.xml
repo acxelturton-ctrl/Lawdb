@@ -74,13 +74,13 @@
   </url>
   <url>
     <loc>https://lawdb.ca/list-your-firm</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://lawdb.ca/for-firms</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -143,6 +143,12 @@
     <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lawdb.ca/new-firms</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://lawdb.ca/british-columbia/traffic-ticket-lawyers</loc>
@@ -1735,6 +1741,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://lawdb.ca/grow-your-practice/referral-network-for-lawyers</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://lawdb.ca/grow-your-practice/google-business-profile-for-law-firms</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
@@ -1796,7 +1808,7 @@
   </url>
   <url>
     <loc>https://lawdb.ca/how-it-works</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2036,7 +2048,7 @@
   </url>
   <url>
     <loc>https://lawdb.ca/book-a-call</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

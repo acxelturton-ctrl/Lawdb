@@ -718,9 +718,9 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   as(o2.jar);
   ok((await call('GET', '/api/account/firms/achkar-law/feed')).status === 403 && (await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 403, 'another owner cannot touch this firm\'s cards');
   as(o1.jar);
-  ok((await getRaw('/firms/achkar-law')).text.includes('class="lw-blog"'), 'database-built pages show the cards too');
+  ok((await getRaw('/firms/achkar-law')).text.includes('class="fa"'), 'database-built pages show the cards too');
   ok((await call('GET', '/api/account/firms/achkar-law/feed')).data.posts.length >= 2, 'the owner sees their feed status');
-  ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 200 && !(await getRaw('/firms/achkar-law')).text.includes('class="lw-blog"'), 'an owner switches their cards off');
+  ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 200 && !(await getRaw('/firms/achkar-law')).text.includes('class="fa"'), 'an owner switches their cards off');
   ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: true })).status === 200, 'and on again');
   ok((await call('POST', '/api/account/firms/achkar-law/feed/refresh')).status === 429, 'an owner cannot re-check within minutes of the last check');
   as(adminJar);
@@ -790,7 +790,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const poNews = (await getRaw('/news')).text;
   ok(!poNews.includes('>Achkar Law<') && poNews.includes('Daniel Brown Law LLP'), 'a page-only firm is not on LawDB News');
   const poPage = (await getRaw('/firms/achkar-law')).text;
-  ok(poPage.includes('class="lw-blog"') && !poPage.includes('data-story') && !poPage.includes('data-save=') && poPage.includes(`href="${origin}/blog/`), 'its own page still shows the cards, linking straight to the firm\'s articles');
+  ok(poPage.includes('class="fa"') && !poPage.includes('data-story') && !poPage.includes('data-save=') && poPage.includes(`href="${origin}/blog/`), 'its own page still shows the cards, linking straight to the firm\'s articles');
   ok(!!achHref && (await getRaw(achHref)).status === 404 && !(await getRaw('/sitemap-news.xml')).text.includes('/news/achkar-law/'), 'a page-only firm has no LawDB story pages and none in the story sitemap');
   as(adminJar);
   ok((await call('GET', '/api/admin/news')).data.firms.every((f) => f.slug !== 'achkar-law'), 'page-only firms are not listed among the News firms');

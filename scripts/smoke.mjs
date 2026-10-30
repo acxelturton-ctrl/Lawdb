@@ -126,7 +126,9 @@ for (const path of ['/ontario/ottawa/', '/manitoba/', '/quebec/quebec-city/']) {
   }
   // the new-firms page lists the most recently added live firms, each as a card that opens its profile
   const newest = await getRaw('/new-firms');
-  ok(newest.status === 200 && newest.headers.get('x-lawdb-source') === 'database' && newest.text.includes('<h1>New listed firms</h1>') && newest.text.includes('class="nf-card" href="/firms/'), '/new-firms lists the newest live firms from the database');
+  // every card has its cover and its logo (the page lists only firms that have both)
+  const nfCards = (newest.text.match(/class="nf-card" href="\/firms\//g) || []).length;
+  ok(newest.status === 200 && newest.headers.get('x-lawdb-source') === 'database' && newest.text.includes('<h1>New listed firms</h1>') && nfCards === (newest.text.match(/class="nf-cover"/g) || []).length && nfCards === (newest.text.match(/class="nf-logo"/g) || []).length, '/new-firms answers from the database, and every card it lists has a cover and a logo');
   const tor = live.filter((f) => f.province === 'ON' && f.city === 'Toronto').length;
   ok((await getRaw('/')).text.includes(`data-live="city:ON|Toronto">${tor}<`), 'the Browse-by-city counts are live too');
 }

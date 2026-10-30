@@ -2,7 +2,7 @@
 // (see scripts/extract-firm-template.mjs), so a rendered page looks like the originals.
 import { cleanDetails } from '../lib/details.js';
 import * as C from './firm-chunks.generated.js';
-import { renderBlogCards } from './blog-cards.js';
+import { renderFirmArticles } from './blog-cards.js';
 import { profilesBox, hasLinkedIn } from './profiles.js';
 
 export const PROVINCES = { ON: 'Ontario', QC: 'Quebec', BC: 'British Columbia', AB: 'Alberta', MB: 'Manitoba' };
@@ -290,6 +290,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
 
   const toks = { NAME: esc(f.name), SLUG: esc(f.slug), LAT: esc(f.lat), LNG: esc(f.lng) };
   const mapHtml = num(f.lat) && num(f.lng) && !f.approxCoords ? firmMapHtml(f) : '';
+  // The firm's own articles sit under the map, as on MSPdatabase.
+  const articlesHtml = renderFirmArticles({ firmName: f.name, posts });
   // The lead script is JavaScript, so the name goes in as a JS-safe string, not HTML.
   const jsName = String(f.name).replace(/[\\'"<>&\n\r]/g, ' ');
   const leadScript = fill(C.LEAD_SCRIPT, { SLUG: String(f.slug).replace(/[^a-z0-9-]/g, ''), NAME: jsName });
@@ -310,10 +312,11 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
     C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (f.block && f.block.image ? BLOCK_CSS : '') + (stats?.rank || (stats?.practice || []).length ? RANK_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm">\n  ' + C.HEADER,
-    '  <div class="wrap">\n    ' + card + officesHtml(f) + rankHtml(f, stats?.rank) + aboutHtml + '\n    ' + fill(C.LEAD_SLIM, toks) + profilesHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + practiceHtml(f, cards) + services + renderBlogCards({ firmName: f.name, posts }) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap">\n    ' + card + officesHtml(f) + rankHtml(f, stats?.rank) + aboutHtml + '\n    ' + fill(C.LEAD_SLIM, toks) + profilesHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + practiceHtml(f, cards) + services + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     carousel(f, nearby),
     '\n\n    ' + leadScript,
     mapHtml ? '\n    ' + mapHtml : '',
+    articlesHtml ? '\n    ' + articlesHtml : '',
     '    ' + fill(C.FINE, toks) + '\n  </div>\n  ' + C.FOOTER,
   ].join('\n');
 }

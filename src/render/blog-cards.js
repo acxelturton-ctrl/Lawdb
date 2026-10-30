@@ -138,3 +138,41 @@ export function renderBlogCards({ firmName, posts }) {
     `<p class="lw-blog-sub">Recent articles from the firm's own blog.</p><div class="lw-bc-grid">${shown.map((p) => cardHtml(p)).join('')}</div>` +
     `<p class="lw-note">Headlines and short excerpts come from the firm's public blog. The articles belong to ${esc(firmName)}; the full text is on their website.</p></section>`;
 }
+
+// The firm's own articles, listed under the profile's map the way MSPdatabase does it: each article is a row with the headline and a
+// short preview on the left, and its picture on the right, with how long ago it was written. Text is escaped; only https pictures and
+// links are used, as on the other cards.
+const ARTICLES_CSS = `<style>
+.fa{margin:28px 0 8px}
+.fa h2{font:600 19px/1.3 'Source Serif 4',Georgia,serif;color:#142434;margin:0 0 6px}
+.fa-row{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-top:1px solid #e3dfd3}
+.fa-main{flex:1;min-width:0;color:#142434;text-decoration:none}
+.fa-main h3{margin:0 0 6px;font:700 16px/1.3 'Inter',system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fa-main:hover h3{text-decoration:underline}
+.fa-main p{margin:0 0 8px;font-size:14px;line-height:1.5;color:#586170;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fa-meta{display:flex;align-items:center;gap:5px;font:500 12.5px/1.3 'Inter',system-ui,sans-serif;color:#8a919b}
+.fa-pic{flex:none;width:clamp(96px,34%,150px);aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#edeae1}
+.fa-pic img{width:100%;height:100%;object-fit:cover;display:block}
+.fa-note{margin:14px 0 0;font-size:12px;color:#8a919b;line-height:1.5}
+</style>`;
+
+function articleRowHtml(p) {
+  const href = p.storyHref || p.url;
+  const target = p.storyHref ? '' : ' target="_blank" rel="noopener"';
+  const when = timeOf(p.publishedAt);
+  const pic = p.image && safePostUrl(p.image)
+    ? `<span class="fa-pic"><img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"></span>`
+    : '';
+  return `<article class="fa-row"><a class="fa-main" href="${esc(href)}"${target}><h3>${esc(p.title)}</h3>` +
+    (p.excerpt ? `<p>${esc(teaser(p.excerpt, 170))}</p>` : '') +
+    `<span class="fa-meta">${when ? `<time datetime="${esc(when.iso)}">${esc(when.label)}</time> · ` : ''}${GLOBE}</span></a>${pic}</article>`;
+}
+
+export function renderFirmArticles({ firmName, posts }) {
+  const shown = (posts || []).slice(0, 5).filter((p) => safePostUrl(p.url));
+  if (!shown.length) return '';
+  return `${ARTICLES_CSS}<section class="fa" aria-label="Recent articles by ${esc(firmName)}"><h2>Recent articles by ${esc(firmName)}</h2>` +
+    shown.map(articleRowHtml).join('') +
+    `<p class="fa-note">Headlines and short excerpts come from the firm's public blog. The articles belong to ${esc(firmName)}; the full text is on their website.</p></section>`;
+}
+

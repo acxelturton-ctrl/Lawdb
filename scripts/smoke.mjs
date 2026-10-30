@@ -124,6 +124,11 @@ for (const path of ['/ontario/ottawa/', '/manitoba/', '/quebec/quebec-city/']) {
     ok(r.status === 200 && r.headers.get('x-lawdb-source') === 'database', `${path} is rendered from the database`);
     ok(r.text.includes(`data-live="firms">${num(live.length)}<`) && r.text.includes(`data-live="cities">${num(cityCount)}<`), `${path} shows today's firm and city totals`);
   }
+  // the new-firms page lists the most recently added live firms, each as a card that opens its profile
+  const newest = await getRaw('/new-firms');
+  // every card has its cover and its logo (the page lists only firms that have both)
+  const nfCards = (newest.text.match(/class="nf-card" href="\/firms\//g) || []).length;
+  ok(newest.status === 200 && newest.headers.get('x-lawdb-source') === 'database' && newest.text.includes('<h1>New listed firms</h1>') && nfCards === (newest.text.match(/class="nf-cover"/g) || []).length && nfCards === (newest.text.match(/class="nf-logo"/g) || []).length, '/new-firms answers from the database, and every card it lists has a cover and a logo');
   const tor = live.filter((f) => f.province === 'ON' && f.city === 'Toronto').length;
   ok((await getRaw('/')).text.includes(`data-live="city:ON|Toronto">${tor}<`), 'the Browse-by-city counts are live too');
 }
@@ -840,7 +845,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     // the home page top bar carries one Sign in button (not in the nav), so its menu lists only the three links, the consultation button and Contact Us
     const home = f === 'index.html';
     const navWant = home ? ['Find Your Lawyer', 'LawDB News', 'For Law Firms'] : ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Request a Consultation'];
-    const drawerWant = home ? ['Find Your Lawyer', 'LawDB News', 'Grow Leads to Your Law Firm', 'Contact Us', 'Request a Consultation'] : ['Find Your Lawyer', 'LawDB News', 'Grow Leads to Your Law Firm', 'Sign in', 'Contact Us', 'Request a Consultation'];
+    const drawerWant = home ? ['Find Your Lawyer', 'LawDB News', 'New listed firms', 'Grow Leads to Your Law Firm', 'Contact Us', 'Request a Consultation'] : ['Find Your Lawyer', 'LawDB News', 'New listed firms', 'Grow Leads to Your Law Firm', 'Sign in', 'Contact Us', 'Request a Consultation'];
     const topBar = home ? /<div class="hdr-auth"><a class="hdr-signin" href="\/account\/">Sign in<\/a><\/div>/.test(h) : true;
     ok(isDeepStrictEqual(labels(navOf(h)), navWant) && isDeepStrictEqual(labels(drawerOf(h)), drawerWant) && topBar, `${f}: the menu has three items, Sign in, Contact Us and the consultation button (Contact Us only in the hamburger menu)${home ? '; the home page top bar has one Sign in button' : ''}`);
     const firmsCol = (h.match(/<h4>For Law Firms<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';

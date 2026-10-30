@@ -36,7 +36,7 @@ const served = new Map(pages.map((r) => [servedOf(r), r]));
 const dirOf = (rel) => { const d = posix.dirname('/' + rel); return d.endsWith('/') ? d : d + '/'; };
 
 // Addresses the Worker answers itself (no file of that name) or that live outside the site's pages.
-const DYNAMIC = [/^\/news$/, /^\/report-listing$/, /^\/img\//, /^\/api\//, /^\/admin\//, /^\/account\//];
+const DYNAMIC = [/^\/news$/, /^\/new-firms$/, /^\/report-listing$/,/^\/img\//, /^\/api\//, /^\/admin\//, /^\/account\//];
 const problems = [];
 const bad = (file, msg) => problems.push(`${file}: ${msg}`);
 

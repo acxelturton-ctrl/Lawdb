@@ -53,7 +53,6 @@ chunks.FAVICONS = must(REF.split('\n').find((l) => l.startsWith('<link rel="icon
 chunks.FOOTER = REF.slice(must(REF.indexOf('<footer class="site-footer">'), 'footer'));
 chunks.LEAD_SLIM = tokenize(block(REF, '<div class="lead-slim">'), refFirm);
 chunks.MAP_EMBED = tokenize(block(REF, '<div class="map-embed">'), refFirm);
-chunks.FINE = tokenize(block(REF, '<div class="fine">'), refFirm);
 {
   const a = must(REF.indexOf("<script>\n    (function(){\n      var form = document.getElementById('leadForm-"), 'lead script');
   let s = REF.slice(a, REF.indexOf('</script>', a) + 9);

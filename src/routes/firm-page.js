@@ -96,14 +96,14 @@ export async function firmPage({ request, env, ctx }) {
   if (!row || row.status !== 'live' || row.page_mode !== 'dynamic') {
     let res = await env.ASSETS.fetch(request); // the original page (or a 404 for an unknown firm)
     if (res.status === 200 && row && row.status === 'live') {
-      // Hand-built pages get the blog cards slipped in: after their "From the Firm" block, or before the fine print.
+      // Hand-built pages get the blog cards slipped in: after their "From the Firm" block, or else under the map and its line about the area served.
       const posts = await feedPosts(env, m[1]);
       if (posts.length) {
         const cards = renderBlogCards({ firmName: JSON.parse(row.data).name, posts });
         let placed = false;
         res = new HTMLRewriter()
           .on('div.from-firm', { element(el) { placed = true; el.after(cards, { html: true }); } })
-          .on('div.fine', { element(el) { if (!placed) { placed = true; el.before(cards, { html: true }); } } })
+          .on('p.firm-serves', { element(el) { if (!placed) { placed = true; el.after(cards, { html: true }); } } })
           .transform(res);
       }
     }

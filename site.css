@@ -360,3 +360,117 @@ a.seo-chip:hover{ background:#f4ecd8; border-color:#c9a050; }
 .menu-drawer .mp-cta:hover{ background:#e2bd6a; color:#142434; padding-left:16px; }
 .menu-promo .mp-note{ margin:10px 0 0; font-size:12.5px; line-height:1.5; color:#8a919b; text-align:center; }
 .menu-drawer .mp-alt{ display:block; text-align:center; margin-top:8px; padding:8px 4px; font-size:14px; color:#edeae1; border-bottom:none; }
+
+/* ---------- profile pages built from the database, in the MSPdatabase style ----------
+   Breadcrumb above the card; a header card with a big round logo on the cover, the name, @handle and tagline, an icon row and pill buttons; the map and address
+   straight under it; and a "Firms you may like" column beside the page on a wide screen. Hand-built firm pages keep the older header (they have no .pg-msp). */
+body.pg-msp .wrap.pf-wrap{ max-width:720px; padding:18px 16px 64px; display:block; }
+body.pg-msp .pf-wrap > .pf-main{ min-width:0; }
+body.pg-msp .pf-aside{ display:none; }
+body.pg-msp .pf-anchor{ display:block; height:0; scroll-margin-top:84px; }
+
+/* breadcrumb */
+.pf-crumb{ display:flex; flex-wrap:wrap; align-items:center; gap:4px 7px; margin:0 0 14px; font:500 13.5px/1.3 'Inter',system-ui,sans-serif; color:#8a919b; }
+.pf-crumb a,.pf-crumb span{ color:#586170; text-decoration:none; }
+.pf-crumb a:hover{ color:#142434; text-decoration:underline; text-underline-offset:3px; }
+.pf-crumb .sep{ color:#8a919b; }
+.pf-crumb span:last-child{ color:#142434; font-weight:600; }
+.pf-crumb-home{ display:inline-flex; align-items:center; }
+.pf-crumb-home img{ width:20px; height:20px; display:block; }
+
+/* header card */
+body.pg-msp .pf-card{ border-radius:18px; box-shadow:0 14px 30px -24px rgba(20,36,52,.45); margin:0 0 16px; }
+body.pg-msp .pf-card .li-cover{ aspect-ratio:3/1; }
+body.pg-msp .pf-card .li-cover.gen{ aspect-ratio:3.4/1; }
+body.pg-msp .pf-card .li-body{ position:relative; padding:0 18px 18px; }
+body.pg-msp .pf-card .li-logo{ width:92px; height:92px; margin-top:-46px; border-radius:50%; border:4px solid #fff; box-shadow:0 2px 10px rgba(20,36,52,.22); }
+body.pg-msp .pf-card .li-logo img{ padding:8px; }
+body.pg-msp .pf-card .li-name{ font:800 25px/1.15 'Inter',system-ui,sans-serif; letter-spacing:-.015em; margin:12px 0 2px; color:#142434; }
+body.pg-msp .pf-handle{ margin:0 0 8px; font:500 14px/1.3 'Inter',system-ui,sans-serif; color:#8a919b; }
+body.pg-msp .pf-card .li-tag{ font-size:15.5px; line-height:1.45; color:#586170; margin:0 0 12px; max-width:62ch; }
+body.pg-msp .pf-feat{ position:absolute; top:12px; right:14px; display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:999px; background:#f4ecd8; border:1px solid #e6d4a4; color:#142434; font:700 12px/1 'Inter',system-ui,sans-serif; }
+body.pg-msp .pf-feat::before{ content:''; width:7px; height:7px; border-radius:50%; background:#c9a050; }
+
+/* icon row */
+.pf-meta{ display:flex; flex-wrap:wrap; gap:8px 18px; margin:0; }
+.pf-mi{ display:inline-flex; align-items:center; gap:6px; font:500 13.5px/1.35 'Inter',system-ui,sans-serif; color:#586170; text-decoration:none; min-width:0; }
+.pf-mi .ic{ width:16px; height:16px; flex:none; color:#8a919b; }
+.pf-mi b{ color:#142434; font-weight:700; }
+a.pf-mi:has(b) .ic{ color:#c9a050; }
+a.pf-mi:hover{ color:#142434; text-decoration:underline; text-underline-offset:3px; }
+.pf-mi.lw-fcount:empty{ display:none; }
+
+/* pill buttons: Follow (filled), Message, Book a call, the phone number */
+body.pg-msp .pf-actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; align-items:center; }
+body.pg-msp .pf-actions > .li-book-row{ display:contents; }
+body.pg-msp .pf-slot:empty{ display:none; }
+body.pg-msp .pf-btn{ box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:7px; height:38px; padding:0 16px; margin:0; border-radius:999px; border:1.5px solid #e3dfd3; background:#fff; color:#142434; font:600 14px/1 'Inter',system-ui,sans-serif; text-decoration:none; white-space:nowrap; cursor:pointer; flex:none; }
+body.pg-msp .pf-btn:hover{ border-color:#142434; background:#fff; color:#142434; text-decoration:none; }
+body.pg-msp .pf-btn .ic{ width:16px; height:16px; flex:none; }
+body.pg-msp .pf-btn.pf-follow{ background:#142434; border-color:#142434; color:#fff; }
+body.pg-msp .pf-btn.pf-follow:hover{ background:#2b3a4c; border-color:#2b3a4c; color:#fff; text-decoration:none; }
+body.pg-msp .pf-btn.lw-fbtn[aria-pressed="true"]{ background:#fff; border-color:#e3dfd3; color:#586170; font-weight:600; }
+body.pg-msp .pf-btn.lw-fbtn[aria-pressed="true"]:hover{ border-color:#142434; color:#142434; }
+body.pg-msp .pf-sm{ height:32px; padding:0 14px; font-size:13px; }
+body.pg-msp .pf-actions .li-btn.li-book{ flex:none; width:auto; height:38px; padding:0 16px; margin:0; font-size:14px; gap:7px; }
+body.pg-msp .pf-actions .li-btn.li-book .ic{ width:16px; height:16px; }
+body.pg-msp .pf-actions .lw-book-note{ flex:1 1 100%; max-width:none; margin:2px 0 0; }
+body.pg-msp .pf-plan{ margin:10px 0 0; font-size:13px; }
+body.pg-msp .pf-plan a{ color:#142434; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+body.pg-msp .pf-plan a:hover{ color:#2b3a4c; }
+body.pg-msp .pf-card .lw-claim{ margin:12px 0 0; }
+body.pg-msp .pf-card .lw-claim a{ color:#586170; font-weight:600; }
+body.pg-msp .pf-card .lw-claim a:hover{ color:#142434; }
+
+/* location card, directly under the header */
+.pf-loc{ background:#fff; border:1px solid #e3dfd3; border-radius:18px; overflow:hidden; margin:0 0 20px; box-shadow:0 14px 30px -26px rgba(20,36,52,.4); }
+.pf-map{ position:relative; }
+.pf-map .firm-map{ width:100%; height:230px; border:0; border-radius:0; }
+.pf-maps{ position:absolute; top:12px; left:12px; z-index:2; display:inline-flex; align-items:center; gap:6px; padding:7px 13px; border-radius:999px; background:#fff; color:#142434; font:700 13px/1 'Inter',system-ui,sans-serif; text-decoration:none; box-shadow:0 2px 8px rgba(20,36,52,.25); }
+.pf-maps .ic{ width:14px; height:14px; }
+.pf-maps:hover{ background:#f4ecd8; }
+.pf-addr{ display:flex; align-items:center; gap:10px; padding:13px 16px; border-top:1px solid #e3dfd3; font:500 14px/1.4 'Inter',system-ui,sans-serif; color:#586170; }
+.pf-map + .pf-addr{ border-top:1px solid #e3dfd3; }
+.pf-loc > .pf-addr:first-child{ border-top:0; }
+.pf-addr > .ic{ width:18px; height:18px; flex:none; color:#c9a050; }
+.pf-addr > span{ flex:1 1 auto; min-width:0; }
+.pf-addr b{ color:#142434; font-weight:600; }
+
+/* Firms you may like */
+.pf-like{ background:#fff; border:1px solid #e3dfd3; border-radius:18px; padding:18px; box-shadow:0 14px 30px -26px rgba(20,36,52,.4); }
+.pf-like h2{ margin:0 0 6px; font:700 17px/1.25 'Inter',system-ui,sans-serif; color:#142434; }
+.pf-like-row{ display:flex; gap:12px; padding:14px 0; border-top:1px solid #e3dfd3; }
+.pf-like h2 + .pf-like-row{ border-top:0; }
+.pf-like-av{ flex:none; width:48px; height:48px; border-radius:50%; overflow:hidden; border:1px solid #e3dfd3; background:#fff; display:block; }
+.pf-like-av img,.pf-like-av svg{ width:100%; height:100%; display:block; object-fit:contain; }
+.pf-like-av img{ padding:4px; box-sizing:border-box; }
+.pf-like-t{ min-width:0; flex:1; }
+.pf-like-t a{ color:#142434; text-decoration:none; }
+.pf-like-t a b{ display:block; font:700 14.5px/1.3 'Inter',system-ui,sans-serif; }
+.pf-like-t a:hover b{ text-decoration:underline; text-underline-offset:3px; }
+.pf-like-t span{ display:block; margin:2px 0 9px; font:500 12.5px/1.4 'Inter',system-ui,sans-serif; color:#8a919b; }
+
+@media (min-width:560px){
+  body.pg-msp .pf-card .li-cover{ aspect-ratio:3.6/1; }
+  body.pg-msp .pf-card .li-body{ padding:0 26px 22px; }
+  body.pg-msp .pf-card .li-logo{ width:112px; height:112px; margin-top:-56px; }
+  body.pg-msp .pf-card .li-name{ font-size:30px; }
+  .pf-map .firm-map{ height:280px; }
+}
+@media (min-width:1000px){
+  body.pg-msp .wrap.pf-wrap{ max-width:1180px; padding:28px 32px 80px; display:grid; grid-template-columns:minmax(0,1fr) 300px; column-gap:28px; align-items:start; }
+  body.pg-msp .pf-wrap > .pf-main{ grid-column:1; grid-row:1; }
+  body.pg-msp .pf-wrap > .pf-aside{ display:block; grid-column:2; grid-row:1; position:sticky; top:96px; margin-top:32px; }
+  body.pg-msp .pf-card .li-cover{ aspect-ratio:4/1; }
+  body.pg-msp .pf-card .li-cover.gen{ aspect-ratio:5/1; }
+}
+@media (min-width:1100px){
+  body.pg-msp .guide{ column-count:1; }
+  body.pg-msp .services ul{ column-count:2; }
+  body.pg-msp .pa-grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:420px){
+  body.pg-msp .pf-actions{ gap:7px; }
+  body.pg-msp .pf-btn{ padding:0 13px; font-size:13.5px; }
+}
+body.pg-msp .lw-rate,body.pg-msp .lw-prof{ max-width:none; margin:0 0 20px; }

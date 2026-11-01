@@ -4,6 +4,7 @@ import { cleanDetails } from '../lib/details.js';
 import * as C from './firm-chunks.generated.js';
 import { renderFirmArticles } from './blog-cards.js';
 import { profilesBox, hasLinkedIn } from './profiles.js';
+import { CITY_HUBS } from './city-hubs.generated.js';
 
 export const PROVINCES = { ON: 'Ontario', QC: 'Quebec', BC: 'British Columbia', AB: 'Alberta', MB: 'Manitoba' };
 const TZ = { ON: 'America/Toronto', QC: 'America/Toronto', BC: 'America/Vancouver', AB: 'America/Edmonton', MB: 'America/Winnipeg' };
@@ -100,7 +101,7 @@ function carousel(f, nearby) {
 function tagline(f) {
   const prov = PROVINCES[f.province] || f.province;
   const tags = (f.tags || []).filter(Boolean).slice(0, 2);
-  if (!tags.length) return `Law firm in ${esc(f.city)}, ${esc(prov)}.`;
+  if (!tags.length) return `Law firm serving ${esc(f.city)}, ${esc(prov)}.`;
   return `${esc(tags.join(' and '))} lawyers serving ${esc(f.city)}, ${esc(prov)}.`;
 }
 
@@ -196,11 +197,12 @@ function postal(f) {
   return { '@type': 'PostalAddress', streetAddress: street, addressLocality: f.city, addressRegion: f.province, ...(m && m[3].toUpperCase() === f.province ? { postalCode: m[4].toUpperCase().replace(/^(\w{3})-?(\w{3})$/, '$1 $2') } : {}), addressCountry: 'CA' };
 }
 
-// The Location map on a profile: MapLibre (the same map as the Find page), with the office pin and a shaded, dotted area around it that
-// shows the rough area the firm serves. Google's embed cannot draw an area and the site has no Google Maps key, so the map is drawn here,
-// with a link to the same place on Google Maps. The radius is an approximation, not the firm's exact service boundary.
+// The Location card on a profile, right under the header card as on MSPdatabase: the map (MapLibre, the same map as the Find page) with a "Maps" chip that
+// opens the same place on Google Maps, and under it the address with a Directions link. The map shows the office pin and a shaded, dotted area around it
+// that shows the rough area the firm serves (an approximation, not the firm's exact service boundary). Google's embed cannot draw an area and the site has
+// no Google Maps key, so the map is drawn here. A firm with no usable coordinates still gets the address row.
 const SERVICE_RADIUS_M = 8000;
-function firmMapHtml(f){
+function firmMapHtml(f, mapsSearch) {
   const lat = Number(f.lat), lng = Number(f.lng);
   const script = `(function(){var lng=${lng},lat=${lat};` +
     'function circle(r){var pts=[];for(var i=0;i<=64;i++){var a=i/64*2*Math.PI;pts.push([lng+r*Math.sin(a)/(111320*Math.cos(lat*Math.PI/180)),lat+r*Math.cos(a)/111320]);}return pts;}' +
@@ -212,19 +214,60 @@ function firmMapHtml(f){
     "map.addLayer({id:'area-fill',type:'fill',source:'area',paint:{'fill-color':'#e2bd6a','fill-opacity':0.3}});" +
     "map.addLayer({id:'area-line',type:'line',source:'area',paint:{'line-color':'#c9a050','line-width':2,'line-dasharray':[2,2]}});" +
     `var c=circle(${SERVICE_RADIUS_M}),xs=c.map(function(p){return p[0]}),ys=c.map(function(p){return p[1]});map.fitBounds([[Math.min.apply(null,xs),Math.min.apply(null,ys)],[Math.max.apply(null,xs),Math.max.apply(null,ys)]],{padding:24,duration:0,maxZoom:13});new maplibregl.Marker({color:'#c9a050'}).setLngLat([lng,lat]).addTo(map);});});})();`;
-  return '<div class="map-embed">\n      <h2>Location</h2>\n' +
-    '      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.css">\n' +
-    '      <style>.firm-map{height:320px;border-radius:12px;overflow:hidden;background:#edeae1;max-width:100%}</style>\n' +
+  return '<div class="pf-map">\n      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.css">\n' +
+    '      <style>.firm-map{overflow:hidden;background:#edeae1;max-width:100%}</style>\n' +
+    `      <a class="pf-maps" href="${esc(mapsSearch)}" target="_blank" rel="noopener">Maps ${IC.out}</a>\n` +
     `      <div id="firmMap" class="firm-map" role="img" aria-label="Map of ${esc(f.name)} and the area around its office"></div>\n` +
     '      <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.js" defer></script>\n' +
     `      <script>${script}</script>\n    </div>`;
 }
 
-// The line under the map, in the words MSPdatabase uses under its map ("Managed services provider serving Florida, USA.").
-// Hand-built pages carry the same line in the same place.
-export function servesHtml(f) {
-  return `<p class="firm-serves" style="margin:14px 0 0;font-size:16px;line-height:1.5;color:#142434">Law firm serving ${esc(PROVINCES[f.province] || f.province)}, Canada.</p>`;
+function locationHtml(f, { mapsSearch, dir, withMap }) {
+  const addr = f.address ? `<div class="pf-addr">${C.ICONS.pin}<span><b>${esc(f.address)}</b></span><a class="pf-btn pf-sm pf-dir" href="${esc(dir)}" target="_blank" rel="noopener">Directions</a></div>` : '';
+  const map = withMap ? firmMapHtml(f, mapsSearch) : '';
+  if (!map && !addr) return '';
+  return `<section class="pf-loc" aria-label="Location of ${esc(f.name)}">\n      ${map}${addr}\n    </section>`;
 }
+
+// ---- the page frame, as on MSPdatabase: a breadcrumb above the card, and a "firms you may like" column beside the page on a wide screen ----
+const PROV_SLUG = { ON: 'ontario', QC: 'quebec', BC: 'british-columbia', AB: 'alberta', MB: 'manitoba' };
+const citySlug = (c) => String(c).normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+// +14168268610 -> (416) 826-8610 for display; the tel: link keeps the stored number. Anything that is not a plain North American number is shown as stored.
+const showPhone = (p) => { const d = String(p || '').replace(/\D/g, ''); const m = d.length === 11 && d[0] === '1' ? d.slice(1) : d; return m.length === 10 ? `(${m.slice(0, 3)}) ${m.slice(3, 6)}-${m.slice(6)}` : String(p || ''); };
+const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
+const rootImg = (u) => (/^https:/.test(u) || u.startsWith('/') ? u : `/${u}`);
+const SVG = (inner) => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+const IC = {
+  link: SVG('<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'),
+  msg: SVG('<path d="M4 5.5h16v11H9.5L5 20.5v-4H4z"/>'),
+  out: SVG('<path d="M14 4h6v6M20 4l-9 9M18 14v5H5V6h5"/>'),
+};
+
+function breadcrumb(f, prov) {
+  const ps = PROV_SLUG[f.province];
+  const cs = citySlug(f.city);
+  const sep = '<span class="sep" aria-hidden="true">&rsaquo;</span>';
+  return '<nav class="pf-crumb" aria-label="Breadcrumb">' +
+    `<a class="pf-crumb-home" href="/" aria-label="LawDB home"><img src="/images/logo-icon.png" alt="" width="20" height="20"></a>${sep}` +
+    `<a href="/find-lawyers">Canada</a>${sep}` +
+    (ps ? `<a href="/${ps}/">${esc(prov)}</a>` : `<span>${esc(prov)}</span>`) + sep +
+    (ps && CITY_HUBS.has(`${ps}/${cs}`) ? `<a href="/${ps}/${cs}/">${esc(f.city)}</a>` : `<span>${esc(f.city)}</span>`) +
+    '</nav>';
+}
+
+// "Firms you may like": three nearby firms with a Follow button. Beside the page on a wide screen; on a phone the "other lawyers" row at the bottom does this job.
+function likeAside(nearby) {
+  const rows = (nearby || []).slice(0, 3).map((n) => {
+    const src = safeUrl(n.src), remote = safeUrl(n.logoUrl);
+    const av = src ? `<img src="${esc(rootImg(src))}" alt="" loading="lazy">` : remote ? `<img src="${esc(remote)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : monogram(n);
+    const sub = (n.tags || []).filter(Boolean)[0] || 'Law practice';
+    return `<div class="pf-like-row"><a class="pf-like-av" href="/firms/${esc(n.slug)}" tabindex="-1" aria-hidden="true">${av}</a><div class="pf-like-t"><a href="/firms/${esc(n.slug)}"><b>${esc(n.name)}</b></a><span>${esc(sub)} &middot; ${esc(n.city)}</span><button class="lw-fbtn pf-btn pf-sm" type="button" data-follow="${esc(n.slug)}">+ Follow</button></div></div>`;
+  }).join('');
+  return rows ? `\n   <aside class="pf-aside" aria-label="Firms you may like"><section class="pf-like"><h2>Firms you may like</h2>${rows}</section></aside>` : '';
+}
+
+// The Message button opens the contact form it scrolls to.
+const CONTACT_JS = "<script>(function(){var b=document.querySelector('[data-open-contact]'),s=document.querySelector('.lead-slim');if(b&&s)b.addEventListener('click',function(){s.classList.add('open');});})();</script>";
 
 export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], origin = 'https://lawdb.ca', stats = null }) {
   const prov = PROVINCES[f.province] || f.province;
@@ -256,21 +299,31 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     ...(glance ? { ...(glance.founded ? { foundingDate: String(glance.founded) } : {}), ...(glance.languages ? { knowsLanguage: glance.languages } : {}), ...(glance.serving ? { areaServed: glance.serving } : {}) } : {}),
   };
 
+  // Buttons, as on MSPdatabase: Follow (filled), Message, Book a call (the Worker puts it in the slot), and the phone number. The website is in the icon row and
+  // Directions is on the location card.
   const actions =
-    '<div class="li-actions">' +
-    (f.phone ? `<a class="li-btn li-primary" href="tel:${esc(f.phone)}">${C.ICONS.phone}<span>Call now</span></a>` : '') +
-    (website ? `<a class="li-btn li-ghost" href="${esc(website)}" target="_blank" rel="noopener">${C.ICONS.globe}<span>Website</span></a>` : '') +
-    `<a class="li-btn li-ghost" href="${esc(dir)}" target="_blank" rel="noopener">${C.ICONS.pin}<span>Directions</span></a></div>`;
+    '<div class="li-actions pf-actions">' +
+    `<button class="lw-fbtn pf-btn pf-follow" type="button" data-follow="${esc(f.slug)}">+ Follow</button>` +
+    `<a class="pf-btn" href="#contact" data-open-contact>${IC.msg}<span>Message</span></a>` +
+    '<span class="pf-slot" data-slot="book"></span>' +
+    (f.phone ? `<a class="pf-btn" href="tel:${esc(f.phone)}">${C.ICONS.phone}<span>${esc(showPhone(f.phone))}</span></a>` : '') +
+    '</div>';
 
   const planLine = f.featured
-    ? '<p class="li-meta li-feat">Featured on LawDB</p>'
-    : '<p class="li-meta">Basic listing &middot; <a href="/list-your-firm">Own this firm? Get featured</a></p>';
+    ? ''
+    : '<p class="li-meta pf-plan">Basic listing &middot; <a href="/list-your-firm">Own this firm? Get featured</a></p>';
+
+  // The icon row: where the firm is, its website, its Google rating, and how many members follow it.
+  const meta =
+    `<div class="pf-meta"><span class="pf-mi">${C.ICONS.pin}${esc(f.city)}, ${esc(prov)}, Canada</span>` +
+    (website ? `<a class="pf-mi" href="${esc(website)}" target="_blank" rel="noopener">${IC.link}${esc(hostOf(website))}</a>` : '') +
+    (rated ? `<a class="pf-mi" href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.star}<b>${num(f.rating).toFixed(1)}</b> from ${num(f.count)} Google reviews</a>` : '') +
+    `<span class="pf-mi lw-fcount" data-fcount="${esc(f.slug)}"></span></div>`;
 
   const card =
-    `<section class="li-card" aria-label="${esc(f.name)} profile">\n      ${coverDiv(f)}\n      <div class="li-body">\n        ${logoSpan(f)}\n` +
-    `        <h1 class="li-name">${esc(f.name)}${f.featured ? ' ' + C.TICK : ''}</h1>\n        <p class="li-tag">${tagline(f)}</p>\n` +
-    `        <p class="li-meta">Law Practice &middot; ${esc(f.city)}, ${esc(f.province)}${rated ? ` &middot; <b>${num(f.rating)} &#9733;</b> from ${num(f.count)} Google reviews` : ''}</p>\n` +
-    `        ${f.address ? `<p class="li-meta">${esc(f.address)}</p>` : ''}${planLine}\n        ${actions}\n      </div>\n    </section>`;
+    `<section class="li-card pf-card" aria-label="${esc(f.name)} profile">\n      ${coverDiv(f)}\n      <div class="li-body">\n        ${f.featured ? '<span class="pf-feat li-feat">Featured on LawDB</span>\n        ' : ''}${logoSpan(f)}\n` +
+    `        <h1 class="li-name">${esc(f.name)}${f.featured ? ' ' + C.TICK : ''}</h1>\n        <p class="pf-handle">@${esc(f.slug)}</p>\n        <p class="li-tag">${tagline(f)}</p>\n` +
+    `        ${meta}\n        ${actions}${planLine ? '\n        ' + planLine : ''}\n      </div>\n    </section>`;
 
   const aboutHtml = about ? `\n    <div class="article">${esc(about).replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>')}</div>` : '';
   // The Profiles box (the firm's social icons) sits right under the description; a firm without one still has it where the description would be.
@@ -294,8 +347,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `      <a href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.pin2}<span>View on Google Maps</span></a>\n    </div>`;
 
   const toks = { NAME: esc(f.name), SLUG: esc(f.slug), LAT: esc(f.lat), LNG: esc(f.lng) };
-  const mapHtml = num(f.lat) && num(f.lng) && !f.approxCoords ? firmMapHtml(f) : '';
-  // The firm's own articles sit under the map, as on MSPdatabase.
+  const locHtml = locationHtml(f, { mapsSearch, dir, withMap: !!(num(f.lat) && num(f.lng) && !f.approxCoords) });
+  // The firm's own articles come after the profile, as on MSPdatabase.
   const articlesHtml = renderFirmArticles({ firmName: f.name, posts });
   // The lead script is JavaScript, so the name goes in as a JS-safe string, not HTML.
   const jsName = String(f.name).replace(/[\\'"<>&\n\r]/g, ' ');
@@ -316,13 +369,12 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
     C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (f.block && f.block.image ? BLOCK_CSS : '') + (stats?.rank || (stats?.practice || []).length ? RANK_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
-    '<body class="pg-firm">\n  ' + C.HEADER,
-    '  <div class="wrap">\n    ' + card + officesHtml(f) + rankHtml(f, stats?.rank) + aboutHtml + '\n    ' + fill(C.LEAD_SLIM, toks) + profilesHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + practiceHtml(f, cards) + services + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + rankHtml(f, stats?.rank) + aboutHtml + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + profilesHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + practiceHtml(f, cards) + services + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    articlesHtml ? '\n    ' + articlesHtml : '',
     carousel(f, nearby),
     '\n\n    ' + leadScript,
-    mapHtml ? '\n    ' + mapHtml : '',
-    '\n    ' + servesHtml(f),
-    articlesHtml ? '\n    ' + articlesHtml : '',
-    '\n  </div>\n  ' + C.FOOTER,
+    '\n    ' + CONTACT_JS,
+    '\n   </div>' + likeAside(nearby) + '\n  </div>\n  ' + C.FOOTER,
   ].join('\n');
 }

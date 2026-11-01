@@ -61,9 +61,14 @@ const claimLine = (slug, managed) => managed
 // profiles: the Profiles box (the firm's social icons) for a hand-built page, put right under the contact form, which sits under the description; a database page already has it. A firm with a real LinkedIn page
 // does not need the generic "Search on LinkedIn" link of the hand-built pages.
 const withFollow = (res, slug, managed, profiles = '', linkedin = false, booking = '') => {
+  // A hand-built page has the old button block (div.li-actions): the Follow line goes above it and the booking row and claim line below it.
+  // A database page has the pill row (div.li-actions.pf-actions), which already carries its own Follow button and a slot for the booking button,
+  // so only the claim line is added, under the row.
   return new HTMLRewriter()
-    .on('div.li-actions', { element(el) { el.before(`<div class="lw-fline"><span class="lw-fcount" data-fcount="${slug}"></span><button class="lw-fbtn" type="button" data-follow="${slug}">+ Follow</button></div>`, { html: true }); } })
-    .on('div.li-actions', { element(el) { el.after(booking + claimLine(slug, managed), { html: true }); } })
+    .on('div.li-actions:not(.pf-actions)', { element(el) { el.before(`<div class="lw-fline"><span class="lw-fcount" data-fcount="${slug}"></span><button class="lw-fbtn" type="button" data-follow="${slug}">+ Follow</button></div>`, { html: true }); } })
+    .on('div.li-actions:not(.pf-actions)', { element(el) { el.after(booking + claimLine(slug, managed), { html: true }); } })
+    .on('div.pf-actions', { element(el) { el.after(claimLine(slug, managed), { html: true }); } })
+    .on('span[data-slot="book"]', { element(el) { el.replace(booking, { html: true }); } })
     .on('div.socials a', { element(el) { if (linkedin && /^https:\/\/www\.linkedin\.com\/search\//.test(el.getAttribute('href') || '')) el.remove(); } })
     .on('div.lead-slim', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>` + profiles, { html: true }); } })
     .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })

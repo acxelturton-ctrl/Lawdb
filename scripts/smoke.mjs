@@ -298,6 +298,14 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const sw = await getRaw('/firms/achkar-law');
   ok(sw.headers.get('x-lawdb-source') === 'database' && sw.text.includes('Achkar Law') && sw.text.includes('North York employment law firm acting for employees and employers'), 'switched firm now renders from the database and keeps its written description');
   ok(/<div class="rank-panel">[\s\S]*How Achkar Law ranks in North York/.test(sw.text) === /<div class="rank-panel">/.test(sw.text) && /<a class="pa-card" href="\/ontario\/employment-lawyers">/.test(sw.text), 'the database page links to the practice-area page, and shows a ranking when enough firms are listed in the city');
+  // the database page is laid out like MSPdatabase: breadcrumb, round-logo header with @handle and tagline, one Follow button (the Worker adds no second Follow line), the booking button in the pill row,
+  // the map and address card right under the header, and a "Firms you may like" column
+  const swc = (sw.text.match(/data-follow="achkar-law"/g) || []).length;
+  ok(sw.text.includes('<body class="pg-firm pg-msp">') && sw.text.includes('<nav class="pf-crumb"') && sw.text.includes('<a href="/ontario/">Ontario</a>') && sw.text.includes('class="pf-handle">@achkar-law</p>'), 'the database page has the breadcrumb, and the name is followed by the @handle');
+  ok(swc === 1 && !sw.text.includes('lw-fline') && !sw.text.includes('data-slot="book"') && sw.text.indexOf('li-book-row') > sw.text.indexOf('li-actions pf-actions') && sw.text.indexOf('li-book-row') < sw.text.indexOf('lw-claim'), 'the database page has one Follow button, the booking button inside the button row, and the claim line under the row');
+  ok(sw.text.indexOf('class="pf-loc"') > sw.text.indexOf('class="li-card pf-card"') && sw.text.indexOf('class="pf-loc"') < sw.text.indexOf('class="article"') && sw.text.includes('class="pf-addr"') && !sw.text.includes('Shaded:'), 'the location card (map and address) sits right under the header card');
+  ok(!sw.text.includes('class="map-embed"') && !/Law firm serving [A-Za-z ]+, Canada\./.test(sw.text), 'the old map block and its caption line are gone from the database page');
+  ok((sw.text.match(/<aside class="pf-aside"/g) || []).length <= 1 && /<h1 class="li-name">Achkar Law<\/h1>/.test(sw.text), 'the "Firms you may like" column is there at most once, and the page has one h1 with the firm name');
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' })).status === 200, 'switch it back');
   ok(!(await getRaw('/firms/achkar-law')).headers.get('x-lawdb-source'), 'firm is back on its original page');
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'weird' })).status === 422, 'invalid page style refused');
@@ -1116,7 +1124,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(rp.text.indexOf('id="rp-out"') > rp.text.indexOf('</form>'), 'the report page\'s thank-you message is outside the form it hides');
   ok((await getRaw('/report-listing?firm=nope')).text.includes('Report a listing'), 'the report page works for an unknown firm');
   const profileText = (await getRaw('/firms/achkar-law')).text;
-  ok(!profileText.includes('Report this listing') && !profileText.includes('Shaded:') && profileText.includes('Law firm serving Ontario, Canada.'), 'profile: no disclaimer or map caption; the line under the map names the province');
+  ok(!profileText.includes('Report this listing') && !profileText.includes('Shaded:') && (profileText.includes('Law firm serving Ontario, Canada.') || /class="li-tag">[^<]*serving [^<]*, Ontario\./.test(profileText)), 'profile: no disclaimer or map caption; the page names the province (the line under a hand-built page\'s map, or the tagline under the name on a database page)');
   const rep = await call('POST', '/api/leads', { name: 'Reporter', email: `reporter-${run}@example.com`, form: 'report-listing', reportedFirm: 'achkar-law', reason: 'inaccurate', message: 'The phone number is wrong' });
   ok(rep.status === 201, 'a visitor reports a listing');
   as(adminJar);

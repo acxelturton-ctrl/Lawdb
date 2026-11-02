@@ -55,10 +55,14 @@ function monogram(f) {
 export const safeUrl = (u) => (typeof u === 'string' && (/^https:\/\/[^\s"'<>]+$/.test(u) || /^\/?[A-Za-z0-9_\-./]+$/.test(u)) ? u : '');
 const localImg = (u) => (/^https:/.test(u) || u.startsWith('/') ? u : `../${u}`);
 
+// A logo that is drawn on its own colour (a white wordmark on black, say) says so with `logoBg` (#rrggbb): it then fills the whole badge, with no white padding around it.
+const logoBgOf = (f) => (/^#[0-9a-fA-F]{6}$/.test(f?.logoBg || '') ? f.logoBg : '');
+
 function logoSpan(f) {
   const src = safeUrl(f.src);
   const remote = safeUrl(f.logoUrl);
-  if (src) return `<span class="li-logo"><img src="${esc(localImg(src))}" alt="${esc(f.name)} logo" width="96" height="96"></span>`;
+  const bg = logoBgOf(f);
+  if (src) return `<span class="li-logo${bg ? ' li-logo-full' : ''}"${bg ? ` style="background:${bg}"` : ''}><img src="${esc(localImg(src))}" alt="${esc(f.name)} logo" width="96" height="96"></span>`;
   if (remote) return `<span class="li-logo">${monogram(f)}<img src="${esc(remote)}" alt="${esc(f.name)} logo" width="96" height="96" referrerpolicy="no-referrer" onerror="this.remove()"></span>`;
   return `<span class="li-logo">${monogram(f)}</span>`;
 }
@@ -77,7 +81,7 @@ function carouselCard(n) {
   const hero = safeUrl(n.heroImage), src = safeUrl(n.src), remote = safeUrl(n.logoUrl);
   let cover, logo = '';
   if (hero) cover = `<div class="lc-cover"><img src="${esc(localImg(hero))}" alt="" loading="lazy"></div>`;
-  else if (src) cover = `<div class="lc-cover brand${n.dark ? ' dark' : ''}"><img src="${esc(localImg(src))}" alt="${esc(n.name)} logo" loading="lazy"></div>`;
+  else if (src) { const bg = logoBgOf(n); cover = `<div class="lc-cover brand${n.dark ? ' dark' : ''}"${bg ? ` style="background:${bg};border-bottom-color:${bg}"` : ''}><img src="${esc(localImg(src))}" alt="${esc(n.name)} logo" loading="lazy"></div>`; }
   else if (remote) cover = `<div class="lc-cover brand${n.dark ? ' dark' : ''}"><img src="${esc(remote)}" alt="${esc(n.name)} logo" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"></div>`;
   else {
     cover = `<div class="lc-cover gen"><span>${esc(n.city)}</span></div>`;

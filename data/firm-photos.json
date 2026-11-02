@@ -314,8 +314,14 @@
  },
  "lalande-personal-injury-long-term-disability-lawyers": {
   "kind": "bio",
-  "src": "images/bio/lalande-personal-injury-long-term-disability-lawyers.webp",
-  "from": "https://injured.ca/wp-content/uploads/2026/09/matt-lalande-lalande-personal-injur-disability-lawyers.jpg"
+  "src": "images/bio/lalande-personal-injury-long-term-disability-lawyers-office.webp",
+  "from": "supplied by the LawDB owner on 2026-11-02 (replaces the share picture from https://injured.ca/)"
+ },
+ "lalande-personal-injury-long-term-disability-lawyers+cover": {
+  "kind": "cover",
+  "src": "images/hero/lalande-personal-injury-long-term-disability-lawyers.webp",
+  "pos": "center top",
+  "from": "supplied by the LawDB owner on 2026-11-02: the firm's black LALANDE Personal Injury Lawyers wordmark on a banner"
  },
  "lewis-et-associes-sencrl": {
   "kind": "cover",

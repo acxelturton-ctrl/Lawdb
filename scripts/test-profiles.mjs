@@ -53,5 +53,11 @@ ok(formIdx(formFirm) > formFirm.indexOf(aboutText) && formIdx(formFirm) < formFi
 const plainFirm = renderFirmPage({ firm: { name: 'Quiet Law', city: 'Surrey', province: 'BC', slug: 'quiet-law', type: 'mono' }, hours: null, images: [], posts: [], nearby: [], origin: 'https://lawdb.ca', stats: null });
 ok(formIdx(plainFirm) > plainFirm.indexOf('<section class="li-card"') && formIdx(plainFirm) < plainFirm.indexOf('<footer'), 'a firm with no description has the contact form in the same place, under its header card');
 
+// A logo drawn on its own colour (logoBg) fills the whole round badge: the badge says so and carries the colour. Anything that is not a plain #rrggbb is ignored.
+const logoFirm = { ...firm, type: 'logo', src: 'images/logos/smoke-law.png' };
+const badgeOf = (f) => (renderFirmPage({ firm: f }).match(/<span class="li-logo[^>]*>/) || [''])[0];
+ok(badgeOf({ ...logoFirm, logoBg: '#142434' }) === '<span class="li-logo li-logo-full" style="background:#142434">', 'a logo with logoBg fills its badge on that colour');
+ok(badgeOf(logoFirm) === '<span class="li-logo">' && badgeOf({ ...logoFirm, logoBg: 'red;background:url(x)' }) === '<span class="li-logo">' && badgeOf({ ...logoFirm, logoBg: '#00' }) === '<span class="li-logo">', 'without a valid logoBg the badge is the usual one (no style is ever taken from a bad value)');
+
 if (bad) { console.log(`\n${bad} FAILED`); process.exit(1); }
 console.log('\nprofile checks passed');

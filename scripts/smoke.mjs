@@ -305,11 +305,14 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const swc = (sw.text.match(/data-follow="achkar-law"/g) || []).length;
   ok(sw.text.includes('<body class="pg-firm pg-msp">') && sw.text.includes('<nav class="pf-crumb"') && sw.text.includes('<a href="/ontario/">Ontario</a>') && sw.text.includes('class="pf-handle">@achkar-law</p>'), 'the database page has the breadcrumb, and the name is followed by the @handle');
   ok(swc === 1 && !sw.text.includes('lw-fline') && !sw.text.includes('data-slot="book"') && sw.text.indexOf('li-book-row') > sw.text.indexOf('li-actions pf-actions') && sw.text.indexOf('li-book-row') < sw.text.indexOf('lw-claim'), 'the database page has one Follow button, the booking button inside the button row, and the claim line under the row');
-  ok(sw.text.indexOf('class="pf-loc"') > sw.text.indexOf('class="li-card pf-card"') && sw.text.indexOf('class="pf-loc"') < sw.text.indexOf('class="article"') && sw.text.includes('class="pf-addr"') && !sw.text.includes('Shaded:'), 'the location card (map and address) sits right under the header card');
+  const at = (t, k) => t.indexOf(k);
+  ok(at(sw.text, 'class="pf-loc"') > at(sw.text, 'class="lead-slim') && at(sw.text, 'class="pf-loc"') < at(sw.text, 'class="lw-rate"') && at(sw.text, 'class="article"') < at(sw.text, 'class="lead-slim') && sw.text.includes('class="pf-addr"') && !sw.text.includes('Shaded:'), 'the location card (map and address) sits right under the contact card, then the member ratings; the description is above the contact card');
   ok(!sw.text.includes('class="map-embed"') && !/Law firm serving [A-Za-z ]+, Canada\./.test(sw.text), 'the old map block and its caption line are gone from the database page');
   ok((sw.text.match(/<aside class="pf-aside"/g) || []).length <= 1 && /<h1 class="li-name">Achkar Law<\/h1>/.test(sw.text), 'the "Firms you may like" column is there at most once, and the page has one h1 with the firm name');
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' })).status === 200, 'switch it back');
   ok(!(await getRaw('/firms/achkar-law')).headers.get('x-lawdb-source'), 'firm is back on its original page');
+  const hb = (await getRaw('/firms/achkar-law')).text;
+  ok(at(hb, 'class="lead-slim') > 0 && at(hb, 'class="map-embed"') > at(hb, 'class="lead-slim') && at(hb, 'class="firm-serves"') > at(hb, 'class="map-embed"') && at(hb, 'class="lw-rate"') > at(hb, 'class="firm-serves"') && at(hb, 'class="lw-rate"') < at(hb, 'class="services"') && at(hb, 'class="lw-car"') > at(hb, 'class="services"'), 'a hand-built page has the same order: contact card, map and its line, then the member ratings, then the rest');
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'weird' })).status === 422, 'invalid page style refused');
 
   // owner-style edits show on the rendered page
@@ -692,7 +695,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(setFeed.status === 200 && setFeed.data.feed.status === 'ok' && setFeed.data.posts.length === 5, 'the admin sets a firm\'s feed and it is read at once');
   const featPage = (await getRaw('/firms/' + featSlug)).text;
   const cardCount = (featPage.match(/<article class="lw-bc">/g) || []).length;
-  ok(cardCount === 3 && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="from-firm"') && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="firm-serves"') && featPage.indexOf('class="lw-blog"') < featPage.indexOf('<footer'), 'three cards sit after the line under the map and before the footer');
+  ok(cardCount === 3 && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="from-firm"') && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="firm-serves"') && featPage.indexOf('class="lw-blog"') < featPage.indexOf('class="lw-car"') && featPage.indexOf('class="lw-blog"') < featPage.indexOf('<footer'), 'three cards sit under the page and just above the "Browse other lawyers" row');
   ok(featPage.includes('Charged With Impaired Driving') && featPage.includes('Tom &amp; Jerry&#x27;s Guide') && !featPage.includes('evil.example') && !featPage.includes('<script>alert') && !featPage.includes('onerror=alert'), 'card text is escaped and off-site links never appear');
   const storyHref = (/href="(\/news\/daniel-brown-law-llp\/charged-with-impaired-driving-what-happens-next-\d+)"/.exec(featPage) || [])[1];
   ok(!!storyHref && featPage.includes('data-story') && !featPage.includes(`href="${origin}/blog/impaired"`), 'each card opens the story\'s own LawDB page');

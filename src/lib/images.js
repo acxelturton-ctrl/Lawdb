@@ -76,10 +76,12 @@ async function syncFirm(env, slug) {
   const mine = (v) => typeof v === 'string' && v.startsWith('img/');
   if (logo) {
     if (firm.src && !mine(firm.src) && !firm.origSrc) firm.origSrc = firm.src;
+    // A logo that fills its badge on its own colour (logoBg) belongs to the old picture; the new one is shown the usual way.
+    if (firm.logoBg) { firm.origLogoBg = firm.logoBg; delete firm.logoBg; }
     firm.type = 'logo';
     firm.src = `img/${logo.id}`;
   } else if (mine(firm.src)) {
-    if (firm.origSrc) { firm.src = firm.origSrc; firm.type = 'logo'; delete firm.origSrc; } else { delete firm.src; firm.type = 'mono'; }
+    if (firm.origSrc) { firm.src = firm.origSrc; firm.type = 'logo'; delete firm.origSrc; if (firm.origLogoBg) { firm.logoBg = firm.origLogoBg; delete firm.origLogoBg; } } else { delete firm.src; firm.type = 'mono'; }
   }
   if (cover) {
     if (firm.heroImage && !mine(firm.heroImage) && !firm.origHero) firm.origHero = firm.heroImage;

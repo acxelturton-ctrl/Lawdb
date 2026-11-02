@@ -20,6 +20,7 @@
 .li-logo{ width:84px; height:84px; border-radius:10px; border:4px solid #fff; background:#fff; margin-top:-42px; position:relative; box-shadow:0 1px 6px rgba(20,36,52,0.18); display:block; overflow:hidden; }
 .li-logo img,.li-logo svg{ width:100%; height:100%; display:block; object-fit:contain; padding:0; }
 .li-logo img{ padding:6px; box-sizing:border-box; }
+.li-logo.li-logo-full img,body.pg-msp .pf-card .li-logo.li-logo-full img{ padding:0; object-fit:cover; }
 .li-name{ font-family:'Source Serif 4',serif; font-size:26px; line-height:1.15; margin:10px 0 6px; color:var(--lw-char); }
 .li-tick{ display:inline-flex; width:20px; height:20px; border-radius:50%; background:var(--lw-gold); align-items:center; justify-content:center; vertical-align:middle; margin-left:4px; }
 .li-tick svg{ width:12px; height:12px; }

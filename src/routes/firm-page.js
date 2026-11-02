@@ -70,7 +70,10 @@ const withFollow = (res, slug, managed, profiles = '', linkedin = false, booking
     .on('div.pf-actions', { element(el) { el.after(claimLine(slug, managed), { html: true }); } })
     .on('span[data-slot="book"]', { element(el) { el.replace(booking, { html: true }); } })
     .on('div.socials a', { element(el) { if (linkedin && /^https:\/\/www\.linkedin\.com\/search\//.test(el.getAttribute('href') || '')) el.remove(); } })
-    .on('div.lead-slim', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>` + profiles, { html: true }); } })
+    // The member-ratings box (and, on a hand-built page, the Profiles box) go under the map, which sits right under the contact card: after the line under the
+    // map on a hand-built page, and in the slot the renderer leaves for them on a database page.
+    .on('p.firm-serves', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>` + profiles, { html: true }); } })
+    .on('span[data-slot="rate"]', { element(el) { el.replace(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>` + profiles, { html: true }); } })
     .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })
     .transform(res);
 };
@@ -101,14 +104,14 @@ export async function firmPage({ request, env, ctx }) {
   if (!row || row.status !== 'live' || row.page_mode !== 'dynamic') {
     let res = await env.ASSETS.fetch(request); // the original page (or a 404 for an unknown firm)
     if (res.status === 200 && row && row.status === 'live') {
-      // Hand-built pages get the blog cards slipped in: after their "From the Firm" block, or else under the map and its line about the area served.
+      // Hand-built pages get the blog cards slipped in: after their "From the Firm" block, or else just above the "Browse other lawyers" row at the foot of the page.
       const posts = await feedPosts(env, m[1]);
       if (posts.length) {
         const cards = renderBlogCards({ firmName: JSON.parse(row.data).name, posts });
         let placed = false;
         res = new HTMLRewriter()
           .on('div.from-firm', { element(el) { placed = true; el.after(cards, { html: true }); } })
-          .on('p.firm-serves', { element(el) { if (!placed) { placed = true; el.after(cards, { html: true }); } } })
+          .on('section.lw-car', { element(el) { if (!placed) { placed = true; el.before(cards, { html: true }); } } })
           .transform(res);
       }
     }

@@ -274,19 +274,6 @@
 
 
   /* ---- featured upgrades ---- */
-  .rank-panel{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:18px 18px 14px; margin-bottom:20px; }
-  .rank-panel h2{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 12px; }
-  .rank-grid{ display:grid; grid-template-columns:1.1fr 1fr 1fr; gap:10px; }
-  .rank-cell{ background:var(--cream); border-radius:8px; padding:12px 12px 10px; }
-  .rank-cell.main{ background:linear-gradient(135deg,#e6d4a4,#c9a050 60%,#e2bd6a); }
-  .rank-big{ font-family:'Source Serif 4',serif; font-weight:700; font-size:30px; line-height:1; color:var(--ink); }
-  .rank-cell.main .rank-big{ color:#142434; }
-  .rank-big small{ font-size:14px; font-weight:600; opacity:.7; }
-  .rank-lab{ font-size:11.5px; line-height:1.35; color:var(--ink-soft); margin-top:6px; }
-  .rank-cell.main .rank-lab{ color:#142434; }
-  .rank-delta{ display:inline-block; font-size:11px; font-weight:700; color:#2b3a4c; background:#edeae1; border-radius:10px; padding:2px 7px; margin-top:6px; }
-  .rank-delta.neutral{ color:var(--ink-soft); background:#e3dfd3; }
-  .rank-note{ font-size:11px; color:#8a919b; margin:10px 0 0; line-height:1.5; }
   .pa-wrap{ margin-bottom:20px; }
   .pa-wrap h2{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 10px; }
   .pa-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; }
@@ -297,7 +284,6 @@
   .pa-card em{ display:block; font-style:normal; font-size:12.5px; font-weight:700; color:var(--brass-deep); margin-top:8px; }
   .sticky-cta{ display:none; }
   @media (max-width:760px){
-    .rank-grid{ grid-template-columns:1fr 1fr; } .rank-cell.main{ grid-column:1 / -1; }
     .sticky-cta{ display:flex; gap:8px; position:fixed; left:0; right:0; bottom:0; z-index:800; padding:10px 14px calc(10px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96); border-top:1px solid var(--line); box-shadow:0 -4px 18px rgba(20,36,52,0.08); backdrop-filter:blur(6px); }
     .sticky-cta a{ flex:1; text-align:center; padding:13px 10px; border-radius:6px; font-weight:700; font-size:14.5px; text-decoration:none; }
     .sticky-cta .s-call{ background:var(--green); color:#fff; }
@@ -496,15 +482,6 @@
     </section>
 
     <div class="tab-panel active" id="tabOverview">
-      <div class="rank-panel">
-        <h2>How Gupta Law Firm ranks in Peel & Halton</h2>
-        <div class="rank-grid">
-          <div class="rank-cell main"><div class="rank-big">#2 <small>of 14</small></div><div class="rank-lab">LawDB-listed firms in Peel & Halton, ranked by Google rating</div></div>
-          <div class="rank-cell"><div class="rank-big">5.0<small> ★</small></div><div class="rank-lab">Area average 4.9</div><span class="rank-delta">▲ 0.1 above average</span></div>
-          <div class="rank-cell"><div class="rank-big">213</div><div class="rank-lab">Google reviews</div><span class="rank-delta">1.5× the provincial average</span></div>
-        </div>
-        <p class="rank-note">Based on public Google ratings for the firms listed on LawDB. Rankings are not endorsements and change as ratings change.</p>
-      </div>
 <div class="article">Gupta Law Firm is a Brampton practice handling personal injury, tort litigation and accident benefits matters after motor vehicle collisions. The firm serves clients across Ontario.<br><br>Ontario&#x27;s Statutory Accident Benefits Schedule provides no-fault benefits, including treatment, attendant care, income replacement, caregiver and housekeeping assistance, to drivers, cyclists and pedestrians. The firm acts in motorcycle, car, trucking, biking and pedestrian accidents. Its tort civil litigation work concerns compensation for pain and suffering and loss of enjoyment of life after a collision involving negligence. The office is on Bovaird Drive East in Brampton.</div>
     <div class="lead-slim">
       <div class="ls-head">
@@ -540,6 +517,13 @@
       </form>
       </div>
     </div>
+
+    <div class="map-embed">
+      <h2>Location</h2>
+      <iframe src="https://www.google.com/maps?q=43.750769,-79.73942&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map showing Gupta Law Firm's location"></iframe>
+    </div>
+    <p class="firm-serves" style="margin:14px 0 0;font-size:16px;line-height:1.5;color:#142434">Law firm serving Ontario, Canada.</p>
+
     <section class="hours-card" id="hours" data-tz="America/Toronto"><div class="hc-head"><h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg> Business hours</h2><span class="hc-status" hidden></span></div><ul class="hc-list"><li data-d="1" data-iv="09:00-17:00"><span class="hd">Monday</span><span class="ht">9 am – 5 pm</span></li><li data-d="2" data-iv="09:00-17:00"><span class="hd">Tuesday</span><span class="ht">9 am – 5 pm</span></li><li data-d="3" data-iv="09:00-17:00"><span class="hd">Wednesday</span><span class="ht">9 am – 5 pm</span></li><li data-d="4" data-iv="09:00-17:00"><span class="hd">Thursday</span><span class="ht">9 am – 5 pm</span></li><li data-d="5" data-iv="09:00-17:00"><span class="hd">Friday</span><span class="ht">9 am – 5 pm</span></li><li data-d="6" data-iv=""><span class="hd">Saturday</span><span class="ht closed">Closed</span></li><li data-d="7" data-iv=""><span class="hd">Sunday</span><span class="ht closed">Closed</span></li></ul><p class="hc-note">Hours as shown on the firm&rsquo;s Google listing. Please call to confirm before visiting.</p></section>
 <section class="faq-wrap" id="faq">
 <div class="faq-head">
@@ -603,10 +587,6 @@
 <dt>Email</dt><dd><a href="mailto:info@guptalaw.ca">info@guptalaw.ca</a></dd>
 <dt>Hours</dt><dd>Monday to Friday, 9:00 a.m. to 5:00 p.m.</dd>
 </dl></div>
-<div class="map-embed">
-      <h2>Location</h2>
-      <iframe src="https://www.google.com/maps?q=43.750769,-79.73942&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map showing Gupta Law Firm's location"></iframe>
-    </div>
 <div class="socials">
       <a href="https://www.instagram.com/guptalaw/" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
       <a href="https://twitter.com/guptalawfirm" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>X / Twitter</span></a>
@@ -653,7 +633,6 @@
       });
     })();
     </script>
-    <p class="firm-serves" style="margin:14px 0 0;font-size:16px;line-height:1.5;color:#142434">Law firm serving Ontario, Canada.</p>
   </div>
   <footer class="site-footer">
   <div class="foot-grid">

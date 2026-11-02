@@ -182,19 +182,6 @@
   .reviews-note strong{ color:var(--ink); }
 
   /* ---- featured upgrades ---- */
-  .rank-panel{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:18px 18px 14px; margin-bottom:20px; }
-  .rank-panel h2{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 12px; }
-  .rank-grid{ display:grid; grid-template-columns:1.1fr 1fr 1fr; gap:10px; }
-  .rank-cell{ background:var(--cream); border-radius:8px; padding:12px 12px 10px; }
-  .rank-cell.main{ background:linear-gradient(135deg,#e6d4a4,#c9a050 60%,#e2bd6a); }
-  .rank-big{ font-family:'Source Serif 4',serif; font-weight:700; font-size:30px; line-height:1; color:var(--ink); }
-  .rank-cell.main .rank-big{ color:#142434; }
-  .rank-big small{ font-size:14px; font-weight:600; opacity:.7; }
-  .rank-lab{ font-size:11.5px; line-height:1.35; color:var(--ink-soft); margin-top:6px; }
-  .rank-cell.main .rank-lab{ color:#142434; }
-  .rank-delta{ display:inline-block; font-size:11px; font-weight:700; color:#2b3a4c; background:#edeae1; border-radius:10px; padding:2px 7px; margin-top:6px; }
-  .rank-delta.neutral{ color:var(--ink-soft); background:#e3dfd3; }
-  .rank-note{ font-size:11px; color:#8a919b; margin:10px 0 0; line-height:1.5; }
   .pa-wrap{ margin-bottom:20px; }
   .pa-wrap h2{ font-family:'Source Serif 4',serif; font-size:16px; margin:0 0 10px; }
   .pa-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; }
@@ -205,7 +192,6 @@
   .pa-card em{ display:block; font-style:normal; font-size:12.5px; font-weight:700; color:var(--brass-deep); margin-top:8px; }
   .sticky-cta{ display:none; }
   @media (max-width:760px){
-    .rank-grid{ grid-template-columns:1fr 1fr; } .rank-cell.main{ grid-column:1 / -1; }
     .sticky-cta{ display:flex; gap:8px; position:fixed; left:0; right:0; bottom:0; z-index:800; padding:10px 14px calc(10px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96); border-top:1px solid var(--line); box-shadow:0 -4px 18px rgba(20,36,52,0.08); backdrop-filter:blur(6px); }
     .sticky-cta a{ flex:1; text-align:center; padding:13px 10px; border-radius:6px; font-weight:700; font-size:14.5px; text-decoration:none; }
     .sticky-cta .s-call{ background:var(--green); color:#fff; }
@@ -271,15 +257,6 @@
     </section>
 
     <div class="tab-panel active" id="tabOverview">
-      <div class="rank-panel">
-        <h2>How Doak Shirreff Lawyers LLP ranks in Okanagan</h2>
-        <div class="rank-grid">
-          <div class="rank-cell main"><div class="rank-big">#4 <small>of 5</small></div><div class="rank-lab">LawDB-listed firms in Okanagan, ranked by Google rating</div><div class="rank-lab" style="margin-top:8px;">#2 of 3 business / corporate firms here</div></div>
-          <div class="rank-cell"><div class="rank-big">4.6<small> ★</small></div><div class="rank-lab">Area average 4.7</div><span class="rank-delta neutral">▼ 0.1 below average</span></div>
-          <div class="rank-cell"><div class="rank-big">174</div><div class="rank-lab">Google reviews</div><span class="rank-delta">1.2× the provincial average</span></div>
-        </div>
-        <p class="rank-note">Based on public Google ratings for the firms listed on LawDB. Rankings are not endorsements and change as ratings change.</p>
-      </div>
 <div class="article">Doak Shirreff Lawyers LLP is a Kelowna full-service firm handling business, employment, construction, civil litigation, family and personal injury matters.<br><br>The firm has been based in Kelowna since 1968 and serves individuals and businesses throughout the Okanagan Valley and across British Columbia, and it has marked fifty years in practice. Services include charities and not-for-profit work, civil and commercial litigation, construction law and real estate. Its employment group acts for both employees and employers, and its approach is practical, approachable and cost effective.</div>
     <div class="lead-slim">
       <div class="ls-head">
@@ -315,6 +292,13 @@
       </form>
       </div>
     </div>
+
+    <div class="map-embed">
+      <h2>Location</h2>
+      <iframe src="https://www.google.com/maps?q=49.8842835,-119.4921031&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map showing Doak Shirreff Lawyers LLP's location"></iframe>
+    </div>
+        <p class="firm-serves" style="margin:14px 0 0;font-size:16px;line-height:1.5;color:#142434">Law firm serving British Columbia, Canada.</p>
+
 <section class="hours-card" id="hours" data-tz="America/Vancouver"><div class="hc-head"><h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg> Business hours</h2><span class="hc-status" hidden></span></div><ul class="hc-list"><li data-d="1" data-iv="08:00-17:00"><span class="hd">Monday</span><span class="ht">8 am – 5 pm</span></li><li data-d="2" data-iv="08:00-17:00"><span class="hd">Tuesday</span><span class="ht">8 am – 5 pm</span></li><li data-d="3" data-iv="08:00-17:00"><span class="hd">Wednesday</span><span class="ht">8 am – 5 pm</span></li><li data-d="4" data-iv="08:00-17:00"><span class="hd">Thursday</span><span class="ht">8 am – 5 pm</span></li><li data-d="5" data-iv="08:00-17:00"><span class="hd">Friday</span><span class="ht">8 am – 5 pm</span></li><li data-d="6" data-iv=""><span class="hd">Saturday</span><span class="ht closed">Closed</span></li><li data-d="7" data-iv=""><span class="hd">Sunday</span><span class="ht closed">Closed</span></li></ul><p class="hc-note">Hours as shown on the firm&rsquo;s Google listing. Please call to confirm before visiting.</p></section>
     </div>
 
@@ -339,10 +323,6 @@
 
     <div class="tab-panel" id="tabLocation">
 <div class="addr">537 Leon Ave #200, Kelowna, BC V1Y 2A9</div>
-<div class="map-embed">
-      <h2>Location</h2>
-      <iframe src="https://www.google.com/maps?q=49.8842835,-119.4921031&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map showing Doak Shirreff Lawyers LLP's location"></iframe>
-    </div>
 <div class="socials">
       <a href="https://www.linkedin.com/search/results/companies/?keywords=Doak%20Shirreff%20Lawyers%20LLP" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg><span>Search on LinkedIn</span></a>
       <a href="https://www.google.com/maps/place/?q=place_id:ChIJo6oPA6n0fVMR9YnbEWaTdq8" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span>View on Google Maps</span></a>
@@ -384,7 +364,6 @@
     })();
     </script>
 
-        <p class="firm-serves" style="margin:14px 0 0;font-size:16px;line-height:1.5;color:#142434">Law firm serving British Columbia, Canada.</p>
   </div>
   <footer class="site-footer">
   <div class="foot-grid">

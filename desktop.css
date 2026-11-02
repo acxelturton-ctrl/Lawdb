@@ -26,7 +26,6 @@ body.pg-firm .wrap > .lead-slim{
   body.pg-firm .article{ font-size:16px; padding:28px 32px; }
   body.pg-firm .badge-strip{ max-width:none; }
   body.pg-firm .tab-bar{ justify-content:flex-start; }
-  body.pg-firm .rank-panel{ max-width:none; }
   body.pg-firm .pa-grid{ grid-template-columns:repeat(3,1fr); }
   body.pg-firm .nearby{ display:block; }
   body.pg-firm .sticky-cta{ display:none !important; }

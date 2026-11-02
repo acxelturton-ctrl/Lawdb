@@ -297,7 +297,9 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'dynamic' })).status === 200, 'switch an existing firm to the database page');
   const sw = await getRaw('/firms/achkar-law');
   ok(sw.headers.get('x-lawdb-source') === 'database' && sw.text.includes('Achkar Law') && sw.text.includes('North York employment law firm acting for employees and employers'), 'switched firm now renders from the database and keeps its written description');
-  ok(/<div class="rank-panel">[\s\S]*How Achkar Law ranks in North York/.test(sw.text) === /<div class="rank-panel">/.test(sw.text) && /<a class="pa-card" href="\/ontario\/employment-lawyers">/.test(sw.text), 'the database page links to the practice-area page, and shows a ranking when enough firms are listed in the city');
+  ok(/<a class="pa-card" href="\/ontario\/employment-lawyers">/.test(sw.text) && !/rank-panel|ranks in /.test(sw.text), 'the database page links to the practice-area page, and has no "How this firm ranks" panel');
+  const handBuilt = (await getRaw('/firms/amlea-avocats')).text;
+  ok(handBuilt.includes('Amlea Avocats') && !/rank-panel|rank-grid|ranks in Montreal/.test(handBuilt), 'a hand-built page that used to carry the ranking panel does not any more');
   // the database page is laid out like MSPdatabase: breadcrumb, round-logo header with @handle and tagline, one Follow button (the Worker adds no second Follow line), the booking button in the pill row,
   // the map and address card right under the header, and a "Firms you may like" column
   const swc = (sw.text.match(/data-follow="achkar-law"/g) || []).length;

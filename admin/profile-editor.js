@@ -212,7 +212,9 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   // ---- Website & Blog
   const web = card('Website & Blog', 'globe',
     fld('Website', c.website),
-    !isNew && fld('Booking link', c.bookingUrl, 'Optional. Your calendar or booking page. It turns on the Book a call button.', locked ? lockNote('A booking link needs Featured. Until then the Book a call button on your page stays greyed out.') : null),
+    !isNew && fld('Booking link', c.bookingUrl,
+      admin && !firm.featured ? 'Optional. Saved, but the Book a call button only works on the page while the firm is Featured.' : 'Optional. Your calendar or booking page. It turns on the Book a call button.',
+      locked ? lockNote(firm.bookingUrl ? 'Your booking link is saved, but the Book a call button on your page stays locked until your listing is Featured.' : 'A booking link needs Featured. Until then the Book a call button on your page stays locked.') : null),
     !isNew && h('div', { class: 'ed-sub-h' }, 'Profiles'),
     !isNew && SOCIALS.map(([k, label]) => fld(label, social[k])),
     !isNew && h('div', { class: 'ed-sub-h' }, 'Blog feed'),

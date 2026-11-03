@@ -10,6 +10,8 @@ import { profilesBox, hasLinkedIn } from '../render/profiles.js';
 import { bookingRow } from '../render/booking.js';
 import { staticLogoHtml } from '../render/logo.js';
 
+const CACHE_GENERATION = 2; // 2: Book a call is locked until a firm is Featured
+
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
   return Number.isFinite(n) && n >= 0 ? n : 60;
@@ -87,7 +89,8 @@ export async function firmPage({ request, env, ctx }) {
   if (!m) return env.ASSETS.fetch(request);
 
   const ttl = ttlOf(env);
-  const key = new Request(url.origin + url.pathname, { method: 'GET' });
+  // CACHE_GENERATION: raise it when what a page shows changes for every firm at once (pages are kept at the edge for hours); the old copies are then simply never asked for.
+  const key = new Request(url.origin + url.pathname + '?g=' + CACHE_GENERATION, { method: 'GET' });
   if (ttl > 0) {
     const hit = await caches.default.match(key);
     if (hit) return hit;
@@ -127,7 +130,7 @@ export async function firmPage({ request, env, ctx }) {
       // The logo saved in the database (admin / owner screens) wins over the one baked into the file.
       const logo = staticLogoHtml(rec);
       if (logo) res = new HTMLRewriter().on('span.li-logo', { element(el) { el.setInnerContent(logo, { html: true }); } }).transform(res);
-      res = withFollow(res, m[1], managed, profilesBox(rec.social, rec.name), hasLinkedIn(rec.social), bookingRow({ url: rec.bookingUrl, name: rec.name, managed }));
+      res = withFollow(res, m[1], managed, profilesBox(rec.social, rec.name), hasLinkedIn(rec.social), bookingRow({ url: rec.bookingUrl, name: rec.name, managed, featured: !!row.featured }));
     }
     if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
     return res;
@@ -155,7 +158,7 @@ export async function firmPage({ request, env, ctx }) {
       'x-lawdb-source': 'database',
       ...(held ? { 'x-robots-tag': 'noindex, follow' } : {}),
     },
-  }), m[1], managed, '', false, bookingRow({ url: bookingUrlOf(row), name: nameOf(row), managed }));
+  }), m[1], managed, '', false, bookingRow({ url: bookingUrlOf(row), name: nameOf(row), managed, featured: !!row.featured }));
   if (ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
   return res;
 }

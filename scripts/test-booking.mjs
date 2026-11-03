@@ -19,16 +19,23 @@ ok(cleanBookingUrl('https://ablink.send.calendly.com/ls/click?upn=abc') === '' &
 
 // ---- the button (the markup, without the snippet's own style, which names both states)
 const markup = (h) => h.replace(/<style>[\s\S]*?<\/style>/, '');
-const on = bookingRow({ url: 'https://calendly.com/torys/30min', name: 'Torys LLP' });
-ok(/<a class="li-btn li-book" href="https:\/\/calendly\.com\/torys\/30min" target="_blank" rel="noopener nofollow"/.test(markup(on)) && markup(on).includes('<span>Book a call</span>') && !markup(on).includes('li-book-off'), 'a firm with a link gets an active button that opens it in a new tab');
-const off = markup(bookingRow({ url: '', name: 'Torys LLP' }));
-ok(off.includes('class="li-btn li-book li-book-off"') && off.includes('aria-disabled="true"') && off.includes('aria-controls="lw-book-note"') && /<p class="lw-book-note" id="lw-book-note" hidden>/.test(off) && off.includes('use &ldquo;Claim this listing&rdquo; below') && !off.includes('<a ') && !off.includes('href='), 'a firm without one gets the greyed-out button and a hidden note that points to the Claim line under it, and nothing to open');
-const offManaged = markup(bookingRow({ url: '', name: 'Torys LLP', managed: true }));
-ok(offManaged.includes('hasn&#x27;t added an online booking link yet.') && !offManaged.includes('Claim this listing'), 'a firm that is already managed is not told to claim itself');
-ok([{ url: 'javascript:alert(1)' }, { url: 'http://x.com/book' }, {}].every((o) => markup(bookingRow({ ...o, name: 'A' })).includes('class="li-btn li-book li-book-off"')), 'whatever is stored, only a valid link turns the button on');
+const on = bookingRow({ url: 'https://calendly.com/torys/30min', name: 'Torys LLP', featured: true });
+ok(/<a class="li-btn li-book" href="https:\/\/calendly\.com\/torys\/30min" target="_blank" rel="noopener nofollow"/.test(markup(on)) && markup(on).includes('<span>Book a call</span>') && !markup(on).includes('li-book-off'), 'a Featured firm with a link gets an active button that opens it in a new tab');
+// Booking is a Featured benefit: a saved link does nothing until the firm is Featured
+const saved = markup(bookingRow({ url: 'https://calendly.com/torys/30min', name: 'Torys LLP' }));
+ok(saved.includes('class="li-btn li-book li-book-off"') && !saved.includes('calendly.com') && saved.includes('<em class="li-book-tag">Featured</em>') && saved.includes('Online booking is a Featured feature'), 'a firm that is not Featured has the button locked, with a Featured tag, even if it has a link saved (and the link is not in the page)');
+const savedManaged = markup(bookingRow({ url: 'https://calendly.com/torys/30min', name: 'Torys LLP', managed: true }));
+ok(savedManaged.includes('can unlock it from the dashboard') && !savedManaged.includes('Claim this listing') && saved.includes('Claim this listing'), 'the note tells a visitor how to unlock it, and a managed firm to use its dashboard');
+const offFeatured = markup(bookingRow({ url: '', name: 'Torys LLP', featured: true }));
+ok(offFeatured.includes('class="li-btn li-book li-book-off"') && !offFeatured.includes('li-book-tag') && offFeatured.includes('hasn&#x27;t added an online booking link yet') && offFeatured.includes('Claim this listing'), 'a Featured firm without a link has the button greyed out and is told to add one');
+const off = markup(bookingRow({ url: '', name: 'Torys LLP', featured: true }));
+ok(off.includes('class="li-btn li-book li-book-off"') && off.includes('aria-disabled="true"') && off.includes('aria-controls="lw-book-note"') && /<p class="lw-book-note" id="lw-book-note" hidden>/.test(off), 'the locked button is a disabled-looking button that opens its note');
+const offManaged = markup(bookingRow({ url: '', name: 'Torys LLP', managed: true, featured: true }));
+ok(offManaged.includes('hasn&#x27;t added an online booking link yet.') && !offManaged.includes('Claim this listing'), 'a Featured firm that is already managed is not told to claim itself');
+ok([{ url: 'javascript:alert(1)' }, { url: 'http://x.com/book' }, {}].every((o) => markup(bookingRow({ ...o, name: 'A', featured: true })).includes('class="li-btn li-book li-book-off"')), 'whatever is stored, only a valid link on a Featured firm turns the button on');
 const nasty = markup(bookingRow({ url: '', name: '<img src=x onerror=alert(1)> "Q" & Co' }));
 ok(!/<script|<img/.test(nasty) && nasty.includes('&lt;img') && nasty.includes('&quot;Q&quot; &amp; Co'), 'the firm name and address are escaped in both states');
-const nameOn = bookingRow({ url: 'https://calendly.com/x', name: 'O"Brien <b>' });
+const nameOn = bookingRow({ url: 'https://calendly.com/x', name: 'O"Brien <b>', featured: true });
 ok(nameOn.includes('title="Opens O&quot;Brien &lt;b&gt;&#x27;s own booking page"') || nameOn.includes('O&quot;Brien &lt;b&gt;'), 'the name is escaped in the button tooltip too');
 ok(/li-book\{background:#f4ecd8;border:1\.5px solid #c9a050/.test(on) && /li-book-off\{background:#edeae1/.test(on), 'the active button is light gold (not solid gold) and the locked one is light grey');
 

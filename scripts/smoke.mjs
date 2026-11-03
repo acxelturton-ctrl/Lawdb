@@ -1555,12 +1555,22 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok((await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: 'http://calendly.com/torys' })).status === 422 && (await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: 'javascript:alert(1)' })).status === 422, 'a booking link must be an https address');
     ok((await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: 'https://calendly.com/torys/30min?month=2020-01&utm_source=x' })).status === 200, 'an admin can add a booking link');
     cookie = '';
+    // Booking is a Featured benefit: the link is saved, but the button stays locked (and the link is not in the page) until the firm is Featured
+    const bkLocked = (await getRaw('/firms/torys-llp')).text;
+    ok(bkLocked.includes('class="li-btn li-book li-book-off"') && bkLocked.includes('li-book-tag') && bkLocked.includes('Online booking is a Featured feature') && !bkLocked.includes('calendly.com/torys'), 'with a booking link saved, the button stays locked (with a Featured tag) on a firm that is not Featured, and the link is not in the page');
+    as(adminJar);
+    await call('PATCH', '/api/admin/firms/torys-llp', { featured: true });
+    cookie = '';
     const bk = (await getRaw('/firms/torys-llp')).text;
-    ok(bk.includes('class="li-btn li-book" href="https://calendly.com/torys/30min"') && !bk.includes('class="li-btn li-book li-book-off"') && bk.includes('rel="noopener nofollow"'), 'with a booking link the button is active and opens it in a new tab, with the month and tracking parts dropped');
+    ok(bk.includes('class="li-btn li-book" href="https://calendly.com/torys/30min"') && !bk.includes('class="li-btn li-book li-book-off"') && bk.includes('rel="noopener nofollow"'), 'once the firm is Featured the saved link goes live: the button is active and opens it in a new tab, with the month and tracking parts dropped');
+    as(adminJar);
+    await call('PATCH', '/api/admin/firms/torys-llp', { featured: false });
+    cookie = '';
+    ok((await getRaw('/firms/torys-llp')).text.includes('class="li-btn li-book li-book-off"'), 'and it locks again when the firm stops being Featured');
     as(adminJar);
     ok((await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: '' })).status === 200, 'the booking link can be removed');
     cookie = '';
-    ok((await getRaw('/firms/torys-llp')).text.includes('class="li-btn li-book li-book-off"'), 'removing it greys the button out again');
+    ok((await getRaw('/firms/torys-llp')).text.includes('class="li-btn li-book li-book-off"'), 'removing it leaves the button locked');
     const jsf = await getRaw('/follow.js');
     ok(jsf.status === 200 && /javascript/.test(jsf.headers.get('content-type') || '') && !/eval\(|document\.write|innerHTML/.test(jsf.text), 'the Follow script is plain and never builds markup from data');
     const nw = (await getRaw('/news')).text;

@@ -311,8 +311,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((sw.text.match(/<aside class="pf-aside"/g) || []).length <= 1 && /<h1 class="li-name">Achkar Law<\/h1>/.test(sw.text), 'the "Firms you may like" column is there at most once, and the page has one h1 with the firm name');
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' })).status === 200, 'switch it back');
   ok(!(await getRaw('/firms/achkar-law')).headers.get('x-lawdb-source'), 'firm is back on its original page');
+  ok(sw.text.includes('data-lawdb-rating="achkar-law"') && sw.text.includes('class="pf-mi pf-lrate"') && sw.text.indexOf('data-lawdb-rating') < sw.text.indexOf('class="li-actions pf-actions"') && sw.text.includes('class="lw-rate"'), 'a database page carries a LawDB rating link in its header, beside the Google rating, and the member-ratings box');
+  ok(at(sw.text, 'class="article"') < at(sw.text, 'class="pa-wrap"') && at(sw.text, 'class="pa-wrap"') < at(sw.text, 'class="lead-slim') && sw.text.includes('<h2>Practice areas</h2>') && !sw.text.includes('<h2>Services</h2>'), 'a database page shows its practice areas right under the description, above the contact card');
   const hb = (await getRaw('/firms/achkar-law')).text;
-  ok(at(hb, 'class="lead-slim') > 0 && at(hb, 'class="map-embed"') > at(hb, 'class="lead-slim') && at(hb, 'class="firm-serves"') > at(hb, 'class="map-embed"') && at(hb, 'class="lw-rate"') > at(hb, 'class="firm-serves"') && at(hb, 'class="lw-rate"') < at(hb, 'class="services"') && at(hb, 'class="lw-car"') > at(hb, 'class="services"'), 'a hand-built page has the same order: contact card, map and its line, then the member ratings, then the rest');
+  ok(at(hb, 'class="article"') > 0 && at(hb, 'class="services"') > at(hb, 'class="article"') && at(hb, 'class="lead-slim') > at(hb, 'class="services"') && at(hb, 'class="map-embed"') > at(hb, 'class="lead-slim') && at(hb, 'class="firm-serves"') > at(hb, 'class="map-embed"') && at(hb, 'class="lw-rate"') > at(hb, 'class="firm-serves"') && at(hb, 'class="lw-car"') > at(hb, 'class="lw-rate"'), 'a hand-built page has the same order: description, practice areas, contact card, map and its line, then the member ratings, then the rest');
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'weird' })).status === 422, 'invalid page style refused');
 
   // owner-style edits show on the rendered page
@@ -1641,6 +1643,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const rv = (await call('GET', '/api/admin/reviews')).data;
     const c1 = rv.pending.find((x) => x.email === `owner1-${run}@example.com`); const c2 = rv.pending.find((x) => x.comment.startsWith('Fine service'));
     ok(rv.pending.length >= 2 && c1 && c2 && c1.firm && c1.stars === 5, 'the admin sees the comments waiting for review');
+    // a comment that waits for approval must not wait unseen: the admins are emailed, and the admin screen counts them
+    const audit = (await call('GET', '/api/admin/audit?limit=300')).data.entries;
+    ok(audit.some((e) => e.action === 'mail.dev' && /^Rating comment to review/.test(e.detail?.subject || '')), 'the admins are emailed when a comment is waiting for approval');
+    ok((await call('GET', '/api/admin/stats')).data.pendingComments >= 2, 'the admin overview counts the comments waiting for review');
     ok((await call('PATCH', `/api/admin/reviews/${c1.userId}/${R}`, { action: 'approve' })).status === 200 && (await call('PATCH', `/api/admin/reviews/${c2.userId}/${R}`, { action: 'reject' })).status === 200, 'the admin approves one comment and rejects another');
     ok((await call('PATCH', `/api/admin/reviews/${c1.userId}/${R}`, { action: 'explode' })).status === 422 && (await call('PATCH', `/api/admin/reviews/${c1.userId}/no-such`, { action: 'hide' })).status === 404, 'bad admin actions are refused');
     cookie = '';
@@ -1680,6 +1686,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(lwa.includes('lw-tabbar') && lwa.includes('/api/account/feed') && lwa.includes('/lw-app.css') && (await getRaw('/lw-app.css')).text.includes('.lw-panel') && (await getRaw('/site.js')).text.includes('/lw-app.js'), 'signed-in visitors get the avatar, account panel, phone tab bar and home feed on every page');
     const rp = (await getRaw(`/firms/${R}`)).text;
     ok(rp.includes(`data-rate="${R}"`) && rp.includes('id="rate"') && rp.includes('/follow.js'), 'firm pages carry the member-ratings box');
+    // the rating dialog must not share class names with the signed-in app (lw-app.css hides .lw-ov and makes it click-through, which made the dialog invisible for signed-in members)
+    const fjs = (await getRaw('/follow.js')).text; const lwcss = (await getRaw('/lw-app.css')).text;
+    const dialogClasses = ['lwr-ov', 'lwr-x'];
+    ok(dialogClasses.every((c) => fjs.includes('.' + c) && !lwcss.includes('.' + c)) && !fjs.includes("'lw-ov'") && !/\.lw-ov\{/.test(fjs) && !/\.lw-x\{/.test(fjs), 'the rating dialog uses its own class names, so the signed-in app stylesheet cannot hide it');
   }
 
   // owner invites: an admin gives a firm to its owner by email; the link signs them straight in with that firm approved

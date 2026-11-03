@@ -192,15 +192,22 @@
     '.lw-rate .lw-row2{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:6px 0}.lw-rate button{font:600 14px Inter,system-ui,sans-serif;border:1px solid #142434;background:transparent;color:#142434;border-radius:8px;padding:9px 16px;cursor:pointer}' +
     '.lw-rate button.go{background:#142434;color:#fff}.lw-rate button[disabled]{opacity:.6}' +
     '.lw-rate .lw-note{font-size:12.5px;color:#8a919b}' +
-    '.lw-rate .lw-cm{border-top:1px solid #edeae1;padding:10px 0 0;margin-top:10px}.lw-rate .lw-cm b{color:#c9a050}';
+    '.lw-rate .lw-cm{border-top:1px solid #edeae1;padding:10px 0 0;margin-top:10px}.lw-rate .lw-cm b{color:#c9a050}' +
+    '.lw-rate .lw-head{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}.lw-rate .lw-head h2{margin:0}' +
+    '.lw-rate .lw-avgbox{display:flex;align-items:center;gap:12px}.lw-rate .lw-avgbox .lw-avg{font-size:34px;line-height:1;color:#142434}.lw-rate .lw-starsv{color:#c9a050;font-size:18px;letter-spacing:2px;line-height:1.1}' +
+    '.lw-rate .lw-pickrow{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;margin:12px 0 2px;padding-top:12px;border-top:1px solid #edeae1}.lw-rate .lw-pickhint{font-weight:600;font-size:14px;color:#142434}' +
+    '.lw-rate .lw-pick{display:flex;gap:0}.lw-rate .lw-pick button{width:40px;height:44px;border:0;border-radius:8px;background:none;padding:0;font-size:32px;line-height:1;color:#e3dfd3;cursor:pointer}' +
+    '.lw-rate .lw-pick button.on{color:#c9a050}.lw-rate .lw-pick button:hover{background:#f4ecd8}.lw-rate .lw-pick button:focus-visible{outline:3px solid #e2bd6a;outline-offset:1px}' +
+    '.lw-rate .lw-mine{background:#f5f3ec;border-radius:8px;padding:8px 12px;margin-top:8px;font-size:14px}.lw-rate .lw-mine b{color:#c9a050}' +
+    '.pf-lrate{font-weight:600}.pf-lrate .ic{color:#c9a050}';
   // The write-a-review dialog, appended to the page when someone starts a rating.
-  var dcss = '.lw-ov{position:fixed;inset:0;z-index:10000;background:rgba(20,36,52,.6);display:flex;align-items:flex-end;justify-content:center;font:15px/1.5 Inter,system-ui,sans-serif;color:#142434}' +
+  var dcss = '.lwr-ov{position:fixed;inset:0;z-index:10000;background:rgba(20,36,52,.6);display:flex;align-items:flex-end;justify-content:center;font:15px/1.5 Inter,system-ui,sans-serif;color:#142434}' +
     '.lw-dlg{background:#fff;width:100%;max-width:520px;max-height:92vh;overflow:auto;display:flex;flex-direction:column;border-radius:16px 16px 0 0;box-shadow:0 -10px 32px rgba(20,36,52,.25)}' +
-    '@media (min-width:600px){.lw-ov{align-items:center;padding:24px}.lw-dlg{border-radius:16px;max-height:88vh;box-shadow:0 20px 50px rgba(20,36,52,.3)}}' +
+    '@media (min-width:600px){.lwr-ov{align-items:center;padding:24px}.lw-dlg{border-radius:16px;max-height:88vh;box-shadow:0 20px 50px rgba(20,36,52,.3)}}' +
     '.lw-dh{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:#142434;color:#fff;padding:18px 12px 16px 20px;border-bottom:3px solid #c9a050}' +
     '.lw-kick{font:700 11px/1.2 Inter,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#e2bd6a;margin:0 0 6px}' +
     '.lw-dt{font:700 20px/1.25 "Source Serif 4",Georgia,serif;color:#fff;margin:0;text-wrap:balance}' +
-    '.lw-x{flex:none;width:44px;height:44px;margin:-6px -4px 0 0;border:0;border-radius:50%;background:transparent;color:#fff;font:400 30px/1 Inter,system-ui,sans-serif;cursor:pointer}.lw-x:hover{background:rgba(255,255,255,.12)}' +
+    '.lwr-x{flex:none;width:44px;height:44px;margin:-6px -4px 0 0;border:0;border-radius:50%;background:transparent;color:#fff;font:400 30px/1 Inter,system-ui,sans-serif;cursor:pointer}.lwr-x:hover{background:rgba(255,255,255,.12)}' +
     '.lw-db{padding:20px}.lw-q{font:700 17px/1.3 Inter,system-ui,sans-serif;margin:0 0 6px}' +
     '.lw-stars{display:flex;gap:2px;margin:0 -6px}.lw-stars button{width:44px;height:48px;border:0;border-radius:10px;background:none;padding:0;font-size:38px;line-height:1;color:#e3dfd3;cursor:pointer}' +
     '.lw-stars button:hover{background:#f4ecd8}.lw-stars button.on{color:#c9a050}' +
@@ -214,49 +221,116 @@
     '.lw-df{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:14px 20px max(14px,env(safe-area-inset-bottom));border-top:1px solid #edeae1;background:#fff}' +
     '.lw-cancel,.lw-submit{font:700 15px/1 Inter,system-ui,sans-serif;min-height:44px;border-radius:999px;padding:0 22px;cursor:pointer}' +
     '.lw-cancel{background:transparent;color:#142434;border:1px solid #e3dfd3}.lw-submit{background:#c9a050;color:#142434;border:0}.lw-submit:hover{background:#e2bd6a}.lw-submit[disabled]{opacity:.6;cursor:default}' +
-    '.lw-ov button:focus-visible{outline:3px solid #e2bd6a;outline-offset:2px}';
+    '.lwr-ov button:focus-visible,.lwr-ov a:focus-visible{outline:3px solid #e2bd6a;outline-offset:2px}' +
+    '.lw-prov{display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px;margin:10px 0 0;border:1px solid #e3dfd3;border-radius:999px;background:#fff;color:#142434;font:700 15px/1 Inter,system-ui,sans-serif;text-decoration:none;padding:0 18px}.lw-prov:hover{border-color:#c9a050;background:#f4ecd8}';
   var rs = document.createElement('style'); rs.textContent = rcss + dcss; document.head.appendChild(rs);
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function stars(n) { return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n); }
-  function renderRating(box, slug, d) {
-    box.textContent = '';
-    box.appendChild(el('h2', null, 'LawDB member ratings'));
-    var top = el('div', 'lw-row2');
-    if (d.count >= 3) { top.appendChild(el('span', 'lw-avg', '★ ' + d.average.toFixed(1))); top.appendChild(el('span', 'lw-sub', 'from ' + d.count + ' LawDB member ratings')); }
-    else top.appendChild(el('span', 'lw-sub', d.count ? d.count + ' rating' + (d.count === 1 ? '' : 's') + ' so far. The average shows from 3 ratings.' : 'No ratings yet. Be the first.'));
-    box.appendChild(top);
-    var act = el('div', 'lw-row2');
-    if (!d.signedIn) {
-      var si = el('button', 'go', 'Sign in to rate'); si.type = 'button';
-      si.onclick = function () { try { localStorage.setItem('lawdb_pending', JSON.stringify({ type: 'back', url: location.pathname + '#rate' })); } catch (e) {} location.href = '/account/'; };
-      act.appendChild(si);
-    } else if (d.manages) {
-      act.appendChild(el('span', 'lw-note', 'You manage this firm, so you cannot rate it.'));
-    } else {
-      if (d.mine) act.appendChild(el('span', 'lw-sub', 'Your rating: ' + stars(d.mine.stars) + (d.mine.commentStatus === 'pending' ? ' (your comment is waiting for review)' : '')));
-      var b = el('button', d.mine ? '' : 'go', d.mine ? 'Change my rating' : 'Rate this firm'); b.type = 'button';
-      b.onclick = function () { form(box, slug, d); };
-      act.appendChild(b);
-    }
-    box.appendChild(act);
-    (d.comments || []).forEach(function (c) { var w = el('div', 'lw-cm'); w.appendChild(el('b', null, stars(c.stars))); w.appendChild(el('div', null, c.comment)); w.appendChild(el('div', 'lw-note', 'A LawDB member')); box.appendChild(w); });
-    box.appendChild(el('p', 'lw-note', 'Ratings are the opinions of signed-in LawDB members. Comments are reviewed before they appear. They are separate from the public Google ratings shown above.'));
-  }
-  // The write-a-review form is a dialog over the page (a sheet from the bottom on a phone): a navy header with the firm's name, stars that
-  // name their rating as you point at them, the comment with a count, and the note on how comments are checked.
   var SCALE = ['Poor', 'Fair', 'Good', 'Very good', 'Excellent'];
   function firmName() { var h = document.querySelector('h1'); return h ? h.textContent.replace(/\s+/g, ' ').trim() : 'this firm'; }
-  function form(box, slug, d) {
-    var opener = document.activeElement, pick = (d.mine && d.mine.stars) || 0;
-    var ov = el('div', 'lw-ov'), dlg = el('div', 'lw-dlg');
-    dlg.setAttribute('role', 'dialog'); dlg.setAttribute('aria-modal', 'true'); dlg.setAttribute('aria-labelledby', 'lw-dt');
 
+  // A dialog over the page (a sheet from the bottom on a phone). Escape closes it, Tab stays inside it, and focus goes back to where it was.
+  function modal(dlg, focus) {
+    var opener = document.activeElement, ov = el('div', 'lwr-ov');
+    dlg.setAttribute('role', 'dialog'); dlg.setAttribute('aria-modal', 'true');
+    ov.appendChild(dlg); document.body.appendChild(ov); document.body.style.overflow = 'hidden';
+    function close() { document.removeEventListener('keydown', onKey, true); ov.remove(); document.body.style.overflow = ''; if (opener && opener.focus) opener.focus(); }
+    function onKey(e) {
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      if (e.key !== 'Tab') return;
+      var f = dlg.querySelectorAll('button, textarea, a[href]'), first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    document.addEventListener('keydown', onKey, true);
+    ov.addEventListener('mousedown', function (e) { if (e.target === ov) close(); });
+    if (focus) focus.focus();
+    return close;
+  }
+  function dialogHead(kicker, title) {
     var head = el('div', 'lw-dh'), hx = el('div');
-    hx.appendChild(el('div', 'lw-kick', 'LawDB member rating'));
-    var title = el('h2', 'lw-dt', (d.mine ? 'Change your rating of ' : 'Rate ') + firmName()); title.id = 'lw-dt';
-    hx.appendChild(title); head.appendChild(hx);
-    var x = el('button', 'lw-x', '×'); x.type = 'button'; x.setAttribute('aria-label', 'Close'); head.appendChild(x);
-    dlg.appendChild(head);
+    hx.appendChild(el('div', 'lw-kick', kicker));
+    var t = el('h2', 'lw-dt', title); hx.appendChild(t); head.appendChild(hx);
+    var x = el('button', 'lwr-x', '×'); x.type = 'button'; x.setAttribute('aria-label', 'Close'); head.appendChild(x);
+    return { head: head, x: x };
+  }
+
+  // The rating box: the LawDB average (from the first rating on), the stars to click, and the comments LawDB has approved.
+  // It is separate from the Google rating shown at the top of the page: these are the opinions of signed-in LawDB members.
+  function renderRating(box, slug, d) {
+    box.textContent = '';
+    var head = el('div', 'lw-head');
+    head.appendChild(el('h2', null, 'LawDB member ratings'));
+    if (d.count) {
+      var ab = el('div', 'lw-avgbox'), col = el('div');
+      ab.appendChild(el('span', 'lw-avg', d.average.toFixed(1)));
+      col.appendChild(el('div', 'lw-starsv', stars(Math.round(d.average))));
+      col.appendChild(el('div', 'lw-sub', d.count + ' member rating' + (d.count === 1 ? '' : 's')));
+      ab.appendChild(col); head.appendChild(ab);
+    }
+    box.appendChild(head);
+    if (!d.count) box.appendChild(el('p', 'lw-sub', 'No member ratings yet. Be the first to rate this firm.'));
+
+    var mine = (d.mine && d.mine.stars) || 0;
+    var row = el('div', 'lw-pickrow');
+    if (d.manages) row.appendChild(el('span', 'lw-note', 'You manage this firm, so you cannot rate it.'));
+    else {
+      row.appendChild(el('span', 'lw-pickhint', mine ? 'Your rating:' : 'Rate this firm:'));
+      var pick = el('div', 'lw-pick'), btns = [];
+      var paint = function (n) { btns.forEach(function (b, k) { b.classList.toggle('on', k < n); }); };
+      for (var i = 1; i <= 5; i++) (function (n) {
+        var b = el('button', n <= mine ? 'on' : '', '★'); b.type = 'button'; b.setAttribute('aria-label', n + (n > 1 ? ' stars' : ' star') + ' (' + SCALE[n - 1] + ')');
+        b.onmouseenter = function () { paint(n); };
+        b.onclick = function () { if (!d.signedIn) signInDialog(slug, n); else form(box, slug, d, n); };
+        btns.push(b); pick.appendChild(b);
+      })(i);
+      pick.onmouseleave = function () { paint(mine); };
+      row.appendChild(pick);
+      row.appendChild(el('span', 'lw-note', mine ? 'Tap a star to change it.' : d.signedIn ? 'Tap a star.' : 'Tap a star. Free, with Google or LinkedIn.'));
+    }
+    box.appendChild(row);
+    if (d.mine && d.mine.comment && d.mine.commentStatus !== 'approved') {
+      var m = el('div', 'lw-mine'); m.appendChild(el('b', null, 'Your comment')); m.appendChild(el('span', 'lw-note', d.mine.commentStatus === 'rejected' ? ' (not published)' : ' (waiting for review; only you can see it)'));
+      m.appendChild(el('div', null, d.mine.comment)); box.appendChild(m);
+    }
+    (d.comments || []).forEach(function (c) { var w = el('div', 'lw-cm'); w.appendChild(el('b', null, stars(c.stars))); w.appendChild(el('div', null, c.comment)); w.appendChild(el('div', 'lw-note', 'A LawDB member')); box.appendChild(w); });
+    box.appendChild(el('p', 'lw-note', 'Ratings are the opinions of signed-in LawDB members. Comments are reviewed before they appear. They are separate from the public Google ratings shown above.'));
+    // the same numbers next to the Google rating at the top of the page
+    all(document, '[data-lawdb-rating]').forEach(function (chip) {
+      if (chip.getAttribute('data-lawdb-rating') !== slug) return;
+      var t = chip.querySelector('span'); if (!t) return;
+      t.textContent = d.count ? 'LawDB ' + d.average.toFixed(1) + ' (' + d.count + ' rating' + (d.count === 1 ? '' : 's') + ')' : 'Rate this firm on LawDB';
+    });
+  }
+
+  // Not signed in: the stars are kept, and Google or LinkedIn sign-in brings the person back to this page with them chosen.
+  function signInDialog(slug, n) {
+    var dlg = el('div', 'lw-dlg'), h = dialogHead('LawDB member rating', 'Sign in to rate ' + firmName());
+    dlg.appendChild(h.head);
+    var body = el('div', 'lw-db'), list = el('div');
+    body.appendChild(el('p', 'lw-q', 'You chose ' + n + (n > 1 ? ' stars' : ' star') + ': ' + SCALE[n - 1] + '.'));
+    body.appendChild(el('p', 'lw-dnote', 'Sign in to save your rating. It is free, takes a few seconds, and we never post anything on your behalf. Your name is never shown with your rating or comment.'));
+    body.appendChild(list); dlg.appendChild(body);
+    var foot = el('div', 'lw-df'), no = el('button', 'lw-cancel', 'Not now'); no.type = 'button'; foot.appendChild(no); dlg.appendChild(foot);
+    var close = modal(dlg, no); h.x.onclick = close; no.onclick = close;
+    var remember = function () { try { localStorage.setItem('lawdb_pending', JSON.stringify({ type: 'back', url: location.pathname.replace(/\/+$/, '') + '#rate=' + n })); } catch (e) {} };
+    fetch('/api/auth/providers', { credentials: 'same-origin' }).then(function (r) { return r.json(); }).catch(function () { return {}; }).then(function (p) {
+      var any = false;
+      [['google', 'Continue with Google'], ['linkedin', 'Continue with LinkedIn']].forEach(function (k) {
+        if (!p[k[0]]) return; any = true;
+        var a = el('a', 'lw-prov', k[1]); a.href = '/api/auth/' + k[0] + '/start'; a.onclick = remember; list.appendChild(a);
+      });
+      if (!any) { var a2 = el('a', 'lw-prov', 'Sign in'); a2.href = '/account/'; a2.onclick = remember; list.appendChild(a2); }
+      list.firstChild.focus();
+    });
+  }
+
+  // The write-a-review dialog: a navy header with the firm's name, stars that name their rating as you point at them, the comment with a count,
+  // and the note on how comments are checked. `pre` is the star the person already tapped in the box.
+  function form(box, slug, d, pre) {
+    var pick = pre || (d.mine && d.mine.stars) || 0;
+    var dlg = el('div', 'lw-dlg'), h = dialogHead('LawDB member rating', (d.mine ? 'Change your rating of ' : 'Rate ') + firmName());
+    h.head.querySelector('h2').id = 'lw-dt'; dlg.setAttribute('aria-labelledby', 'lw-dt'); dlg.appendChild(h.head);
 
     var body = el('div', 'lw-db'), err = el('div', 'lw-derr');
     body.appendChild(el('p', 'lw-q', 'How was your experience?'));
@@ -278,42 +352,31 @@
     function count() { cnt.textContent = ta.value.length + ' / 600'; }
     ta.addEventListener('input', count); count();
     body.appendChild(lab); body.appendChild(ta); body.appendChild(cnt); body.appendChild(err);
-    body.appendChild(el('p', 'lw-dnote', 'Comments are reviewed before they appear. Rate only firms you have dealt with, and leave out private or confidential details.'));
+    body.appendChild(el('p', 'lw-dnote', 'Your stars show straight away. A comment is reviewed before it appears, and your name is never shown with it. Rate only firms you have dealt with, and leave out private or confidential details.'));
     dlg.appendChild(body);
 
     var foot = el('div', 'lw-df'), no = el('button', 'lw-cancel', 'Cancel'), ok = el('button', 'lw-submit', 'Submit rating');
-    no.type = 'button'; ok.type = 'button';
-    foot.appendChild(no); foot.appendChild(ok); dlg.appendChild(foot);
-    ov.appendChild(dlg); document.body.appendChild(ov); document.body.style.overflow = 'hidden';
-
-    function close() {
-      document.removeEventListener('keydown', onKey, true); ov.remove(); document.body.style.overflow = '';
-      if (opener && opener.focus) opener.focus();
-    }
-    // Escape closes; Tab stays inside the dialog while it is open.
-    function onKey(e) {
-      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
-      if (e.key !== 'Tab') return;
-      var f = dlg.querySelectorAll('button, textarea'), first = f[0], last = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-    document.addEventListener('keydown', onKey, true);
-    ov.addEventListener('mousedown', function (e) { if (e.target === ov) close(); });
-    x.onclick = close; no.onclick = close;
+    no.type = 'button'; ok.type = 'button'; foot.appendChild(no); foot.appendChild(ok); dlg.appendChild(foot);
+    var close = modal(dlg, btns[pick ? pick - 1 : 0]);
+    h.x.onclick = close; no.onclick = close;
     ok.onclick = function () {
       if (!pick) { err.textContent = 'Choose a rating from 1 to 5 stars first.'; return; }
       ok.disabled = true; err.textContent = '';
-      call('POST', '/api/account/ratings', { slug: slug, stars: pick, comment: ta.value }).then(function (j) { d.mine = j.mine; d.count = j.count; d.average = j.average; d.comments = j.comments; close(); renderRating(box, slug, d); }, function (e) { err.textContent = e.message; ok.disabled = false; });
+      call('POST', '/api/account/ratings', { slug: slug, stars: pick, comment: ta.value }).then(function (j) {
+        d.mine = j.mine; d.count = j.count; d.average = j.average; d.comments = j.comments; close(); renderRating(box, slug, d);
+      }, function (e) { err.textContent = e.message || 'Something went wrong. Please try again.'; ok.disabled = false; });
     };
-    show(pick); btns[pick ? pick - 1 : 0].focus();
+    show(pick);
   }
+
   function initRatings(root) {
     all(root, '[data-rate]').forEach(function (box) {
       var slug = box.getAttribute('data-rate');
       fetch('/api/firms/' + encodeURIComponent(slug) + '/ratings', { credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (d) {
         state.signedIn = !!d.signedIn; renderRating(box, slug, d);
-        if (location.hash === '#rate' && d.canRate && !d.mine) { box.scrollIntoView(); form(box, slug, d); }
+        // Back from signing in with the stars already chosen (#rate=4), or from the old "#rate" link: open the form.
+        var m = /^#rate(?:=([1-5]))?$/.exec(location.hash);
+        if (m && d.canRate) { box.scrollIntoView(); if (m[1] || !d.mine) form(box, slug, d, m[1] ? Number(m[1]) : 0); }
       }).catch(function () {});
     });
   }

@@ -1,7 +1,8 @@
 // Member ratings of firms. Stars show straight away; a comment is shown only after an admin approves it. A person rates a firm once (rating again replaces it),
 // never a firm they manage, and at most 10 new ratings a day. Commenters are never named publicly.
 import { json, readJson, NO_STORE, HttpError } from '../lib/http.js';
-import { getUser, requireUser, requireAdmin } from '../lib/auth.js';
+import { getUser, requireUser, requireAdmin, adminEmails } from '../lib/auth.js';
+import { mailInBackground, commentEmail } from '../lib/email.js';
 import { audit } from '../lib/audit.js';
 
 const reply = (body, status = 200) => json(body, status, NO_STORE);
@@ -43,7 +44,7 @@ export async function list({ request, env, params }) {
   return reply({ signedIn: !!user, canRate: !!user && !managed, manages: managed, ...(await summary(env, params.slug, user?.id)) });
 }
 
-export async function rate({ request, env }) {
+export async function rate({ request, env, url, exec }) {
   const user = await requireUser(env, request);
   const body = await readJson(request, 3000);
   const slug = String(body.slug || '').toLowerCase();
@@ -64,6 +65,14 @@ export async function rate({ request, env }) {
     `INSERT INTO firm_ratings (user_id, firm_slug, stars, comment, comment_status) VALUES (?,?,?,?,?)
      ON CONFLICT (user_id, firm_slug) DO UPDATE SET stars = excluded.stars, comment = excluded.comment, comment_status = excluded.comment_status, updated_at = datetime('now')`
   ).bind(user.id, slug, stars, text, cs).run();
+  // A new or changed comment waits for approval, so tell the admins; otherwise nobody would know it is waiting.
+  if (cs === 'pending' && text && text !== (existing?.comment || '')) {
+    const to = [...adminEmails(env)];
+    if (to.length && exec) {
+      const f = await env.DB.prepare("SELECT json_extract(data, '$.name') AS name FROM firms WHERE slug = ?").bind(slug).first();
+      mailInBackground(env, exec, { to, ...commentEmail(env.SITE_ORIGIN || url.origin, { slug, firmName: f?.name, stars, comment: text }) });
+    }
+  }
   return reply({ ok: true, ...(await summary(env, slug, user.id)) });
 }
 

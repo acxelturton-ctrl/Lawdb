@@ -5,6 +5,7 @@ import * as C from './firm-chunks.generated.js';
 import { renderFirmArticles } from './blog-cards.js';
 import { profilesBox, hasLinkedIn } from './profiles.js';
 import { CITY_HUBS } from './city-hubs.generated.js';
+import { PRACTICE } from '../lib/practice.js';
 
 export const PROVINCES = { ON: 'Ontario', QC: 'Quebec', BC: 'British Columbia', AB: 'Alberta', MB: 'Manitoba' };
 const TZ = { ON: 'America/Toronto', QC: 'America/Toronto', BC: 'America/Vancouver', AB: 'America/Edmonton', MB: 'America/Winnipeg' };
@@ -141,13 +142,18 @@ function blockHtml(b) {
     `<p class="article-teaser">${esc(String(b.teaser).slice(0, 500))}</p><a class="read-link" href="${esc(b.href)}"${ext ? ' target="_blank" rel="noopener"' : ''}>${esc(String(b.linkText || 'Read more').slice(0, 120))}</a></div>`;
 }
 
-const PRACTICE_CSS = '<style>.pa-wrap{margin-bottom:20px}.pa-wrap h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 10px}.pa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.pa-card{display:block;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--ink)}.pa-card:hover{border-color:var(--brass);box-shadow:0 2px 10px rgba(20,36,52,0.08)}.pa-card b{display:block;font-size:15px;margin-bottom:4px}.pa-card span{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.45}.pa-card em{display:block;font-style:normal;font-size:12.5px;font-weight:700;color:var(--brass-deep);margin-top:8px}</style>';
+const PRACTICE_CSS = '<style>.pa-wrap{margin-bottom:20px}.pa-wrap h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 10px}.pa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.pa-card{display:block;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--ink)}.pa-card:hover{border-color:var(--brass);box-shadow:0 2px 10px rgba(20,36,52,0.08)}.pa-card b{display:block;font-size:15px;margin-bottom:4px}.pa-card span{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.45}.pa-card em{display:block;font-style:normal;font-size:12.5px;font-weight:700;color:var(--brass-deep);margin-top:8px}.pa-tags{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;gap:8px}.pa-tags li{background:#f4ecd8;border:1px solid #e6d4a4;border-radius:999px;padding:6px 14px;font:600 13.5px Inter,system-ui,sans-serif;color:#142434}</style>';
 
-// Cards to the province practice pages for the firm's case types (only pages that exist), with how many firms each page compares.
+// The "Practice areas" block, right under the description: the areas the firm practises as pills (its own list, or the categories it is filed under when it
+// has none), then cards to the province practice pages for its case types (only pages that exist), with how many firms each page compares.
 function practiceHtml(f, cards) {
-  if (!cards.length) return '';
+  const tags = (f.tags || []).filter(Boolean);
+  const areas = tags.length ? tags : (f.caseTypes || []).map((t) => (PRACTICE[t] ? PRACTICE[t][1] : '')).filter(Boolean);
+  if (!areas.length && !cards.length) return '';
   const prov = PROVINCES[f.province] || f.province;
-  return `\n    <div class="pa-wrap"><h2>Practice areas</h2><div class="pa-grid">${cards.map((c) => `<a class="pa-card" href="${esc(c.href)}"><b>${esc(c.label)}</b><span>${c.count} ${c.count === 1 ? 'firm' : 'firms'} listed across ${esc(prov)}, compared by real Google ratings.</span><em>Compare all &rarr;</em></a>`).join('')}</div></div>`;
+  const list = areas.length ? `<ul class="pa-tags">${areas.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : '';
+  const grid = cards.length ? `<div class="pa-grid">${cards.map((c) => `<a class="pa-card" href="${esc(c.href)}"><b>${esc(c.label)}</b><span>${c.count} ${c.count === 1 ? 'firm' : 'firms'} listed across ${esc(prov)}, compared by real Google ratings.</span><em>Compare all &rarr;</em></a>`).join('')}</div>` : '';
+  return `\n    <div class="pa-wrap"><h2>Practice areas</h2>${list}${grid}</div>`;
 }
 
 const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#586170}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
@@ -310,6 +316,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<div class="pf-meta"><span class="pf-mi">${C.ICONS.pin}${esc(f.city)}, ${esc(prov)}, Canada</span>` +
     (website ? `<a class="pf-mi" href="${esc(website)}" target="_blank" rel="noopener">${IC.link}${esc(hostOf(website))}</a>` : '') +
     (rated ? `<a class="pf-mi" href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.star}<b>${num(f.rating).toFixed(1)}</b> from ${num(f.count)} Google reviews</a>` : '') +
+    // The LawDB member rating, apart from the Google one: the Worker's script (follow.js) fills in the average and count, or invites the first rating.
+    `<a class="pf-mi pf-lrate" href="#rate" data-lawdb-rating="${esc(f.slug)}">${C.ICONS.star}<span>Rate this firm on LawDB</span></a>` +
     `<span class="pf-mi lw-fcount" data-fcount="${esc(f.slug)}"></span></div>`;
 
   const card =
@@ -325,9 +333,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const bioHtml = bio ? `\n    <figure style="margin:0 0 18px;"><img src="${esc(localImg(bio))}" alt="${esc(f.name)}, ${esc(f.city)}" loading="lazy" style="display:block;width:100%;max-width:520px;height:auto;border-radius:12px;"></figure>` : '';
   const photoTags = images.filter((i) => IMG_ID.test(i.id)).map((i) => `<img src="/img/${i.id}" alt="${esc(i.alt || `${f.name} photo`)}" loading="lazy" width="320" height="240">`);
   const photosHtml = photoTags.length ? `\n    <div class="photos"><h2>Photos</h2><div class="photo-grid">${photoTags.join('')}</div></div>` : '';
-  const tags = (f.tags || []).filter(Boolean);
   const cards = stats?.practice || [];
-  const services = tags.length ? `\n    <div class="services">\n      <h2>${cards.length ? 'Services' : 'Practice areas'}</h2>\n      <ul>${tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>\n    </div>` : '';
   const hoursHtml = hoursCard(hours, f.province);
   // Same text on every firm of a case type, so only Featured firms show it (see also the Worker, which does the same for hand-built pages).
   const guide = f.featured ? (C.GUIDES[(f.caseTypes || [])[0]] || '') : '';
@@ -360,9 +366,9 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
     `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
-    C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (f.block && f.block.image ? BLOCK_CSS : '') + ((stats?.practice || []).length ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
+    C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (f.block && f.block.image ? BLOCK_CSS : '') + (practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
-    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + practiceHtml(f, cards) + services + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     articlesHtml ? '\n    ' + articlesHtml : '',
     carousel(f, nearby),
     '\n\n    ' + leadScript,

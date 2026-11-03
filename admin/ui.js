@@ -213,9 +213,9 @@ export function feedPanel(base) {
 // Shows Basic or Featured, and the right button: upgrade (opens the Stripe checkout with the firm and email attached)
 // or manage billing (Stripe's own page, where the card can be changed or the subscription cancelled).
 // What Featured really changes on LawDB: every line is something the site does today. A Basic listing keeps its facts up to date
-// (name, phone, address, website, hours, practice areas), gets every enquiry by email, and has its blog posts shown as cards.
+// (name, phone, address, website, hours, practice areas), writes its own description and tagline, gets every enquiry by email, and has its blog posts shown as cards.
 export const FEATURED_PERKS = [
-  ['A page that is yours to customize.', 'Write your own description, add a book-a-call button, and add your logo, cover and photos.'],
+  ['A page that is yours to customize.', 'Add a book-a-call button with your own booking link, and your logo, cover and photos.'],
   ['Listed above Basic firms.', 'In search results for your city and case type, with a large Featured Partner card at the top of the Find results.'],
   ['First in the search box.', 'Shown first in the live suggestions, with a gold Featured badge, as people type their case and city.'],
   ['A gold pin and a gold tick.', 'A highlighted pin on the map, and a gold tick and Featured badge on your profile and wherever your firm appears.'],

@@ -526,10 +526,17 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', '/api/account/firms/achkar-law', { featured: true })).status === 422, 'an owner cannot make themselves featured');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { pageMode: 'static' })).status === 422, 'an owner cannot change the page style');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { rating: 5 })).status === 422, 'an owner cannot change the rating');
-  // customizing the page is a Featured benefit: a Basic owner corrects the facts, but cannot write the description or add a booking button
-  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'A description of my own' })).status === 403, 'a Basic owner cannot write the description (a Featured benefit)');
-  ok((await call('PATCH', '/api/account/firms/achkar-law', { blurb: 'A short one of my own' })).status === 403, 'a Basic owner cannot write the short description');
+  // a Basic owner writes their own description and tagline (the content rules still apply); a booking button, a second enquiry address and pictures need Featured
+  const basicAbout = await call('PATCH', '/api/account/firms/achkar-law', { about: 'A description of my own' });
+  ok(basicAbout.status === 200 && basicAbout.data.changed.includes('about'), 'a Basic owner can write their own description');
+  const basicBlurb = await call('PATCH', '/api/account/firms/achkar-law', { blurb: 'A short one of my own' });
+  ok(basicBlurb.status === 200 && basicBlurb.data.changed.includes('blurb'), 'a Basic owner can write their own tagline');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'Hello <script>alert(1)</script>' })).status === 422, 'a Basic owner cannot enter HTML');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'See www.spam-site.com for deals' })).status === 422, 'a Basic owner cannot put links in the description');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'We are the best lawyers in Ontario' })).status === 422, 'a Basic owner cannot make prohibited advertising claims');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { blurb: 'Guaranteed results' })).status === 422, 'the tagline is checked too');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { bookingUrl: 'https://calendly.com/achkar' })).status === 403, 'a Basic owner cannot add a booking button');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { enquiryEmail: 'intake@achkar.example' })).status === 403, 'a Basic owner cannot add a second enquiry address');
   const facts = await call('PATCH', '/api/account/firms/achkar-law', { phone: '613-555-0100' });
   ok(facts.status === 200 && facts.data.changed.includes('phone'), 'a Basic owner can still correct the facts');
   // the same editor for owners: social profiles and other offices are facts (any plan); where the firm is, its status, plan and pin are not theirs to change
@@ -543,12 +550,8 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(Number.isInteger(ownGet.id) && ownGet.slug === 'achkar-law' && ownGet.status === 'live' && ownGet.updatedAt, 'the owner\'s firm comes with its id, username, status and last update');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { social: {}, offices: [], appointmentOnly: false })).status === 200, 'an owner can clear them again');
   as(adminJar);
-  ok((await call('PATCH', '/api/admin/firms/achkar-law', { featured: true })).status === 200, 'the firm is made Featured for the description checks');
+  ok((await call('PATCH', '/api/admin/firms/achkar-law', { featured: true })).status === 200, 'the firm is made Featured');
   as(o1.jar);
-  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'Hello <script>alert(1)</script>' })).status === 422, 'an owner cannot enter HTML');
-  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'See www.spam-site.com for deals' })).status === 422, 'an owner cannot put links in the description');
-  ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'We are the best lawyers in Ontario' })).status === 422, 'an owner cannot make prohibited advertising claims');
-  ok((await call('PATCH', '/api/account/firms/achkar-law', { blurb: 'Guaranteed results' })).status === 422, 'the short description is checked too');
   const edit = await call('PATCH', '/api/account/firms/achkar-law', { about: 'Owner wrote this & that "quoted" text', phone: '613-555-0100' });
   ok(edit.status === 200 && edit.data.changed.includes('about'), 'a Featured owner edits their own firm');
   const opage = await getRaw('/firms/achkar-law');

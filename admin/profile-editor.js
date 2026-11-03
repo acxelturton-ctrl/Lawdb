@@ -2,8 +2,8 @@
 // (Basic Information, Website & Blog, Location), then Description, Address and Opening hours, and a Save bar that stays at the bottom and is greyed out
 // until something changes. One editor for three jobs:
 //   mode 'admin'  the admin edits any firm (every field);
-//   mode 'owner'  an approved owner edits their own firm: the facts always, and what is a Featured benefit (description, tagline, booking link,
-//                 pictures) only on a Featured plan; the city, map position, status and plan are shown but not editable;
+//   mode 'owner'  an approved owner edits their own firm: the facts, the description and the tagline always, and what is a Featured benefit (booking
+//                 link, second enquiry email, pictures) only on a Featured plan; the city, map position, status and plan are shown but not editable;
 //   mode 'new'    the admin adds a firm.
 // Only the fields that changed are sent, so an owner on the Basic plan never trips over a locked field they did not touch.
 // SECURITY: every value is put in with text nodes or element properties, never innerHTML.
@@ -50,7 +50,8 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   const admin = mode === 'admin' || isNew;
   const firm = data.firm || {};
   const slug = data.slug || '';
-  // Owners: customizing the page is a Featured benefit; a Basic firm keeps its facts up to date and can still clear what it has.
+  // Owners: a Basic firm writes its own description and tagline and keeps its facts up to date. A booking link, a second enquiry email and
+  // pictures are Featured benefits, shown here greyed out with the reason.
   const locked = mode === 'owner' && !firm.featured;
   // Opens "Your plan" at the top, which has the free-month and upgrade buttons.
   let planEl = null;
@@ -62,11 +63,11 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   // ---- the controls
   const c = {
     name: text(firm.name, { maxlength: 200, required: true, 'aria-label': 'Official firm name' }),
-    blurb: h('textarea', { maxlength: 500, rows: 2, disabled: locked, placeholder: locked ? 'A short line shown in lists and search results' : null }, firm.blurb || ''),
+    blurb: h('textarea', { maxlength: 500, rows: 2, placeholder: 'A short line shown in lists and search results' }, firm.blurb || ''),
     tags: text((firm.tags || []).join(', '), { placeholder: 'Divorce, Child Custody' }),
     website: text(firm.website, { maxlength: 300, placeholder: 'https://' }),
     bookingUrl: text(firm.bookingUrl, { maxlength: 500, placeholder: locked ? 'https://calendly.com/your-firm' : 'https://', disabled: locked }),
-    about: h('textarea', { class: 'tall', maxlength: 2000, disabled: locked, placeholder: locked ? 'Tell clients about your firm, who you help and how you work.' : null }, firm.about || ''),
+    about: h('textarea', { class: 'tall', maxlength: 2000, placeholder: 'Tell clients about your firm, who you help and how you work.' }, firm.about || ''),
     enquiryEmail: h('input', { type: 'email', value: data.enquiryEmail || '', maxlength: 254, placeholder: locked ? 'intake@your-firm.ca' : 'intake@yourfirm.ca', disabled: locked, autocomplete: 'off', 'aria-label': 'Send enquiries to' }),
     address: text(firm.address, { maxlength: 300 }),
     phone: text(firm.phone, { maxlength: 30 }),
@@ -202,7 +203,7 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
         fld('Plan', c.featured, mode === 'owner' ? 'Managed by LawDB (see Your plan)' : null)),
     fld('Official Firm Name', c.name),
     !isNew && fld('Username', text('@' + slug, { readonly: true, 'aria-label': 'Username' }), 'The address of the page: lawdb.ca/firms/' + slug),
-    !isNew && fld('Tagline', c.blurb, 'Shown in lists and search results.', locked ? lockNote('Writing your own tagline needs Featured.') : null),
+    !isNew && fld('Tagline', c.blurb, 'Shown in lists and search results.'),
     fld('Practice areas', c.tags, 'Comma separated, up to 10.'),
     h('label', null, 'Categories'), cats.el);
 
@@ -260,7 +261,7 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   const upd = () => { count.textContent = `${c.about.value.length} / 2000`; };
   c.about.addEventListener('input', upd); upd();
   const desc = card('Description', 'text',
-    fld('About the firm', c.about, 'Plain text. A blank line starts a new paragraph.', locked ? lockNote('Writing your own description needs Featured. Your page shows a short standard line until then.') : null), count);
+    fld('About the firm', c.about, 'Plain text. A blank line starts a new paragraph.'), count);
   const addr = card('Address', 'home',
     fld('Street address', c.address, 'The map pin and the directions link follow this.'),
     fld('Phone', c.phone),
@@ -285,8 +286,8 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     }).catch(() => {});
     const item = (t) => h('li', null, icon('lock'), t);
     return h('div', { class: 'ed-unlock' },
-      h('div', null, h('b', null, 'Locked on the Basic plan'), h('p', { class: 'muted' }, 'You can always keep your facts up to date here: name, phone, address, website, practice areas, opening hours and social profiles. Featured unlocks:')),
-      h('ul', null, ['Your own description and tagline', 'A booking link and the Book a call button', 'Profile pictures: logo, cover and photos', 'Sending enquiries to a second email address', 'The analytics dashboard', 'The enquiries inbox, with notes and export'].map(item)),
+      h('div', null, h('b', null, 'Locked on the Basic plan'), h('p', { class: 'muted' }, 'On Basic you write your own description and tagline and keep your facts up to date here: name, phone, address, website, practice areas, opening hours and social profiles. Featured unlocks:')),
+      h('ul', null, ['A booking link and the Book a call button', 'Profile pictures: logo, cover and photos', 'Sending enquiries to a second email address', 'The analytics dashboard', 'The enquiries inbox, with notes and export'].map(item)),
       cta);
   })();
 

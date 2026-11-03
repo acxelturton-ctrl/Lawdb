@@ -140,8 +140,8 @@ function viewFirms() {
         h('a', { href: '#find' }, h('button', { class: 'primary', type: 'button' }, 'Find or add my firm'))),
       h('div', { class: 'card' }, h('h2', null, 'What you get once it is yours'),
         h('div', { class: 'fx-two' },
-          h('div', null, h('b', null, 'Basic, free'), h('ul', { class: 'fx-list' }, ['Keep your name, phone, address, website and hours up to date', 'Every enquiry emailed to you', 'Your blog posts shown as cards', 'Your totals for the last 30 days'].map((t) => row(t, false)))),
-          h('div', null, h('b', null, 'Featured, with a free first month'), h('ul', { class: 'fx-list' }, ['Your own description, tagline and pictures', 'A booking link and the Book a call button', 'Enquiries to a second email address', 'The analytics dashboard: views, clicks, where visitors come from', 'The enquiries inbox, with notes and export', 'Placed above Basic firms in your city'].map((t) => row(t, true))))),
+          h('div', null, h('b', null, 'Basic, free'), h('ul', { class: 'fx-list' }, ['Keep your name, phone, address, website and hours up to date', 'Write your own description and tagline', 'Every enquiry emailed to you', 'Your blog posts shown as cards', 'Your totals for the last 30 days'].map((t) => row(t, false)))),
+          h('div', null, h('b', null, 'Featured, with a free first month'), h('ul', { class: 'fx-list' }, ['Your logo, cover and photos', 'A booking link and the Book a call button', 'Enquiries to a second email address', 'The analytics dashboard: views, clicks, where visitors come from', 'The enquiries inbox, with notes and export', 'Placed above Basic firms in your city'].map((t) => row(t, true))))),
         h('p', { class: 'muted' }, 'Curious? Open ', h('a', { href: '#stats' }, 'Analytics'), ' to see the dashboard with sample numbers.')));
   }
   return h('div', null, h('h1', null, 'My firms'), memberships.map((m) => {
@@ -151,7 +151,7 @@ function viewFirms() {
     return h('div', { class: 'card' },
       h('div', { class: 'row spread' }, h('b', null, m.name), h('span', { class: 'badge' + (m.status === 'approved' ? (m.featured ? ' featured' : '') : ' new') }, m.status === 'approved' ? (m.trialEnds ? 'Featured, free month' : m.featured ? 'Featured' : 'Basic') : m.status === 'pending' ? 'Pending' : 'Declined')),
       h('p', { class: 'muted' }, where(m)), state,
-      m.status === 'approved' && !m.featured && m.firmStatus === 'live' && h('p', { class: 'muted fx-lockline' }, lockIcon(13), ' Locked on Basic: your own description and tagline, a booking link, pictures, a second enquiry email, the analytics dashboard and the enquiries inbox.'),
+      m.status === 'approved' && !m.featured && m.firmStatus === 'live' && h('p', { class: 'muted fx-lockline' }, lockIcon(13), ' Locked on Basic: a booking link, pictures, a second enquiry email, the analytics dashboard and the enquiries inbox.'),
       m.status === 'approved' && h('div', { class: 'row' },
         h('a', { href: `#edit/${m.slug}` }, h('button', { class: 'primary', type: 'button' }, 'Edit my profile')),
         h('a', { href: `#stats/${m.slug}` }, h('button', { type: 'button' }, !m.featured && m.firmStatus === 'live' ? 'Analytics and free month' : 'Analytics')),

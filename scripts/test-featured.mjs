@@ -70,7 +70,7 @@ const PITCH = ['for-firms.html', 'list-your-firm.html', 'how-it-works.html', 'bo
 const GONE = [/Featured (?:Partners )?showcase/i, /auto-sliding/i, /slides automatically/i, /homepage showcase/i, /blog cards from your website/i, /priority placement at the top of results/i,
   /all edited by you/i, /yourself<\/li>.*logo, cover/i, /these are not part of Featured/i, /The firm adds these itself, free/i, /add a logo, cover and photos, read enquiries/i, /Edit your details, hours, logo, cover and photos yourself/i];
 for (const p of PITCH) ok(!GONE.some((re) => re.test(read(p))), `${p}: no untrue or out-of-date claim about what Featured gives`);
-const GIVES = [/above Basic firms/i, /Featured Partner/i, /live search box/i, /gold pin|gold highlighted/i, /Enquiries dashboard/i, /LawDB (?:story )?page/i, /nearby firms/i, /customi[sz]e your page/i, /book-a-call/i];
+const GIVES = [/above Basic firms/i, /Featured Partner/i, /live search box/i, /gold highlighted pin/i, /Enquiries dashboard/i, /story pages/i, /nearby firms/i, /your own description and tagline/i, /Book a call button/i, /Full analytics dashboard/i, /second email address/i, /First 30 days free/i];
 for (const p of ['for-firms.html', 'list-your-firm.html']) ok(GIVES.every((re) => re.test(read(p))), `${p}: lists everything Featured really gives`);
 ok(has('admin/ui.js', /FEATURED_PERKS/) && has('src/lib/email.js', /FEATURED_GETS/), "the owner's plan card and the Featured email carry the same list");
 

@@ -1,4 +1,4 @@
-// /sitemap-firms.xml: every live firm whose profile page is built from the database (the hand-built pages are in sitemap.xml).
+// /sitemap-firms.xml: every live firm with a real description (a page with only a two-line stub stays out until it has one).
 // Lets Google find new listings the day they go live, with no file to edit.
 // Profiles without a real description yet (see src/lib/indexing.js) are left out and carry a noindex tag.
 import { isIndexable } from '../lib/indexing.js';
@@ -7,7 +7,7 @@ export async function firmSitemap({ request, env }) {
   const origin = (env.SITE_ORIGIN || new URL(request.url).origin).replace(/\/+$/, '');
   try {
     const { results } = await env.DB.prepare(
-      "SELECT slug, updated_at AS updatedAt, about FROM firms WHERE status = 'live' AND page_mode = 'dynamic' ORDER BY slug LIMIT 5000"
+      "SELECT slug, updated_at AS updatedAt, about FROM firms WHERE status = 'live' ORDER BY slug LIMIT 5000"
     ).all();
     const listed = results.filter((r) => isIndexable(r.about));
     const day = (d) => { const t = d ? new Date(String(d).replace(' ', 'T') + 'Z') : null; return t && !Number.isNaN(t.getTime()) ? t.toISOString().slice(0, 10) : ''; };

@@ -8,6 +8,7 @@ import { cleanBookingUrl } from './booking.js';
 import { PROVINCES } from '../render/firm-page.js';
 import { NETWORKS, cleanSocialUrl } from './social.js';
 import { placeFor } from './geocode.js';
+import { trialAdminChanged } from './trial.js';
 
 export function str(v, min, max) {
   if (typeof v !== 'string') throw new HttpError(422, 'Expected text');
@@ -117,30 +118,37 @@ export function normalizeHours(h) {
   return Object.keys(out).length ? out : null;
 }
 
+// The address a Featured firm's enquiries are also sent to. One plain address; blank turns it off. Kept apart from the public firm data.
+export function cleanEnquiryEmail(v) {
+  const s = str(v ?? '', 0, 254).toLowerCase();
+  if (!s) return '';
+  if (!/^[a-z0-9._%+'-]+@[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(s)) throw new HttpError(422, 'enquiry email must be one email address, like intake@yourfirm.ca');
+  return s;
+}
+
 // ---------------------------------------------------------------- edit
 const OWNER_TEXT_FIELDS = { name: 'Firm name', blurb: 'Short description', tags: 'Practice areas' };
 
 // Customizing the page is a Featured benefit. An owner on the Basic plan still corrects the facts (name, phone, address, website, hours,
 // practice areas) and can clear a description or a booking link, but cannot write or change them, and cannot add pictures (see addImage).
 export const FEATURED_LOCK = 'is a Featured benefit. Upgrade to Featured from your dashboard to customize your page.';
-const CUSTOMIZING = { about: 'Writing your own description', blurb: 'Writing your own description', bookingUrl: 'Adding a booking link' };
+const CUSTOMIZING = { about: 'Writing your own description', blurb: 'Writing your own description', bookingUrl: 'Adding a booking link', enquiryEmail: 'Sending enquiries to another address' };
 
-// `admin` may also change the featured flag, the page style, the city and province, the map position and whether the firm is shown (status); owners may not.
+// `admin` may also change the featured flag, the city and province, the map position and whether the firm is shown (status); owners may not.
 export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   const keys = Object.keys(body);
   if (!keys.length) throw new HttpError(422, 'Nothing to update');
   const fieldKeys = Object.keys(FIRM_FIELDS).filter((k) => admin || !ADMIN_ONLY.includes(k));
-  const extra = admin ? ['pageMode', 'hours', 'about', 'lat', 'lng', 'status'] : ['hours', 'about'];
+  const extra = admin ? ['hours', 'about', 'lat', 'lng', 'status', 'enquiryEmail'] : ['hours', 'about', 'enquiryEmail'];
   const unknown = keys.filter((k) => !fieldKeys.includes(k) && !extra.includes(k));
   if (unknown.length) throw new HttpError(422, `Cannot edit: ${unknown.join(', ')}`);
 
-  const row = await env.DB.prepare('SELECT data, hours, page_mode, about, status FROM firms WHERE slug = ?').bind(slug).first();
+  const row = await env.DB.prepare('SELECT data, hours, about, status, enquiry_email FROM firms WHERE slug = ?').bind(slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
   const firm = JSON.parse(row.data);
   const customizing = admin || !!firm.featured;
 
   const changes = {};
-  let pageMode = row.page_mode;
   let aboutText = row.about;
   let status = row.status;
   if ('about' in body) {
@@ -149,15 +157,20 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
     if (next !== (row.about || null) && !admin) checkOwnerText('About the firm', next);
     if (next !== (row.about || null)) { changes.about = { from: row.about || null, to: next }; aboutText = next; }
   }
-  if (admin && 'pageMode' in body) {
-    if (body.pageMode !== 'static' && body.pageMode !== 'dynamic') throw new HttpError(422, "pageMode must be 'static' or 'dynamic'");
-    if (body.pageMode !== row.page_mode) { changes.pageMode = { from: row.page_mode, to: body.pageMode }; pageMode = body.pageMode; }
-  }
   // Show or hide the firm. A firm waiting for its owner request to be approved ('pending') is not switched here: that happens in Approvals.
   if (admin && 'status' in body) {
     if (!FIRM_STATUSES.includes(body.status)) throw new HttpError(422, `status must be one of: ${FIRM_STATUSES.join(', ')}`);
     if (row.status === 'pending') throw new HttpError(409, 'This listing is waiting for approval. Approve it under Approvals first.');
     if (body.status !== row.status) { changes.status = { from: row.status, to: body.status }; status = body.status; }
+  }
+  let enquiryEmail = row.enquiry_email || null;
+  if ('enquiryEmail' in body) {
+    const next = cleanEnquiryEmail(body.enquiryEmail) || null;
+    if (next !== enquiryEmail) {
+      if (next && !customizing) throw new HttpError(403, `${CUSTOMIZING.enquiryEmail} ${FEATURED_LOCK}`);
+      changes.enquiryEmail = { from: enquiryEmail, to: next };
+      enquiryEmail = next;
+    }
   }
   let hoursJson = row.hours;
   if ('hours' in body) {
@@ -192,15 +205,16 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
     const known = await env.DB.prepare('SELECT region FROM firms WHERE city = ? COLLATE NOCASE AND province = ? AND region IS NOT NULL AND slug != ? LIMIT 1').bind(firm.city, firm.province, slug).first();
     firm.region = known ? known.region : '';
   }
-  if (!Object.keys(changes).length) return { changed: [], firm: { ...firm, about: aboutText || '' }, pageMode, status };
+  if (!Object.keys(changes).length) return { changed: [], firm: { ...firm, about: aboutText || '' }, status };
 
   // `data` is the source of truth; the indexed columns are derived from it.
   const moved = 'city' in changes || 'province' in changes;
-  await env.DB.prepare("UPDATE firms SET data = ?, name = ?, city = ?, province = ?, region = COALESCE(?, region), featured = ?, lat = COALESCE(?, lat), lng = COALESCE(?, lng), hours = ?, page_mode = ?, about = ?, status = ?, updated_at = datetime('now') WHERE slug = ?")
-    .bind(JSON.stringify(firm), firm.name, firm.city, firm.province, moved ? firm.region ?? '' : null, firm.featured ? 1 : 0, firm.lat ?? null, firm.lng ?? null, hoursJson, pageMode, aboutText, status, slug)
+  await env.DB.prepare("UPDATE firms SET data = ?, name = ?, city = ?, province = ?, region = COALESCE(?, region), featured = ?, lat = COALESCE(?, lat), lng = COALESCE(?, lng), hours = ?, about = ?, status = ?, enquiry_email = ?, updated_at = datetime('now') WHERE slug = ?")
+    .bind(JSON.stringify(firm), firm.name, firm.city, firm.province, moved ? firm.region ?? '' : null, firm.featured ? 1 : 0, firm.lat ?? null, firm.lng ?? null, hoursJson, aboutText, status, enquiryEmail, slug)
     .run();
   await audit(env, actor, 'firm.update', 'firm', slug, changes);
-  return { changed: Object.keys(changes), firm: { ...firm, about: aboutText || '' }, pageMode, status };
+  if ('featured' in changes) await trialAdminChanged(env, slug, !!firm.featured); // a free month running at the time must not undo (or outlive) the admin's choice
+  return { changed: Object.keys(changes), firm: { ...firm, about: aboutText || '' }, status };
 }
 
 // ---------------------------------------------------------------- create

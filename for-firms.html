@@ -98,6 +98,13 @@
 
 
   .fx-sec{ margin:34px 0 10px; }
+  .an-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:26px; align-items:start; margin:14px 0 6px; }
+  .an-list{ list-style:none; margin:0; padding:0; display:grid; gap:11px; font-size:15.5px; line-height:1.5; color:#2b3a4c; }
+  .an-list li{ padding-left:22px; position:relative; }
+  .an-list li::before{ content:''; position:absolute; left:0; top:.55em; width:10px; height:10px; border-radius:3px; background:#c9a050; }
+  .an-list b{ color:#142434; }
+  .an-img{ width:100%; height:auto; border:1px solid #e3dfd3; border-radius:12px; box-shadow:0 12px 30px -16px rgba(20,36,52,.35); background:#f5f3ec; }
+  @media (max-width:900px){ .an-grid{ grid-template-columns:1fr; } }
   .fx-grid{ display:grid; grid-template-columns:1.05fr 1fr; gap:28px; align-items:start; margin-top:18px; }
   @media (max-width:760px){ .fx-grid{ grid-template-columns:1fr; } }
   .fx-box{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; box-shadow:0 10px 30px rgba(20,36,52,0.08); }
@@ -118,22 +125,7 @@
   .fx-points li{ margin-bottom:4px; } .fx-points b{ color:var(--ink); }
   .fx-note{ font-size:13.5px; color:var(--ink-soft); background:#f5f3ec; border-radius:8px; padding:10px 12px; margin:0; }
   @media (prefers-reduced-motion:reduce){ .fx-input:after{ animation:none; } }
-  .plans{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
   .plans-note{ font-size:12.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 30px; max-width:720px; }
-  @media (max-width:680px){ .plans{ grid-template-columns:1fr; } }
-  .plan{ background:var(--card); border:2px solid var(--line); border-radius:8px; padding:26px 24px; }
-  .plan.feat{ border-color:var(--brass); background:#f4ecd8; }
-  .plan h3{ font-family:'Source Serif 4',serif; font-size:20px; margin:0 0 4px; }
-  .plan .price{ font-size:26px; font-weight:700; margin-bottom:16px; }
-  .plan.feat .price{ color:var(--brass-deep); }
-  .plan ul{ list-style:none; margin:0 0 22px; padding:0; }
-  .plan li{ font-size:14px; color:var(--ink-soft); padding:7px 0 7px 22px; position:relative; line-height:1.55; }
-  .plan li:before{ content:"\2713"; position:absolute; left:0; color:var(--green); font-weight:700; }
-  .plan .plan-btn{ display:block; text-align:center; font-weight:700; font-size:14px; padding:12px;
-    border-radius:5px; text-decoration:none; }
-  .plan .plan-btn.basic{ background:var(--ink); color:#fff; }
-  .plan .plan-btn.paid{ background:linear-gradient(135deg,#e6d4a4,#c9a050 55%,#e2bd6a); color:#142434; }
-  .plan .plan-btn:hover{ filter:brightness(1.08); }
 
   .howitworks{ background:var(--card); border:1px solid var(--line); border-radius:8px;
     padding:28px 26px; margin:46px 0 40px; }
@@ -245,14 +237,13 @@
   .tiers{ background:#142434; border-radius:16px; padding:42px 22px 30px; margin:8px 0 46px; }
   .tiers h2{ color:#fff; }
   .tiers .lede{ color:#e3dfd3; }
-  .tiers .plans{ margin-bottom:0; }
   .tiers .plans-note{ color:#b4bac4; margin:24px auto 0; text-align:center; }
-  .plan li:before{ content:"\25C6"; color:#c9a050; font-size:9px; top:14px; }
-  .plan.feat .price{ color:#142434; }
+  @media (max-width:680px){ .tiers{ padding:30px 6px 22px; border-radius:12px; } .tiers h2, .tiers .lede{ padding:0 10px; } .tiers .plans-note{ padding:0 10px; } }
 </style>
 <link rel="stylesheet" href="desktop.css">
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="lwa.css">
+<link rel="stylesheet" href="/plan-compare.css">
 </head>
 <body class="pg-forfirms">
 <header class="site-header">
@@ -277,12 +268,13 @@
     <p class="mp-head">Grow leads to your law firm</p>
     <ul class="mp-list">
       <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><span><b>Ranked above Basic firms</b>First in search for your city and case type, with a Featured Partner card on top.</span></li>
-      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L18.5 9.5l-4-4L4 16z"/><path d="M13 7l4 4"/></svg></span><span><b>Your page, your way</b>Add your logo, cover, photos and description, and a book-a-call button.</span></li>
+      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L18.5 9.5l-4-4L4 16z"/><path d="M13 7l4 4"/></svg></span><span><b>Your page, your way</b>Add your logo, cover, photos and description, and a Book a call button with your own booking link.</span></li>
+      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span><b>Analytics dashboard</b>See page views, visitors, every button clicked and where visitors come from, with a weekly email.</span></li>
+      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 10h16M9 10v9"/></svg></span><span><b>Enquiries dashboard</b>Read, filter, add notes, reply and export every enquiry, and send them to a second email address.</span></li>
       <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.6 6-11a6 6 0 1 0-12 0c0 5.4 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/></svg></span><span><b>Gold pin and badge</b>Stand out on the map, in the search box and on your profile.</span></li>
-      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 10h16M9 10v9"/></svg></span><span><b>Enquiries dashboard</b>Read, filter, add notes, reply and export every enquiry.</span></li>
     </ul>
     <a class="mp-cta" href="/list-your-firm?plan=featured">Get Featured</a>
-    <p class="mp-note">Featured is $89 a month, and you can cancel any time.</p>
+    <p class="mp-note">Your first 30 days are free, with no card needed. After that Featured is $89 a month, and you can cancel any time.</p>
     <a class="mp-alt" href="/list-your-firm">List your firm free</a>
   </div>
 
@@ -308,9 +300,9 @@
     <div class="hx-head">
       <p class="hx-eyebrow">For law firms</p>
       <h1 id="hxh">Grow Leads to Your Law Firm</h1>
-      <p class="hx-sub">Stand out on LawDB with premium placement, more visibility and a custom profile that showcases what makes your firm unique.</p>
+      <p class="hx-sub">Stand out on LawDB with premium placement, a custom profile, and analytics that show you what your page does. Your first 30 days of Featured are free, no card needed.</p>
       <div class="promo-links">
-        <a class="promo-go" href="/list-your-firm?plan=featured">Get Featured: $89 / month</a>
+        <a class="promo-go" href="/list-your-firm?plan=featured">Get Featured: first month free</a>
         <a href="/list-your-firm">List your firm (free)</a>
         <a href="/account/">Manage your listing</a>
         <a href="/grow-your-practice">Grow your practice</a>
@@ -320,7 +312,7 @@
       <ul class="hx-feats">
         <li><button class="hx-feat" type="button" data-i="0" aria-pressed="true"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span><span><b>A Gold Pin on the Map</b><span class="d">Your firm appears with a highlighted gold pin on the LawDB map, so clients can spot you at a glance in your area.</span></span></button></li>
         <li><button class="hx-feat" type="button" data-i="1" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7L12 2Z"/></svg></span><span><b>Ranked First in Your Area</b><span class="d">Featured firms are listed above Basic firms for their city and case type, with a large Featured Partner card at the top of the Find results and first place in the live search box.</span></span></button></li>
-        <li><button class="hx-feat" type="button" data-i="2" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5Z"/></svg></span><span><b>Custom Profile Page</b><span class="d">Make your page your own: write your own description, add a book-a-call button, and add your logo, cover and photos, with a gold verified tick and Featured badge on top.</span></span></button></li>
+        <li><button class="hx-feat" type="button" data-i="2" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5Z"/></svg></span><span><b>Custom Profile Page</b><span class="d">Make your page your own: write your own description, add your logo, cover and photos, and a Book a call button with your own booking link, with a gold verified tick and Featured badge on top.</span></span></button></li>
         <li><button class="hx-feat" type="button" data-i="3" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM9 12v1.8h8V12H9Zm0 4v1.8h8V16H9Z"/></svg></span><span><b>Articles That Work Harder</b><span class="d">Your latest articles carry a Featured badge on LawDB News, get a LawDB page that search engines can find, and rank higher in the home page news strip.</span></span></button></li>
       </ul>
     </div>
@@ -426,41 +418,70 @@
   <div class="tiers">
   <h2 class="center">Free or Featured</h2>
   <p class="lede center">Every firm in the directory can be listed at no cost. Featured is for firms that want
-  priority placement in their city and case types.</p>
+  priority placement in their city and case types, a customized page, and analytics. Your first 30 days of
+  Featured are free, with no card needed.</p>
 
-  <div class="plans">
-    <div class="plan">
-      <h3>Basic</h3>
-      <div class="price">Free</div>
-      <ul>
-        <li>Standard marker on the map</li>
-        <li>Profile page with your name, address, phone, website, hours and practice areas, kept up to date by you</li>
-        <li>Listed by case type and city</li>
-        <li>Shown below Featured firms, sorted by Google rating</li>
-        <li>Every enquiry emailed to you, and your latest blog posts shown as cards on your page</li>
-        <li>Followers and member ratings</li>
-      </ul>
-      <a class="plan-btn basic" href="/list-your-firm">List Your Firm</a>
-    </div>
-    <div class="plan feat">
-      <h3>Featured</h3>
-      <div class="price">$89 / month</div>
-      <ul>
-        <li>Customize your page: your own description, a book-a-call button, and your logo, cover and photos</li>
-        <li>Placed above Basic firms in every search and case-type match for your city, with a large Featured Partner card at the top of the Find results</li>
-        <li>Listed first in the live search box, with a gold Featured badge, as people type their case and city</li>
-        <li>Gold highlighted map pin, visible at every zoom level</li>
-        <li>Gold tick and Featured badge on your profile and wherever your firm appears</li>
-        <li>Listed first among nearby firms on other firms' profiles and story pages</li>
-        <li>Enquiries dashboard: filters, private notes, one-tap reply and a spreadsheet export</li>
-        <li>Your articles on LawDB News (every listed firm's blog appears there for free): a Featured badge on each story, a LawDB page for every article that search engines can find, and higher placement in the home page news strip</li>
-      </ul>
-      <a class="plan-btn paid" href="/list-your-firm?plan=featured">Get Featured</a>
-    </div>
+  <!-- plan-table:start -->
+  <div class="pc" id="plan-compare"><svg class="pc-sprite" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="pc-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="pc-lock" viewBox="0 0 24 24"><path d="M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol></svg>
+    <table>
+      <caption class="sr">Basic and Featured compared, feature by feature</caption>
+      <thead><tr>
+        <th class="pc-lab pc-corner" scope="col">What you get</th>
+        <th class="pc-h pc-b" scope="col"><span class="pc-name">Basic</span><span class="pc-price">Free</span><span class="pc-sub">Always free</span><a class="pc-btn" href="/list-your-firm"><span class="pc-long">List your firm free</span><span class="pc-short">List free</span></a></th>
+        <th class="pc-h pc-f" id="planFeatured" scope="col"><span class="pc-tag">First 30 days free</span><span class="pc-name">Featured</span><span class="pc-price">$89<small> / month</small></span><span class="pc-sub">No card to start. Cancel any time.</span><a class="pc-btn go" href="/list-your-firm?plan=featured"><span class="pc-long">Start your free month</span><span class="pc-short">Free month</span></a></th>
+      </tr></thead>
+      <tbody>
+      <tr class="pc-group"><th colspan="3" scope="colgroup">Your page</th></tr>
+      <tr><th scope="row" class="pc-lab">Name, address, phone, website, hours and practice areas<small>You keep them up to date yourself, any time</small></th><td class="pc-b"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Your own description and tagline</th><td class="pc-b"><svg class="pc-i pc-lock" aria-hidden="true"><use href="#pc-lock"/></svg><span class="sr">Not included on Basic</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Your logo, cover picture and photos</th><td class="pc-b"><svg class="pc-i pc-lock" aria-hidden="true"><use href="#pc-lock"/></svg><span class="sr">Not included on Basic</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Book a call button with your own booking link<small>Clients book you straight from your page</small></th><td class="pc-b"><svg class="pc-i pc-lock" aria-hidden="true"><use href="#pc-lock"/></svg><span class="sr">Not included on Basic</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Your latest blog posts as cards on your page<small>Linking to your own site</small></th><td class="pc-b"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr class="pc-group"><th colspan="3" scope="colgroup">Getting found</th></tr>
+      <tr><th scope="row" class="pc-lab">Listed by case type and city</th><td class="pc-b"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Position in search results</th><td class="pc-b"><span class="pc-t">Sorted by rating</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="pc-t"><b>Above Basic firms</b>, with a Featured Partner card</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Live search box</th><td class="pc-b"><span class="pc-t">After Featured firms</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="pc-t"><b>First</b>, with a gold badge</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Pin on the map</th><td class="pc-b"><span class="pc-t">Standard pin</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="pc-t"><b>Gold highlighted pin</b></span></td></tr>
+      <tr><th scope="row" class="pc-lab">Gold tick and Featured badge<small>On your profile and wherever your firm appears</small></th><td class="pc-b"><svg class="pc-i pc-lock" aria-hidden="true"><use href="#pc-lock"/></svg><span class="sr">Not included on Basic</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">First among nearby firms<small>On other firms' profiles and story pages</small></th><td class="pc-b"><svg class="pc-i pc-lock" aria-hidden="true"><use href="#pc-lock"/></svg><span class="sr">Not included on Basic</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Your articles on LawDB News</th><td class="pc-b"><span class="pc-t">Shown as cards</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="pc-t"><b>Featured badge</b>, story pages search engines can find, higher placement</span></td></tr>
+      <tr class="pc-group"><th colspan="3" scope="colgroup">Enquiries</th></tr>
+      <tr><th scope="row" class="pc-lab">Every enquiry emailed to you</th><td class="pc-b"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Enquiries dashboard<small>Filters, private notes, one-tap reply, spreadsheet export</small></th><td class="pc-b"><svg class="pc-i pc-lock" aria-hidden="true"><use href="#pc-lock"/></svg><span class="sr">Not included on Basic</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Enquiries also sent to a second email address<small>For example your intake desk</small></th><td class="pc-b"><svg class="pc-i pc-lock" aria-hidden="true"><use href="#pc-lock"/></svg><span class="sr">Not included on Basic</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr class="pc-group"><th colspan="3" scope="colgroup">Analytics</th></tr>
+      <tr><th scope="row" class="pc-lab">Your page views, visitors, clicks and enquiries for the last 30 days<small>As totals, with a weekly email</small></th><td class="pc-b"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Full analytics dashboard<small>Every button clicked, where visitors came from, phone or computer, provinces, busiest days, compared with the period before</small></th><td class="pc-b"><svg class="pc-i pc-lock" aria-hidden="true"><use href="#pc-lock"/></svg><span class="sr">Not included on Basic</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Spreadsheet export of your numbers</th><td class="pc-b"><svg class="pc-i pc-lock" aria-hidden="true"><use href="#pc-lock"/></svg><span class="sr">Not included on Basic</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      <tr class="pc-group"><th colspan="3" scope="colgroup">Community</th></tr>
+      <tr><th scope="row" class="pc-lab">Followers and member ratings<small>You see how many, never who</small></th><td class="pc-b"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td><td class="pc-f"><svg class="pc-i pc-ok" aria-hidden="true"><use href="#pc-check"/></svg><span class="sr">Included</span></td></tr>
+      </tbody>
+    </table>
   </div>
-  <p class="plans-note">Featured changes where and how your firm is shown on LawDB. It does not guarantee calls, clients or search-engine rankings, and LawDB is a new directory, so we do not quote traffic or lead numbers. Featured is a monthly subscription you can cancel any time. You fill in the listing form first, then continue to secure checkout; Featured placement starts once payment is confirmed.</p>
+  <!-- plan-table:end -->
+
+  <p class="plans-note">Once your listing is yours (claim it or add it, we check every request), start your free month from your dashboard: your firm is Featured for 30 days with the analytics dashboard, and goes back to Basic by itself when the month ends unless you subscribe. Featured changes where and how your firm is shown on LawDB. It does not guarantee calls, clients or search-engine rankings, and LawDB is a new directory, so we do not quote traffic or lead numbers. Featured is a monthly subscription you can cancel any time. You fill in the listing form first, then continue to secure checkout; Featured placement starts once payment is confirmed.</p>
 
 
+  </div>
+
+  <div class="fx-sec an-sec">
+    <h2>Analytics: see what your page does for you</h2>
+    <p class="lede">Featured firms get a dashboard of their own numbers, updated within a minute. The picture shows the dashboard with sample numbers; yours are real, from your own page.</p>
+    <div class="an-grid">
+      <ul class="an-list">
+        <li><b>Page views and visitors</b> by day, compared with the period before</li>
+        <li><b>Every button clicked:</b> call, message, email, website, directions, Google reviews, booking, follow, rating, your articles and your social profiles</li>
+        <li><b>Where visitors came from:</b> Google, other sites, social networks or LawDB itself, and the campaign links you share</li>
+        <li><b>Phone or computer</b>, and which provinces your visitors are in</li>
+        <li><b>Your busiest days</b>, and a plain-language summary of what changed</li>
+        <li><b>Enquiries</b> through your page, counted next to your views</li>
+        <li><b>A spreadsheet export</b> and a <b>weekly email</b> with your week</li>
+      </ul>
+      <img class="an-img" src="/images/featured-analytics-1200.webp" srcset="/images/featured-analytics-720.webp 720w, /images/featured-analytics-1200.webp 1200w" sizes="(max-width:900px) 100vw, 560px" width="1200" height="1140" loading="lazy" decoding="async"
+        alt="The LawDB analytics dashboard shown with sample numbers: page views, visitors, button clicks and enquiries compared with the period before, a daily chart, and a ranked list of what visitors did on the page, such as calling and visiting the website.">
+    </div>
+    <p class="plans-note">On the Basic plan you see your page views, visitors, button clicks and enquiries for the last 30 days as totals. Featured opens the whole dashboard. We count visits and clicks; we do not store who visited (no names, no addresses, no cookies).</p>
   </div>
 
   <div class="fx-sec">
@@ -500,9 +521,11 @@
       <li><strong>Add or claim your firm.</strong> Claim your existing listing or add a new one: contact
       details, practice areas and city.</li>
       <li><strong>We check it, then it goes live.</strong> We confirm the details so members can trust
-      what they see. Featured upgrades go live as soon as the subscription is confirmed.</li>
+      what they see.</li>
+      <li><strong>Try Featured free for 30 days.</strong> Press <em>Start my free month</em> in your dashboard.
+      Your firm is Featured straight away, with no card, and goes back to Basic by itself unless you subscribe.</li>
       <li><strong>Run it yourself.</strong> Update your profile any time from your dashboard, with no
-      emailing back and forth. Members can follow and rate your firm.</li>
+      emailing back and forth, and watch your analytics. Members can follow and rate your firm.</li>
     </ol>
   </div>
 
@@ -514,6 +537,10 @@
     <p>What we can tell you is what exists: <span data-live="firms">1,092</span> firms across Ontario, Quebec, British Columbia, Alberta and Manitoba, <span data-live="cities">62</span> cities, and
     10 practice areas, each with its own indexed page, a sitemap submitted to search engines,
     and original written content published on the site regularly.</p>
+    <p>What we can do is show you your own numbers. Featured firms see how many people open their page,
+    which buttons they click (call, message, email, website, directions, booking) and where they came from,
+    so you can judge for yourself what a listing is worth. We count visits and clicks; we never track who the
+    visitors are.</p>
     <p>A free listing costs you nothing and gives you a linked, indexed page. Featured is worth
     considering if you want priority placement in a competitive city while the directory is still
     small &mdash; which is exactly when placement is easiest to get.</p>

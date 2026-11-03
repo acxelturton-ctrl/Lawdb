@@ -11,6 +11,8 @@ import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES, FIRM_STATUSES } 
 import { placeFor } from '../lib/geocode.js';
 import { signinCheck } from '../lib/oauth.js';
 import { findLogos, fetchPicture } from '../lib/logo-finder.js';
+import { firmAnalytics, RANGES } from '../lib/firm-analytics.js';
+import { startTrial, endTrial, getTrial, trialFunnel, trialAdminChanged } from '../lib/trial.js';
 
 export { CASE_TYPES };
 
@@ -46,6 +48,7 @@ export async function stats({ request, env }) {
     leadsLast7Days: week.results[0].n,
     pendingApprovals: pending.results[0].n,
     pendingComments: comments.results[0].n,
+    trials: await trialFunnel(env),
     mailFailures24h: mailFail.results[0].n,
     lastBackupAt: backup.results[0].last,
     openReports: reports.results[0].n,
@@ -110,7 +113,7 @@ export async function listFirms({ request, env, url }) {
   if (!ORDER[sort]) throw new HttpError(422, `sort must be one of: ${Object.keys(ORDER).join(', ')}`);
   const clause = where.length ? 'WHERE ' + where.join(' AND ') : '';
   const [list, total] = await env.DB.batch([
-    env.DB.prepare(`SELECT rowid AS id, slug, name, city, province, featured, rating, review_count, status, page_mode, updated_at FROM firms ${clause} ORDER BY ${ORDER[sort]} LIMIT ? OFFSET ?`).bind(...args, limit, offset),
+    env.DB.prepare(`SELECT rowid AS id, slug, name, city, province, featured, rating, review_count, status, updated_at FROM firms ${clause} ORDER BY ${ORDER[sort]} LIMIT ? OFFSET ?`).bind(...args, limit, offset),
     env.DB.prepare(`SELECT COUNT(*) AS n FROM firms ${clause}`).bind(...args),
   ]);
   return reply({ total: total.results[0].n, firms: list.results.map((r) => ({ ...r, featured: !!r.featured })) });
@@ -118,9 +121,50 @@ export async function listFirms({ request, env, url }) {
 
 export async function getFirm({ request, env, params }) {
   await requireAdmin(env, request);
-  const row = await env.DB.prepare('SELECT rowid AS id, data, hours, page_mode, about, status, updated_at FROM firms WHERE slug = ?').bind(params.slug).first();
+  const row = await env.DB.prepare('SELECT rowid AS id, data, hours, about, status, updated_at, enquiry_email FROM firms WHERE slug = ?').bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
-  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, pageMode: row.page_mode, updatedAt: row.updated_at });
+  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '' });
+}
+
+// Any firm's analytics, whatever its plan (the same report the firm sees), plus its free-month record.
+export async function firmAnalyticsReport({ request, env, params, url }) {
+  await requireAdmin(env, request);
+  const firm = await env.DB.prepare('SELECT name, featured FROM firms WHERE slug = ?').bind(params.slug).first();
+  if (!firm) throw new HttpError(404, 'Firm not found');
+  const days = clampInt(url.searchParams.get('days'), 30, 1, 90);
+  return reply({ locked: false, name: firm.name, admin: true, report: await firmAnalytics(env, params.slug, RANGES.includes(days) ? days : 30), plan: { featured: !!firm.featured, trial: await getTrial(env, params.slug) } });
+}
+
+// Give a firm a free month by hand (any length up to 90 days), or restart one.
+export async function trialGrant({ request, env, params, url, exec }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 200).catch(() => ({}));
+  if (body.keep === true) {
+    // "Keep Featured for good": the free month stops being a free month; the firm stays Featured with no end date (the admin can switch it off like any hand-set plan).
+    const t = await getTrial(env, params.slug);
+    if (!t || t.status !== 'active') throw new HttpError(409, 'There is no free month running for this firm.');
+    await trialAdminChanged(env, params.slug, true);
+    await audit(env, admin, 'trial.keep', 'firm', params.slug, {});
+    return reply({ ok: true, trial: await getTrial(env, params.slug) });
+  }
+  const trial = await startTrial(env, { slug: params.slug, actor: admin, source: 'admin', days: body.days, minutes: body.minutes, origin: env.SITE_ORIGIN || url.origin, exec });
+  return reply({ ok: true, trial }, 201);
+}
+
+export async function trialEnd({ request, env, params, url, exec }) {
+  const admin = await requireAdmin(env, request);
+  const trial = await endTrial(env, { slug: params.slug, actor: admin, why: 'ended by the admin', origin: env.SITE_ORIGIN || url.origin, exec });
+  return reply({ ok: true, trial });
+}
+
+// The funnel (running, ending this week, ended, subscribed, conversion) and the latest trials.
+export async function trialsList({ request, env }) {
+  await requireAdmin(env, request);
+  const { results } = await env.DB.prepare(
+    `SELECT t.firm_slug AS slug, f.name, f.city, f.province, t.source, t.started_at AS startedAt, t.ends_at AS endsAt, t.status, t.views, t.actions, t.enquiries
+     FROM firm_trials t JOIN firms f ON f.slug = t.firm_slug ORDER BY t.started_at DESC LIMIT 200`
+  ).all();
+  return reply({ funnel: await trialFunnel(env), trials: results });
 }
 
 export async function updateFirm({ request, env, params }) {
@@ -133,8 +177,11 @@ export async function updateFirm({ request, env, params }) {
 export async function listAudit({ request, env, url }) {
   await requireAdmin(env, request);
   const limit = clampInt(url.searchParams.get('limit'), 50, 1, 200);
-  const { results } = await env.DB.prepare('SELECT id, at, actor_email, action, entity, entity_id, detail FROM audit_log ORDER BY id DESC LIMIT ?')
-    .bind(limit)
+  // Optional filters (an exact action name, an exact entity id), so a busy log can still be searched for one kind of entry.
+  const action = (url.searchParams.get('action') || '').slice(0, 60), entityId = (url.searchParams.get('entity_id') || '').slice(0, 200);
+  const where = [action && 'action = ?', entityId && 'entity_id = ?'].filter(Boolean);
+  const { results } = await env.DB.prepare(`SELECT id, at, actor_email, action, entity, entity_id, detail FROM audit_log ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY id DESC LIMIT ?`)
+    .bind(...[action, entityId].filter(Boolean), limit)
     .all();
   return reply({ entries: results.map((r) => ({ ...r, detail: r.detail ? JSON.parse(r.detail) : null })) });
 }
@@ -216,7 +263,7 @@ export async function listMembers({ request, env, url }) {
   const decided = url.searchParams.get('decided') === '1';
   const { results } = await env.DB.prepare(
     `SELECT m.id, m.status, m.contact_name AS contactName, m.job_title AS jobTitle, m.message, m.created_at AS requestedAt, m.decided_at AS decidedAt,
-            u.email, f.slug, f.name AS firmName, f.city, f.province, f.status AS firmStatus, f.featured, f.page_mode AS pageMode, f.lat, f.lng, f.created_by AS createdBy, f.data,
+            u.email, f.slug, f.name AS firmName, f.city, f.province, f.status AS firmStatus, f.featured, f.lat, f.lng, f.created_by AS createdBy, f.data,
             (SELECT GROUP_CONCAT(u2.email, ', ') FROM firm_members m2 JOIN users u2 ON u2.id = m2.user_id
               WHERE m2.firm_slug = f.slug AND m2.status = 'approved' AND m2.id != m.id) AS otherOwners
      FROM firm_members m JOIN users u ON u.id = m.user_id JOIN firms f ON f.slug = m.firm_slug
@@ -236,7 +283,7 @@ export async function decideMember({ request, env, url, params, exec }) {
   const body = await readJson(request, 1000);
   if (body.status !== 'approved' && body.status !== 'rejected') throw new HttpError(422, "status must be 'approved' or 'rejected'");
   const m = await env.DB.prepare(
-    `SELECT m.id, m.status, m.firm_slug AS slug, u.email, f.name, f.city, f.status AS firmStatus, f.page_mode AS pageMode, f.lat, f.lng, f.data
+    `SELECT m.id, m.status, m.firm_slug AS slug, u.email, f.name, f.city, f.status AS firmStatus, f.lat, f.lng, f.data
      FROM firm_members m JOIN users u ON u.id = m.user_id JOIN firms f ON f.slug = m.firm_slug WHERE m.id = ?`
   ).bind(Number.parseInt(params.id, 10)).first();
   if (!m) throw new HttpError(404, 'Request not found');
@@ -262,11 +309,6 @@ export async function decideMember({ request, env, url, params, exec }) {
       detail.wentLive = true;
       if (approx) detail.approxCoords = true;
     }
-    // The owner's edits only show on a database-built page; the hand-built page ignores them.
-    if (body.switchPage === true && m.pageMode === 'static') {
-      writes.push(env.DB.prepare("UPDATE firms SET page_mode = 'dynamic', updated_at = datetime('now') WHERE slug = ?").bind(m.slug));
-      detail.pageMode = 'dynamic';
-    }
   }
   writes.push(env.DB.prepare("UPDATE firm_members SET status = ?, decided_at = datetime('now'), decided_by = ? WHERE id = ?").bind(body.status, admin.id, m.id));
   await env.DB.batch(writes);
@@ -285,8 +327,8 @@ export async function revertEdit({ request, env, params }) {
   if (!entry) throw new HttpError(404, 'Edit not found');
   const body = {};
   for (const [k, v] of Object.entries(JSON.parse(entry.detail || '{}'))) {
-    // Switching a firm on or off, moving it, and the plan or page style are not undone from the list of edits.
-    if (['featured', 'pageMode', 'status', 'city', 'province', 'lat', 'lng'].includes(k)) continue;
+    // Switching a firm on or off, moving it, and the plan are not undone from the list of edits.
+    if (['featured', 'pageMode', 'status', 'city', 'province', 'lat', 'lng'].includes(k)) continue; // (pageMode: old entries only)
     if (k === 'hours') body.hours = v.from ?? null;
     else if (k === 'tags' || k === 'caseTypes' || k === 'offices') body[k] = v.from ?? [];
     else if (k === 'social') body.social = v.from ?? {};

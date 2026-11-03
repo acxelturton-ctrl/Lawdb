@@ -17,6 +17,7 @@ import { serveImage } from './routes/images.js';
 import { newsPage } from './routes/news-page.js';
 import { newFirmsPage } from './routes/new-firms-page.js';
 import { nightly } from './lib/backup.js';
+import { hourly } from './lib/hourly.js';
 import { searchNightly } from './lib/gsc.js';
 import { feedBatch } from './lib/feeds.js';
 import { legacyRedirect } from './lib/redirects.js';
@@ -82,6 +83,10 @@ const ROUTES = [
   route('PATCH', '/api/admin/leads/:id', admin.updateLead),
   route('GET', '/api/admin/firms', admin.listFirms),
   route('GET', '/api/admin/firms/:slug', admin.getFirm),
+  route('GET', '/api/admin/firms/:slug/analytics', admin.firmAnalyticsReport),
+  route('POST', '/api/admin/firms/:slug/trial', admin.trialGrant),
+  route('DELETE', '/api/admin/firms/:slug/trial', admin.trialEnd),
+  route('GET', '/api/admin/trials', admin.trialsList),
   route('POST', '/api/admin/firms', admin.createFirm),
   route('POST', '/api/admin/firms/import', admin.importFirms),
   route('GET', '/api/admin/geocode', admin.geocodeAddress),
@@ -131,6 +136,10 @@ const ROUTES = [
   route('GET', '/api/account/firms/:slug/leads', account.listLeads),
   route('GET', '/api/account/firms/:slug/leads.csv', account.exportLeads),
   route('GET', '/api/account/firms/:slug/plan', account.planGet),
+  route('GET', '/api/account/firms/:slug/analytics', account.analytics),
+  route('GET', '/api/account/firms/:slug/analytics.csv', account.analyticsCsvDownload),
+  route('POST', '/api/account/firms/:slug/trial', account.trialStart),
+  route('PATCH', '/api/account/firms/:slug/reports', account.reportsSwitch),
   route('GET', '/api/account/firms/:slug/feed', account.feedGet),
   route('PATCH', '/api/account/firms/:slug/feed', account.feedUpdate),
   route('POST', '/api/account/firms/:slug/feed/refresh', account.feedRefresh),
@@ -172,11 +181,13 @@ const ROUTES = [
 ];
 
 export default {
-  // Cloudflare cron triggers: 07:17 UTC housekeeping, blogs and backup; 07:37 UTC Google Search Console (sitemap and page checks); every 5 minutes the blog finder.
+  // Cloudflare cron triggers: 07:17 UTC housekeeping, blogs and backup; 07:37 UTC Google Search Console (sitemap and page checks); every 5 minutes the blog finder;
+  // at 7 past every hour the free months (ending and warning) and the weekly owner reports.
   // They are separate runs so each stays within the platform's limit on outgoing requests.
   async scheduled(event, env, ctx) {
     ctx.waitUntil(event.cron === '37 7 * * *' ? searchNightly(env).catch((err) => console.error('search console run failed', err))
       : event.cron === '*/5 * * * *' ? feedBatch(env).catch((err) => console.error('blog finder run failed', err))
+      : event.cron === '7 * * * *' ? hourly(env).catch((err) => console.error('hourly run failed', err))
       : nightly(env));
   },
 

@@ -12,6 +12,8 @@ import { LEAD_STATUSES } from './admin.js';
 import { isFeatured, leadSummary, leadsCsv } from '../lib/leads.js';
 import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
 import { planInfo } from '../lib/stripe.js';
+import { firmAnalytics, lockedSummary, analyticsCsv, RANGES } from '../lib/firm-analytics.js';
+import { startTrial } from '../lib/trial.js';
 import { addImage, removeImage, listImages, imageInfo } from '../lib/images.js';
 import { providerPicture } from '../lib/oauth.js';
 
@@ -33,9 +35,11 @@ function notifyAdmins(env, exec, origin, details) {
 export async function me({ request, env }) {
   const user = await requireUser(env, request);
   const { results } = await env.DB.prepare(
-    `SELECT m.id, m.firm_slug AS slug, m.status, m.created_at AS requestedAt, f.name, f.city, f.province, f.status AS firmStatus, f.page_mode AS pageMode, f.featured AS featured,
-       CASE WHEN m.status = 'approved' THEN (SELECT COUNT(*) FROM leads l WHERE l.firm_slug = m.firm_slug AND l.status = 'new' AND l.seen_at IS NULL) ELSE 0 END AS newLeads
-     FROM firm_members m JOIN firms f ON f.slug = m.firm_slug WHERE m.user_id = ? ORDER BY m.id DESC`
+    `SELECT m.id, m.firm_slug AS slug, m.status, m.created_at AS requestedAt, f.name, f.city, f.province, f.status AS firmStatus, f.featured AS featured,
+       CASE WHEN m.status = 'approved' THEN (SELECT COUNT(*) FROM leads l WHERE l.firm_slug = m.firm_slug AND l.status = 'new' AND l.seen_at IS NULL) ELSE 0 END AS newLeads,
+       t.ends_at AS trialEnds
+     FROM firm_members m JOIN firms f ON f.slug = m.firm_slug LEFT JOIN firm_trials t ON t.firm_slug = m.firm_slug AND t.status = 'active'
+     WHERE m.user_id = ? ORDER BY m.id DESC`
   ).bind(user.id).all();
   const prof = await profileOf(env, user.id);
   return reply({ user: { email: user.email, role: user.role, ...prof }, memberships: results.map((m) => ({ ...m, featured: !!m.featured })) });
@@ -173,17 +177,17 @@ export async function createListing({ request, env, url, exec }) {
 export async function getFirm({ request, env, params }) {
   const user = await requireUser(env, request);
   await requireOwner(env, user, params.slug);
-  const row = await env.DB.prepare('SELECT rowid AS id, data, hours, page_mode, about, status, updated_at FROM firms WHERE slug = ?').bind(params.slug).first();
+  const row = await env.DB.prepare('SELECT rowid AS id, data, hours, about, status, updated_at, enquiry_email FROM firms WHERE slug = ?').bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
-  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, pageMode: row.page_mode, updatedAt: row.updated_at });
+  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '' });
 }
 
 export async function updateFirm({ request, env, params }) {
   const user = await requireUser(env, request);
   await requireOwner(env, user, params.slug);
   const body = await readJson(request, 20000);
-  const { changed, firm, pageMode } = await applyFirmEdit(env, user, params.slug, body, { admin: false });
-  return reply({ ok: true, changed, firm, pageMode });
+  const { changed, firm } = await applyFirmEdit(env, user, params.slug, body, { admin: false });
+  return reply({ ok: true, changed, firm });
 }
 
 export async function listLeads({ request, env, params, url }) {
@@ -294,6 +298,50 @@ export async function planGet({ request, env, params }) {
   const user = await requireUser(env, request);
   await requireOwner(env, user, params.slug);
   return reply(await planInfo(env, user, params.slug));
+}
+
+
+// ---------------------------------------------------------------- analytics and the free month (own firm)
+const rangeOf = (url) => { const n = clampInt(url.searchParams.get('days'), 30, 1, 90); return RANGES.includes(n) ? n : 30; };
+
+// Featured firms (and firms in their free month) get the full dashboard. Basic firms get their own 30-day headline numbers and an invitation, so they
+// can see what they are missing without seeing the detail.
+export async function analytics({ request, env, params, url }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  const plan = await planInfo(env, user, params.slug);
+  const name = (await env.DB.prepare('SELECT name FROM firms WHERE slug = ?').bind(params.slug).first())?.name || params.slug;
+  const planBits = { featured: plan.featured, trial: plan.trial, trialAvailable: plan.trialAvailable, trialDays: plan.trialDays, upgradeUrl: plan.upgradeUrl, price: plan.price, subscription: plan.subscription };
+  if (!plan.featured) return reply({ locked: true, name, summary: await lockedSummary(env, params.slug), plan: planBits });
+  const member = await env.DB.prepare("SELECT reports_off AS off FROM firm_members WHERE user_id = ? AND firm_slug = ? AND status = 'approved'").bind(user.id, params.slug).first();
+  return reply({ locked: false, name, report: await firmAnalytics(env, params.slug, rangeOf(url)), reportsOff: !!member?.off, plan: planBits });
+}
+
+export async function analyticsCsvDownload({ request, env, params, url }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  if (!(await isFeatured(env, params.slug))) throw new HttpError(403, 'Downloading your analytics is a Featured benefit.');
+  const firm = await env.DB.prepare('SELECT name FROM firms WHERE slug = ?').bind(params.slug).first();
+  const csv = analyticsCsv(await firmAnalytics(env, params.slug, rangeOf(url)), firm?.name || params.slug);
+  return new Response(csv, { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="lawdb-analytics-${params.slug}.csv"`, ...NO_STORE } });
+}
+
+// One click, no card: the firm is Featured for a month (see lib/trial.js for the rules).
+export async function trialStart({ request, env, params, url, exec }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  await startTrial(env, { slug: params.slug, actor: user, source: 'owner', origin: env.SITE_ORIGIN || url.origin, exec });
+  return reply({ ok: true, plan: await planInfo(env, user, params.slug) }, 201);
+}
+
+// Switch the weekly "your week on LawDB" email on or off, for this owner and this firm.
+export async function reportsSwitch({ request, env, params }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  const body = await readJson(request, 200);
+  if (typeof body.off !== 'boolean') throw new HttpError(422, 'off must be true or false');
+  await env.DB.prepare("UPDATE firm_members SET reports_off = ? WHERE user_id = ? AND firm_slug = ? AND status = 'approved'").bind(body.off ? 1 : 0, user.id, params.slug).run();
+  return reply({ ok: true, reportsOff: body.off });
 }
 
 

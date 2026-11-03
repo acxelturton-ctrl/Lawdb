@@ -10,7 +10,7 @@ export const isIndexable = (about) => aboutWords(about) >= MIN_ABOUT_WORDS;
 
 // Database-built firms that are live but held back from Google, with the first few for the admin screen.
 export async function heldBack(env, sample = 12) {
-  const { results } = await env.DB.prepare("SELECT slug, name, about FROM firms WHERE status = 'live' AND page_mode = 'dynamic' ORDER BY name").all();
+  const { results } = await env.DB.prepare("SELECT slug, name, about FROM firms WHERE status = 'live' ORDER BY name").all();
   const held = results.filter((r) => !isIndexable(r.about));
   return { count: held.length, of: results.length, minWords: MIN_ABOUT_WORDS, sample: held.slice(0, sample).map((r) => ({ slug: r.slug, name: r.name, words: aboutWords(r.about) })) };
 }

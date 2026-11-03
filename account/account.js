@@ -1,7 +1,8 @@
 // LawDB firm-owner dashboard. No framework, no build step.
 // SECURITY: everything shown here (including enquiries typed by the public) is inserted as text nodes only.
 
-import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, feedPanel, planPanel, PROVINCES } from '/admin/ui.js';
+import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, feedPanel, planPanel, lockIcon, PROVINCES } from '/admin/ui.js';
+import { analyticsView, analyticsPreview } from '/admin/firm-analytics.js';
 import { profileEditor } from '/admin/profile-editor.js';
 
 const app = document.getElementById('app');
@@ -91,10 +92,18 @@ async function renderLogin() {
 // The owner dashboard has the same bars as the admin: a slim bar with the numbers that matter to the firm and the user menu, then the sections.
 function shell(active, content, { wide = false } = {}) {
   document.body.classList.add('ap', 'ap-in'); // hides the public header and footer on these pages (see msp.css)
-  const tabs = [['feed', 'Feed'], ['network', 'My network'], ['saved', 'Saved'], ['firms', 'My firms'], ['profile', 'Profile'], ['find', 'Add or claim a firm']];
-  if (approved().length) tabs.splice(3, 0, ['leads', 'Enquiries']);
-  const fresh = approved().reduce((n, m) => n + (m.newLeads || 0), 0);
   const mine = approved();
+  const fresh = mine.reduce((n, m) => n + (m.newLeads || 0), 0);
+  // What a firm owner uses every day comes first, on the left. Analytics and Enquiries are always there: on a Basic plan (or before claiming a firm) they carry
+  // a padlock and open a preview of what Featured shows. Everything else (the member side: feed, network, saved, your own profile) is under "More".
+  const unlocked = mine.some((m) => m.featured);
+  const primary = [
+    ['firms', mine.length > 1 ? 'My firms' : mine.length ? 'My firm' : 'Your firm'],
+    ['stats', 'Analytics', !unlocked],
+    ['leads', 'Enquiries', !unlocked],
+  ];
+  const more = [['profile', 'My profile'], ['find', mine.length ? 'Add or claim a firm' : 'Find or add my firm'], ['feed', 'Feed'], ['network', 'My network'], ['saved', 'Saved']];
+  const moreActive = more.some(([id]) => id === active);
   const initial = (user.name || user.email || '?').trim()[0].toUpperCase();
   const stat = (label, n) => h('span', null, label, ' ', h('b', null, n));
   return h('div', null,
@@ -107,30 +116,45 @@ function shell(active, content, { wide = false } = {}) {
             h('a', { href: '/find-lawyers' }, 'Back to LawDB.ca'),
             h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.reload(); } }, 'Sign out'),
             h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); location.reload(); } }, 'Sign out everywhere'))))) ),
-    h('nav', { class: 'menubar', 'aria-label': 'Sections' }, h('div', { class: 'menubar-in' }, tabs.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'leads' && fresh > 0 && h('span', { class: 'lx-count', 'aria-label': `${fresh} new` }, fresh))))),
+    h('nav', { class: 'menubar', 'aria-label': 'Sections' }, h('div', { class: 'menubar-in has-more' },
+      primary.map(([id, label, lock]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false, title: lock ? 'A Featured feature: open to see what it shows' : false },
+        label, lock && h('span', { class: 'tab-lock', role: 'img', 'aria-label': 'Featured feature' }, lockIcon(12)),
+        id === 'leads' && fresh > 0 && h('span', { class: 'lx-count', 'aria-label': `${fresh} new` }, fresh))),
+      h('details', { class: 'mb-more' + (moreActive ? ' on' : '') },
+        h('summary', { 'aria-current': moreActive ? 'page' : false }, moreActive ? (more.find(([id]) => id === active) || [])[1] : 'More', ' ▾'),
+        h('div', { class: 'mb-menu' }, more.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false, onclick: (e) => e.currentTarget.closest('details').removeAttribute('open') }, label)))))),
     h('main', { class: 'page' + (wide ? '' : ' narrow') }, content));
 }
 
 const approved = () => memberships.filter((m) => m.status === 'approved');
+document.addEventListener('click', (e) => { const d = document.querySelector('.mb-more[open]'); if (d && !d.contains(e.target)) d.removeAttribute('open'); });
 const where = (m) => `${m.city}, ${PROVINCES[m.province] || m.province}`;
 
 // ---------------------------------------------------------------- my firms
 function viewFirms() {
   if (!memberships.length) {
+    const row = (t, lock) => h('li', { class: lock ? 'locked' : '' }, lock ? lockIcon(13) : h('span', { class: 'tick', 'aria-hidden': 'true' }, '\u2713'), t);
     return h('div', null, h('h1', null, 'Welcome'),
       h('div', { class: 'card' }, h('p', null, 'You are signed in, but you do not manage a firm yet.'),
         h('p', { class: 'muted' }, 'Find your firm in the directory and ask to manage it, or add it if it is not listed. We check every request, so your listing stays trustworthy.'),
-        h('a', { href: '#find' }, h('button', { class: 'primary', type: 'button' }, 'Find or add my firm'))));
+        h('a', { href: '#find' }, h('button', { class: 'primary', type: 'button' }, 'Find or add my firm'))),
+      h('div', { class: 'card' }, h('h2', null, 'What you get once it is yours'),
+        h('div', { class: 'fx-two' },
+          h('div', null, h('b', null, 'Basic, free'), h('ul', { class: 'fx-list' }, ['Keep your name, phone, address, website and hours up to date', 'Every enquiry emailed to you', 'Your blog posts shown as cards', 'Your totals for the last 30 days'].map((t) => row(t, false)))),
+          h('div', null, h('b', null, 'Featured, with a free first month'), h('ul', { class: 'fx-list' }, ['Your own description, tagline and pictures', 'A booking link and the Book a call button', 'Enquiries to a second email address', 'The analytics dashboard: views, clicks, where visitors come from', 'The enquiries inbox, with notes and export', 'Placed above Basic firms in your city'].map((t) => row(t, true))))),
+        h('p', { class: 'muted' }, 'Curious? Open ', h('a', { href: '#stats' }, 'Analytics'), ' to see the dashboard with sample numbers.')));
   }
   return h('div', null, h('h1', null, 'My firms'), memberships.map((m) => {
     const state = m.status === 'approved' ? null
       : m.status === 'pending' ? note('msg-ok', 'Waiting for approval. We will email you as soon as it is done.')
       : note('msg-err', 'This request was declined. If that is a mistake, write to info@lawdb.ca.');
     return h('div', { class: 'card' },
-      h('div', { class: 'row spread' }, h('b', null, m.name), h('span', { class: 'badge' + (m.status === 'approved' ? (m.featured ? ' featured' : '') : ' new') }, m.status === 'approved' ? (m.featured ? 'Featured' : 'Basic') : m.status === 'pending' ? 'Pending' : 'Declined')),
+      h('div', { class: 'row spread' }, h('b', null, m.name), h('span', { class: 'badge' + (m.status === 'approved' ? (m.featured ? ' featured' : '') : ' new') }, m.status === 'approved' ? (m.trialEnds ? 'Featured, free month' : m.featured ? 'Featured' : 'Basic') : m.status === 'pending' ? 'Pending' : 'Declined')),
       h('p', { class: 'muted' }, where(m)), state,
+      m.status === 'approved' && !m.featured && m.firmStatus === 'live' && h('p', { class: 'muted fx-lockline' }, lockIcon(13), ' Locked on Basic: your own description and tagline, a booking link, pictures, a second enquiry email, the analytics dashboard and the enquiries inbox.'),
       m.status === 'approved' && h('div', { class: 'row' },
         h('a', { href: `#edit/${m.slug}` }, h('button', { class: 'primary', type: 'button' }, 'Edit my profile')),
+        h('a', { href: `#stats/${m.slug}` }, h('button', { type: 'button' }, !m.featured && m.firmStatus === 'live' ? 'Analytics and free month' : 'Analytics')),
         !m.featured && m.firmStatus === 'live' && h('a', { href: `#edit/${m.slug}` }, h('button', { type: 'button' }, 'Upgrade to Featured')),
         h('a', { href: `#leads/${m.slug}` }, h('button', { type: 'button' }, 'Enquiries')),
         m.firmStatus === 'live' && h('a', { href: `/firms/${m.slug}`, target: '_blank', rel: 'noopener' }, 'View public page')));
@@ -253,9 +277,37 @@ async function viewEdit(slug, flash) {
     profileEditor({ mode: 'owner', data, base, flash, onSaved: reload }));
 }
 
+// ---------------------------------------------------------------- analytics
+function viewStats(slug) {
+  const mine = approved();
+  if (!mine.length) {
+    const waiting = memberships.some((m) => m.status === 'pending');
+    return analyticsPreview({
+      message: waiting ? 'Your request to manage a firm is waiting for approval. Once it is approved, this is where your own numbers appear: page views, visitors, and which buttons were clicked. The dashboard is a Featured feature, free for your first month.'
+        : 'This is the dashboard Featured firms get: page views, visitors, which buttons were clicked and where visitors came from. Claim your firm to see your own numbers. It is a Featured feature, free for your first month.',
+      button: waiting ? null : h('a', { href: '#find' }, h('button', { class: 'primary', type: 'button' }, 'Find or add my firm')),
+    });
+  }
+  if (!slug) {
+    if (mine.length === 1) { location.replace(`#stats/${mine[0].slug}`); return h('p', { class: 'muted' }, 'Loading\u2026'); }
+    return h('div', null, h('h1', null, 'Analytics'), mine.length ? mine.map((m) => h('a', { class: 'firm-row', href: `#stats/${m.slug}` }, h('span', null, m.name, h('small', null, where(m))), h('span', { class: 'badge' + (m.featured ? ' featured' : '') }, m.trialEnds ? 'Free month' : m.featured ? 'Featured' : 'Basic'))) : h('p', { class: 'muted' }, 'You do not manage a firm yet.'));
+  }
+  if (!mine.some((m) => m.slug === slug)) return note('msg-err', 'You do not manage this firm.');
+  const firmName = (mine.find((m) => m.slug === slug) || {}).name || slug;
+  const back = mine.length > 1 ? h('p', null, h('a', { href: '#stats' }, '\u2190 All my firms')) : null;
+  return h('div', null, back, analyticsView({ base: `/api/account/firms/${encodeURIComponent(slug)}`, mode: 'owner', slug, name: firmName, onPlanChange: () => loadMe().catch(() => {}) }));
+}
+
 // ---------------------------------------------------------------- enquiries
 async function viewLeads(slug) {
   const mine = approved();
+  if (!mine.length) {
+    return h('div', null, h('h1', null, 'Enquiries'), h('div', { class: 'card lx-locked' },
+      h('div', { class: 'row spread' }, h('h2', null, 'Your enquiries inbox'), h('span', { class: 'ed-pill big' }, lockIcon(), 'Featured')),
+      h('p', { class: 'muted' }, 'When someone writes to your firm through your LawDB page, the enquiry is emailed to you. Featured firms also get them here, in one inbox.'),
+      h('ul', { class: 'lx-perks' }, ['Every enquiry in one inbox, newest first', 'Reply by email or call in one tap', 'Status and private notes on each enquiry', 'Filters, search and a spreadsheet export', 'A weekly summary email'].map((t) => h('li', null, t))),
+      h('a', { href: '#find' }, h('button', { class: 'primary', type: 'button' }, 'Find or add my firm'))));
+  }
   if (!slug) {
     if (mine.length === 1) { location.replace(`#leads/${mine[0].slug}`); return h('p', { class: 'muted' }, 'Loading…'); }
     return h('div', null, h('h1', null, 'Enquiries'), mine.length ? mine.map((m) => h('a', { class: 'firm-row', href: `#leads/${m.slug}` }, h('span', null, m.name, h('small', null, where(m))), m.newLeads > 0 && h('span', { class: 'badge new' }, `${m.newLeads} new`))) : h('p', { class: 'muted' }, 'You do not manage a firm yet.'));
@@ -659,7 +711,7 @@ async function render() {
   document.body.classList.toggle('lw-focus', !!(user && !user.onboarded));
   if (user && !user.onboarded) return renderWizard();
   const [name, arg] = location.hash.slice(1).split('/');
-  const tab = ['feed', 'network', 'saved', 'profile', 'find', 'leads'].includes(name) ? name : name === 'following' ? 'network' : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
+  const tab = ['feed', 'network', 'saved', 'profile', 'find', 'leads', 'stats'].includes(name) ? name : name === 'following' ? 'network' : 'firms';
   mount(shell(tab, h('p', { class: 'muted' }, 'Loading…')));
   try {
     let view;
@@ -670,6 +722,7 @@ async function render() {
     else if (tab === 'profile') view = await viewProfile();
     else if (name === 'edit' && arg) { view = await viewEdit(arg); if (seq !== renderSeq) return; return mount(shell('firms', view, { wide: true })); }
     else if (name === 'leads') view = await viewLeads(arg);
+    else if (name === 'stats') view = viewStats(arg);
     else { await loadMe(); view = viewFirms(); }
     if (seq !== renderSeq) return;
     mount(shell(tab, view));

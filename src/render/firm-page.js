@@ -1,4 +1,4 @@
-// Renders a firm profile page from a database record. Built from the same chunks as the hand-built pages
+// Renders a firm profile page from a database record: the one page every firm has. Built from the same chunks as the saved copies of the pages
 // (see scripts/extract-firm-template.mjs), so a rendered page looks like the originals.
 import { cleanDetails } from '../lib/details.js';
 import * as C from './firm-chunks.generated.js';

@@ -105,20 +105,45 @@
   try{ fresh = sessionStorage.getItem('lw_s') ? 0 : 1; sessionStorage.setItem('lw_s','1'); }catch(e){ fresh = document.referrer && !host ? 0 : 1; }
   var utm = '';
   try{ utm = (new URLSearchParams(location.search).get('utm_source') || '').slice(0,30); }catch(e){}
-  post({ t:'pv', p:path, m: (window.innerWidth || screen.width) < 760 ? 1 : 0, s:fresh, r:host, u:utm });
+  /* "v" marks the first look at a firm's page in this browser tab (a note kept only in this tab), so the firm's dashboard can count visitors, not just page views */
+  var v = 0;
+  if(/^\/firms\/[a-z0-9-]+$/.test(path)){
+    try{ v = sessionStorage.getItem('lw_v:'+path) ? 0 : 1; sessionStorage.setItem('lw_v:'+path,'1'); }catch(e){ v = 1; }
+  }
+  post({ t:'pv', p:path, m: (window.innerWidth || screen.width) < 760 ? 1 : 0, s:fresh, r:host, u:utm, v:v });
 
-  /* the clicks that matter on a firm page and the buttons that sell Featured */
+  /* the clicks that matter on a firm page (each is counted for the firm's own dashboard) and the buttons that sell Featured */
+  var NETS = { 'facebook.com':'facebook', 'fb.com':'facebook', 'instagram.com':'instagram', 'linkedin.com':'linkedin', 'x.com':'x', 'twitter.com':'x', 'youtube.com':'youtube', 'youtu.be':'youtube' };
+  function net(href){
+    try{ return NETS[new URL(href, location.href).hostname.split('.').slice(-2).join('.')] || ''; }catch(e){ return ''; }
+  }
   function ev(name){ post({ t:'ev', e:name, p:path }); }
+  var onFirm = /^\/firms\/[a-z0-9-]+$/.test(path);
   document.addEventListener('click', function(e){
     var el = e.target && e.target.closest ? e.target.closest('a,button') : null;
     if(!el) return;
     var href = el.getAttribute('href') || '';
     if(el.hasAttribute('data-follow')) return ev('follow');
     if(el.hasAttribute('data-claim')) return ev('claim');
-    if(el.classList.contains('li-book')) return ev(el.classList.contains('li-book-off') ? 'book-locked' : 'book');
-    if(/^tel:/i.test(href)) return ev('call');
     if(/plan=featured/.test(href)) return ev('cta-featured');
     if(/^\/list-your-firm/.test(href)) return ev('cta-list');
-    if(el.closest('.li-actions') && /^https?:/i.test(href)) return ev(/google\.com\/maps/.test(href) ? 'directions' : 'website');
+    if(el.classList.contains('li-book')) return ev(el.classList.contains('li-book-off') ? 'book-locked' : 'book');
+    if(/^tel:/i.test(href)) return ev('call');
+    if(!onFirm && !el.closest('.li-actions')) return;
+    if(/^mailto:/i.test(href)) return ev('email');
+    if(el.hasAttribute('data-open-contact')) return ev('message');
+    if(el.hasAttribute('data-lawdb-rating')) return ev('rate');
+    if(el.hasAttribute('data-story') || el.closest('.lw-bc,.article-teaser,.from-firm') ) return ev('blog');
+    if(el.classList.contains('read-link')) return ev('blog');
+    if(!/^https?:/i.test(href)) return;
+    var n = net(href);
+    if(n && !el.closest('.lw-car,.pf-like,.nearby')) return ev('social-' + n);
+    if(/google\.[a-z.]+\/maps/.test(href) || /goo\.gl\/maps|maps\.app\.goo\.gl/.test(href)){
+      if(el.closest('.socials') && /review/i.test(el.textContent)) return ev('reviews');
+      if(/google reviews/i.test(el.textContent)) return ev('reviews');
+      return ev('directions');
+    }
+    if(el.closest('.lw-car,.pf-like,.nearby,.pa-grid,.pf-crumb')) return;
+    try{ if(new URL(href, location.href).hostname.replace(/^www\./,'') !== location.hostname.replace(/^www\./,'')) return ev('website'); }catch(err){}
   }, true);
 })();

@@ -133,7 +133,9 @@ export function picturesPanel(base, { locked = false } = {}) {
       h('div', { class: 'thumbs' }, imgs.map((img) => h('figure', null,
         h('img', { src: img.url, alt: img.alt || title, loading: 'lazy' }),
         h('button', { type: 'button', onclick: () => remove(img) }, 'Remove')))),
-      locked ? null : h('div', { class: 'row' }, input, alt, go));
+      // A Basic firm sees the upload controls greyed out, with the reason, instead of nothing at all.
+      locked ? h('div', { class: 'row pics-locked' }, h('input', { type: 'file', disabled: true, 'aria-label': `${title}: upload (needs Featured)` }), h('button', { type: 'button', disabled: true }, lockIcon(), ' Upload', h('span', { class: 'ed-pill' }, 'Featured')))
+        : h('div', { class: 'row' }, input, alt, go));
   }
 
   function draw(images) {
@@ -218,9 +220,31 @@ export const FEATURED_PERKS = [
   ['First in the search box.', 'Shown first in the live suggestions, with a gold Featured badge, as people type their case and city.'],
   ['A gold pin and a gold tick.', 'A highlighted pin on the map, and a gold tick and Featured badge on your profile and wherever your firm appears.'],
   ['Listed first among nearby firms.', 'On other firms\' profiles and story pages, your firm comes first in the nearby firms row.'],
+  ['An analytics dashboard.', 'Page views, visitors, every button clicked, where visitors came from, their devices and regions, with trends and a spreadsheet export.'],
   ['An enquiries dashboard.', 'Read, filter, add private notes, reply with one tap and export your enquiries to a spreadsheet.'],
   ['Articles that work harder.', 'A Featured badge on each story on LawDB News, a LawDB page for every article that search engines can find, and higher placement in the home page news strip.'],
 ];
+
+// One click, no card: starts the owner's free month of Featured (POST .../trial), then reloads so every screen shows the new plan.
+// `base` is the firm's API address (/api/account/firms/<slug>); the button is disabled while it works and shows the reason if it is refused.
+export async function startFreeMonth(base, btn) {
+  btn.disabled = true;
+  try {
+    const r = await fetch(`${base}/trial`, { method: 'POST', credentials: 'same-origin' });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(d.error || 'Could not start the free month');
+    location.reload();
+  } catch (err) { btn.disabled = false; btn.after(note('msg-err', err.message)); }
+}
+
+// A small padlock for "this needs Featured" (drawn with createElementNS, never innerHTML).
+export function lockIcon(size = 13) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  for (const [k, v] of Object.entries({ viewBox: '0 0 24 24', width: size, height: size, 'aria-hidden': 'true', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.2', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' })) svg.setAttribute(k, v);
+  const p = document.createElementNS(NS, 'path'); p.setAttribute('d', 'M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3'); svg.appendChild(p);
+  return svg;
+}
 
 export function planPanel(base) {
   const root = h('div', { class: 'card planp' });
@@ -235,11 +259,13 @@ export function planPanel(base) {
       line = sub.status === 'past_due' ? 'Featured. The last payment did not go through. Please update your card on the billing page.'
         : sub.cancelAtPeriodEnd ? `Featured until ${fmt(sub.periodEnd)}. It will not renew.`
         : `Featured${sub.periodEnd ? '. Renews on ' + fmt(sub.periodEnd) : ''}.`;
-    } else if (featured) line = 'Featured. Managed by LawDB.';
-    else line = 'Basic (free).';
+    } else if (featured && p.trial && p.trial.status === 'active') line = `Featured for your free month: ${p.trial.daysLeft} ${p.trial.daysLeft === 1 ? 'day' : 'days'} left (until ${fmt(p.trial.endsAt)}). Nothing is charged; the listing goes back to Basic when it ends unless you subscribe.`;
+    else if (featured) line = 'Featured. Managed by LawDB.';
+    else line = p.trial && p.trial.status !== 'active' ? `Basic (free). Your free month ended on ${fmt(p.trial.endsAt)}.` : 'Basic (free).';
     root.replaceChildren(h('div', null,
       h('div', { class: 'row spread' }, h('h2', null, 'Your plan'), h('span', { class: 'badge' + (featured ? ' featured' : '') }, featured ? 'Featured' : 'Basic')),
       h('p', null, line),
+      featured && p.trial && p.trial.status === 'active' && p.upgradeUrl && h('div', { class: 'row' }, h('a', { href: p.upgradeUrl, target: '_blank', rel: 'noopener' }, h('button', { class: 'primary', type: 'button' }, `Keep Featured, ${p.price}`))),
       featured && h('div', null,
         h('p', null, h('b', null, 'What your Featured listing includes')),
         perks()),
@@ -248,7 +274,10 @@ export function planPanel(base) {
         h('p', { class: 'muted' }, 'Your Basic listing keeps your facts up to date (name, phone, address, website, hours and practice areas), has every enquiry emailed to you, and shows your blog posts as cards. Featured adds:'),
         perks(),
         h('p', { class: 'muted' }, 'Featured changes where and how your firm is shown on LawDB. It does not guarantee calls, clients or search-engine rankings, and you can cancel any time.'),
-        p.upgradeUrl ? h('a', { href: p.upgradeUrl, target: '_blank', rel: 'noopener' }, h('button', { class: 'primary', type: 'button' }, 'Upgrade to Featured')) : h('p', { class: 'muted' }, 'Upgrading is not available right now.'),
+        p.trialAvailable && h('div', { class: 'fa-offer' },
+          h('p', null, h('b', null, `Try it free for ${p.trialDays} days.`), ' No card needed. Your listing is Featured straight away, with the analytics dashboard, and goes back to Basic by itself when the month ends unless you subscribe.'),
+          (() => { const b = h('button', { class: 'primary', type: 'button' }, 'Start my free month'); b.addEventListener('click', () => startFreeMonth(base.replace(/\/plan$/, ''), b)); return b; })()),
+        p.upgradeUrl ? h('a', { href: p.upgradeUrl, target: '_blank', rel: 'noopener' }, h('button', { class: p.trialAvailable ? '' : 'primary', type: 'button' }, 'Upgrade to Featured')) : h('p', { class: 'muted' }, 'Upgrading is not available right now.'),
         p.upgradeUrl && h('p', { class: 'muted' }, 'Checkout opens on Stripe. Your listing becomes Featured automatically once the payment goes through. Please pay with the same email address you sign in with, so the payment can be matched to your firm.')),
       p.portalUrl && h('div', { class: 'row' }, h('a', { href: p.portalUrl, target: '_blank', rel: 'noopener' }, h('button', { type: 'button' }, 'Manage billing')))));
   }

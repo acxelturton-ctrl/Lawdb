@@ -60,7 +60,7 @@ ok(same(eventIncs({ t: 'search', c: 'weird', city: '<b>|ON', prov: 'XX', w: 'cal
   await record(env, 'x', []);
   ok(calls.length === before, 'nothing to count means no database call');
   const removed = await prune(env);
-  ok(removed === 4 && calls.slice(before).some((c) => /400 days/.test(c.sql)) && calls.slice(before).some((c) => /'town', 'noparse'/.test(c.sql) && /90 days/.test(c.sql)), 'tidying deletes counts older than 400 days and unmatched words older than 90 days');
+  ok(removed === 6 && calls.slice(before).some((c) => /400 days/.test(c.sql)) && calls.slice(before).some((c) => /'town', 'noparse'/.test(c.sql) && /90 days/.test(c.sql)) && calls.slice(before).some((c) => /DELETE FROM firm_stats_daily/.test(c.sql) && /400 days/.test(c.sql)), 'tidying deletes counts older than 400 days (site-wide and per firm) and unmatched words older than 90 days');
 }
 
 // ---- the page script: nothing for Do Not Track / Global Privacy Control, none in member areas, no cookie

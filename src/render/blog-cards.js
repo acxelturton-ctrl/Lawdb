@@ -131,14 +131,6 @@ function feedCardHtml(p, { head, here, pic, host, hero }) {
 
 export const safePostUrl = (u) => /^https:\/\//.test(u) || /^http:\/\/127\.0\.0\.1/.test(u);
 
-export function renderBlogCards({ firmName, posts }) {
-  const shown = (posts || []).slice(0, 3).filter((p) => safePostUrl(p.url));
-  if (!shown.length) return '';
-  return `${BLOG_CSS}<section class="lw-blog" aria-label="Latest from ${esc(firmName)}"><h2>Latest from ${esc(firmName)}</h2>` +
-    `<p class="lw-blog-sub">Recent articles from the firm's own blog.</p><div class="lw-bc-grid">${shown.map((p) => cardHtml(p)).join('')}</div>` +
-    `<p class="lw-note">Headlines and short excerpts come from the firm's public blog. The articles belong to ${esc(firmName)}; the full text is on their website.</p></section>`;
-}
-
 // The firm's own articles, listed under the profile's map the way MSPdatabase does it: each article is a row with the headline and a
 // short preview on the left, and its picture on the right, with how long ago it was written. Text is escaped; only https pictures and
 // links are used, as on the other cards.

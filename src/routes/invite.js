@@ -18,7 +18,7 @@ export async function create({ request, env, url, params, exec }) {
   const body = await readJson(request, 1000);
   const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
   if (!isEmail(email)) throw new HttpError(422, 'A valid email address is required');
-  const firm = await env.DB.prepare("SELECT slug, name, status, page_mode AS pageMode FROM firms WHERE slug = ?").bind(params.slug).first();
+  const firm = await env.DB.prepare("SELECT slug, name, status FROM firms WHERE slug = ?").bind(params.slug).first();
   if (!firm) throw new HttpError(404, 'Firm not found');
   if (firm.status !== 'live') throw new HttpError(409, 'Only a live firm can be given to an owner. Approve the listing first.');
   const [perFirm, today] = await Promise.all([
@@ -28,13 +28,12 @@ export async function create({ request, env, url, params, exec }) {
   if (perFirm.n >= MAX_PER_FIRM_DAY) throw new HttpError(429, 'This firm already had several invites today. Use one of the links you already have, or try again tomorrow.');
   if (today.n >= MAX_PER_DAY) throw new HttpError(429, 'Daily invite limit reached. Try again tomorrow.');
 
-  const switchPage = body.switchPage === true && firm.pageMode === 'static';
   const token = randomToken();
   await env.DB.prepare("INSERT INTO firm_invites (token_hash, email, firm_slug, switch_page, invited_by, expires_at) VALUES (?,?,?,?,?, datetime('now', ?))")
-    .bind(await sha256Hex(token), email, firm.slug, switchPage ? 1 : 0, admin.id, `+${DAYS_VALID} days`).run();
+    .bind(await sha256Hex(token), email, firm.slug, 0, admin.id, `+${DAYS_VALID} days`).run();
   const link = `${origin(env, url)}/account/welcome#invite=${token}`;
   mailInBackground(env, exec, { to: email, ...inviteEmail(link, { firmName: firm.name, days: DAYS_VALID }) });
-  await audit(env, admin, 'owner.invite', 'firm', firm.slug, { email, switchPage });
+  await audit(env, admin, 'owner.invite', 'firm', firm.slug, { email });
   // The admin also gets the link, so it can be read out, texted or pasted if the email is slow.
   return reply({ ok: true, link, email, expiresInDays: DAYS_VALID }, 201);
 }
@@ -53,10 +52,10 @@ export async function accept({ request, env }) {
   const bad = () => new HttpError(400, 'This invite link is invalid or has expired. Ask LawDB to send a new one.');
   if (!/^[0-9a-f]{64}$/.test(token)) throw bad();
   const inv = await env.DB.prepare(
-    "UPDATE firm_invites SET used_at = datetime('now') WHERE token_hash = ? AND used_at IS NULL AND expires_at > datetime('now') RETURNING email, firm_slug AS slug, switch_page AS switchPage, invited_by AS invitedBy"
+    "UPDATE firm_invites SET used_at = datetime('now') WHERE token_hash = ? AND used_at IS NULL AND expires_at > datetime('now') RETURNING email, firm_slug AS slug,  invited_by AS invitedBy"
   ).bind(await sha256Hex(token)).first();
   if (!inv) throw bad();
-  const firm = await env.DB.prepare("SELECT slug, name, status, page_mode AS pageMode FROM firms WHERE slug = ?").bind(inv.slug).first();
+  const firm = await env.DB.prepare("SELECT slug, name, status FROM firms WHERE slug = ?").bind(inv.slug).first();
   if (!firm || firm.status !== 'live') throw bad();
 
   const email = inv.email.toLowerCase();
@@ -75,9 +74,8 @@ export async function accept({ request, env }) {
     // They are here to edit their firm, so skip the member welcome steps and the generic welcome email (the invite already welcomed them).
     env.DB.prepare("UPDATE users SET last_login_at = datetime('now'), onboarded_at = COALESCE(onboarded_at, datetime('now')), welcomed_at = COALESCE(welcomed_at, datetime('now')) WHERE id = ?").bind(user.id),
   ];
-  if (inv.switchPage && firm.pageMode === 'static') writes.push(env.DB.prepare("UPDATE firms SET page_mode = 'dynamic', updated_at = datetime('now') WHERE slug = ?").bind(firm.slug));
   await env.DB.batch(writes);
   const cookie = await createSession(env, request, user.id);
-  await audit(env, user, 'owner.invite_accept', 'firm', firm.slug, { email, switchPage: !!inv.switchPage });
+  await audit(env, user, 'owner.invite_accept', 'firm', firm.slug, { email });
   return json({ ok: true, slug: firm.slug, name: firm.name, role: user.role }, 200, { ...NO_STORE, 'set-cookie': cookie });
 }

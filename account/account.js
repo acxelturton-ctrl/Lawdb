@@ -593,7 +593,7 @@ async function finishPending() {
   if (!p) return false;
   try {
     if (p.type === 'follow') { await api('POST', '/api/account/follow', { slug: p.slug }); location.hash = '#network'; return true; }
-    if (p.type === 'back' && typeof p.url === 'string' && /^\/firms\/[a-z0-9-]+(#rate)?$/.test(p.url)) { location.replace(p.url); return true; }
+    if (p.type === 'back' && typeof p.url === 'string' && /^\/firms\/[a-z0-9-]+(#rate(=[1-5])?)?$/.test(p.url)) { location.replace(p.url); return true; }
     if (p.type === 'claim' && /^[a-z0-9-]+$/.test(String(p.slug))) { location.hash = '#find/' + p.slug; return true; }
     if (p.type === 'save') { await api('POST', '/api/account/saved', { postId: Number(p.id) }); location.hash = '#saved'; return true; }
   } catch { /* the page still opens; the person can try again */ }

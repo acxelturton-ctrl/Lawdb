@@ -20,7 +20,7 @@ export const LEAD_STATUSES = ['new', 'contacted', 'closed', 'spam'];
 
 export async function stats({ request, env }) {
   await requireAdmin(env, request);
-  const [firms, posts, leads, week, pending, mailFail, backup, reports, payReview, payLive] = await env.DB.batch([
+  const [firms, posts, leads, week, pending, mailFail, backup, reports, payReview, payLive, comments] = await env.DB.batch([
     env.DB.prepare("SELECT COUNT(*) AS n, SUM(featured) AS featured FROM firms WHERE status = 'live'"),
     env.DB.prepare('SELECT COUNT(*) AS n FROM blog_posts'),
     env.DB.prepare('SELECT status, COUNT(*) AS n FROM leads GROUP BY status'),
@@ -31,6 +31,7 @@ export async function stats({ request, env }) {
     env.DB.prepare("SELECT COUNT(*) AS n FROM leads WHERE form = 'report-listing' AND status = 'new'"),
     env.DB.prepare("SELECT COUNT(*) AS n FROM firm_subscriptions WHERE status = 'needs_review'"),
     env.DB.prepare("SELECT COUNT(*) AS n, COALESCE(SUM(amount_cents), 0) AS cents FROM firm_subscriptions WHERE status IN ('active','past_due')"),
+    env.DB.prepare("SELECT COUNT(*) AS n FROM firm_ratings WHERE comment_status = 'pending'"),
   ]);
   const byStatus = Object.fromEntries(LEAD_STATUSES.map((s) => [s, 0]));
   for (const r of leads.results) byStatus[r.status] = r.n;
@@ -41,6 +42,7 @@ export async function stats({ request, env }) {
     leads: byStatus,
     leadsLast7Days: week.results[0].n,
     pendingApprovals: pending.results[0].n,
+    pendingComments: comments.results[0].n,
     mailFailures24h: mailFail.results[0].n,
     lastBackupAt: backup.results[0].last,
     openReports: reports.results[0].n,

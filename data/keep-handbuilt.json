@@ -1,10 +1,4 @@
 {
- "_note": "Hand-built pages with hand-written sections the database page cannot show. They stay hand-built; never move them to the database page without porting the section first.",
- "slugs": [
-  "oatley-vigmond-personal-injury-lawyers-llp",
-  "gupta-law-firm",
-  "excelsior-avocats",
-  "gagan-nahal-criminal-lawyer",
-  "blottman-legal-services"
- ]
+ "_note": "Hand-built pages that had hand-written sections the database page cannot show. On 2026-11-03 the owner asked for every firm to move to the database page (migrations/0037_flip_originals_final_batch.sql), so this list is now empty. A firm can still be set back to its hand-built page in the admin (Profile page style).",
+ "slugs": []
 }

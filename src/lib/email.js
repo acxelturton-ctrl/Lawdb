@@ -147,6 +147,16 @@ export function reportEmail(origin, { slug, reason, name, email, message }) {
   };
 }
 
+// A member's rating comment is waiting for the admin to approve it (comments are checked before they appear).
+export function commentEmail(origin, { slug, firmName, stars, comment }) {
+  const link = `${origin}/admin/#reviews`;
+  return {
+    subject: `Rating comment to review: ${firmName || slug}`,
+    text: `A LawDB member left a ${stars}-star rating with a comment for ${firmName || slug}. It stays hidden until you approve it.\n\n"${comment}"\n\nApprove or reject it in the admin: ${link}`,
+    html: `<p>A LawDB member left a <b>${stars}-star</b> rating with a comment for <a href="${esc(origin)}/firms/${esc(slug)}">${esc(firmName || slug)}</a>. It stays hidden until you approve it.</p><blockquote style="border-left:3px solid #c9a050;margin:12px 0;padding:4px 12px;color:#142434">${esc(comment)}</blockquote><p><a href="${esc(link)}">Approve or reject it in the admin</a></p>`,
+  };
+}
+
 // What a Featured firm gets, as the site does it today (the same list the owner's plan card shows).
 const FEATURED_GETS = [
   'A page that is yours to customize: your own description, a book-a-call button, and your logo, cover and photos',

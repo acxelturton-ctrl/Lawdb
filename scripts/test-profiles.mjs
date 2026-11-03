@@ -25,9 +25,9 @@ const firm = { name: 'Smoke Law', slug: 'smoke-law', city: 'Ottawa', province: '
   lat: 45.4, lng: -75.7, rating: 4.8, count: 40, tags: ['Family Law'], caseTypes: ['family'], about: 'Smoke Law acts for families in Ottawa.' };
 const withAll = renderFirmPage({ firm: { ...firm, social: all } });
 const at = withAll.indexOf('data-profiles');
-ok(at > withAll.indexOf('class="article"') && at < withAll.indexOf('class="services"') && at > withAll.indexOf('</section>'), 'a database page shows the box right under the description, not in the header card');
+ok(at > withAll.indexOf('class="article"') && at < withAll.indexOf('<footer') && at > withAll.indexOf('</section>'), 'a database page shows the box under the description, not in the header card');
 const noAbout = renderFirmPage({ firm: { ...firm, about: '', social: all } });
-ok(noAbout.includes('data-profiles') && noAbout.indexOf('data-profiles') > noAbout.indexOf('</section>') && noAbout.indexOf('data-profiles') < noAbout.indexOf('class="services"'), 'a firm with no description yet still shows the box, where the description would be');
+ok(noAbout.includes('data-profiles') && noAbout.indexOf('data-profiles') > noAbout.indexOf('</section>') && noAbout.indexOf('data-profiles') < noAbout.indexOf('<footer'), 'a firm with no description yet still shows the box, where the description would be');
 ok(!withAll.includes('linkedin.com/search/results'), 'with the firm\'s own LinkedIn page, the generic LinkedIn search link is gone');
 const none = renderFirmPage({ firm });
 ok(!none.includes('data-profiles') && none.includes('linkedin.com/search/results'), 'with no profiles there is no box and the search link stays');

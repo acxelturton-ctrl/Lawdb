@@ -310,6 +310,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<div class="pf-meta"><span class="pf-mi">${C.ICONS.pin}${esc(f.city)}, ${esc(prov)}, Canada</span>` +
     (website ? `<a class="pf-mi" href="${esc(website)}" target="_blank" rel="noopener">${IC.link}${esc(hostOf(website))}</a>` : '') +
     (rated ? `<a class="pf-mi" href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.star}<b>${num(f.rating).toFixed(1)}</b> from ${num(f.count)} Google reviews</a>` : '') +
+    // The LawDB member rating, apart from the Google one: the Worker's script (follow.js) fills in the average and count, or invites the first rating.
+    `<a class="pf-mi pf-lrate" href="#rate" data-lawdb-rating="${esc(f.slug)}">${C.ICONS.star}<span>Rate this firm on LawDB</span></a>` +
     `<span class="pf-mi lw-fcount" data-fcount="${esc(f.slug)}"></span></div>`;
 
   const card =

@@ -1,16 +1,13 @@
-// /firms/<slug>: serves the hand-built static page, or renders the page from the database for firms in
-// 'dynamic' mode. Every success is cached at the edge for PUBLIC_CACHE_TTL seconds (default 60), so the
-// database is read about once a minute per page, not once per visitor.
-import { renderBlogCards } from '../render/blog-cards.js';
+// /firms/<slug>: every live firm's page is drawn from the database (src/render/firm-page.js), the same way for every firm, whenever it was listed. Each success
+// is cached at the edge for PUBLIC_CACHE_TTL seconds (default 60), so the database is read about once a minute per page, not once per visitor.
+// If the database cannot answer, the saved copy of the page in the site files is served instead (an emergency copy, never a second kind of page).
 import { storyPath } from '../lib/stories.js';
 import { renderFirmPage } from '../render/firm-page.js';
 import { isIndexable } from '../lib/indexing.js';
 import { firmStats } from '../lib/firm-stats.js';
-import { profilesBox, hasLinkedIn } from '../render/profiles.js';
 import { bookingRow } from '../render/booking.js';
-import { staticLogoHtml } from '../render/logo.js';
 
-const CACHE_GENERATION = 2; // 2: Book a call is locked until a firm is Featured
+const CACHE_GENERATION = 3; // 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -51,8 +48,8 @@ async function feedPosts(env, slug) {
   }
 }
 
-// Every firm page gets a Follow button (next to Call / Website / Directions), a Book a call button under them (active when the firm has given a booking link, greyed out when not),
-// the member-ratings box under the contact form, and the small script that runs them.
+// What the Worker adds to the drawn page: the claim line under the button row, the Book a call button in its slot, the member-ratings box under the map, and the small
+// script that runs Follow, ratings and the claim button.
 const managedBy = async (env, slug) => {
   try { return !!(await env.DB.prepare("SELECT 1 FROM firm_members WHERE firm_slug = ? AND status = 'approved'").bind(slug).first()); } catch { return false; }
 };
@@ -60,25 +57,12 @@ const claimLine = (slug, managed) => managed
   ? '<p class="lw-claim lw-claimed">&#10003; Managed by the firm</p>'
   : `<p class="lw-claim"><a href="/account/#find/${slug}" data-claim="${slug}">Is this your firm? Claim this listing</a></p>`;
 
-// profiles: the Profiles box (the firm's social icons) for a hand-built page, put right under the contact form, which sits under the description; a database page already has it. A firm with a real LinkedIn page
-// does not need the generic "Search on LinkedIn" link of the hand-built pages.
-const withFollow = (res, slug, managed, profiles = '', linkedin = false, booking = '') => {
-  // A hand-built page has the old button block (div.li-actions): the Follow line goes above it and the booking row and claim line below it.
-  // A database page has the pill row (div.li-actions.pf-actions), which already carries its own Follow button and a slot for the booking button,
-  // so only the claim line is added, under the row.
-  return new HTMLRewriter()
-    .on('div.li-actions:not(.pf-actions)', { element(el) { el.before(`<div class="lw-fline"><span class="lw-fcount" data-fcount="${slug}"></span><button class="lw-fbtn" type="button" data-follow="${slug}">+ Follow</button></div>`, { html: true }); } })
-    .on('div.li-actions:not(.pf-actions)', { element(el) { el.after(booking + claimLine(slug, managed), { html: true }); } })
-    .on('div.pf-actions', { element(el) { el.after(claimLine(slug, managed), { html: true }); } })
-    .on('span[data-slot="book"]', { element(el) { el.replace(booking, { html: true }); } })
-    .on('div.socials a', { element(el) { if (linkedin && /^https:\/\/www\.linkedin\.com\/search\//.test(el.getAttribute('href') || '')) el.remove(); } })
-    // The member-ratings box (and, on a hand-built page, the Profiles box) go under the map, which sits right under the contact card: after the line under the
-    // map on a hand-built page, and in the slot the renderer leaves for them on a database page.
-    .on('p.firm-serves', { element(el) { el.after(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>` + profiles, { html: true }); } })
-    .on('span[data-slot="rate"]', { element(el) { el.replace(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>` + profiles, { html: true }); } })
-    .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })
-    .transform(res);
-};
+const withFollow = (res, slug, managed, booking = '') => new HTMLRewriter()
+  .on('div.pf-actions', { element(el) { el.after(claimLine(slug, managed), { html: true }); } })
+  .on('span[data-slot="book"]', { element(el) { el.replace(booking, { html: true }); } })
+  .on('span[data-slot="rate"]', { element(el) { el.replace(`<div class="lw-rate" data-rate="${slug}" id="rate"></div>`, { html: true }); } })
+  .on('body', { element(el) { el.append('<script src="/follow.js" defer></script>', { html: true }); } })
+  .transform(res);
 
 const bookingUrlOf = (row) => { try { return JSON.parse(row.data).bookingUrl || ''; } catch { return ''; } };
 const nameOf = (row) => { try { return JSON.parse(row.data).name || 'This firm'; } catch { return 'This firm'; } };
@@ -89,7 +73,6 @@ export async function firmPage({ request, env, ctx }) {
   if (!m) return env.ASSETS.fetch(request);
 
   const ttl = ttlOf(env);
-  // CACHE_GENERATION: raise it when what a page shows changes for every firm at once (pages are kept at the edge for hours); the old copies are then simply never asked for.
   const key = new Request(url.origin + url.pathname + '?g=' + CACHE_GENERATION, { method: 'GET' });
   if (ttl > 0) {
     const hit = await caches.default.match(key);
@@ -98,43 +81,15 @@ export async function firmPage({ request, env, ctx }) {
 
   let row = null;
   try {
-    row = await env.DB.prepare('SELECT data, hours, page_mode, about, status, featured FROM firms WHERE slug = ?').bind(m[1]).first();
+    row = await env.DB.prepare('SELECT data, hours, about, status, featured FROM firms WHERE slug = ?').bind(m[1]).first();
   } catch (err) {
-    console.error('firm lookup failed, serving static page', m[1], err);
+    console.error('firm lookup failed, serving the saved copy', m[1], err);
     return env.ASSETS.fetch(request);
   }
 
-  // A firm switched off in the admin is shown nowhere: not even the original hand-built page, which is a file the site serves on its own.
+  // A firm switched off in the admin is shown nowhere. A firm that is not live (waiting for approval) or not listed at all has no page.
   if (row && row.status === 'hidden') return env.ASSETS.fetch(new Request(url.origin + '/__hidden-firm__'));
-
-  if (!row || row.status !== 'live' || row.page_mode !== 'dynamic') {
-    let res = await env.ASSETS.fetch(request); // the original page (or a 404 for an unknown firm)
-    if (res.status === 200 && row && row.status === 'live') {
-      // Hand-built pages get the blog cards slipped in: after their "From the Firm" block, or else just above the "Browse other lawyers" row at the foot of the page.
-      const posts = await feedPosts(env, m[1]);
-      if (posts.length) {
-        const cards = renderBlogCards({ firmName: JSON.parse(row.data).name, posts });
-        let placed = false;
-        res = new HTMLRewriter()
-          .on('div.from-firm', { element(el) { placed = true; el.after(cards, { html: true }); } })
-          .on('section.lw-car', { element(el) { if (!placed) { placed = true; el.before(cards, { html: true }); } } })
-          .transform(res);
-      }
-    }
-    // The "Before you call about..." guide is the same text on every firm in a case type, so only Featured firms keep it
-    // (the city and case-type pages already carry that guidance once, where it belongs).
-    if (res.status === 200 && row && row.status === 'live' && !row.featured) res = new HTMLRewriter().on('div.guide', { element(el) { el.remove(); } }).transform(res);
-    if (res.status === 200 && row && row.status === 'live') {
-      const rec = JSON.parse(row.data);
-      const managed = await managedBy(env, m[1]);
-      // The logo saved in the database (admin / owner screens) wins over the one baked into the file.
-      const logo = staticLogoHtml(rec);
-      if (logo) res = new HTMLRewriter().on('span.li-logo', { element(el) { el.setInnerContent(logo, { html: true }); } }).transform(res);
-      res = withFollow(res, m[1], managed, profilesBox(rec.social, rec.name), hasLinkedIn(rec.social), bookingRow({ url: rec.bookingUrl, name: rec.name, managed, featured: !!row.featured }));
-    }
-    if (res.status === 200 && ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
-    return res;
-  }
+  if (!row || row.status !== 'live') return env.ASSETS.fetch(request);
 
   let html;
   try {
@@ -143,7 +98,7 @@ export async function firmPage({ request, env, ctx }) {
     const photos = (await env.DB.prepare("SELECT id, alt FROM firm_images WHERE firm_slug = ? AND kind = 'photo' ORDER BY created_at, id").bind(m[1]).all()).results;
     html = renderFirmPage({ firm, hours, images: photos, posts: await feedPosts(env, m[1]), nearby: await nearbyFirms(env, firm), stats: await firmStats(env, firm), origin: env.SITE_ORIGIN || url.origin });
   } catch (err) {
-    console.error('profile render failed', m[1], err);
+    console.error('profile render failed, serving the saved copy', m[1], err);
     return env.ASSETS.fetch(request);
   }
   // No real description yet: keep the page out of Google (it stays reachable and its links still count) until there is one.
@@ -158,7 +113,7 @@ export async function firmPage({ request, env, ctx }) {
       'x-lawdb-source': 'database',
       ...(held ? { 'x-robots-tag': 'noindex, follow' } : {}),
     },
-  }), m[1], managed, '', false, bookingRow({ url: bookingUrlOf(row), name: nameOf(row), managed, featured: !!row.featured }));
+  }), m[1], managed, bookingRow({ url: bookingUrlOf(row), name: nameOf(row), managed, featured: !!row.featured }));
   if (ttl > 0) ctx.waitUntil(caches.default.put(key, res.clone()));
   return res;
 }

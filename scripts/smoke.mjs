@@ -253,15 +253,15 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(pg.text.includes('8:30 am – 5 pm') && pg.text.includes('8:30 am – 12 pm, 1 pm – 5 pm') && /Saturday<\/span><span class="ht closed">Closed/.test(pg.text), 'opening hours card is rendered');
   ok(!JSON.stringify(JSON.parse((await getRaw('/firms_data.json')).text)).includes('Second paragraph'), 'about text stays out of the public firm list');
   ok(!pg.text.includes('class="guide"') && pg.text.includes('class="lw-car"') && pg.text.includes('id="leadForm-' + slug2 + '"'), 'a Basic firm has nearby firms and a contact form, but not the shared "Before you call" guide');
-  // the guide is a Featured benefit, on database-built and hand-built pages alike
+  // the guide is a Featured benefit
   // Who is Featured in the real data: only Barbarian Law and Blottman Legal Services (they have a commission arrangement with LawDB)
   const dbPage = (await getRaw('/firms/daniel-brown-law-llp')).text;
   ok(!dbPage.includes('class="guide"') && !dbPage.includes('Featured on LawDB') && !dbPage.includes('Verified LawDB Featured firm') && dbPage.includes('Basic listing'), 'a firm taken off Featured (Daniel Brown Law LLP) now reads and behaves as a Basic listing');
   ok((await getRaw('/firms/blottman-legal-services')).text.includes('Featured on LawDB') && (await getRaw('/firms/barbarian-law')).text.includes('Featured on LawDB'), 'Blottman Legal Services and Barbarian Law are still Featured');
-  // Many tests below need one hand-built Featured firm that is in Toronto (the guide, the News badge, Featured-only News, a firm Featured by hand before it paid,
+  // Many tests below need one Featured firm that is in Toronto (the guide, the News badge, Featured-only News, a firm Featured by hand before it paid,
   // the follow suggestions). Daniel Brown Law LLP is that fixture: it is switched on here, as an admin would, and the tests below rely on it.
   ok((await call('PATCH', '/api/admin/firms/daniel-brown-law-llp', { featured: true })).status === 200, 'test setup: Daniel Brown Law LLP is made Featured for the tests below');
-  ok((await getRaw('/firms/achkar-law')).text.includes('class="guide"') === false && (await getRaw('/firms/daniel-brown-law-llp')).text.includes('class="guide"'), 'hand-built pages: Basic firms drop the shared guide, Featured firms keep it');
+  ok((await getRaw('/firms/achkar-law')).text.includes('class="guide"') === false && (await getRaw('/firms/daniel-brown-law-llp')).text.includes('class="guide"'), 'every firm page: Basic firms drop the shared guide, Featured firms keep it');
   await call('PATCH', '/api/admin/firms/' + slug2, { featured: true });
   let featuredGuide = false;
   for (let i = 0; i < 10 && !featuredGuide; i++) { featuredGuide = (await getRaw('/firms/' + slug2)).text.includes('class="guide"'); if (!featuredGuide) await new Promise((r) => setTimeout(r, 500)); }
@@ -285,37 +285,30 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const full = await getRaw('/firms/' + slug2);
   ok(!full.headers.get('x-robots-tag') && !/name="robots"/.test(full.text), 'with a full description the page is open to Google');
   const fsm = await getRaw('/sitemap-firms.xml');
-  ok(fsm.status === 200 && fsm.text.includes(`/firms/${slug2}</loc>`) && !fsm.text.includes('/firms/achkar-law</loc>'), 'a new database-built firm with a description is in the firms sitemap and hand-built pages are not');
+  ok(fsm.status === 200 && fsm.text.includes(`/firms/${slug2}</loc>`) && fsm.text.includes('/firms/achkar-law</loc>'), 'a new firm with a description is in the firms sitemap');
   const held = (await call('GET', '/api/admin/search')).data.heldBack;
   ok(held && held.minWords === 40 && typeof held.count === 'number', 'the admin Search tab knows how many profiles are held back');
   await call('PATCH', '/api/admin/firms/' + slug2, { about: body.about });
   ok(/Sitemap: https:\/\/lawdb.ca\/sitemap-firms.xml/.test(readFileSync(new URL('../robots.txt', import.meta.url), 'utf8')), 'robots.txt announces the firms sitemap');
 
-  // existing firms keep their original hand-built page until switched
-  const orig = await getRaw('/firms/achkar-law');
-  ok(orig.status === 200 && !orig.headers.get('x-lawdb-source') && orig.text.includes('Achkar Law'), 'existing firm still serves its original page');
-  ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'dynamic' })).status === 200, 'switch an existing firm to the database page');
+  // every firm, new or old, has the same page: drawn from the database, whenever it was listed
   const sw = await getRaw('/firms/achkar-law');
-  ok(sw.headers.get('x-lawdb-source') === 'database' && sw.text.includes('Achkar Law') && sw.text.includes('North York employment law firm acting for employees and employers'), 'switched firm now renders from the database and keeps its written description');
-  ok(/<a class="pa-card" href="\/ontario\/employment-lawyers">/.test(sw.text) && !/rank-panel|ranks in /.test(sw.text), 'the database page links to the practice-area page, and has no "How this firm ranks" panel');
-  const handBuilt = (await getRaw('/firms/amlea-avocats')).text;
-  ok(handBuilt.includes('Amlea Avocats') && !/rank-panel|rank-grid|ranks in Montreal/.test(handBuilt), 'a hand-built page that used to carry the ranking panel does not any more');
+  ok(sw.headers.get('x-lawdb-source') === 'database' && sw.text.includes('Achkar Law') && sw.text.includes('North York employment law firm acting for employees and employers'), 'an existing firm renders from the database and keeps its written description');
+  ok(/<a class="pa-card" href="\/ontario\/employment-lawyers">/.test(sw.text) && !/rank-panel|ranks in /.test(sw.text), 'the page links to the practice-area page, and has no "How this firm ranks" panel');
+  const amlea = await getRaw('/firms/amlea-avocats');
+  ok(amlea.headers.get('x-lawdb-source') === 'database' && amlea.text.includes('Amlea Avocats') && !/rank-panel|rank-grid|ranks in Montreal/.test(amlea.text), 'a firm that used to carry the ranking panel does not any more, and its page is built the same way as every other');
   // the database page is laid out like MSPdatabase: breadcrumb, round-logo header with @handle and tagline, one Follow button (the Worker adds no second Follow line), the booking button in the pill row,
   // the map and address card right under the header, and a "Firms you may like" column
   const swc = (sw.text.match(/data-follow="achkar-law"/g) || []).length;
-  ok(sw.text.includes('<body class="pg-firm pg-msp">') && sw.text.includes('<nav class="pf-crumb"') && sw.text.includes('<a href="/ontario/">Ontario</a>') && sw.text.includes('class="pf-handle">@achkar-law</p>'), 'the database page has the breadcrumb, and the name is followed by the @handle');
+  ok(sw.text.includes('<body class="pg-firm pg-msp">') && sw.text.includes('<nav class="pf-crumb"') && sw.text.includes('<a href="/ontario/">Ontario</a>') && sw.text.includes('class="pf-handle">@achkar-law</p>'), 'the firm page has the breadcrumb, and the name is followed by the @handle');
   ok(swc === 1 && !sw.text.includes('lw-fline') && !sw.text.includes('data-slot="book"') && sw.text.indexOf('li-book-row') > sw.text.indexOf('li-actions pf-actions') && sw.text.indexOf('li-book-row') < sw.text.indexOf('lw-claim'), 'the database page has one Follow button, the booking button inside the button row, and the claim line under the row');
   const at = (t, k) => t.indexOf(k);
   ok(at(sw.text, 'class="pf-loc"') > at(sw.text, 'class="lead-slim') && at(sw.text, 'class="pf-loc"') < at(sw.text, 'class="lw-rate"') && at(sw.text, 'class="article"') < at(sw.text, 'class="lead-slim') && sw.text.includes('class="pf-addr"') && !sw.text.includes('Shaded:'), 'the location card (map and address) sits right under the contact card, then the member ratings; the description is above the contact card');
   ok(!sw.text.includes('class="map-embed"') && !/Law firm serving [A-Za-z ]+, Canada\./.test(sw.text), 'the old map block and its caption line are gone from the database page');
   ok((sw.text.match(/<aside class="pf-aside"/g) || []).length <= 1 && /<h1 class="li-name">Achkar Law<\/h1>/.test(sw.text), 'the "Firms you may like" column is there at most once, and the page has one h1 with the firm name');
-  ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' })).status === 200, 'switch it back');
-  ok(!(await getRaw('/firms/achkar-law')).headers.get('x-lawdb-source'), 'firm is back on its original page');
   ok(sw.text.includes('data-lawdb-rating="achkar-law"') && sw.text.includes('class="pf-mi pf-lrate"') && sw.text.indexOf('data-lawdb-rating') < sw.text.indexOf('class="li-actions pf-actions"') && sw.text.includes('class="lw-rate"'), 'a database page carries a LawDB rating link in its header, beside the Google rating, and the member-ratings box');
   ok(at(sw.text, 'class="article"') < at(sw.text, 'class="pa-wrap"') && at(sw.text, 'class="pa-wrap"') < at(sw.text, 'class="lead-slim') && sw.text.includes('<h2>Practice areas</h2>') && !sw.text.includes('<h2>Services</h2>'), 'a database page shows its practice areas right under the description, above the contact card');
-  const hb = (await getRaw('/firms/achkar-law')).text;
-  ok(at(hb, 'class="article"') > 0 && at(hb, 'class="services"') > at(hb, 'class="article"') && at(hb, 'class="lead-slim') > at(hb, 'class="services"') && at(hb, 'class="map-embed"') > at(hb, 'class="lead-slim') && at(hb, 'class="firm-serves"') > at(hb, 'class="map-embed"') && at(hb, 'class="lw-rate"') > at(hb, 'class="firm-serves"') && at(hb, 'class="lw-car"') > at(hb, 'class="lw-rate"'), 'a hand-built page has the same order: description, practice areas, contact card, map and its line, then the member ratings, then the rest');
-  ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'weird' })).status === 422, 'invalid page style refused');
+  ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' })).status === 422, 'there is no page style to choose any more: the setting is refused');
 
   // owner-style edits show on the rendered page
   const patch = await call('PATCH', `/api/admin/firms/${slug2}`, { about: 'Updated about text', tags: ['Tax'], hours: null });
@@ -521,8 +514,8 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 
   // approve (and show the owner's edits on the page)
   ok((await call('PATCH', `/api/admin/members/${pc.id}`, { status: 'maybe' })).status === 422, 'approval status is validated');
-  ok((await call('PATCH', `/api/admin/members/${pc.id}`, { status: 'approved', switchPage: true })).status === 200, 'admin approves the owner');
-  ok((await getRaw('/firms/achkar-law')).headers.get('x-lawdb-source') === 'database', 'approval switched the firm to the database page');
+  ok((await call('PATCH', `/api/admin/members/${pc.id}`, { status: 'approved' })).status === 200, 'admin approves the owner');
+  ok((await getRaw('/firms/achkar-law')).headers.get('x-lawdb-source') === 'database', 'the firm\'s page is built from the database after approval, as it was before');
   const audit2 = (await call('GET', '/api/admin/audit?limit=200')).data.entries;
   ok(audit2.some((e) => e.action === 'mail.dev' && e.detail?.subject === 'You can now manage Achkar Law on LawDB'), 'the owner is emailed when approved');
 
@@ -737,17 +730,17 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(bad('http://firm.ca/feed') && bad('https://127.0.0.1/feed') && bad('https://10.0.0.5/feed') && bad('https://localhost/feed') && bad('https://intranet/feed') && bad('https://printer.local/feed') && bad('https://a.ca:8443/feed') && bad('https://user:pw@a.ca/feed') && bad('ftp://a.ca/feed') && bad('not a url'), 'unsafe feed addresses are refused');
   ok(!bad('https://www.firm.ca/blog/feed/'), 'a normal feed address is accepted');
 
-  // featured, hand-built page: cards appear after "From the Firm"
+  // featured firm: blog cards on the page
   cookie = adminJar;
   const featSlug = 'daniel-brown-law-llp';
   const setFeed = await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: origin + '/feed.xml' });
   ok(setFeed.status === 200 && setFeed.data.feed.status === 'ok' && setFeed.data.posts.length === 5, 'the admin sets a firm\'s feed and it is read at once');
   const featPage = (await getRaw('/firms/' + featSlug)).text;
-  const cardCount = (featPage.match(/<article class="lw-bc">/g) || []).length;
-  ok(cardCount === 3 && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="from-firm"') && featPage.indexOf('class="lw-blog"') > featPage.indexOf('class="firm-serves"') && featPage.indexOf('class="lw-blog"') < featPage.indexOf('class="lw-car"') && featPage.indexOf('class="lw-blog"') < featPage.indexOf('<footer'), 'three cards sit under the page and just above the "Browse other lawyers" row');
+  const cardCount = (featPage.match(/<article class="fa-row">/g) || []).length;
+  ok(cardCount >= 3 && featPage.indexOf('class="fa"') > featPage.indexOf('class="article"') && featPage.indexOf('class="fa"') > featPage.indexOf('class="pf-loc"') && featPage.indexOf('class="fa"') < featPage.indexOf('class="lw-car"') && featPage.indexOf('class="fa"') < featPage.indexOf('<footer'), 'the firm\'s articles sit under its description and map, above the "Browse other lawyers" row');
   ok(featPage.includes('Charged With Impaired Driving') && featPage.includes('Tom &amp; Jerry&#x27;s Guide') && !featPage.includes('evil.example') && !featPage.includes('<script>alert') && !featPage.includes('onerror=alert'), 'card text is escaped and off-site links never appear');
   const storyHref = (/href="(\/news\/daniel-brown-law-llp\/charged-with-impaired-driving-what-happens-next-\d+)"/.exec(featPage) || [])[1];
-  ok(!!storyHref && featPage.includes('data-story') && !featPage.includes(`href="${origin}/blog/impaired"`), 'each card opens the story\'s own LawDB page');
+  ok(!!storyHref && !featPage.includes(`href="${origin}/blog/impaired"`), 'each article opens the story\'s own LawDB page');
   const story = await getRaw(storyHref || '/news/none/x-1');
   ok(story.status === 200 && story.text.includes('<h1>Charged With Impaired Driving: What Happens Next</h1>') && story.text.includes(`href="${origin}/blog/impaired"`) && story.text.includes('Read the full article on 127.0.0.1') && story.text.includes(`rel="canonical" href="https://lawdb.ca${storyHref}"`) && story.text.includes('"@type":"BreadcrumbList"') && story.text.includes('href="/firms/daniel-brown-law-llp"') && !story.text.includes('<script>alert') && !story.text.includes('onerror=alert'), 'the story page shows the headline, the firm, the preview, a link to the full article, and a canonical address');
   ok(story.text.includes('This is a short preview') && !story.text.includes(longText.repeat(2)), 'the page carries only the short preview, never the full article');
@@ -761,18 +754,18 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const smap = await getRaw('/sitemap-news.xml');
   ok(smap.status === 200 && /xml/.test(smap.headers.get('content-type')) && smap.text.includes(`<loc>https://lawdb.ca${storyHref}</loc>`) && (smap.text.match(/<loc>/g) || []).length >= 5 && !smap.text.includes('evil.example'), 'the story sitemap lists every story page');
   ok(/Sitemap: https:\/\/lawdb.ca\/sitemap-news.xml/.test(readFileSync(new URL('../robots.txt', import.meta.url), 'utf8')), 'robots.txt announces the story sitemap');
-  ok(featPage.includes(`<img src="${origin}/img/a.jpg"`) && featPage.includes('class="lw-bc-img"') && /referrerpolicy="no-referrer"/.test(featPage) && /loading="lazy"/.test(featPage) && !featPage.includes('javascript:alert') && !featPage.includes('data:image'), 'cards show the article picture (lazy, no referrer) and never an unsafe address');
-  ok(!(await getRaw('/firms/torkin-manes-llp')).text.includes('class="lw-blog"'), 'other firms are not affected');
-  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: false })).status === 200 && !(await getRaw('/firms/' + featSlug)).text.includes('class="lw-blog"'), 'switching a firm\'s cards off removes them');
+  ok(featPage.includes(`<img src="${origin}/img/a.jpg"`) && featPage.includes('class="fa-pic"') && /referrerpolicy="no-referrer"/.test(featPage) && /loading="lazy"/.test(featPage) && !featPage.includes('javascript:alert') && !featPage.includes('data:image'), 'articles show the picture (lazy, no referrer) and never an unsafe address');
+  ok(!(await getRaw('/firms/torkin-manes-llp')).text.includes('class="fa-row"'), 'other firms are not affected');
+  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: false })).status === 200 && !(await getRaw('/firms/' + featSlug)).text.includes('class="fa-row"'), 'switching a firm\'s articles off removes them');
   ok((await getRaw(storyHref)).status === 404 && !(await getRaw('/sitemap-news.xml')).text.includes(storyHref), 'a switched-off firm\'s story pages disappear too');
-  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: true })).status === 200 && (await getRaw('/firms/' + featSlug)).text.includes('class="lw-blog"'), 'and back on');
+  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: true })).status === 200 && (await getRaw('/firms/' + featSlug)).text.includes('class="fa-row"'), 'and back on');
 
   // bad feeds
   feedBroken = true; // the same feed starts failing, as a real site sometimes does
   const brokenFeed = await call('POST', `/api/admin/firms/${featSlug}/feed/refresh`);
   feedBroken = false;
   ok(brokenFeed.data.result.status === 'error' && brokenFeed.data.feed.status === 'error' && brokenFeed.data.posts.length === 5, 'a broken feed is reported and the earlier posts are kept');
-  ok((await getRaw('/firms/' + featSlug)).text.includes('class="lw-blog"'), 'the page keeps showing the earlier cards');
+  ok((await getRaw('/firms/' + featSlug)).text.includes('class="fa-row"'), 'the page keeps showing the earlier articles');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: origin + '/html' })).data.feed.status === 'error', 'a page that is not a feed is reported');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: 'https://10.0.0.1/feed' })).status === 422 && (await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: 'http://example.com/feed' })).status === 422, 'unsafe addresses are refused when saving');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { colour: 'red' })).status === 422, 'unknown settings are refused');
@@ -951,18 +944,6 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const afterLogo = (await call('GET', '/api/firms/achkar-law')).data;
   ok(afterLogo.type === 'logo' && afterLogo.src === `img/${logo1.data.image.id}`, 'the logo is in the firm\'s public record');
   ok((await getRaw('/firms/achkar-law')).text.includes(`img/${logo1.data.image.id}`), 'the logo is on the firm\'s page');
-  {
-    // the same firm on its hand-built page: the saved logo replaces the baked-in initials in the header, and nowhere else
-    const ownerJar = cookie;
-    as(adminJar);
-    const wasMode = (await call('GET', '/api/admin/firms/achkar-law')).data.pageMode;
-    await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' });
-    const pg = await getRaw('/firms/achkar-law');
-    const hdr = (pg.text.match(/<span class="li-logo">([\s\S]*?)<\/span>/) || [])[1] || '';
-    ok(!pg.headers.get('x-lawdb-source') && hdr === `<img src="/img/${logo1.data.image.id}" alt="Achkar Law logo" width="96" height="96">`, 'a hand-built page shows the logo saved in the admin or owner screens, in place of its initials');
-    await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: wasMode });
-    as(ownerJar);
-  }
   const logo2 = await rawCall('POST', base + '?kind=logo', makePng(120, 120, 80), 'image/png');
   ok(logo2.status === 201 && (await fetch(BASE + logo1.data.image.url)).status === 404, 'a new logo replaces the old one');
   ok((await call('GET', '/api/firms/achkar-law')).data.src === `img/${logo2.data.image.id}`, 'the public record points at the new logo');
@@ -1539,18 +1520,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok((await call('DELETE', `/api/account/follow/${F}`)).data.followers === 1 && (await call('GET', '/api/account/feed')).data.stories.length === 0, 'unfollowing lowers the count and empties the feed');
     ok((await call('POST', '/api/account/follow', { slug: F }, { origin: 'https://evil.example' })).status === 403, 'follow actions from other sites are refused');
     cookie = '';
-    const fp = (await getRaw('/firms/torys-llp')).text;
-    ok(fp.includes('data-follow="torys-llp"') && fp.includes('<script src="/follow.js" defer></script>'), 'a hand-built firm page carries the Follow button');
-    as(adminJar);
-    await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'dynamic' });
-    cookie = '';
-    const dp = await getRaw('/firms/achkar-law');
-    ok(dp.headers.get('x-lawdb-source') === 'database' && dp.text.includes('data-follow="achkar-law"') && dp.text.includes('/follow.js'), 'a database-built firm page carries it too');
-    as(adminJar);
-    await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' });
-    cookie = '';
-    // Book a call: greyed out until a firm has a booking link, active with one (hand-built and database-built pages alike)
-    ok(fp.includes('class="li-btn li-book li-book-off"') && fp.includes('Book a call') && dp.text.includes('class="li-btn li-book li-book-off"') && dp.text.includes('Book a call'), 'every firm page, hand-built or database-built, has a greyed-out Book a call button until the firm adds a booking link');
+    const fp = await getRaw('/firms/torys-llp');
+    ok(fp.headers.get('x-lawdb-source') === 'database' && fp.text.includes('data-follow="torys-llp"') && fp.text.includes('<script src="/follow.js" defer></script>'), 'a firm page carries the Follow button');
+    // Book a call: locked until a firm is Featured and has a booking link
+    ok(fp.text.includes('class="li-btn li-book li-book-off"') && fp.text.includes('Book a call'), 'every firm page has a greyed-out Book a call button until the firm is Featured and has a booking link');
     as(adminJar);
     ok((await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: 'http://calendly.com/torys' })).status === 422 && (await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: 'javascript:alert(1)' })).status === 422, 'a booking link must be an https address');
     ok((await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: 'https://calendly.com/torys/30min?month=2020-01&utm_source=x' })).status === 200, 'an admin can add a booking link');
@@ -1870,7 +1843,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     as(adminJar);
     ok((await call('POST', '/api/admin/firms/achkar-law/invite', { email: 'not-an-email' })).status === 422, 'an invite needs a real email address');
     ok((await call('POST', '/api/admin/firms/no-such-firm-xyz/invite', { email: `inv-${run}@example.com` })).status === 404, 'an invite for an unknown firm is refused');
-    const inv = await call('POST', '/api/admin/firms/achkar-law/invite', { email: `Inv-${run}@Example.com`, switchPage: true });
+    const inv = await call('POST', '/api/admin/firms/achkar-law/invite', { email: `Inv-${run}@Example.com` });
     ok(inv.status === 201 && /\/account\/welcome#invite=[0-9a-f]{64}$/.test(inv.data.link), 'an admin can invite an owner and gets the link');
     ok((await call('GET', '/api/admin/firms/achkar-law/invites')).data.invites.some((i) => i.email === `inv-${run}@example.com` && !i.usedAt), 'the invite is listed as waiting');
     const tok = inv.data.link.split('#invite=')[1];
@@ -1885,7 +1858,6 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok((await call('POST', '/api/auth/invite-accept', { token: tok }) ).status === 400, 'an invite link works only once');
     as(adminJar);
     ok((await call('GET', '/api/admin/firms/achkar-law/invites')).data.invites.some((i) => i.email === `inv-${run}@example.com` && i.usedAt), 'the used invite shows as signed in');
-    ok((await call('GET', '/api/admin/firms/achkar-law')).data.pageMode === 'dynamic', 'the invite switched the firm to the database-built page, as asked');
     ok((await call('GET', '/api/admin/audit?limit=100')).data.entries.some((e) => e.action === 'owner.invite_accept'), 'accepting an invite leaves a trace');
     // the "Claim this listing" button on firm pages
     cookie = o1.jar;
@@ -1901,7 +1873,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 
   // put the shared test firm back as it was
   as(adminJar);
-  await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static', phone: origFirm.phone || '', about: origFirm.about || '' });
+  await call('PATCH', '/api/admin/firms/achkar-law', { phone: origFirm.phone || '', about: origFirm.about || '' });
 
   // sign-up has its own brake, so strangers cannot use us to send mail
   const flood = freshIp();

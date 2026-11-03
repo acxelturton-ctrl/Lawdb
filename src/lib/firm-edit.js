@@ -134,22 +134,21 @@ const OWNER_TEXT_FIELDS = { name: 'Firm name', blurb: 'Short description', tags:
 export const FEATURED_LOCK = 'is a Featured benefit. Upgrade to Featured from your dashboard to customize your page.';
 const CUSTOMIZING = { about: 'Writing your own description', blurb: 'Writing your own description', bookingUrl: 'Adding a booking link', enquiryEmail: 'Sending enquiries to another address' };
 
-// `admin` may also change the featured flag, the page style, the city and province, the map position and whether the firm is shown (status); owners may not.
+// `admin` may also change the featured flag, the city and province, the map position and whether the firm is shown (status); owners may not.
 export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   const keys = Object.keys(body);
   if (!keys.length) throw new HttpError(422, 'Nothing to update');
   const fieldKeys = Object.keys(FIRM_FIELDS).filter((k) => admin || !ADMIN_ONLY.includes(k));
-  const extra = admin ? ['pageMode', 'hours', 'about', 'lat', 'lng', 'status', 'enquiryEmail'] : ['hours', 'about', 'enquiryEmail'];
+  const extra = admin ? ['hours', 'about', 'lat', 'lng', 'status', 'enquiryEmail'] : ['hours', 'about', 'enquiryEmail'];
   const unknown = keys.filter((k) => !fieldKeys.includes(k) && !extra.includes(k));
   if (unknown.length) throw new HttpError(422, `Cannot edit: ${unknown.join(', ')}`);
 
-  const row = await env.DB.prepare('SELECT data, hours, page_mode, about, status, enquiry_email FROM firms WHERE slug = ?').bind(slug).first();
+  const row = await env.DB.prepare('SELECT data, hours, about, status, enquiry_email FROM firms WHERE slug = ?').bind(slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
   const firm = JSON.parse(row.data);
   const customizing = admin || !!firm.featured;
 
   const changes = {};
-  let pageMode = row.page_mode;
   let aboutText = row.about;
   let status = row.status;
   if ('about' in body) {
@@ -157,10 +156,6 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
     if (next && next !== (row.about || null) && !customizing) throw new HttpError(403, `${CUSTOMIZING.about} ${FEATURED_LOCK}`);
     if (next !== (row.about || null) && !admin) checkOwnerText('About the firm', next);
     if (next !== (row.about || null)) { changes.about = { from: row.about || null, to: next }; aboutText = next; }
-  }
-  if (admin && 'pageMode' in body) {
-    if (body.pageMode !== 'static' && body.pageMode !== 'dynamic') throw new HttpError(422, "pageMode must be 'static' or 'dynamic'");
-    if (body.pageMode !== row.page_mode) { changes.pageMode = { from: row.page_mode, to: body.pageMode }; pageMode = body.pageMode; }
   }
   // Show or hide the firm. A firm waiting for its owner request to be approved ('pending') is not switched here: that happens in Approvals.
   if (admin && 'status' in body) {
@@ -210,16 +205,16 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
     const known = await env.DB.prepare('SELECT region FROM firms WHERE city = ? COLLATE NOCASE AND province = ? AND region IS NOT NULL AND slug != ? LIMIT 1').bind(firm.city, firm.province, slug).first();
     firm.region = known ? known.region : '';
   }
-  if (!Object.keys(changes).length) return { changed: [], firm: { ...firm, about: aboutText || '' }, pageMode, status };
+  if (!Object.keys(changes).length) return { changed: [], firm: { ...firm, about: aboutText || '' }, status };
 
   // `data` is the source of truth; the indexed columns are derived from it.
   const moved = 'city' in changes || 'province' in changes;
-  await env.DB.prepare("UPDATE firms SET data = ?, name = ?, city = ?, province = ?, region = COALESCE(?, region), featured = ?, lat = COALESCE(?, lat), lng = COALESCE(?, lng), hours = ?, page_mode = ?, about = ?, status = ?, enquiry_email = ?, updated_at = datetime('now') WHERE slug = ?")
-    .bind(JSON.stringify(firm), firm.name, firm.city, firm.province, moved ? firm.region ?? '' : null, firm.featured ? 1 : 0, firm.lat ?? null, firm.lng ?? null, hoursJson, pageMode, aboutText, status, enquiryEmail, slug)
+  await env.DB.prepare("UPDATE firms SET data = ?, name = ?, city = ?, province = ?, region = COALESCE(?, region), featured = ?, lat = COALESCE(?, lat), lng = COALESCE(?, lng), hours = ?, about = ?, status = ?, enquiry_email = ?, updated_at = datetime('now') WHERE slug = ?")
+    .bind(JSON.stringify(firm), firm.name, firm.city, firm.province, moved ? firm.region ?? '' : null, firm.featured ? 1 : 0, firm.lat ?? null, firm.lng ?? null, hoursJson, aboutText, status, enquiryEmail, slug)
     .run();
   await audit(env, actor, 'firm.update', 'firm', slug, changes);
   if ('featured' in changes) await trialAdminChanged(env, slug, !!firm.featured); // a free month running at the time must not undo (or outlive) the admin's choice
-  return { changed: Object.keys(changes), firm: { ...firm, about: aboutText || '' }, pageMode, status };
+  return { changed: Object.keys(changes), firm: { ...firm, about: aboutText || '' }, status };
 }
 
 // ---------------------------------------------------------------- create

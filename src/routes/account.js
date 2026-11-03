@@ -35,7 +35,7 @@ function notifyAdmins(env, exec, origin, details) {
 export async function me({ request, env }) {
   const user = await requireUser(env, request);
   const { results } = await env.DB.prepare(
-    `SELECT m.id, m.firm_slug AS slug, m.status, m.created_at AS requestedAt, f.name, f.city, f.province, f.status AS firmStatus, f.page_mode AS pageMode, f.featured AS featured,
+    `SELECT m.id, m.firm_slug AS slug, m.status, m.created_at AS requestedAt, f.name, f.city, f.province, f.status AS firmStatus, f.featured AS featured,
        CASE WHEN m.status = 'approved' THEN (SELECT COUNT(*) FROM leads l WHERE l.firm_slug = m.firm_slug AND l.status = 'new' AND l.seen_at IS NULL) ELSE 0 END AS newLeads,
        t.ends_at AS trialEnds
      FROM firm_members m JOIN firms f ON f.slug = m.firm_slug LEFT JOIN firm_trials t ON t.firm_slug = m.firm_slug AND t.status = 'active'
@@ -177,17 +177,17 @@ export async function createListing({ request, env, url, exec }) {
 export async function getFirm({ request, env, params }) {
   const user = await requireUser(env, request);
   await requireOwner(env, user, params.slug);
-  const row = await env.DB.prepare('SELECT rowid AS id, data, hours, page_mode, about, status, updated_at, enquiry_email FROM firms WHERE slug = ?').bind(params.slug).first();
+  const row = await env.DB.prepare('SELECT rowid AS id, data, hours, about, status, updated_at, enquiry_email FROM firms WHERE slug = ?').bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
-  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, pageMode: row.page_mode, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '' });
+  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '' });
 }
 
 export async function updateFirm({ request, env, params }) {
   const user = await requireUser(env, request);
   await requireOwner(env, user, params.slug);
   const body = await readJson(request, 20000);
-  const { changed, firm, pageMode } = await applyFirmEdit(env, user, params.slug, body, { admin: false });
-  return reply({ ok: true, changed, firm, pageMode });
+  const { changed, firm } = await applyFirmEdit(env, user, params.slug, body, { admin: false });
+  return reply({ ok: true, changed, firm });
 }
 
 export async function listLeads({ request, env, params, url }) {

@@ -77,7 +77,6 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     status: h('select', { disabled: !admin || data.status === 'pending' }, [['live', 'Live'], ['hidden', 'Hidden (shown nowhere)']].concat(data.status === 'pending' ? [['pending', 'Awaiting approval']] : [])
       .map(([v, l]) => h('option', { value: v, selected: v === (data.status || 'live') }, l))),
     featured: h('select', { disabled: !admin }, [[false, 'Basic'], [true, 'Featured']].map(([v, l]) => h('option', { value: String(v), selected: v === !!firm.featured }, l))),
-    pageMode: h('select', { disabled: !admin }, [['dynamic', 'Built from the database'], ['static', 'Original hand-built page']].map(([v, l]) => h('option', { value: v, selected: v === (data.pageMode || 'dynamic') }, l))),
     appointmentOnly: h('input', { type: 'checkbox', checked: !!firm.appointmentOnly }),
   };
   const social = Object.fromEntries(SOCIALS.map(([k]) => [k, text(social0[k] || '', { placeholder: 'https://', maxlength: 200 })]));
@@ -120,7 +119,6 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
       else if (c.status.value !== (data.status || 'live') && c.status.value !== 'pending') p.status = c.status.value;
       if (!isNew) {
         put('featured', c.featured.value === 'true', !!firm.featured);
-        put('pageMode', c.pageMode.value, data.pageMode || 'dynamic');
         if (num(c.lat.value) !== (firm.lat ?? null) || num(c.lng.value) !== (firm.lng ?? null)) { p.lat = num(c.lat.value); p.lng = num(c.lng.value); }
       } else if (c.lat.value.trim() || c.lng.value.trim()) { p.lat = num(c.lat.value); p.lng = num(c.lng.value); }
     }
@@ -202,7 +200,6 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
       : h('div', { class: 'ed-row' },
         fld('Profile Status', c.status, data.status === 'pending' ? 'Approve it under Approvals.' : null),
         fld('Plan', c.featured, mode === 'owner' ? 'Managed by LawDB (see Your plan)' : null)),
-    admin && !isNew && fld('Profile page style', c.pageMode, 'The original pages keep their own wording; the database style shows everything entered here.'),
     fld('Official Firm Name', c.name),
     !isNew && fld('Username', text('@' + slug, { readonly: true, 'aria-label': 'Username' }), 'The address of the page: lawdb.ca/firms/' + slug),
     !isNew && fld('Tagline', c.blurb, 'Shown in lists and search results.', locked ? lockNote('Writing your own tagline needs Featured.') : null),
@@ -279,7 +276,6 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   // Three columns, as on MSPdatabase: Basic Information | Website & Blog, then Description | Location, then Address and Opening hours.
   // On a phone they stack in that order.
   const grid = h('div', { class: 'ed-grid' }, h('div', { class: 'ed-stack' }, basic), h('div', { class: 'ed-stack' }, web, desc), h('div', { class: 'ed-stack' }, loc, addr, hours));
-  const hand = mode === 'owner' && data.pageMode !== 'dynamic' && note('msg-err', 'Your page has a custom layout that we update for you. Your changes still appear in the directory, search and map. Write to info@lawdb.ca to have the page itself updated.');
   // On Basic: a clear list of what is locked and the way to unlock it (the free month, or Featured), instead of a sentence nobody reads.
   const unlockBanner = locked && (() => {
     const cta = h('div', { class: 'row' });
@@ -294,7 +290,7 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
       cta);
   })();
 
-  form.append(...[head, flash ? note('msg-ok', flash) : null, hand, unlockBanner, imagesBar, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
+  form.append(...[head, flash ? note('msg-ok', flash) : null, unlockBanner, imagesBar, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
   // The plan (and what Featured adds) is one tap away at the top, not a page-long card in front of the form.
   const plan = mode === 'owner' && h('details', { class: 'ed-collapse ed-plan' }, h('summary', null, 'Your plan: ', h('b', null, firm.featured ? 'Featured' : 'Basic (free)'), !firm.featured && h('span', { class: 'ed-plan-cta' }, 'See what Featured adds')), h('div', { class: 'inner' }, planPanel(`${base}/plan`)));
   planEl = plan || null;

@@ -185,10 +185,8 @@ async function viewLeads() {
 
 // ---------------------------------------------------------------- firms
 // "Give this firm to its owner": after a phone call, email them a sign-in link that opens their own profile editor.
-function invitePanel(slug, firm, pageMode) {
+function invitePanel(slug) {
   const email = h('input', { type: 'email', placeholder: 'owner@theirfirm.ca', autocomplete: 'off', required: true, 'aria-label': 'Owner email' });
-  const isStatic = pageMode === 'static';
-  const showEdits = h('input', { type: 'checkbox', checked: isStatic && !firm.featured });
   const out = h('div');
   const history = h('div');
   const go = h('button', { class: 'primary', type: 'submit' }, 'Send invite');
@@ -205,7 +203,7 @@ function invitePanel(slug, firm, pageMode) {
     e.preventDefault();
     go.disabled = true;
     try {
-      const r = await api('POST', `/api/admin/firms/${encodeURIComponent(slug)}/invite`, { email: email.value, switchPage: isStatic && showEdits.checked });
+      const r = await api('POST', `/api/admin/firms/${encodeURIComponent(slug)}/invite`, { email: email.value });
       const link = h('input', { type: 'text', readonly: true, value: r.link, 'aria-label': 'Invite link' });
       const copy = h('button', { type: 'button', onclick: async () => {
         try { await navigator.clipboard.writeText(r.link); copy.textContent = 'Copied'; } catch { link.select(); copy.textContent = 'Press copy on your keyboard'; }
@@ -219,9 +217,6 @@ function invitePanel(slug, firm, pageMode) {
     h('h2', null, 'Give this firm to its owner'),
     h('p', { class: 'muted' }, 'After you speak with them, enter their email. They get a link that signs them straight in to edit this firm, with no approval step. Later they can sign in with Google or LinkedIn using the same email.'),
     field('Owner email', email),
-    isStatic && h('label', { class: 'check small' }, showEdits, firm.featured
-      ? 'Show the owner\'s edits on the firm\'s page (replaces this Featured firm\'s custom hand-built layout)'
-      : 'Show the owner\'s edits on the firm\'s page (switches it to the database-built page)'),
     h('div', { class: 'row' }, go), out, history);
   loadHistory();
   return form;
@@ -281,7 +276,7 @@ async function viewFirmEdit(slug, flash) {
   const reload = async (message) => mount(shell(me, 'firms', await viewFirmEdit(slug, message || undefined)));
   return h('div', null, h('p', { class: 'row spread' }, h('a', { href: '#firms' }, '← All firms'), h('a', { href: `#firms/analytics/${encodeURIComponent(slug)}` }, 'Analytics and free month for this firm \u2192')),
     profileEditor({ mode: 'admin', data, base, flash, onSaved: reload }),
-    h('div', { class: 'ed-wrap' }, invitePanel(slug, data.firm, data.pageMode)));
+    h('div', { class: 'ed-wrap' }, invitePanel(slug)));
 }
 
 // One firm's analytics, as the firm sees them, plus the free-month controls.
@@ -292,7 +287,7 @@ function viewFirmAnalytics(slug) {
 
 function viewFirmNew() {
   return h('div', null, h('p', null, h('a', { href: '#firms' }, '← All firms')),
-    profileEditor({ mode: 'new', data: { firm: { province: 'ON' }, status: 'live', pageMode: 'dynamic' }, onCreated: (slug) => { location.hash = `#firms/edit/${slug}`; } }));
+    profileEditor({ mode: 'new', data: { firm: { province: 'ON' }, status: 'live' }, onCreated: (slug) => { location.hash = `#firms/edit/${slug}`; } }));
 }
 
 // ---- add many firms from a spreadsheet (CSV)
@@ -485,13 +480,11 @@ async function viewApprovals() {
     const lat = h('input', { type: 'number', step: 'any', placeholder: 'Latitude, e.g. 45.42', 'aria-label': 'Latitude' });
     const lng = h('input', { type: 'number', step: 'any', placeholder: 'Longitude, e.g. -75.69', 'aria-label': 'Longitude' });
     const needsCoords = m.isNewListing && !m.hasCoordinates;
-    const switchPage = h('input', { type: 'checkbox', checked: !m.featured });
     const approve = h('button', { class: 'primary', type: 'button' }, m.isNewListing ? 'Approve and publish' : 'Approve');
     const reject = h('button', { type: 'button' }, 'Reject');
     const buttons = [approve, reject];
     approve.addEventListener('click', () => decide(m, 'approved', {
       ...(needsCoords ? { lat: lat.value === '' ? null : Number(lat.value), lng: lng.value === '' ? null : Number(lng.value) } : {}),
-      ...(m.pageMode === 'static' ? { switchPage: switchPage.checked } : {}),
     }, out, buttons));
     reject.addEventListener('click', () => decide(m, 'rejected', {}, out, buttons));
     const mapQuery = encodeURIComponent([m.firmName, m.firm.address, m.city, m.province].filter(Boolean).join(' '));
@@ -507,8 +500,6 @@ async function viewApprovals() {
         h('p', { class: 'muted' }, 'The address could not be found exactly. You can approve as is: LawDB puts the pin in the middle of the city and hides the map on the firm page. Or enter the exact position (optional):'),
         h('a', { href: `https://www.google.com/maps/search/${mapQuery}`, target: '_blank', rel: 'noopener' }, 'Find on Google Maps'),
         h('div', { class: 'row' }, lat, lng)),
-      m.pageMode === 'static' && h('label', { class: 'check small' }, switchPage,
-        m.featured ? 'Show this owner\'s edits on the firm\'s page (replaces its custom Featured layout)' : 'Show this owner\'s edits on the firm\'s page'),
       h('div', { class: 'row' }, approve, reject, h('a', { href: `/firms/${m.slug}`, target: '_blank', rel: 'noopener' }, 'View page')), out);
   }
 

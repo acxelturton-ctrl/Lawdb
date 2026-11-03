@@ -5,6 +5,7 @@ import { countInBackground, flush, pendingCounts } from '../src/lib/stats-buffer
 import { buildReport, insightsFor, dayList, analyticsCsv, regionName, CONTACT_ACTIONS } from '../src/lib/firm-analytics.js';
 import { weekStart } from '../src/lib/owner-reports.js';
 import { trialStartedEmail, trialEndingEmail, trialEndedEmail, weeklyReportEmail } from '../src/lib/email.js';
+import { cleanEnquiryEmail } from '../src/lib/firm-edit.js';
 import { readFileSync } from 'node:fs';
 
 let bad = 0;
@@ -114,6 +115,17 @@ ok(weekStart(new Date('2026-11-02T13:00:00Z')).toISOString() === '2026-11-02T13:
   ok(/50 views/.test(wk.subject) && /up 25%/.test(wk.text) && /most often: called/.test(wk.text) && /turn this email off/.test(wk.text) && /free month/.test(wk.text), 'the weekly email shows the week, the trend and the favourite button, offers the free month to Basic firms, and says how to turn it off');
   const wkTrial = weeklyReportEmail(o, { firmName: 'A Law', slug: 'a-law', featured: true, price: '$89 / month', trialDaysLeft: 3, n: { views: 5, previousViews: 0, visitors: 3, clicks: 0, enquiries: 0 }, top: null });
   ok(/3 days left/.test(wkTrial.text) && !/up|down/.test(wkTrial.text.split('\n')[2] || ''), 'a firm in its free month is told how many days are left');
+}
+
+// ---- the second address for enquiries (a Featured benefit)
+{
+  const bad = (v) => { try { cleanEnquiryEmail(v); return false; } catch { return true; } };
+  ok(cleanEnquiryEmail('  Intake@YourFirm.CA ') === 'intake@yourfirm.ca' && cleanEnquiryEmail('') === '' && cleanEnquiryEmail(null) === '' && cleanEnquiryEmail("o'brien+law@firm.co.uk") === "o'brien+law@firm.co.uk", 'the enquiry email is tidied (lower case, blank turns it off)');
+  ok(['not an email', 'a@b', 'a@b.com, c@d.com', 'a b@c.com', '@c.com', 'a@@c.com', '<x>@c.com', 'a@c.com;b@d.com', 'x'.repeat(250) + '@c.com'].every(bad), 'only one plain address is accepted: no lists, spaces, markup or giant strings');
+  const mig = readFileSync(new URL('../migrations/0039_enquiry_email.sql', import.meta.url), 'utf8');
+  ok(/ALTER TABLE firms ADD COLUMN enquiry_email/.test(mig), 'the address has its own column, apart from the public firm data');
+  const pub = readFileSync(new URL('../src/routes/public.js', import.meta.url), 'utf8');
+  ok(/firm\.featured && firm\.enquiry_email/.test(pub), 'it is only used while the firm is Featured');
 }
 
 // ---- the page script and the migration

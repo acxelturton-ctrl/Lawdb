@@ -1185,6 +1185,24 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const planT = (await call('GET', `/api/account/firms/${SLUG}/plan`)).data;
   ok(planT.trial.status === 'active' && /^https:\/\/buy\.stripe\.com\//.test(planT.upgradeUrl) && new URL(planT.upgradeUrl).searchParams.get('client_reference_id') === SLUG && planT.trialAvailable === false, 'the plan card shows the running free month, with the link to keep Featured');
 
+  // a second address for enquiries: a Featured benefit, never public
+  const INTAKE = `intake-${run}@achkar-intake.example`;
+  const leadTo = async (label) => {
+    const email = `visitor-${label}-${run}@example.com`;
+    const r = await call('POST', '/api/leads', { name: 'Visitor ' + label, email, message: 'Hello ' + label, form: 'firm-profile', firm: SLUG, firmName: 'Achkar Law' }, { 'cf-connecting-ip': freshIp() });
+    as(adminJar);
+    const sent = (await call('GET', '/api/admin/audit?limit=200&action=mail.dev')).data.entries.find((e) => e.detail?.subject === 'New enquiry for Achkar Law'); // newest first
+    as(o1.jar);
+    return { status: r.status, to: sent ? sent.entity_id : '' };
+  };
+  ok((await call('PATCH', `/api/account/firms/${SLUG}`, { enquiryEmail: 'not an email' })).status === 422 && (await call('PATCH', `/api/account/firms/${SLUG}`, { enquiryEmail: 'a@x.com, b@y.com' })).status === 422, 'the enquiry email must be exactly one address');
+  const setIntake = await call('PATCH', `/api/account/firms/${SLUG}`, { enquiryEmail: INTAKE.toUpperCase() });
+  ok(setIntake.status === 200 && setIntake.data.changed.includes('enquiryEmail') && (await call('GET', `/api/account/firms/${SLUG}`)).data.enquiryEmail === INTAKE, 'a Featured firm can add a second address for enquiries (kept in lower case)');
+  const toBoth = await leadTo('both');
+  ok(toBoth.status === 201 && toBoth.to.includes(INTAKE) && toBoth.to.includes(ownerEmail1.toLowerCase()), 'the next enquiry is emailed to the owner and to that address');
+  const pub = [await getRaw('/api/firms/' + SLUG), await getRaw('/firms_data.json'), await getRaw('/firms/' + SLUG), await getRaw('/api/firms?limit=500')];
+  ok(pub.every((r) => !r.text.includes(INTAKE) && !r.text.includes('intake-')) && !JSON.stringify((await call('GET', `/api/account/firms/${SLUG}/plan`)).data).includes(INTAKE), 'the address is never in the public firm data, the page or the plan card');
+
   // the full dashboard
   const full = (await call('GET', `/api/account/firms/${SLUG}/analytics?days=7`)).data;
   const act = (k) => full.report.actions.find((a) => a.key === k)?.n;
@@ -1241,6 +1259,9 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const ended = (await call('GET', `/api/account/firms/${SLUG}/analytics`)).data;
   ok(ended.locked === true && ended.plan.trial.status === 'ended' && ended.plan.trialAvailable === false && ended.plan.upgradeUrl !== null && ended.plan.trial.views >= 3, 'the owner sees the locked view with the numbers from the month, and an upgrade link instead of a second free month');
   ok((await call('POST', `/api/account/firms/${SLUG}/trial`)).status === 409, 'a firm gets one free month; a second is refused');
+  const toOwnerOnly = await leadTo('after');
+  ok(toOwnerOnly.status === 201 && !toOwnerOnly.to.includes(INTAKE) && toOwnerOnly.to.includes(ownerEmail1.toLowerCase()), 'back on Basic, enquiries go only to the people who manage the listing (the second address is kept, not used)');
+  ok((await call('GET', `/api/account/firms/${SLUG}`)).data.enquiryEmail === INTAKE && (await call('PATCH', `/api/account/firms/${SLUG}`, { enquiryEmail: 'other@example.com' })).status === 403 && (await call('PATCH', `/api/account/firms/${SLUG}`, { enquiryEmail: '' })).status === 200 && (await call('GET', `/api/account/firms/${SLUG}`)).data.enquiryEmail === '', 'a Basic firm cannot set a new address, but can remove the one it has');
 
   // paying during the free month turns it into a subscription, and the end of the subscription ends Featured
   as(adminJar);

@@ -95,7 +95,7 @@ export async function createLead({ request, env, url, exec }) {
 
   // A form on a firm's own profile page names that firm: route the enquiry to it.
   const firmSlug = str(input.firm, 100);
-  const firm = firmSlug ? await env.DB.prepare("SELECT slug, name FROM firms WHERE slug = ? AND status = 'live'").bind(firmSlug).first() : null;
+  const firm = firmSlug ? await env.DB.prepare("SELECT slug, name, featured, enquiry_email FROM firms WHERE slug = ? AND status = 'live'").bind(firmSlug).first() : null;
 
   await env.DB.prepare('INSERT INTO leads (form,name,email,phone,message,payload,page,firm_slug,ip_hash) VALUES (?,?,?,?,?,?,?,?,?)')
     .bind(form, name, email, phone || null, message || null, JSON.stringify(extra), page || null, firm ? firm.slug : null, ipHash)
@@ -115,8 +115,10 @@ export async function createLead({ request, env, url, exec }) {
       env.DB.prepare("SELECT u.email FROM firm_members m JOIN users u ON u.id = m.user_id WHERE m.firm_slug = ? AND m.status = 'approved' AND u.disabled = 0").bind(firm.slug).all(),
       env.DB.prepare("SELECT COUNT(*) AS n FROM leads WHERE firm_slug = ? AND created_at > datetime('now','-1 hour')").bind(firm.slug).first(),
     ]);
-    if (owners.results.length && sent.n <= MAX_LEAD_EMAILS_PER_FIRM_HOUR) {
-      mailInBackground(env, exec, { to: owners.results.map((o) => o.email), ...leadEmail(env.SITE_ORIGIN || url.origin, firm.name, { name, email, phone, message }) });
+    // The people who manage the listing, plus (a Featured benefit) the one address the firm chose for its enquiries, each only once.
+    const to = [...new Set([...owners.results.map((o) => o.email), ...(firm.featured && firm.enquiry_email ? [firm.enquiry_email] : [])].map((e) => e.toLowerCase()))];
+    if (to.length && sent.n <= MAX_LEAD_EMAILS_PER_FIRM_HOUR) {
+      mailInBackground(env, exec, { to, ...leadEmail(env.SITE_ORIGIN || url.origin, firm.name, { name, email, phone, message }) });
     }
   }
 

@@ -127,3 +127,46 @@ button.linkish { background: none; border: 0; padding: 0; font-weight: 600; font
 /* the owner dashboard uses the same bars and pages; the public header, menu and footer step aside once someone is signed in */
 body.ap-in .site-header, body.ap-in .menu-overlay, body.ap-in .menu-drawer, body.ap-in .site-footer { display: none !important; }
 .page.narrow { max-width: 980px; }
+
+/* ---- features that need Featured: visible, greyed out, with a gold tag and a way to unlock them */
+.ed-card input[type=email] { padding: 8px 10px; font-size: 14px; border-radius: 8px; width: 100%; }
+.ed-card input[type=email]:disabled { opacity: .65; cursor: not-allowed; }
+.ed-pill { display: inline-flex; align-items: center; gap: 4px; margin-left: 8px; padding: 1px 8px; border-radius: 999px; background: #f4ecd8; border: 1px solid #c9a050; color: #142434; font-size: 11px; font-weight: 800; letter-spacing: .02em; vertical-align: 1px; white-space: nowrap; }
+.ed-pill svg { width: 11px; height: 11px; }
+.ed-pill.big { font-size: 12.5px; padding: 3px 11px; margin-left: 0; }
+.ed-field.is-locked input:disabled, .ed-field.is-locked textarea:disabled { background: var(--bg); border-style: dashed; opacity: .75; }
+.ed-lock { align-items: flex-start; }
+.ed-lock svg { margin-top: 2px; }
+.ed-lock .linkish { font-size: 12px; color: var(--ink); text-decoration-color: #c9a050; text-underline-offset: 2px; }
+.ed-unlock { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr); gap: 8px 22px; align-items: center; margin: 12px 0 0; padding: 14px 16px; background: #f4ecd8; border: 1px solid #c9a050; border-radius: 10px; color: #142434; }
+.ed-unlock p { margin: 4px 0 0; color: #2b3a4c; }
+.ed-unlock ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; font-size: 13.5px; }
+.ed-unlock li { display: flex; gap: 7px; align-items: flex-start; }
+.ed-unlock li svg { flex: none; margin-top: 3px; }
+.ed-unlock .row { grid-column: 1 / -1; align-items: center; }
+.ed-unlock .muted { color: #2b3a4c; }
+.pics-locked input[type=file] { opacity: .6; }
+.pics-locked button { display: inline-flex; align-items: center; gap: 4px; border-style: dashed; }
+@media (max-width: 760px) { .ed-unlock { grid-template-columns: 1fr; } .ed-unlock ul { grid-template-columns: 1fr; } }
+
+.fx-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin: 8px 0; }
+.fx-list { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 6px; font-size: 14px; }
+.fx-list li { display: flex; gap: 8px; align-items: flex-start; }
+.fx-list li svg { flex: none; margin-top: 3px; color: #c9a050; }
+.fx-list .tick { flex: none; width: 13px; color: #1e6b3a; font-weight: 800; line-height: 1.4; }
+.fx-list li.locked { color: var(--muted); }
+.fx-lockline { display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 10px; }
+.fx-lockline svg { flex: none; margin-top: 3px; color: #c9a050; }
+@media (max-width: 640px) { .fx-two { grid-template-columns: 1fr; } }
+
+/* ---- the owner's tab bar: the daily tabs on the left, the rest under "More" */
+.menubar-in.has-more { overflow: visible; align-items: stretch; }
+.menubar .tab-lock { display: inline-flex; margin-left: 5px; color: #c9a050; vertical-align: -1px; }
+.mb-more { position: relative; margin-left: auto; }
+.mb-more > summary { list-style: none; cursor: pointer; margin: 0; padding: 11px 12px; font-weight: 600; font-size: 14px; color: var(--muted); border-bottom: 3px solid transparent; white-space: nowrap; }
+.mb-more > summary::-webkit-details-marker { display: none; }
+.mb-more > summary:hover, .mb-more[open] > summary { color: var(--ink); }
+.mb-more.on > summary { color: var(--ink); border-bottom-color: #c9a050; }
+.mb-menu { position: absolute; right: 0; top: 100%; z-index: 70; min-width: 210px; max-width: calc(100vw - 24px); background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 6px; box-shadow: 0 12px 30px -12px rgba(20, 36, 52, .45); }
+.menubar .mb-menu a { display: block; padding: 9px 12px; border-radius: 6px; border-bottom: 0; color: var(--ink); font-size: 14px; }
+.menubar .mb-menu a:hover, .menubar .mb-menu a[aria-current="page"] { background: var(--bg); }

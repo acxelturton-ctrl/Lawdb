@@ -1,7 +1,7 @@
 // A firm's analytics dashboard: what its page got, what visitors did, where they came from. One component, used on the owner's Analytics tab
 // (mode 'owner') and by the admin for any firm (mode 'admin'). The data is counted without tracking anyone (see src/lib/firm-analytics.js).
 // SECURITY: every label from the server goes in as a text node (h()), never as HTML.
-import { h, api, note } from './ui.js';
+import { h, api, note, lockIcon } from './ui.js';
 
 const SVG = 'http://www.w3.org/2000/svg';
 const sv = (tag, attrs, ...kids) => {
@@ -133,10 +133,87 @@ function tableView(report) {
       h('tbody', null, [...report.series].reverse().map((s) => h('tr', null, h('td', null, dayText(s.day, { weekday: 'short', month: 'short', day: 'numeric' })), METRICS.map((m) => h('td', { class: 'n' }, num(s[m.key])))))))));
 }
 
+// ---------------------------------------------------------------- the sample (what Featured shows, with made-up numbers)
+// Draws the chart once its box is on the page, and again when the box changes width.
+function mountChart(box, report, metric, resizeRef) {
+  queueMicrotask(() => {
+    const draw1 = () => lineChart(report, metric, box.getBoundingClientRect().width || 640, box);
+    draw1();
+    if (resizeRef && resizeRef.obs) resizeRef.obs.disconnect();
+    if ('ResizeObserver' in window) {
+      let last = 0;
+      const obs = new ResizeObserver(() => { const w = box.getBoundingClientRect().width; if (Math.abs(w - last) > 4) { last = w; draw1(); } });
+      obs.observe(box);
+      if (resizeRef) resizeRef.obs = obs;
+    }
+  });
+}
+
+// Made-up numbers with the same shape as a real report, so the preview is drawn by the very same code as the real dashboard.
+export function sampleReport(days = 30) {
+  const iso = (d) => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+  const at = (i) => iso(new Date(Date.now() - i * 86400000));
+  const mk = (offset, scale) => Array.from({ length: days }, (_, k) => {
+    const i = days - 1 - k + offset, dow = new Date(at(i) + 'T12:00:00Z').getUTCDay();
+    const views = Math.max(3, Math.round((16 + 6 * Math.sin(i / 3.3) + (days - k) * -0.1) * scale * (dow === 0 || dow === 6 ? 0.55 : 1)));
+    return { day: at(i), views, visitors: Math.round(views * 0.62), clicks: Math.round(views * 0.21), enquiries: i % 6 === 0 ? 1 : 0 };
+  });
+  const series = mk(0, 1), previousSeries = mk(days, 0.86);
+  const sum = (arr, k) => arr.reduce((a, b) => a + b[k], 0);
+  const totals = { views: sum(series, 'views'), visitors: sum(series, 'visitors'), clicks: sum(series, 'clicks'), enquiries: sum(series, 'enquiries') };
+  const previous = { views: sum(previousSeries, 'views'), visitors: sum(previousSeries, 'visitors'), clicks: sum(previousSeries, 'clicks'), enquiries: sum(previousSeries, 'enquiries') };
+  const pct = (a, b) => (b > 0 ? Math.round(((a - b) / b) * 100) : null);
+  const group = (items) => { const total = items.reduce((a, [, , n]) => a + n, 0); return { total, items: items.map(([key, label, n]) => ({ key, label, n, share: Math.round((n / total) * 100) })) }; };
+  const acts = [['call', 'Called', .36, true], ['website', 'Visited your website', .23, true], ['message', 'Opened the message form', .18, true], ['directions', 'Got directions', .12, true], ['reviews', 'Read your Google reviews', .06, false], ['book', 'Booked a call', .03, true], ['email', 'Emailed', .02, true]]
+    .map(([key, label, p, contact]) => ({ key, label, contact, n: Math.max(1, Math.round(totals.clicks * p)), prev: Math.round(totals.clicks * p * 0.85) }));
+  for (const a of acts) { a.share = Math.round((a.n / totals.clicks) * 100); a.bar = Math.round((a.n / acts[0].n) * 100); a.delta = pct(a.n, a.prev); }
+  const dayCount = [1, 2, 3, 4, 5, 6, 0].map((dow) => series.filter((s) => new Date(s.day + 'T12:00:00Z').getUTCDay() === dow));
+  const names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  return {
+    from: series[0].day, to: series[series.length - 1].day, days, since: series[0].day, totals, previous,
+    change: { views: pct(totals.views, previous.views), visitors: pct(totals.visitors, previous.visitors), clicks: pct(totals.clicks, previous.clicks), enquiries: pct(totals.enquiries, previous.enquiries) },
+    series, previousSeries, actions: acts,
+    sources: group([['google', 'Google', 52], ['lawdb', 'Browsing LawDB', 21], ['direct', 'Direct (typed or bookmarked)', 16], ['facebook', 'Facebook', 6], ['bing', 'Bing', 5]]),
+    devices: group([['mobile', 'Phone', 64], ['desktop', 'Computer or tablet', 36]]),
+    regions: group([['CA|ON', 'Ontario', 68], ['CA|QC', 'Quebec', 9], ['CA|BC', 'British Columbia', 7], ['US', 'United States', 6], ['CA|AB', 'Alberta', 4], ['??', 'Somewhere else', 6]]),
+    campaigns: { total: 0, items: [] },
+    weekdays: [0, 1, 2, 3, 4, 5, 6].map((dow) => { const rows = series.filter((s) => new Date(s.day + 'T12:00:00Z').getUTCDay() === dow); return { dow, name: names[dow], views: sum(rows, 'views'), average: rows.length ? Math.round((sum(rows, 'views') / rows.length) * 10) / 10 : 0 }; }),
+    insights: ['Called was the most common action (36% of clicks).', 'Google sent the most visitors (52%).', '64% of views were on a phone, so your phone number and the Message button are what most visitors see first.'],
+  };
+}
+
+// The whole dashboard filled with sample numbers, greyed out and untouchable (inert: nothing in it can be clicked, tabbed to or read out).
+function previewDashboard() {
+  const r = sampleReport(30);
+  const t = r.totals, p = r.previous;
+  const metric = METRICS[0];
+  const chartBox = h('div', { class: 'fa-chart' });
+  const tile = (m) => h('div', { class: 'fa-kpi' + (m.key === 'views' ? ' on' : '') }, h('span', { class: 'fa-kl' }, m.label), h('b', null, num(t[m.key])), deltaChip(r.change[m.key], t[m.key], p[m.key]), h('small', null, `${num(p[m.key])} before`));
+  const maxAct = r.actions[0].n;
+  const wrap = h('div', { class: 'fa-sample', 'aria-hidden': 'true', inert: true },
+    h('div', { class: 'fa-kpis' }, METRICS.map(tile)),
+    h('div', { class: 'card fa-card' }, h('h2', null, 'Page views per day'), chartBox),
+    h('div', { class: 'card fa-card fa-insights' }, h('h2', null, 'What we noticed'), h('ul', null, r.insights.map((i) => h('li', null, i)))),
+    h('div', { class: 'card fa-card wide' }, h('h2', null, 'What visitors did on your page'),
+      r.actions.map((a) => barRow(a.label, a.n, Math.round((a.n / maxAct) * 100), { gold: a.contact, share: a.share, delta: deltaChip(a.delta, a.n, a.prev) }))),
+    h('div', { class: 'fa-grid3' }, breakdown('Where visitors came from', r.sources, ''), devicesCard(r.devices), breakdown('Where visitors are', r.regions, '')));
+  mountChart(chartBox, r, metric, null);
+  return h('div', { class: 'fa-sample-wrap' }, h('div', { class: 'fa-sample-head' }, h('b', null, 'What Featured shows you'), h('span', { class: 'fa-chip' }, 'Sample numbers'), h('span', { class: 'muted' }, 'Yours will be real, from your own page.')), wrap);
+}
+
+// The Analytics tab for someone with no firm of their own yet: the sample, and the way to get a real one.
+export function analyticsPreview({ title = 'Analytics', message, button }) {
+  return h('div', { class: 'fa' }, h('h1', null, title),
+    h('div', { class: 'card lx-locked' }, h('div', { class: 'row spread' }, h('h2', null, 'See what your visitors do'), h('span', { class: 'ed-pill big' }, lockIcon(), 'Featured')),
+      h('p', { class: 'muted' }, message), button ? h('div', { class: 'row' }, button) : null),
+    previewDashboard());
+}
+
 // ---------------------------------------------------------------- the view
 export function analyticsView({ base, mode = 'owner', slug, name = '', onPlanChange }) {
   const root = h('div', { class: 'fa' });
-  let days = 30, metricKey = 'views', data = null, resizeObs = null;
+  let days = 30, metricKey = 'views', data = null;
+  const resizeRef = { obs: null };
 
   async function load() {
     root.replaceChildren(h('p', { class: 'muted' }, 'Loading your analytics…'));
@@ -165,7 +242,7 @@ export function analyticsView({ base, mode = 'owner', slug, name = '', onPlanCha
       h('div', { class: 'lx-tiles' }, tile(s.views, 'Page views, last 30 days'), tile(s.visitors, 'Visitors'), tile(s.clicks, 'Button clicks'), tile(s.enquiries, 'Enquiries')),
       h('div', { class: 'card lx-locked' },
         used ? h('p', { class: 'fa-banner ended' }, `Your free month ended on ${fmtEnd(plan.trial.endsAt)}.`, plan.trial.views != null ? ` During it your page had ${num(plan.trial.views)} views, ${num(plan.trial.actions)} button clicks and ${num(plan.trial.enquiries)} enquiries.` : '') : null,
-        h('h2', null, 'See what your visitors do'),
+        h('div', { class: 'row spread' }, h('h2', null, 'See what your visitors do'), h('span', { class: 'ed-pill big' }, lockIcon(), 'Featured')),
         h('p', { class: 'muted' }, 'On the Basic plan you see these four totals. Featured opens the full dashboard:'),
         h('ul', { class: 'lx-perks' }, [
           'A daily chart of page views, visitors, clicks and enquiries, compared with the period before',
@@ -178,7 +255,8 @@ export function analyticsView({ base, mode = 'owner', slug, name = '', onPlanCha
           h('div', { class: 'row' }, (() => { const b = h('button', { class: 'primary', type: 'button' }, `Start your free month`); b.addEventListener('click', () => startTrial(b)); return b; })()),
           h('p', { class: 'muted' }, `No card needed. Your listing is Featured for ${plan.trialDays} days with everything above, then goes back to Basic by itself unless you subscribe (${plan.price}).`))
         : plan.upgradeUrl ? h('div', null, h('a', { href: plan.upgradeUrl, target: '_blank', rel: 'noopener' }, h('button', { class: 'primary', type: 'button' }, `Upgrade to Featured, ${plan.price}`)), h('p', { class: 'muted' }, 'Cancel any time. Checkout opens on Stripe.'))
-        : h('p', { class: 'muted' }, 'Upgrading is not available right now.')));
+        : h('p', { class: 'muted' }, 'Upgrading is not available right now.')),
+      previewDashboard());
   }
 
   // ---- the banner about the free month
@@ -263,12 +341,7 @@ export function analyticsView({ base, mode = 'owner', slug, name = '', onPlanCha
       skip,
       h('p', { class: 'muted fa-foot' }, 'LawDB counts page views and button clicks. It does not store who visited: no names, no addresses, no cookies. A visitor is one browser visit to your page, so the same person on a different day or device counts again. Numbers update within a minute.'));
 
-    queueMicrotask(() => {
-      const draw1 = () => lineChart(r, metric, chartBox.getBoundingClientRect().width || 640, chartBox);
-      draw1();
-      if (resizeObs) resizeObs.disconnect();
-      if ('ResizeObserver' in window) { let last = 0; resizeObs = new ResizeObserver(() => { const w = chartBox.getBoundingClientRect().width; if (Math.abs(w - last) > 4) { last = w; draw1(); } }); resizeObs.observe(chartBox); }
-    });
+    mountChart(chartBox, r, metric, resizeRef);
     return view;
   }
 

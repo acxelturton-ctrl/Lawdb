@@ -121,9 +121,9 @@ export async function listFirms({ request, env, url }) {
 
 export async function getFirm({ request, env, params }) {
   await requireAdmin(env, request);
-  const row = await env.DB.prepare('SELECT rowid AS id, data, hours, page_mode, about, status, updated_at FROM firms WHERE slug = ?').bind(params.slug).first();
+  const row = await env.DB.prepare('SELECT rowid AS id, data, hours, page_mode, about, status, updated_at, enquiry_email FROM firms WHERE slug = ?').bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
-  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, pageMode: row.page_mode, updatedAt: row.updated_at });
+  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, pageMode: row.page_mode, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '' });
 }
 
 // Any firm's analytics, whatever its plan (the same report the firm sees), plus its free-month record.

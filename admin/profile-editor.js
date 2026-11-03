@@ -8,7 +8,7 @@
 // Only the fields that changed are sent, so an owner on the Basic plan never trips over a locked field they did not touch.
 // SECURITY: every value is put in with text nodes or element properties, never innerHTML.
 
-import { h, api, when, note, hoursEditor, categoryChecks, splitTags, picturesPanel, feedPanel, planPanel, PROVINCES } from './ui.js';
+import { h, api, when, note, hoursEditor, categoryChecks, splitTags, picturesPanel, feedPanel, planPanel, startFreeMonth, PROVINCES } from './ui.js';
 
 export const SOCIALS = [['facebook', 'Facebook'], ['instagram', 'Instagram'], ['linkedin', 'LinkedIn'], ['x', 'X'], ['youtube', 'YouTube']];
 const PROV_SLUG = { ON: 'ontario', QC: 'quebec', BC: 'british-columbia', AB: 'alberta', MB: 'manitoba' };
@@ -39,7 +39,8 @@ let uid = 0;
 // A label with its control: the label is tied to the control (for/id), so clicking it focuses the field and screen readers read it out.
 const fld = (label, el, hint, lockedNote) => {
   const id = el.id || (el.id = 'ed' + (++uid));
-  return h('div', { class: 'ed-field' }, h('label', { for: id }, label), el, lockedNote && h('p', { class: 'ed-lock' }, icon('lock'), lockedNote), hint && h('p', { class: 'ed-hint' }, hint));
+  // A field that needs Featured stays visible, greyed out, with a gold "Featured" tag on its label and a line saying why (lockedNote is that line).
+  return h('div', { class: 'ed-field' + (lockedNote ? ' is-locked' : '') }, h('label', { for: id }, label, lockedNote && h('span', { class: 'ed-pill' }, icon('lock'), 'Featured')), el, lockedNote && (lockedNote.nodeType ? lockedNote : h('p', { class: 'ed-lock' }, icon('lock'), lockedNote)), hint && h('p', { class: 'ed-hint' }, hint));
 };
 const text = (value, props) => h('input', { type: 'text', value: value ?? '', ...props });
 const sameList = (a, b) => JSON.stringify([...a].sort()) === JSON.stringify([...b].sort());
@@ -51,18 +52,22 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   const slug = data.slug || '';
   // Owners: customizing the page is a Featured benefit; a Basic firm keeps its facts up to date and can still clear what it has.
   const locked = mode === 'owner' && !firm.featured;
-  const LOCK = 'A Featured benefit. Upgrade to write your own.';
+  // Opens "Your plan" at the top, which has the free-month and upgrade buttons.
+  let planEl = null;
+  const openPlan = () => { if (planEl) { planEl.open = true; planEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); } };
+  const lockNote = (why) => h('p', { class: 'ed-lock' }, icon('lock'), h('span', null, why, ' ', h('button', { type: 'button', class: 'linkish', onclick: openPlan }, 'Unlock with Featured')));
   const social0 = firm.social && typeof firm.social === 'object' ? firm.social : {};
   const offices0 = (Array.isArray(firm.offices) ? firm.offices : []).map((o) => ({ name: o.name || '', address: o.address || '' }));
 
   // ---- the controls
   const c = {
     name: text(firm.name, { maxlength: 200, required: true, 'aria-label': 'Official firm name' }),
-    blurb: h('textarea', { maxlength: 500, rows: 2, disabled: locked }, firm.blurb || ''),
+    blurb: h('textarea', { maxlength: 500, rows: 2, disabled: locked, placeholder: locked ? 'A short line shown in lists and search results' : null }, firm.blurb || ''),
     tags: text((firm.tags || []).join(', '), { placeholder: 'Divorce, Child Custody' }),
     website: text(firm.website, { maxlength: 300, placeholder: 'https://' }),
-    bookingUrl: text(firm.bookingUrl, { maxlength: 500, placeholder: 'https://', disabled: locked }),
-    about: h('textarea', { class: 'tall', maxlength: 2000, disabled: locked }, firm.about || ''),
+    bookingUrl: text(firm.bookingUrl, { maxlength: 500, placeholder: locked ? 'https://calendly.com/your-firm' : 'https://', disabled: locked }),
+    about: h('textarea', { class: 'tall', maxlength: 2000, disabled: locked, placeholder: locked ? 'Tell clients about your firm, who you help and how you work.' : null }, firm.about || ''),
+    enquiryEmail: h('input', { type: 'email', value: data.enquiryEmail || '', maxlength: 254, placeholder: locked ? 'intake@your-firm.ca' : 'intake@yourfirm.ca', disabled: locked, autocomplete: 'off', 'aria-label': 'Send enquiries to' }),
     address: text(firm.address, { maxlength: 300 }),
     phone: text(firm.phone, { maxlength: 30 }),
     city: text(firm.city, { maxlength: 80, disabled: !admin }),
@@ -104,6 +109,7 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     put('phone', c.phone.value.trim(), firm.phone || '');
     put('website', c.website.value.trim(), firm.website || '');
     if (!isNew) put('bookingUrl', c.bookingUrl.value.trim(), firm.bookingUrl || '');
+    if (!isNew) put('enquiryEmail', c.enquiryEmail.value.trim().toLowerCase(), (data.enquiryEmail || '').toLowerCase());
     put('address', c.address.value.trim(), firm.address || '');
     const tags = splitTags(c.tags.value); if (!sameList(tags, firm.tags || []) || (isNew && tags.length)) p.tags = tags;
     const cs = cats.get(); if (!sameList(cs, firm.caseTypes || []) || (isNew && cs.length)) p.caseTypes = cs;
@@ -195,18 +201,18 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     isNew ? fld('Profile Status', c.status, 'Hidden: saved, but shown nowhere until you switch it on.')
       : h('div', { class: 'ed-row' },
         fld('Profile Status', c.status, data.status === 'pending' ? 'Approve it under Approvals.' : null),
-        fld('Plan', c.featured, null, mode === 'owner' ? 'Managed by LawDB (see Your plan)' : null)),
+        fld('Plan', c.featured, mode === 'owner' ? 'Managed by LawDB (see Your plan)' : null)),
     admin && !isNew && fld('Profile page style', c.pageMode, 'The original pages keep their own wording; the database style shows everything entered here.'),
     fld('Official Firm Name', c.name),
     !isNew && fld('Username', text('@' + slug, { readonly: true, 'aria-label': 'Username' }), 'The address of the page: lawdb.ca/firms/' + slug),
-    !isNew && fld('Tagline', c.blurb, 'Shown in lists and search results.', locked ? LOCK : null),
+    !isNew && fld('Tagline', c.blurb, 'Shown in lists and search results.', locked ? lockNote('Writing your own tagline needs Featured.') : null),
     fld('Practice areas', c.tags, 'Comma separated, up to 10.'),
     h('label', null, 'Categories'), cats.el);
 
   // ---- Website & Blog
   const web = card('Website & Blog', 'globe',
     fld('Website', c.website),
-    !isNew && fld('Booking link', c.bookingUrl, 'Optional. Your calendar or booking page. It turns on the Book a call button.', locked ? LOCK : null),
+    !isNew && fld('Booking link', c.bookingUrl, 'Optional. Your calendar or booking page. It turns on the Book a call button.', locked ? lockNote('A booking link needs Featured. Until then the Book a call button on your page stays greyed out.') : null),
     !isNew && h('div', { class: 'ed-sub-h' }, 'Profiles'),
     !isNew && SOCIALS.map(([k, label]) => fld(label, social[k])),
     !isNew && h('div', { class: 'ed-sub-h' }, 'Blog feed'),
@@ -255,10 +261,13 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   const upd = () => { count.textContent = `${c.about.value.length} / 2000`; };
   c.about.addEventListener('input', upd); upd();
   const desc = card('Description', 'text',
-    fld('About the firm', c.about, 'Plain text. A blank line starts a new paragraph.', locked ? LOCK : null), count);
+    fld('About the firm', c.about, 'Plain text. A blank line starts a new paragraph.', locked ? lockNote('Writing your own description needs Featured. Your page shows a short standard line until then.') : null), count);
   const addr = card('Address', 'home',
     fld('Street address', c.address, 'The map pin and the directions link follow this.'),
     fld('Phone', c.phone),
+    !isNew && fld('Send enquiries to', c.enquiryEmail,
+      locked ? 'Never shown on your page.' : 'Enquiries from your page are emailed to the address you sign in with, and also to this one, for example your intake desk. Never shown on your page.',
+      locked ? lockNote('On Basic, enquiries go only to the email you sign in with. Featured lets you add a second address, like your intake desk.') : null),
     !isNew && h('div', { class: 'ed-sub-h' }, 'Other offices'),
     !isNew && officeList,
     !isNew && h('div', { class: 'row' }, h('button', { type: 'button', onclick: () => { addOffice(); changed(); } }, 'Add an office')),
@@ -269,11 +278,24 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   // On a phone they stack in that order.
   const grid = h('div', { class: 'ed-grid' }, h('div', { class: 'ed-stack' }, basic), h('div', { class: 'ed-stack' }, web, desc), h('div', { class: 'ed-stack' }, loc, addr, hours));
   const hand = mode === 'owner' && data.pageMode !== 'dynamic' && note('msg-err', 'Your page has a custom layout that we update for you. Your changes still appear in the directory, search and map. Write to info@lawdb.ca to have the page itself updated.');
-  const lockNote = locked && h('p', { class: 'ed-banner' }, icon('lock'), h('span', null, h('b', null, 'Customizing your page is a Featured benefit. '), 'You can always keep your facts up to date here: name, phone, address, website, practice areas and opening hours. Upgrade to Featured to write your own description and tagline, add a booking link and add pictures.'));
+  // On Basic: a clear list of what is locked and the way to unlock it (the free month, or Featured), instead of a sentence nobody reads.
+  const unlockBanner = locked && (() => {
+    const cta = h('div', { class: 'row' });
+    fetch(`${base}/plan`, { credentials: 'same-origin' }).then((r) => r.json()).then((plan) => {
+      if (plan.trialAvailable) { const b = h('button', { class: 'primary', type: 'button' }, 'Start my free month'); b.addEventListener('click', () => startFreeMonth(base, b)); cta.append(b, h('span', { class: 'muted' }, `${plan.trialDays} days of Featured, no card needed`)); }
+      else if (plan.upgradeUrl) cta.append(h('a', { href: plan.upgradeUrl, target: '_blank', rel: 'noopener' }, h('button', { class: 'primary', type: 'button' }, 'Upgrade to Featured')), h('span', { class: 'muted' }, plan.price));
+    }).catch(() => {});
+    const item = (t) => h('li', null, icon('lock'), t);
+    return h('div', { class: 'ed-unlock' },
+      h('div', null, h('b', null, 'Locked on the Basic plan'), h('p', { class: 'muted' }, 'You can always keep your facts up to date here: name, phone, address, website, practice areas, opening hours and social profiles. Featured unlocks:')),
+      h('ul', null, ['Your own description and tagline', 'A booking link and the Book a call button', 'Profile pictures: logo, cover and photos', 'Sending enquiries to a second email address', 'The analytics dashboard', 'The enquiries inbox, with notes and export'].map(item)),
+      cta);
+  })();
 
-  form.append(...[head, flash ? note('msg-ok', flash) : null, hand, lockNote, imagesBar, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
+  form.append(...[head, flash ? note('msg-ok', flash) : null, hand, unlockBanner, imagesBar, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
   // The plan (and what Featured adds) is one tap away at the top, not a page-long card in front of the form.
   const plan = mode === 'owner' && h('details', { class: 'ed-collapse ed-plan' }, h('summary', null, 'Your plan: ', h('b', null, firm.featured ? 'Featured' : 'Basic (free)'), !firm.featured && h('span', { class: 'ed-plan-cta' }, 'See what Featured adds')), h('div', { class: 'inner' }, planPanel(`${base}/plan`)));
+  planEl = plan || null;
   const root = h('div', { class: 'ed-wrap' }, plan, form);
   changed();
   return root;

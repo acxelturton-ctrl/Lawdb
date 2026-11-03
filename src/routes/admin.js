@@ -11,6 +11,8 @@ import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES, FIRM_STATUSES } 
 import { placeFor } from '../lib/geocode.js';
 import { signinCheck } from '../lib/oauth.js';
 import { findLogos, fetchPicture } from '../lib/logo-finder.js';
+import { firmAnalytics, RANGES } from '../lib/firm-analytics.js';
+import { startTrial, endTrial, getTrial, trialFunnel, trialAdminChanged } from '../lib/trial.js';
 
 export { CASE_TYPES };
 
@@ -46,6 +48,7 @@ export async function stats({ request, env }) {
     leadsLast7Days: week.results[0].n,
     pendingApprovals: pending.results[0].n,
     pendingComments: comments.results[0].n,
+    trials: await trialFunnel(env),
     mailFailures24h: mailFail.results[0].n,
     lastBackupAt: backup.results[0].last,
     openReports: reports.results[0].n,
@@ -123,6 +126,47 @@ export async function getFirm({ request, env, params }) {
   return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, pageMode: row.page_mode, updatedAt: row.updated_at });
 }
 
+// Any firm's analytics, whatever its plan (the same report the firm sees), plus its free-month record.
+export async function firmAnalyticsReport({ request, env, params, url }) {
+  await requireAdmin(env, request);
+  const firm = await env.DB.prepare('SELECT name, featured FROM firms WHERE slug = ?').bind(params.slug).first();
+  if (!firm) throw new HttpError(404, 'Firm not found');
+  const days = clampInt(url.searchParams.get('days'), 30, 1, 90);
+  return reply({ locked: false, name: firm.name, admin: true, report: await firmAnalytics(env, params.slug, RANGES.includes(days) ? days : 30), plan: { featured: !!firm.featured, trial: await getTrial(env, params.slug) } });
+}
+
+// Give a firm a free month by hand (any length up to 90 days), or restart one.
+export async function trialGrant({ request, env, params, url, exec }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 200).catch(() => ({}));
+  if (body.keep === true) {
+    // "Keep Featured for good": the free month stops being a free month; the firm stays Featured with no end date (the admin can switch it off like any hand-set plan).
+    const t = await getTrial(env, params.slug);
+    if (!t || t.status !== 'active') throw new HttpError(409, 'There is no free month running for this firm.');
+    await trialAdminChanged(env, params.slug, true);
+    await audit(env, admin, 'trial.keep', 'firm', params.slug, {});
+    return reply({ ok: true, trial: await getTrial(env, params.slug) });
+  }
+  const trial = await startTrial(env, { slug: params.slug, actor: admin, source: 'admin', days: body.days, minutes: body.minutes, origin: env.SITE_ORIGIN || url.origin, exec });
+  return reply({ ok: true, trial }, 201);
+}
+
+export async function trialEnd({ request, env, params, url, exec }) {
+  const admin = await requireAdmin(env, request);
+  const trial = await endTrial(env, { slug: params.slug, actor: admin, why: 'ended by the admin', origin: env.SITE_ORIGIN || url.origin, exec });
+  return reply({ ok: true, trial });
+}
+
+// The funnel (running, ending this week, ended, subscribed, conversion) and the latest trials.
+export async function trialsList({ request, env }) {
+  await requireAdmin(env, request);
+  const { results } = await env.DB.prepare(
+    `SELECT t.firm_slug AS slug, f.name, f.city, f.province, t.source, t.started_at AS startedAt, t.ends_at AS endsAt, t.status, t.views, t.actions, t.enquiries
+     FROM firm_trials t JOIN firms f ON f.slug = t.firm_slug ORDER BY t.started_at DESC LIMIT 200`
+  ).all();
+  return reply({ funnel: await trialFunnel(env), trials: results });
+}
+
 export async function updateFirm({ request, env, params }) {
   const admin = await requireAdmin(env, request);
   const body = await readJson(request, 20000);
@@ -133,8 +177,11 @@ export async function updateFirm({ request, env, params }) {
 export async function listAudit({ request, env, url }) {
   await requireAdmin(env, request);
   const limit = clampInt(url.searchParams.get('limit'), 50, 1, 200);
-  const { results } = await env.DB.prepare('SELECT id, at, actor_email, action, entity, entity_id, detail FROM audit_log ORDER BY id DESC LIMIT ?')
-    .bind(limit)
+  // Optional filters (an exact action name, an exact entity id), so a busy log can still be searched for one kind of entry.
+  const action = (url.searchParams.get('action') || '').slice(0, 60), entityId = (url.searchParams.get('entity_id') || '').slice(0, 200);
+  const where = [action && 'action = ?', entityId && 'entity_id = ?'].filter(Boolean);
+  const { results } = await env.DB.prepare(`SELECT id, at, actor_email, action, entity, entity_id, detail FROM audit_log ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY id DESC LIMIT ?`)
+    .bind(...[action, entityId].filter(Boolean), limit)
     .all();
   return reply({ entries: results.map((r) => ({ ...r, detail: r.detail ? JSON.parse(r.detail) : null })) });
 }

@@ -19,6 +19,7 @@ const TABLES = {
   blog_posts: 'SELECT * FROM blog_posts ORDER BY rowid',
   firm_members: 'SELECT * FROM firm_members ORDER BY id',
   firm_subscriptions: 'SELECT * FROM firm_subscriptions ORDER BY created_at',
+  firm_trials: 'SELECT * FROM firm_trials ORDER BY firm_slug', // the free months (the per-firm view counters are derived and not backed up)
   firm_feeds: 'SELECT * FROM firm_feeds ORDER BY firm_slug',
   site_settings: 'SELECT * FROM site_settings ORDER BY key',
   users: 'SELECT id, email, role, disabled, created_at, last_login_at FROM users ORDER BY id', // never tokens or sessions

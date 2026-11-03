@@ -9,6 +9,7 @@ import { adminEmails } from './auth.js';
 import { mailInBackground, featuredOnEmail, featuredOffEmail, paymentReviewEmail, paymentFailedEmail } from './email.js';
 
 export const FEATURED_PRICE_LABEL = '$89 / month';
+const TRIAL_DAYS = 30; // the free month (trial.js has the rules; the number is repeated here only to tell the dashboard)
 const enc = new TextEncoder();
 const toHex = (buf) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
 
@@ -52,8 +53,16 @@ export async function reconcileFeatured(env, slug, why) {
   const { results: subs } = await env.DB.prepare('SELECT status, featured_before FROM firm_subscriptions WHERE firm_slug = ?').bind(slug).all();
   const live = subs.some((s) => s.status === 'active' || s.status === 'past_due'); // past_due keeps it on while Stripe retries the card
   const keep = subs.some((s) => s.featured_before === 1);
-  if (live) return setFeatured(env, slug, true, null, why);
-  if (!keep && subs.some((s) => s.status === 'canceled')) return setFeatured(env, slug, false, null, why);
+  if (live) {
+    // A payment ends the free month in the firm's favour: the trial is marked converted so its ending never touches the paid listing.
+    await env.DB.prepare("UPDATE firm_trials SET status = 'subscribed', ended_at = datetime('now') WHERE firm_slug = ? AND status = 'active'").bind(slug).run();
+    return setFeatured(env, slug, true, null, why);
+  }
+  if (!keep && subs.some((s) => s.status === 'canceled')) {
+    // A free month still running keeps the listing Featured until it ends by itself.
+    if (await env.DB.prepare("SELECT 1 FROM firm_trials WHERE firm_slug = ? AND status = 'active'").bind(slug).first()) return false;
+    return setFeatured(env, slug, false, null, why);
+  }
   return false;
 }
 
@@ -72,6 +81,8 @@ async function onCheckoutCompleted(env, session, exec, origin) {
   const email = String(session.customer_details?.email || session.customer_email || '').trim().toLowerCase();
   const slug = String(session.client_reference_id || '').trim().toLowerCase();
   const firm = slug ? await env.DB.prepare("SELECT slug, featured FROM firms WHERE slug = ? AND status = 'live'").bind(slug).first() : null;
+  // A firm that is Featured only because of its free month was not "already Featured by hand": cancelling the subscription must still end Featured.
+  const onTrial = !!(firm && await env.DB.prepare("SELECT 1 FROM firm_trials WHERE firm_slug = ? AND status = 'active'").bind(slug).first());
   const matched = !!(firm && email && (await ownerEmails(env, slug)).map((e) => e.toLowerCase()).includes(email));
 
   const id = session.subscription;
@@ -86,7 +97,7 @@ async function onCheckoutCompleted(env, session, exec, origin) {
      ON CONFLICT (subscription_id) DO UPDATE SET customer_id = excluded.customer_id, firm_slug = excluded.firm_slug, payer_email = excluded.payer_email,
        status = excluded.status, amount_cents = COALESCE(firm_subscriptions.amount_cents, excluded.amount_cents), currency = COALESCE(firm_subscriptions.currency, excluded.currency),
        featured_before = excluded.featured_before, updated_at = datetime('now')`
-  ).bind(id, session.customer || null, firm ? slug : null, email || null, status, Number.isFinite(session.amount_total) ? session.amount_total : null, session.currency || null, firm?.featured ? 1 : 0).run();
+  ).bind(id, session.customer || null, firm ? slug : null, email || null, status, Number.isFinite(session.amount_total) ? session.amount_total : null, session.currency || null, firm?.featured && !onTrial ? 1 : 0).run();
   await audit(env, null, 'stripe.checkout', 'firm', slug || '(none)', { subscription: id, email, status, matched });
 
   if (status === 'needs_review') {
@@ -190,10 +201,12 @@ export async function dismissPayment(env, actor, id) {
 // What an owner sees on their plan card.
 export async function planInfo(env, user, slug) {
   const firm = await env.DB.prepare("SELECT featured, status FROM firms WHERE slug = ?").bind(slug).first();
+  const trialRow = await env.DB.prepare('SELECT status, started_at AS startedAt, ends_at AS endsAt, views, actions, enquiries FROM firm_trials WHERE firm_slug = ?').bind(slug).first();
   const sub = await env.DB.prepare("SELECT status, period_end AS periodEnd, cancel_at_period_end AS cancelAtPeriodEnd FROM firm_subscriptions WHERE firm_slug = ? AND status IN ('active','past_due') ORDER BY created_at DESC LIMIT 1").bind(slug).first();
   const featured = !!firm?.featured;
   const base = (env.STRIPE_PAYMENT_LINK || '').trim();
-  const upgradeUrl = !featured && firm?.status === 'live' && /^https:\/\/buy\.stripe\.com\//.test(base)
+  // The checkout link is for Basic firms, and for a firm in its free month (that is how it keeps Featured).
+  const upgradeUrl = (!featured || trialRow?.status === 'active') && firm?.status === 'live' && /^https:\/\/buy\.stripe\.com\//.test(base)
     ? `${base}${base.includes('?') ? '&' : '?'}client_reference_id=${encodeURIComponent(slug)}&prefilled_email=${encodeURIComponent(user.email)}`
     : null;
   const portal = (env.STRIPE_PORTAL_URL || '').trim();
@@ -203,5 +216,9 @@ export async function planInfo(env, user, slug) {
     subscription: sub ? { status: sub.status, periodEnd: sub.periodEnd, cancelAtPeriodEnd: !!sub.cancelAtPeriodEnd } : null,
     upgradeUrl,
     portalUrl: sub && /^https:\/\//.test(portal) ? portal : null,
+    // The free month: running (with its end date), already used, or still on offer to this firm.
+    trial: trialRow ? { status: trialRow.status, startedAt: trialRow.startedAt, endsAt: trialRow.endsAt, daysLeft: trialRow.status === 'active' ? Math.max(0, Math.ceil((new Date(trialRow.endsAt.replace(' ', 'T') + 'Z') - Date.now()) / 86400000)) : 0, views: trialRow.views, actions: trialRow.actions, enquiries: trialRow.enquiries } : null,
+    trialAvailable: !trialRow && !featured && firm?.status === 'live',
+    trialDays: TRIAL_DAYS,
   };
 }

@@ -3,6 +3,7 @@
 // never innerHTML, so hostile messages cannot run code in an admin's browser.
 
 import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, feedPanel, CASE_LABELS, PROVINCES } from './ui.js';
+import { analyticsView } from './firm-analytics.js';
 import { profileEditor } from './profile-editor.js';
 
 const app = document.getElementById('app');
@@ -110,6 +111,9 @@ async function viewOverview() {
     h('div', { class: 'grid' },
       stat(s.leads.new, 'New leads'), stat(s.leadsLast7Days, 'Leads, last 7 days'),
       stat(s.pendingApprovals, 'Waiting for your approval'), stat(s.featuredSubscriptions, 'Featured subscriptions'), stat(money(s.featuredMonthlyCents), 'Featured, per month'), stat(s.firms, 'Firms listed'), stat(s.featured, 'Featured firms'), stat(s.blogPosts, 'Blog posts')),
+    s.trials && h('div', { class: 'card' }, h('b', null, 'Free months'),
+      h('p', { class: 'muted' }, `Running ${s.trials.active} (${s.trials.endingSoon} ending within a week) \u00b7 Ended without paying ${s.trials.ended} \u00b7 Turned into a subscription ${s.trials.subscribed}${s.trials.conversion !== null ? ` \u00b7 Conversion ${s.trials.conversion}%` : ''}`),
+      h('p', { class: 'muted' }, 'Owners start a free month from their dashboard (30 days, no card). Give or end one for any firm from that firm\u2019s Analytics page under Firms.')),
     h('div', { class: 'card' }, h('b', null, 'Backups'),
       h('p', { class: 'muted' }, s.lastBackupAt ? 'Last backup: ' + when(s.lastBackupAt) + '. A copy is made every night and kept for 35 days.' : 'No backup has run yet.'),
       h('div', { class: 'row' }, backupBtn), backupOut),
@@ -275,9 +279,15 @@ async function viewFirmEdit(slug, flash) {
   const base = '/api/admin/firms/' + encodeURIComponent(slug);
   const data = await api('GET', base);
   const reload = async (message) => mount(shell(me, 'firms', await viewFirmEdit(slug, message || undefined)));
-  return h('div', null, h('p', null, h('a', { href: '#firms' }, '← All firms')),
+  return h('div', null, h('p', { class: 'row spread' }, h('a', { href: '#firms' }, '← All firms'), h('a', { href: `#firms/analytics/${encodeURIComponent(slug)}` }, 'Analytics and free month for this firm \u2192')),
     profileEditor({ mode: 'admin', data, base, flash, onSaved: reload }),
     h('div', { class: 'ed-wrap' }, invitePanel(slug, data.firm, data.pageMode)));
+}
+
+// One firm's analytics, as the firm sees them, plus the free-month controls.
+function viewFirmAnalytics(slug) {
+  return h('div', null, h('p', null, h('a', { href: `#firms/edit/${encodeURIComponent(slug)}` }, '\u2190 Back to the firm'), ' \u00b7 ', h('a', { href: `/firms/${slug}`, target: '_blank', rel: 'noopener' }, 'View public page')),
+    analyticsView({ base: '/api/admin/firms/' + encodeURIComponent(slug), mode: 'admin', slug }));
 }
 
 function viewFirmNew() {
@@ -1184,6 +1194,7 @@ async function render(user) {
   mount(shell(user, id, h('p', { class: 'muted' }, 'Loading…')));
   try {
     const [view] = await Promise.all([id === 'firms' && sub === 'edit' && arg ? viewFirmEdit(decodeURIComponent(arg))
+      : id === 'firms' && sub === 'analytics' && arg ? viewFirmAnalytics(decodeURIComponent(arg))
       : id === 'firms' && sub === 'new' ? viewFirmNew()
       : id === 'firms' && sub === 'import' ? viewFirmImport()
       : VIEWS[id](), ensureStats()]);

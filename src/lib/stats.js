@@ -7,7 +7,10 @@
 import { forecast, growthTips } from './forecast.js';
 
 export const CASE_IDS = new Set(['injury', 'traffic', 'criminal', 'family', 'realestate', 'wills', 'business', 'employment', 'immigration', 'litigation']);
-export const EVENTS = new Set(['call', 'website', 'directions', 'book', 'book-locked', 'follow', 'claim', 'cta-featured', 'cta-list']);
+// The clicks that matter. The first group is what a firm's visitors do on its page (shown on the firm's dashboard); cta-* are the buttons that sell Featured.
+export const FIRM_ACTIONS = ['call', 'message', 'email', 'website', 'directions', 'reviews', 'book', 'book-locked', 'follow', 'rate', 'blog',
+  'social-facebook', 'social-instagram', 'social-linkedin', 'social-x', 'social-youtube'];
+export const EVENTS = new Set([...FIRM_ACTIONS, 'claim', 'cta-featured', 'cta-list']);
 export const RETENTION_DAYS = { counts: 400, searchText: 90 };
 
 // "Today" for the owner is a Toronto day, so a day's numbers match the day they lived through.
@@ -83,6 +86,32 @@ export function eventIncs(body, geo = {}) {
   return null;
 }
 
+// ---- the same message, counted for ONE firm (see migration 0038): only a message about a firm's own page (/firms/<slug>) counts here.
+// Returns [[slug, metric, label], ...]. "visitor" is one per browser-tab visit that looked at the page (the page script says so with v:1, using a note
+// that lives only in that tab); the source, region and campaign are counted once per such visit, so they add up to visitors, not to page views.
+export const FIRM_PATH = /^\/firms\/([a-z0-9][a-z0-9-]{0,80})$/;
+export function firmIncs(body, geo = {}) {
+  if (!body || typeof body !== 'object') return [];
+  const path = cleanPath(body.p);
+  const m = path && FIRM_PATH.exec(path);
+  if (!m) return [];
+  const slug = m[1];
+  if (body.t === 'pv') {
+    const out = [[slug, 'pv', ''], [slug, 'dev', body.m ? 'mobile' : 'desktop']];
+    if (body.s === 1) out.push([slug, 'entry', '']);
+    if (body.v === 1) {
+      const country = /^[A-Z]{2}$/.test(geo.country || '') ? geo.country : '??';
+      const region = /^[A-Z0-9]{1,3}$/.test(geo.region || '') ? geo.region : '';
+      out.push([slug, 'visitor', ''], [slug, 'ref', cleanRef(body.r) || (body.s === 1 ? 'direct' : 'lawdb')], [slug, 'geo', region ? `${country}|${region}` : country]);
+      const utm = cleanUtm(body.u);
+      if (utm) out.push([slug, 'utm', utm]);
+    }
+    return out;
+  }
+  if (body.t === 'ev') return FIRM_ACTIONS.includes(body.e) ? [[slug, 'ev', body.e]] : [];
+  return [];
+}
+
 // A simple per-isolate throttle (nothing is stored anywhere): one address may send 90 messages a minute, then the rest are ignored.
 const seen = new Map();
 export function throttled(ip, now = Date.now()) {
@@ -99,11 +128,12 @@ export async function record(env, day, incs) {
 }
 
 export async function prune(env) {
-  const [a, b] = await env.DB.batch([
+  const [a, b, c] = await env.DB.batch([
     env.DB.prepare(`DELETE FROM stats_daily WHERE day < date('now', '-${RETENTION_DAYS.counts} days')`),
     env.DB.prepare(`DELETE FROM stats_daily WHERE kind IN ('town', 'noparse') AND day < date('now', '-${RETENTION_DAYS.searchText} days')`),
+    env.DB.prepare(`DELETE FROM firm_stats_daily WHERE day < date('now', '-${RETENTION_DAYS.counts} days')`), // each firm's own counters, same 400 days
   ]);
-  return (a.meta?.changes ?? 0) + (b.meta?.changes ?? 0);
+  return (a.meta?.changes ?? 0) + (b.meta?.changes ?? 0) + (c.meta?.changes ?? 0);
 }
 
 // ---- the owner's report

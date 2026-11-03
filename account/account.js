@@ -2,6 +2,7 @@
 // SECURITY: everything shown here (including enquiries typed by the public) is inserted as text nodes only.
 
 import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, feedPanel, planPanel, PROVINCES } from '/admin/ui.js';
+import { analyticsView } from '/admin/firm-analytics.js';
 import { profileEditor } from '/admin/profile-editor.js';
 
 const app = document.getElementById('app');
@@ -92,7 +93,7 @@ async function renderLogin() {
 function shell(active, content, { wide = false } = {}) {
   document.body.classList.add('ap', 'ap-in'); // hides the public header and footer on these pages (see msp.css)
   const tabs = [['feed', 'Feed'], ['network', 'My network'], ['saved', 'Saved'], ['firms', 'My firms'], ['profile', 'Profile'], ['find', 'Add or claim a firm']];
-  if (approved().length) tabs.splice(3, 0, ['leads', 'Enquiries']);
+  if (approved().length) tabs.splice(3, 0, ['stats', 'Analytics'], ['leads', 'Enquiries']);
   const fresh = approved().reduce((n, m) => n + (m.newLeads || 0), 0);
   const mine = approved();
   const initial = (user.name || user.email || '?').trim()[0].toUpperCase();
@@ -127,10 +128,11 @@ function viewFirms() {
       : m.status === 'pending' ? note('msg-ok', 'Waiting for approval. We will email you as soon as it is done.')
       : note('msg-err', 'This request was declined. If that is a mistake, write to info@lawdb.ca.');
     return h('div', { class: 'card' },
-      h('div', { class: 'row spread' }, h('b', null, m.name), h('span', { class: 'badge' + (m.status === 'approved' ? (m.featured ? ' featured' : '') : ' new') }, m.status === 'approved' ? (m.featured ? 'Featured' : 'Basic') : m.status === 'pending' ? 'Pending' : 'Declined')),
+      h('div', { class: 'row spread' }, h('b', null, m.name), h('span', { class: 'badge' + (m.status === 'approved' ? (m.featured ? ' featured' : '') : ' new') }, m.status === 'approved' ? (m.trialEnds ? 'Featured, free month' : m.featured ? 'Featured' : 'Basic') : m.status === 'pending' ? 'Pending' : 'Declined')),
       h('p', { class: 'muted' }, where(m)), state,
       m.status === 'approved' && h('div', { class: 'row' },
         h('a', { href: `#edit/${m.slug}` }, h('button', { class: 'primary', type: 'button' }, 'Edit my profile')),
+        h('a', { href: `#stats/${m.slug}` }, h('button', { type: 'button' }, !m.featured && m.firmStatus === 'live' ? 'Analytics and free month' : 'Analytics')),
         !m.featured && m.firmStatus === 'live' && h('a', { href: `#edit/${m.slug}` }, h('button', { type: 'button' }, 'Upgrade to Featured')),
         h('a', { href: `#leads/${m.slug}` }, h('button', { type: 'button' }, 'Enquiries')),
         m.firmStatus === 'live' && h('a', { href: `/firms/${m.slug}`, target: '_blank', rel: 'noopener' }, 'View public page')));
@@ -251,6 +253,19 @@ async function viewEdit(slug, flash) {
   const reload = async (message) => mount(shell('firms', await viewEdit(slug, message || undefined), { wide: true }));
   return h('div', null, h('p', null, h('a', { href: '#firms' }, '← My firms')),
     profileEditor({ mode: 'owner', data, base, flash, onSaved: reload }));
+}
+
+// ---------------------------------------------------------------- analytics
+function viewStats(slug) {
+  const mine = approved();
+  if (!slug) {
+    if (mine.length === 1) { location.replace(`#stats/${mine[0].slug}`); return h('p', { class: 'muted' }, 'Loading\u2026'); }
+    return h('div', null, h('h1', null, 'Analytics'), mine.length ? mine.map((m) => h('a', { class: 'firm-row', href: `#stats/${m.slug}` }, h('span', null, m.name, h('small', null, where(m))), h('span', { class: 'badge' + (m.featured ? ' featured' : '') }, m.trialEnds ? 'Free month' : m.featured ? 'Featured' : 'Basic'))) : h('p', { class: 'muted' }, 'You do not manage a firm yet.'));
+  }
+  if (!mine.some((m) => m.slug === slug)) return note('msg-err', 'You do not manage this firm.');
+  const firmName = (mine.find((m) => m.slug === slug) || {}).name || slug;
+  const back = mine.length > 1 ? h('p', null, h('a', { href: '#stats' }, '\u2190 All my firms')) : null;
+  return h('div', null, back, analyticsView({ base: `/api/account/firms/${encodeURIComponent(slug)}`, mode: 'owner', slug, name: firmName, onPlanChange: () => loadMe().catch(() => {}) }));
 }
 
 // ---------------------------------------------------------------- enquiries
@@ -659,7 +674,7 @@ async function render() {
   document.body.classList.toggle('lw-focus', !!(user && !user.onboarded));
   if (user && !user.onboarded) return renderWizard();
   const [name, arg] = location.hash.slice(1).split('/');
-  const tab = ['feed', 'network', 'saved', 'profile', 'find', 'leads'].includes(name) ? name : name === 'following' ? 'network' : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
+  const tab = ['feed', 'network', 'saved', 'profile', 'find', 'leads', 'stats'].includes(name) ? name : name === 'following' ? 'network' : (!name && !approved().length && !memberships.length ? 'feed' : 'firms');
   mount(shell(tab, h('p', { class: 'muted' }, 'Loading…')));
   try {
     let view;
@@ -670,6 +685,7 @@ async function render() {
     else if (tab === 'profile') view = await viewProfile();
     else if (name === 'edit' && arg) { view = await viewEdit(arg); if (seq !== renderSeq) return; return mount(shell('firms', view, { wide: true })); }
     else if (name === 'leads') view = await viewLeads(arg);
+    else if (name === 'stats') view = viewStats(arg);
     else { await loadMe(); view = viewFirms(); }
     if (seq !== renderSeq) return;
     mount(shell(tab, view));

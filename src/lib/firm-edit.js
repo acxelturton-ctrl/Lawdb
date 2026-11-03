@@ -8,6 +8,7 @@ import { cleanBookingUrl } from './booking.js';
 import { PROVINCES } from '../render/firm-page.js';
 import { NETWORKS, cleanSocialUrl } from './social.js';
 import { placeFor } from './geocode.js';
+import { trialAdminChanged } from './trial.js';
 
 export function str(v, min, max) {
   if (typeof v !== 'string') throw new HttpError(422, 'Expected text');
@@ -200,6 +201,7 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
     .bind(JSON.stringify(firm), firm.name, firm.city, firm.province, moved ? firm.region ?? '' : null, firm.featured ? 1 : 0, firm.lat ?? null, firm.lng ?? null, hoursJson, pageMode, aboutText, status, slug)
     .run();
   await audit(env, actor, 'firm.update', 'firm', slug, changes);
+  if ('featured' in changes) await trialAdminChanged(env, slug, !!firm.featured); // a free month running at the time must not undo (or outlive) the admin's choice
   return { changed: Object.keys(changes), firm: { ...firm, about: aboutText || '' }, pageMode, status };
 }
 

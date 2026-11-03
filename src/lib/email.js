@@ -164,6 +164,7 @@ const FEATURED_GETS = [
   'First in the live search box, with a gold Featured badge',
   'A gold pin on the map, and a gold tick and Featured badge on your profile',
   'Listed first among nearby firms on other firms\' profiles and story pages',
+  'An analytics dashboard: page views, visitors, which buttons were clicked, where visitors came from, their devices and regions, with trends and a spreadsheet export',
   'An enquiries dashboard with filters, private notes, one-tap reply and a spreadsheet export',
   'A Featured badge on your stories in LawDB News, a LawDB page search engines can find for each article, and higher placement in the home page news strip',
 ];
@@ -183,6 +184,61 @@ export function featuredOffEmail(origin, { firmName }) {
     subject: `${firmName}: Featured listing ended`,
     text: `The Featured subscription for ${firmName} has ended, so the listing is back to Basic. You can upgrade again any time from your dashboard: ${link}`,
     html: `<p>The Featured subscription for <b>${esc(firmName)}</b> has ended, so the listing is back to Basic. You can upgrade again any time.</p>${button(link, 'Open my dashboard')}`,
+  };
+}
+
+// ---- the free month and the weekly report
+const longDate = (d) => new Date(String(d).replace(' ', 'T') + 'Z').toLocaleDateString('en-CA', { dateStyle: 'long', timeZone: 'America/Toronto' });
+const times = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+
+export function trialStartedEmail(origin, { firmName, slug, endsAt }) {
+  const link = `${origin}/account/#stats/${slug}`;
+  return {
+    subject: `${firmName}: your free month of Featured has started`,
+    text: `${firmName} is Featured on LawDB until ${longDate(endsAt)}. No card was needed and nothing will be charged. When the month is over the listing goes back to Basic unless you choose to subscribe.\n\nHere is what you have now:\n\n${FEATURED_GETS.map((g) => `- ${g}`).join('\n')}\n\nAnd your own analytics: page views, visitors, which buttons were clicked and where visitors came from.\n\nSee your analytics: ${link}`,
+    html: `<p><b>${esc(firmName)}</b> is <b>Featured</b> on LawDB until <b>${esc(longDate(endsAt))}</b>. No card was needed and nothing will be charged. When the month is over the listing goes back to Basic unless you choose to subscribe.</p><p>Here is what you have now:</p><ul>${FEATURED_GETS.map((g) => `<li>${esc(g)}</li>`).join('')}</ul><p>And your own <b>analytics</b>: page views, visitors, which buttons were clicked and where visitors came from.</p>${button(link, 'See my analytics')}`,
+  };
+}
+
+// numbers: { views, clicks, enquiries } during the trial so far; price: "$89 / month"
+export function trialEndingEmail(origin, { firmName, slug, endsAt, daysLeft, price, numbers }) {
+  const link = `${origin}/account/#edit/${slug}`;
+  const line = `So far: ${times(numbers.views, 'page view', 'page views')}, ${times(numbers.clicks, 'button click', 'button clicks')} and ${times(numbers.enquiries, 'enquiry', 'enquiries')}.`;
+  return {
+    subject: `${firmName}: your free month ends in ${times(daysLeft, 'day', 'days')}`,
+    text: `Your free month of Featured for ${firmName} ends on ${longDate(endsAt)}.\n\n${line}\n\nTo keep the Featured listing and your analytics, subscribe from your dashboard (${price}, cancel any time). If you do nothing, the listing simply goes back to Basic. Nothing is charged.\n\nKeep Featured: ${link}`,
+    html: `<p>Your free month of Featured for <b>${esc(firmName)}</b> ends on <b>${esc(longDate(endsAt))}</b>.</p><p>${esc(line)}</p><p>To keep the Featured listing and your analytics, subscribe from your dashboard (${esc(price)}, cancel any time). If you do nothing, the listing simply goes back to Basic. Nothing is charged.</p>${button(link, 'Keep Featured')}`,
+  };
+}
+
+export function trialEndedEmail(origin, { firmName, slug, price, numbers }) {
+  const link = `${origin}/account/#edit/${slug}`;
+  const line = `During your free month: ${times(numbers.views, 'page view', 'page views')}, ${times(numbers.clicks, 'button click', 'button clicks')} and ${times(numbers.enquiries, 'enquiry', 'enquiries')}.`;
+  return {
+    subject: `${firmName}: your free month has ended`,
+    text: `Your free month of Featured for ${firmName} has ended, so the listing is back to Basic. Your page and your enquiry emails carry on as before.\n\n${line}\n\nYou can come back to Featured, with the full analytics and enquiries dashboard, any time (${price}, cancel any time): ${link}`,
+    html: `<p>Your free month of Featured for <b>${esc(firmName)}</b> has ended, so the listing is back to Basic. Your page and your enquiry emails carry on as before.</p><p>${esc(line)}</p><p>You can come back to Featured, with the full analytics and enquiries dashboard, any time (${esc(price)}, cancel any time).</p>${button(link, 'See my plan')}`,
+  };
+}
+
+// The weekly "your week on LawDB". n: { views, previousViews, visitors, clicks, enquiries }; top: the most used button, or null.
+export function weeklyReportEmail(origin, { firmName, slug, n, top, featured, trialDaysLeft, price }) {
+  const link = `${origin}/account/#stats/${slug}`;
+  const change = n.previousViews > 0 ? Math.round(((n.views - n.previousViews) / n.previousViews) * 100) : null;
+  const trend = change === null ? '' : change === 0 ? ' (the same as the week before)' : ` (${change > 0 ? 'up' : 'down'} ${Math.abs(change)}% on the week before)`;
+  const lines = [
+    `${times(n.views, 'page view', 'page views')}${trend}`,
+    `${times(n.visitors, 'visitor', 'visitors')}`,
+    `${times(n.clicks, 'button click', 'button clicks')}${top ? `, most often: ${top.label.toLowerCase()} (${top.n})` : ''}`,
+    `${times(n.enquiries, 'enquiry', 'enquiries')} through your page`,
+  ];
+  const pitch = featured
+    ? (trialDaysLeft != null ? `Your free month of Featured has ${times(trialDaysLeft, 'day', 'days')} left. Subscribe from your dashboard (${price}) to keep the analytics and the Featured listing.` : '')
+    : `On Basic you see the totals. Featured shows every button, where visitors came from, their devices and regions, and trends. Start a free month from your dashboard, no card needed.`;
+  return {
+    subject: `${firmName}: ${times(n.views, 'view', 'views')} on LawDB this week`,
+    text: `Your week on LawDB, ${firmName} (last 7 days):\n\n${lines.map((l) => `- ${l}`).join('\n')}\n\n${pitch ? pitch + '\n\n' : ''}Open your dashboard: ${link}\n\nYou can turn this email off on the Analytics page of your dashboard.`,
+    html: `<p>Your week on LawDB, <b>${esc(firmName)}</b> (last 7 days):</p><ul>${lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>${pitch ? `<p>${esc(pitch)}</p>` : ''}${button(link, featured ? 'Open my analytics' : 'Open my dashboard')}${small('You can turn this email off on the Analytics page of your dashboard.')}`,
   };
 }
 

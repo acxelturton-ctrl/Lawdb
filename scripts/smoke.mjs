@@ -320,6 +320,43 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(patch.status === 200, 'edit about, practice areas and clear hours');
   const pg2 = await getRaw('/firms/' + slug2);
   ok(pg2.text.includes('Updated about text') && pg2.text.includes('<li>Tax</li>') && !pg2.text.includes('class="hours-card"'), 'edits and cleared hours show on the page');
+
+  // ---- the admin's Edit Profile page: the firms table with filters, more editable fields, hiding a firm, importing many
+  const tag = Math.random().toString(36).slice(2, 8);
+  const tbl = await call('GET', '/api/admin/firms?limit=3&sort=id');
+  ok(tbl.status === 200 && tbl.data.total > 300 && tbl.data.firms.length === 3 && tbl.data.firms.every((f) => Number.isInteger(f.id) && f.status), 'the firms table has a total, and an id and a status for every firm');
+  ok((await call('GET', '/api/admin/firms?status=nope')).status === 422 && (await call('GET', '/api/admin/firms?sort=nope')).status === 422 && (await call('GET', '/api/admin/firms?plan=gold')).status === 422, 'an unknown status, plan or sort is refused');
+  const onlyBc = await call('GET', '/api/admin/firms?province=BC&limit=100');
+  ok(onlyBc.data.firms.length > 0 && onlyBc.data.firms.every((f) => f.province === 'BC') && onlyBc.data.total >= onlyBc.data.firms.length, 'the province filter only returns that province');
+  const imp = await call('POST', '/api/admin/firms/import', { status: 'hidden', rows: [
+    { name: `Import Alpha ${tag} Law`, city: 'Ottawa', province: 'ON', tags: ['Wills'], caseTypes: ['wills'], address: '1 Elgin St, Ottawa, ON' },
+    { name: `Import Beta ${tag} Law`, city: 'Calgary', province: 'AB' },
+    { name: 'No Province Law', city: 'Ottawa' }] });
+  ok(imp.status === 200 && imp.data.created === 2 && imp.data.results[0].ok && imp.data.results[1].ok && !imp.data.results[2].ok && /province/i.test(imp.data.results[2].error), 'an import adds the good rows and reports the bad one, without stopping');
+  const alpha = imp.data.results[0].slug;
+  ok((await getRaw('/firms/' + alpha)).status === 404 && !(await getRaw('/sitemap-firms.xml')).text.includes(`/firms/${alpha}<`), 'a hidden firm is shown nowhere: its page is a 404 and it is not in the sitemap');
+  ok((await call('GET', '/api/admin/firms?status=hidden&limit=100')).data.firms.some((f) => f.slug === alpha), 'the table finds hidden firms');
+  const again = await call('POST', '/api/admin/firms/import', { rows: [{ name: `Import Alpha ${tag} Law`, city: 'Ottawa', province: 'ON' }] });
+  ok(again.data.created === 0 && again.data.results[0].skipped === true, 'importing a firm that is already listed skips it instead of doubling it');
+  ok((await call('POST', '/api/admin/firms/import', { rows: Array.from({ length: 16 }, (_, i) => ({ name: `Too Many ${i}`, city: 'Ottawa', province: 'ON' })) })).status === 422 && (await call('POST', '/api/admin/firms/import', { rows: [] })).status === 422, 'an import takes 1 to 15 firms at a time');
+  const ed = (body) => call('PATCH', `/api/admin/firms/${alpha}`, body);
+  ok((await ed({ status: 'live' })).status === 200 && (await getRaw('/firms/' + alpha)).status === 200, 'switching a firm on shows its page');
+  ok((await ed({ status: 'weird' })).status === 422, 'an unknown status is refused');
+  ok((await ed({ city: 'Toronto', province: 'ON' })).status === 200 && (await call('GET', `/api/admin/firms/${alpha}`)).data.firm.city === 'Toronto', 'an admin can move a firm to another city');
+  ok((await ed({ lat: 10, lng: 10 })).status === 422 && (await ed({ lat: 45.4215 })).status === 422, 'a map position needs both numbers, inside Canada');
+  const pos = await ed({ lat: 45.4215, lng: -75.6972 });
+  const got = (await call('GET', `/api/admin/firms/${alpha}`)).data.firm;
+  ok(pos.status === 200 && got.lat === 45.4215 && got.lng === -75.6972, 'an admin can set the map position');
+  ok((await ed({ social: { facebook: 'https://evil.example.com/x' } })).status === 422 && (await ed({ social: { myspace: 'https://myspace.com/x' } })).status === 422, 'a social profile must be a real profile address on that network');
+  ok((await ed({ social: { facebook: 'https://www.facebook.com/alphalaw?utm_source=x', instagram: '' }, offices: [{ name: 'Branch', address: '5 Rideau St, Ottawa, ON' }, { address: '' }], appointmentOnly: true })).status === 200, 'social profiles, other offices and appointment-only can be saved');
+  const alphaPg = (await getRaw('/firms/' + alpha)).text;
+  ok(alphaPg.includes('data-profiles') && alphaPg.includes('https://www.facebook.com/alphalaw"') && !alphaPg.includes('utm_source') && alphaPg.includes('class="offices"') && alphaPg.includes('5 Rideau St') && alphaPg.includes('by appointment only'), 'the page shows the profiles box and the other offices');
+  ok((await ed({ offices: Array.from({ length: 9 }, (_, i) => ({ address: `${i} Main St` })) })).status === 422 && (await ed({ appointmentOnly: 'yes' })).status === 422, 'at most 8 other offices, and appointment-only is a yes or no');
+  const audit1 = (await call('GET', '/api/admin/audit?limit=20')).data.entries.find((e) => e.action === 'firm.update' && e.entity_id === alpha && e.detail && e.detail.social);
+  ok(audit1 && (await call('POST', `/api/admin/audit/${audit1.id}/revert`)).status === 200 && Object.keys((await call('GET', `/api/admin/firms/${alpha}`)).data.firm.social || {}).length === 0, 'undoing an edit of social profiles puts them back');
+  const geo = await call('GET', '/api/admin/geocode?address=' + encodeURIComponent('1 Elgin St') + '&city=Ottawa&province=ON');
+  ok(geo.status === 200 && geo.data.found === true && geo.data.lat > 41 && geo.data.lat < 84, 'the "Find on map" lookup returns a position');
+  ok((await call('GET', '/api/admin/geocode')).status === 422, 'the lookup needs an address or a city');
 }
 
 // --- firm owners: sign-up, claims, approval, editing, enquiries
@@ -500,6 +537,16 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', '/api/account/firms/achkar-law', { bookingUrl: 'https://calendly.com/achkar' })).status === 403, 'a Basic owner cannot add a booking button');
   const facts = await call('PATCH', '/api/account/firms/achkar-law', { phone: '613-555-0100' });
   ok(facts.status === 200 && facts.data.changed.includes('phone'), 'a Basic owner can still correct the facts');
+  // the same editor for owners: social profiles and other offices are facts (any plan); where the firm is, its status, plan and pin are not theirs to change
+  const own = await call('PATCH', '/api/account/firms/achkar-law', { social: { linkedin: 'https://www.linkedin.com/company/achkar-law' }, offices: [{ name: 'Second', address: '5 Rideau St, Ottawa, ON' }], appointmentOnly: true });
+  ok(own.status === 200 && own.data.changed.includes('social') && own.data.changed.includes('offices'), 'a Basic owner can add social profiles and other offices');
+  for (const body of [{ city: 'Ottawa' }, { province: 'QC' }, { status: 'hidden' }, { lat: 45, lng: -75 }, { featured: true }, { pageMode: 'dynamic' }]) {
+    const r = await call('PATCH', '/api/account/firms/achkar-law', body);
+    ok(r.status === 422, `an owner cannot change ${Object.keys(body)[0]}`);
+  }
+  const ownGet = (await call('GET', '/api/account/firms/achkar-law')).data;
+  ok(Number.isInteger(ownGet.id) && ownGet.slug === 'achkar-law' && ownGet.status === 'live' && ownGet.updatedAt, 'the owner\'s firm comes with its id, username, status and last update');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { social: {}, offices: [], appointmentOnly: false })).status === 200, 'an owner can clear them again');
   as(adminJar);
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { featured: true })).status === 200, 'the firm is made Featured for the description checks');
   as(o1.jar);

@@ -6,6 +6,8 @@ import { audit } from './audit.js';
 import { checkOwnerText } from './content-rules.js';
 import { cleanBookingUrl } from './booking.js';
 import { PROVINCES } from '../render/firm-page.js';
+import { NETWORKS, cleanSocialUrl } from './social.js';
+import { placeFor } from './geocode.js';
 
 export function str(v, min, max) {
   if (typeof v !== 'string') throw new HttpError(422, 'Expected text');
@@ -52,7 +54,49 @@ export const FIRM_FIELDS = {
     }
     return [...new Set(v)];
   },
+  // Where the firm is. Admins only (see ADMIN_ONLY): moving a firm to another city also moves it between the city pages.
+  city: (v) => str(v, 2, 80),
+  province: (v) => {
+    const s = str(v, 2, 2).toUpperCase();
+    if (!(s in PROVINCES)) throw new HttpError(422, `province must be one of: ${Object.keys(PROVINCES).join(', ')}`);
+    return s;
+  },
+  // The firm's profile pages on Facebook, Instagram, LinkedIn, X and YouTube: { facebook: 'https://...', ... }. Only real profile addresses are kept
+  // (the same rules as the finder: https, the network's own address, never a share button or a single post); a blank one removes it.
+  social: (v) => {
+    if (!v || typeof v !== 'object' || Array.isArray(v)) throw new HttpError(422, 'social must be an object like { "facebook": "https://www.facebook.com/yourfirm" }');
+    const out = {};
+    for (const [key, raw] of Object.entries(v)) {
+      const net = NETWORKS.find((n) => n.key === key);
+      if (!net) throw new HttpError(422, `social: unknown network ${key}`);
+      const text = typeof raw === 'string' ? raw.trim() : '';
+      if (!text) continue;
+      const clean = cleanSocialUrl(key, text);
+      if (!clean) throw new HttpError(422, `${net.label}: please enter the address of the firm's ${net.label} profile or page.`);
+      out[key] = clean;
+    }
+    return out;
+  },
+  // Other offices: [{ name, address }], up to 8. A row with no address is dropped.
+  offices: (v) => {
+    if (!Array.isArray(v) || v.length > 8) throw new HttpError(422, 'offices must be a list of at most 8 offices');
+    return v.map((o) => {
+      if (!o || typeof o !== 'object') throw new HttpError(422, 'each office needs an address');
+      const address = str(o.address ?? '', 0, 300);
+      const name = str(o.name ?? '', 0, 80);
+      return address ? { ...(name ? { name } : {}), address } : null;
+    }).filter(Boolean);
+  },
+  appointmentOnly: (v) => {
+    if (typeof v !== 'boolean') throw new HttpError(422, 'appointmentOnly must be true or false');
+    return v;
+  },
 };
+
+// Only an admin can change these. `lat`/`lng` and `status` are handled on their own in applyFirmEdit (they are columns as well as data).
+export const ADMIN_ONLY = ['featured', 'city', 'province'];
+export const FIRM_STATUSES = ['live', 'hidden'];
+const inCanada = (lat, lng) => lat >= 41 && lat <= 84 && lng >= -142 && lng <= -52;
 
 // Opening hours: { "1": [["08:30","17:00"]], ... } where 1 = Monday ... 7 = Sunday; omitted/empty day = closed.
 export function normalizeHours(h) {
@@ -81,16 +125,16 @@ const OWNER_TEXT_FIELDS = { name: 'Firm name', blurb: 'Short description', tags:
 export const FEATURED_LOCK = 'is a Featured benefit. Upgrade to Featured from your dashboard to customize your page.';
 const CUSTOMIZING = { about: 'Writing your own description', blurb: 'Writing your own description', bookingUrl: 'Adding a booking link' };
 
-// `admin` may also change the featured flag and the page style; owners may not.
+// `admin` may also change the featured flag, the page style, the city and province, the map position and whether the firm is shown (status); owners may not.
 export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   const keys = Object.keys(body);
   if (!keys.length) throw new HttpError(422, 'Nothing to update');
-  const fieldKeys = Object.keys(FIRM_FIELDS).filter((k) => admin || k !== 'featured');
-  const extra = admin ? ['pageMode', 'hours', 'about'] : ['hours', 'about'];
+  const fieldKeys = Object.keys(FIRM_FIELDS).filter((k) => admin || !ADMIN_ONLY.includes(k));
+  const extra = admin ? ['pageMode', 'hours', 'about', 'lat', 'lng', 'status'] : ['hours', 'about'];
   const unknown = keys.filter((k) => !fieldKeys.includes(k) && !extra.includes(k));
   if (unknown.length) throw new HttpError(422, `Cannot edit: ${unknown.join(', ')}`);
 
-  const row = await env.DB.prepare('SELECT data, hours, page_mode, about FROM firms WHERE slug = ?').bind(slug).first();
+  const row = await env.DB.prepare('SELECT data, hours, page_mode, about, status FROM firms WHERE slug = ?').bind(slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
   const firm = JSON.parse(row.data);
   const customizing = admin || !!firm.featured;
@@ -98,6 +142,7 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   const changes = {};
   let pageMode = row.page_mode;
   let aboutText = row.about;
+  let status = row.status;
   if ('about' in body) {
     const next = str(body.about, 0, 2000) || null;
     if (next && next !== (row.about || null) && !customizing) throw new HttpError(403, `${CUSTOMIZING.about} ${FEATURED_LOCK}`);
@@ -107,6 +152,12 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   if (admin && 'pageMode' in body) {
     if (body.pageMode !== 'static' && body.pageMode !== 'dynamic') throw new HttpError(422, "pageMode must be 'static' or 'dynamic'");
     if (body.pageMode !== row.page_mode) { changes.pageMode = { from: row.page_mode, to: body.pageMode }; pageMode = body.pageMode; }
+  }
+  // Show or hide the firm. A firm waiting for its owner request to be approved ('pending') is not switched here: that happens in Approvals.
+  if (admin && 'status' in body) {
+    if (!FIRM_STATUSES.includes(body.status)) throw new HttpError(422, `status must be one of: ${FIRM_STATUSES.join(', ')}`);
+    if (row.status === 'pending') throw new HttpError(409, 'This listing is waiting for approval. Approve it under Approvals first.');
+    if (body.status !== row.status) { changes.status = { from: row.status, to: body.status }; status = body.status; }
   }
   let hoursJson = row.hours;
   if ('hours' in body) {
@@ -123,14 +174,33 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
       firm[k] = next;
     }
   }
-  if (!Object.keys(changes).length) return { changed: [], firm: { ...firm, about: aboutText || '' }, pageMode };
+  // Map position (admin): both numbers, inside Canada. Otherwise a changed address (or city) looks up the new spot, and only an exact find moves the pin.
+  if (admin && ('lat' in body || 'lng' in body)) {
+    const lat = Number(body.lat), lng = Number(body.lng);
+    if (!inCanada(lat, lng)) throw new HttpError(422, 'lat and lng are both required and must be inside Canada');
+    if (lat !== firm.lat || lng !== firm.lng) { changes.lat = { from: firm.lat ?? null, to: lat }; changes.lng = { from: firm.lng ?? null, to: lng }; firm.lat = lat; firm.lng = lng; delete firm.approxCoords; }
+  } else if ('address' in changes || 'city' in changes || 'province' in changes) {
+    const place = await placeFor(env, { address: firm.address, city: firm.city, province: firm.province });
+    if (place && !place.approx && inCanada(place.lat, place.lng) && (place.lat !== firm.lat || place.lng !== firm.lng)) {
+      changes.lat = { from: firm.lat ?? null, to: place.lat }; changes.lng = { from: firm.lng ?? null, to: place.lng };
+      firm.lat = place.lat; firm.lng = place.lng; delete firm.approxCoords;
+    }
+  }
+  // Derived: the directions link follows the address; the region follows the city, so the directory filters and hub pages group the firm correctly.
+  if ('address' in changes) firm.dirUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(firm.address || `${firm.name} ${firm.city}`).replace(/%20/g, '+')}`;
+  if ('city' in changes || 'province' in changes) {
+    const known = await env.DB.prepare('SELECT region FROM firms WHERE city = ? COLLATE NOCASE AND province = ? AND region IS NOT NULL AND slug != ? LIMIT 1').bind(firm.city, firm.province, slug).first();
+    firm.region = known ? known.region : '';
+  }
+  if (!Object.keys(changes).length) return { changed: [], firm: { ...firm, about: aboutText || '' }, pageMode, status };
 
   // `data` is the source of truth; the indexed columns are derived from it.
-  await env.DB.prepare("UPDATE firms SET data = ?, name = ?, featured = ?, hours = ?, page_mode = ?, about = ?, updated_at = datetime('now') WHERE slug = ?")
-    .bind(JSON.stringify(firm), firm.name, firm.featured ? 1 : 0, hoursJson, pageMode, aboutText, slug)
+  const moved = 'city' in changes || 'province' in changes;
+  await env.DB.prepare("UPDATE firms SET data = ?, name = ?, city = ?, province = ?, region = COALESCE(?, region), featured = ?, lat = COALESCE(?, lat), lng = COALESCE(?, lng), hours = ?, page_mode = ?, about = ?, status = ?, updated_at = datetime('now') WHERE slug = ?")
+    .bind(JSON.stringify(firm), firm.name, firm.city, firm.province, moved ? firm.region ?? '' : null, firm.featured ? 1 : 0, firm.lat ?? null, firm.lng ?? null, hoursJson, pageMode, aboutText, status, slug)
     .run();
   await audit(env, actor, 'firm.update', 'firm', slug, changes);
-  return { changed: Object.keys(changes), firm: { ...firm, about: aboutText || '' }, pageMode };
+  return { changed: Object.keys(changes), firm: { ...firm, about: aboutText || '' }, pageMode, status };
 }
 
 // ---------------------------------------------------------------- create

@@ -3,6 +3,7 @@
 // never innerHTML, so hostile messages cannot run code in an admin's browser.
 
 import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, feedPanel, CASE_LABELS, PROVINCES } from './ui.js';
+import { profileEditor } from './profile-editor.js';
 
 const app = document.getElementById('app');
 
@@ -35,16 +36,54 @@ let pendingCount = 0;
 let paymentCount = 0;
 const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['outreach', 'Outreach'], ['firms', 'Firms'], ['logos', 'Logos'], ['news', 'News'], ['traffic', 'Traffic'], ['projects', 'Projects'], ['journal', 'Journal'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
 
+// The bar at the top shows the live counts and the clock; the user menu is on its right. The menu bar under it is the list of sections.
+let appStats = null;
+let statsAt = 0;
+let clockTimer;
+// The live counts, reused for 30 seconds so moving between sections does not ask for them every time.
+async function ensureStats() {
+  if (appStats && Date.now() - statsAt < 30000) return;
+  statsAt = Date.now();
+  try { appStats = await api('GET', '/api/admin/stats'); pendingCount = appStats.pendingApprovals; paymentCount = appStats.paymentsToReview; } catch { statsAt = 0; }
+}
+function statsBar(el) {
+  const draw = () => {
+    if (!appStats) return;
+    const n = (v) => Number(v || 0).toLocaleString('en-CA');
+    const more = h('div', { class: 'morebox', hidden: true },
+      `Leads in the last 7 days: ${n(appStats.leadsLast7Days)}`, h('br'), `Waiting for approval: ${n(appStats.pendingApprovals)}`, h('br'),
+      `Payments to review: ${n(appStats.paymentsToReview)}`, h('br'), `Open reports: ${n(appStats.openReports)}`, h('br'), `News posts: ${n(appStats.blogPosts)}`);
+    el.replaceChildren(...[
+      h('span', null, 'Total: ', h('b', null, n(appStats.firmsAll ?? appStats.firms))),
+      h('span', null, 'Live: ', h('b', null, n(appStats.firms)), ' firms'),
+      h('span', null, h('b', null, n(appStats.featured)), ' Featured'),
+      appStats.firmsHidden > 0 && h('span', null, h('b', null, n(appStats.firmsHidden)), ' hidden'),
+      appStats.pendingApprovals > 0 && h('span', null, h('b', null, n(appStats.pendingApprovals)), ' to approve'),
+      h('span', null, h('button', { class: 'more', type: 'button', onclick: () => { more.hidden = !more.hidden; } }, 'more…'), more)].filter(Boolean));
+  };
+  draw();
+  if (!appStats) ensureStats().then(draw);
+}
+
 function shell(user, active, content) {
+  const stats = h('div', { class: 'stats' });
+  const clock = h('span', { class: 'clock' });
+  const tick = () => { const d = new Date(); clock.textContent = d.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) + '   ' + d.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit', second: '2-digit' }); };
+  tick(); clearInterval(clockTimer); clockTimer = setInterval(() => { if (!clock.isConnected) return clearInterval(clockTimer); tick(); }, 1000);
+  statsBar(stats);
+  const initial = (user.name || user.email || '?').trim()[0].toUpperCase();
   return h('div', null,
-    h('header', { class: 'top' }, h('div', { class: 'wrap' },
-      h('a', { class: 'brand', href: '/admin/' }, h('img', { src: '/images/logo-icon.png', alt: '' }), 'LawDB Admin'),
-      h('div', { class: 'who' }, user.email, h('br'),
-        h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.reload(); } }, 'Sign out'), ' · ',
-        h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); location.reload(); } }, 'Sign out everywhere')))),
-    h('div', { class: 'wrap' },
-      h('nav', { class: 'tabs', 'aria-label': 'Sections' }, TABS.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'approvals' && pendingCount > 0 && h('span', { class: 'count' }, pendingCount), id === 'payments' && paymentCount > 0 && h('span', { class: 'count' }, paymentCount)))),
-      content));
+    h('header', { class: 'appbar' }, h('div', { class: 'appbar-in' },
+      h('a', { class: 'brand', href: '#overview' }, h('img', { src: '/images/logo-icon.png', alt: '' }), 'LawDB.ca'),
+      h('a', { href: '/', target: '_blank', rel: 'noopener', title: 'Open the public site', 'aria-label': 'Open the public site' }, '↗'),
+      stats,
+      h('div', { class: 'right' }, clock,
+        h('details', { class: 'user' }, h('summary', null, h('span', { class: 'ava' }, initial), (user.name || user.email.split('@')[0]), ' ▾'),
+          h('div', { class: 'menu' }, h('div', { class: 'who' }, user.email),
+            h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.reload(); } }, 'Sign out'),
+            h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); location.reload(); } }, 'Sign out everywhere')))))),
+    h('nav', { class: 'menubar', 'aria-label': 'Sections' }, h('div', { class: 'menubar-in' }, TABS.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'approvals' && pendingCount > 0 && h('span', { class: 'count' }, pendingCount), id === 'payments' && paymentCount > 0 && h('span', { class: 'count' }, paymentCount))))),
+    h('main', { class: 'page' }, content));
 }
 
 // ---------------------------------------------------------------- overview
@@ -182,121 +221,153 @@ function invitePanel(slug, firm, pageMode) {
   return form;
 }
 
+// The firms table: search, filter by status, plan and province, sort, and page through every firm. A row opens its Edit Profile page.
+const PAGE = 25;
 async function viewFirms() {
-  const results = h('div');
-  const editor = h('div');
-  const search = h('input', { type: 'search', placeholder: 'Search firms by name or city', 'aria-label': 'Search firms' });
+  const state = { q: '', status: '', plan: '', province: '', sort: 'name', page: 0 };
+  const body = h('div');
+  const search = h('input', { type: 'search', placeholder: 'Search by firm name, city or username', 'aria-label': 'Search firms' });
+  const sel = (key, label, options) => h('select', { 'aria-label': label, onchange: (e) => { state[key] = e.target.value; state.page = 0; load(); } },
+    options.map(([v, l]) => h('option', { value: v, selected: v === state[key] }, l)));
+  const filters = h('div', { class: 'filters' }, search,
+    sel('status', 'Status', [['', 'Any status'], ['live', 'Live'], ['hidden', 'Hidden'], ['pending', 'Awaiting approval']]),
+    sel('plan', 'Plan', [['', 'Any plan'], ['featured', 'Featured'], ['basic', 'Basic']]),
+    sel('province', 'Province', [['', 'Any province'], ...Object.entries(PROVINCES).filter(([c]) => ['AB', 'BC', 'MB', 'ON', 'QC'].includes(c))]),
+    sel('sort', 'Sort by', [['name', 'Sort: name'], ['city', 'Sort: city'], ['updated', 'Sort: recently updated'], ['rating', 'Sort: rating'], ['id', 'Sort: newest ID']]));
   let timer;
+  search.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => { state.q = search.value.trim(); state.page = 0; load(); }, 250); });
 
-  async function find() {
+  async function load() {
     try {
-      const { firms } = await api('GET', '/api/admin/firms?limit=25&q=' + encodeURIComponent(search.value.trim()));
-      results.replaceChildren(...(firms.length ? firms.map((f) => h('button', { class: 'firm-row', type: 'button', onclick: () => edit(f.slug) },
-        h('span', null, f.name, h('small', null, `${f.city}, ${f.province}`)), f.featured && h('span', { class: 'badge featured' }, 'Featured'), f.status === 'pending' && h('span', { class: 'badge new' }, 'Awaiting approval'))) : [h('p', { class: 'muted' }, 'No firms match.')]));
-    } catch (err) { results.replaceChildren(note('msg-err', err.message)); }
+      const qs = new URLSearchParams({ limit: String(PAGE), offset: String(state.page * PAGE), sort: state.sort });
+      for (const k of ['q', 'status', 'plan', 'province']) if (state[k]) qs.set(k, state[k]);
+      const { firms, total } = await api('GET', '/api/admin/firms?' + qs);
+      const from = total ? state.page * PAGE + 1 : 0, to = Math.min(total, (state.page + 1) * PAGE);
+      const status = (f) => f.status === 'live' ? null : h('span', { class: 'badge new' }, f.status === 'pending' ? 'Awaiting approval' : 'Hidden');
+      body.replaceChildren(
+        h('div', { class: 'tscroll' }, h('table', { class: 'ft' },
+          h('thead', null, h('tr', null, ['ID', 'Firm', 'City', 'Prov.', 'Status', 'Plan', 'Rating', 'Updated', ''].map((t) => h('th', null, t)))),
+          h('tbody', null, firms.length ? firms.map((f) => h('tr', null,
+            h('td', { class: 'id' }, f.id),
+            h('td', { class: 'name' }, h('a', { href: `#firms/edit/${f.slug}` }, f.name), h('small', null, '@' + f.slug)),
+            h('td', null, f.city), h('td', null, f.province),
+            h('td', null, status(f) || 'Live'),
+            h('td', null, h('span', { class: 'badge' + (f.featured ? ' featured' : '') }, f.featured ? 'Featured' : 'Basic')),
+            h('td', { class: 'n' }, f.rating ? `${Number(f.rating).toFixed(1)} (${f.review_count})` : ''),
+            h('td', { class: 'n' }, f.updated_at ? f.updated_at.slice(0, 10) : ''),
+            h('td', { class: 'act' }, h('a', { href: `#firms/edit/${f.slug}` }, 'Edit'), f.status === 'live' && h('a', { href: `/firms/${f.slug}`, target: '_blank', rel: 'noopener' }, 'View')))) : [h('tr', null, h('td', { colspan: 9 }, h('p', { class: 'muted' }, 'No firms match.')))]))),
+        h('div', { class: 'pager' }, h('span', null, `${from.toLocaleString('en-CA')}–${to.toLocaleString('en-CA')} of ${total.toLocaleString('en-CA')}`),
+          h('div', { class: 'row' }, h('button', { type: 'button', disabled: state.page === 0, onclick: () => { state.page--; load(); } }, '‹ Previous'),
+            h('button', { type: 'button', disabled: to >= total, onclick: () => { state.page++; load(); } }, 'Next ›'))));
+    } catch (err) { body.replaceChildren(note('msg-err', err.message)); }
   }
+  await load();
+  return h('div', null,
+    h('div', { class: 'fh' }, h('h1', null, 'Firms'), h('div', { class: 'row' }, h('a', { href: '#firms/import' }, h('button', { type: 'button' }, 'Import from a spreadsheet')), h('a', { href: '#firms/new' }, h('button', { class: 'primary', type: 'button' }, 'Add a firm')))),
+    h('p', { class: 'sum' }, 'Everything here is saved to the database and shows on the Find Lawyers page, the directory pages, search and the map within about a minute.'),
+    filters, body);
+}
 
-  async function edit(slug) {
-    const { firm, hours, pageMode } = await api('GET', '/api/admin/firms/' + encodeURIComponent(slug));
-    const out = h('div');
-    const f = {
-      name: h('input', { type: 'text', value: firm.name, maxlength: 200 }),
-      blurb: h('textarea', { maxlength: 500 }, firm.blurb || ''),
-      about: h('textarea', { class: 'tall', maxlength: 2000 }, firm.about || ''),
-      phone: h('input', { type: 'text', value: firm.phone || '', maxlength: 30 }),
-      website: h('input', { type: 'text', value: firm.website || '', maxlength: 300 }),
-      bookingUrl: h('input', { type: 'text', value: firm.bookingUrl || '', maxlength: 500, placeholder: 'https://' }),
-      address: h('input', { type: 'text', value: firm.address || '', maxlength: 300 }),
-      tags: h('input', { type: 'text', value: (firm.tags || []).join(', ') }),
-      featured: h('input', { type: 'checkbox', checked: !!firm.featured }),
-      pageMode: h('select', null, [['static', 'Original hand-built page'], ['dynamic', 'New page, built from the database']].map(([v, l]) => h('option', { value: v, selected: v === pageMode }, l))),
-    };
-    const cats = categoryChecks(firm.caseTypes);
-    const hrs = hoursEditor(hours);
-    const save = h('button', { class: 'primary', type: 'submit' }, 'Save changes');
-    const form = h('form', { class: 'card', onsubmit: async (e) => {
-      e.preventDefault();
-      save.disabled = true;
+// One firm's Edit Profile page.
+async function viewFirmEdit(slug, flash) {
+  const base = '/api/admin/firms/' + encodeURIComponent(slug);
+  const data = await api('GET', base);
+  const reload = async (message) => mount(shell(me, 'firms', await viewFirmEdit(slug, message || undefined)));
+  return h('div', null, h('p', null, h('a', { href: '#firms' }, '← All firms')),
+    profileEditor({ mode: 'admin', data, base, flash, onSaved: reload }),
+    h('div', { class: 'ed-wrap' }, invitePanel(slug, data.firm, data.pageMode)));
+}
+
+function viewFirmNew() {
+  return h('div', null, h('p', null, h('a', { href: '#firms' }, '← All firms')),
+    profileEditor({ mode: 'new', data: { firm: { province: 'ON' }, status: 'live', pageMode: 'dynamic' }, onCreated: (slug) => { location.hash = `#firms/edit/${slug}`; } }));
+}
+
+// ---- add many firms from a spreadsheet (CSV)
+const CSV_COLUMNS = ['name', 'city', 'province', 'address', 'phone', 'website', 'tags', 'categories', 'about', 'lat', 'lng'];
+function parseCsv(text) {
+  const rows = []; let row = [], cell = '', quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (quoted) { if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else quoted = false; } else cell += ch; }
+    else if (ch === '"') quoted = true;
+    else if (ch === ',' || ch === '\t') { row.push(cell); cell = ''; }
+    else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; }
+    else cell += ch;
+  }
+  if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter((r) => r.some((c) => c.trim() !== ''));
+}
+const PROV_BY_NAME = Object.fromEntries(Object.entries(PROVINCES).flatMap(([c, n]) => [[n.toLowerCase(), c], [c.toLowerCase(), c]]).concat([['québec', 'QC']]));
+const CAT_BY_LABEL = Object.fromEntries(Object.entries(CASE_LABELS).flatMap(([id, l]) => [[id, id], [l.toLowerCase(), id]]));
+
+function rowsToFirms(grid) {
+  const head = grid[0].map((c) => c.trim().toLowerCase().replace(/[^a-z]/g, ''));
+  const col = (name) => head.indexOf(name);
+  if (col('name') < 0 || col('city') < 0 || col('province') < 0) throw new Error('The first row must be the column names, and include at least name, city and province.');
+  return grid.slice(1).map((r) => {
+    const get = (k) => (col(k) >= 0 ? (r[col(k)] || '').trim() : '');
+    const prov = PROV_BY_NAME[get('province').toLowerCase()] || '';
+    const cats = get('categories').split(/[;|,]/).map((c) => CAT_BY_LABEL[c.trim().toLowerCase()]).filter(Boolean);
+    const firm = { name: get('name'), city: get('city'), province: prov || get('province'), address: get('address'), phone: get('phone'), website: get('website'),
+      tags: get('tags').split(/[;|]/).map((t) => t.trim()).filter(Boolean), caseTypes: [...new Set(cats)], about: get('about') };
+    if (get('lat') && get('lng')) { firm.lat = Number(get('lat')); firm.lng = Number(get('lng')); }
+    for (const k of Object.keys(firm)) if (firm[k] === '' || (Array.isArray(firm[k]) && !firm[k].length)) delete firm[k];
+    return { firm, problem: !firm.name ? 'Missing name' : !firm.city ? 'Missing city' : !prov ? `Unknown province "${get('province')}"` : '' };
+  });
+}
+
+function viewFirmImport() {
+  const area = h('textarea', { placeholder: 'name,city,province,address,phone,website,tags,categories,about\nSmith Law,Ottawa,ON,"1 Main St, Ottawa, ON K1A 0A1",+16135550100,https://smithlaw.ca,Family Law;Divorce,Family Law / Divorce,"Short description"', 'aria-label': 'Spreadsheet rows' });
+  const file = h('input', { type: 'file', accept: '.csv,text/csv,text/plain', 'aria-label': 'Choose a spreadsheet file' });
+  const preview = h('div');
+  const publish = h('select', { 'aria-label': 'After import' }, h('option', { value: 'live' }, 'Show the new firms right away'), h('option', { value: 'hidden' }, 'Save them hidden (I will switch them on later)'));
+  let parsed = [];
+  const go = h('button', { class: 'primary', type: 'button', disabled: true }, 'Import');
+
+  function read(text) {
+    try {
+      const grid = parseCsv(text);
+      if (grid.length < 2) throw new Error('Paste the column names on the first row and at least one firm under them.');
+      parsed = rowsToFirms(grid);
+    } catch (err) { parsed = []; preview.replaceChildren(note('msg-err', err.message)); go.disabled = true; return; }
+    const ok = parsed.filter((p) => !p.problem).length;
+    go.disabled = ok === 0; go.textContent = ok ? `Import ${ok} firm${ok === 1 ? '' : 's'}` : 'Import';
+    preview.replaceChildren(note('muted', `${parsed.length} row${parsed.length === 1 ? '' : 's'} read: ${ok} ready${parsed.length - ok ? `, ${parsed.length - ok} with a problem (they are skipped)` : ''}. A firm that is already listed (same name, same city) is skipped.`),
+      h('div', { class: 'tscroll' }, h('table', { class: 'ft csv-prev' }, h('thead', null, h('tr', null, ['Name', 'City', 'Prov.', 'Address', 'Problem'].map((t) => h('th', null, t)))),
+        h('tbody', null, parsed.slice(0, 200).map((p) => h('tr', { class: p.problem ? 'csv-bad' : '' }, h('td', null, p.firm.name || ''), h('td', null, p.firm.city || ''), h('td', null, p.firm.province || ''), h('td', null, p.firm.address || ''), h('td', null, p.problem))))))
+      , ...(parsed.length > 200 ? [h('p', { class: 'muted' }, 'Only the first 200 rows are shown here; all are imported.')] : []));
+  }
+  area.addEventListener('input', () => read(area.value));
+  file.addEventListener('change', async () => { const f = file.files[0]; if (f) { area.value = await f.text(); read(area.value); } });
+  const template = () => { const a = h('a', { href: URL.createObjectURL(new Blob([CSV_COLUMNS.join(',') + '\n'], { type: 'text/csv' })), download: 'lawdb-firms-template.csv' }); a.click(); };
+
+  go.addEventListener('click', async () => {
+    const ready = parsed.filter((p) => !p.problem).map((p) => p.firm);
+    go.disabled = true;
+    const bar = h('i'), line = h('p', { class: 'muted' }, 'Importing…'), report = h('div');
+    preview.replaceChildren(h('div', { class: 'bar-prog' }, bar), line, report);
+    let created = 0; const skipped = [], failed = [];
+    for (let i = 0; i < ready.length; i += 15) {
+      const batch = ready.slice(i, i + 15);
       try {
-        const payload = {
-          name: f.name.value, blurb: f.blurb.value, about: f.about.value, phone: f.phone.value, website: f.website.value, bookingUrl: f.bookingUrl.value, address: f.address.value,
-          tags: splitTags(f.tags.value), caseTypes: cats.get(), featured: f.featured.checked, pageMode: f.pageMode.value,
-        };
-        if (hrs.isDirty()) payload.hours = hrs.anyOpen() ? hrs.get() : null;
-        const res = await api('PATCH', '/api/admin/firms/' + encodeURIComponent(slug), payload);
-        out.replaceChildren(note('msg-ok', res.changed.length ? `Saved: ${res.changed.join(', ')}.` : 'No changes to save.'));
-        find();
-      } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
-      save.disabled = false;
-    } },
-      h('div', { class: 'row spread' }, h('h2', null, firm.name), h('a', { href: `/firms/${slug}`, target: '_blank', rel: 'noopener' }, 'View public page')),
-      field('Name', f.name), field('Short description (shown in lists)', f.blurb),
-      field('About the firm (shown on the profile page)', f.about, 'Plain text. A blank line starts a new paragraph.'),
-      field('Phone', f.phone), field('Website', f.website),
-      field('Booking link', f.bookingUrl, 'Optional. Your calendar (Calendly, Clio, Microsoft Bookings...) or the page on your site where people book a call. It turns on the Book a call button on your page; leave it blank to switch the button off.'),
-      field('Address', f.address),
-      field('Practice areas (comma separated)', f.tags),
-      h('label', null, 'Categories'), cats.el,
-      h('label', null, 'Opening hours'), hrs.el,
-      h('label', { class: 'check' }, f.featured, 'Featured firm'),
-      field('Profile page style', f.pageMode, 'The original pages are hand-built and keep their own wording. The new style is built from the database, so it shows everything you enter here.'),
-      h('p', { class: 'muted' }, 'Saved right away; public pages update within about a minute. Rating, reviews and map position come from Google and are not editable here.'),
-      h('div', { class: 'row' }, save, h('button', { type: 'button', onclick: () => editor.replaceChildren() }, 'Close')), out);
-    editor.replaceChildren(form, invitePanel(slug, firm, pageMode), picturesPanel(`/api/admin/firms/${encodeURIComponent(slug)}/images`), feedPanel(`/api/admin/firms/${encodeURIComponent(slug)}/feed`));
-    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+        const res = await api('POST', '/api/admin/firms/import', { rows: batch, status: publish.value });
+        res.results.forEach((r) => { const f = batch[r.row]; if (r.ok) created++; else if (r.skipped) skipped.push(`${f.name} (${f.city})`); else failed.push(`${f.name} (${f.city}): ${r.error}`); });
+      } catch (err) { batch.forEach((f) => failed.push(`${f.name} (${f.city}): ${err.message}`)); }
+      bar.style.width = Math.round(Math.min(ready.length, i + 15) / ready.length * 100) + '%';
+      line.textContent = `Imported ${created} of ${ready.length}…`;
+    }
+    line.replaceChildren(note(failed.length ? 'msg-err' : 'msg-ok', `Done. ${created} added${skipped.length ? `, ${skipped.length} already listed` : ''}${failed.length ? `, ${failed.length} failed` : ''}.`));
+    report.append(h('p', null, h('a', { href: '#firms' }, 'Back to the firms table')));
+    if (failed.length) report.append(h('ul', null, failed.slice(0, 50).map((t) => h('li', null, t))));
+  });
 
-  function addFirm() {
-    const out = h('div');
-    const f = {
-      name: h('input', { type: 'text', required: true, maxlength: 200 }),
-      city: h('input', { type: 'text', required: true, maxlength: 80 }),
-      province: h('select', null, Object.entries(PROVINCES).map(([c, n]) => h('option', { value: c }, n))),
-      address: h('input', { type: 'text', maxlength: 300 }),
-      phone: h('input', { type: 'text', maxlength: 30 }),
-      website: h('input', { type: 'text', maxlength: 300, placeholder: 'https://' }),
-      tags: h('input', { type: 'text', placeholder: 'Divorce, Child Custody' }),
-      about: h('textarea', { class: 'tall', maxlength: 2000 }),
-      lat: h('input', { type: 'text', inputmode: 'decimal', placeholder: '43.6505' }),
-      lng: h('input', { type: 'text', inputmode: 'decimal', placeholder: '-79.3857' }),
-    };
-    const cats = categoryChecks([]);
-    const hrs = hoursEditor(null);
-    const go = h('button', { class: 'primary', type: 'submit' }, 'Create firm');
-    const form = h('form', { class: 'card', onsubmit: async (e) => {
-      e.preventDefault();
-      go.disabled = true;
-      try {
-        const payload = {
-          name: f.name.value, city: f.city.value, province: f.province.value, address: f.address.value, phone: f.phone.value,
-          website: f.website.value, tags: splitTags(f.tags.value), caseTypes: cats.get(), about: f.about.value,
-          lat: f.lat.value === '' ? null : Number(f.lat.value), lng: f.lng.value === '' ? null : Number(f.lng.value),
-        };
-        if (hrs.anyOpen()) payload.hours = hrs.get();
-        const res = await api('POST', '/api/admin/firms', payload);
-        out.replaceChildren(h('p', { class: 'msg-ok', role: 'status' }, 'Created. ', h('a', { href: res.url, target: '_blank', rel: 'noopener' }, 'View the new page')));
-        find();
-      } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
-      go.disabled = false;
-    } },
-      h('h2', null, 'Add a firm'),
-      field('Firm name', f.name), field('City', f.city), field('Province', f.province), field('Address', f.address),
-      field('Phone', f.phone), field('Website', f.website), field('Practice areas (comma separated)', f.tags),
-      h('label', null, 'Categories'), cats.el,
-      field('About the firm', f.about),
-      field('Latitude (optional)', f.lat, 'Leave both empty and LawDB finds the address, or puts the pin in the middle of the city. Only fill them if you want an exact spot.'), field('Longitude (optional)', f.lng),
-      h('label', null, 'Opening hours (optional)'), hrs.el,
-      h('div', { class: 'row' }, go, h('button', { type: 'button', onclick: () => editor.replaceChildren() }, 'Cancel')), out);
-    editor.replaceChildren(form);
-    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  search.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(find, 250); });
-  await find();
-  return h('div', null, h('div', { class: 'row spread' }, h('h1', null, 'Firms'), h('button', { class: 'primary', type: 'button', onclick: addFirm }, 'Add a firm')), search,
-    h('div', { class: 'card' }, h('p', { class: 'muted' },
-      'Edits are saved to the database and appear on the Find Lawyers page, the directory pages, search and the map within about a minute. A firm\'s profile page changes too once its style is set to "New page, built from the database"; original hand-built pages stay as they are until you switch them.')),
-    editor, results);
+  return h('div', null, h('p', null, h('a', { href: '#firms' }, '← All firms')), h('h1', null, 'Import firms from a spreadsheet'),
+    h('div', { class: 'card csv-box' },
+      h('p', null, 'Save your spreadsheet as CSV (File → Download → CSV in Google Sheets or Excel), then choose the file or paste the rows below. The first row holds the column names:'),
+      h('p', { class: 'muted' }, h('code', null, CSV_COLUMNS.join(', ')), '. Only name, city and province are required. Separate several practice areas with a semicolon. Categories can be written as shown on the site (for example Family Law / Divorce). The map pin is found from the address unless you give lat and lng.'),
+      h('div', { class: 'row' }, file, h('button', { type: 'button', onclick: template }, 'Download an empty template')),
+      area, h('div', { class: 'row' }, publish, go), preview));
 }
 
 // ---------------------------------------------------------------- logos
@@ -1103,12 +1174,17 @@ async function viewActivity() {
 const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, outreach: viewOutreach, firms: viewFirms, logos: viewLogos, news: viewNews, traffic: viewTraffic, projects: viewProjects, journal: viewJournal, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
+// "#firms/edit/<username>", "#firms/new" and "#firms/import" are pages inside the Firms section; every other address is a section on its own.
 async function render(user) {
   me = user;
-  const id = VIEWS[location.hash.slice(1)] ? location.hash.slice(1) : 'overview';
+  const [head, sub, arg] = location.hash.slice(1).split('/');
+  const id = VIEWS[head] ? head : 'overview';
   mount(shell(user, id, h('p', { class: 'muted' }, 'Loading…')));
   try {
-    const [view] = await Promise.all([VIEWS[id](), id === 'overview' || id === 'approvals' || id === 'payments' ? null : api('GET', '/api/admin/stats').then((st) => { pendingCount = st.pendingApprovals; paymentCount = st.paymentsToReview; }).catch(() => {})]);
+    const [view] = await Promise.all([id === 'firms' && sub === 'edit' && arg ? viewFirmEdit(decodeURIComponent(arg))
+      : id === 'firms' && sub === 'new' ? viewFirmNew()
+      : id === 'firms' && sub === 'import' ? viewFirmImport()
+      : VIEWS[id](), ensureStats()]);
     mount(shell(user, id, view));
   } catch (err) {
     if (err.status === 401) return boot();

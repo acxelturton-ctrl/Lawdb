@@ -2,6 +2,7 @@
 // SECURITY: everything shown here (including enquiries typed by the public) is inserted as text nodes only.
 
 import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, feedPanel, planPanel, PROVINCES } from '/admin/ui.js';
+import { profileEditor } from '/admin/profile-editor.js';
 
 const app = document.getElementById('app');
 const mount = (...nodes) => app.replaceChildren(...nodes);
@@ -24,6 +25,7 @@ const SIGNIN_MESSAGES = {
 const LAWDB_LINKEDIN = 'https://www.linkedin.com/company/lawdb/';
 
 async function renderLogin() {
+  document.body.classList.remove('ap', 'ap-in');
   const msg = h('div');
   const q = new URLSearchParams(location.search).get('signin');
   if (SIGNIN_MESSAGES[q]) msg.replaceChildren(note('msg-err', SIGNIN_MESSAGES[q]));
@@ -86,14 +88,27 @@ async function renderLogin() {
 }
 
 // ---------------------------------------------------------------- shell
-function shell(active, content) {
+// The owner dashboard has the same bars as the admin: a slim bar with the numbers that matter to the firm and the user menu, then the sections.
+function shell(active, content, { wide = false } = {}) {
+  document.body.classList.add('ap', 'ap-in'); // hides the public header and footer on these pages (see msp.css)
   const tabs = [['feed', 'Feed'], ['network', 'My network'], ['saved', 'Saved'], ['firms', 'My firms'], ['profile', 'Profile'], ['find', 'Add or claim a firm']];
   if (approved().length) tabs.splice(3, 0, ['leads', 'Enquiries']);
   const fresh = approved().reduce((n, m) => n + (m.newLeads || 0), 0);
+  const mine = approved();
+  const initial = (user.name || user.email || '?').trim()[0].toUpperCase();
+  const stat = (label, n) => h('span', null, label, ' ', h('b', null, n));
   return h('div', null,
-    h('div', { class: 'wrap' },
-      h('nav', { class: 'tabs', 'aria-label': 'Sections' }, tabs.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'leads' && fresh > 0 && h('span', { class: 'lx-count', 'aria-label': `${fresh} new` }, fresh > 99 ? '99+' : String(fresh))))),
-      content));
+    h('header', { class: 'appbar' }, h('div', { class: 'appbar-in' },
+      h('a', { class: 'brand', href: '/' }, h('img', { src: '/images/logo-icon.png', alt: '' }), 'LawDB.ca'),
+      h('div', { class: 'stats' }, ...(mine.length ? [stat('Your firms:', mine.length), stat('Featured:', mine.filter((m) => m.featured).length), stat('New enquiries:', fresh)] : [h('span', null, 'Welcome to LawDB')])),
+      h('div', { class: 'right' },
+        h('details', { class: 'user' }, h('summary', null, h('span', { class: 'ava' }, initial), (user.name || user.email.split('@')[0]), ' ▾'),
+          h('div', { class: 'menu' }, h('div', { class: 'who' }, user.email),
+            h('a', { href: '/find-lawyers' }, 'Back to LawDB.ca'),
+            h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.reload(); } }, 'Sign out'),
+            h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); location.reload(); } }, 'Sign out everywhere'))))) ),
+    h('nav', { class: 'menubar', 'aria-label': 'Sections' }, h('div', { class: 'menubar-in' }, tabs.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'leads' && fresh > 0 && h('span', { class: 'lx-count', 'aria-label': `${fresh} new` }, fresh))))),
+    h('main', { class: 'page' + (wide ? '' : ' narrow') }, content));
 }
 
 const approved = () => memberships.filter((m) => m.status === 'approved');
@@ -230,56 +245,12 @@ function viewFind(slug) {
 }
 
 // ---------------------------------------------------------------- edit profile
-async function viewEdit(slug) {
-  const { firm, hours, pageMode } = await api('GET', '/api/account/firms/' + encodeURIComponent(slug));
-  const out = h('div');
-  // Customizing the page (description, booking link, pictures) is a Featured benefit; a Basic firm keeps what it has and can still update its facts.
-  const locked = !firm.featured;
-  const lockHint = 'A Featured benefit. Upgrade to write your own.';
-  const f = {
-    name: h('input', { type: 'text', value: firm.name, maxlength: 200 }),
-    blurb: h('textarea', { maxlength: 500, disabled: locked }, firm.blurb || ''),
-    about: h('textarea', { class: 'tall', maxlength: 2000, disabled: locked }, firm.about || ''),
-    phone: h('input', { type: 'text', value: firm.phone || '', maxlength: 30 }),
-    website: h('input', { type: 'text', value: firm.website || '', maxlength: 300 }),
-    bookingUrl: h('input', { type: 'text', value: firm.bookingUrl || '', maxlength: 500, placeholder: 'https://', disabled: locked }),
-    address: h('input', { type: 'text', value: firm.address || '', maxlength: 300 }),
-    tags: h('input', { type: 'text', value: (firm.tags || []).join(', ') }),
-  };
-  const cats = categoryChecks(firm.caseTypes);
-  const hrs = hoursEditor(hours);
-  const save = h('button', { class: 'primary', type: 'submit' }, 'Save changes');
+async function viewEdit(slug, flash) {
+  const base = '/api/account/firms/' + encodeURIComponent(slug);
+  const data = await api('GET', base);
+  const reload = async (message) => mount(shell('firms', await viewEdit(slug, message || undefined), { wide: true }));
   return h('div', null, h('p', null, h('a', { href: '#firms' }, '← My firms')),
-    planPanel(`/api/account/firms/${encodeURIComponent(slug)}/plan`),
-    h('form', { class: 'card', onsubmit: async (e) => {
-      e.preventDefault();
-      save.disabled = true;
-      try {
-        const payload = {
-          name: f.name.value, blurb: f.blurb.value, about: f.about.value, phone: f.phone.value, website: f.website.value, bookingUrl: f.bookingUrl.value, address: f.address.value,
-          tags: splitTags(f.tags.value), caseTypes: cats.get(),
-        };
-        if (hrs.isDirty()) payload.hours = hrs.anyOpen() ? hrs.get() : null;
-        const res = await api('PATCH', '/api/account/firms/' + encodeURIComponent(slug), payload);
-        out.replaceChildren(note('msg-ok', res.changed.length ? 'Saved. Your public page updates within about a minute.' : 'No changes to save.'));
-      } catch (err) { out.replaceChildren(note('msg-err', err.message)); }
-      save.disabled = false;
-    } },
-      h('div', { class: 'row spread' }, h('h2', null, firm.name), h('a', { href: `/firms/${slug}`, target: '_blank', rel: 'noopener' }, 'View public page')),
-      pageMode !== 'dynamic' && note('msg-err', 'Your page has a custom layout that we update for you. Your changes still appear in the directory, search and map. Write to info@lawdb.ca to have the page itself updated.'),
-      locked && h('p', { class: 'muted' }, h('b', null, 'Customizing your page is a Featured benefit. '), 'You can always keep your facts up to date here: name, phone, address, website, practice areas and opening hours. Upgrade to Featured to write your own description, add a booking button, and add your logo, cover and photos.'),
-      field('Firm name', f.name), field('Short description (shown in lists)', f.blurb, locked ? lockHint : undefined),
-      field('About the firm (shown on your page)', f.about, locked ? lockHint : 'Plain text. A blank line starts a new paragraph.'),
-      field('Phone', f.phone), field('Website', f.website),
-      field('Booking link', f.bookingUrl, locked ? lockHint : 'Optional. Your calendar (Calendly, Clio, Microsoft Bookings...) or the page on your site where people book a call. It turns on the Book a call button on your page; leave it blank to switch the button off.'),
-      field('Address', f.address),
-      field('Practice areas (comma separated)', f.tags),
-      h('label', null, 'Categories'), cats.el,
-      h('label', null, 'Opening hours'), hrs.el,
-      h('p', { class: 'muted' }, 'Your rating and review count come from Google and update on their own.'),
-      h('div', { class: 'row' }, save), out),
-    picturesPanel(`/api/account/firms/${encodeURIComponent(slug)}/images`, { locked }),
-    feedPanel(`/api/account/firms/${encodeURIComponent(slug)}/feed`));
+    profileEditor({ mode: 'owner', data, base, flash, onSaved: reload }));
 }
 
 // ---------------------------------------------------------------- enquiries
@@ -614,6 +585,7 @@ const GOALS = [
 let cityList = null;
 
 function renderWizard() {
+  document.body.classList.remove('ap', 'ap-in');
   const parts = (user.name || '').trim().split(/\s+/);
   const d = { first: parts[0] || '', last: parts.slice(1).join(' '), city: user.city || '', province: user.province || '', title: user.jobTitle || '', employer: user.employer || '', goal: user.goal || '' };
   let step = 0;
@@ -696,7 +668,7 @@ async function render() {
     else if (tab === 'network') view = await viewNetwork();
     else if (tab === 'saved') view = await viewSaved();
     else if (tab === 'profile') view = await viewProfile();
-    else if (name === 'edit' && arg) view = await viewEdit(arg);
+    else if (name === 'edit' && arg) { view = await viewEdit(arg); if (seq !== renderSeq) return; return mount(shell('firms', view, { wide: true })); }
     else if (name === 'leads') view = await viewLeads(arg);
     else { await loadMe(); view = viewFirms(); }
     if (seq !== renderSeq) return;

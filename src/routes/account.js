@@ -173,15 +173,15 @@ export async function createListing({ request, env, url, exec }) {
 export async function getFirm({ request, env, params }) {
   const user = await requireUser(env, request);
   await requireOwner(env, user, params.slug);
-  const row = await env.DB.prepare('SELECT data, hours, page_mode, about FROM firms WHERE slug = ?').bind(params.slug).first();
+  const row = await env.DB.prepare('SELECT rowid AS id, data, hours, page_mode, about, status, updated_at FROM firms WHERE slug = ?').bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
-  return reply({ firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, pageMode: row.page_mode });
+  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, pageMode: row.page_mode, updatedAt: row.updated_at });
 }
 
 export async function updateFirm({ request, env, params }) {
   const user = await requireUser(env, request);
   await requireOwner(env, user, params.slug);
-  const body = await readJson(request, 10000);
+  const body = await readJson(request, 20000);
   const { changed, firm, pageMode } = await applyFirmEdit(env, user, params.slug, body, { admin: false });
   return reply({ ok: true, changed, firm, pageMode });
 }

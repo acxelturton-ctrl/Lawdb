@@ -83,6 +83,8 @@ const ROUTES = [
   route('GET', '/api/admin/firms', admin.listFirms),
   route('GET', '/api/admin/firms/:slug', admin.getFirm),
   route('POST', '/api/admin/firms', admin.createFirm),
+  route('POST', '/api/admin/firms/import', admin.importFirms),
+  route('GET', '/api/admin/geocode', admin.geocodeAddress),
   route('PATCH', '/api/admin/firms/:slug', admin.updateFirm),
   route('POST', '/api/admin/firms/:slug/invite', invite.create),
   route('GET', '/api/admin/firms/:slug/invites', invite.list),

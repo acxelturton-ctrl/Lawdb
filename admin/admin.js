@@ -34,6 +34,7 @@ function renderLogin() {
 // ---------------------------------------------------------------- shell
 let pendingCount = 0;
 let paymentCount = 0;
+let commentCount = 0;
 const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['outreach', 'Outreach'], ['firms', 'Firms'], ['logos', 'Logos'], ['news', 'News'], ['traffic', 'Traffic'], ['projects', 'Projects'], ['journal', 'Journal'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
 
 // The bar at the top shows the live counts and the clock; the user menu is on its right. The menu bar under it is the list of sections.
@@ -44,7 +45,7 @@ let clockTimer;
 async function ensureStats() {
   if (appStats && Date.now() - statsAt < 30000) return;
   statsAt = Date.now();
-  try { appStats = await api('GET', '/api/admin/stats'); pendingCount = appStats.pendingApprovals; paymentCount = appStats.paymentsToReview; } catch { statsAt = 0; }
+  try { appStats = await api('GET', '/api/admin/stats'); pendingCount = appStats.pendingApprovals; paymentCount = appStats.paymentsToReview; commentCount = appStats.pendingComments || 0; } catch { statsAt = 0; }
 }
 function statsBar(el) {
   const draw = () => {
@@ -59,6 +60,7 @@ function statsBar(el) {
       h('span', null, h('b', null, n(appStats.featured)), ' Featured'),
       appStats.firmsHidden > 0 && h('span', null, h('b', null, n(appStats.firmsHidden)), ' hidden'),
       appStats.pendingApprovals > 0 && h('span', null, h('b', null, n(appStats.pendingApprovals)), ' to approve'),
+      appStats.pendingComments > 0 && h('span', null, h('a', { href: '#reviews' }, h('b', null, n(appStats.pendingComments)), ' comments to review')),
       h('span', null, h('button', { class: 'more', type: 'button', onclick: () => { more.hidden = !more.hidden; } }, 'more…'), more)].filter(Boolean));
   };
   draw();
@@ -82,7 +84,7 @@ function shell(user, active, content) {
           h('div', { class: 'menu' }, h('div', { class: 'who' }, user.email),
             h('a', { href: '#', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout').catch(() => {}); location.reload(); } }, 'Sign out'),
             h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); location.reload(); } }, 'Sign out everywhere')))))),
-    h('nav', { class: 'menubar', 'aria-label': 'Sections' }, h('div', { class: 'menubar-in' }, TABS.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'approvals' && pendingCount > 0 && h('span', { class: 'count' }, pendingCount), id === 'payments' && paymentCount > 0 && h('span', { class: 'count' }, paymentCount))))),
+    h('nav', { class: 'menubar', 'aria-label': 'Sections' }, h('div', { class: 'menubar-in' }, TABS.map(([id, label]) => h('a', { href: `#${id}`, 'aria-current': id === active ? 'page' : false }, label, id === 'approvals' && pendingCount > 0 && h('span', { class: 'count' }, pendingCount), id === 'payments' && paymentCount > 0 && h('span', { class: 'count' }, paymentCount), id === 'reviews' && commentCount > 0 && h('span', { class: 'count' }, commentCount))))),
     h('main', { class: 'page' }, content));
 }
 

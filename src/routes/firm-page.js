@@ -101,6 +101,9 @@ export async function firmPage({ request, env, ctx }) {
     return env.ASSETS.fetch(request);
   }
 
+  // A firm switched off in the admin is shown nowhere: not even the original hand-built page, which is a file the site serves on its own.
+  if (row && row.status === 'hidden') return env.ASSETS.fetch(new Request(url.origin + '/__hidden-firm__'));
+
   if (!row || row.status !== 'live' || row.page_mode !== 'dynamic') {
     let res = await env.ASSETS.fetch(request); // the original page (or a 404 for an unknown firm)
     if (res.status === 200 && row && row.status === 'live') {

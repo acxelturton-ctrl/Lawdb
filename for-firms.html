@@ -98,6 +98,13 @@
 
 
   .fx-sec{ margin:34px 0 10px; }
+  .an-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:26px; align-items:start; margin:14px 0 6px; }
+  .an-list{ list-style:none; margin:0; padding:0; display:grid; gap:11px; font-size:15.5px; line-height:1.5; color:#2b3a4c; }
+  .an-list li{ padding-left:22px; position:relative; }
+  .an-list li::before{ content:''; position:absolute; left:0; top:.55em; width:10px; height:10px; border-radius:3px; background:#c9a050; }
+  .an-list b{ color:#142434; }
+  .an-img{ width:100%; height:auto; border:1px solid #e3dfd3; border-radius:12px; box-shadow:0 12px 30px -16px rgba(20,36,52,.35); background:#f5f3ec; }
+  @media (max-width:900px){ .an-grid{ grid-template-columns:1fr; } }
   .fx-grid{ display:grid; grid-template-columns:1.05fr 1fr; gap:28px; align-items:start; margin-top:18px; }
   @media (max-width:760px){ .fx-grid{ grid-template-columns:1fr; } }
   .fx-box{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; box-shadow:0 10px 30px rgba(20,36,52,0.08); }
@@ -278,13 +285,13 @@
     <p class="mp-head">Grow leads to your law firm</p>
     <ul class="mp-list">
       <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><span><b>Ranked above Basic firms</b>First in search for your city and case type, with a Featured Partner card on top.</span></li>
-      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L18.5 9.5l-4-4L4 16z"/><path d="M13 7l4 4"/></svg></span><span><b>Your page, your way</b>Add your logo, cover, photos and description, and a book-a-call button.</span></li>
+      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L18.5 9.5l-4-4L4 16z"/><path d="M13 7l4 4"/></svg></span><span><b>Your page, your way</b>Add your logo, cover, photos and description, and a Book a call button with your own booking link.</span></li>
+      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span><b>Analytics dashboard</b>See page views, visitors, every button clicked and where visitors come from, with a weekly email.</span></li>
+      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 10h16M9 10v9"/></svg></span><span><b>Enquiries dashboard</b>Read, filter, add notes, reply and export every enquiry, and send them to a second email address.</span></li>
       <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.6 6-11a6 6 0 1 0-12 0c0 5.4 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/></svg></span><span><b>Gold pin and badge</b>Stand out on the map, in the search box and on your profile.</span></li>
-      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 10h16M9 10v9"/></svg></span><span><b>Enquiries dashboard</b>Read, filter, add notes, reply and export every enquiry.</span></li>
-      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span><b>Analytics dashboard</b>Page views, visitors, every button clicked and where visitors came from.</span></li>
     </ul>
     <a class="mp-cta" href="/list-your-firm?plan=featured">Get Featured</a>
-    <p class="mp-note">Your first 30 days of Featured are free, with no card needed. After that it is $89 a month, and you can cancel any time.</p>
+    <p class="mp-note">Your first 30 days are free, with no card needed. After that Featured is $89 a month, and you can cancel any time.</p>
     <a class="mp-alt" href="/list-your-firm">List your firm free</a>
   </div>
 
@@ -310,7 +317,7 @@
     <div class="hx-head">
       <p class="hx-eyebrow">For law firms</p>
       <h1 id="hxh">Grow Leads to Your Law Firm</h1>
-      <p class="hx-sub">Stand out on LawDB with premium placement, more visibility and a custom profile that showcases what makes your firm unique.</p>
+      <p class="hx-sub">Stand out on LawDB with premium placement, a custom profile, and analytics that show you what your page does. Your first 30 days of Featured are free, no card needed.</p>
       <div class="promo-links">
         <a class="promo-go" href="/list-your-firm?plan=featured">Get Featured: first month free</a>
         <a href="/list-your-firm">List your firm (free)</a>
@@ -322,7 +329,7 @@
       <ul class="hx-feats">
         <li><button class="hx-feat" type="button" data-i="0" aria-pressed="true"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span><span><b>A Gold Pin on the Map</b><span class="d">Your firm appears with a highlighted gold pin on the LawDB map, so clients can spot you at a glance in your area.</span></span></button></li>
         <li><button class="hx-feat" type="button" data-i="1" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7L12 2Z"/></svg></span><span><b>Ranked First in Your Area</b><span class="d">Featured firms are listed above Basic firms for their city and case type, with a large Featured Partner card at the top of the Find results and first place in the live search box.</span></span></button></li>
-        <li><button class="hx-feat" type="button" data-i="2" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5Z"/></svg></span><span><b>Custom Profile Page</b><span class="d">Make your page your own: write your own description, add a book-a-call button, and add your logo, cover and photos, with a gold verified tick and Featured badge on top.</span></span></button></li>
+        <li><button class="hx-feat" type="button" data-i="2" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5Z"/></svg></span><span><b>Custom Profile Page</b><span class="d">Make your page your own: write your own description, add your logo, cover and photos, and a Book a call button with your own booking link, with a gold verified tick and Featured badge on top.</span></span></button></li>
         <li><button class="hx-feat" type="button" data-i="3" aria-pressed="false"><span class="hx-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM9 12v1.8h8V12H9Zm0 4v1.8h8V16H9Z"/></svg></span><span><b>Articles That Work Harder</b><span class="d">Your latest articles carry a Featured badge on LawDB News, get a LawDB page that search engines can find, and rank higher in the home page news strip.</span></span></button></li>
       </ul>
     </div>
@@ -428,7 +435,8 @@
   <div class="tiers">
   <h2 class="center">Free or Featured</h2>
   <p class="lede center">Every firm in the directory can be listed at no cost. Featured is for firms that want
-  priority placement in their city and case types.</p>
+  priority placement in their city and case types, a customized page, and analytics. Your first 30 days of
+  Featured are free, with no card needed.</p>
 
   <div class="plans">
     <div class="plan">
@@ -465,6 +473,25 @@
   <p class="plans-note">Once your listing is yours (claim it or add it, we check every request), start your free month from your dashboard: your firm is Featured for 30 days with the analytics dashboard, and goes back to Basic by itself when the month ends unless you subscribe. Featured changes where and how your firm is shown on LawDB. It does not guarantee calls, clients or search-engine rankings, and LawDB is a new directory, so we do not quote traffic or lead numbers. Featured is a monthly subscription you can cancel any time. You fill in the listing form first, then continue to secure checkout; Featured placement starts once payment is confirmed.</p>
 
 
+  </div>
+
+  <div class="fx-sec an-sec">
+    <h2>Analytics: see what your page does for you</h2>
+    <p class="lede">Featured firms get a dashboard of their own numbers, updated within a minute. The picture shows the dashboard with sample numbers; yours are real, from your own page.</p>
+    <div class="an-grid">
+      <ul class="an-list">
+        <li><b>Page views and visitors</b> by day, compared with the period before</li>
+        <li><b>Every button clicked:</b> call, message, email, website, directions, Google reviews, booking, follow, rating, your articles and your social profiles</li>
+        <li><b>Where visitors came from:</b> Google, other sites, social networks or LawDB itself, and the campaign links you share</li>
+        <li><b>Phone or computer</b>, and which provinces your visitors are in</li>
+        <li><b>Your busiest days</b>, and a plain-language summary of what changed</li>
+        <li><b>Enquiries</b> through your page, counted next to your views</li>
+        <li><b>A spreadsheet export</b> and a <b>weekly email</b> with your week</li>
+      </ul>
+      <img class="an-img" src="/images/featured-analytics-1200.webp" srcset="/images/featured-analytics-720.webp 720w, /images/featured-analytics-1200.webp 1200w" sizes="(max-width:900px) 100vw, 560px" width="1200" height="1140" loading="lazy" decoding="async"
+        alt="The LawDB analytics dashboard shown with sample numbers: page views, visitors, button clicks and enquiries compared with the period before, a daily chart, and a ranked list of what visitors did on the page, such as calling and visiting the website.">
+    </div>
+    <p class="plans-note">On the Basic plan you see your page views, visitors, button clicks and enquiries for the last 30 days as totals. Featured opens the whole dashboard. We count visits and clicks; we do not store who visited (no names, no addresses, no cookies).</p>
   </div>
 
   <div class="fx-sec">
@@ -504,9 +531,11 @@
       <li><strong>Add or claim your firm.</strong> Claim your existing listing or add a new one: contact
       details, practice areas and city.</li>
       <li><strong>We check it, then it goes live.</strong> We confirm the details so members can trust
-      what they see. Featured upgrades go live as soon as the subscription is confirmed.</li>
+      what they see.</li>
+      <li><strong>Try Featured free for 30 days.</strong> Press <em>Start my free month</em> in your dashboard.
+      Your firm is Featured straight away, with no card, and goes back to Basic by itself unless you subscribe.</li>
       <li><strong>Run it yourself.</strong> Update your profile any time from your dashboard, with no
-      emailing back and forth. Members can follow and rate your firm.</li>
+      emailing back and forth, and watch your analytics. Members can follow and rate your firm.</li>
     </ol>
   </div>
 
@@ -518,6 +547,10 @@
     <p>What we can tell you is what exists: <span data-live="firms">1,092</span> firms across Ontario, Quebec, British Columbia, Alberta and Manitoba, <span data-live="cities">62</span> cities, and
     10 practice areas, each with its own indexed page, a sitemap submitted to search engines,
     and original written content published on the site regularly.</p>
+    <p>What we can do is show you your own numbers. Featured firms see how many people open their page,
+    which buttons they click (call, message, email, website, directions, booking) and where they came from,
+    so you can judge for yourself what a listing is worth. We count visits and clicks; we never track who the
+    visitors are.</p>
     <p>A free listing costs you nothing and gives you a linked, indexed page. Featured is worth
     considering if you want priority placement in a competitive city while the directory is still
     small &mdash; which is exactly when placement is easiest to get.</p>

@@ -173,9 +173,10 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   const head = isNew
     ? h('div', null, h('h1', { class: 'ed-title' }, 'Add a firm'), h('p', { class: 'ed-sub' }, 'Fill in what you know. Pictures, other offices, social profiles and the blog feed can be added once the firm is saved.'))
     : h('div', null,
-      h('h1', { class: 'ed-title' }, mode === 'owner' ? 'Edit your profile: ' : 'Edit Profile: ', h('span', { class: 'ed-handle' }, '@' + slug)),
+      h('h1', { class: 'ed-title' }, mode === 'owner' ? 'Edit your profile: ' : 'Edit Profile: ',
+        data.status === 'live' ? h('a', { class: 'ed-handle', href: `/firms/${slug}`, target: '_blank', rel: 'noopener', title: 'Open the public page' }, '@' + slug) : h('span', { class: 'ed-handle' }, '@' + slug)),
       h('p', { class: 'ed-sub' },
-        firm.website && h('a', { href: firm.website, target: '_blank', rel: 'noopener nofollow' }, host(firm.website), ' ↗'),
+        firm.website && h('a', { href: firm.website, target: '_blank', rel: 'noopener nofollow' }, icon('globe'), host(firm.website)),
         data.updatedAt && h('span', null, 'Updated: ', when(data.updatedAt)),
         h('span', { class: 'badge' + (firm.featured ? ' featured' : '') }, firm.featured ? 'Featured' : 'Basic'),
         data.status && data.status !== 'live' && h('span', { class: 'badge new' }, data.status === 'pending' ? 'Awaiting approval' : 'Hidden'),
@@ -264,12 +265,13 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     !isNew && h('label', { class: 'check' }, c.appointmentOnly, 'All offices are by appointment only'));
   const hours = card('Opening hours', 'clock', hrs.el);
 
-  const mobile = h('div', { class: 'ed-grid' }, basic, web, loc);
-  const second = h('div', { class: 'ed-grid ed-grid-2' }, desc, h('div', { class: 'ed-stack' }, addr, hours));
+  // Three columns, as on MSPdatabase: Basic Information | Website & Blog, then Description | Location, then Address and Opening hours.
+  // On a phone they stack in that order.
+  const grid = h('div', { class: 'ed-grid' }, h('div', { class: 'ed-stack' }, basic), h('div', { class: 'ed-stack' }, web, desc), h('div', { class: 'ed-stack' }, loc, addr, hours));
   const hand = mode === 'owner' && data.pageMode !== 'dynamic' && note('msg-err', 'Your page has a custom layout that we update for you. Your changes still appear in the directory, search and map. Write to info@lawdb.ca to have the page itself updated.');
   const lockNote = locked && h('p', { class: 'ed-banner' }, icon('lock'), h('span', null, h('b', null, 'Customizing your page is a Featured benefit. '), 'You can always keep your facts up to date here: name, phone, address, website, practice areas and opening hours. Upgrade to Featured to write your own description and tagline, add a booking link and add pictures.'));
 
-  form.append(...[head, flash ? note('msg-ok', flash) : null, hand, lockNote, imagesBar, mobile, second, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
+  form.append(...[head, flash ? note('msg-ok', flash) : null, hand, lockNote, imagesBar, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
   // The plan (and what Featured adds) is one tap away at the top, not a page-long card in front of the form.
   const plan = mode === 'owner' && h('details', { class: 'ed-collapse ed-plan' }, h('summary', null, 'Your plan: ', h('b', null, firm.featured ? 'Featured' : 'Basic (free)'), !firm.featured && h('span', { class: 'ed-plan-cta' }, 'See what Featured adds')), h('div', { class: 'inner' }, planPanel(`${base}/plan`)));
   const root = h('div', { class: 'ed-wrap' }, plan, form);

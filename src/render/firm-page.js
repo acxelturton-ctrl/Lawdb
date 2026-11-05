@@ -282,6 +282,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const dir = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(f.address || `${f.name} ${f.city}`).replace(/%20/g, '+')}`;
 
   const glance = cleanDetails(f.details);
+  // No aggregateRating here on purpose: the rating on the page is Google's, collected on Google, and Google's structured data rules say ratings that are
+  // marked up must come from the site itself (a business's own reviews of itself are not eligible either). The visible Google rating stays, named as Google's.
   const ld = {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
@@ -290,7 +292,6 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     address: postal(f),
     ...(f.phone ? { telephone: f.phone } : {}),
     ...(num(f.lat) && num(f.lng) && !f.approxCoords ? { geo: { '@type': 'GeoCoordinates', latitude: f.lat, longitude: f.lng } } : {}),
-    ...(rated ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: f.rating, reviewCount: f.count } } : {}),
     url,
     ...(customCover ? { image: ogImage } : {}),
     ...(website ? { sameAs: [website] } : {}),

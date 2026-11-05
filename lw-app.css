@@ -21,7 +21,10 @@
 .lw-tabbar{display:none}
 @media(max-width:899px){.lw-tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:1100;background:#fff;border-top:1px solid #e3dfd3;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(20,36,52,0.06)}
 body.lw-has-tabs{padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
-body.lw-has-tabs .to-top{bottom:calc(82px + env(safe-area-inset-bottom,0px))}}
+body.lw-has-tabs .to-top{bottom:calc(82px + env(safe-area-inset-bottom,0px))}
+/* the floating Save bar of the Edit Profile page sits just above the tab bar (it used to be hidden under it); in the focus screens, where the tab bar is hidden, it goes back to the bottom */
+body.lw-has-tabs .savebar{bottom:calc(70px + env(safe-area-inset-bottom,0px));padding-bottom:12px}
+body.lw-focus.lw-has-tabs .savebar{bottom:0;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px))}}
 .lw-tabbar a,.lw-tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px;background:none;border:0;color:#586170;font:600 11px Inter,system-ui,sans-serif;text-decoration:none;cursor:pointer}
 .lw-tabbar svg{width:24px;height:24px}
 .lw-tabbar .on{color:#142434}

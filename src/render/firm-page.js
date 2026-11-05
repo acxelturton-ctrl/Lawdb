@@ -140,7 +140,7 @@ function blockHtml(b) {
   const ext = /^https:/.test(b.href);
   return `\n    <div class="from-firm"><h2>${esc(String(b.heading || 'From the Firm').slice(0, 60))}</h2><div class="post-title">${esc(String(b.title).slice(0, 220))}</div>` +
     (img ? `<img class="article-photo" src="${esc(localImg(img))}" alt="${esc(String(b.alt || '').slice(0, 200))}" loading="lazy">` : '') +
-    `<p class="article-teaser">${esc(String(b.teaser).slice(0, 500))}</p><a class="read-link" href="${esc(b.href)}"${ext ? ' target="_blank" rel="noopener"' : ''}>${esc(String(b.linkText || 'Read more').slice(0, 120))}</a></div>`;
+    `<p class="article-teaser">${esc(String(b.teaser).slice(0, 500))}</p><a class="read-link" href="${esc(b.href)}"${ext ? ' target="_blank" rel="noopener nofollow"' : ''}>${esc(String(b.linkText || 'Read more').slice(0, 120))}</a></div>`;
 }
 
 const PRACTICE_CSS = '<style>.pa-wrap{margin-bottom:20px}.pa-wrap h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 10px}.pa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.pa-card{display:block;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--ink)}.pa-card:hover{border-color:var(--brass);box-shadow:0 2px 10px rgba(20,36,52,0.08)}.pa-card b{display:block;font-size:15px;margin-bottom:4px}.pa-card span{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.45}.pa-card em{display:block;font-style:normal;font-size:12.5px;font-weight:700;color:var(--brass-deep);margin-top:8px}.pa-tags{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;gap:8px}.pa-tags li{background:#f4ecd8;border:1px solid #e6d4a4;border-radius:999px;padding:6px 14px;font:600 13.5px Inter,system-ui,sans-serif;color:#142434}</style>';
@@ -310,6 +310,10 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const dir = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(f.address || `${f.name} ${f.city}`).replace(/%20/g, '+')}`;
 
   const glance = cleanDetails(f.details);
+  // The same trail as the visible breadcrumb (Canada, province, city when it has a page, the firm), so search engines can show it under the result.
+  const ps = PROV_SLUG[f.province], cs = citySlug(f.city);
+  const trail = [['LawDB', `${origin}/`], ['Canada', `${origin}/find-lawyers`], ...(ps ? [[prov, `${origin}/${ps}/`]] : []), ...(ps && CITY_HUBS.has(`${ps}/${cs}`) ? [[f.city, `${origin}/${ps}/${cs}/`]] : []), [f.name, url]];
+  const crumbLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: trail.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })) };
   // No aggregateRating here on purpose: the rating on the page is Google's, collected on Google, and Google's structured data rules say ratings that are
   // marked up must come from the site itself (a business's own reviews of itself are not eligible either). The visible Google rating stays, named as Google's.
   const ld = {
@@ -343,7 +347,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   // The icon row: where the firm is, its website, its Google rating, and how many members follow it.
   const meta =
     `<div class="pf-meta"><span class="pf-mi">${C.ICONS.pin}${esc(f.city)}, ${esc(prov)}, Canada</span>` +
-    (website ? `<a class="pf-mi" href="${esc(website)}" target="_blank" rel="noopener">${IC.link}${esc(hostOf(website))}</a>` : '') +
+    (website ? `<a class="pf-mi" href="${esc(website)}" target="_blank" rel="${f.featured ? 'noopener sponsored' : 'noopener nofollow'}">${IC.link}${esc(hostOf(website))}</a>` : '') +
     (rated ? `<a class="pf-mi" href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.star}<b>${num(f.rating).toFixed(1)}</b> from ${num(f.count)} Google reviews</a>` : '') +
     // The LawDB member rating, apart from the Google one: the Worker's script (follow.js) fills in the average and count, or invites the first rating.
     `<a class="pf-mi pf-lrate" href="#rate" data-lawdb-rating="${esc(f.slug)}">${C.ICONS.star}<span>Rate this firm on LawDB</span></a>` +
@@ -395,6 +399,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
     `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
+    `<script type="application/ld+json">\n${jsonForHtml(crumbLd)}\n</script>`,
     C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (f.block && f.block.image ? BLOCK_CSS : '') + (practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
     '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + verifiedHtml(verified) + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,

@@ -96,7 +96,7 @@ export function cardHtml(p, { byline = '', head = null, hero = false } = {}) {
   const date = fmtDate(p.publishedAt);
   // The picture is the one the firm chose for the article, loaded from their own site; if it cannot load the card just drops it.
   // With a story page (`storyHref`) the card opens LawDB's own expanded view of the story; the firm's full article is one more tap away.
-  const here = p.storyHref ? { href: p.storyHref, extra: ' data-story' } : { href: p.url, extra: ' target="_blank" rel="noopener"' };
+  const here = p.storyHref ? { href: p.storyHref, extra: ' data-story' } : { href: p.url, extra: ' target="_blank" rel="noopener nofollow"' };
   const pic = p.image && safePostUrl(p.image)
     ? `<a class="lw-bc-img" href="${esc(here.href)}"${here.extra} tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="640" height="360" onerror="this.parentNode.remove()"></a>`
     : '';
@@ -104,8 +104,8 @@ export function cardHtml(p, { byline = '', head = null, hero = false } = {}) {
   const action = p.storyHref
     ? `<div class="lw-row"><a class="lw-go" href="${esc(p.storyHref)}" data-story>Read the story &rarr;</a>${p.id ? `<button class="lw-sbtn" type="button" data-save="${Number(p.id)}">Save</button>` : ''}</div>`
     : more
-      ? `<details><summary>Read more</summary><p class="lw-more">${esc(p.excerpt)}</p><a class="lw-go" href="${esc(p.url)}" target="_blank" rel="noopener">Read the full article on ${esc(host)} &rarr;</a></details>`
-      : `<a class="lw-go" style="align-self:flex-start;margin-top:4px" href="${esc(p.url)}" target="_blank" rel="noopener">Read on ${esc(host)} &rarr;</a>`;
+      ? `<details><summary>Read more</summary><p class="lw-more">${esc(p.excerpt)}</p><a class="lw-go" href="${esc(p.url)}" target="_blank" rel="noopener nofollow">Read the full article on ${esc(host)} &rarr;</a></details>`
+      : `<a class="lw-go" style="align-self:flex-start;margin-top:4px" href="${esc(p.url)}" target="_blank" rel="noopener nofollow">Read on ${esc(host)} &rarr;</a>`;
   const text = `${byline}${date ? `<time>${esc(date)}</time>` : ''}<h3><a href="${esc(here.href)}"${here.extra}>${esc(p.title)}</a></h3>` +
     (p.excerpt ? `<p class="lw-teaser">${esc(teaser(p.excerpt, max))}</p>` : '');
   return `<article class="lw-bc${hero ? ' lw-hero' : ''}">${pic}<div class="lw-bc-in">${text}${action}</div></article>`;
@@ -118,7 +118,7 @@ function feedCardHtml(p, { head, here, pic, host, hero }) {
   const when = timeOf(p.publishedAt);
   const menu = p.storyHref
     ? `<a href="${esc(p.storyHref)}" data-story>Read the story</a>${p.id ? `<button type="button" data-save="${Number(p.id)}">Save</button>` : ''}`
-    : `<a href="${esc(p.url)}" target="_blank" rel="noopener">Read on ${esc(host)}</a>`;
+    : `<a href="${esc(p.url)}" target="_blank" rel="noopener nofollow">Read on ${esc(host)}</a>`;
   const top = `<div class="lw-bc-head"><span class="lw-av">${head.avatar}</span><div class="lw-who">` +
     `<span class="lw-by"><a href="${esc(head.href)}">${esc(head.name)}</a>${head.featured ? '<span class="lw-ft">Featured</span>' : ''}</span>` +
     (head.place ? `<span class="lw-sub">${esc(head.place)}</span>` : '') +
@@ -150,7 +150,7 @@ const ARTICLES_CSS = `<style>
 
 function articleRowHtml(p) {
   const href = p.storyHref || p.url;
-  const target = p.storyHref ? '' : ' target="_blank" rel="noopener"';
+  const target = p.storyHref ? '' : ' target="_blank" rel="noopener nofollow"';
   const when = timeOf(p.publishedAt);
   const pic = p.image && safePostUrl(p.image)
     ? `<span class="fa-pic"><img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"></span>`

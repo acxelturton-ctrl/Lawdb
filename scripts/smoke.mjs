@@ -890,6 +890,18 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(news.text.includes(`<img src="${origin}/img/a.jpg"`) && news.text.includes('aspect-ratio:16/9'), 'LawDB News cards carry the article pictures');
   ok(news.text.includes('<select id="news-firm" name="firm"') && news.text.includes('<option value="achkar-law"') && news.text.includes('<option value="">All 2 firms</option>') && news.text.includes('/news?firm=achkar-law'), 'there is a drop-down to filter by firm (it stays short however many firms write)');
   // the home page carries a LawDB News feed: strongest firms first, loaded in slices, filterable by practice area
+  // the home page's top-rated firms are drawn fresh each day from the daily pool, the same all day, never a Featured firm
+  const poolText = readFileSync(new URL('../src/render/home-pool.generated.js', import.meta.url), 'utf8');
+  const dailyOf = (html) => (html.match(/<!--more-firms-->([\s\S]*)<!--\/more-firms-->/) || [, ''])[1];
+  const dailyA = dailyOf((await getRaw('/')).text), dailyB = dailyOf((await getRaw('/')).text);
+  const dailySlugs = [...dailyA.matchAll(/<h3><a href="\/firms\/([^"]+)"/g)].map((m) => m[1]);
+  ok(dailySlugs.length === 12 && new Set(dailySlugs).size === 12 && dailySlugs.every((s) => poolText.includes(`"${s}"`)) && dailyA === dailyB, "the home page shows 12 top-rated firms, all from the daily pool, the same on every visit");
+  // This test database only has the original 377 firms, which have no cover pictures stored, so there are too few eligible firms and the page rightly keeps its saved cards
+  // (no header). The daily pick itself is proven by scripts/test-home-daily.mjs and, on a database like the real one, by the header: x-lawdb-home-strip: daily.
+  const savedList = JSON.parse(readFileSync(new URL('../data/home-firms.json', import.meta.url), 'utf8')).firms;
+  const stripHeader = (await getRaw('/')).headers.get('x-lawdb-home-strip');
+  ok(stripHeader === 'daily' ? JSON.stringify(dailySlugs) !== JSON.stringify(savedList) : (stripHeader === null && JSON.stringify(dailySlugs) === JSON.stringify(savedList)), "the strip says which it is: today's pick (header, and not the saved list) or the saved cards (no header)");
+  ok(!dailyA.includes('/firms/blottman') && !dailyA.includes('/firms/barbarian-law') && dailyA.includes('class="lc-rate"') && dailyA.includes('class="lc-call"'), 'no Featured firm is in the rotation, and the cards carry the rating and the Call button');
   const home = await getRaw('/');
   ok(/<section class="hn" id="homeNews"(?! hidden)/.test(home.text) && /<div class="lw-bc-grid lw-feed hn-track" id="homeNewsGrid"[^>]*>\s*<article class="lw-bc/.test(home.text), 'the home page shows a short news row under the search bar (the section is un-hidden once there are articles)');
   ok(/<a class="hn-seeall" href="\/news">See all LawDB News/.test(home.text) && !home.text.includes('homeNewsMore') && (home.text.match(/<article class="lw-bc[ "]/g) || []).length <= 6, 'the row is short and ends with a link to the full LawDB News page (no long feed on the home page)');

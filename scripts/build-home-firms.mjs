@@ -2,19 +2,22 @@
 // ({ "firms": [slug, ...] }, in the order they are shown). The cards go between <!--more-firms--> and <!--/more-firms--> in the page.
 //   node scripts/build-home-firms.mjs                     writes the cards into index.html
 //   node scripts/build-home-firms.mjs --file=concept-a.html    the same, for another page (a concept preview)
-//   node scripts/build-home-firms.mjs --check             fails if the page is out of date or a listed firm does not qualify
+//   node scripts/build-home-firms.mjs --check             fails if the page or the daily pool is out of date, or a listed firm does not qualify
+//   node scripts/build-home-firms.mjs --pool              writes src/render/home-pool.generated.js: every firm that qualifies (images checked), the pool the
+//                                                         Worker draws each day's cards from (src/routes/home-firms.js). Run it after adding firms or pictures.
 //   node scripts/build-home-firms.mjs --suggest           prints the best spread of firms that qualify (nothing is written): a Google rating of
 //                                                         4.8 or more from at least 50 reviews, a cover photo, its own logo, a practice area; ranked
 //                                                         by rating weighted by number of reviews; at most 2 per city, 3 per practice area and 4 per province
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { PROVINCES } from '../src/render/firm-page.js';
+import { homeFirmCard } from '../src/render/home-cards.js';
 
 const CHECK = process.argv.includes('--check');
 const SUGGEST = process.argv.includes('--suggest');
+const POOL = process.argv.includes('--pool');
 const FILE = (process.argv.find((a) => a.startsWith('--file=')) || '--file=index.html').split('=')[1];
-const MIN_RATING = 4.8, MIN_REVIEWS = 50, SHOWN = 12;
+export const MIN_RATING = 4.8, MIN_REVIEWS = 50, SHOWN = 12;
 
-const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
 const firms = new Map();
 for (const f of JSON.parse(readFileSync('firms_data.json', 'utf8'))) firms.set(f.slug, f);
 for (const file of readdirSync('data').filter((x) => /^firms-batch-\d+\.json$/.test(x)).sort()) for (const f of JSON.parse(readFileSync(`data/${file}`, 'utf8'))) firms.set(f.slug, f);
@@ -22,6 +25,17 @@ for (const file of readdirSync('data').filter((x) => /^firms-batch-\d+\.json$/.t
 const qualifies = (f) => !!f && !f.featured && f.type === 'logo' && !!f.src && existsSync(f.src) && !!f.heroImage && existsSync(f.heroImage)
   && f.rating >= MIN_RATING && f.count >= MIN_REVIEWS && (f.tags || []).length > 0;
 const score = (f) => (f.count * f.rating + 50 * 4.5) / (f.count + 50);
+
+// The pool the Worker draws each day's cards from: every firm that qualifies (a rating of 4.8+ from 50+ reviews, a cover photo and its own logo that
+// really exist in the site's files, a practice area, not Featured). The Worker also checks, each day, that a firm is still live and not Featured and that its
+// description is a real one, so a firm that has changed since is dropped on its own.
+const poolSlugs = [...firms.values()].filter(qualifies).map((f) => f.slug).sort();
+const poolModule = `// The firms the home page can show in its daily rotation (see scripts/build-home-firms.mjs --pool and src/routes/home-firms.js). Generated: do not edit.
+export const HOME_POOL = ${JSON.stringify(poolSlugs)};
+`;
+const POOL_FILE = 'src/render/home-pool.generated.js';
+if (POOL) { writeFileSync(POOL_FILE, poolModule); console.log(`${POOL_FILE}: ${poolSlugs.length} firms in the daily pool`); process.exit(0); }
+if (CHECK && (!existsSync(POOL_FILE) || readFileSync(POOL_FILE, 'utf8') !== poolModule)) { console.error(`${POOL_FILE} is out of date: run node scripts/build-home-firms.mjs --pool`); process.exit(1); }
 
 if (SUGGEST) {
   const pool = [...firms.values()].filter(qualifies).sort((a, b) => score(b) - score(a) || b.count - a.count);
@@ -46,24 +60,8 @@ for (const slug of list) {
   seen.add(slug);
 }
 
-const phone = (p) => { const m = String(p || '').match(/^\+1(\d{3})(\d{3})(\d{4})$/); return m ? `(${m[1]}) ${m[2]}-${m[3]}` : String(p || ''); };
-const card = (f) => {
-  const href = '/firms/' + esc(f.slug);
-  const tel = f.phone ? '<a class="lc-call" href="tel:' + esc(f.phone) + '">Call now</a>' : '';
-  return '<article class="lc">' +
-    '<a class="lc-media" href="' + href + '" tabindex="-1" aria-hidden="true"><img src="' + esc(f.heroImage) + '" alt="" loading="lazy"><span class="lc-logo"><img src="' + esc(f.src) + '" alt="' + esc(f.name) + ' logo" loading="lazy"></span></a>' +
-    '<div class="lc-body">' +
-    '<span class="lc-cat">' + esc((f.tags || [])[0]) + '</span>' +
-    '<h3><a href="' + href + '">' + esc(f.name) + '</a></h3>' +
-    '<p class="lc-rate"><b>&#9733; ' + Number(f.rating).toFixed(1) + '</b> from ' + Number(f.count).toLocaleString('en-CA') + ' Google reviews</p>' +
-    '<p class="lc-serves">' + esc(f.city) + ', ' + esc(PROVINCES[f.province] || f.province) + '</p>' +
-    (f.phone ? '<p class="lc-phone">' + esc(phone(f.phone)) + '</p>' : '') +
-    '<div class="lc-btns"><a class="lc-view" href="' + href + '">See profile</a>' + tel + '</div>' +
-    '</div></article>';
-};
-
 const html = readFileSync(FILE, 'utf8');
-const block = '<!--more-firms-->' + list.map((s) => card(firms.get(s))).join('') + '<!--/more-firms-->';
+const block = '<!--more-firms-->' + list.map((s) => homeFirmCard(firms.get(s))).join('') + '<!--/more-firms-->';
 if (!html.includes('<!--more-firms-->') || !html.includes('<!--/more-firms-->')) throw new Error(`${FILE}: the <!--more-firms--> markers were not found`);
 const next = html.replace(/<!--more-firms-->[\s\S]*<!--\/more-firms-->/, () => block);
 if (CHECK) {

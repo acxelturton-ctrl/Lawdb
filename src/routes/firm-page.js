@@ -4,6 +4,7 @@
 import { storyPath } from '../lib/stories.js';
 import { renderFirmPage } from '../render/firm-page.js';
 import { isIndexable } from '../lib/indexing.js';
+import { getVerification, publicView } from '../lib/verification.js';
 import { firmStats } from '../lib/firm-stats.js';
 import { bookingRow } from '../render/booking.js';
 
@@ -96,7 +97,8 @@ export async function firmPage({ request, env, ctx }) {
     const firm = { ...JSON.parse(row.data), about: row.about || '' };
     const hours = row.hours ? JSON.parse(row.hours) : null;
     const photos = (await env.DB.prepare("SELECT id, alt FROM firm_images WHERE firm_slug = ? AND kind = 'photo' ORDER BY created_at, id").bind(m[1]).all()).results;
-    html = renderFirmPage({ firm, hours, images: photos, posts: await feedPosts(env, m[1]), nearby: await nearbyFirms(env, firm), stats: await firmStats(env, firm), origin: env.SITE_ORIGIN || url.origin });
+    const verified = publicView(await getVerification(env, m[1])); // only a firm the admin has checked; never the name or number the firm gave us
+    html = renderFirmPage({ firm, hours, images: photos, posts: await feedPosts(env, m[1]), nearby: await nearbyFirms(env, firm), stats: await firmStats(env, firm), verified, origin: env.SITE_ORIGIN || url.origin });
   } catch (err) {
     console.error('profile render failed, serving the saved copy', m[1], err);
     return env.ASSETS.fetch(request);

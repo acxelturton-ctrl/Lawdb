@@ -7,7 +7,9 @@ import { addImage, removeImage, listImages } from '../lib/images.js';
 import { audit } from '../lib/audit.js';
 import { searchSummary, runSearchConsole, inspectUrl, gscKey } from '../lib/gsc.js';
 import { profileStrength } from '../lib/profile-strength.js';
-import { mailInBackground, decisionEmail } from '../lib/email.js';
+import { getVerification, fullView, markVerified, removeVerification, pendingRequests } from '../lib/verification.js';
+import { ownerEmails } from '../lib/stripe.js';
+import { mailInBackground, decisionEmail, verifiedEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES, FIRM_STATUSES } from '../lib/firm-edit.js';
 import { placeFor } from '../lib/geocode.js';
 import { signinCheck } from '../lib/oauth.js';
@@ -50,6 +52,7 @@ export async function stats({ request, env }) {
     pendingApprovals: pending.results[0].n,
     pendingComments: comments.results[0].n,
     trials: await trialFunnel(env),
+    verifications: await pendingRequests(env),
     mailFailures24h: mailFail.results[0].n,
     lastBackupAt: backup.results[0].last,
     openReports: reports.results[0].n,
@@ -114,11 +117,11 @@ export async function listFirms({ request, env, url }) {
   if (!ORDER[sort]) throw new HttpError(422, `sort must be one of: ${Object.keys(ORDER).join(', ')}`);
   const clause = where.length ? 'WHERE ' + where.join(' AND ') : '';
   const [list, total] = await env.DB.batch([
-    env.DB.prepare(`SELECT rowid AS id, slug, name, city, province, featured, rating, review_count, status, updated_at, data, hours, about FROM firms ${clause} ORDER BY ${ORDER[sort]} LIMIT ? OFFSET ?`).bind(...args, limit, offset),
+    env.DB.prepare(`SELECT rowid AS id, slug, name, city, province, featured, rating, review_count, status, updated_at, data, hours, about, EXISTS (SELECT 1 FROM firm_verifications v WHERE v.firm_slug = firms.slug AND v.status = 'verified') AS verified FROM firms ${clause} ORDER BY ${ORDER[sort]} LIMIT ? OFFSET ?`).bind(...args, limit, offset),
     env.DB.prepare(`SELECT COUNT(*) AS n FROM firms ${clause}`).bind(...args),
   ]);
   // `strength` is the profile strength out of 100 (see src/lib/profile-strength.js); the firm record itself is not sent.
-  return reply({ total: total.results[0].n, firms: list.results.map(({ data, hours, about, ...r }) => ({ ...r, featured: !!r.featured, strength: profileStrength(JSON.parse(data), { about, hours }).score })) });
+  return reply({ total: total.results[0].n, firms: list.results.map(({ data, hours, about, verified, ...r }) => ({ ...r, featured: !!r.featured, verified: !!verified, strength: profileStrength(JSON.parse(data), { about, hours, verified: !!verified }).score })) });
 }
 
 export async function getFirm({ request, env, params }) {
@@ -126,7 +129,8 @@ export async function getFirm({ request, env, params }) {
   const row = await env.DB.prepare('SELECT rowid AS id, data, hours, about, status, updated_at, enquiry_email FROM firms WHERE slug = ?').bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
   const firm = { ...JSON.parse(row.data), about: row.about || '' };
-  return reply({ id: row.id, slug: params.slug, status: row.status, firm, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '', strength: profileStrength(firm, { about: row.about, hours: row.hours }) });
+  const verified = (await getVerification(env, params.slug))?.status === 'verified';
+  return reply({ id: row.id, slug: params.slug, status: row.status, firm, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '', strength: profileStrength(firm, { about: row.about, hours: row.hours, verified }) });
 }
 
 // Any firm's analytics, whatever its plan (the same report the firm sees), plus its free-month record.
@@ -546,4 +550,32 @@ export async function logoAccept({ request, env, params }) {
   const image = await addImage(env, admin, params.slug, new Request(`https://lawdb.invalid/?kind=logo&alt=${alt}`, { method: 'POST', headers: { 'content-type': 'application/octet-stream' }, body: bytes }), { admin: true });
   await audit(env, admin, 'logo.from_site', 'firm', params.slug, { from: src.slice(0, 200) });
   return reply({ ok: true, image }, 201);
+}
+
+// Verified by LawDB (see src/lib/verification.js): the admin looks the lawyer up in the province's public directory and records what was checked.
+export async function verificationGet({ request, env, params }) {
+  await requireAdmin(env, request);
+  const firm = await env.DB.prepare('SELECT province FROM firms WHERE slug = ?').bind(params.slug).first();
+  if (!firm) throw new HttpError(404, 'Firm not found');
+  return reply(fullView(await getVerification(env, params.slug), firm.province));
+}
+
+export async function verificationSet({ request, env, params, url, exec }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 2000);
+  const firm = await env.DB.prepare('SELECT name, province FROM firms WHERE slug = ?').bind(params.slug).first();
+  if (!firm) throw new HttpError(404, 'Firm not found');
+  const was = await getVerification(env, params.slug);
+  await markVerified(env, admin, params.slug, body);
+  if (!was || was.status !== 'verified') {
+    const to = await ownerEmails(env, params.slug);
+    if (to.length) mailInBackground(env, exec, { to, ...verifiedEmail(env.SITE_ORIGIN || url.origin, { firmName: firm.name, slug: params.slug }) });
+  }
+  return reply(fullView(await getVerification(env, params.slug), firm.province));
+}
+
+export async function verificationRemove({ request, env, params, url }) {
+  const admin = await requireAdmin(env, request);
+  await removeVerification(env, admin, params.slug, url.searchParams.get('reason') || '');
+  return reply({ ok: true });
 }

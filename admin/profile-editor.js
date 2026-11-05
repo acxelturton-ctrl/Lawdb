@@ -8,6 +8,7 @@
 // Only the fields that changed are sent, so an owner on the Basic plan never trips over a locked field they did not touch.
 // SECURITY: every value is put in with text nodes or element properties, never innerHTML.
 
+import { verificationPanel } from './verification-panel.js';
 import { h, api, when, note, hoursEditor, categoryChecks, splitTags, picturesPanel, feedPanel, planPanel, startFreeMonth, PROVINCES } from './ui.js';
 
 // The languages an owner can pick, and the availability choices. Kept in step with src/lib/details.js (LANGUAGES) and src/lib/profile-strength.js
@@ -330,7 +331,9 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
       h('p', { class: 'muted ed-strength-note' }, 'This measures how complete your profile is. It is shown only to you and LawDB, never to visitors.'));
   })();
 
-  form.append(...[head, strengthStrip, flash ? note('msg-ok', flash) : null, unlockBanner, imagesBar, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
+  const verifyPanel = isNew ? null : verificationPanel({ mode: mode === 'admin' ? 'admin' : 'owner', base });
+
+  form.append(...[head, strengthStrip, verifyPanel, flash ? note('msg-ok', flash) : null, unlockBanner, imagesBar, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
   // The plan (and what Featured adds) is one tap away at the top, not a page-long card in front of the form.
   const plan = mode === 'owner' && h('details', { class: 'ed-collapse ed-plan' }, h('summary', null, 'Your plan: ', h('b', null, firm.featured ? 'Featured' : 'Basic (free)'), !firm.featured && h('span', { class: 'ed-plan-cta' }, 'See what Featured adds')), h('div', { class: 'inner' }, planPanel(`${base}/plan`)));
   planEl = plan || null;

@@ -186,3 +186,7 @@ body.ap-in .site-header, body.ap-in .menu-overlay, body.ap-in .menu-drawer, body
 .fx-strength { margin: 10px 0 0; }
 .fx-strength .ed-bar { margin: 6px 0 8px; }
 .fx-strength p { margin: 0; font-size: 13px; }
+.ed-verify .ed-vtitle { font-size: 15px; color: var(--ink); margin-right: 10px; }
+.ed-verify .ed-strength-top { align-items: center; flex-wrap: wrap; gap: 4px 8px; }
+.ed-verify .ed-row { margin-top: 8px; }
+.ed-verify .row { margin-top: 12px; }

@@ -6,8 +6,9 @@ import { requireUser } from '../lib/auth.js';
 import { audit } from '../lib/audit.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, str } from '../lib/firm-edit.js';
 import { profileStrength } from '../lib/profile-strength.js';
+import { getVerification, fullView, requestVerification, verifiedSlugs, LAW_SOCIETIES } from '../lib/verification.js';
 import { geocode } from '../lib/geocode.js';
-import { mailInBackground, newClaimEmail } from '../lib/email.js';
+import { mailInBackground, newClaimEmail, verificationRequestEmail } from '../lib/email.js';
 import { adminEmails } from '../lib/auth.js';
 import { LEAD_STATUSES } from './admin.js';
 import { isFeatured, leadSummary, leadsCsv } from '../lib/leads.js';
@@ -48,7 +49,8 @@ export async function me({ request, env }) {
   const strength = new Map();
   if (approved.length) {
     const rows = (await env.DB.prepare(`SELECT slug, data, hours, about FROM firms WHERE slug IN (${approved.map(() => '?').join(',')})`).bind(...approved).all()).results;
-    for (const r of rows) { const s = profileStrength(JSON.parse(r.data), { about: r.about, hours: r.hours }); strength.set(r.slug, { score: s.score, todo: s.todo.slice(0, 3) }); }
+    const verified = await verifiedSlugs(env, approved);
+    for (const r of rows) { const s = profileStrength(JSON.parse(r.data), { about: r.about, hours: r.hours, verified: verified.has(r.slug) }); strength.set(r.slug, { score: s.score, todo: s.todo.slice(0, 3) }); }
   }
   return reply({ user: { email: user.email, role: user.role, ...prof }, memberships: results.map((m) => ({ ...m, featured: !!m.featured, ...(strength.has(m.slug) ? { strength: strength.get(m.slug) } : {}) })) });
 }
@@ -188,7 +190,8 @@ export async function getFirm({ request, env, params }) {
   const row = await env.DB.prepare('SELECT rowid AS id, data, hours, about, status, updated_at, enquiry_email FROM firms WHERE slug = ?').bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
   const firm = { ...JSON.parse(row.data), about: row.about || '' };
-  return reply({ id: row.id, slug: params.slug, status: row.status, firm, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '', strength: profileStrength(firm, { about: row.about, hours: row.hours }) });
+  const verified = (await getVerification(env, params.slug))?.status === 'verified';
+  return reply({ id: row.id, slug: params.slug, status: row.status, firm, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '', strength: profileStrength(firm, { about: row.about, hours: row.hours, verified }) });
 }
 
 export async function updateFirm({ request, env, params }) {
@@ -462,3 +465,24 @@ export const avatarRemove = (ctx) => mediaRemove('avatar', ctx);
 export const coverSet = (ctx) => mediaSet('cover', ctx);
 export const coverGet = (ctx) => mediaGet('cover', ctx);
 export const coverRemove = (ctx) => mediaRemove('cover', ctx);
+
+// Verified by LawDB: what the firm sees (its own request and, once checked, what was checked), and asking for it. The admin makes the checks (admin.js).
+export async function verificationGet({ request, env, params }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  const firm = await env.DB.prepare('SELECT province FROM firms WHERE slug = ?').bind(params.slug).first();
+  if (!firm) throw new HttpError(404, 'Firm not found');
+  return reply(fullView(await getVerification(env, params.slug), firm.province));
+}
+
+export async function verificationRequest({ request, env, params, url, exec }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  const body = await readJson(request, 1000);
+  const firm = await env.DB.prepare('SELECT name, province, featured FROM firms WHERE slug = ?').bind(params.slug).first();
+  if (!firm) throw new HttpError(404, 'Firm not found');
+  const v = await requestVerification(env, user, params.slug, body, { province: firm.province, featured: !!firm.featured });
+  const to = [...adminEmails(env)];
+  if (to.length) mailInBackground(env, exec, { to, ...verificationRequestEmail(env.SITE_ORIGIN || url.origin, { firmName: firm.name, slug: params.slug, society: LAW_SOCIETIES[v.lawSociety].name, registrant: v.registrant, email: user.email }) });
+  return reply(fullView(await getVerification(env, params.slug), firm.province), 201);
+}

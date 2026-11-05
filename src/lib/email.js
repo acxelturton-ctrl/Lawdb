@@ -169,6 +169,26 @@ const FEATURED_GETS = [
   'A Featured badge on your stories in LawDB News, a LawDB page search engines can find for each article, and higher placement in the home page news strip',
 ];
 
+// To the admins when a firm asks to be verified.
+export function verificationRequestEmail(origin, { firmName, slug, society, registrant, email }) {
+  const link = `${origin}/admin/#firms/edit/${slug}`;
+  return {
+    subject: `Verification requested: ${firmName}`,
+    text: `${email} asked LawDB to verify ${firmName}.\n\nThey named ${registrant} as registered with the ${society}. Look the lawyer up in the society's public directory, then record what you checked: ${link}`,
+    html: `<p><b>${esc(email)}</b> asked LawDB to verify <b>${esc(firmName)}</b>.</p><p>They named <b>${esc(registrant)}</b> as registered with the ${esc(society)}. Look the lawyer up in the society's public directory, then record what you checked.</p>${button(link, 'Open the firm')}`,
+  };
+}
+
+// To the firm's owners when the admin has verified it.
+export function verifiedEmail(origin, { firmName, slug }) {
+  const link = `${origin}/firms/${slug}`;
+  return {
+    subject: `${firmName} is now Verified by LawDB`,
+    text: `We checked ${firmName} and it is now Verified by LawDB. Your page shows a Verified badge, the date, what we checked and a link to the law society's own directory. It is not an endorsement, and it does not say anything about your work.\n\nSee your page (it can take a few hours to update): ${link}`,
+    html: `<p>We checked <b>${esc(firmName)}</b> and it is now <b>Verified by LawDB</b>. Your page shows a Verified badge, the date, what we checked and a link to the law society's own directory. It is not an endorsement, and it does not say anything about your work.</p>${button(link, 'See my page')}${small('It can take a few hours for the badge to appear on your page.')}`,
+  };
+}
+
 export function featuredOnEmail(origin, { firmName }) {
   const link = `${origin}/account/`;
   return {

@@ -23,6 +23,7 @@ export const FREE = {
     ['Keep your details up to date yourself', 'Name, address, phone, website, hours and practice areas, any time'],
     ['Write your own description and tagline', 'Tell clients about your firm in your own words'],
     ['Say who you serve and whether you are taking clients', 'Languages, the year you started practising, new-client status and virtual consultations'],
+    ['Get verified by LawDB', 'We check your law society registration and show a Verified badge, with what we checked and a link to the directory'],
     ['Listed by case type and city', 'Your firm has its own page in the directory'],
     ['Every enquiry emailed to you', 'Straight to your inbox'],
     ['Your numbers for the last 30 days', 'Page views, visitors, clicks and enquiries as totals, with a weekly email'],

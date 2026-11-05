@@ -129,10 +129,10 @@ export function cleanEnquiryEmail(v) {
 // ---------------------------------------------------------------- edit
 const OWNER_TEXT_FIELDS = { name: 'Firm name', blurb: 'Short description', tags: 'Practice areas' };
 
-// Customizing the page is a Featured benefit. An owner on the Basic plan still corrects the facts (name, phone, address, website, hours,
-// practice areas) and can clear a description or a booking link, but cannot write or change them, and cannot add pictures (see addImage).
+// An owner on the Basic plan edits the facts (name, phone, address, website, hours, practice areas) and writes the page's description and
+// tagline. What needs Featured: a booking link, a second enquiry address and pictures (see addImage). A Basic owner can still clear a booking link.
 export const FEATURED_LOCK = 'is a Featured benefit. Upgrade to Featured from your dashboard to customize your page.';
-const CUSTOMIZING = { about: 'Writing your own description', blurb: 'Writing your own description', bookingUrl: 'Adding a booking link', enquiryEmail: 'Sending enquiries to another address' };
+const CUSTOMIZING = { bookingUrl: 'Adding a booking link', enquiryEmail: 'Sending enquiries to another address' };
 
 // `admin` may also change the featured flag, the city and province, the map position and whether the firm is shown (status); owners may not.
 export async function applyFirmEdit(env, actor, slug, body, { admin }) {
@@ -153,7 +153,6 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   let status = row.status;
   if ('about' in body) {
     const next = str(body.about, 0, 2000) || null;
-    if (next && next !== (row.about || null) && !customizing) throw new HttpError(403, `${CUSTOMIZING.about} ${FEATURED_LOCK}`);
     if (next !== (row.about || null) && !admin) checkOwnerText('About the firm', next);
     if (next !== (row.about || null)) { changes.about = { from: row.about || null, to: next }; aboutText = next; }
   }

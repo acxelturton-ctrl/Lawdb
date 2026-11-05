@@ -14,7 +14,7 @@ export const PROMO = [
   '    <p class="mp-head">Grow leads to your law firm</p>',
   '    <ul class="mp-list">',
   ITEM('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>', 'Ranked above Basic firms', 'First in search for your city and case type, with a Featured Partner card on top.'),
-  ITEM('<path d="M4 20h4L18.5 9.5l-4-4L4 16z"/><path d="M13 7l4 4"/>', 'Your page, your way', 'Add your logo, cover, photos and description, and a Book a call button with your own booking link.'),
+  ITEM('<path d="M4 20h4L18.5 9.5l-4-4L4 16z"/><path d="M13 7l4 4"/>', 'Your page, your way', 'Add your logo, cover and photos, and a Book a call button with your own booking link.'),
   ITEM('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>', 'Analytics dashboard', 'See page views, visitors, every button clicked and where visitors come from, with a weekly email.'),
   ITEM('<path d="M4 5h16v14H4z"/><path d="M4 10h16M9 10v9"/>', 'Enquiries dashboard', 'Read, filter, add notes, reply and export every enquiry, and send them to a second email address.'),
   ITEM('<path d="M12 21s6-5.6 6-11a6 6 0 1 0-12 0c0 5.4 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/>', 'Gold pin and badge', 'Stand out on the map, in the search box and on your profile.'),

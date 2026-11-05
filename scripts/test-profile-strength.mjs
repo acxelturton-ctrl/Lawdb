@@ -12,7 +12,7 @@ const words = (n) => Array.from({ length: n }, (_, i) => `word${i}`).join(' ');
 const FULL = {
   firm: { name: 'A', blurb: 'We help people', tags: ['Divorce', 'Child custody'], phone: '613-555-0100', website: 'https://a.example', address: '1 Main St, Ottawa, ON',
     social: { linkedin: 'https://www.linkedin.com/company/a' }, details: { languages: ['English', 'French'], founded: 2009 }, availability: 'accepting' },
-  extra: { about: words(40), hours: JSON.stringify({ 1: [['09:00', '17:00']] }) },
+  extra: { about: words(40), hours: JSON.stringify({ 1: [['09:00', '17:00']] }), verified: true },
 };
 
 ok(STRENGTH_TOTAL === 100, 'the points add up to 100');
@@ -26,13 +26,13 @@ ok(profileStrength(null).score === 0, 'a missing record does not throw');
 const drop = (key, from = FULL) => { const f = JSON.parse(JSON.stringify(from.firm)); const x = { ...from.extra }; if (key in f) delete f[key]; else if (key in x) delete x[key]; return profileStrength(f, x); };
 ok(profileStrength(FULL.firm, { ...FULL.extra, about: words(39) }).items.find((i) => i.key === 'about').done === false, 'a 39-word description is not enough (40 words is the bar for being listed on Google)');
 ok(profileStrength(FULL.firm, { ...FULL.extra, about: words(40) }).items.find((i) => i.key === 'about').done === true, 'a 40-word description counts');
-ok(drop('about').score === 75 && drop('blurb').score === 92 && drop('hours').score === 90 && drop('availability').score === 93, 'each missing piece takes off its own points');
+ok(drop('about').score === 80 && drop('blurb').score === 92 && drop('hours').score === 92 && drop('availability').score === 93 && drop('verified').score === 90, 'each missing piece takes off its own points (verified by LawDB is worth 10)');
 ok(profileStrength({ ...FULL.firm, tags: ['Divorce'] }, FULL.extra).items.find((i) => i.key === 'tags').done === false, 'one practice area is not enough');
 ok(profileStrength(FULL.firm, { ...FULL.extra, hours: '{}' }).items.find((i) => i.key === 'hours').done === false && profileStrength(FULL.firm, { ...FULL.extra, hours: 'not json' }).items.find((i) => i.key === 'hours').done === false, 'empty or broken opening hours do not count');
 ok(profileStrength(FULL.firm, { ...FULL.extra, hours: { 2: [['10:00', '12:00']] } }).items.find((i) => i.key === 'hours').done === true, 'opening hours given as an object count too');
 ok(profileStrength({ ...FULL.firm, social: { linkedin: '' } }, FULL.extra).items.find((i) => i.key === 'social').done === false, 'an empty social link does not count');
 ok(profileStrength({ ...FULL.firm, availability: 'constructor' }, FULL.extra).items.find((i) => i.key === 'availability').done === false, 'availability must be one of the real choices');
-ok(profileStrength({ ...FULL.firm, details: { languages: ['Klingon'], founded: 1700 } }, FULL.extra).score === 90, 'details that are not valid (an unknown language, a year before 1850) do not count');
+ok(profileStrength({ ...FULL.firm, details: { languages: ['Klingon'], founded: 1700 } }, FULL.extra).score === 92, 'details that are not valid (an unknown language, a year before 1850) do not count');
 ok(full.items.every((i) => !('hint' in i)) && empty.items.every((i) => typeof i.hint === 'string' && i.hint.length > 0), 'a hint comes with every item that is not done');
 ok(empty.items.find((i) => i.key === 'about').hint.includes('0 of 40 words'), 'the description hint says how many words there are');
 

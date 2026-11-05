@@ -159,11 +159,30 @@ function practiceHtml(f, cards) {
 
 // Two things a visitor wants to know before calling: is the firm taking new clients, and does it do consultations online. Both are set by the firm's owner.
 const CHIPS_CSS = '<style>.pf-chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;padding:0;list-style:none}.pf-chip{display:inline-flex;align-items:center;gap:7px;padding:4px 11px;border:1px solid #e6d4a4;border-radius:999px;background:#f4ecd8;color:#142434;font-size:13px;font-weight:600;line-height:1.4}.pf-chip i{width:8px;height:8px;border-radius:50%;background:#142434;flex:none}.pf-chip.is-limited i{background:#e2bd6a}.pf-chip.is-closed i{background:#8a919b}</style>';
-function chipsHtml(f) {
+const TICK_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function chipsHtml(f, v) {
   const chips = [];
+  if (v) chips.push(`<li class="pf-chip is-verified">${TICK_SVG}<a href="#verified">Verified by LawDB</a></li>`);
   if (Object.hasOwn(AVAILABILITY, f.availability)) chips.push(`<li class="pf-chip is-${f.availability}"><i aria-hidden="true"></i>${esc(AVAILABILITY[f.availability])}</li>`);
   if (f.virtual === true) chips.push('<li class="pf-chip">Virtual consultations available</li>');
   return chips.length ? `        <ul class="pf-chips" aria-label="Good to know">${chips.join('')}</ul>\n` : '';
+}
+
+// "Verified by LawDB": what the admin checked, when, and a link to the law society's own directory. It never shows the name or number the firm gave us,
+// and says plainly that it is a check made on a date, not an endorsement (see src/lib/verification.js).
+const VERIFIED_CSS = '<style>.pf-chip.is-verified{background:#142434;border-color:#142434;color:#f5f3ec}.pf-chip.is-verified svg{width:14px;height:14px;flex:none;color:#e2bd6a}.pf-chip a{color:inherit;text-decoration:none}.verified{margin:22px 0;padding:16px 18px;border:1px solid #e6d4a4;border-radius:12px;background:#f4ecd8;color:#142434}.verified h2{display:flex;align-items:center;gap:8px;font-size:18px;margin:0 0 6px}.verified h2 svg{width:20px;height:20px;flex:none}.verified p{margin:6px 0 0;font-size:14.5px;line-height:1.55}.verified ul{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:4px;font-size:14.5px;line-height:1.5}.verified li:before{content:"\\2713";margin-right:8px;font-weight:700}.verified .vf-note{font-size:13px;color:#586170}.verified a{color:#142434;font-weight:600}</style>';
+function verifiedHtml(v) {
+  if (!v) return '';
+  let when = v.at;
+  try { const d = new Date(`${v.at}T12:00:00Z`); if (!Number.isNaN(d.getTime())) when = d.toLocaleDateString('en-CA', { month: 'long', year: 'numeric', timeZone: 'UTC' }); } catch { /* keep the plain date */ }
+  const items = [
+    v.checked.identity && 'The person who manages this profile is who they say they are',
+    v.checked.registration && `The lawyer is listed in the ${v.society.name}\u2019s public directory`,
+    v.checked.office && 'The office address and phone number match',
+  ].filter(Boolean);
+  return `\n    <section class="verified" id="verified" aria-label="Verified by LawDB"><h2>${TICK_SVG}Verified by LawDB</h2><p>Checked in ${esc(when)}:</p><ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>` +
+    `<p>Look for yourself: <a href="${esc(v.society.directory)}" target="_blank" rel="noopener nofollow">${esc(v.society.name)} directory</a>.</p>` +
+    '<p class="vf-note">This is a check that was made on that date. It is not an endorsement of the firm or its lawyers, and a lawyer\u2019s status can change, so check the directory before you hire anyone.</p></section>';
 }
 const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#586170}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
 const OFFICES_CSS = '<style>.offices{margin:22px 0}.offices h2{font-size:18px;margin:0 0 10px}.offices ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;line-height:1.5}.offices li{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.offices .office-name{font-weight:700;color:#142434}.offices a{color:#142434;text-decoration:underline;text-decoration-color:#c9a050;text-underline-offset:3px}.offices a:hover{text-decoration-color:#142434}.offices-note{margin:10px 0 0;font-size:14px;color:#586170}</style>';
@@ -276,7 +295,7 @@ function likeAside(nearby) {
 // The Message button opens the contact form it scrolls to.
 const CONTACT_JS = "<script>(function(){var b=document.querySelector('[data-open-contact]'),s=document.querySelector('.lead-slim');if(b&&s)b.addEventListener('click',function(){s.classList.add('open');});})();</script>";
 
-export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], origin = 'https://lawdb.ca', stats = null }) {
+export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], origin = 'https://lawdb.ca', stats = null, verified = null }) {
   const prov = PROVINCES[f.province] || f.province;
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
   const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-default.jpg`;
@@ -332,7 +351,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
 
   const card =
     `<section class="li-card pf-card" aria-label="${esc(f.name)} profile">\n      ${coverDiv(f)}\n      <div class="li-body">\n        ${f.featured ? '<span class="pf-feat li-feat">Featured on LawDB</span>\n        ' : ''}${logoSpan(f)}\n` +
-    `        <h1 class="li-name">${esc(f.name)}${f.featured ? ' ' + C.TICK : ''}</h1>\n        <p class="pf-handle">@${esc(f.slug)}</p>\n        <p class="li-tag">${tagline(f)}</p>\n${chipsHtml(f)}` +
+    `        <h1 class="li-name">${esc(f.name)}${f.featured ? ' ' + C.TICK : ''}</h1>\n        <p class="pf-handle">@${esc(f.slug)}</p>\n        <p class="li-tag">${tagline(f)}</p>\n${chipsHtml(f, verified)}` +
     `        ${meta}\n        ${actions}${planLine ? '\n        ' + planLine : ''}\n      </div>\n    </section>`;
 
   const aboutHtml = about ? `\n    <div class="article">${esc(about).replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>')}</div>` : '';
@@ -376,9 +395,9 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
     `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
-    C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (chipsHtml(f) ? CHIPS_CSS : '') + (f.block && f.block.image ? BLOCK_CSS : '') + (practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
+    C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (f.block && f.block.image ? BLOCK_CSS : '') + (practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
-    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + verifiedHtml(verified) + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     articlesHtml ? '\n    ' + articlesHtml : '',
     carousel(f, nearby),
     '\n\n    ' + leadScript,

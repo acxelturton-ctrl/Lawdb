@@ -548,7 +548,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     && (await call('PATCH', '/api/account/firms/achkar-law', { availability: 'constructor' })).status === 422 && (await call('PATCH', '/api/account/firms/achkar-law', { virtual: 'yes' })).status === 422, 'an unknown language, a year before 1850, a made-up availability and a non-boolean are refused');
   const detGet = (await call('GET', '/api/account/firms/achkar-law')).data;
   ok(detGet.firm.details.languages.join() === 'Somali,Amharic,English' && detGet.firm.details.founded === 1987 && detGet.firm.availability === 'accepting' && detGet.firm.virtual === true, 'the details are saved on the firm record');
-  ok(detGet.strength && Number.isInteger(detGet.strength.score) && detGet.strength.items.length === 11 && detGet.strength.items.filter((i) => i.done).reduce((n, i) => n + i.points, 0) === detGet.strength.score
+  ok(detGet.strength && Number.isInteger(detGet.strength.score) && detGet.strength.items.length === 12 && detGet.strength.items.filter((i) => i.done).reduce((n, i) => n + i.points, 0) === detGet.strength.score
     && ['languages', 'founded', 'availability'].every((k) => detGet.strength.items.find((i) => i.key === k).done), 'the owner gets the profile strength: a score out of 100 and a checklist, with the new details counted');
   const mineList = (await call('GET', '/api/account/me')).data.memberships.find((m) => m.slug === 'achkar-law');
   ok(mineList && mineList.strength && mineList.strength.score === detGet.strength.score && Array.isArray(mineList.strength.todo) && mineList.strength.todo.length <= 3, "the dashboard's firm card has the strength and at most three things to do next");
@@ -556,6 +556,19 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   let detLd = null; try { detLd = JSON.parse(detPage.text.match(/<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/)[1]); } catch {}
   ok(detPage.text.includes('class="pf-chip is-accepting"') && detPage.text.includes('Accepting new clients') && detPage.text.includes('Virtual consultations available') && /Languages<\/dt><dd>Somali, Amharic, English/.test(detPage.text) && detLd && detLd.knowsLanguage && detLd.knowsLanguage.includes('Somali') && detLd.foundingDate === '1987', 'the page shows whether the firm takes new clients and offers virtual consultations, its languages and founding year, in the page and its structured data');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { availability: '', virtual: false, languages: [], founded: null })).status === 200 && !(await getRaw('/firms/achkar-law')).text.includes('pf-chip'), 'the details can be cleared again, and the chips go');
+
+  // Verified by LawDB: a Basic owner asks (free), the admin checks, the public page shows it without the name or number
+  const vNone = await call('GET', '/api/account/firms/achkar-law/verification');
+  ok(vNone.status === 200 && vNone.data.status === 'none' && vNone.data.societies.length === 5 && vNone.data.lawSociety.code === 'ON' && vNone.data.requiresFeatured === false, 'an owner sees that the firm is not verified yet, with the law societies and their own province as the default');
+  ok((await call('POST', '/api/account/firms/achkar-law/verification', { lawSociety: 'XX', registrant: 'Marie Achkar' })).status === 422 && (await call('POST', '/api/account/firms/achkar-law/verification', { registrant: '<b>Marie</b>' })).status === 422
+    && (await call('POST', '/api/account/firms/achkar-law/verification', { registrant: 'Marie Achkar', registrationRef: 'a;b' })).status === 422 && (await call('POST', '/api/account/firms/achkar-law/verification', {})).status === 422, 'an unknown law society, a marked-up name, an odd number and an empty request are refused');
+  const vAsk = await call('POST', '/api/account/firms/achkar-law/verification', { registrant: 'Marie Achkar', registrationRef: 'P12345' });
+  ok(vAsk.status === 201 && vAsk.data.status === 'requested' && vAsk.data.lawSociety.code === 'ON' && vAsk.data.registrant === 'Marie Achkar' && vAsk.data.registrationRef === 'P12345', 'a Basic owner asks to be verified');
+  ok((await call('POST', '/api/account/firms/achkar-law/verification', { registrant: 'Marie Achkar', registrationRef: 'P99999' })).data.registrationRef === 'P99999', 'the owner can change the request before it is checked');
+  const vPageAsked = await getRaw('/firms/achkar-law');
+  ok(!vPageAsked.text.includes('is-verified') && !vPageAsked.text.includes('id="verified"'), 'asking shows nothing on the page until the admin has checked');
+  const vAskAudit = (await call('GET', '/api/account/me')).status === 200;
+  ok(vAskAudit && (await call('GET', '/api/account/firms/achkar-law')).data.strength.items.find((i) => i.key === 'verified').done === false, 'a firm that only asked does not have the points yet');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { enquiryEmail: 'intake@achkar.example' })).status === 403, 'a Basic owner cannot add a second enquiry address');
   const facts = await call('PATCH', '/api/account/firms/achkar-law', { phone: '613-555-0100' });
   ok(facts.status === 200 && facts.data.changed.includes('phone'), 'a Basic owner can still correct the facts');
@@ -573,6 +586,35 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { featured: true })).status === 200, 'the firm is made Featured');
   const strList = (await call('GET', '/api/admin/firms?q=achkar')).data.firms;
   ok(strList.length > 0 && strList.every((f) => Number.isInteger(f.strength) && f.strength >= 0 && f.strength <= 100 && !('data' in f) && !('about' in f) && !('hours' in f)), "the admin firms list carries each firm's profile strength, not the firm record");
+
+
+  // the admin sees the request, and the Overview counts it
+  const vAdminGet = await call('GET', '/api/admin/firms/achkar-law/verification');
+  ok(vAdminGet.status === 200 && vAdminGet.data.status === 'requested' && vAdminGet.data.registrant === 'Marie Achkar' && vAdminGet.data.lawSociety.directory.startsWith('https://lso.ca/'), 'the admin sees who the firm named, with the law society directory link');
+  const vStats = (await call('GET', '/api/admin/stats')).data.verifications;
+  ok(vStats && vStats.count >= 1 && vStats.list.some((r) => r.slug === 'achkar-law'), 'the Overview counts the request and links the firm');
+  const vAuditAsk = (await call('GET', '/api/admin/audit?limit=200')).data.entries;
+  ok(vAuditAsk.some((e) => e.action === 'firm.verification_request' && e.entity_id === 'achkar-law') && vAuditAsk.some((e) => e.action === 'mail.dev' && /^Verification requested: Achkar Law/.test(e.detail?.subject || '')), 'the request is in the activity log and the admin is emailed');
+  ok((await call('PUT', '/api/admin/firms/achkar-law/verification', { registrant: 'Marie Achkar', checks: { identity: true } })).status === 422 && (await call('PUT', '/api/admin/firms/achkar-law/verification', { registrant: 'Marie Achkar', checks: { registration: 'yes' } })).status === 422
+    && (await call('PUT', '/api/admin/firms/achkar-law/verification', { registrant: 'Marie Achkar', checks: { registration: true, bogus: true } })).status === 422, 'the admin cannot verify without ticking that the lawyer was found in the directory');
+  const vDo = await call('PUT', '/api/admin/firms/achkar-law/verification', { registrant: 'Marie Achkar', checks: { identity: true, registration: true, office: false }, note: 'found in the directory' });
+  ok(vDo.status === 200 && vDo.data.status === 'verified' && vDo.data.checked.registration === true && vDo.data.checked.office === false && vDo.data.verifiedAt, 'the admin records the checks and verifies the firm');
+  const vPage = await getRaw('/firms/achkar-law');
+  ok(vPage.text.includes('class="pf-chip is-verified"') && vPage.text.includes('id="verified"') && vPage.text.includes('Verified by LawDB') && vPage.text.includes('Law Society of Ontario') && vPage.text.includes('https://lso.ca/public-resources/finding-a-lawyer-or-paralegal/lawyer-and-paralegal-directory')
+    && vPage.text.includes('The person who manages this profile is who they say they are') && !vPage.text.includes('The office address and phone number match') && vPage.text.includes('It is not an endorsement'), 'the page shows the badge, what was checked, the law society link and that it is not an endorsement');
+  ok(!vPage.text.includes('Marie Achkar') && !vPage.text.includes('P99999') && !vPage.text.includes('found in the directory') && !(await getRaw('/api/firms/achkar-law')).text.includes('P99999') && !(await getRaw('/firms_data.json')).text.includes('P99999'), 'the name, the number and the admin\'s note are nowhere on the public page or in the public data');
+  const vAuditDo = (await call('GET', '/api/admin/audit?limit=200')).data.entries;
+  ok(vAuditDo.some((e) => e.action === 'firm.verify' && e.entity_id === 'achkar-law') && vAuditDo.some((e) => e.action === 'mail.dev' && e.detail?.subject === 'Achkar Law is now Verified by LawDB'), 'the check is in the activity log and the owner is emailed');
+  ok((await call('GET', '/api/admin/firms?q=achkar')).data.firms.some((f) => f.slug === 'achkar-law' && f.verified === true && f.strength >= 10), 'the admin firms list marks the firm verified, and its strength counts it');
+  as(o1.jar);
+  const vOwnerNow = (await call('GET', '/api/account/firms/achkar-law/verification')).data;
+  ok(vOwnerNow.status === 'verified' && vOwnerNow.registrant === 'Marie Achkar' && vOwnerNow.verifiedAt && vOwnerNow.checked.identity === true, 'the owner sees that the firm is verified, with what was checked');
+  ok((await call('POST', '/api/account/firms/achkar-law/verification', { registrant: 'Marie Achkar' })).status === 409, 'a verified firm cannot ask again');
+  ok((await call('GET', '/api/account/firms/achkar-law')).data.strength.items.find((i) => i.key === 'verified').done === true, 'being verified counts in the profile strength');
+  as(adminJar);
+  ok((await call('DELETE', '/api/admin/firms/achkar-law/verification?reason=test')).status === 200 && !(await getRaw('/firms/achkar-law')).text.includes('is-verified'), 'the admin can remove the verification, and the badge goes');
+  ok((await call('GET', '/api/admin/firms/achkar-law/verification')).data.status === 'none' && (await call('DELETE', '/api/admin/firms/achkar-law/verification')).status === 404, 'a removed verification is gone (removing it again says so)');
+  ok((await call('GET', '/api/admin/audit?limit=200')).data.entries.some((e) => e.action === 'firm.unverify' && e.entity_id === 'achkar-law'), 'the removal is in the activity log');
   as(o1.jar);
   const edit = await call('PATCH', '/api/account/firms/achkar-law', { about: 'Owner wrote this & that "quoted" text', phone: '613-555-0100' });
   ok(edit.status === 200 && edit.data.changed.includes('about'), 'a Featured owner edits their own firm');
@@ -588,6 +630,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   as(o2.jar);
   ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'hijack' })).status === 403, 'another owner cannot edit someone else\'s firm');
   ok((await call('GET', '/api/account/firms/achkar-law/leads')).status === 403, 'another owner cannot read its enquiries');
+  ok((await call('GET', '/api/account/firms/achkar-law/verification')).status === 403 && (await call('POST', '/api/account/firms/achkar-law/verification', { registrant: 'Pat Smith' })).status === 403, 'another owner cannot see or ask for its verification');
 
   // enquiries from the firm's page reach the owner right away
   cookie = '';

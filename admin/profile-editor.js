@@ -10,6 +10,10 @@
 
 import { h, api, when, note, hoursEditor, categoryChecks, splitTags, picturesPanel, feedPanel, planPanel, startFreeMonth, PROVINCES } from './ui.js';
 
+// The languages an owner can pick, and the availability choices. Kept in step with src/lib/details.js (LANGUAGES) and src/lib/profile-strength.js
+// (AVAILABILITY) by scripts/test-profile-strength.mjs.
+export const LANGUAGES = ['English', 'French', 'Spanish', 'Punjabi', 'Hindi', 'Urdu', 'Gujarati', 'Tamil', 'Bengali', 'Arabic', 'Persian', 'Farsi', 'Mandarin', 'Cantonese', 'Korean', 'Vietnamese', 'Tagalog', 'Portuguese', 'Italian', 'Polish', 'Russian', 'Ukrainian', 'Greek', 'German', 'Dutch', 'Turkish', 'Japanese', 'Hebrew', 'Somali', 'Amharic', 'Swahili'];
+export const AVAILABILITY = { accepting: 'Accepting new clients', limited: 'Limited availability', closed: 'Not accepting new clients' };
 export const SOCIALS = [['facebook', 'Facebook'], ['instagram', 'Instagram'], ['linkedin', 'LinkedIn'], ['x', 'X'], ['youtube', 'YouTube']];
 const PROV_SLUG = { ON: 'ontario', QC: 'quebec', BC: 'british-columbia', AB: 'alberta', MB: 'manitoba' };
 export const citySlug = (c) => String(c).normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -60,6 +64,9 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   const social0 = firm.social && typeof firm.social === 'object' ? firm.social : {};
   const offices0 = (Array.isArray(firm.offices) ? firm.offices : []).map((o) => ({ name: o.name || '', address: o.address || '' }));
 
+  const details0 = firm.details && typeof firm.details === 'object' ? firm.details : {};
+  const lang0 = (Array.isArray(details0.languages) ? details0.languages : []).filter((l) => LANGUAGES.includes(l));
+
   // ---- the controls
   const c = {
     name: text(firm.name, { maxlength: 200, required: true, 'aria-label': 'Official firm name' }),
@@ -79,7 +86,14 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
       .map(([v, l]) => h('option', { value: v, selected: v === (data.status || 'live') }, l))),
     featured: h('select', { disabled: !admin }, [[false, 'Basic'], [true, 'Featured']].map(([v, l]) => h('option', { value: String(v), selected: v === !!firm.featured }, l))),
     appointmentOnly: h('input', { type: 'checkbox', checked: !!firm.appointmentOnly }),
+    availability: h('select', null, [['', 'Not set']].concat(Object.entries(AVAILABILITY)).map(([v, l]) => h('option', { value: v, selected: v === (firm.availability || '') }, l))),
+    virtual: h('input', { type: 'checkbox', checked: firm.virtual === true }),
+    founded: h('input', { type: 'number', min: 1850, max: new Date().getFullYear(), step: 1, inputmode: 'numeric', value: details0.founded ?? '', placeholder: 'For example 2009' }),
   };
+  // Languages: a tick box for each, up to eight.
+  const langBoxes = LANGUAGES.map((l) => { const input = h('input', { type: 'checkbox', value: l, checked: lang0.includes(l) }); return { l, input, el: h('label', { class: 'check ed-lang' }, input, l) }; });
+  const langGrid = h('div', { class: 'ed-langs', role: 'group', 'aria-label': 'Languages you serve clients in' }, langBoxes.map((b) => b.el));
+  const langsPicked = () => langBoxes.filter((b) => b.input.checked).map((b) => b.l);
   const social = Object.fromEntries(SOCIALS.map(([k]) => [k, text(social0[k] || '', { placeholder: 'https://', maxlength: 200 })]));
   const cats = categoryChecks(firm.caseTypes);
   const hrs = hoursEditor(data.hours);
@@ -129,6 +143,10 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
       if (JSON.stringify(s) !== JSON.stringify(s0)) p.social = s;
       const o = currentOffices(); if (JSON.stringify(o) !== JSON.stringify(offices0.filter((x) => x.address).map((x) => (x.name ? x : { address: x.address })))) p.offices = o;
       if (c.appointmentOnly.checked !== !!firm.appointmentOnly) p.appointmentOnly = c.appointmentOnly.checked;
+      put('availability', c.availability.value, firm.availability || '');
+      if (c.virtual.checked !== (firm.virtual === true)) p.virtual = c.virtual.checked;
+      put('founded', c.founded.value.trim() === '' ? null : Number(c.founded.value), details0.founded ?? null);
+      const langs = langsPicked(); if (!sameList(langs, lang0)) p.languages = langs;
     }
     if (hrs.isDirty()) p.hours = hrs.anyOpen() ? hrs.get() : null;
     return p;
@@ -207,6 +225,13 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     fld('Practice areas', c.tags, 'Comma separated, up to 10.'),
     h('label', null, 'Categories'), cats.el);
 
+  // ---- Good to know: what a visitor wants to see before they call (open to every plan)
+  const know = card('Good to know', 'info',
+    fld('Taking new clients?', c.availability, 'Shown on your page, so visitors know before they call.'),
+    h('label', { class: 'check' }, c.virtual, 'We offer virtual consultations'),
+    fld('In practice since', c.founded, 'The year you started practising. Shown under "At a glance".'),
+    h('div', { class: 'ed-field' }, h('label', null, 'Languages you serve clients in'), langGrid, h('p', { class: 'ed-hint' }, 'Choose up to 8. Many clients search for a lawyer who speaks their language.')));
+
   // ---- Website & Blog
   const web = card('Website & Blog', 'globe',
     fld('Website', c.website),
@@ -276,7 +301,7 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
 
   // Three columns, as on MSPdatabase: Basic Information | Website & Blog, then Description | Location, then Address and Opening hours.
   // On a phone they stack in that order.
-  const grid = h('div', { class: 'ed-grid' }, h('div', { class: 'ed-stack' }, basic), h('div', { class: 'ed-stack' }, web, desc), h('div', { class: 'ed-stack' }, loc, addr, hours));
+  const grid = h('div', { class: 'ed-grid' }, h('div', { class: 'ed-stack' }, basic, know), h('div', { class: 'ed-stack' }, web, desc), h('div', { class: 'ed-stack' }, loc, addr, hours));
   // On Basic: a clear list of what is locked and the way to unlock it (the free month, or Featured), instead of a sentence nobody reads.
   const unlockBanner = locked && (() => {
     const cta = h('div', { class: 'row' });
@@ -291,7 +316,21 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
       cta);
   })();
 
-  form.append(...[head, flash ? note('msg-ok', flash) : null, unlockBanner, imagesBar, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
+  // How complete the profile is, and what to do next (src/lib/profile-strength.js): a number out of 100 and the biggest missing pieces.
+  const strengthStrip = !isNew && data.strength && (() => {
+    const s = data.strength;
+    const fill = h('span', { class: 'ed-bar-fill' });
+    fill.style.width = `${Math.max(0, Math.min(100, s.score))}%`;
+    return h('section', { class: 'ed-strength', 'aria-label': 'Profile strength' },
+      h('div', { class: 'ed-strength-top' }, h('b', { class: 'ed-score' }, String(s.score)), h('span', { class: 'muted' }, ' / 100 profile strength')),
+      h('div', { class: 'ed-bar', role: 'img', 'aria-label': `Profile strength ${s.score} out of 100` }, fill),
+      s.complete
+        ? h('p', { class: 'muted' }, 'Your profile is complete. Nothing left to add.')
+        : h('ul', { class: 'ed-todo' }, (s.todo || []).slice(0, 4).map((i) => h('li', null, h('b', null, `+${i.points}`), ' ', i.label, i.hint && h('span', { class: 'muted' }, ' \u00b7 ', i.hint)))),
+      h('p', { class: 'muted ed-strength-note' }, 'This measures how complete your profile is. It is shown only to you and LawDB, never to visitors.'));
+  })();
+
+  form.append(...[head, strengthStrip, flash ? note('msg-ok', flash) : null, unlockBanner, imagesBar, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
   // The plan (and what Featured adds) is one tap away at the top, not a page-long card in front of the form.
   const plan = mode === 'owner' && h('details', { class: 'ed-collapse ed-plan' }, h('summary', null, 'Your plan: ', h('b', null, firm.featured ? 'Featured' : 'Basic (free)'), !firm.featured && h('span', { class: 'ed-plan-cta' }, 'See what Featured adds')), h('div', { class: 'inner' }, planPanel(`${base}/plan`)));
   planEl = plan || null;

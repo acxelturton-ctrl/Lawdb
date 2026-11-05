@@ -247,7 +247,7 @@ async function viewFirms() {
       const status = (f) => f.status === 'live' ? null : h('span', { class: 'badge new' }, f.status === 'pending' ? 'Awaiting approval' : 'Hidden');
       body.replaceChildren(
         h('div', { class: 'tscroll' }, h('table', { class: 'ft' },
-          h('thead', null, h('tr', null, ['ID', 'Firm', 'City', 'Prov.', 'Status', 'Plan', 'Rating', 'Updated', ''].map((t) => h('th', null, t)))),
+          h('thead', null, h('tr', null, ['ID', 'Firm', 'City', 'Prov.', 'Status', 'Plan', 'Rating', 'Profile', 'Updated', ''].map((t) => h('th', null, t)))),
           h('tbody', null, firms.length ? firms.map((f) => h('tr', null,
             h('td', { class: 'id' }, f.id),
             h('td', { class: 'name' }, h('a', { href: `#firms/edit/${f.slug}` }, f.name), h('small', null, '@' + f.slug)),
@@ -255,8 +255,9 @@ async function viewFirms() {
             h('td', null, status(f) || 'Live'),
             h('td', null, h('span', { class: 'badge' + (f.featured ? ' featured' : '') }, f.featured ? 'Featured' : 'Basic')),
             h('td', { class: 'n' }, f.rating ? `${Number(f.rating).toFixed(1)} (${f.review_count})` : ''),
+            h('td', { class: 'n', title: 'Profile strength: how complete the profile is, out of 100' }, f.strength == null ? '' : String(f.strength)),
             h('td', { class: 'n' }, f.updated_at ? f.updated_at.slice(0, 10) : ''),
-            h('td', { class: 'act' }, h('a', { href: `#firms/edit/${f.slug}` }, 'Edit'), f.status === 'live' && h('a', { href: `/firms/${f.slug}`, target: '_blank', rel: 'noopener' }, 'View')))) : [h('tr', null, h('td', { colspan: 9 }, h('p', { class: 'muted' }, 'No firms match.')))]))),
+            h('td', { class: 'act' }, h('a', { href: `#firms/edit/${f.slug}` }, 'Edit'), f.status === 'live' && h('a', { href: `/firms/${f.slug}`, target: '_blank', rel: 'noopener' }, 'View')))) : [h('tr', null, h('td', { colspan: 10 }, h('p', { class: 'muted' }, 'No firms match.')))]))),
         h('div', { class: 'pager' }, h('span', null, `${from.toLocaleString('en-CA')}–${to.toLocaleString('en-CA')} of ${total.toLocaleString('en-CA')}`),
           h('div', { class: 'row' }, h('button', { type: 'button', disabled: state.page === 0, onclick: () => { state.page--; load(); } }, '‹ Previous'),
             h('button', { type: 'button', disabled: to >= total, onclick: () => { state.page++; load(); } }, 'Next ›'))));

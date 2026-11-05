@@ -1,8 +1,10 @@
 // "At a glance" facts for a firm profile: year founded, languages, the lawyers it names, the practice areas it lists and the places it says it serves.
 // They come from the firm's own website (scripts/gather-firm-details.mjs and extract-firm-details.mjs, where every fact must be quoted word for word
 // from the firm's page before it is kept), and are stored in the firm record as `details`. cleanDetails keeps only what is well formed and plain,
-// so nothing odd can reach a page, whatever is in the data.
+// so nothing odd can reach a page, whatever is in the data. A firm's owner can also set the languages and the year it started practising
+// (cleanLanguages, cleanFounded below); those are the owner's own statements, kept in the same place and cleaned the same way.
 import { checkOwnerText } from './content-rules.js';
+import { HttpError } from './http.js';
 
 export const LANGUAGES = ['English', 'French', 'Spanish', 'Punjabi', 'Hindi', 'Urdu', 'Gujarati', 'Tamil', 'Bengali', 'Arabic', 'Persian', 'Farsi', 'Mandarin', 'Cantonese', 'Korean', 'Vietnamese', 'Tagalog', 'Portuguese', 'Italian', 'Polish', 'Russian', 'Ukrainian', 'Greek', 'German', 'Dutch', 'Turkish', 'Japanese', 'Hebrew', 'Somali', 'Amharic', 'Swahili'];
 const NAME = /^(?:Me|Mr\.?|Ms\.?|Mrs\.?|Dr\.?)?\s*[A-ZÀ-Ý][A-Za-zÀ-ÿ'’.-]+(?: [A-ZÀ-Ý][A-Za-zÀ-ÿ'’.-]*){1,3}$/;
@@ -32,4 +34,22 @@ export function cleanDetails(d, thisYear = new Date().getFullYear()) {
   const serving = keep((d.serving || []).map((s) => one(s, 40)), (s) => label(40)(s) && /^[A-ZÀ-Ý]/.test(s), 8);
   if (serving.length) out.serving = serving;
   return Object.keys(out).length ? out : null;
+}
+
+// What an owner sends: a list of languages from LANGUAGES (up to 8, no repeats) and a year, or nothing.
+export function cleanLanguages(v) {
+  if (!Array.isArray(v)) throw new HttpError(422, 'languages must be a list');
+  const out = [];
+  for (const l of v) {
+    if (!LANGUAGES.includes(l)) throw new HttpError(422, `languages: ${typeof l === 'string' ? l.slice(0, 30) : 'that value'} is not one of the languages we list`);
+    if (!out.includes(l)) out.push(l);
+  }
+  if (out.length > 8) throw new HttpError(422, 'languages: choose up to 8');
+  return out;
+}
+export function cleanFounded(v, thisYear = new Date().getFullYear()) {
+  if (v === null || v === '' || v === undefined) return null;
+  const n = Number(v);
+  if (!Number.isInteger(n) || n < 1850 || n > thisYear) throw new HttpError(422, `The year you started practising must be between 1850 and ${thisYear}`);
+  return n;
 }

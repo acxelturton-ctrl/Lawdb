@@ -151,6 +151,7 @@ function viewFirms() {
     return h('div', { class: 'card' },
       h('div', { class: 'row spread' }, h('b', null, m.name), h('span', { class: 'badge' + (m.status === 'approved' ? (m.featured ? ' featured' : '') : ' new') }, m.status === 'approved' ? (m.trialEnds ? 'Featured, free month' : m.featured ? 'Featured' : 'Basic') : m.status === 'pending' ? 'Pending' : 'Declined')),
       h('p', { class: 'muted' }, where(m)), state,
+      m.status === 'approved' && m.strength && strengthLine(m),
       m.status === 'approved' && !m.featured && m.firmStatus === 'live' && h('p', { class: 'muted fx-lockline' }, lockIcon(13), ' Locked on Basic: a booking link, pictures, a second enquiry email, the analytics dashboard and the enquiries inbox.'),
       m.status === 'approved' && h('div', { class: 'row' },
         h('a', { href: `#edit/${m.slug}` }, h('button', { class: 'primary', type: 'button' }, 'Edit my profile')),
@@ -747,3 +748,14 @@ async function boot() {
 }
 
 boot();
+
+// "Profile strength 82/100" with a bar and the next things to add (the number comes from the server: src/lib/profile-strength.js).
+function strengthLine(m) {
+  const s = m.strength;
+  const fill = h('span', { class: 'ed-bar-fill' });
+  fill.style.width = `${Math.max(0, Math.min(100, s.score))}%`;
+  return h('div', { class: 'fx-strength' },
+    h('div', { class: 'row spread' }, h('b', null, `Profile strength ${s.score}/100`), s.todo.length ? h('a', { href: `#edit/${m.slug}` }, 'Improve it') : h('span', { class: 'muted' }, 'Complete')),
+    h('div', { class: 'ed-bar', role: 'img', 'aria-label': `Profile strength ${s.score} out of 100` }, fill),
+    s.todo.length ? h('p', { class: 'muted' }, 'Next: ', s.todo.map((i) => `${i.label} (+${i.points})`).join(' \u00b7 ')) : null);
+}

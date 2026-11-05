@@ -536,6 +536,21 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', '/api/account/firms/achkar-law', { about: 'We are the best lawyers in Ontario' })).status === 422, 'a Basic owner cannot make prohibited advertising claims');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { blurb: 'Guaranteed results' })).status === 422, 'the tagline is checked too');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { bookingUrl: 'https://calendly.com/achkar' })).status === 403, 'a Basic owner cannot add a booking button');
+  // profile details are open to every plan: languages, the year started practising, availability and virtual consultations
+  const det = await call('PATCH', '/api/account/firms/achkar-law', { languages: ['Somali', 'Amharic', 'English'], founded: 1987, availability: 'accepting', virtual: true });
+  ok(det.status === 200 && ['languages', 'founded', 'availability', 'virtual'].every((k) => det.data.changed.includes(k)), 'a Basic owner sets languages, the year they started practising, availability and virtual consultations');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { languages: ['Klingon'] })).status === 422 && (await call('PATCH', '/api/account/firms/achkar-law', { founded: 1700 })).status === 422
+    && (await call('PATCH', '/api/account/firms/achkar-law', { availability: 'constructor' })).status === 422 && (await call('PATCH', '/api/account/firms/achkar-law', { virtual: 'yes' })).status === 422, 'an unknown language, a year before 1850, a made-up availability and a non-boolean are refused');
+  const detGet = (await call('GET', '/api/account/firms/achkar-law')).data;
+  ok(detGet.firm.details.languages.join() === 'Somali,Amharic,English' && detGet.firm.details.founded === 1987 && detGet.firm.availability === 'accepting' && detGet.firm.virtual === true, 'the details are saved on the firm record');
+  ok(detGet.strength && Number.isInteger(detGet.strength.score) && detGet.strength.items.length === 11 && detGet.strength.items.filter((i) => i.done).reduce((n, i) => n + i.points, 0) === detGet.strength.score
+    && ['languages', 'founded', 'availability'].every((k) => detGet.strength.items.find((i) => i.key === k).done), 'the owner gets the profile strength: a score out of 100 and a checklist, with the new details counted');
+  const mineList = (await call('GET', '/api/account/me')).data.memberships.find((m) => m.slug === 'achkar-law');
+  ok(mineList && mineList.strength && mineList.strength.score === detGet.strength.score && Array.isArray(mineList.strength.todo) && mineList.strength.todo.length <= 3, "the dashboard's firm card has the strength and at most three things to do next");
+  const detPage = await getRaw('/firms/achkar-law');
+  let detLd = null; try { detLd = JSON.parse(detPage.text.match(/<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/)[1]); } catch {}
+  ok(detPage.text.includes('class="pf-chip is-accepting"') && detPage.text.includes('Accepting new clients') && detPage.text.includes('Virtual consultations available') && /Languages<\/dt><dd>Somali, Amharic, English/.test(detPage.text) && detLd && detLd.knowsLanguage && detLd.knowsLanguage.includes('Somali') && detLd.foundingDate === '1987', 'the page shows whether the firm takes new clients and offers virtual consultations, its languages and founding year, in the page and its structured data');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { availability: '', virtual: false, languages: [], founded: null })).status === 200 && !(await getRaw('/firms/achkar-law')).text.includes('pf-chip'), 'the details can be cleared again, and the chips go');
   ok((await call('PATCH', '/api/account/firms/achkar-law', { enquiryEmail: 'intake@achkar.example' })).status === 403, 'a Basic owner cannot add a second enquiry address');
   const facts = await call('PATCH', '/api/account/firms/achkar-law', { phone: '613-555-0100' });
   ok(facts.status === 200 && facts.data.changed.includes('phone'), 'a Basic owner can still correct the facts');
@@ -551,6 +566,8 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('PATCH', '/api/account/firms/achkar-law', { social: {}, offices: [], appointmentOnly: false })).status === 200, 'an owner can clear them again');
   as(adminJar);
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { featured: true })).status === 200, 'the firm is made Featured');
+  const strList = (await call('GET', '/api/admin/firms?q=achkar')).data.firms;
+  ok(strList.length > 0 && strList.every((f) => Number.isInteger(f.strength) && f.strength >= 0 && f.strength <= 100 && !('data' in f) && !('about' in f) && !('hours' in f)), "the admin firms list carries each firm's profile strength, not the firm record");
   as(o1.jar);
   const edit = await call('PATCH', '/api/account/firms/achkar-law', { about: 'Owner wrote this & that "quoted" text', phone: '613-555-0100' });
   ok(edit.status === 200 && edit.data.changed.includes('about'), 'a Featured owner edits their own firm');

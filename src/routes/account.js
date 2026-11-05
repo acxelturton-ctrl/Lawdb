@@ -5,6 +5,7 @@ import { json, readJson, clampInt, NO_STORE, HttpError } from '../lib/http.js';
 import { requireUser } from '../lib/auth.js';
 import { audit } from '../lib/audit.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, str } from '../lib/firm-edit.js';
+import { profileStrength } from '../lib/profile-strength.js';
 import { geocode } from '../lib/geocode.js';
 import { mailInBackground, newClaimEmail } from '../lib/email.js';
 import { adminEmails } from '../lib/auth.js';
@@ -42,7 +43,14 @@ export async function me({ request, env }) {
      WHERE m.user_id = ? ORDER BY m.id DESC`
   ).bind(user.id).all();
   const prof = await profileOf(env, user.id);
-  return reply({ user: { email: user.email, role: user.role, ...prof }, memberships: results.map((m) => ({ ...m, featured: !!m.featured })) });
+  // The profile strength of each firm the person manages (a number and the next few things to do), for the dashboard.
+  const approved = results.filter((m) => m.status === 'approved').map((m) => m.slug);
+  const strength = new Map();
+  if (approved.length) {
+    const rows = (await env.DB.prepare(`SELECT slug, data, hours, about FROM firms WHERE slug IN (${approved.map(() => '?').join(',')})`).bind(...approved).all()).results;
+    for (const r of rows) { const s = profileStrength(JSON.parse(r.data), { about: r.about, hours: r.hours }); strength.set(r.slug, { score: s.score, todo: s.todo.slice(0, 3) }); }
+  }
+  return reply({ user: { email: user.email, role: user.role, ...prof }, memberships: results.map((m) => ({ ...m, featured: !!m.featured, ...(strength.has(m.slug) ? { strength: strength.get(m.slug) } : {}) })) });
 }
 
 // Your profile: shown to nobody else for now; it personalises your dashboard and emails.
@@ -179,7 +187,8 @@ export async function getFirm({ request, env, params }) {
   await requireOwner(env, user, params.slug);
   const row = await env.DB.prepare('SELECT rowid AS id, data, hours, about, status, updated_at, enquiry_email FROM firms WHERE slug = ?').bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
-  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '' });
+  const firm = { ...JSON.parse(row.data), about: row.about || '' };
+  return reply({ id: row.id, slug: params.slug, status: row.status, firm, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '', strength: profileStrength(firm, { about: row.about, hours: row.hours }) });
 }
 
 export async function updateFirm({ request, env, params }) {

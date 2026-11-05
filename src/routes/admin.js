@@ -6,6 +6,7 @@ import { listPayments, assignPayment, dismissPayment } from '../lib/stripe.js';
 import { addImage, removeImage, listImages } from '../lib/images.js';
 import { audit } from '../lib/audit.js';
 import { searchSummary, runSearchConsole, inspectUrl, gscKey } from '../lib/gsc.js';
+import { profileStrength } from '../lib/profile-strength.js';
 import { mailInBackground, decisionEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES, FIRM_STATUSES } from '../lib/firm-edit.js';
 import { placeFor } from '../lib/geocode.js';
@@ -113,17 +114,19 @@ export async function listFirms({ request, env, url }) {
   if (!ORDER[sort]) throw new HttpError(422, `sort must be one of: ${Object.keys(ORDER).join(', ')}`);
   const clause = where.length ? 'WHERE ' + where.join(' AND ') : '';
   const [list, total] = await env.DB.batch([
-    env.DB.prepare(`SELECT rowid AS id, slug, name, city, province, featured, rating, review_count, status, updated_at FROM firms ${clause} ORDER BY ${ORDER[sort]} LIMIT ? OFFSET ?`).bind(...args, limit, offset),
+    env.DB.prepare(`SELECT rowid AS id, slug, name, city, province, featured, rating, review_count, status, updated_at, data, hours, about FROM firms ${clause} ORDER BY ${ORDER[sort]} LIMIT ? OFFSET ?`).bind(...args, limit, offset),
     env.DB.prepare(`SELECT COUNT(*) AS n FROM firms ${clause}`).bind(...args),
   ]);
-  return reply({ total: total.results[0].n, firms: list.results.map((r) => ({ ...r, featured: !!r.featured })) });
+  // `strength` is the profile strength out of 100 (see src/lib/profile-strength.js); the firm record itself is not sent.
+  return reply({ total: total.results[0].n, firms: list.results.map(({ data, hours, about, ...r }) => ({ ...r, featured: !!r.featured, strength: profileStrength(JSON.parse(data), { about, hours }).score })) });
 }
 
 export async function getFirm({ request, env, params }) {
   await requireAdmin(env, request);
   const row = await env.DB.prepare('SELECT rowid AS id, data, hours, about, status, updated_at, enquiry_email FROM firms WHERE slug = ?').bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
-  return reply({ id: row.id, slug: params.slug, status: row.status, firm: { ...JSON.parse(row.data), about: row.about || '' }, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '' });
+  const firm = { ...JSON.parse(row.data), about: row.about || '' };
+  return reply({ id: row.id, slug: params.slug, status: row.status, firm, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '', strength: profileStrength(firm, { about: row.about, hours: row.hours }) });
 }
 
 // Any firm's analytics, whatever its plan (the same report the firm sees), plus its free-month record.

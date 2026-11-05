@@ -148,7 +148,7 @@
       '<div class="gm-i-acts">' +
         (f.phone ? '<a class="gm-act pri" href="tel:' + esc(f.phone) + '">' + IC.call + 'Call</a>' : '') +
         '<a class="gm-act" href="' + esc(f.dirUrl) + '" target="_blank" rel="noopener">' + IC.dir + 'Directions</a>' +
-        (f.website ? '<a class="gm-act" href="' + esc(f.website) + '" target="_blank" rel="noopener">' + IC.web + 'Website</a>' : '') +
+        (f.website ? '<a class="gm-act" href="' + esc(f.website) + '" target="_blank" rel="' + (f.featured ? 'noopener sponsored' : 'noopener nofollow') + '">' + IC.web + 'Website</a>' : '') +
       '</div></article>';
   }
   function detailHtml(f){

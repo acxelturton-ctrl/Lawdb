@@ -2,6 +2,8 @@
 // firm) and the owner dashboard (approved owners edit their own firm, with fewer fields).
 
 import { HttpError } from './http.js';
+import { cleanLanguages, cleanFounded } from './details.js';
+import { AVAILABILITY } from './profile-strength.js';
 import { audit } from './audit.js';
 import { checkOwnerText } from './content-rules.js';
 import { cleanBookingUrl } from './booking.js';
@@ -92,6 +94,15 @@ export const FIRM_FIELDS = {
     if (typeof v !== 'boolean') throw new HttpError(422, 'appointmentOnly must be true or false');
     return v;
   },
+  // Whether the firm is taking new clients ('accepting', 'limited', 'closed') or has not said (''), and whether it offers virtual consultations.
+  availability: (v) => {
+    if (v !== '' && !(typeof v === 'string' && Object.hasOwn(AVAILABILITY, v))) throw new HttpError(422, `availability must be one of: ${Object.keys(AVAILABILITY).join(', ')}, or blank`);
+    return v;
+  },
+  virtual: (v) => {
+    if (typeof v !== 'boolean') throw new HttpError(422, 'virtual must be true or false');
+    return v;
+  },
 };
 
 // Only an admin can change these. `lat`/`lng` and `status` are handled on their own in applyFirmEdit (they are columns as well as data).
@@ -139,7 +150,7 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   const keys = Object.keys(body);
   if (!keys.length) throw new HttpError(422, 'Nothing to update');
   const fieldKeys = Object.keys(FIRM_FIELDS).filter((k) => admin || !ADMIN_ONLY.includes(k));
-  const extra = admin ? ['hours', 'about', 'lat', 'lng', 'status', 'enquiryEmail'] : ['hours', 'about', 'enquiryEmail'];
+  const extra = admin ? ['hours', 'about', 'lat', 'lng', 'status', 'enquiryEmail', 'languages', 'founded'] : ['hours', 'about', 'enquiryEmail', 'languages', 'founded'];
   const unknown = keys.filter((k) => !fieldKeys.includes(k) && !extra.includes(k));
   if (unknown.length) throw new HttpError(422, `Cannot edit: ${unknown.join(', ')}`);
 
@@ -170,6 +181,19 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
       changes.enquiryEmail = { from: enquiryEmail, to: next };
       enquiryEmail = next;
     }
+  }
+  // Languages and the year the firm started practising live in the firm's `details` ("At a glance"), next to what was read from its website.
+  if ('languages' in body || 'founded' in body) {
+    const details = firm.details && typeof firm.details === 'object' ? { ...firm.details } : {};
+    if ('languages' in body) {
+      const next = cleanLanguages(body.languages);
+      if (JSON.stringify(details.languages || []) !== JSON.stringify(next)) { changes.languages = { from: details.languages || [], to: next }; if (next.length) details.languages = next; else delete details.languages; }
+    }
+    if ('founded' in body) {
+      const next = cleanFounded(body.founded);
+      if ((details.founded ?? null) !== next) { changes.founded = { from: details.founded ?? null, to: next }; if (next) details.founded = next; else delete details.founded; }
+    }
+    if ('languages' in changes || 'founded' in changes) { if (Object.keys(details).length) firm.details = details; else delete firm.details; }
   }
   let hoursJson = row.hours;
   if ('hours' in body) {

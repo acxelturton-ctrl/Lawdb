@@ -294,6 +294,11 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   // every firm, new or old, has the same page: drawn from the database, whenever it was listed
   const sw = await getRaw('/firms/achkar-law');
   ok(sw.headers.get('x-lawdb-source') === 'database' && sw.text.includes('Achkar Law') && sw.text.includes('North York employment law firm acting for employees and employers'), 'an existing firm renders from the database and keeps its written description');
+  // the Google rating is shown (named as Google's) but never marked up as the page's own rating
+  let swLd = null;
+  try { swLd = JSON.parse(sw.text.match(/<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/)[1]); } catch {}
+  ok(swLd && swLd['@type'] === 'LegalService' && !('aggregateRating' in swLd) && !('review' in swLd), 'a rated firm\'s structured data carries no rating (the Google rating is not LawDB\'s to mark up)');
+  ok(/from \d+ Google reviews/.test(sw.text), 'the Google rating is still shown on the page, named as Google\'s');
   ok(/<a class="pa-card" href="\/ontario\/employment-lawyers">/.test(sw.text) && !/rank-panel|ranks in /.test(sw.text), 'the page links to the practice-area page, and has no "How this firm ranks" panel');
   const amlea = await getRaw('/firms/amlea-avocats');
   ok(amlea.headers.get('x-lawdb-source') === 'database' && amlea.text.includes('Amlea Avocats') && !/rank-panel|rank-grid|ranks in Montreal/.test(amlea.text), 'a firm that used to carry the ranking panel does not any more, and its page is built the same way as every other');

@@ -71,7 +71,7 @@ export function storyBody({ post, firm, more, nearby }) {
     `<div class="st-firm"><span class="st-av">${avatarOf(firm)}</span><span><a class="n" href="/firms/${esc(firm.slug)}">${esc(firm.name)}</a>${firm.featured ? '<span class="ft">Featured</span>' : ''}<small>${esc(firm.city)}, ${esc(firm.province)}${date ? ' &middot; ' + esc(date) : ''}</small></span><button class="lw-fbtn" type="button" data-follow="${esc(firm.slug)}" style="margin-left:auto">Follow</button></div>` +
     `<h1>${esc(post.title)}</h1>` +
     (post.excerpt ? `<p class="pre">${esc(post.excerpt)}</p>` : '') +
-    `<div class="st-cta"><a class="st-go" href="${esc(post.url)}" target="_blank" rel="noopener">Read the full article on ${esc(host)} &rarr;</a><button class="lw-sbtn" type="button" data-save="${Number(post.id)}">Save</button></div>` +
+    `<div class="st-cta"><a class="st-go" href="${esc(post.url)}" target="_blank" rel="${firm.featured ? 'noopener sponsored' : 'noopener nofollow'}">Read the full article on ${esc(host)} &rarr;</a><button class="lw-sbtn" type="button" data-save="${Number(post.id)}">Save</button></div>` +
     `<p class="st-note">This is a short preview. The article was written by ${esc(firm.name)} and the full text is on their website.</p>` +
     `<div class="st-box"><h2>About ${esc(firm.name)}</h2>${tags ? `<div class="st-chips">${tags}</div>` : ''}<div class="st-row"><a href="/firms/${esc(firm.slug)}">See their LawDB profile</a>${call}</div>${socialRow(firm)}</div>` +
     (more.length ? `<div class="st-box"><h2>More from ${esc(firm.name)}</h2><ul>${more.map((m) => `<li><a href="${esc(storyPath(firm.slug, m.id, m.title))}" data-story>${esc(m.title)}</a></li>`).join('')}</ul></div>` : '') +
@@ -81,7 +81,9 @@ export function storyBody({ post, firm, more, nearby }) {
 
 export function renderStoryPage({ post, firm, more, nearby, origin = 'https://lawdb.ca', indexable = true }) {
   const url = origin + storyPath(firm.slug, post.id, post.title);
-  const desc = (post.excerpt || post.title).slice(0, 155);
+  // A very short excerpt makes a poor description: say whose story it is, so every story page has a real one.
+  const base = String(post.excerpt || post.title).trim();
+  const desc = (base.length >= 70 ? base : `${base.replace(/[.\s]+$/, '')}. A story from ${firm.name} in ${firm.city}, ${firm.province}, on LawDB News.`).slice(0, 155);
   const ld = JSON.stringify({
     '@context': 'https://schema.org', '@type': 'BreadcrumbList',
     itemListElement: [{ '@type': 'ListItem', position: 1, name: 'LawDB News', item: origin + '/news' }, { '@type': 'ListItem', position: 2, name: firm.name, item: origin + '/firms/' + firm.slug }, { '@type': 'ListItem', position: 3, name: post.title, item: url }],

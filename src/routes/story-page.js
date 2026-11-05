@@ -53,17 +53,20 @@ export async function storyPage({ request, env, ctx }) {
   }
 }
 
+// One sitemap file may hold 50,000 addresses; a story row is small, so 45,000 fit comfortably. Past that the answer is a sitemap index.
+export const STORY_SITEMAP_LIMIT = 45000;
 export async function storySitemap({ request, env }) {
   const origin = (env.SITE_ORIGIN || new URL(request.url).origin).replace(/\/+$/, '');
   try {
     const { results } = await env.DB.prepare(
       `SELECT p.id, p.firm_slug AS slug, p.title, p.published_at AS publishedAt, p.fetched_at AS fetchedAt FROM firm_posts p
        JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live' AND ${STORY_INDEXABLE_SQL}
-       ORDER BY p.published_at DESC, p.id DESC LIMIT 2000`
+       ORDER BY p.published_at DESC, p.id DESC LIMIT ${STORY_SITEMAP_LIMIT}`
     ).all();
+    if (results.length >= STORY_SITEMAP_LIMIT) console.error(`story sitemap reached its limit of ${STORY_SITEMAP_LIMIT} stories: older stories are missing from it; split it into a sitemap index`);
     const day = (d) => { const t = d ? new Date(String(d).replace(' ', 'T') + 'Z') : null; return t && !Number.isNaN(t.getTime()) ? t.toISOString().slice(0, 10) : ''; };
     const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-      results.map((r) => `  <url><loc>${origin}${storyPath(r.slug, r.id, r.title)}</loc>${day(r.fetchedAt || r.publishedAt) ? `<lastmod>${day(r.fetchedAt || r.publishedAt)}</lastmod>` : ''}</url>`).join('\n') + '\n</urlset>\n';
+      results.map((r) => `  <url><loc>${origin}${storyPath(r.slug, r.id, r.title)}</loc>${day(r.publishedAt || r.fetchedAt) ? `<lastmod>${day(r.publishedAt || r.fetchedAt)}</lastmod>` : ''}</url>`).join('\n') + '\n</urlset>\n';
     return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=600' } });
   } catch (err) {
     console.error('story sitemap failed', err);

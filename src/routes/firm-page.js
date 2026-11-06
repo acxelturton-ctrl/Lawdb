@@ -5,6 +5,7 @@ import { storyPath } from '../lib/stories.js';
 import { renderFirmPage } from '../render/firm-page.js';
 import { isIndexable } from '../lib/indexing.js';
 import { getVerification, publicView } from '../lib/verification.js';
+import { redirectTarget } from '../lib/firm-slug.js';
 import { firmStats } from '../lib/firm-stats.js';
 import { bookingRow } from '../render/booking.js';
 
@@ -86,6 +87,13 @@ export async function firmPage({ request, env, ctx }) {
   } catch (err) {
     console.error('firm lookup failed, serving the saved copy', m[1], err);
     return env.ASSETS.fetch(request);
+  }
+
+  // An address the firm used to have goes permanently to the one it has now (see src/lib/firm-slug.js); this comes before the saved copy, which could be an old page.
+  if (!row) {
+    let moved = null;
+    try { moved = await redirectTarget(env, m[1]); } catch (err) { console.error('firm redirect lookup failed', m[1], err); }
+    if (moved) return new Response(null, { status: 301, headers: { location: `/firms/${moved}${url.search}`, 'cache-control': 'public, max-age=3600' } });
   }
 
   // A firm switched off in the admin is shown nowhere. A firm that is not live (waiting for approval) or not listed at all has no page.

@@ -58,8 +58,16 @@ export async function flush(env) {
     if (statements.length) await env.DB.batch(statements);
     return siteRows.length + firmRows.length;
   } catch (err) {
+    // A firm whose address has just changed can still be in this server's list of known firms for a few minutes, and its rows are refused. Forget the list and keep
+    // the site-wide counts of the same batch (the few per-firm counts of that moment are lost).
     console.error('stats write failed', err);
-    return 0;
+    known.clear();
+    try {
+      const only = [];
+      for (const part of chunks(siteRows)) only.push(env.DB.prepare(`INSERT INTO stats_daily (day, kind, k1, k2, n) VALUES ${part.map(() => '(?,?,?,?,?)').join(',')} ON CONFLICT (day, kind, k1, k2) DO UPDATE SET n = n + excluded.n`).bind(...part.flat()));
+      if (only.length) await env.DB.batch(only);
+      return siteRows.length;
+    } catch (err2) { console.error('stats write failed again', err2); return 0; }
   }
 }
 

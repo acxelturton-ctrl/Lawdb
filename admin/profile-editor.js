@@ -213,6 +213,27 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     if (e.target.open && !pics) { pics = picturesPanel(`${base}/images`, { locked }); e.target.querySelector('.inner').replaceChildren(pics); }
   } }, h('summary', null, 'Profile Images'), h('div', { class: 'inner' }, h('p', { class: 'muted' }, 'Loading…')));
 
+  // ---- the page address (admin only): moves everything the firm has to the new address and leaves a permanent redirect from the old one
+  function addressControl() {
+    const input = h('input', { type: 'text', value: slug, maxlength: 80, autocomplete: 'off', spellcheck: 'false', 'aria-label': 'New page address' });
+    const go = h('button', { type: 'button' }, 'Change address');
+    const msg = h('div', { class: 'ed-out' });
+    go.addEventListener('click', async () => {
+      const next = input.value.trim().toLowerCase();
+      if (!next || next === slug) { msg.replaceChildren(note('msg-err', 'Type a different address.')); return; }
+      go.disabled = true; msg.replaceChildren();
+      try {
+        const r = await api('PUT', `/api/admin/firms/${slug}/slug`, { slug: next });
+        location.hash = `#firms/edit/${r.slug}`;
+        location.reload();
+      } catch (err) { msg.replaceChildren(note('msg-err', err.message)); go.disabled = false; }
+    });
+    return h('details', { class: 'ed-addr' }, h('summary', null, 'Change the page address'),
+      h('p', { class: 'ed-hint' }, 'Lowercase letters, digits and dashes. The old address keeps working: it redirects to the new one for good, for the page and for its stories. The owner, enquiries, ratings, followers and numbers all stay with the firm.'),
+      h('div', { class: 'row' }, h('span', { class: 'ed-prefix' }, 'lawdb.ca/firms/'), input),
+      h('div', { class: 'row' }, go), msg);
+  }
+
   // ---- Basic Information
   const basic = card('Basic Information', 'info',
     !isNew && h('p', { class: 'ed-id' }, 'ID: ', data.id ?? ''),
@@ -221,7 +242,8 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
         fld('Profile Status', c.status, data.status === 'pending' ? 'Approve it under Approvals.' : null),
         fld('Plan', c.featured, mode === 'owner' ? 'Managed by LawDB (see Your plan)' : null)),
     fld('Official Firm Name', c.name),
-    !isNew && fld('Username', text('@' + slug, { readonly: true, 'aria-label': 'Username' }), 'The address of the page: lawdb.ca/firms/' + slug),
+    !isNew && fld('Username', text('@' + slug, { readonly: true, 'aria-label': 'Username' }), 'The address of the page: lawdb.ca/firms/' + slug + (admin ? '' : '. To change it, write to info@lawdb.ca.')),
+    admin && !isNew && addressControl(),
     !isNew && fld('Tagline', c.blurb, 'Shown in lists and search results.'),
     fld('Practice areas', c.tags, 'Comma separated, up to 10.'),
     h('label', null, 'Categories'), cats.el);

@@ -234,6 +234,43 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
       h('div', { class: 'row' }, go), msg);
   }
 
+  // ---- merge a duplicate (admin only): keeps the OTHER listing, gives it this listing's owners and numbers, deletes this one and redirects its address
+  function mergeControl() {
+    const input = h('input', { type: 'text', maxlength: 80, autocomplete: 'off', spellcheck: 'false', placeholder: 'preszler-injury-lawyers', 'aria-label': 'Address of the listing to keep' });
+    const look = h('button', { type: 'button' }, 'Look up');
+    const go = h('button', { type: 'button', class: 'danger', hidden: true }, 'Merge and delete this listing');
+    const msg = h('div', { class: 'ed-out' });
+    let keep = null;
+    input.addEventListener('input', () => { keep = null; go.hidden = true; go.textContent = 'Merge and delete this listing'; msg.replaceChildren(); });
+    look.addEventListener('click', async () => {
+      const into = input.value.trim().toLowerCase();
+      go.hidden = true; msg.replaceChildren();
+      if (!into || into === slug) { msg.replaceChildren(note('msg-err', 'Type the address of the other listing, the one to keep.')); return; }
+      try {
+        const r = await api('GET', `/api/admin/firms/${encodeURIComponent(into)}`);
+        keep = into;
+        msg.replaceChildren(h('p', { class: 'ed-hint' }, 'Keep: ', h('b', null, r.firm.name || into), ` (${[r.firm.city, r.firm.province].filter(Boolean).join(', ')}, ${r.status}). `,
+          h('b', null, '@' + slug), ' will be deleted. Its owners, enquiries, followers, ratings, blog feed and numbers move to the kept listing, and ',
+          h('b', null, `/firms/${slug}`), ' redirects there for good. This cannot be undone.'));
+        go.hidden = false;
+      } catch (err) { msg.replaceChildren(note('msg-err', err.status === 404 ? `There is no listing at /firms/${into}.` : err.message)); }
+    });
+    go.addEventListener('click', async () => {
+      if (!keep) return;
+      if (go.dataset.sure !== keep) { go.dataset.sure = keep; go.textContent = 'Click again to confirm: delete @' + slug; return; }
+      go.disabled = true;
+      try {
+        await api('POST', `/api/admin/firms/${slug}/merge`, { into: keep });
+        location.hash = `#firms/edit/${keep}`;
+        location.reload();
+      } catch (err) { msg.replaceChildren(note('msg-err', err.message)); go.disabled = false; go.textContent = 'Merge and delete this listing'; delete go.dataset.sure; }
+    });
+    return h('details', { class: 'ed-addr' }, h('summary', null, 'Merge into another listing (duplicate)'),
+      h('p', { class: 'ed-hint' }, 'Use this when the same firm is listed twice. Enter the address of the listing to KEEP; this one is removed.'),
+      h('div', { class: 'row' }, h('span', { class: 'ed-prefix' }, 'lawdb.ca/firms/'), input, look),
+      msg, h('div', { class: 'row' }, go));
+  }
+
   // ---- Basic Information
   const basic = card('Basic Information', 'info',
     !isNew && h('p', { class: 'ed-id' }, 'ID: ', data.id ?? ''),
@@ -244,6 +281,7 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     fld('Official Firm Name', c.name),
     !isNew && fld('Username', text('@' + slug, { readonly: true, 'aria-label': 'Username' }), 'The address of the page: lawdb.ca/firms/' + slug + (admin ? '' : '. To change it, write to info@lawdb.ca.')),
     admin && !isNew && addressControl(),
+    admin && !isNew && mergeControl(),
     !isNew && fld('Tagline', c.blurb, 'Shown in lists and search results.'),
     fld('Practice areas', c.tags, 'Comma separated, up to 10.'),
     h('label', null, 'Categories'), cats.el);

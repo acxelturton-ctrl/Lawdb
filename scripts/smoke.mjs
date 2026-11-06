@@ -1998,6 +1998,58 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   as('');
   ok(await refuseAddr(`/api/admin/firms/${addrA}/slug`, { slug: 'anon-picked-address' }) === 401, 'nor can a visitor');
   as(adminJar);
+
+  // merging a duplicate listing into the one to keep (admin only): the owner, enquiries and address move to the kept listing, the duplicate goes
+  {
+    const body = { city: 'Toronto', province: 'ON', address: '2 Test St, Toronto, ON M5V 1A1', phone: '+14165550124', website: 'https://example.com', tags: ['Injury', 'Accident'], caseTypes: ['injury'], about: Array.from({ length: 60 }, (_, i) => `word${i}`).join(' '), lat: 43.65, lng: -79.38 };
+    as(adminJar);
+    const dup = (await call('POST', '/api/admin/firms', { ...body, name: `Merge Duplicate ${run}` })).data.slug;
+    const keepSlug = (await call('POST', '/api/admin/firms', { ...body, name: `Merge Keeper ${run}` })).data.slug;
+    ok(!!dup && !!keepSlug && dup !== keepSlug, 'two listings of the same firm to merge');
+    const ownerM = await signUp(`merge-owner-${run}@example.com`, freshIp());
+    as(ownerM.jar);
+    ok((await call('POST', '/api/account/claims', { slug: dup, contactName: 'Jeff Owner', acceptTerms: true })).status === 201, 'the owner claims the duplicate');
+    as(adminJar);
+    const pendM = (await call('GET', '/api/admin/members')).data.members.find((m) => m.slug === dup);
+    ok(pendM && (await call('PATCH', `/api/admin/members/${pendM.id}`, { status: 'approved' })).status === 200, 'the admin approves the owner of the duplicate');
+    cookie = '';
+    ok((await call('POST', '/api/leads', { name: 'Client Two', email: `merge-client-${run}@example.com`, message: 'Please call me', form: 'firm-profile', firm: dup, firmName: 'Merge Duplicate' })).status === 201, 'a visitor sends an enquiry to the duplicate');
+
+    // refusals change nothing
+    const mergeStatus = async (from, into) => (await call('POST', `/api/admin/firms/${from}/merge`, { into })).status;
+    as(adminJar);
+    ok(await mergeStatus(dup, dup) === 422 && await mergeStatus(dup, 'no-such-listing-xyz') === 404 && await mergeStatus('no-such-listing-xyz', keepSlug) === 404 && await mergeStatus(dup, 'Bad Address!') === 422 && await mergeStatus(dup, '') === 422, 'merging into itself, into an unknown listing, from an unknown one, or into a badly written address is refused');
+    ok((await call('GET', `/api/admin/firms/${dup}`)).status === 200, 'a refused merge leaves the duplicate where it was');
+    as(ownerM.jar);
+    ok(await mergeStatus(dup, keepSlug) === 403, 'a firm owner cannot merge listings');
+    as('');
+    ok(await mergeStatus(dup, keepSlug) === 401, 'nor can a visitor');
+
+    // the merge
+    as(adminJar);
+    const merged = await call('POST', `/api/admin/firms/${dup}/merge`, { into: `  ${keepSlug.toUpperCase()} ` });
+    ok(merged.status === 200 && merged.data.slug === keepSlug && merged.data.from === dup && merged.data.owners === 1, 'the admin merges the duplicate into the listing to keep (the address is tidied)');
+    ok((await call('GET', `/api/admin/firms/${dup}`)).status === 404 && (await call('GET', `/api/admin/firms/${keepSlug}`)).status === 200, 'the duplicate is gone and the kept listing stays');
+    as(ownerM.jar);
+    const meM = (await call('GET', '/api/account/me')).data.memberships;
+    ok(meM.length === 1 && meM[0].slug === keepSlug && meM[0].status === 'approved', 'the owner now manages the kept listing, approved, and nothing else');
+    ok((await call('GET', `/api/account/firms/${keepSlug}`)).status === 200 && (await call('GET', `/api/account/firms/${dup}`)).status === 403, 'they can open the kept listing and no longer the duplicate');
+    ok((await call('GET', `/api/account/firms/${keepSlug}/leads`)).data.summary.total >= 1, "the duplicate's enquiry is now on the kept listing");
+    as(adminJar);
+    const hopM = async (path) => { const r = await fetch(BASE + path, { redirect: 'manual' }); return { status: r.status, location: r.headers.get('location') }; };
+    ok((await hopM('/firms/' + dup)).status === 301 && (await hopM('/firms/' + dup)).location === `/firms/${keepSlug}`, "the duplicate's old address redirects to the kept page for good");
+    ok((await hopM('/firms/' + keepSlug)).status === 200, 'the kept page is live');
+    const mapM = await (await fetch(BASE + '/sitemap-firms.xml')).text();
+    ok(mapM.includes(`/firms/${keepSlug}<`) && !mapM.includes(`/firms/${dup}<`), 'the firms sitemap lists the kept listing and not the duplicate');
+    const logM = (await call('GET', '/api/admin/audit?limit=200')).data.entries;
+    ok(logM.some((e) => e.action === 'firm.merge' && e.entity_id === keepSlug && e.detail?.from === dup), 'the merge is in the activity log');
+    ok(logM.some((e) => e.action === 'mail.dev' && e.detail?.subject === `You can now manage Merge Keeper ${run} on LawDB`), 'the owner is emailed that they now manage the kept listing');
+    ok(await mergeStatus(dup, keepSlug) === 404, 'merging the same duplicate again finds nothing to merge');
+    // a duplicate that was itself reached through an older address: that older address follows to the kept listing
+    const dup2 = (await call('POST', '/api/admin/firms', { ...body, name: `Merge Second ${run}` })).data.slug;
+    const dup2New = `merge-second-new-${run}`;
+    ok((await call('PUT', `/api/admin/firms/${dup2}/slug`, { slug: dup2New })).status === 200 && await mergeStatus(dup2New, keepSlug) === 200 && (await hopM('/firms/' + dup2)).location === `/firms/${keepSlug}` && (await hopM('/firms/' + dup2New)).location === `/firms/${keepSlug}`, "an older address of a merged listing also goes straight to the kept one");
+  }
 }
 
 // --- cross-site requests are refused even with a valid session cookie

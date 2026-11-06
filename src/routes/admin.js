@@ -10,6 +10,7 @@ import { profileStrength } from '../lib/profile-strength.js';
 import { getVerification, fullView, markVerified, removeVerification, pendingRequests } from '../lib/verification.js';
 import { ownerEmails } from '../lib/stripe.js';
 import { renameFirmSlug } from '../lib/firm-slug.js';
+import { mergeFirms } from '../lib/firm-merge.js';
 import { mailInBackground, decisionEmail, verifiedEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES, FIRM_STATUSES } from '../lib/firm-edit.js';
 import { placeFor } from '../lib/geocode.js';
@@ -587,4 +588,14 @@ export async function firmRename({ request, env, params }) {
   const body = await readJson(request, 500);
   const r = await renameFirmSlug(env, admin, params.slug, body.slug);
   return reply({ ok: true, ...r });
+}
+
+// Merge a duplicate listing into the one to keep (admin only): the owners, leads and counters move across, the duplicate is deleted, and its
+// address redirects to the kept page. The owners are told they can now manage the kept listing.
+export async function firmMerge({ request, env, url, params, exec }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 500);
+  const r = await mergeFirms(env, admin, params.slug, body.into);
+  if (r.owners.length) mailInBackground(env, exec, { to: r.owners, ...decisionEmail(env.SITE_ORIGIN || url.origin, { firmName: r.name, approved: true }) });
+  return reply({ ok: true, slug: r.slug, name: r.name, from: r.from, owners: r.owners.length });
 }

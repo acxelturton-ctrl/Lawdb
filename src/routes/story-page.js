@@ -2,6 +2,7 @@
 // GET /sitemap-news.xml: every story page, for search engines.
 import { renderStoryPage, renderStoryPartial } from '../render/story-page.js';
 import { parseStoryPath, storyPath, isIndexableStory, STORY_INDEXABLE_SQL } from '../lib/stories.js';
+import { redirectTarget } from '../lib/firm-slug.js';
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -32,7 +33,12 @@ export async function storyPage({ request, env, ctx }) {
        JOIN firm_feeds ff ON ff.firm_slug = p.firm_slug AND ff.enabled = 1 JOIN firms f ON f.slug = p.firm_slug AND f.status = 'live' AND (ff.page_only = 0 OR f.featured = 1)
        WHERE p.id = ? AND p.firm_slug = ?`
     ).bind(ref.id, ref.firmSlug).first();
-    if (!post) return notFound();
+    if (!post) {
+      // the firm's address may have changed: send the old story address to the same story under the new one
+      const moved = await redirectTarget(env, ref.firmSlug);
+      const was = moved && await env.DB.prepare('SELECT title FROM firm_posts WHERE id = ? AND firm_slug = ?').bind(ref.id, moved).first();
+      return was ? Response.redirect(url.origin + storyPath(moved, ref.id, was.title) + url.search, 301) : notFound();
+    }
     const right = storyPath(ref.firmSlug, post.id, post.title);
     if (url.pathname.replace(/\/$/, '') !== right) return Response.redirect(url.origin + right + url.search, 301); // wrong or old wording
     firmRow = await env.DB.prepare('SELECT data, featured FROM firms WHERE slug = ?').bind(ref.firmSlug).first();

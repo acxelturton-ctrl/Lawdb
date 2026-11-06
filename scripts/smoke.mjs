@@ -1964,6 +1964,40 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(linked === 6, 'sign-up links are limited per requester (6 an hour)');
   as(adminJar);
   ok((await call('GET', '/api/admin/audit?limit=100')).data.entries.some((e) => e.action === 'signup.throttled'), 'a throttled sign-up leaves a trace');
+
+  // changing a firm's page address (admin only): everything moves with the firm and the old address redirects for good
+  as(adminJar);
+  const moveFirm = await call('POST', '/api/admin/firms', { name: `Address Test Firm ${run}`, city: 'Toronto', province: 'ON', address: '1 Test St, Toronto, ON M5V 1A1', phone: '+14165550123', website: 'https://example.com', tags: ['Family Law', 'Divorce'], caseTypes: ['family'], about: Array.from({ length: 60 }, (_, i) => `word${i}`).join(' '), lat: 43.65, lng: -79.38 });
+  const addrA = moveFirm.data.slug, addrB = `moved-${run}`, addrC = `moved-again-${run}`;
+  ok(moveFirm.status === 201 && (await call('PUT', `/api/admin/firms/${addrA}/verification`, { registrant: 'Pat Smith', checks: { registration: true, identity: true } })).status === 200 && (await call('POST', `/api/admin/firms/${addrA}/trial`, { days: 30 })).status === 201, 'a firm to move, with a verification and a free month attached');
+  const hopTo = async (path) => { const r = await fetch(BASE + path, { redirect: 'manual' }); return { status: r.status, location: r.headers.get('location'), text: r.status === 200 ? await r.text() : '' }; };
+  const movedOnce = await call('PUT', `/api/admin/firms/${addrA}/slug`, { slug: `  ${addrB.toUpperCase()} ` });
+  ok(movedOnce.status === 200 && movedOnce.data.slug === addrB && movedOnce.data.oldSlug === addrA, 'the admin changes the page address (tidied to lowercase)');
+  const nowAt = (await call('GET', `/api/admin/firms/${addrB}`)).data;
+  ok(nowAt.slug === addrB && nowAt.firm.slug === addrB && nowAt.firm.name === `Address Test Firm ${run}` && (await call('GET', `/api/admin/firms/${addrA}`)).status === 404, 'the firm is found at the new address only, and its record carries the new address too');
+  ok((await call('GET', `/api/admin/firms/${addrB}/verification`)).data.status === 'verified' && (await call('GET', `/api/admin/firms/${addrB}/analytics`)).data.plan?.trial?.status === 'active', 'its verification and free month came with it');
+  const pgNew = await hopTo('/firms/' + addrB), pgOld = await hopTo('/firms/' + addrA);
+  ok(pgNew.status === 200 && pgNew.text.includes(`/firms/${addrB}`) && !pgNew.text.includes(`/firms/${addrA}"`), 'the new address shows the page, naming only the new address');
+  ok(pgOld.status === 301 && pgOld.location === `/firms/${addrB}`, 'the old address redirects to it for good (301)');
+  ok((await hopTo(`/firms/${addrA}?utm=x`)).location === `/firms/${addrB}?utm=x`, 'a redirect keeps what follows the address');
+  const addrMap = (await getRaw('/sitemap-firms.xml')).text;
+  ok(addrMap.includes(`/firms/${addrB}<`) && !addrMap.includes(`/firms/${addrA}<`), 'the firms sitemap lists the new address and not the old one');
+  ok((await call('GET', '/api/admin/audit?limit=100')).data.entries.some((e) => e.action === 'firm.rename_slug' && e.entity_id === addrB), 'the change is in the activity log');
+  // again: the first old address follows the firm, there are no chains
+  ok((await call('PUT', `/api/admin/firms/${addrB}/slug`, { slug: addrC })).status === 200 && (await hopTo('/firms/' + addrA)).location === `/firms/${addrC}` && (await hopTo('/firms/' + addrB)).location === `/firms/${addrC}` && (await hopTo('/firms/' + addrC)).status === 200, 'a second change: both old addresses go straight to the newest one');
+  // and back to an old address: it is live again, the others still redirect
+  ok((await call('PUT', `/api/admin/firms/${addrC}/slug`, { slug: addrA })).status === 200 && (await hopTo('/firms/' + addrA)).status === 200 && (await hopTo('/firms/' + addrB)).location === `/firms/${addrA}` && (await hopTo('/firms/' + addrC)).location === `/firms/${addrA}`, 'changing back to a former address makes it live again; the others redirect to it');
+  // refusals
+  const refuseAddr = async (path, body) => (await call('PUT', path, body)).status;
+  ok(await refuseAddr(`/api/admin/firms/${addrA}/slug`, { slug: 'achkar-law' }) === 409 && await refuseAddr(`/api/admin/firms/${addrA}/slug`, { slug: addrA }) === 422 && await refuseAddr('/api/admin/firms/no-such-firm-xyz/slug', { slug: 'fine-address' }) === 404, 'an address another firm has, the same address, and an unknown firm are refused');
+  const badSlugs = ['', 'ab', 'x'.repeat(81), 'Has Space', 'under_score', '-lead', 'trail-', 'double--dash', 'a/b', '../x', 'caf\u00e9-law'];
+  const badResults = []; for (const s of badSlugs) badResults.push(await refuseAddr(`/api/admin/firms/${addrA}/slug`, { slug: s }));
+  ok(badResults.every((s) => s === 422) && await refuseAddr(`/api/admin/firms/${addrA}/slug`, {}) === 422, 'an empty, too short, too long or oddly written address is refused');
+  as(o1.jar);
+  ok(await refuseAddr(`/api/admin/firms/${addrA}/slug`, { slug: 'owner-picked-address' }) === 403, 'a firm owner cannot change an address');
+  as('');
+  ok(await refuseAddr(`/api/admin/firms/${addrA}/slug`, { slug: 'anon-picked-address' }) === 401, 'nor can a visitor');
+  as(adminJar);
 }
 
 // --- cross-site requests are refused even with a valid session cookie

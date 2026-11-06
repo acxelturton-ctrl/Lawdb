@@ -9,6 +9,7 @@ import { searchSummary, runSearchConsole, inspectUrl, gscKey } from '../lib/gsc.
 import { profileStrength } from '../lib/profile-strength.js';
 import { getVerification, fullView, markVerified, removeVerification, pendingRequests } from '../lib/verification.js';
 import { ownerEmails } from '../lib/stripe.js';
+import { renameFirmSlug } from '../lib/firm-slug.js';
 import { mailInBackground, decisionEmail, verifiedEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES, FIRM_STATUSES } from '../lib/firm-edit.js';
 import { placeFor } from '../lib/geocode.js';
@@ -578,4 +579,12 @@ export async function verificationRemove({ request, env, params, url }) {
   const admin = await requireAdmin(env, request);
   await removeVerification(env, admin, params.slug, url.searchParams.get('reason') || '');
   return reply({ ok: true });
+}
+
+// Change a firm's page address (admin only): moves everything that belongs to the firm and leaves a permanent redirect from the old address.
+export async function firmRename({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 500);
+  const r = await renameFirmSlug(env, admin, params.slug, body.slug);
+  return reply({ ok: true, ...r });
 }

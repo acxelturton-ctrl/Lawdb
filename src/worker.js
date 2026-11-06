@@ -85,6 +85,7 @@ const ROUTES = [
   route('GET', '/api/admin/firms/:slug', admin.getFirm),
   route('GET', '/api/admin/firms/:slug/analytics', admin.firmAnalyticsReport),
   route('POST', '/api/admin/firms/:slug/trial', admin.trialGrant),
+  route('PUT', '/api/admin/firms/:slug/slug', admin.firmRename),
   route('GET', '/api/admin/firms/:slug/verification', admin.verificationGet),
   route('PUT', '/api/admin/firms/:slug/verification', admin.verificationSet),
   route('DELETE', '/api/admin/firms/:slug/verification', admin.verificationRemove),

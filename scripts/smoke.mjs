@@ -2050,6 +2050,87 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const dup2New = `merge-second-new-${run}`;
     ok((await call('PUT', `/api/admin/firms/${dup2}/slug`, { slug: dup2New })).status === 200 && await mergeStatus(dup2New, keepSlug) === 200 && (await hopM('/firms/' + dup2)).location === `/firms/${keepSlug}` && (await hopM('/firms/' + dup2New)).location === `/firms/${keepSlug}`, "an older address of a merged listing also goes straight to the kept one");
   }
+
+  // office pages: a page for every office, one Featured plan. The pages follow the main listing's plan; only a Featured firm can add one; the links survive a rename.
+  {
+    const mergeStatus = async (from, into) => (await call('POST', `/api/admin/firms/${from}/merge`, { into })).status;
+    const base = { phone: '+14165550125', website: 'https://example.com', tags: ['Injury', 'Accident'], caseTypes: ['injury'], about: Array.from({ length: 60 }, (_, i) => `word${i}`).join(' ') };
+    const mk = async (name, city, province, lat, lng) => (await call('POST', '/api/admin/firms', { ...base, name, city, province, address: `3 Test St, ${city}`, lat, lng })).data.slug;
+    as(adminJar);
+    const mainS = await mk(`Office Main ${run}`, 'Toronto', 'ON', 43.65, -79.38);
+    const offS = await mk(`Office Branch ${run}`, 'Calgary', 'AB', 51.05, -114.07);
+    const basicS = await mk(`Office Basic ${run}`, 'Ottawa', 'ON', 45.42, -75.69);
+    ok(!!mainS && !!offS && !!basicS, 'a firm with its main listing, a second office, and a Basic firm');
+    const link = async (slug, main) => (await call('PUT', `/api/admin/firms/${slug}/location`, { main })).status;
+    ok(await link(offS, offS) === 422 && await link(offS, 'no-such-firm-xyz') === 404 && await link('no-such-firm-xyz', mainS) === 404 && await link(offS, 'Bad Address!') === 422, 'an office cannot be its own main listing, nor point at an unknown one');
+    const ownerO = await signUp(`office-owner-${run}@example.com`, freshIp());
+    as(ownerO.jar);
+    ok(await link(offS, mainS) === 403, 'a firm owner cannot link office pages');
+    as('');
+    ok(await link(offS, mainS) === 401, 'nor can a visitor');
+
+    as(adminJar);
+    ok(await link(offS, mainS) === 200, 'the admin makes the second listing an office page of the main one');
+    ok((await call('GET', `/api/admin/firms/${offS}`)).data.location?.slug === mainS && (await call('GET', `/api/admin/firms/${mainS}`)).data.locations.length === 1, 'each page knows the other');
+    ok(await link(mainS, offS) === 409 && await link(basicS, offS) === 409, 'one level only: an office cannot have offices, and cannot be a main listing');
+    ok(await link(offS, basicS) === 409, 'an office belongs to one firm (unlink it first)');
+    const feat = async (slug) => !!(await call('GET', `/api/admin/firms/${slug}`)).data.firm.featured;
+    ok(!(await feat(mainS)) && !(await feat(offS)), 'neither is Featured yet');
+    ok((await call('PATCH', `/api/admin/firms/${mainS}`, { featured: true })).status === 200 && await feat(mainS) && await feat(offS), 'Featured on the main listing makes the office page Featured too, with no second plan');
+    ok((await call('PATCH', `/api/admin/firms/${offS}`, { featured: false })).status === 409 && await feat(offS), "an office page's Featured cannot be set by hand: it follows the main listing");
+    ok((await call('PATCH', `/api/admin/firms/${mainS}`, { featured: false })).status === 200 && !(await feat(offS)), 'when the main listing goes back to Basic, so does the office page');
+    await call('PATCH', `/api/admin/firms/${mainS}`, { featured: true });
+
+    // the pages link to each other, and the links survive a change of address
+    const pageOf = async (slug) => (await getRaw(`/firms/${slug}`)).text;
+    const mainPage = await pageOf(mainS), offPage = await pageOf(offS);
+    ok(mainPage.includes('Other locations') && mainPage.includes(`href="/firms/${offS}"`) && offPage.includes(`href="/firms/${mainS}"`), "each page links to the firm's other pages");
+    const mainNew = `office-main-new-${run}`;
+    ok((await call('PUT', `/api/admin/firms/${mainS}/slug`, { slug: mainNew })).status === 200 && (await call('GET', `/api/admin/firms/${offS}`)).data.location?.slug === mainNew && (await call('GET', `/api/admin/firms/${mainNew}`)).data.locations.length === 1, 'changing the main address keeps its office pages linked');
+    ok((await pageOf(offS)).includes(`href="/firms/${mainNew}"`), 'and the office page links to the new address');
+    ok(await mergeStatus(mainNew, basicS) === 409, 'a firm with office pages cannot be merged away');
+
+    // an owner adds an office page: Featured only, hidden until approved, Featured like the main listing
+    as(ownerO.jar);
+    ok((await call('POST', '/api/account/claims', { slug: mainNew, contactName: 'Pat Office', acceptTerms: true })).status === 201, 'the owner claims the main listing');
+    ok((await call('POST', '/api/account/claims', { slug: basicS, contactName: 'Pat Office', acceptTerms: true })).status === 201, 'and a Basic firm');
+    as(adminJar);
+    for (const sl of [mainNew, basicS]) { const pm = (await call('GET', '/api/admin/members')).data.members.find((m) => m.slug === sl && m.email === `office-owner-${run}@example.com`); await call('PATCH', `/api/admin/members/${pm.id}`, { status: 'approved' }); }
+    as(ownerO.jar);
+    const st = (await call('GET', `/api/account/firms/${mainNew}/locations`)).data;
+    ok(st.canAdd === true && st.items.length === 1 && st.items[0].slug === offS, "the owner's Locations card lists the office page and offers to add another");
+    const bst = await call('GET', `/api/account/firms/${basicS}/locations`);
+    ok(bst.data.canAdd === false && /Featured/.test(bst.data.reason) && (await call('POST', `/api/account/firms/${basicS}/locations`, { city: 'Halifax', province: 'ON', address: '1 Main St, Ottawa' })).status === 409, 'a Basic firm is told an office page needs Featured, and cannot add one');
+    ok((await call('POST', `/api/account/firms/${mainNew}/locations`, { city: 'Vancouver', province: 'BC' })).status === 422, 'an office page needs a street address');
+    const added = await call('POST', `/api/account/firms/${mainNew}/locations`, { city: 'Vancouver', province: 'BC', address: '1 Granville St, Vancouver, BC V6C 1T2', phone: '604 555 0100' });
+    const newOff = added.data.slug;
+    ok(added.status === 201 && added.data.status === 'pending' && !!newOff, 'a Featured firm adds an office page; it waits for approval' + (added.status === 201 ? '' : ` (got ${added.status} ${JSON.stringify(added.data)})`));
+    ok((await getRaw(`/firms/${newOff}`)).status !== 200 || !(await pageOf(newOff)).includes('Vancouver'), 'the new office page is not public yet');
+    ok((await call('GET', '/api/account/me')).data.memberships.find((m) => m.slug === newOff)?.mainSlug === mainNew, 'the dashboard knows it is an office page');
+    as(adminJar);
+    const pend = (await call('GET', '/api/admin/members')).data.members.find((m) => m.slug === newOff);
+    ok(pend && pend.mainSlug === mainNew && pend.isNewListing, "the admin's Approvals shows which firm it is an office of");
+    ok((await call('PATCH', `/api/admin/members/${pend.id}`, { status: 'approved', lat: 49.28, lng: -123.12 })).status === 200 && (await getRaw(`/firms/${newOff}`)).status === 200, 'approving publishes the office page');
+    ok(await feat(newOff), 'the new office page is Featured like the main listing');
+    as(ownerO.jar);
+    const plan = (await call('GET', `/api/account/firms/${newOff}/plan`)).data;
+    ok(plan.includedWith?.slug === mainNew && plan.upgradeUrl === null && plan.trialAvailable === false, "an office page's plan card says it is included with the main listing, with nothing to buy");
+    ok((await call('POST', `/api/account/firms/${newOff}/trial`, {})).status === 409, 'an office page has no free month of its own');
+    ok((await call('POST', `/api/account/firms/${newOff}/locations`, { city: 'Halifax', province: 'ON', address: '2 Main St' })).status === 409, 'an office page cannot add office pages');
+
+    // the limit
+    as(adminJar);
+    for (let i = 0; i < 3; i++) { const x = await mk(`Office Extra ${i} ${run}`, 'Toronto', 'ON', 43.65, -79.38); await link(x, mainNew); }
+    as(ownerO.jar);
+    const full = (await call('GET', `/api/account/firms/${mainNew}/locations`)).data;
+    ok(full.items.length === 5 && full.canAdd === false && /up to 5/.test(full.reason), 'a firm can have up to five office pages');
+    as(adminJar);
+
+    // taking an office page out of the family
+    ok((await call('DELETE', `/api/admin/firms/${offS}/location`)).status === 200 && !(await feat(offS)) && (await call('GET', `/api/admin/firms/${offS}`)).data.location === null, 'unlinking makes it an ordinary Basic listing again');
+    ok((await call('DELETE', `/api/admin/firms/${offS}/location`)).status === 404, 'unlinking twice finds nothing');
+    ok(await feat(mainNew) && await feat(newOff), 'the rest of the family is untouched');
+  }
 }
 
 // --- cross-site requests are refused even with a valid session cookie

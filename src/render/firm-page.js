@@ -215,6 +215,14 @@ function officesHtml(f) {
   return `\n    <section class="offices" aria-label="${esc(f.name)} offices"><h2>Offices</h2><ul>${items}</ul>${note}</section>`;
 }
 
+// The firm's other office pages (a firm with an office in several cities has one page per office): links to the other live pages, main page first.
+function locationsHtml(f, locations) {
+  const list = (Array.isArray(locations) ? locations : []).filter((l) => l && l.slug && l.slug !== f.slug).slice(0, 12);
+  if (!list.length) return '';
+  const items = list.map((l) => `<li><a href="/firms/${esc(l.slug)}" class="office-name">${esc(l.name)}</a><span>${esc([l.city, PROVINCES[l.province] ? l.province : ''].filter(Boolean).join(', '))}</span></li>`).join('');
+  return `\n    <section class="offices other-locations" aria-label="Other ${esc(f.name)} locations"><h2>Other locations</h2><ul>${items}</ul></section>`;
+}
+
 // "199 Bay St #5300, Toronto, ON M5L 1B9" -> street, and postal code, the way schema.org wants them.
 function postal(f) {
   const a = String(f.address || '');
@@ -295,7 +303,7 @@ function likeAside(nearby) {
 // The Message button opens the contact form it scrolls to.
 const CONTACT_JS = "<script>(function(){var b=document.querySelector('[data-open-contact]'),s=document.querySelector('.lead-slim');if(b&&s)b.addEventListener('click',function(){s.classList.add('open');});})();</script>";
 
-export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], origin = 'https://lawdb.ca', stats = null, verified = null }) {
+export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null }) {
   const prov = PROVINCES[f.province] || f.province;
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
   const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-default.jpg`;
@@ -402,7 +410,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<script type="application/ld+json">\n${jsonForHtml(crumbLd)}\n</script>`,
     C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (f.block && f.block.image ? BLOCK_CSS : '') + (practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
-    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + verifiedHtml(verified) + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + locationsHtml(f, locations) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + verifiedHtml(verified) + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     articlesHtml ? '\n    ' + articlesHtml : '',
     carousel(f, nearby),
     '\n\n    ' + leadScript,

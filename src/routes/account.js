@@ -16,6 +16,7 @@ import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
 import { planInfo } from '../lib/stripe.js';
 import { firmAnalytics, lockedSummary, analyticsCsv, RANGES } from '../lib/firm-analytics.js';
 import { startTrial } from '../lib/trial.js';
+import { MAX_LOCATIONS, mainOf, locationsOf, syncLocationFeatured } from '../lib/locations.js';
 import { addImage, removeImage, listImages, imageInfo } from '../lib/images.js';
 import { providerPicture } from '../lib/oauth.js';
 
@@ -39,7 +40,9 @@ export async function me({ request, env }) {
   const { results } = await env.DB.prepare(
     `SELECT m.id, m.firm_slug AS slug, m.status, m.created_at AS requestedAt, f.name, f.city, f.province, f.status AS firmStatus, f.featured AS featured,
        CASE WHEN m.status = 'approved' THEN (SELECT COUNT(*) FROM leads l WHERE l.firm_slug = m.firm_slug AND l.status = 'new' AND l.seen_at IS NULL) ELSE 0 END AS newLeads,
-       t.ends_at AS trialEnds
+       t.ends_at AS trialEnds,
+       (SELECT l.main_slug FROM firm_locations l WHERE l.location_slug = m.firm_slug) AS mainSlug,
+       (SELECT COUNT(*) FROM firm_locations l WHERE l.main_slug = m.firm_slug) AS locationCount
      FROM firm_members m JOIN firms f ON f.slug = m.firm_slug LEFT JOIN firm_trials t ON t.firm_slug = m.firm_slug AND t.status = 'active'
      WHERE m.user_id = ? ORDER BY m.id DESC`
   ).bind(user.id).all();
@@ -485,4 +488,64 @@ export async function verificationRequest({ request, env, params, url, exec }) {
   const to = [...adminEmails(env)];
   if (to.length) mailInBackground(env, exec, { to, ...verificationRequestEmail(env.SITE_ORIGIN || url.origin, { firmName: firm.name, slug: params.slug, society: LAW_SOCIETIES[v.lawSociety].name, registrant: v.registrant, email: user.email }) });
   return reply(fullView(await getVerification(env, params.slug), firm.province), 201);
+}
+
+// ---------------------------------------------------------------- office pages (one Featured plan, a page for every office)
+// What an owner sees in their Locations card: the firm's office pages, and whether another can be added now.
+async function locationsState(env, slug) {
+  const firm = await env.DB.prepare('SELECT name, status, featured FROM firms WHERE slug = ?').bind(slug).first();
+  if (!firm) throw new HttpError(404, 'Firm not found');
+  const ofMain = await mainOf(env, slug);
+  if (ofMain) return { isLocation: true, main: { slug: ofMain.slug, name: ofMain.name }, items: [], max: MAX_LOCATIONS, canAdd: false, reason: `This page is an office of ${ofMain.name}. Add offices from ${ofMain.name}.` };
+  const items = await locationsOf(env, slug);
+  let reason = null;
+  if (firm.status !== 'live') reason = 'Office pages can be added once this listing is live.';
+  else if (!firm.featured) reason = 'A page for every office is included with Featured.';
+  else if (items.length >= MAX_LOCATIONS) reason = `A firm can have up to ${MAX_LOCATIONS} office pages here. Write to info@lawdb.ca if you need more.`;
+  return { isLocation: false, items, max: MAX_LOCATIONS, canAdd: !reason, reason, featured: !!firm.featured };
+}
+
+export async function locationsGet({ request, env, params }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  return reply(await locationsState(env, params.slug));
+}
+
+// A new office page. It is a listing of its own (its own address, phone and website, in its own city), hidden until an admin approves it, and it is Featured
+// whenever the main listing is. Only a Featured firm can add one.
+export async function locationAdd({ request, env, params, url, exec }) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, params.slug);
+  const state = await locationsState(env, params.slug);
+  if (!state.canAdd) throw new HttpError(409, state.reason);
+  const body = await readJson(request, 8000);
+  delete body.lat; delete body.lng;
+  await assertRoomForRequest(env, user);
+
+  const main = await env.DB.prepare('SELECT name, data FROM firms WHERE slug = ?').bind(params.slug).first();
+  const mainFirm = JSON.parse(main.data);
+  const input = {
+    name: typeof body.name === 'string' && body.name.trim() ? str(body.name, 2, 200) : main.name,
+    city: body.city, province: body.province, address: body.address, phone: body.phone || '',
+    website: body.website || mainFirm.website || '',
+    tags: mainFirm.tags || [], caseTypes: mainFirm.caseTypes || [],
+  };
+  if (!String(input.address || '').trim()) throw new HttpError(422, 'The office needs a street address.');
+  const dupe = await env.DB.prepare("SELECT slug FROM firms WHERE name = ? COLLATE NOCASE AND city = ? COLLATE NOCASE").bind(String(input.name).trim(), String(input.city || '').trim()).first();
+  if (dupe) throw new HttpError(409, 'A page for this firm in that city already exists.');
+  const probe = await prepareNewFirm(env, input, { checkText: true });
+  const coords = await geocode(env, { address: probe.firm.address, city: probe.firm.city, province: probe.firm.province });
+  const built = coords ? { ...probe, firm: { ...probe.firm, lat: coords.lat, lng: coords.lng } } : probe;
+  await insertFirm(env, built, { status: 'pending', createdBy: user.id });
+  const slug = built.firm.slug;
+  const mine = await env.DB.prepare('SELECT contact_name, job_title FROM firm_members WHERE user_id = ? AND firm_slug = ?').bind(user.id, params.slug).first();
+  await env.DB.batch([
+    env.DB.prepare('INSERT INTO firm_locations (location_slug, main_slug, created_by) VALUES (?, ?, ?)').bind(slug, params.slug, user.id),
+    env.DB.prepare("INSERT INTO firm_members (user_id, firm_slug, contact_name, job_title, message, terms_accepted_at) VALUES (?,?,?,?,?,datetime('now'))")
+      .bind(user.id, slug, mine?.contact_name || 'Owner', mine?.job_title || null, `Office page of ${main.name} (${params.slug})`),
+  ]);
+  await syncLocationFeatured(env, params.slug, user, 'office page added');
+  await audit(env, user, 'member.add_location', 'firm', slug, { main: params.slug, name: built.firm.name, city: built.firm.city });
+  notifyAdmins(env, exec, env.SITE_ORIGIN || url.origin, { email: user.email, contactName: mine?.contact_name || 'Owner', jobTitle: mine?.job_title || '', message: `Office page of ${main.name}`, firmName: built.firm.name, city: built.firm.city, isNew: true });
+  return reply({ ok: true, slug, status: 'pending' }, 201);
 }

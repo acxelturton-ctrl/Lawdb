@@ -49,6 +49,9 @@ export const FEATURED = {
       ['Your logo, cover picture and photos', 'Make the page look like your firm'],
       ['Book a call button with your own booking link', 'Clients book you straight from your page'],
     ]],
+    ['More than one office', [
+      ['A page for every office', 'Each office gets its own page, in its own city and on the map. One plan covers every page'],
+    ]],
     ['Enquiries', [
       ['Enquiries dashboard', 'Filters, private notes, one-tap reply, spreadsheet export'],
       ['Enquiries also sent to a second email address', 'For example your intake desk'],

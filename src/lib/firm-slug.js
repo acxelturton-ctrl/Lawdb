@@ -42,6 +42,8 @@ export async function renameFirmSlug(env, admin, oldSlug, rawNew) {
     env.DB.prepare('PRAGMA defer_foreign_keys = on'),
     ...move,
     env.DB.prepare("UPDATE firms SET slug = ?, data = json_set(data, '$.slug', ?), updated_at = datetime('now') WHERE slug = ?").bind(next, next, oldSlug),
+    env.DB.prepare('UPDATE firm_locations SET location_slug = ? WHERE location_slug = ?').bind(next, oldSlug),   // office-page links (not firm_slug columns, so not in SLUG_TABLES)
+    env.DB.prepare('UPDATE firm_locations SET main_slug = ? WHERE main_slug = ?').bind(next, oldSlug),
     env.DB.prepare('DELETE FROM firm_redirects WHERE old_slug = ?').bind(next),                            // an address taken back is live again, not a redirect
     env.DB.prepare('UPDATE firm_redirects SET new_slug = ? WHERE new_slug = ?').bind(next, oldSlug),       // earlier old addresses follow the firm to the new one (no chains)
     env.DB.prepare('INSERT INTO firm_redirects (old_slug, new_slug, created_by) VALUES (?, ?, ?)').bind(oldSlug, next, admin?.id ?? null),

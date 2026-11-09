@@ -164,6 +164,7 @@ const FEATURED_GETS = [
   'First in the live search box, with a gold Featured badge',
   'A gold pin on the map, and a gold tick and Featured badge on your profile',
   'Listed first among nearby firms on other firms\' profiles and story pages',
+  'A page for every office: each office gets its own page, in its own city and on the map, and the one plan covers them all',
   'An analytics dashboard: page views, visitors, which buttons were clicked, where visitors came from, their devices and regions, with trends and a spreadsheet export',
   'An enquiries dashboard with filters, private notes, one-tap reply and a spreadsheet export',
   'A Featured badge on your stories in LawDB News, a LawDB page search engines can find for each article, and higher placement in the home page news strip',

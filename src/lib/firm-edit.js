@@ -11,6 +11,7 @@ import { PROVINCES } from '../render/firm-page.js';
 import { NETWORKS, cleanSocialUrl } from './social.js';
 import { placeFor } from './geocode.js';
 import { trialAdminChanged } from './trial.js';
+import { mainOf, syncLocationFeatured } from './locations.js';
 
 export function str(v, min, max) {
   if (typeof v !== 'string') throw new HttpError(422, 'Expected text');
@@ -204,6 +205,7 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
   for (const k of keys.filter((k) => fieldKeys.includes(k))) {
     const next = FIRM_FIELDS[k](body[k]);
     if (JSON.stringify(firm[k]) !== JSON.stringify(next)) {
+      if (k === 'featured') { const ofMain = await mainOf(env, slug); if (ofMain) throw new HttpError(409, `Featured follows ${ofMain.name}, this firm's main listing. Change it there.`); }
       if (CUSTOMIZING[k] && next && !customizing) throw new HttpError(403, `${CUSTOMIZING[k]} ${FEATURED_LOCK}`);
       if (!admin && OWNER_TEXT_FIELDS[k]) checkOwnerText(OWNER_TEXT_FIELDS[k], next);
       changes[k] = { from: firm[k] ?? null, to: next };
@@ -236,7 +238,10 @@ export async function applyFirmEdit(env, actor, slug, body, { admin }) {
     .bind(JSON.stringify(firm), firm.name, firm.city, firm.province, moved ? firm.region ?? '' : null, firm.featured ? 1 : 0, firm.lat ?? null, firm.lng ?? null, hoursJson, aboutText, status, enquiryEmail, slug)
     .run();
   await audit(env, actor, 'firm.update', 'firm', slug, changes);
-  if ('featured' in changes) await trialAdminChanged(env, slug, !!firm.featured); // a free month running at the time must not undo (or outlive) the admin's choice
+  if ('featured' in changes) {
+    await trialAdminChanged(env, slug, !!firm.featured); // a free month running at the time must not undo (or outlive) the admin's choice
+    await syncLocationFeatured(env, slug, actor, 'changed by hand'); // the firm's office pages follow
+  }
   return { changed: Object.keys(changes), firm: { ...firm, about: aboutText || '' }, status };
 }
 

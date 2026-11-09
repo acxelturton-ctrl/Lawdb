@@ -6,6 +6,7 @@
 
 import { audit } from './audit.js';
 import { adminEmails } from './auth.js';
+import { syncLocationFeatured, mainOf } from './locations.js';
 import { mailInBackground, featuredOnEmail, featuredOffEmail, paymentReviewEmail, paymentFailedEmail } from './email.js';
 
 export const FEATURED_PRICE_LABEL = '$89 / month';
@@ -35,6 +36,7 @@ export async function verifyStripeSignature(rawBody, header, secret, nowMs = Dat
 
 // ---------------------------------------------------------------- featured flag
 export async function setFeatured(env, slug, value, actor, why) {
+  if (await mainOf(env, slug)) return false; // an office page has no plan of its own: it follows its main listing (src/lib/locations.js)
   const row = await env.DB.prepare('SELECT data FROM firms WHERE slug = ?').bind(slug).first();
   if (!row) return false;
   const firm = JSON.parse(row.data);
@@ -42,6 +44,7 @@ export async function setFeatured(env, slug, value, actor, why) {
   firm.featured = value;
   await env.DB.prepare("UPDATE firms SET data = ?, featured = ?, updated_at = datetime('now') WHERE slug = ?").bind(JSON.stringify(firm), value ? 1 : 0, slug).run();
   await audit(env, actor, 'firm.featured', 'firm', slug, { featured: value, why });
+  await syncLocationFeatured(env, slug, actor, why); // every office page of the firm follows
   return true;
 }
 
@@ -79,7 +82,9 @@ async function onCheckoutCompleted(env, session, exec, origin) {
   if (session.mode !== 'subscription' || typeof session.subscription !== 'string') return audit(env, null, 'stripe.ignored', 'event', session.id, { reason: 'not a subscription checkout' });
   if (!['paid', 'no_payment_required'].includes(session.payment_status)) return audit(env, null, 'stripe.ignored', 'event', session.id, { reason: 'not paid yet' });
   const email = String(session.customer_details?.email || session.customer_email || '').trim().toLowerCase();
-  const slug = String(session.client_reference_id || '').trim().toLowerCase();
+  let slug = String(session.client_reference_id || '').trim().toLowerCase();
+  const ofMain = slug ? await mainOf(env, slug) : null;
+  if (ofMain) slug = ofMain.slug; // paid from an office page: the plan belongs to the firm's main listing
   const firm = slug ? await env.DB.prepare("SELECT slug, featured FROM firms WHERE slug = ? AND status = 'live'").bind(slug).first() : null;
   // A firm that is Featured only because of its free month was not "already Featured by hand": cancelling the subscription must still end Featured.
   const onTrial = !!(firm && await env.DB.prepare("SELECT 1 FROM firm_trials WHERE firm_slug = ? AND status = 'active'").bind(slug).first());
@@ -181,7 +186,8 @@ export async function assignPayment(env, actor, id, slug, exec, origin) {
   const sub = await env.DB.prepare("SELECT status FROM firm_subscriptions WHERE subscription_id = ?").bind(id).first();
   if (!sub) return { error: 'Payment not found', status: 404 };
   if (sub.status !== 'needs_review') return { error: 'This payment is not waiting for review.', status: 409 };
-  const firm = await env.DB.prepare("SELECT slug, featured FROM firms WHERE slug = ? AND status = 'live'").bind(String(slug || '')).first();
+  const target = (await mainOf(env, String(slug || '')))?.slug || String(slug || ''); // a payment for an office page is credited to the firm's main listing
+  const firm = await env.DB.prepare("SELECT slug, featured FROM firms WHERE slug = ? AND status = 'live'").bind(target).first();
   if (!firm) return { error: 'Choose a listed firm.', status: 422 };
   await env.DB.prepare("UPDATE firm_subscriptions SET firm_slug = ?, status = 'active', featured_before = ?, updated_at = datetime('now') WHERE subscription_id = ?").bind(firm.slug, firm.featured ? 1 : 0, id).run();
   await audit(env, actor, 'payment.assign', 'firm', firm.slug, { subscription: id });
@@ -201,6 +207,11 @@ export async function dismissPayment(env, actor, id) {
 // What an owner sees on their plan card.
 export async function planInfo(env, user, slug) {
   const firm = await env.DB.prepare("SELECT featured, status FROM firms WHERE slug = ?").bind(slug).first();
+  const ofMain = await mainOf(env, slug);
+  if (ofMain) {
+    // An office page has no plan of its own: it is Featured when the firm's main listing is.
+    return { featured: !!firm?.featured, price: FEATURED_PRICE_LABEL, includedWith: { slug: ofMain.slug, name: ofMain.name }, subscription: null, upgradeUrl: null, portalUrl: null, trial: null, trialAvailable: false, trialDays: TRIAL_DAYS };
+  }
   const trialRow = await env.DB.prepare('SELECT status, started_at AS startedAt, ends_at AS endsAt, views, actions, enquiries FROM firm_trials WHERE firm_slug = ?').bind(slug).first();
   const sub = await env.DB.prepare("SELECT status, period_end AS periodEnd, cancel_at_period_end AS cancelAtPeriodEnd FROM firm_subscriptions WHERE firm_slug = ? AND status IN ('active','past_due') ORDER BY created_at DESC LIMIT 1").bind(slug).first();
   const featured = !!firm?.featured;

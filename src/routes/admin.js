@@ -11,6 +11,7 @@ import { getVerification, fullView, markVerified, removeVerification, pendingReq
 import { ownerEmails } from '../lib/stripe.js';
 import { renameFirmSlug } from '../lib/firm-slug.js';
 import { mergeFirms } from '../lib/firm-merge.js';
+import { linkLocation, unlinkLocation, mainOf, locationsOf } from '../lib/locations.js';
 import { mailInBackground, decisionEmail, verifiedEmail } from '../lib/email.js';
 import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES, FIRM_STATUSES } from '../lib/firm-edit.js';
 import { placeFor } from '../lib/geocode.js';
@@ -132,7 +133,8 @@ export async function getFirm({ request, env, params }) {
   if (!row) throw new HttpError(404, 'Firm not found');
   const firm = { ...JSON.parse(row.data), about: row.about || '' };
   const verified = (await getVerification(env, params.slug))?.status === 'verified';
-  return reply({ id: row.id, slug: params.slug, status: row.status, firm, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '', strength: profileStrength(firm, { about: row.about, hours: row.hours, verified }) });
+  const location = await mainOf(env, params.slug), locations = location ? [] : await locationsOf(env, params.slug); // office pages of a firm: which firm this page belongs to, or which pages belong to it
+  return reply({ id: row.id, slug: params.slug, status: row.status, firm, location, locations, hours: row.hours ? JSON.parse(row.hours) : null, updatedAt: row.updated_at, enquiryEmail: row.enquiry_email || '', strength: profileStrength(firm, { about: row.about, hours: row.hours, verified }) });
 }
 
 // Any firm's analytics, whatever its plan (the same report the firm sees), plus its free-month record.
@@ -273,6 +275,8 @@ export async function listMembers({ request, env, url }) {
   const { results } = await env.DB.prepare(
     `SELECT m.id, m.status, m.contact_name AS contactName, m.job_title AS jobTitle, m.message, m.created_at AS requestedAt, m.decided_at AS decidedAt,
             u.email, f.slug, f.name AS firmName, f.city, f.province, f.status AS firmStatus, f.featured, f.lat, f.lng, f.created_by AS createdBy, f.data,
+            (SELECT l.main_slug FROM firm_locations l WHERE l.location_slug = f.slug) AS mainSlug,
+            (SELECT f3.name FROM firm_locations l JOIN firms f3 ON f3.slug = l.main_slug WHERE l.location_slug = f.slug) AS mainName,
             (SELECT GROUP_CONCAT(u2.email, ', ') FROM firm_members m2 JOIN users u2 ON u2.id = m2.user_id
               WHERE m2.firm_slug = f.slug AND m2.status = 'approved' AND m2.id != m.id) AS otherOwners
      FROM firm_members m JOIN users u ON u.id = m.user_id JOIN firms f ON f.slug = m.firm_slug
@@ -598,4 +602,16 @@ export async function firmMerge({ request, env, url, params, exec }) {
   const r = await mergeFirms(env, admin, params.slug, body.into);
   if (r.owners.length) mailInBackground(env, exec, { to: r.owners, ...decisionEmail(env.SITE_ORIGIN || url.origin, { firmName: r.name, approved: true }) });
   return reply({ ok: true, slug: r.slug, name: r.name, from: r.from, owners: r.owners.length });
+}
+
+// Office pages (admin only): make a listing an office of another firm, so the firm has one Featured plan for all its pages, or take it out again.
+export async function firmLocationLink({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 500);
+  return reply({ ok: true, ...(await linkLocation(env, admin, params.slug, body.main)) });
+}
+
+export async function firmLocationUnlink({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  return reply({ ok: true, ...(await unlinkLocation(env, admin, params.slug)) });
 }

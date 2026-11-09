@@ -220,6 +220,7 @@ export const FEATURED_PERKS = [
   ['First in the search box.', 'Shown first in the live suggestions, with a gold Featured badge, as people type their case and city.'],
   ['A gold pin and a gold tick.', 'A highlighted pin on the map, and a gold tick and Featured badge on your profile and wherever your firm appears.'],
   ['Listed first among nearby firms.', 'On other firms\' profiles and story pages, your firm comes first in the nearby firms row.'],
+  ['A page for every office.', 'A firm with offices in several cities gets a page for each, in its own city and on the map. One Featured plan covers every page.'],
   ['An analytics dashboard.', 'Page views, visitors, every button clicked, where visitors came from, their devices and regions, with trends and a spreadsheet export.'],
   ['An enquiries dashboard.', 'Read, filter, add private notes, reply with one tap and export your enquiries to a spreadsheet.'],
   ['Articles that work harder.', 'A Featured badge on each story on LawDB News, a LawDB page for every article that search engines can find, and higher placement in the home page news strip.'],

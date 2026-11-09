@@ -213,6 +213,47 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     if (e.target.open && !pics) { pics = picturesPanel(`${base}/images`, { locked }); e.target.querySelector('.inner').replaceChildren(pics); }
   } }, h('summary', null, 'Profile Images'), h('div', { class: 'inner' }, h('p', { class: 'muted' }, 'Loading…')));
 
+  // ---- Offices and locations (owner): a page for every office, one Featured plan. Adding one is a Featured benefit.
+  function locationsPanel() {
+    const body = h('div', { class: 'inner' }, h('p', { class: 'muted' }, 'Loading\u2026'));
+    let loaded = false;
+    const addForm = () => {
+      const f = { name: h('input', { type: 'text', maxlength: 200, placeholder: firm.name || '', 'aria-label': 'Office name' }),
+        city: h('input', { type: 'text', maxlength: 80, placeholder: 'Toronto', 'aria-label': 'City' }),
+        province: h('select', { 'aria-label': 'Province' }, Object.entries(PROVINCES).map(([code, name]) => h('option', { value: code, selected: code === (firm.province || 'ON') }, name))),
+        address: h('input', { type: 'text', maxlength: 200, placeholder: '151 Eglinton Ave W, Toronto, ON', 'aria-label': 'Street address' }),
+        phone: h('input', { type: 'text', maxlength: 40, placeholder: '(416) 555-0100', 'aria-label': 'Phone' }),
+        website: h('input', { type: 'text', maxlength: 300, placeholder: firm.website || 'https://', 'aria-label': 'Website of this office' }) };
+      const msg = h('div', { class: 'ed-out' });
+      const go = h('button', { type: 'button', class: 'primary' }, 'Add this office page');
+      go.addEventListener('click', async () => {
+        go.disabled = true; msg.replaceChildren();
+        try {
+          await api('POST', `${base}/locations`, { name: f.name.value, city: f.city.value, province: f.province.value, address: f.address.value, phone: f.phone.value, website: f.website.value });
+          body.replaceChildren(note('msg-ok', 'Thank you. We check each new office page before it goes live; once it does it appears under your firms and in that city\'s list. It is Featured, like this page.'));
+        } catch (err) { msg.replaceChildren(note('msg-err', err.message)); go.disabled = false; }
+      });
+      const row = (label, el, hint) => h('div', { class: 'ed-field' }, h('label', null, label), el, hint && h('p', { class: 'ed-hint' }, hint));
+      return h('div', { class: 'ed-locform' },
+        h('h3', null, 'Add an office page'),
+        row('City', f.city), row('Province', f.province), row('Street address', f.address, 'The address of this office. It places the pin on the map.'),
+        row('Phone', f.phone), row('Website (if this office has its own)', f.website, 'Leave blank to use your main website.'),
+        row('Name (optional)', f.name, 'Leave blank to use your firm name. The city makes the page address.'),
+        h('div', { class: 'row' }, go), msg);
+    };
+    const draw = (st) => {
+      if (st.isLocation) { body.replaceChildren(h('p', null, 'This page is an office of ', h('b', null, st.main.name), '. It is Featured whenever that listing is, and its plan and billing are managed there.')); return; }
+      const kids = [h('p', { class: 'ed-hint' }, 'A firm with offices in several cities gets a page for each office, so each shows in its own city\'s list and on the map, with its own address, phone number and website. One Featured plan covers all of them.')];
+      if (st.items.length) kids.push(h('ul', { class: 'ed-loc-list' }, st.items.map((l) => h('li', null, h('b', null, l.name), ' ', h('span', { class: 'muted' }, `${l.city}, ${l.province}`), ' ',
+        l.status === 'live' ? h('a', { href: `/firms/${l.slug}`, target: '_blank', rel: 'noopener' }, 'View page') : h('span', { class: 'badge new' }, 'Awaiting approval')))));
+      if (st.canAdd) kids.push(addForm());
+      else kids.push(locked ? lockNote(st.reason) : h('p', { class: 'muted' }, st.reason));
+      body.replaceChildren(...kids);
+    };
+    const load = async () => { try { draw(await api('GET', `${base}/locations`)); } catch (err) { body.replaceChildren(note('msg-err', err.message)); } };
+    return h('details', { class: 'ed-collapse', ontoggle: (e) => { if (e.target.open && !loaded) { loaded = true; load(); } } }, h('summary', null, 'Offices and locations'), body);
+  }
+
   // ---- the page address (admin only): moves everything the firm has to the new address and leaves a permanent redirect from the old one
   function addressControl() {
     const input = h('input', { type: 'text', value: slug, maxlength: 80, autocomplete: 'off', spellcheck: 'false', 'aria-label': 'New page address' });
@@ -271,6 +312,36 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
       msg, h('div', { class: 'row' }, go));
   }
 
+  // ---- office pages (admin only): a firm with several offices has one page per office and ONE Featured plan; the office pages follow the main listing's plan
+  function locationControl() {
+    const msg = h('div', { class: 'ed-out' });
+    const rel = data.location;
+    if (rel) {
+      const un = h('button', { type: 'button' }, 'Unlink this office page');
+      un.addEventListener('click', async () => {
+        if (un.dataset.sure !== '1') { un.dataset.sure = '1'; un.textContent = 'Click again to confirm'; return; }
+        un.disabled = true;
+        try { await api('DELETE', `/api/admin/firms/${slug}/location`); location.reload(); } catch (err) { msg.replaceChildren(note('msg-err', err.message)); un.disabled = false; un.textContent = 'Unlink this office page'; delete un.dataset.sure; }
+      });
+      return h('details', { class: 'ed-addr', open: true }, h('summary', null, 'Office page of ' + rel.name),
+        h('p', { class: 'ed-hint' }, 'One Featured plan for the whole firm: this page is Featured whenever ', h('a', { href: `#firms/edit/${rel.slug}` }, rel.name), ' is. It has no plan of its own and no free month of its own.'),
+        h('div', { class: 'row' }, un), msg);
+    }
+    const input = h('input', { type: 'text', maxlength: 80, autocomplete: 'off', spellcheck: 'false', placeholder: 'main-listing-address', 'aria-label': 'Address of the firm\'s main listing' });
+    const go = h('button', { type: 'button' }, 'Link as an office page');
+    go.addEventListener('click', async () => {
+      const main = input.value.trim().toLowerCase();
+      if (!main || main === slug) { msg.replaceChildren(note('msg-err', 'Type the address of the firm\'s main listing (the one that holds the plan).')); return; }
+      go.disabled = true; msg.replaceChildren();
+      try { await api('PUT', `/api/admin/firms/${slug}/location`, { main }); location.reload(); } catch (err) { msg.replaceChildren(note('msg-err', err.message)); go.disabled = false; }
+    });
+    const pages = Array.isArray(data.locations) ? data.locations : [];
+    return h('details', { class: 'ed-addr', open: pages.length > 0 }, h('summary', null, pages.length ? `Offices of this firm (${pages.length})` : 'Offices in other cities (one plan)'),
+      pages.length ? h('ul', { class: 'ed-loc-list' }, pages.map((l) => h('li', null, h('a', { href: `#firms/edit/${l.slug}` }, l.name), ' ', h('span', { class: 'muted' }, `${l.city}, ${l.province}${l.status !== 'live' ? ' (' + l.status + ')' : ''}`)))) : null,
+      h('p', { class: 'ed-hint' }, pages.length ? 'Each office page is Featured whenever this listing is. To add another existing listing as an office page, enter this listing\'s address on that listing\'s page.' : 'If this page is another office of a firm that already has a main listing, enter that listing\'s address. This page then follows the main listing\'s Featured plan.'),
+      pages.length ? null : h('div', { class: 'row' }, h('span', { class: 'ed-prefix' }, 'lawdb.ca/firms/'), input, go), msg);
+  }
+
   // ---- Basic Information
   const basic = card('Basic Information', 'info',
     !isNew && h('p', { class: 'ed-id' }, 'ID: ', data.id ?? ''),
@@ -282,6 +353,7 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     !isNew && fld('Username', text('@' + slug, { readonly: true, 'aria-label': 'Username' }), 'The address of the page: lawdb.ca/firms/' + slug + (admin ? '' : '. To change it, write to info@lawdb.ca.')),
     admin && !isNew && addressControl(),
     admin && !isNew && mergeControl(),
+    admin && !isNew && locationControl(),
     !isNew && fld('Tagline', c.blurb, 'Shown in lists and search results.'),
     fld('Practice areas', c.tags, 'Comma separated, up to 10.'),
     h('label', null, 'Categories'), cats.el);
@@ -373,7 +445,7 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
     const item = (t) => h('li', null, icon('lock'), t);
     return h('div', { class: 'ed-unlock' },
       h('div', null, h('b', null, 'Locked on the Basic plan'), h('p', { class: 'muted' }, 'On Basic you write your own description and tagline and keep your facts up to date here: name, phone, address, website, practice areas, opening hours and social profiles. Featured unlocks:')),
-      h('ul', null, ['A booking link and the Book a call button', 'Profile pictures: logo, cover and photos', 'Sending enquiries to a second email address', 'The analytics dashboard', 'The enquiries inbox, with notes and export'].map(item)),
+      h('ul', null, ['A booking link and the Book a call button', 'Profile pictures: logo, cover and photos', 'Sending enquiries to a second email address', 'The analytics dashboard', 'The enquiries inbox, with notes and export', 'A page for every office, with one plan'].map(item)),
       cta);
   })();
 
@@ -393,7 +465,7 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
 
   const verifyPanel = isNew ? null : verificationPanel({ mode: mode === 'admin' ? 'admin' : 'owner', base });
 
-  form.append(...[head, strengthStrip, verifyPanel, flash ? note('msg-ok', flash) : null, unlockBanner, imagesBar, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
+  form.append(...[head, strengthStrip, verifyPanel, flash ? note('msg-ok', flash) : null, unlockBanner, imagesBar, mode === 'owner' && !isNew ? locationsPanel() : null, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
   // The plan (and what Featured adds) is one tap away at the top, not a page-long card in front of the form.
   const plan = mode === 'owner' && h('details', { class: 'ed-collapse ed-plan' }, h('summary', null, 'Your plan: ', h('b', null, firm.featured ? 'Featured' : 'Basic (free)'), !firm.featured && h('span', { class: 'ed-plan-cta' }, 'See what Featured adds')), h('div', { class: 'inner' }, planPanel(`${base}/plan`)));
   planEl = plan || null;

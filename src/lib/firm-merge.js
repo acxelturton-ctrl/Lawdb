@@ -29,6 +29,7 @@ export async function mergeFirms(env, admin, fromSlug, rawInto) {
   if (!from) throw new HttpError(404, 'Firm not found');
   if (!keep) throw new HttpError(404, `There is no listing at /firms/${into}. Enter the address of the listing to keep.`);
 
+  if (await env.DB.prepare('SELECT 1 FROM firm_locations WHERE main_slug = ?').bind(fromSlug).first()) throw new HttpError(409, 'This listing has office pages of its own. Unlink them first, then merge.');
   const [subs, pics] = await Promise.all([
     env.DB.prepare("SELECT COUNT(*) AS n FROM firm_subscriptions WHERE firm_slug = ? AND status IN ('active', 'past_due')").bind(fromSlug).first(),
     env.DB.prepare('SELECT COUNT(*) AS n FROM firm_images WHERE firm_slug = ?').bind(fromSlug).first(),

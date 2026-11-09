@@ -498,6 +498,7 @@ async function viewApprovals() {
       m.message && h('p', { class: 'quote' }, m.message),
       m.otherOwners && h('p', { class: 'msg-err' }, 'This firm already has an approved owner: ' + m.otherOwners),
       m.isNewListing && h('p', { class: 'muted' }, 'Not public yet. It goes live when you approve.'),
+      m.mainSlug && h('p', { class: 'muted' }, 'An office page of ', h('b', null, m.mainName || m.mainSlug), '. It follows that firm\'s Featured plan, so there is nothing to charge.'),
       needsCoords && h('div', null,
         h('p', { class: 'muted' }, 'The address could not be found exactly. You can approve as is: LawDB puts the pin in the middle of the city and hides the map on the firm page. Or enter the exact position (optional):'),
         h('a', { href: `https://www.google.com/maps/search/${mapQuery}`, target: '_blank', rel: 'noopener' }, 'Find on Google Maps'),

@@ -12,6 +12,7 @@ import { HttpError } from './http.js';
 import { audit } from './audit.js';
 import { sendMail, trialStartedEmail, trialEndingEmail, trialEndedEmail } from './email.js';
 import { setFeatured, ownerEmails, FEATURED_PRICE_LABEL } from './stripe.js';
+import { mainOf } from './locations.js';
 import { torontoDay } from './stats.js';
 
 export const TRIAL_DAYS = 30;
@@ -51,6 +52,8 @@ export async function startTrial(env, { slug, actor = null, source = 'owner', da
   const firm = await firmRow(env, slug);
   if (!firm) throw new HttpError(404, 'Firm not found');
   if (firm.status !== 'live') throw new HttpError(409, 'The free month can start once the listing is live.');
+  const ofMain = await mainOf(env, slug);
+  if (ofMain) throw new HttpError(409, `This page is an office of ${ofMain.name}, so it is Featured whenever that listing is. Start the free month on ${ofMain.name}.`);
   const old = await getTrial(env, slug);
   if (source === 'owner' && old) throw new HttpError(409, old.status === 'active' ? 'Your free month is already running.' : 'This firm has already had its free month.');
   if (firm.featured && old?.status !== 'active') throw new HttpError(409, 'This firm is already Featured.');

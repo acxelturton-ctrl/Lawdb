@@ -16,6 +16,9 @@ const batchFirms = new Set();
   }
 }
 
+// Firms that listed themselves (data/owner-firms.json) are database pages too.
+if (existsSync(join(ROOT, 'data/owner-firms.json'))) for (const firm of JSON.parse(readFileSync(join(ROOT, 'data/owner-firms.json'), 'utf8'))) batchFirms.add(`/firms/${firm.slug}`);
+
 const pages = [];
 (function walk(dir) {
   for (const f of readdirSync(dir)) {

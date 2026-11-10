@@ -6,19 +6,11 @@
 //   node scripts/refresh-hub-counts.mjs          rewrites the pages
 //   node scripts/refresh-hub-counts.mjs --check  fails if a page is out of date
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { loadSiteFirms, rated } from './lib/site-firms.mjs';
 
 const CHECK = process.argv.includes('--check');
 const FIRMS_FILE = process.env.HUB_FIRMS_FILE; // test hook: a JSON array of firms to use instead of the repository's
-const firms = FIRMS_FILE ? JSON.parse(readFileSync(FIRMS_FILE, 'utf8')) : loadFirms();
-
-function loadFirms() {
-  const all = JSON.parse(readFileSync('firms_data.json', 'utf8'));
-  const released = new Set(JSON.parse(readFileSync('data/release.json', 'utf8')).released);
-  for (const file of readdirSync('data').filter((f) => /^firms-batch-\d+\.json$/.test(f)).sort()) {
-    if (released.has(Number(file.match(/\d+/)[0]))) all.push(...JSON.parse(readFileSync(`data/${file}`, 'utf8')));
-  }
-  return all;
-}
+const firms = FIRMS_FILE ? JSON.parse(readFileSync(FIRMS_FILE, 'utf8')) : loadSiteFirms();
 
 const PROV = { ontario: 'ON', quebec: 'QC', 'british-columbia': 'BC', alberta: 'AB', manitoba: 'MB' };
 const TYPES = [
@@ -53,6 +45,10 @@ const typeCounts = (list) => TYPES.map(([k, label, page, sent]) => ({ k, label, 
 const byCount = (arr) => [...arr].sort((a, b) => b.n - a.n);
 
 function row(f) {
+  if (!rated(f)) {
+    const tags0 = (f.tags || []).filter(Boolean).slice(0, 3);
+    return `<a class="frow" href="/firms/${f.slug}"><span class="rname">${esc(f.name)}${f.featured ? '<span class="seo-feat">Featured</span>' : ''}</span><span class="rmeta">New on LawDB${tags0.length ? ' &middot; ' + esc(tags0.join(', ')) : ''}${f.address ? ' &middot; ' + esc(f.address) : ''}</span></a>`;
+  }
   const stars = '★'.repeat(Math.max(1, Math.ceil(f.rating - 0.5)));
   const tags = (f.tags || []).filter(Boolean).slice(0, 3);
   const meta = `${stars} ${f.rating.toFixed(1)} from ${f.count} Google reviews${tags.length ? ' &middot; ' + esc(tags.join(', ')) : ''}${f.address ? ' &middot; ' + esc(f.address) : ''}`;

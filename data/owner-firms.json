@@ -1,0 +1,158 @@
+[
+ {
+  "slug": "akm-law-toronto",
+  "name": "AKM Law",
+  "city": "Toronto",
+  "province": "ON",
+  "region": "toronto",
+  "address": "56 The Esplanade Ste 301, Toronto, ON M5E 1A7",
+  "phone": "(416) 262-0042",
+  "rating": 0,
+  "count": 0,
+  "caseTypes": [
+   "immigration"
+  ],
+  "tags": [
+   "Immigration Law",
+   "Deportation",
+   "Inadmissibility Issues",
+   "Misrepresentation",
+   "Judicial review"
+  ],
+  "featured": false,
+  "website": "https://www.akmlaw.ca/"
+ },
+ {
+  "slug": "de-boyrie-law-toronto",
+  "name": "De Boyrie Law",
+  "city": "Toronto",
+  "province": "ON",
+  "region": "toronto",
+  "address": "100 King St W #5600, Toronto, ON M5X 1C9",
+  "phone": "(647) 931-0248",
+  "rating": 0,
+  "count": 0,
+  "caseTypes": [
+   "criminal"
+  ],
+  "tags": [
+   "Criminal Law"
+  ],
+  "featured": false,
+  "website": "https://deboyrielaw.ca"
+ },
+ {
+  "slug": "glg-llp",
+  "name": "GLG LLP",
+  "city": "Toronto",
+  "province": "ON",
+  "region": "toronto",
+  "address": "65 Queen St W Ste 1240, Toronto, ON M5H 2M8, Canada",
+  "phone": "1 416-272-7557",
+  "rating": 0,
+  "count": 0,
+  "caseTypes": [
+   "realestate",
+   "business",
+   "litigation"
+  ],
+  "tags": [
+   "Business Law",
+   "Litigation",
+   "Real Estate Law"
+  ],
+  "featured": false,
+  "website": "https://glgllp.ca/"
+ },
+ {
+  "slug": "lawgical-law-corporation-abbotsford",
+  "name": "Lawgical Law Corporation",
+  "city": "Abbotsford",
+  "province": "BC",
+  "region": "bc-fraser",
+  "address": "Office 1211, #104 - 32615 South Fraser Way, Abbotsford, BC V2T 1X8",
+  "phone": "(778) 598-3785",
+  "rating": 0,
+  "count": 0,
+  "caseTypes": [
+   "immigration",
+   "litigation"
+  ],
+  "tags": [
+   "Probate",
+   "Estate Litigation",
+   "Wills Variation",
+   "Immigration",
+   "Immigration Appeals",
+   "Judicial Review",
+   "Stay of Removal"
+  ],
+  "featured": false,
+  "website": "https://www.lawgicalcorp.com/"
+ },
+ {
+  "slug": "sanctum-law-toronto",
+  "name": "Sanctum Law",
+  "city": "Toronto",
+  "province": "ON",
+  "region": "toronto",
+  "address": "17-268 Finch Avenue East, Toronto, Ontario M2N 0L3",
+  "phone": "08557628529",
+  "rating": 0,
+  "count": 0,
+  "caseTypes": [
+   "criminal",
+   "realestate",
+   "wills",
+   "business",
+   "immigration"
+  ],
+  "tags": [],
+  "featured": false,
+  "website": "https://sanctumlaw.ca/"
+ },
+ {
+  "slug": "solution-law-edmonton",
+  "name": "SOLUTION LAW",
+  "city": "Edmonton",
+  "province": "AB",
+  "region": "ab-edmonton",
+  "address": "6830 Ellerslie Rd SW #203 Edmonton, AB T6X 1A3, Canada",
+  "phone": "+1 888-529-1070",
+  "rating": 0,
+  "count": 0,
+  "caseTypes": [
+   "criminal",
+   "family",
+   "injury",
+   "realestate",
+   "wills",
+   "business",
+   "employment",
+   "immigration",
+   "litigation"
+  ],
+  "tags": [],
+  "featured": false,
+  "website": "https://www.solutionlaw.ca/"
+ },
+ {
+  "slug": "springlaw-toronto",
+  "name": "SpringLaw",
+  "city": "Toronto",
+  "province": "ON",
+  "region": "toronto",
+  "address": "111 Queen Street East, South Building Suite 450, Toronto, Ontario, M5C 1S2",
+  "phone": "416-238-8180",
+  "rating": 0,
+  "count": 0,
+  "caseTypes": [
+   "employment"
+  ],
+  "tags": [
+   "Employment and Labour Law"
+  ],
+  "featured": false,
+  "website": "https://springlaw.ca/"
+ }
+]

@@ -1,15 +1,9 @@
 // The firm-dependent parts of a city practice page, rebuilt from the firm data. Used by refresh-practice-pages.mjs (existing pages) and
 // build-city-practice-pages.mjs (new ones). Pure functions: they take page text and return page text.
-import { readFileSync, readdirSync } from 'node:fs';
+import { loadSiteFirms, rated } from './lib/site-firms.mjs';
 
-export function loadFirms() {
-  const all = JSON.parse(readFileSync('firms_data.json', 'utf8'));
-  const released = new Set(JSON.parse(readFileSync('data/release.json', 'utf8')).released);
-  for (const file of readdirSync('data').filter((f) => /^firms-batch-\d+\.json$/.test(f)).sort()) {
-    if (released.has(Number(file.match(/\d+/)[0]))) all.push(...JSON.parse(readFileSync(`data/${file}`, 'utf8')));
-  }
-  return all;
-}
+// Every firm the site lists: the repository's own plus the ones that listed themselves (data/owner-firms.json).
+export const loadFirms = loadSiteFirms;
 
 export const PROV = { ontario: 'ON', quebec: 'QC', 'british-columbia': 'BC', alberta: 'AB', manitoba: 'MB' };
 export const TYPES = [
@@ -46,12 +40,13 @@ export function stats(list) {
 }
 
 function snapshot(f) {
+  if (!rated(f)) return `<p>${esc(f.name)} is new on LawDB and has no Google rating yet. The office is at ${esc(f.address)}.${(f.tags || []).filter(Boolean).length ? ` Listed focus areas: ${esc((f.tags || []).filter(Boolean).slice(0, 4).join(', '))}.` : ''}${f.featured ? ' It is a Featured partner.' : ''}</p>`;
   const lead = f.rating >= 4.8 ? 'is one of the highest-rated firms on this page at' : f.rating >= 4.5 ? 'has a strong rating at' : 'is rated at';
   const tags = (f.tags || []).filter(Boolean).slice(0, 4);
   return `<p>${esc(f.name)} ${lead} ${f.rating.toFixed(1)} stars, based on ${fmt(f.count)} Google reviews. The office is at ${esc(f.address)}.${tags.length ? ` Listed focus areas: ${esc(tags.join(', '))}.` : ''}${f.featured ? ' It is a Featured partner.' : ''}</p>`;
 }
 
-const row = (f) => `<tr><td><a href="/firms/${f.slug}">${esc(f.name)}</a>${f.featured ? ' <span class="seo-feat">Featured</span>' : ''}</td><td>${f.rating.toFixed(1)}</td><td>${fmt(f.count)}</td><td>${esc(f.address)}</td><td>${esc(phone(f.phone))}</td></tr>`;
+const row = (f) => `<tr><td><a href="/firms/${f.slug}">${esc(f.name)}</a>${f.featured ? ' <span class="seo-feat">Featured</span>' : ''}</td><td>${rated(f) ? f.rating.toFixed(1) : '&ndash;'}</td><td>${rated(f) ? fmt(f.count) : '&ndash;'}</td><td>${esc(f.address)}</td><td>${esc(phone(f.phone))}</td></tr>`;
 
 export function refreshHtml(old, ctx, firms, pageExists) {
   const { city, provName, code, dir, type, file = '(page)' } = ctx;

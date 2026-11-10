@@ -91,3 +91,51 @@
 .lx-export{ font-weight:600; font-size:14px; }
 .lx-locked h2{ margin:0 0 6px; } .lx-perks{ margin:10px 0 16px; padding-left:20px; line-height:1.7; }
 @media (max-width:560px){ .lx-tiles{ grid-template-columns:repeat(2,1fr); } }
+
+/* Sign-in / sign-up: a welcome page (hero with stacked pill buttons, then two bands of links). The header goes white with Join now / Sign in. */
+body.lw-auth .site-header.lw-light{ background:#fff !important; }
+body.lw-auth .site-footer{ margin-top:0; }
+@media (min-width:900px){
+  .desktop-nav .nav-sep{ width:1px; height:28px; background:#d9d4c4; margin:0 26px 0 0; }
+  .desktop-nav .nav-join{ padding:11px 20px; border-radius:999px; margin-right:8px; }
+  .desktop-nav .nav-join:hover{ background:#efe9d8; color:#142434; }
+  .desktop-nav .nav-signin{ padding:10px 22px; border:1.5px solid #142434; border-radius:999px; margin-right:0; }
+  .desktop-nav .nav-signin:hover{ background:#142434; color:#fff; }
+}
+.auth-hero{ max-width:1160px; margin:0 auto; box-sizing:border-box; padding:72px 48px 88px; display:flex; flex-wrap:wrap; align-items:center; gap:48px; }
+.auth-hero-copy{ flex:1 1 460px; min-width:0; }
+.auth-hero-copy h1{ margin:0 0 36px; font:600 56px/1.1 'Source Serif 4',Georgia,serif; letter-spacing:-.01em; color:#142434; }
+.auth-btns{ max-width:400px; display:flex; flex-direction:column; gap:12px; }
+.auth-btns .provider{ height:52px; box-sizing:border-box; margin:0; padding:0 16px; border:1.5px solid #b9b4a6; border-radius:999px; background:#fff; color:#142434; font:700 16px 'Inter',sans-serif; cursor:pointer; }
+.auth-btns .provider:hover{ background:#efe9d8; border-color:#142434; }
+.auth-btns .auth-email{ border-color:#e2bd6a; background:#e2bd6a; color:#142434; }
+.auth-btns .auth-email:hover{ background:#d8ad55; border-color:#d8ad55; }
+.provider[hidden], .auth-form[hidden]{ display:none; }
+.auth-form{ display:flex; flex-direction:column; }
+.auth-form label{ margin:0 0 6px; font-size:14px; font-weight:700; color:#142434; }
+.auth-form input[type=email]{ width:100%; height:52px; box-sizing:border-box; margin:0 0 12px; padding:0 14px; border:1.5px solid #b9b4a6; border-radius:10px; background:#fff; font-size:16px; }
+.auth-continue{ height:52px; border:none; border-radius:999px; background:#c9a050; color:#142434; font:700 16px 'Inter',sans-serif; cursor:pointer; }
+.auth-continue:hover{ background:#e2bd6a; }
+.auth-sent-h{ margin:0 0 8px; font:700 22px/1.25 'Inter',sans-serif; color:#142434; }
+.auth-terms{ max-width:400px; margin:20px 0 0; font-size:13px; line-height:1.55; color:#586170; }
+.auth-terms a, .auth-new a{ color:#142434; font-weight:700; text-decoration:underline; }
+.auth-new{ margin:28px 0 0; font-size:16px; color:#142434; }
+.auth-hero-art{ flex:1 1 420px; min-width:0; display:flex; justify-content:center; }
+.auth-hero-art img{ width:100%; max-width:520px; height:auto; }
+.auth-band{ border-top:1px solid #e3dfd3; }
+.auth-band.areas{ background:#ebe7da; border-bottom:1px solid #e3dfd3; }
+.auth-band.provinces{ background:#edeae1; }
+.auth-band-in{ max-width:1160px; margin:0 auto; box-sizing:border-box; padding:56px 48px; display:flex; flex-wrap:wrap; gap:32px 64px; align-items:flex-start; }
+.auth-band-text{ flex:1 1 320px; min-width:0; }
+.auth-band-text h2{ margin:0 0 12px; font:600 34px/1.2 'Source Serif 4',Georgia,serif; color:#142434; }
+.auth-band-text p{ margin:0; font-size:17px; line-height:1.55; color:#586170; }
+.auth-chips{ flex:1.4 1 480px; min-width:0; display:flex; flex-wrap:wrap; gap:12px; }
+.auth-chip{ padding:10px 20px; border:1.5px solid #8a8574; border-radius:999px; background:#fff; font-size:15px; font-weight:600; color:#142434; text-decoration:none; }
+.auth-chip:hover{ background:#142434; border-color:#142434; color:#fff; }
+@media (max-width:640px){
+  .auth-hero{ padding:28px 20px 44px; gap:24px; }
+  .auth-hero-copy h1{ margin-bottom:24px; font-size:36px; }
+  .auth-hero-art{ order:-1; flex:0 0 auto; width:230px; margin:0 auto; }
+  .auth-band-in{ padding:40px 20px; }
+  .auth-band-text h2{ font-size:28px; }
+}

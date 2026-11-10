@@ -52,10 +52,7 @@ async function renderLogin() {
   }, h('label', { for: 'email' }, 'Email address'), email, btn);
   const OFFERED = ['google', 'linkedin'];
   const social = OFFERED.filter((k) => providers[k]).map((k) => h('a', { class: 'provider', href: `/api/auth/${k}/start` }, icon(k), k === 'google' ? 'Continue with Google' : 'Continue with LinkedIn'));
-  // "Sign in with email" is a gold button that opens the email box in its place. If neither Google nor LinkedIn is set up, the box is simply there.
-  const emailBtn = h('button', { class: 'provider auth-email', type: 'button', onclick: () => { emailBtn.hidden = true; form.hidden = false; email.focus(); } }, 'Sign in with email');
-  emailBtn.hidden = !social.length;
-  form.hidden = social.length > 0;
+  // Members sign in with Google or LinkedIn only. The email box is the fallback when neither is set up, so nobody is ever locked out (admins use the email link on /admin/).
   const join = new URLSearchParams(location.search).get('join') === '1';
   const chip = ([label, href]) => h('a', { class: 'auth-chip', href }, label);
   const band = (cls, title, text, items) => h('section', { class: `auth-band ${cls}` }, h('div', { class: 'auth-band-in' },
@@ -70,7 +67,7 @@ async function renderLogin() {
     h('section', { class: 'auth-hero' },
       h('div', { class: 'auth-hero-copy' },
         h('h1', null, join ? 'Create your free LawDB account' : 'Welcome to Canada’s legal directory'),
-        h('div', { class: 'auth-btns' }, ...social, emailBtn, form, msg),
+        h('div', { class: 'auth-btns' }, ...social, social.length ? null : form, msg),
         h('p', { class: 'auth-terms' }, 'By continuing, you agree to LawDB’s ', h('a', { href: '/terms' }, 'Terms'), ' and ', h('a', { href: '/privacy-policy' }, 'Privacy Policy'), '. There is no password to remember.'),
         h('p', { class: 'auth-new' }, join ? 'Already a member? ' : 'New to LawDB? ', h('a', { href: join ? '/account/' : '/account/?join=1' }, join ? 'Sign in' : 'Join now'))),
       h('div', { class: 'auth-hero-art' }, h('img', { src: 'data:image/svg+xml;utf8,' + encodeURIComponent(ART), alt: 'Two law firm profile cards and a map pin', width: 520, height: 440 }))),

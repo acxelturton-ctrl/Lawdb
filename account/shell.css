@@ -108,9 +108,6 @@ body.lw-auth .site-footer{ margin-top:0; }
 .auth-btns{ max-width:400px; display:flex; flex-direction:column; gap:12px; }
 .auth-btns .provider{ height:52px; box-sizing:border-box; margin:0; padding:0 16px; border:1.5px solid #8a919b; border-radius:999px; background:#fff; color:#142434; font:700 16px 'Inter',sans-serif; cursor:pointer; }
 .auth-btns .provider:hover{ background:#f4ecd8; border-color:#142434; }
-.auth-btns .auth-email{ border-color:#e2bd6a; background:#e2bd6a; color:#142434; }
-.auth-btns .auth-email:hover{ background:#c9a050; border-color:#c9a050; }
-.provider[hidden], .auth-form[hidden]{ display:none; }
 .auth-form{ display:flex; flex-direction:column; }
 .auth-form label{ margin:0 0 6px; font-size:14px; font-weight:700; color:#142434; }
 .auth-form input[type=email]{ width:100%; height:52px; box-sizing:border-box; margin:0 0 12px; padding:0 14px; border:1.5px solid #8a919b; border-radius:10px; background:#fff; font-size:16px; }

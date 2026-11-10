@@ -22,9 +22,6 @@ const SIGNIN_MESSAGES = {
   unavailable: 'That sign-in option is not available right now. Please try the other button, or come back soon.',
 };
 
-// LawDB's own LinkedIn page, shown on the sign-in badge. Leave empty to hide the link.
-const LAWDB_LINKEDIN = 'https://www.linkedin.com/company/lawdb/';
-
 async function renderLogin() {
   document.body.classList.remove('ap', 'ap-in');
   const msg = h('div');
@@ -33,64 +30,55 @@ async function renderLogin() {
   let providers = {};
   try { providers = await api('GET', '/api/auth/providers'); } catch { /* the email link always works */ }
   const email = h('input', { type: 'email', id: 'email', required: true, autocomplete: 'email', placeholder: 'you@example.com' });
-  const btn = h('button', { class: 'primary', type: 'submit' }, 'Email me a sign-in link');
+  const btn = h('button', { class: 'auth-continue', type: 'submit' }, 'Continue');
   const form = h('form', {
+    class: 'auth-form',
     onsubmit: async (e) => {
       e.preventDefault();
       btn.disabled = true;
       msg.replaceChildren();
       try {
         await api('POST', '/api/auth/request-link', { email: email.value, signup: true });
-        msg.replaceChildren(note('msg-ok', 'Check your email. The link works once and expires in 15 minutes.'));
+        const sent = email.value;
+        form.replaceChildren(
+          h('h2', { class: 'auth-sent-h' }, 'Check your email'),
+          h('p', { class: 'muted' }, 'We sent a one-time sign-in link to ', h('b', null, sent), '. It works once and expires in 15 minutes.'),
+          h('p', { class: 'muted small' }, h('a', { href: '/account/' }, 'Use a different email')));
       } catch (err) {
         msg.replaceChildren(note('msg-err', err.message));
         btn.disabled = false;
       }
     },
-  }, h('label', { for: 'email' }, 'Email address'), email, h('div', { class: 'row' }, btn));
-  // Members sign in with Google or LinkedIn only. The email-link form stays as a fallback if neither is set up,
-  // so nobody is ever locked out (admins still use the email link on /admin/).
+  }, h('label', { for: 'email' }, 'Email address'), email, btn);
   const OFFERED = ['google', 'linkedin'];
   const social = OFFERED.filter((k) => providers[k]).map((k) => h('a', { class: 'provider', href: `/api/auth/${k}/start` }, icon(k), k === 'google' ? 'Continue with Google' : 'Continue with LinkedIn'));
-  const badge = h('div', { class: 'lw-badge' },
-    h('img', { src: '/images/logo-icon.png', alt: 'LawDB', width: 56, height: 56 }),
-    h('div', { class: 'lw-badge-text' }, h('b', null, 'LawDB.ca'), h('span', null, 'Canada\u2019s Legal Directory')),
-    LAWDB_LINKEDIN && h('a', { class: 'lw-badge-li', href: LAWDB_LINKEDIN, target: '_blank', rel: 'noopener', 'aria-label': 'LawDB on LinkedIn' }, icon('linkedin'), 'LinkedIn'));
+  // Members sign in with Google or LinkedIn only. The email box is the fallback when neither is set up, so nobody is ever locked out (admins use the email link on /admin/).
   const join = new URLSearchParams(location.search).get('join') === '1';
-  // The four numbers come from the database (/api/totals), so they stay current; the figures are blank until the answer arrives.
-  const figs = { firms: h('b', null, ''), cities: h('b', null, ''), areas: h('b', null, ''), provinces: h('b', null, '') };
-  const stat = (b, label) => h('div', null, b, h('span', null, label));
-  fetch('/api/totals').then((r) => (r.ok ? r.json() : null)).then((t) => {
-    if (!t) return;
-    figs.firms.textContent = `${Number(t.firms).toLocaleString('en-CA')}+`;
-    figs.cities.textContent = Number(t.cities).toLocaleString('en-CA');
-    figs.areas.textContent = String(t.practiceAreas);
-    figs.provinces.textContent = String(t.provinces);
-  }).catch(() => {});
-  const perk = (t, d) => h('div', null, h('h3', null, t), h('p', null, d));
-  mount(h('div', { class: 'wrap ac-login' },
-    h('div', { class: 'center card' },
-      badge,
-      h('h1', null, join ? 'Create your free LawDB account' : 'Sign in'),
-      h('p', { class: 'muted' }, 'Choose how you want to sign in. New here? The same sign-in creates your account, and it is free.'),
-      ...social,
-      social.length ? null : form, msg,
-      h('p', { class: 'muted small' }, social.length
-        ? 'No password to remember or lose. We use your name and email to set up your account, and never post anything on your behalf.'
-        : 'No password to remember or lose: we email you a one-time link.')),
-    h('div', { class: 'ac-stats' }, stat(figs.firms, 'law firms'), stat(figs.cities, 'cities'), stat(figs.areas, 'practice areas'), stat(figs.provinces, 'provinces')),
-    h('div', { class: 'ac-perks' },
-      perk('Follow firms', 'See new stories from the firms you care about in your own feed.'),
-      perk('Save stories', 'Keep the articles you want to read again in one list.'),
-      perk('Rate firms', 'Members rate the firms they have worked with. Comments are reviewed first.'),
-      perk('Run your listing', 'Claim or add your firm and edit it yourself, any time.')),
-    h('p', { class: 'ac-note' }, 'LawDB is an independent Canadian directory and is not a law firm or a referral service. ',
-      h('a', { href: '/privacy-policy' }, 'Privacy policy'), ' \u00b7 ', h('a', { href: '/terms' }, 'Terms'), ' \u00b7 ', h('a', { href: '/contact' }, 'Contact us'))));
+  const chip = ([label, href]) => h('a', { class: 'auth-chip', href }, label);
+  const band = (cls, title, text, items) => h('section', { class: `auth-band ${cls}` }, h('div', { class: 'auth-band-in' },
+    h('div', { class: 'auth-band-text' }, h('h2', null, title), h('p', null, text)),
+    h('div', { class: 'auth-chips' }, ...items.map(chip))));
+  const AREAS = [['Business', '/business-lawyers'], ['Criminal defence', '/criminal-defence-lawyers'], ['Employment', '/employment-lawyers'], ['Family', '/family-lawyers'], ['Immigration', '/immigration-lawyers'], ['Litigation', '/litigation-lawyers'], ['Personal injury', '/personal-injury-lawyers'], ['Real estate', '/real-estate-lawyers'], ['Traffic tickets', '/traffic-ticket-lawyers'], ['Wills and estates', '/wills-estate-lawyers']];
+  const PROVINCES = [['Ontario', '/ontario/'], ['Quebec', '/quebec/'], ['British Columbia', '/british-columbia/'], ['Alberta', '/alberta/'], ['Manitoba', '/manitoba/']];
+  // Two firm cards and a map pin, drawn for LawDB (shown as an image so it needs no extra files).
+  const ART = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 440"><circle cx="260" cy="225" r="205" fill="#f4ecd8"/><rect x="110" y="95" width="250" height="150" rx="14" fill="#fff" stroke="#e3dfd3"/><circle cx="148" cy="136" r="18" fill="#142434"/><rect x="178" y="124" width="120" height="11" rx="5" fill="#142434"/><rect x="178" y="144" width="80" height="8" rx="4" fill="#c9a050"/><rect x="132" y="176" width="206" height="8" rx="4" fill="#e3dfd3"/><rect x="132" y="194" width="170" height="8" rx="4" fill="#e3dfd3"/><rect x="132" y="214" width="84" height="20" rx="10" fill="#c9a050"/><rect x="200" y="215" width="260" height="150" rx="14" fill="#fff" stroke="#e3dfd3"/><circle cx="238" cy="256" r="18" fill="#c9a050"/><rect x="268" y="244" width="130" height="11" rx="5" fill="#142434"/><rect x="268" y="264" width="90" height="8" rx="4" fill="#c9a050"/><rect x="222" y="296" width="216" height="8" rx="4" fill="#e3dfd3"/><rect x="222" y="314" width="150" height="8" rx="4" fill="#e3dfd3"/><rect x="222" y="334" width="84" height="20" rx="10" fill="#142434"/><circle cx="108" cy="318" r="34" fill="#142434"/><polygon points="86,340 130,340 108,384" fill="#142434"/><circle cx="108" cy="318" r="13" fill="#f5f3ec"/><g fill="#c9a050"><circle cx="410" cy="120" r="6"/><circle cx="430" cy="140" r="4"/><circle cx="395" cy="150" r="3"/></g></svg>';
+  document.body.classList.add('lw-auth');
+  mount(h('div', { class: 'auth-wrap' },
+    h('section', { class: 'auth-hero' },
+      h('div', { class: 'auth-hero-copy' },
+        h('h1', null, join ? 'Create your free LawDB account' : 'Welcome to Canada’s legal directory'),
+        h('div', { class: 'auth-btns' }, ...social, social.length ? null : form, msg),
+        h('p', { class: 'auth-terms' }, 'By continuing, you agree to LawDB’s ', h('a', { href: '/terms' }, 'Terms'), ' and ', h('a', { href: '/privacy-policy' }, 'Privacy Policy'), '. There is no password to remember.'),
+        h('p', { class: 'auth-new' }, join ? 'Already a member? ' : 'New to LawDB? ', h('a', { href: join ? '/account/' : '/account/?join=1' }, join ? 'Sign in' : 'Join now'))),
+      h('div', { class: 'auth-hero-art' }, h('img', { src: 'data:image/svg+xml;utf8,' + encodeURIComponent(ART), alt: 'Two law firm profile cards and a map pin', width: 520, height: 440 }))),
+    band('areas', 'Explore by kind of case', 'Real, reviewed law firms near you, sorted by the kind of case you have.', AREAS),
+    band('provinces', 'Find a firm in your province', 'Five provinces are live now, with more coming soon.', PROVINCES)));
 }
 
 // ---------------------------------------------------------------- shell
 // The owner dashboard has the same bars as the admin: a slim bar with the numbers that matter to the firm and the user menu, then the sections.
 function shell(active, content, { wide = false } = {}) {
+  document.body.classList.remove('lw-auth');
   document.body.classList.add('ap', 'ap-in'); // hides the public header and footer on these pages (see msp.css)
   const mine = approved();
   const fresh = mine.reduce((n, m) => n + (m.newLeads || 0), 0);

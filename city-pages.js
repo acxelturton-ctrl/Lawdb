@@ -1,14 +1,18 @@
 /* City and case-type pages. Loaded with city-pages.css after site.js. The page is complete without this file (a table of firms, the numbers, the text);
-   this turns it into a list people can search and sort, adds the side rail, and fades things in as they are scrolled to.
+   this turns it into a list people can search and sort, with each firm's logo, next to a map of the streets the firms are on, and fades things in as they
+   are scrolled to.
      - Case-type page (<body data-city data-prov data-type>): reads the baked table, then asks /api/firms for the city's current list, so a firm that
-       listed itself, was renamed or became Featured after the page was built shows up straight away. If that request fails the baked table is used.
+       listed itself, was renamed, got a logo or became Featured after the page was built shows up straight away. If that request fails the baked table is used.
      - City hub (.seo-city): count-up numbers and fade-ins only.
+   The map is a drawing, not a surface map: each street that has two or more of the page's firms is a district, with the firms on it as pins; the rest
+   share an "Other streets" district. Streets come from the firms' addresses (which are exact), not from their coordinates (many of which are approximate).
    Nothing here sends anything about the visitor. */
 (function () {
   'use strict';
-  var D = document, B = D.body;
+  var D = document, B = D.body, NS = 'http://www.w3.org/2000/svg';
   var RM = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   var PAGE = 12;
+  var MAP_MIN = 5; /* fewer firms than this and the map adds nothing */
 
   var esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
   var fmt = function (n) { return Number(n).toLocaleString('en-CA'); };
@@ -23,6 +27,12 @@
   };
   var rank = function (a, b) {
     return (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || b.rating - a.rating || b.count - a.count || a.name.localeCompare(b.name);
+  };
+  var svgEl = function (name, attrs, parent) {
+    var e = D.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
   };
 
   /* ---------- motion helpers ---------- */
@@ -72,7 +82,7 @@
       var rt = parseFloat(td[1].textContent), ct = parseInt(td[2].textContent.replace(/\D/g, ''), 10);
       out.push({
         slug: (a.getAttribute('href') || '').replace(/^\/firms\//, ''), name: a.textContent.trim(), featured: !!td[0].querySelector('.seo-feat'),
-        rating: isNaN(rt) ? 0 : rt, count: isNaN(ct) ? 0 : ct, address: td[3].textContent.trim(), phone: td[4].textContent.trim(), tags: []
+        rating: isNaN(rt) ? 0 : rt, count: isNaN(ct) ? 0 : ct, address: td[3].textContent.trim(), phone: td[4].textContent.trim(), tags: [], logo: ''
       });
     });
     return out;
@@ -83,54 +93,69 @@
     return true;
   };
 
-  /* widths and delays are set through the style object, not inline attributes, so the markup carries no inline styles */
-  function paint(root) {
-    [].forEach.call(root.querySelectorAll('[data-w]'), function (e) { e.style.setProperty('--w', e.getAttribute('data-w') + '%'); if (e.hasAttribute('data-d')) e.style.setProperty('--cpd', e.getAttribute('data-d') + 's'); });
+  /* ---------- streets: "199 Bay St #5300, Toronto, ON ..." -> "Bay St" ---------- */
+  var ABBR = { street: 'st', avenue: 'ave', road: 'rd', boulevard: 'blvd', drive: 'dr', west: 'w', east: 'e', north: 'n', south: 's' };
+  function streetLabel(address) {
+    var s = String(address || '').split(',')[0]
+      .replace(/\s+\d+(?:st|nd|rd|th)\s+(?:Floor|Fl)\b.*$/i, '').replace(/\s+(?:#|Suite|Ste|Unit|Floor|Fl)\b.*$/i, '')
+      .replace(/^(?:#?\s*\d+[A-Za-z]*\s*[-–]\s*)?\d+[A-Za-z-]*\s+/, '').replace(/\s+/g, ' ').trim();
+    return /^[A-Za-zÀ-ɏ]/.test(s) && s.length > 3 ? s : '';
   }
+  function streetKey(address) {
+    return streetLabel(address).toLowerCase().replace(/\./g, '').split(' ').map(function (w) { return ABBR[w] || w; }).join(' ');
+  }
+  /* districts: up to four streets that have two or more firms, then everything else */
+  function zonesFor(firms) {
+    var groups = {}, order = [];
+    firms.forEach(function (f) {
+      f._street = streetLabel(f.address); var k = streetKey(f.address);
+      if (!k) return;
+      if (!groups[k]) { groups[k] = { key: k, label: f._street, items: [] }; order.push(k); }
+      groups[k].items.push(f);
+    });
+    var multi = order.map(function (k) { return groups[k]; }).filter(function (g) { return g.items.length >= 2; })
+      .sort(function (a, b) { return b.items.length - a.items.length || a.label.localeCompare(b.label); }).slice(0, 4);
+    var inTop = {}; multi.forEach(function (g) { g.items.forEach(function (f) { inTop[f.slug] = 1; }); });
+    var rest = firms.filter(function (f) { return !inTop[f.slug]; });
+    var zones = multi.map(function (g) { return { key: g.key, label: g.label, items: g.items.slice() }; });
+    if (rest.length) zones.push({ key: 'other', label: multi.length ? 'Other streets' : 'All firms', items: rest });
+    zones.sort(function (a, b) { return b.items.length - a.items.length || (a.key === 'other' ? 1 : -1); });
+    zones.forEach(function (z) { z.items.forEach(function (f) { f._zone = z.key; }); });
+    return zones;
+  }
+  /* where the districts sit on the drawing (viewBox 600 x 760), biggest first */
+  var LAYOUTS = {
+    1: [{ x: 300, y: 380, rx: 255, ry: 230 }],
+    2: [{ x: 300, y: 520, rx: 250, ry: 150 }, { x: 300, y: 215, rx: 250, ry: 125 }],
+    3: [{ x: 300, y: 500, rx: 250, ry: 140 }, { x: 165, y: 250, rx: 130, ry: 95 }, { x: 435, y: 250, rx: 130, ry: 95 }],
+    4: [{ x: 300, y: 600, rx: 250, ry: 125 }, { x: 165, y: 395, rx: 130, ry: 92 }, { x: 435, y: 395, rx: 130, ry: 92 }, { x: 300, y: 195, rx: 175, ry: 85 }],
+    5: [{ x: 300, y: 612, rx: 250, ry: 122 }, { x: 165, y: 385, rx: 130, ry: 90 }, { x: 435, y: 385, rx: 130, ry: 90 }, { x: 165, y: 185, rx: 130, ry: 85 }, { x: 435, y: 185, rx: 130, ry: 85 }]
+  };
 
   /* ---------- rendering ---------- */
   function stars(r) { return '<span class="cp-stars" role="img" aria-label="' + r.toFixed(1) + ' out of 5 stars"><i data-w="' + Math.round(r / 5 * 100) + '"></i></span>'; }
-  function card(f, i) {
+  function logoTile(f, cls) {
+    return '<span class="cp-lg ' + (cls || '') + (f.logo ? '' : ' cp-lgm') + '">' + (f.logo
+      ? '<img class="cp-lgi" src="' + esc(f.logo) + '" alt="" loading="lazy" decoding="async" data-mono="' + esc(initials(f.name)) + '">'
+      : '<b class="cp-mono" aria-hidden="true">' + esc(initials(f.name)) + '</b>') + '</span>';
+  }
+  function card(f) {
     var ph = prettyPhone(f.phone), tags = (f.tags || []).filter(Boolean).slice(0, 3);
     var rate = rated(f)
       ? '<div class="cp-rate">' + stars(f.rating) + '<b>' + f.rating.toFixed(1) + '</b><span>' + fmt(f.count) + ' Google review' + (f.count === 1 ? '' : 's') + '</span></div>'
       : '<div class="cp-rate"><span>No Google rating on LawDB yet</span></div>';
     return '<article class="cp-card' + (f.featured ? ' cp-feat' : '') + '" data-slug="' + esc(f.slug) + '">'
-      + '<div class="cp-mono" aria-hidden="true">' + esc(initials(f.name)) + '</div>'
-      + '<div class="cp-body"><h3><a href="/firms/' + esc(f.slug) + '">' + esc(f.name) + '</a>' + (f.featured ? '<span class="seo-feat">Featured</span>' : (!rated(f) ? '<span class="cp-new">New</span>' : '')) + '</h3>'
+      + logoTile(f)
+      + '<div class="cp-body">' + (f._street ? '<div class="cp-street">' + esc(f._street) + '</div>' : '')
+      + '<h3><a class="cp-link" href="/firms/' + esc(f.slug) + '">' + esc(f.name) + '</a>' + (f.featured ? '<span class="seo-feat">Featured</span>' : (!rated(f) ? '<span class="cp-new">New</span>' : '')) + '</h3>'
       + rate + (f.address ? '<p class="cp-addr">' + esc(f.address) + '</p>' : '')
       + (tags.length ? '<div class="cp-tags">' + tags.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') + '</div>' : '') + '</div>'
-      + '<div class="cp-act"><a class="cp-btn" href="/firms/' + esc(f.slug) + '">View profile</a>' + (ph ? '<a class="cp-call" href="tel:+1' + digits(f.phone).slice(-10) + '">Call ' + esc(ph) + '</a>' : '') + '</div>'
+      + (ph ? '<a class="cp-call" href="tel:+1' + digits(f.phone).slice(-10) + '">Call ' + esc(ph) + '</a>' : '')
       + '</article>';
   }
-  function pickCard(label, f) {
-    return '<a class="cp-pick" href="/firms/' + esc(f.slug) + '"><span class="cp-eyebrow">' + esc(label) + '</span><strong>' + esc(f.name) + '</strong><span class="cp-meta">'
-      + (rated(f) ? f.rating.toFixed(1) + ' &#9733; &middot; ' + fmt(f.count) + ' reviews' : ((f.tags || []).filter(Boolean).slice(0, 2).join(' &middot; ') || 'No Google rating yet')) + '</span></a>';
-  }
-  function picks(list) {
-    if (list.length < 4) return '';
-    var ok = list.filter(function (f) { return rated(f) && f.count >= 10; });
-    var best = (ok.length ? ok : list.filter(rated)).slice().sort(function (a, b) { return b.rating - a.rating || b.count - a.count; })[0];
-    var most = list.slice().sort(function (a, b) { return b.count - a.count || b.rating - a.rating; })[0];
-    var feat = list.filter(function (f) { return f.featured; })[0];
-    var fresh = list.filter(function (f) { return !rated(f); })[0];
-    var seen = {}, out = [];
-    [['Highest rated' + (ok.length ? ' (10+ reviews)' : ''), best], ['Most reviewed', most], ['Featured partner', feat], ['New on LawDB', fresh]].forEach(function (p) {
-      if (p[1] && !seen[p[1].slug]) { seen[p[1].slug] = 1; out.push(pickCard(p[0], p[1])); }
-    });
-    return out.length > 1 ? '<div class="cp-picks">' + out.join('') + '</div>' : '';
-  }
-
-  function buckets(list) {
-    var b = [['4.5 &ndash; 5.0', 0], ['4.0 &ndash; 4.4', 0], ['3.5 &ndash; 3.9', 0], ['Below 3.5', 0], ['Not rated', 0]];
-    list.forEach(function (f) { var r = f.rating; b[!(r > 0) ? 4 : r >= 4.5 ? 0 : r >= 4 ? 1 : r >= 3.5 ? 2 : 3][1]++; });
-    return b.filter(function (x, i) { return x[1] > 0 || i === 0; });
-  }
-  function bars(list) {
-    var n = list.length || 1;
-    return buckets(list).map(function (x, i) {
-      return '<div class="cp-bar"><span>' + x[0] + '</span><span class="cp-track"><span class="cp-fill" data-w="' + Math.round(x[1] / n * 100) + '" data-d="' + (i * 0.08) + '"></span></span><em>' + x[1] + '</em></div>';
-    }).join('');
+  /* widths and delays are set through the style object, not inline attributes, so the markup carries no inline styles */
+  function paint(root) {
+    [].forEach.call(root.querySelectorAll('[data-w]'), function (e) { e.style.setProperty('--w', e.getAttribute('data-w') + '%'); });
   }
 
   function enhance() {
@@ -139,33 +164,33 @@
     var base = fromTable();
     if (!base.length) return;
     var city = B.getAttribute('data-city'), prov = B.getAttribute('data-prov'), type = B.getAttribute('data-type');
-    var cityName = city || 'your city';
-    var firms = base, st = { q: '', sort: 'rec', hi: false, rev: false, feat: false, shown: PAGE, view: 'cards' };
+    var firms = base, zones = [], st = { q: '', sort: 'rec', hi: false, rev: false, feat: false, zone: '', shown: PAGE, view: 'cards' };
 
     var tools = D.createElement('div');
     tools.className = 'cp-tools';
     tools.innerHTML = '<label class="cp-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" placeholder="Search by firm, street or focus" aria-label="Search these firms" autocomplete="off"></label>'
       + '<select class="cp-select" aria-label="Sort firms"><option value="rec">Recommended</option><option value="rating">Highest rated</option><option value="reviews">Most reviews</option><option value="az">A to Z</option></select>'
       + '<div class="cp-view" role="group" aria-label="View"><button type="button" data-v="cards" aria-pressed="true">Cards</button><button type="button" data-v="table" aria-pressed="false">Table</button></div>'
-      + '<div class="cp-pills"><button type="button" class="cp-pill" data-f="hi" aria-pressed="false">4.5 stars and up</button><button type="button" class="cp-pill" data-f="rev" aria-pressed="false">10+ reviews</button><button type="button" class="cp-pill" data-f="feat" aria-pressed="false" hidden>Featured partners</button></div>';
+      + '<div class="cp-pills"><span class="cp-zones" role="group" aria-label="Streets"></span><button type="button" class="cp-pill" data-f="hi" aria-pressed="false">4.5 stars and up</button><button type="button" class="cp-pill" data-f="rev" aria-pressed="false">10+ reviews</button><button type="button" class="cp-pill" data-f="feat" aria-pressed="false" hidden>Featured partners</button></div>';
+    var split = D.createElement('div'); split.className = 'cp-split';
+    var left = D.createElement('div'); left.className = 'cp-left';
     var count = D.createElement('p'); count.className = 'cp-count'; count.setAttribute('aria-live', 'polite');
-    var pk = D.createElement('div');
     var list = D.createElement('div'); list.className = 'cp-list';
     var more = D.createElement('button'); more.type = 'button'; more.className = 'cp-more'; more.hidden = true;
+    left.appendChild(count); left.appendChild(list); left.appendChild(more); split.appendChild(left);
+    var mapBox = null;
     h2.id = h2.id || 'cp-firms';
-    h2.insertAdjacentElement('afterend', pk);
-    pk.insertAdjacentElement('afterend', tools);
-    tools.insertAdjacentElement('afterend', count);
-    count.insertAdjacentElement('afterend', list);
-    list.insertAdjacentElement('afterend', more);
+    h2.insertAdjacentElement('afterend', tools);
+    tools.insertAdjacentElement('afterend', split);
     tableWrap.hidden = true;
     B.classList.add('cp-ready');
 
     var q = tools.querySelector('input'), sel = tools.querySelector('select');
-    var pillFeat = tools.querySelector('[data-f="feat"]');
+    var pillFeat = tools.querySelector('[data-f="feat"]'), zoneBox = tools.querySelector('.cp-zones');
 
     function view() {
       var out = firms.filter(function (f) {
+        if (st.zone && f._zone !== st.zone) return false;
         if (st.hi && !(f.rating >= 4.5)) return false;
         if (st.rev && !(f.count >= 10)) return false;
         if (st.feat && !f.featured) return false;
@@ -183,7 +208,7 @@
       var v = view(), n = v.length <= 24 ? v.length : Math.min(st.shown, v.length); /* a short list is shown whole: no firm hides behind a button */
       if (!append) { list.innerHTML = ''; drawnFrom = 0; }
       var html = '';
-      for (var i = drawnFrom; i < n; i++) html += card(v[i], i);
+      for (var i = drawnFrom; i < n; i++) html += card(v[i]);
       if (html) {
         var tmp = D.createElement('div'); tmp.innerHTML = html;
         [].slice.call(tmp.children).forEach(function (c, k) { paint(c); c.style.setProperty('--cpd', (Math.min(k, 8) * 0.045) + 's'); list.appendChild(c); });
@@ -193,67 +218,119 @@
       count.innerHTML = 'Showing <b>' + n + '</b> of <b>' + v.length + '</b> ' + (v.length === firms.length ? 'firms' : 'matching firms') + (v.length !== firms.length ? ' (out of ' + firms.length + ')' : '');
       more.hidden = n >= v.length;
       if (!more.hidden) more.textContent = 'Show ' + Math.min(PAGE, v.length - n) + ' more firm' + (Math.min(PAGE, v.length - n) === 1 ? '' : 's');
+      syncMap(v);
     }
-    function summary() {
-      pk.innerHTML = picks(firms);
+
+    /* ---- the map ---- */
+    var pins = {}, zoneEls = {}, tip = null;
+    function buildMap() {
+      zones = zonesFor(firms);
+      var showMap = firms.length >= MAP_MIN && !!zones.length;
+      split.classList.toggle('cp-nomap', !showMap);
+      if (mapBox) { mapBox.remove(); mapBox = null; }
+      pins = {}; zoneEls = {};
+      /* zone chips */
+      var multi = zones.filter(function (z) { return z.key !== 'other'; }).length > 0;
+      zoneBox.innerHTML = multi ? '<button type="button" class="cp-pill cp-z" data-z="" aria-pressed="' + (st.zone === '') + '">All <span>' + firms.length + '</span></button>' + zones.map(function (z) {
+        return '<button type="button" class="cp-pill cp-z" data-z="' + esc(z.key) + '" aria-pressed="' + (st.zone === z.key) + '">' + esc(z.label) + ' <span>' + z.items.length + '</span></button>';
+      }).join('') : '';
+      if (st.zone && !zones.some(function (z) { return z.key === st.zone; })) st.zone = '';
       pillFeat.hidden = !firms.some(function (f) { return f.featured; });
-      var rail = D.querySelector('.cp-rail .cp-bars');
-      if (rail) { rail.innerHTML = bars(firms); paint(rail); armBars(rail); }
+      if (!showMap) return;
+      mapBox = D.createElement('aside'); mapBox.className = 'cp-map'; mapBox.setAttribute('aria-label', 'Map of the streets these firms are on');
+      var svg = svgEl('svg', { viewBox: '0 0 600 760', preserveAspectRatio: 'xMidYMid meet', 'aria-hidden': 'true' });
+      mapBox.appendChild(svg);
+      svgEl('text', { x: 300, y: 742, class: 'cp-city', 'text-anchor': 'middle' }, svg).textContent = city || '';
+      for (var i = 0; i < 12; i++) svgEl('line', { x1: 30 + i * 52, y1: 0, x2: i * 52 - 30, y2: 760, class: 'cp-st' }, svg);
+      for (var j = 0; j < 12; j++) svgEl('line', { x1: 0, y1: 40 + j * 62, x2: 600, y2: 40 + j * 62 + (j % 2 ? 8 : -8), class: 'cp-st' }, svg);
+      var slots = LAYOUTS[Math.min(zones.length, 5)];
+      zones.slice(0, slots.length).forEach(function (z, zi) {
+        var s = slots[zi], g = svgEl('g', {}, svg);
+        var e = svgEl('ellipse', { cx: s.x, cy: s.y, rx: s.rx, ry: s.ry, class: 'cp-zone' }, g);
+        var lab = svgEl('text', { x: s.x, y: s.y - s.ry + 22, 'text-anchor': 'middle', class: 'cp-zl' }, g); lab.textContent = z.label;
+        e.addEventListener('click', function () { setZone(st.zone === z.key ? '' : z.key); });
+        zoneEls[z.key] = { e: e, l: lab };
+        /* the firms, spread evenly through the district; the pins shrink as a district fills up */
+        var n = z.items.length, ax = s.rx * 0.74, ay = s.ry * 0.62, spacing = Math.sqrt(Math.PI * ax * ay / Math.max(1, n)) * 0.86;
+        var pr = Math.max(6, Math.min(19, spacing * 0.5)), withLogo = pr >= 12;
+        z.items.forEach(function (f, k) {
+          var rr = Math.sqrt((k + 0.5) / n), th = k * 2.39996;
+          var og = svgEl('g', { transform: 'translate(' + (s.x + Math.cos(th) * rr * ax).toFixed(1) + ' ' + (s.y + 12 + Math.sin(th) * rr * ay).toFixed(1) + ')' }, svg);
+          var pg = svgEl('g', { class: 'cp-pin' + (rated(f) ? '' : ' nr') }, og);
+          svgEl('circle', { r: pr + 9, class: 'cp-halo' }, pg);
+          svgEl('circle', { r: pr, class: 'cp-pb' }, pg);
+          if (withLogo && f.logo) svgEl('image', { href: f.logo, x: -pr * 0.7, y: -pr * 0.7, width: pr * 1.4, height: pr * 1.4, preserveAspectRatio: 'xMidYMid meet' }, pg);
+          else if (withLogo) svgEl('text', { y: 3.5, class: 'cp-pt' }, pg).textContent = initials(f.name);
+          og.addEventListener('mouseenter', function () { hot(f); });
+          og.addEventListener('mouseleave', function () { hot(null); });
+          og.addEventListener('click', function () { hot(f); var c = list.querySelector('[data-slug="' + f.slug + '"]'); if (c) c.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'center' }); });
+          if (!RM) { og.style.opacity = '0'; setTimeout(function () { og.style.transition = 'opacity .5s'; og.style.opacity = '1'; }, 150 + (zi * 5 + k) * 45); }
+          pins[f.slug] = { og: og, pg: pg };
+        });
+      });
+      tip = D.createElement('div'); tip.className = 'cp-pop'; mapBox.appendChild(tip);
+      var chip = D.createElement('div'); chip.className = 'cp-chip'; mapBox.appendChild(chip);
+      var cta = D.createElement('a'); cta.className = 'cp-maplink'; cta.href = '/list-your-firm';
+      cta.innerHTML = 'Own a firm in ' + esc(city || 'this city') + '? <b>List it free &rarr;</b>'; mapBox.appendChild(cta);
+      split.appendChild(mapBox);
     }
-
-    /* the side rail */
-    var rail = D.createElement('aside'); rail.className = 'cp-rail'; rail.setAttribute('aria-label', 'Page summary');
-    var heads = [].slice.call(wrap.querySelectorAll('h2.seo-h'));
-    var toc = heads.map(function (h, i) {
-      if (!h.id) h.id = 'cp-s' + (i + 1);
-      return '<li><a href="#' + h.id + '">' + h.innerHTML + '</a></li>';
-    }).join('');
-    rail.innerHTML = '<div class="cp-box"><h2>Ratings at a glance</h2><div class="cp-bars"></div></div>'
-      + '<nav class="cp-box cp-toc" aria-label="On this page"><h2>On this page</h2><ol>' + toc + '</ol></nav>'
-      + '<div class="cp-box cp-cta"><h2>For law firms</h2><p>Own a firm in ' + esc(cityName) + '? List it free, or get Featured to be shown first.</p><a class="cp-btn" href="/list-your-firm">List your firm free</a><a class="cp-alt" href="/list-your-firm?plan=featured">See what Featured includes &rarr;</a></div>';
-    var statsEl = D.querySelector('.wrap .seo-stats');
-    (statsEl || h2).insertAdjacentElement('afterend', rail);
-
-    function armBars(root) {
-      var els = [].slice.call(root.querySelectorAll('.cp-bar'));
-      if (RM) { els.forEach(function (e) { e.classList.add('on'); }); return; }
-      whenSeen(els.length ? [root] : [], function () { els.forEach(function (e) { e.classList.add('on'); }); }, { threshold: 0.3 });
+    function syncMap(v) {
+      if (!mapBox) return;
+      var on = {}; v.forEach(function (f) { on[f.slug] = 1; });
+      Object.keys(pins).forEach(function (k) { pins[k].pg.classList.toggle('dim', !on[k]); });
+      Object.keys(zoneEls).forEach(function (k) { zoneEls[k].e.classList.toggle('on', st.zone === k); zoneEls[k].l.classList.toggle('on', st.zone === k); });
+      var chip = mapBox.querySelector('.cp-chip');
+      var zl = zones.filter(function (z) { return z.key === st.zone; })[0];
+      chip.innerHTML = '<b>' + v.length + '</b> firm' + (v.length === 1 ? '' : 's') + (zl && zl.key !== 'other' ? ' on ' + esc(zl.label) : (city ? ' in ' + esc(city) : ''));
     }
-
-    /* scroll spy for the table of contents */
-    var links = [].slice.call(rail.querySelectorAll('.cp-toc a')), ticking = false;
-    function spy() {
-      ticking = false;
-      var y = window.innerHeight * 0.3, cur = null;
-      heads.forEach(function (h) { if (h.getBoundingClientRect().top < y) cur = h.id; });
-      links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + cur); });
+    function hot(f) {
+      Object.keys(pins).forEach(function (k) { pins[k].pg.classList.toggle('hot', !!f && f.slug === k); });
+      [].forEach.call(list.querySelectorAll('.cp-card'), function (c) { c.classList.toggle('hot', !!f && c.getAttribute('data-slug') === f.slug); });
+      if (!tip) return;
+      if (!f) { tip.classList.remove('on'); return; }
+      if (pins[f.slug]) pins[f.slug].og.parentNode.appendChild(pins[f.slug].og);
+      tip.innerHTML = logoTile(f) + '<div><div class="cp-street">' + esc(f._street || '') + '</div><h4>' + esc(f.name) + '</h4><p>' + (rated(f) ? f.rating.toFixed(1) + ' &#9733; from ' + fmt(f.count) + ' Google reviews' : 'New on LawDB') + (f.address ? '<br>' + esc(f.address) : '') + '</p></div>';
+      tip.classList.add('on');
     }
-    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    function setZone(k) {
+      st.zone = k; st.shown = PAGE;
+      [].forEach.call(zoneBox.querySelectorAll('.cp-z'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-z') === k)); });
+      draw(false);
+    }
 
     /* controls */
     var timer;
     q.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(function () { st.q = q.value.trim().toLowerCase(); st.shown = PAGE; draw(false); }, 120); });
     sel.addEventListener('change', function () { st.sort = sel.value; st.shown = PAGE; draw(false); });
     tools.addEventListener('click', function (e) {
-      var p = e.target.closest('.cp-pill[data-f]'), v = e.target.closest('.cp-view button');
+      var z = e.target.closest('.cp-z'), p = e.target.closest('.cp-pill[data-f]'), v = e.target.closest('.cp-view button');
+      if (z) setZone(z.getAttribute('data-z') === st.zone ? '' : z.getAttribute('data-z'));
       if (p) { var k = p.getAttribute('data-f'); st[k] = !st[k]; p.setAttribute('aria-pressed', String(st[k])); st.shown = PAGE; draw(false); }
       if (v) {
         st.view = v.getAttribute('data-v');
         [].forEach.call(tools.querySelectorAll('.cp-view button'), function (b) { b.setAttribute('aria-pressed', String(b === v)); });
-        var t = st.view === 'table'; tableWrap.hidden = !t; list.hidden = t; more.hidden = t || more.hidden; count.hidden = t; pk.hidden = t;
+        var t = st.view === 'table'; tableWrap.hidden = !t; split.hidden = t;
         if (!t) draw(false);
       }
     });
     list.addEventListener('click', function (e) {
       if (e.target.closest('[data-clear]')) {
-        st.q = ''; st.hi = st.rev = st.feat = false; q.value = ''; st.shown = PAGE;
-        [].forEach.call(tools.querySelectorAll('.cp-pill'), function (b) { b.setAttribute('aria-pressed', 'false'); });
+        st.q = ''; st.hi = st.rev = st.feat = false; st.zone = ''; q.value = ''; st.shown = PAGE;
+        [].forEach.call(tools.querySelectorAll('.cp-pill[data-f]'), function (b) { b.setAttribute('aria-pressed', 'false'); });
+        [].forEach.call(zoneBox.querySelectorAll('.cp-z'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-z') === '')); });
         draw(false);
       }
     });
+    list.addEventListener('mouseover', function (e) { var c = e.target.closest('.cp-card'); if (c) { var f = firms.filter(function (x) { return x.slug === c.getAttribute('data-slug'); })[0]; if (f) hot(f); } });
+    list.addEventListener('mouseleave', function () { hot(null); });
+    /* a logo that fails to load turns into the firm's initials */
+    list.addEventListener('error', function (e) {
+      var im = e.target; if (!im || im.tagName !== 'IMG') return;
+      var b = D.createElement('b'); b.className = 'cp-mono'; b.textContent = im.getAttribute('data-mono') || ''; if (im.parentNode) im.parentNode.classList.add('cp-lgm'); im.replaceWith(b);
+    }, true);
     more.addEventListener('click', function () { st.shown += PAGE; draw(true); });
 
-    summary(); draw(false); setTimeout(spy, 50);
+    buildMap(); draw(false);
 
     /* the live list: same city, same case type */
     function setStats(arr) {
@@ -268,14 +345,17 @@
       .then(function (all) {
         if (!Array.isArray(all)) return;
         var live = all.filter(function (f) { return (f.caseTypes || []).indexOf(type) >= 0 && f.slug && f.name; }).map(function (f) {
-          return { slug: f.slug, name: f.name, featured: !!f.featured, rating: Number(f.rating) || 0, count: Number(f.count) || 0, address: f.address || '', phone: f.phone || '', tags: f.tags || [] };
+          return { slug: f.slug, name: f.name, featured: !!f.featured, rating: Number(f.rating) || 0, count: Number(f.count) || 0, address: f.address || '', phone: f.phone || '', tags: f.tags || [],
+            logo: f.type === 'logo' && /^(?:images\/logos\/[\w.-]+|img\/[\w-]+)$/.test(f.src || '') ? '/' + f.src : '' };
         }).sort(rank);
         if (!live.length) return;
         var baked = base.slice().sort(rank);
-        /* same firms and numbers as the page: keep what is drawn and only add the tags the live list has */
-        if (same(baked, live)) { var tg = {}; live.forEach(function (f) { tg[f.slug] = f.tags; }); firms.forEach(function (f) { f.tags = tg[f.slug] || []; }); }
-        else { firms = live; setStats(live); }
-        summary(); draw(false);
+        /* same firms and numbers as the page: keep the order and add what only the live list has (logos, focus areas) */
+        if (same(baked, live)) {
+          var by = {}; live.forEach(function (f) { by[f.slug] = f; });
+          firms.forEach(function (f) { var l = by[f.slug]; f.tags = l.tags; f.logo = l.logo; });
+        } else { firms = live; setStats(live); }
+        buildMap(); draw(false);
       })
       .catch(function () { /* the baked list stays */ });
   }

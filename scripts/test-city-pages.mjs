@@ -66,6 +66,9 @@ ok(js.includes('prefers-reduced-motion') && css.includes('prefers-reduced-motion
 ok(!/style="/.test(js), 'the script writes no style attributes (widths and delays go through the style object)');
 ok(js.includes("'/api/firms?province='") && js.includes('.catch('), 'the live list comes from /api/firms and a failed request leaves the baked list in place');
 ok(/\.seo-tablewrap/.test(js) && js.includes('tableWrap.hidden'), 'the baked table stays in the page (hidden, and shown by the Table view)');
+ok(js.includes('streetLabel') && !/\.lat\b|\.lng\b|latitude|longitude/.test(js), 'the map is drawn from the firms\' addresses, not their (approximate) coordinates');
+ok(js.includes('images\\/logos\\/') && js.includes('data-mono') && js.includes("addEventListener('error'"), 'a logo address is checked, and a logo that fails to load becomes the firm\'s initials');
+ok(!/cp-rank|rank\.get|class="cp-num/.test(js + css), 'the cards and pins carry no numbering');
 ok(js.includes('v.length <= 24'), 'a list of 24 firms or fewer is shown whole, so no firm hides behind a button');
 ok([...css.matchAll(/#[0-9a-fA-F]{3,8}\b/g)].every((m) => ['#1b242d', '#142434', '#2b3a4c', '#c9a050', '#e2bd6a', '#e6d4a4', '#f4ecd8', '#f5f3ec', '#edeae1', '#e3dfd3', '#ffffff', '#fff', '#586170', '#8a919b', '#b4bac4'].includes(m[0].toLowerCase())), 'the stylesheet uses palette colours only');
 

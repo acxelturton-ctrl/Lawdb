@@ -97,34 +97,6 @@
   "src": "images/logos/law-office-of-snober-naz-ajax.jpg"
  },
  {
-  "name": "Dye & Russell Personal Injury Lawyers",
-  "city": "Ajax",
-  "featured": false,
-  "tags": [
-   "Personal Injury"
-  ],
-  "caseTypes": [
-   "injury"
-  ],
-  "region": "york-durham",
-  "province": "ON",
-  "lat": 43.8825785,
-  "lng": -79.0186815,
-  "address": "300 Rossland Rd E #306, Ajax, ON L1Z 0K4",
-  "phone": "+18778836171",
-  "rating": 5,
-  "count": 72,
-  "slug": "dye-and-russell-personal-injury-lawyers-ajax",
-  "mapsUrl": "https://www.google.com/maps/search/Dye+%26+Russell+Personal+Injury+Lawyers+Ajax+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=300+Rossland+Rd+E+%23306%2C+Ajax%2C+ON+L1Z+0K4",
-  "website": "http://www.dyeandrussell.com",
-  "blurb": "Personal Injury in Ajax. Rated 5.0 from 72 Google reviews.",
-  "type": "mono",
-  "initials": "DR",
-  "color": "#35506b",
-  "about": "Dye & Russell Personal Injury Lawyers is a law firm in Ajax, Ontario that practises personal injury. Clients rate the firm 5.0 out of 5 from 72 public Google reviews. The office is at 300 Rossland Rd E #306, Ajax, ON L1Z 0K4, and you can call (877) 883-6171 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
   "name": "BLF Personal Injury Lawyer",
   "city": "Ajax",
   "featured": false,
@@ -214,62 +186,6 @@
   "src": "images/logos/allan-law-aurora.webp"
  },
  {
-  "name": "Amici Law",
-  "city": "Aurora",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "york-durham",
-  "province": "ON",
-  "lat": 44.0087495,
-  "lng": -79.4125846,
-  "address": "125 Don Hillock Dr Unit 5, Aurora, ON L4G 0G9",
-  "phone": "+12895976560",
-  "rating": 4.7,
-  "count": 50,
-  "slug": "amici-law-aurora",
-  "mapsUrl": "https://www.google.com/maps/search/Amici+Law+Aurora+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=125+Don+Hillock+Dr+Unit+5%2C+Aurora%2C+ON+L4G+0G9",
-  "website": "https://amicilaw.ca",
-  "blurb": "Family Law in Aurora. Rated 4.7 from 50 Google reviews.",
-  "type": "mono",
-  "initials": "AM",
-  "color": "#4a3a5c",
-  "about": "Amici Law is a law firm in Aurora, Ontario that practises family law. Clients rate the firm 4.7 out of 5 from 50 public Google reviews. The office is at 125 Don Hillock Dr Unit 5, Aurora, ON L4G 0G9, and you can call (289) 597-6560 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Amici Law Professional Corporation — Aurora, Ontario. Expert Family Law, Real Estate, Wills & Estates, and Notary Public services. Serving Aurora, Newmarket, Richmond Hill, Vaughan, Thornhill & Markham. Call (289) 597-6560.”"
- },
- {
-  "name": "Dresner Clifford E",
-  "city": "Aurora",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "york-durham",
-  "province": "ON",
-  "lat": 44.0552026,
-  "lng": -79.4723265,
-  "address": "16 Industrial Parkway South suite 421, Aurora, ON L3Y 4R7",
-  "phone": "+19058986800",
-  "rating": 4.6,
-  "count": 21,
-  "slug": "dresner-clifford-e-aurora",
-  "mapsUrl": "https://www.google.com/maps/search/Dresner+Clifford+E+Aurora+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=16+Industrial+Parkway+South+suite+421%2C+Aurora%2C+ON+L3Y+4R7",
-  "website": "https://www.dresnerlaw.ca",
-  "blurb": "Real Estate in Aurora. Rated 4.6 from 21 Google reviews.",
-  "type": "mono",
-  "initials": "DC",
-  "color": "#2e4a43",
-  "about": "Dresner Clifford E is a law firm in Aurora, Ontario that practises real estate. Clients rate the firm 4.6 out of 5 from 21 public Google reviews. The office is at 16 Industrial Parkway South suite 421, Aurora, ON L3Y 4R7, and you can call (905) 898-6800 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
   "name": "The Law Office of Playtis-Cameron",
   "city": "Barrie",
   "featured": false,
@@ -328,241 +244,6 @@
   "type": "logo",
   "about": "Korhani Law Professional Corporation Barrie Family and Criminal Lawyer is a law firm in Barrie, Ontario that practises family law and criminal defence. Clients rate the firm 4.7 out of 5 from 87 public Google reviews. The office is at 92 Caplan Ave Ste 606, Barrie, ON L4N 9J2, and you can call (705) 230-2550 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Looking for a trusted Family Lawyer in Barrie? Korhani Law provides experienced representation for divorce, custody, separation, and criminal charges.”",
   "src": "images/logos/korhani-law-professional-corporation-barrie-family-and-criminal-lawyer-barrie.png"
- },
- {
-  "name": "Eisen Dyer LLP",
-  "city": "Barrie",
-  "featured": false,
-  "tags": [
-   "Criminal Defence"
-  ],
-  "caseTypes": [
-   "criminal"
-  ],
-  "region": "simcoe-central",
-  "province": "ON",
-  "lat": 44.390246,
-  "lng": -79.684633,
-  "address": "89 Collier St #100, Barrie, ON L4M 1H2",
-  "phone": "+17057211888",
-  "rating": 4.8,
-  "count": 65,
-  "slug": "eisen-dyer-llp-barrie",
-  "mapsUrl": "https://www.google.com/maps/search/Eisen+Dyer+LLP+Barrie+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=89+Collier+St+%23100%2C+Barrie%2C+ON+L4M+1H2",
-  "website": "https://eisendyer.ca",
-  "blurb": "Criminal Defence in Barrie. Rated 4.8 from 65 Google reviews.",
-  "type": "mono",
-  "initials": "ED",
-  "color": "#5c3a3a",
-  "about": "Eisen Dyer LLP is a law firm in Barrie, Ontario that practises criminal defence. Clients rate the firm 4.8 out of 5 from 65 public Google reviews. The office is at 89 Collier St #100, Barrie, ON L4M 1H2, and you can call (705) 721-1888 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Barrie, Ontario criminal defence lawyers, Eisen Dyer LLP, will fight for you. Call (705) 721-1888 today for a free consultation.”"
- },
- {
-  "name": "Owen & Associates Law",
-  "city": "Barrie",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Wills & Estates",
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "family",
-   "wills",
-   "realestate"
-  ],
-  "region": "simcoe-central",
-  "province": "ON",
-  "lat": 44.390069,
-  "lng": -79.6879462,
-  "address": "26 Owen St, Barrie, ON L4M 3G7",
-  "phone": "+17057261181",
-  "rating": 4.5,
-  "count": 59,
-  "slug": "owen-and-associates-law-barrie",
-  "mapsUrl": "https://www.google.com/maps/search/Owen+%26+Associates+Law+Barrie+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=26+Owen+St%2C+Barrie%2C+ON+L4M+3G7",
-  "website": "https://www.owendickey.com",
-  "blurb": "Family Law / Wills & Estates in Barrie. Rated 4.5 from 59 Google reviews.",
-  "type": "mono",
-  "initials": "OA",
-  "color": "#3a3a1c",
-  "about": "Owen & Associates Law is a law firm in Barrie, Ontario that practises family law, wills and estates and real estate. Clients rate the firm 4.5 out of 5 from 59 public Google reviews. The office is at 26 Owen St, Barrie, ON L4M 3G7, and you can call (705) 726-1181 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Family lawyers for divorces, separations, child custody, Barrie legal services for real estate, general litigation and small claims courts”"
- },
- {
-  "name": "Jeffrey Murray Law",
-  "city": "Belleville",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills"
-  ],
-  "region": "eastern",
-  "province": "ON",
-  "lat": 44.1671117,
-  "lng": -77.3804103,
-  "address": "247 John St, Belleville, ON K8N 3G2",
-  "phone": "+16137795855",
-  "rating": 4.9,
-  "count": 206,
-  "slug": "jeffrey-murray-law-belleville",
-  "mapsUrl": "https://www.google.com/maps/search/Jeffrey+Murray+Law+Belleville+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=247+John+St%2C+Belleville%2C+ON+K8N+3G2",
-  "website": "https://jmurraylaw.ca",
-  "blurb": "Real Estate / Wills & Estates in Belleville. Rated 4.9 from 206 Google reviews.",
-  "type": "mono",
-  "about": "Jeffrey Murray Law is a law firm in Belleville, Ontario that practises real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 206 public Google reviews. The office is at 247 John St, Belleville, ON K8N 3G2, and you can call (613) 779-5855 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "initials": "JM",
-  "color": "#4f4a2e"
- },
- {
-  "name": "Bonn Law",
-  "city": "Belleville",
-  "featured": false,
-  "tags": [
-   "Personal Injury",
-   "Criminal Defence",
-   "Civil Litigation"
-  ],
-  "caseTypes": [
-   "injury",
-   "criminal",
-   "litigation"
-  ],
-  "region": "eastern",
-  "province": "ON",
-  "lat": 44.1721929,
-  "lng": -77.3884778,
-  "address": "54 N Front St, Belleville, ON K8P 3B3",
-  "phone": "+16137710600",
-  "rating": 4.5,
-  "count": 47,
-  "slug": "bonn-law-belleville",
-  "mapsUrl": "https://www.google.com/maps/search/Bonn+Law+Belleville+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=54+N+Front+St%2C+Belleville%2C+ON+K8P+3B3",
-  "website": "https://bonnlaw.ca",
-  "blurb": "Personal Injury / Criminal Defence in Belleville. Rated 4.5 from 47 Google reviews.",
-  "type": "logo",
-  "about": "Bonn Law is a law firm in Belleville, Ontario that practises personal injury, criminal defence and civil litigation. Clients rate the firm 4.5 out of 5 from 47 public Google reviews. The office is at 54 N Front St, Belleville, ON K8P 3B3, and you can call (613) 771-0600 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Bonn Law personal injury lawyers, trusted since 1972. Seeking justice for clients in personal injury cases like car accidents, slips and falls, and assaults.”",
-  "src": "images/logos/bonn-law-belleville.jpg"
- },
- {
-  "name": "Wills Lawyer",
-  "city": "Belleville",
-  "featured": false,
-  "tags": [
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "wills"
-  ],
-  "region": "eastern",
-  "province": "ON",
-  "lat": 44.1761168,
-  "lng": -77.3912232,
-  "address": "110 N Front St #319, Belleville, ON K8P 0A6",
-  "phone": "+16138484560",
-  "rating": 4.8,
-  "count": 37,
-  "slug": "wills-lawyer-belleville",
-  "mapsUrl": "https://www.google.com/maps/search/Wills+Lawyer+Belleville+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=110+N+Front+St+%23319%2C+Belleville%2C+ON+K8P+0A6",
-  "website": "https://ontariowillslawyer.ca",
-  "blurb": "Wills & Estates in Belleville. Rated 4.8 from 37 Google reviews.",
-  "type": "logo",
-  "about": "Wills Lawyer is a law firm in Belleville, Ontario that practises wills and estates. Clients rate the firm 4.8 out of 5 from 37 public Google reviews. The office is at 110 N Front St #319, Belleville, ON K8P 0A6, and you can call (613) 848-4560 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/wills-lawyer-belleville.webp"
- },
- {
-  "name": "Northview Law",
-  "city": "Bolton",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates",
-   "Business Law"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills",
-   "business"
-  ],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.8805683,
-  "lng": -79.7394086,
-  "address": "49 Queen St N, Bolton, ON L7E 1C1",
-  "phone": "+19058574890",
-  "rating": 5,
-  "count": 48,
-  "slug": "northview-law-bolton",
-  "mapsUrl": "https://www.google.com/maps/search/Northview+Law+Bolton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=49+Queen+St+N%2C+Bolton%2C+ON+L7E+1C1",
-  "website": "https://www.northviewlaw.com",
-  "blurb": "Real Estate / Wills & Estates in Bolton. Rated 5.0 from 48 Google reviews.",
-  "type": "logo",
-  "about": "Northview Law is a law firm in Bolton, Ontario that practises real estate, wills and estates and business law. Clients rate the firm 5.0 out of 5 from 48 public Google reviews. The office is at 49 Queen St N, Bolton, ON L7E 1C1, and you can call (905) 857-4890 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Law Simplified, Expertly Navigated. We help clients close deals and protect their assets. Engage us, so you can enjoy the journey and the destination. 10,000+ Happy Clients.”",
-  "src": "images/logos/northview-law-bolton.webp"
- },
- {
-  "name": "LPC Personal Injury Lawyer",
-  "city": "Bolton",
-  "featured": false,
-  "tags": [
-   "Personal Injury"
-  ],
-  "caseTypes": [
-   "injury"
-  ],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.8794631,
-  "lng": -79.7386357,
-  "address": "6 Queen St N #206, Bolton, ON L7E 4J5",
-  "phone": "+18009653402",
-  "rating": 4.7,
-  "count": 50,
-  "slug": "lpc-personal-injury-lawyer-bolton",
-  "mapsUrl": "https://www.google.com/maps/search/LPC+Personal+Injury+Lawyer+Bolton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=6+Queen+St+N+%23206%2C+Bolton%2C+ON+L7E+4J5",
-  "website": "https://lpclaw.ca",
-  "blurb": "Personal Injury in Bolton. Rated 4.7 from 50 Google reviews.",
-  "type": "mono",
-  "about": "LPC Personal Injury Lawyer is a law firm in Bolton, Ontario that practises personal injury. Clients rate the firm 4.7 out of 5 from 50 public Google reviews. The office is at 6 Queen St N #206, Bolton, ON L7E 4J5, and you can call (800) 965-3402 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “LPC LAW serves Bolton, Oshawa, and Peterborough, offering experienced legal assistance for car accidents, slip and falls, and more. Our dedicated team ensures the strongest outcome for your personal injury claims across these regions.”",
-  "initials": "LP",
-  "color": "#2e4a43"
- },
- {
-  "name": "Palmateer & Nicol Professional Corporation",
-  "city": "Bolton",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.8790901,
-  "lng": -79.7390737,
-  "address": "23 King St W, Bolton, ON L7E 4J5",
-  "phone": "+19058570847",
-  "rating": 4.8,
-  "count": 20,
-  "slug": "palmateer-and-nicol-professional-corporation-bolton",
-  "mapsUrl": "https://www.google.com/maps/search/Palmateer+%26+Nicol+Professional+Corporation+Bolton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=23+King+St+W%2C+Bolton%2C+ON+L7E+4J5",
-  "website": "http://caledonlaw.com",
-  "blurb": "Real Estate in Bolton. Rated 4.8 from 20 Google reviews.",
-  "type": "mono",
-  "initials": "PN",
-  "color": "#5a4636",
-  "about": "Palmateer & Nicol Professional Corporation is a law firm in Bolton, Ontario that practises real estate. Clients rate the firm 4.8 out of 5 from 20 public Google reviews. The office is at 23 King St W, Bolton, ON L7E 4J5, and you can call (905) 857-0847 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
  },
  {
   "name": "GPS Criminal Law Firm",
@@ -683,62 +364,6 @@
   "type": "logo",
   "about": "Bains Law Professional Corporation is a law firm in Brantford, Ontario that practises criminal defence, real estate and immigration. Clients rate the firm 4.9 out of 5 from 32 public Google reviews. The office is at 340 Henry St Rm 1 unit 20, Brantford, ON N3S 7V9, and you can call (519) 900-0900 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Criminal Lawyer Impaired Lawyer DUI Lawyer Real Estate Lawyer Immigration Lawyer English, Punjabi, Hindi, Urdu Punjabi Lawyer Brantford Woodstock Hamilton”",
   "src": "images/logos/bains-law-professional-corporation-brantford.png"
- },
- {
-  "name": "HSK Law Firm",
-  "city": "Burlington",
-  "featured": false,
-  "tags": [],
-  "caseTypes": [],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.3710778,
-  "lng": -79.7847546,
-  "address": "1001 Champlain Ave #107, Burlington, ON L7L 5Z4",
-  "phone": "+12892660553",
-  "rating": 5,
-  "count": 193,
-  "slug": "hsk-law-firm-burlington",
-  "mapsUrl": "https://www.google.com/maps/search/HSK+Law+Firm+Burlington+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1001+Champlain+Ave+%23107%2C+Burlington%2C+ON+L7L+5Z4",
-  "website": "https://hsklawfirm.ca",
-  "blurb": "Law firm in Burlington. Rated 5.0 from 193 Google reviews.",
-  "type": "mono",
-  "about": "HSK Law Firm is a law firm in Burlington, Ontario. Clients rate the firm 5.0 out of 5 from 193 public Google reviews. The office is at 1001 Champlain Ave #107, Burlington, ON L7L 5Z4, and you can call (289) 266-0553 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "initials": "HS",
-  "color": "#4a3a5c"
- },
- {
-  "name": "Fieldstone Law",
-  "city": "Burlington",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates",
-   "Business Law"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills",
-   "business"
-  ],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.3584304,
-  "lng": -79.7853337,
-  "address": "845 Harrington Ct #100B, Burlington, ON L7N 3P3",
-  "phone": "+12898132671",
-  "rating": 5,
-  "count": 173,
-  "slug": "fieldstone-law-burlington",
-  "mapsUrl": "https://www.google.com/maps/search/Fieldstone+Law+Burlington+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=845+Harrington+Ct+%23100B%2C+Burlington%2C+ON+L7N+3P3",
-  "website": "https://fieldstonelaw.ca",
-  "blurb": "Real Estate / Wills & Estates in Burlington. Rated 5.0 from 173 Google reviews.",
-  "type": "mono",
-  "initials": "FI",
-  "color": "#5a4636",
-  "about": "Fieldstone Law is a law firm in Burlington, Ontario that practises real estate, wills and estates and business. Clients rate the firm 5.0 out of 5 from 173 public Google reviews. The office is at 845 Harrington Ct #100B, Burlington, ON L7N 3P3, and you can call (289) 813-2671 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
  },
  {
   "name": "Brechin & Huffman LLP",
@@ -896,38 +521,6 @@
   "src": "images/logos/mceniry-and-mceniry-burlington.png"
  },
  {
-  "name": "Cass & Bishop Professional Corporation",
-  "city": "Burlington",
-  "featured": false,
-  "tags": [
-   "Wills & Estates",
-   "Real Estate",
-   "Business Law"
-  ],
-  "caseTypes": [
-   "wills",
-   "realestate",
-   "business"
-  ],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.3614377,
-  "lng": -79.7878299,
-  "address": "3455 Harvester Rd #31, Burlington, ON L7N 3P2",
-  "phone": "+19056327744",
-  "rating": 5,
-  "count": 73,
-  "slug": "cass-and-bishop-professional-corporation-burlington",
-  "mapsUrl": "https://www.google.com/maps/search/Cass+%26+Bishop+Professional+Corporation+Burlington+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3455+Harvester+Rd+%2331%2C+Burlington%2C+ON+L7N+3P2",
-  "website": "https://www.cassbishop.ca",
-  "blurb": "Wills & Estates / Real Estate in Burlington. Rated 5.0 from 73 Google reviews.",
-  "type": "mono",
-  "initials": "CB",
-  "color": "#5c3a3a",
-  "about": "Cass & Bishop Professional Corporation is a law firm in Burlington, Ontario that practises wills and estates, real estate and business law. Clients rate the firm 5.0 out of 5 from 73 public Google reviews. The office is at 3455 Harvester Rd #31, Burlington, ON L7N 3P2, and you can call (905) 632-7744 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Since 1958, the law firm of Cass & Bishop has been providing legal services to the communities of Burlington, Hamilton, Milton, and Oakville, Ontario, in the areas of residential and commercial real estate law, business (corporate-commercial) law, estate law (which includes wills), and family law....”"
- },
- {
   "name": "Stoner & Company Family Law",
   "city": "Burlington",
   "featured": false,
@@ -982,58 +575,6 @@
   "type": "logo",
   "about": "Dwell Law is a law firm in Burlington, Ontario that practises real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 61 public Google reviews. The office is at 901 Guelph Line, Burlington, ON L7R 3N8, and you can call (905) 798-7900 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Real Estate Lawyers in Burlington, Ontario Clear, flat-fee legal services for home buyers, sellers, and property owners. Founded by Diane Ulman, a real estate lawyer with over 15 years of experience. Based in Burlington, Dwell Law supports real estate transactions across Ontario with a modern,...”",
   "src": "images/logos/dwell-law-burlington.webp"
- },
- {
-  "name": "Ceylan Law Professional Corporation",
-  "city": "Burlington",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.3964257,
-  "lng": -79.7597018,
-  "address": "1100 Burloak Dr, Burlington, ON L7L 6B2",
-  "phone": "+19054838022",
-  "rating": 4.8,
-  "count": 57,
-  "slug": "ceylan-law-professional-corporation-burlington",
-  "mapsUrl": "https://www.google.com/maps/search/Ceylan+Law+Professional+Corporation+Burlington+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1100+Burloak+Dr%2C+Burlington%2C+ON+L7L+6B2",
-  "website": "https://www.ceylanlaw.ca",
-  "blurb": "Real Estate in Burlington. Rated 4.8 from 57 Google reviews.",
-  "type": "mono",
-  "initials": "CE",
-  "color": "#35506b",
-  "about": "Ceylan Law Professional Corporation is a law firm in Burlington, Ontario that practises real estate. Clients rate the firm 4.8 out of 5 from 57 public Google reviews. The office is at 1100 Burloak Dr, Burlington, ON L7L 6B2, and you can call (905) 483-8022 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Ceylan Law - Your trusted real estate lawyer in Burlington, Ontario. Schedule a consultation for personalized legal guidance.”"
- },
- {
-  "name": "Cambridge LLP",
-  "city": "Burlington",
-  "featured": false,
-  "tags": [],
-  "caseTypes": [],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.3516993,
-  "lng": -79.80048,
-  "address": "3027 Harvester Rd #204, Burlington, ON L7N 3G7",
-  "phone": "+12896357007",
-  "rating": 4.6,
-  "count": 53,
-  "slug": "cambridge-llp-burlington",
-  "mapsUrl": "https://www.google.com/maps/search/Cambridge+LLP+Burlington+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3027+Harvester+Rd+%23204%2C+Burlington%2C+ON+L7N+3G7",
-  "website": "http://www.cambridgellp.com",
-  "blurb": "Law firm in Burlington. Rated 4.6 from 53 Google reviews.",
-  "type": "mono",
-  "initials": "CA",
-  "color": "#5c3a3a",
-  "about": "Cambridge LLP is a law firm in Burlington, Ontario. Clients rate the firm 4.6 out of 5 from 53 public Google reviews. The office is at 3027 Harvester Rd #204, Burlington, ON L7N 3G7, and you can call (289) 635-7007 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
  },
  {
   "name": "Forgione Deal and Corporate Counsel",
@@ -1146,216 +687,6 @@
   "src": "images/logos/fdh-lawyers-llp-burlington.png"
  },
  {
-  "name": "GOAD AND GOAD LLP",
-  "city": "Cambridge",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates",
-   "Employment Law",
-   "Business Law"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills",
-   "employment",
-   "business"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.362795,
-  "lng": -80.3125062,
-  "address": "53 Cambridge St, Cambridge, ON N1R 3R8",
-  "phone": "+15196237660",
-  "rating": 4.9,
-  "count": 237,
-  "slug": "goad-and-goad-llp-cambridge",
-  "mapsUrl": "https://www.google.com/maps/search/GOAD+AND+GOAD+LLP+Cambridge+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=53+Cambridge+St%2C+Cambridge%2C+ON+N1R+3R8",
-  "website": "https://www.goadandgoad.com",
-  "blurb": "Real Estate / Wills & Estates in Cambridge. Rated 4.9 from 237 Google reviews.",
-  "type": "mono",
-  "initials": "GG",
-  "color": "#4a3a5c",
-  "about": "GOAD AND GOAD LLP is a law firm in Cambridge, Ontario that practises real estate, wills and estates and employment law. Clients rate the firm 4.9 out of 5 from 237 public Google reviews. The office is at 53 Cambridge St, Cambridge, ON N1R 3R8, and you can call (519) 623-7660 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “GOAD AND GOAD LLP is a Cambridge, Ontario based law firm. Individuals, Businesses, Government Entities and Non-Profits rely on us for their business, public and personal related legal matters.”"
- },
- {
-  "name": "Kinder Lawyers",
-  "city": "Cambridge",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.3630673,
-  "lng": -80.3125523,
-  "address": "61 Cambridge St, Cambridge, ON N1R 3R8",
-  "phone": "+15197406676",
-  "rating": 4.6,
-  "count": 156,
-  "slug": "kinder-lawyers-cambridge",
-  "mapsUrl": "https://www.google.com/maps/search/Kinder+Lawyers+Cambridge+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=61+Cambridge+St%2C+Cambridge%2C+ON+N1R+3R8",
-  "website": "https://www.kinder.ca",
-  "blurb": "Real Estate / Wills & Estates in Cambridge. Rated 4.6 from 156 Google reviews.",
-  "type": "logo",
-  "about": "Kinder Lawyers is a law firm in Cambridge, Ontario that practises real estate and wills and estates. Clients rate the firm 4.6 out of 5 from 156 public Google reviews. The office is at 61 Cambridge St, Cambridge, ON N1R 3R8, and you can call (519) 740-6676 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Kinder Law Office proudly delivers prompt and practical legal advice, through a comprehensive range of legal services.”",
-  "src": "images/logos/kinder-lawyers-cambridge.png"
- },
- {
-  "name": "Sandhu Law Chambers",
-  "city": "Cambridge",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.3966041,
-  "lng": -80.3252707,
-  "address": "450 Hespeler Rd Suite 202, floor 2nd, Cambridge, ON N1R 0E3",
-  "phone": "+16476214012",
-  "rating": 4.9,
-  "count": 107,
-  "slug": "sandhu-law-chambers-cambridge",
-  "mapsUrl": "https://www.google.com/maps/search/Sandhu+Law+Chambers+Cambridge+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=450+Hespeler+Rd+Suite+202%2C+floor+2nd%2C+Cambridge%2C+ON+N1R+0E3",
-  "website": "https://www.sandhulawchambers.com",
-  "blurb": "Real Estate in Cambridge. Rated 4.9 from 107 Google reviews.",
-  "type": "mono",
-  "initials": "SC",
-  "color": "#5d5f63",
-  "about": "Sandhu Law Chambers is a law firm in Cambridge, Ontario that practises real estate. Clients rate the firm 4.9 out of 5 from 107 public Google reviews. The office is at 450 Hespeler Rd Suite 202, floor 2nd, Cambridge, ON N1R 0E3, and you can call (647) 621-4012 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
-  "name": "GSD Law Professional Corporation",
-  "city": "Cambridge",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.3965253,
-  "lng": -80.3255473,
-  "address": "450 Hespeler Rd Unit 209, 2nd Floor, Cambridge, ON N1R 0E3",
-  "phone": "+15197469066",
-  "rating": 4.5,
-  "count": 71,
-  "slug": "gsd-law-professional-corporation-cambridge",
-  "mapsUrl": "https://www.google.com/maps/search/GSD+Law+Professional+Corporation+Cambridge+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=450+Hespeler+Rd+Unit+209%2C+2nd+Floor%2C+Cambridge%2C+ON+N1R+0E3",
-  "website": "https://gsdlawoffice.com",
-  "blurb": "Real Estate in Cambridge. Rated 4.5 from 71 Google reviews.",
-  "type": "mono",
-  "initials": "GS",
-  "color": "#5d5f63",
-  "about": "GSD Law Professional Corporation is a law firm in Cambridge, Ontario that practises real estate. Clients rate the firm 4.5 out of 5 from 71 public Google reviews. The office is at 450 Hespeler Rd Unit 209, 2nd Floor, Cambridge, ON N1R 0E3, and you can call (519) 746-9066 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Looking for a reliable real estate lawyer near you? GSD Law PC provides expert legal services for your legal needs. Contact us today for a consultation.”"
- },
- {
-  "name": "Lennox & Penney",
-  "city": "Cambridge",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.3964043,
-  "lng": -80.3575676,
-  "address": "parking lot entrance from, 708 Duke Street, Westminster Dr N rear, Cambridge, ON N3H 3T6",
-  "phone": "+15196535747",
-  "rating": 4.6,
-  "count": 67,
-  "slug": "lennox-and-penney-cambridge",
-  "mapsUrl": "https://www.google.com/maps/search/Lennox+%26+Penney+Cambridge+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=parking+lot+entrance+from%2C+708+Duke+Street%2C+Westminster+Dr+N+rear%2C+Cambridge%2C+ON+N3H+3T6",
-  "website": "https://www.cambridgelaw.ca",
-  "blurb": "Real Estate / Wills & Estates in Cambridge. Rated 4.6 from 67 Google reviews.",
-  "type": "mono",
-  "initials": "LP",
-  "color": "#4a3a5c",
-  "about": "Lennox & Penney is a law firm in Cambridge, Ontario that practises real estate and wills and estates. Clients rate the firm 4.6 out of 5 from 67 public Google reviews. The office is at parking lot entrance from, 708 Duke Street, Westminster Dr N rear, Cambridge, ON N3H 3T6, and you can call (519) 653-5747 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Lennox & Penney Law Firm is located in Cambridge, Ontario. Lawyers John Lennox and Stephen Penney offer efficient and expert legal services in Real Estate, Business, and Wills and Estates law.”"
- },
- {
-  "name": "Teixeira Law Office",
-  "city": "Cambridge",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.3992159,
-  "lng": -80.3027211,
-  "address": "1111 Franklin Blvd Unit 1b, Cambridge, ON N1R 8B5",
-  "phone": "+15192676070",
-  "rating": 4.9,
-  "count": 53,
-  "slug": "teixeira-law-office-cambridge",
-  "mapsUrl": "https://www.google.com/maps/search/Teixeira+Law+Office+Cambridge+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1111+Franklin+Blvd+Unit+1b%2C+Cambridge%2C+ON+N1R+8B5",
-  "website": "https://bftlaw.ca",
-  "blurb": "Real Estate / Wills & Estates in Cambridge. Rated 4.9 from 53 Google reviews.",
-  "type": "logo",
-  "about": "Teixeira Law Office is a law firm in Cambridge, Ontario that practises real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 53 public Google reviews. The office is at 1111 Franklin Blvd Unit 1b, Cambridge, ON N1R 8B5, and you can call (519) 267-6070 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Teixeira Law Office - offering legal services in the areas of family, real estate and wills.”",
-  "src": "images/logos/teixeira-law-office-cambridge.jpg"
- },
- {
-  "name": "ND Law Professional Corporation",
-  "city": "Cambridge",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Immigration",
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "family",
-   "immigration",
-   "realestate"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.3966728,
-  "lng": -80.3257403,
-  "address": "460 Hespeler Rd 2nd Floor, Unit 210, Cambridge, ON N1R 0E3",
-  "phone": "+16475443553",
-  "rating": 5,
-  "count": 43,
-  "slug": "nd-law-professional-corporation-cambridge",
-  "mapsUrl": "https://www.google.com/maps/search/ND+Law+Professional+Corporation+Cambridge+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=460+Hespeler+Rd+2nd+Floor%2C+Unit+210%2C+Cambridge%2C+ON+N1R+0E3",
-  "website": "https://www.ndlawoffice.ca",
-  "blurb": "Family Law / Immigration in Cambridge. Rated 5.0 from 43 Google reviews.",
-  "type": "mono",
-  "initials": "ND",
-  "color": "#35506b",
-  "about": "ND Law Professional Corporation is a law firm in Cambridge, Ontario that practises family law, immigration and real estate. Clients rate the firm 5.0 out of 5 from 43 public Google reviews. The office is at 460 Hespeler Rd 2nd Floor, Unit 210, Cambridge, ON N1R 0E3, and you can call (647) 544-3553 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “ND Law Professional Corporation is a leading law firm in Cambridge, Ontario”"
- },
- {
   "name": "Huza Law",
   "city": "Cornwall",
   "featured": false,
@@ -1418,34 +749,6 @@
   "src": "images/logos/journey-law-cornwall.png"
  },
  {
-  "name": "Langevin Law PC",
-  "city": "Cornwall",
-  "featured": false,
-  "tags": [
-   "Criminal Defence"
-  ],
-  "caseTypes": [
-   "criminal"
-  ],
-  "region": "eastern",
-  "province": "ON",
-  "lat": 45.0185893,
-  "lng": -74.7267873,
-  "address": "42 Second St E, Cornwall, ON K6H 1Y3",
-  "phone": "+16139360006",
-  "rating": 4.8,
-  "count": 29,
-  "slug": "langevin-law-pc-cornwall",
-  "mapsUrl": "https://www.google.com/maps/search/Langevin+Law+PC+Cornwall+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=42+Second+St+E%2C+Cornwall%2C+ON+K6H+1Y3",
-  "website": "https://www.langevinlawyers.ca",
-  "blurb": "Criminal Defence in Cornwall. Rated 4.8 from 29 Google reviews.",
-  "type": "mono",
-  "about": "Langevin Law PC is a law firm in Cornwall, Ontario that practises criminal defence. Clients rate the firm 4.8 out of 5 from 29 public Google reviews. The office is at 42 Second St E, Cornwall, ON K6H 1Y3, and you can call (613) 936-0006 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Langevin Law provides high-quality criminal litigation and other legal services in Cornwall, Ontario. Contact us today to get started.”",
-  "initials": "LP",
-  "color": "#5c3a3a"
- },
- {
   "name": "A M Personal Injury Lawyer",
   "city": "Cornwall",
   "featured": false,
@@ -1471,38 +774,6 @@
   "type": "logo",
   "about": "A M Personal Injury Lawyer is a law firm in Cornwall, Ontario that practises personal injury. Clients rate the firm 5.0 out of 5 from 25 public Google reviews. The office is at 29 Second St E Office #7, Cornwall, ON K6H 1Y2, and you can call (800) 635-2821 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "src": "images/logos/a-m-personal-injury-lawyer-cornwall.png"
- },
- {
-  "name": "Giovanniello & Bellefeuille",
-  "city": "Cornwall",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Employment Law",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "family",
-   "employment",
-   "wills"
-  ],
-  "region": "eastern",
-  "province": "ON",
-  "lat": 45.0203768,
-  "lng": -74.7204458,
-  "address": "340 Second St E, Cornwall, ON K6H 1Y9",
-  "phone": "+16139380294",
-  "rating": 4.7,
-  "count": 24,
-  "slug": "giovanniello-and-bellefeuille-cornwall",
-  "mapsUrl": "https://www.google.com/maps/search/Giovanniello+%26+Bellefeuille+Cornwall+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=340+Second+St+E%2C+Cornwall%2C+ON+K6H+1Y9",
-  "website": "http://www.gblawfirm.ca",
-  "blurb": "Family Law / Employment Law in Cornwall. Rated 4.7 from 24 Google reviews.",
-  "type": "mono",
-  "initials": "GB",
-  "color": "#35506b",
-  "about": "Giovanniello & Bellefeuille is a law firm in Cornwall, Ontario that practises family law, employment law and wills and estates. Clients rate the firm 4.7 out of 5 from 24 public Google reviews. The office is at 340 Second St E, Cornwall, ON K6H 1Y9, and you can call (613) 938-0294 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
  },
  {
   "name": "Guindon Law",
@@ -1536,62 +807,6 @@
   "src": "images/logos/guindon-law-cornwall.png"
  },
  {
-  "name": "BLPC Law",
-  "city": "Greater Sudbury",
-  "featured": false,
-  "tags": [
-   "Personal Injury"
-  ],
-  "caseTypes": [
-   "injury"
-  ],
-  "region": "northern",
-  "province": "ON",
-  "lat": 46.5136,
-  "lng": -80.944622,
-  "address": "767 Barry Downe Rd #208B, Greater Sudbury, ON P3A 3T6",
-  "phone": "+18007583108",
-  "rating": 5,
-  "count": 34,
-  "slug": "blpc-law-greater-sudbury",
-  "mapsUrl": "https://www.google.com/maps/search/BLPC+Law+Greater+Sudbury+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=767+Barry+Downe+Rd+%23208B%2C+Greater+Sudbury%2C+ON+P3A+3T6",
-  "website": "https://blpclaw.ca",
-  "blurb": "Personal Injury in Greater Sudbury. Rated 5.0 from 34 Google reviews.",
-  "type": "mono",
-  "about": "BLPC Law is a law firm in Greater Sudbury, Ontario that practises personal injury. Clients rate the firm 5.0 out of 5 from 34 public Google reviews. The office is at 767 Barry Downe Rd #208B, Greater Sudbury, ON P3A 3T6, and you can call (800) 758-3108 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “BLPC Injury Law Firm focuses on personal injury cases in Sudbury, offering experienced legal assistance for car accidents, slip and falls, and more. Our dedicated team is here to secure the justice and compensation you deserve.”",
-  "initials": "BL",
-  "color": "#5c3a3a"
- },
- {
-  "name": "Brunet Law",
-  "city": "Greater Sudbury",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "northern",
-  "province": "ON",
-  "lat": 46.502398,
-  "lng": -80.9865052,
-  "address": "430 Notre Dame Ave #210, Greater Sudbury, ON P3C 5K7",
-  "phone": "+17056741332",
-  "rating": 4.5,
-  "count": 20,
-  "slug": "brunet-law-greater-sudbury",
-  "mapsUrl": "https://www.google.com/maps/search/Brunet+Law+Greater+Sudbury+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=430+Notre+Dame+Ave+%23210%2C+Greater+Sudbury%2C+ON+P3C+5K7",
-  "website": "https://brunetlaw.ca",
-  "blurb": "Real Estate in Greater Sudbury. Rated 4.5 from 20 Google reviews.",
-  "type": "mono",
-  "initials": "BR",
-  "color": "#4a3a5c",
-  "about": "Brunet Law is a law firm in Greater Sudbury, Ontario that practises real estate. Clients rate the firm 4.5 out of 5 from 20 public Google reviews. The office is at 430 Notre Dame Ave #210, Greater Sudbury, ON P3C 5K7, and you can call (705) 674-1332 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Brunet Law in Sudbury, Ontario specializes in residential, commercial real estate, wills, estates and business planning.Call Brunet Law NOW! 705.674.1332”"
- },
- {
   "name": "Mason Poratto-Mason LLP",
   "city": "Greater Sudbury",
   "featured": false,
@@ -1623,62 +838,6 @@
   "type": "logo",
   "about": "Mason Poratto-Mason LLP is a law firm in Greater Sudbury, Ontario that practises family law, personal injury and wills and estates. Clients rate the firm 5.0 out of 5 from 13 public Google reviews. The office is at 40 Larch St, Greater Sudbury, ON P3E 5M7, and you can call (705) 560-8133 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Experienced Sudbury lawyers providing expert legal services in Northern Ontario. Contact Mason Poratto-Mason LLP for trusted legal advice.”",
   "src": "images/logos/mason-poratto-mason-llp-greater-sudbury.png"
- },
- {
-  "name": "GREATRIX LAW",
-  "city": "Guelph",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.551313,
-  "lng": -80.298076,
-  "address": "291 Woodlawn Rd W Unit 10B, Guelph, ON N1H 7L6",
-  "phone": "+15198294853",
-  "rating": 4.8,
-  "count": 25,
-  "slug": "greatrix-law-guelph",
-  "mapsUrl": "https://www.google.com/maps/search/GREATRIX+LAW+Guelph+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=291+Woodlawn+Rd+W+Unit+10B%2C+Guelph%2C+ON+N1H+7L6",
-  "website": "https://www.saglaw.ca",
-  "blurb": "Family Law in Guelph. Rated 4.8 from 25 Google reviews.",
-  "type": "mono",
-  "about": "GREATRIX LAW is a law firm in Guelph, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 25 public Google reviews. The office is at 291 Woodlawn Rd W Unit 10B, Guelph, ON N1H 7L6, and you can call (519) 829-4853 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Experienced Family Law &#038; Divorce Lawyer We care. We listen. We advocate. Nearly 20 years of trusted legal experience helping individuals and families move forward”",
-  "initials": "GR",
-  "color": "#5d5f63"
- },
- {
-  "name": "Moon Law",
-  "city": "Guelph",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.5473182,
-  "lng": -80.2542671,
-  "address": "164 Norfolk St, Guelph, ON N1H 4J9",
-  "phone": "+15197806666",
-  "rating": 4.7,
-  "count": 12,
-  "slug": "moon-law-guelph",
-  "mapsUrl": "https://www.google.com/maps/search/Moon+Law+Guelph+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=164+Norfolk+St%2C+Guelph%2C+ON+N1H+4J9",
-  "website": "https://www.moonlaw.ca",
-  "blurb": "Real Estate in Guelph. Rated 4.7 from 12 Google reviews.",
-  "type": "mono",
-  "initials": "MO",
-  "color": "#5c3a3a",
-  "about": "Moon Law is a law firm in Guelph, Ontario that practises real estate. Clients rate the firm 4.7 out of 5 from 12 public Google reviews. The office is at 164 Norfolk St, Guelph, ON N1H 4J9, and you can call (519) 780-6666 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
  },
  {
   "name": "Mandani Law",
@@ -1764,62 +923,6 @@
   "type": "logo",
   "about": "Lees and Lees Law Office is a law firm in Hamilton, Ontario that practises business law. Clients rate the firm 4.5 out of 5 from 43 public Google reviews. The office is at Mountain Plaza Mall, 651 Upper James St, Hamilton, ON L9C 5R8, and you can call (905) 523-7830 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "src": "images/logos/lees-and-lees-law-office-hamilton.png"
- },
- {
-  "name": "Norman Watson Legal Professional Corporation",
-  "city": "Hamilton",
-  "featured": false,
-  "tags": [
-   "Business Law"
-  ],
-  "caseTypes": [
-   "business"
-  ],
-  "region": "hamilton-niagara",
-  "province": "ON",
-  "lat": 43.262368,
-  "lng": -79.9042836,
-  "address": "983 King St W, Hamilton, ON L8S 1K9",
-  "phone": "+12893897095",
-  "rating": 4.9,
-  "count": 34,
-  "slug": "norman-watson-legal-professional-corporation-hamilton",
-  "mapsUrl": "https://www.google.com/maps/search/Norman+Watson+Legal+Professional+Corporation+Hamilton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=983+King+St+W%2C+Hamilton%2C+ON+L8S+1K9",
-  "website": "https://www.watsonlawoffice.ca",
-  "blurb": "Business Law in Hamilton. Rated 4.9 from 34 Google reviews.",
-  "type": "mono",
-  "initials": "NW",
-  "color": "#4f4a2e",
-  "about": "Norman Watson Legal Professional Corporation is a law firm in Hamilton, Ontario that practises business law. Clients rate the firm 4.9 out of 5 from 34 public Google reviews. The office is at 983 King St W, Hamilton, ON L8S 1K9, and you can call (289) 389-7095 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Specializing in Real Estate, Wills, Estates and Trust, Corporation Law”"
- },
- {
-  "name": "Martin Cohan Associates",
-  "city": "Hamilton",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "hamilton-niagara",
-  "province": "ON",
-  "lat": 43.2553707,
-  "lng": -79.8710712,
-  "address": "25 Main St W Ste 410, Hamilton, ON L8P 1H1",
-  "phone": "+19056676848",
-  "rating": 4.5,
-  "count": 25,
-  "slug": "martin-cohan-associates-hamilton",
-  "mapsUrl": "https://www.google.com/maps/search/Martin+Cohan+Associates+Hamilton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=25+Main+St+W+Ste+410%2C+Hamilton%2C+ON+L8P+1H1",
-  "website": "https://familylawyerhamilton.ca",
-  "blurb": "Family Law in Hamilton. Rated 4.5 from 25 Google reviews.",
-  "type": "mono",
-  "about": "Martin Cohan Associates is a law firm in Hamilton, Ontario that practises family law. Clients rate the firm 4.5 out of 5 from 25 public Google reviews. The office is at 25 Main St W Ste 410, Hamilton, ON L8P 1H1, and you can call (905) 667-6848 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trusted family law services in Hamilton. Our experienced lawyers provide compassionate guidance for divorce, child protection & more.”",
-  "initials": "MC",
-  "color": "#4f4a2e"
  },
  {
   "name": "Whitney Smith Family Law",
@@ -1932,262 +1035,6 @@
   "src": "images/logos/inch-hammond-business-lawyers-hamilton.png"
  },
  {
-  "name": "Haider Law",
-  "city": "Kingston",
-  "featured": false,
-  "tags": [
-   "Wills & Estates",
-   "Real Estate",
-   "Business Law"
-  ],
-  "caseTypes": [
-   "wills",
-   "realestate",
-   "business"
-  ],
-  "region": "eastern",
-  "province": "ON",
-  "lat": 44.2181935,
-  "lng": -76.5911888,
-  "address": "276 Smuggler's Cove Dr, Kingston, ON K7M 9C6",
-  "phone": "+16139226433",
-  "rating": 5,
-  "count": 27,
-  "slug": "haider-law-kingston",
-  "mapsUrl": "https://www.google.com/maps/search/Haider+Law+Kingston+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=276+Smuggler%27s+Cove+Dr%2C+Kingston%2C+ON+K7M+9C6",
-  "website": "https://haiderlaw.net",
-  "blurb": "Wills & Estates / Real Estate in Kingston. Rated 5.0 from 27 Google reviews.",
-  "type": "mono",
-  "initials": "HA",
-  "color": "#3a3a1c",
-  "about": "Haider Law is a law firm in Kingston, Ontario that practises wills and estates, real estate and business. Clients rate the firm 5.0 out of 5 from 27 public Google reviews. The office is at 276 Smuggler's Cove Dr, Kingston, ON K7M 9C6, and you can call (613) 922-6433 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
-  "name": "Viner",
-  "city": "Kingston",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Real Estate",
-   "Wills & Estates",
-   "Litigation"
-  ],
-  "caseTypes": [
-   "family",
-   "realestate",
-   "wills",
-   "litigation"
-  ],
-  "region": "eastern",
-  "province": "ON",
-  "lat": 44.2316455,
-  "lng": -76.4811807,
-  "address": "366 King St E #300, Kingston, ON K7L 1A6",
-  "phone": "+16135427867",
-  "rating": 4.5,
-  "count": 23,
-  "slug": "viner-kingston",
-  "mapsUrl": "https://www.google.com/maps/search/Viner+Kingston+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=366+King+St+E+%23300%2C+Kingston%2C+ON+K7L+1A6",
-  "website": "https://www.vinerkennedy.com",
-  "blurb": "Family Law / Real Estate in Kingston. Rated 4.5 from 23 Google reviews.",
-  "type": "mono",
-  "initials": "VI",
-  "color": "#4f4a2e",
-  "about": "Viner is a law firm in Kingston, Ontario that practises family, real estate and wills and estates. Clients rate the firm 4.5 out of 5 from 23 public Google reviews. The office is at 366 King St E #300, Kingston, ON K7L 1A6, and you can call (613) 542-7867 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Local connections. Specialized practices. Our law firm serves businesses and individuals of Eastern Ontario. Areas of practice cover: Corporate, Family Law, Real Estate, Litigation, Bankruptcy, Construction, Employment, Wills & Estates. Located in downtown Kingston in the Royal Block at 366 King...”"
- },
- {
-  "name": "Thomson & Gowsell",
-  "city": "Kingston",
-  "featured": false,
-  "tags": [],
-  "caseTypes": [],
-  "region": "eastern",
-  "province": "ON",
-  "lat": 44.2484365,
-  "lng": -76.5264774,
-  "address": "1309 Princess St, Kingston, ON K7M 3E3",
-  "phone": "+16135463286",
-  "rating": 4.8,
-  "count": 12,
-  "slug": "thomson-and-gowsell-kingston",
-  "mapsUrl": "https://www.google.com/maps/search/Thomson+%26+Gowsell+Kingston+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1309+Princess+St%2C+Kingston%2C+ON+K7M+3E3",
-  "website": "http://thomsongowsell.ca",
-  "blurb": "Law firm in Kingston. Rated 4.8 from 12 Google reviews.",
-  "type": "mono",
-  "initials": "TG",
-  "color": "#5c3a3a",
-  "about": "Thomson & Gowsell is a law firm in Kingston, Ontario. Clients rate the firm 4.8 out of 5 from 12 public Google reviews. The office is at 1309 Princess St, Kingston, ON K7M 3E3, and you can call (613) 546-3286 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
-  "name": "Martin Robert J",
-  "city": "Kingston",
-  "featured": false,
-  "tags": [],
-  "caseTypes": [],
-  "region": "eastern",
-  "province": "ON",
-  "lat": 44.2311739,
-  "lng": -76.4791422,
-  "address": "The Professional Builidng, 11 Princess St, Kingston, ON K7K 2X5",
-  "phone": "+16135464269",
-  "rating": 4.7,
-  "count": 12,
-  "slug": "martin-robert-j-kingston",
-  "mapsUrl": "https://www.google.com/maps/search/Martin+Robert+J+Kingston+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=The+Professional+Builidng%2C+11+Princess+St%2C+Kingston%2C+ON+K7K+2X5",
-  "website": "http://www.martinlegal.ca",
-  "blurb": "Law firm in Kingston. Rated 4.7 from 12 Google reviews.",
-  "type": "mono",
-  "initials": "MR",
-  "color": "#5a4636",
-  "about": "Martin Robert J is a law firm in Kingston, Ontario. Clients rate the firm 4.7 out of 5 from 12 public Google reviews. The office is at The Professional Builidng, 11 Princess St, Kingston, ON K7K 2X5, and you can call (613) 546-4269 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
-  "name": "Warder Law Professional Corporation",
-  "city": "Kingston",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "family",
-   "wills"
-  ],
-  "region": "eastern",
-  "province": "ON",
-  "lat": 44.2311115,
-  "lng": -76.4808103,
-  "address": "353 King St E Ste 201, Kingston, ON K7L 3B5",
-  "phone": "+16135497777",
-  "rating": 4.6,
-  "count": 11,
-  "slug": "warder-law-professional-corporation-kingston",
-  "mapsUrl": "https://www.google.com/maps/search/Warder+Law+Professional+Corporation+Kingston+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=353+King+St+E+Ste+201%2C+Kingston%2C+ON+K7L+3B5",
-  "website": "https://www.warderlaw.ca",
-  "blurb": "Family Law / Wills & Estates in Kingston. Rated 4.6 from 11 Google reviews.",
-  "type": "mono",
-  "about": "Warder Law Professional Corporation is a law firm in Kingston, Ontario that practises family and wills and estates. Clients rate the firm 4.6 out of 5 from 11 public Google reviews. The office is at 353 King St E Ste 201, Kingston, ON K7L 3B5, and you can call (613) 549-7777 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “With over 30 years of experience, Warder Law provides high quality family law and wills and estates services to clients in Kingston, Ontario and surrounding areas.”",
-  "initials": "WA",
-  "color": "#5a4636"
- },
- {
-  "name": "Victor Hussein Law Office",
-  "city": "Kitchener",
-  "featured": false,
-  "tags": [
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "realestate"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.4680523,
-  "lng": -80.4846262,
-  "address": "275 Lancaster St W 2nd Floor, Kitchener, ON N2H 4V2",
-  "phone": "+15197448585",
-  "rating": 4.5,
-  "count": 190,
-  "slug": "victor-hussein-law-office-kitchener",
-  "mapsUrl": "https://www.google.com/maps/search/Victor+Hussein+Law+Office+Kitchener+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=275+Lancaster+St+W+2nd+Floor%2C+Kitchener%2C+ON+N2H+4V2",
-  "website": "https://www.vhlaw.ca",
-  "blurb": "Real Estate in Kitchener. Rated 4.5 from 190 Google reviews.",
-  "type": "mono",
-  "about": "Victor Hussein Law Office is a law firm in Kitchener, Ontario that practises real estate. Clients rate the firm 4.5 out of 5 from 190 public Google reviews. The office is at 275 Lancaster St W 2nd Floor, Kitchener, ON N2H 4V2, and you can call (519) 744-8585 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Residential real estate law in Kitchener, Waterloo, Cambridge, and surrounding areas.”",
-  "initials": "VH",
-  "color": "#5a4636"
- },
- {
-  "name": "MS Law Chambers",
-  "city": "Kitchener",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.3853188,
-  "lng": -80.4812192,
-  "address": "51 Chantilly St, Kitchener, ON N2R 1V3",
-  "phone": "+16479649293",
-  "rating": 5,
-  "count": 17,
-  "slug": "ms-law-chambers-kitchener",
-  "mapsUrl": "https://www.google.com/maps/search/MS+Law+Chambers+Kitchener+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=51+Chantilly+St%2C+Kitchener%2C+ON+N2R+1V3",
-  "website": "http://www.mslawc.com",
-  "blurb": "Family Law in Kitchener. Rated 5.0 from 17 Google reviews.",
-  "type": "mono",
-  "initials": "MC",
-  "color": "#35506b",
-  "about": "MS Law Chambers is a law firm in Kitchener, Ontario that practises family law. Clients rate the firm 5.0 out of 5 from 17 public Google reviews. The office is at 51 Chantilly St, Kitchener, ON N2R 1V3, and you can call (647) 964-9293 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
-  "name": "Jacqueline Mulvey",
-  "city": "Kitchener",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.4557906,
-  "lng": -80.4775351,
-  "address": "293 Frederick St, Kitchener, ON N2H 2N6",
-  "phone": "+15197443704",
-  "rating": 4.5,
-  "count": 18,
-  "slug": "jacqueline-mulvey-kitchener",
-  "mapsUrl": "https://www.google.com/maps/search/Jacqueline+Mulvey+Kitchener+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=293+Frederick+St%2C+Kitchener%2C+ON+N2H+2N6",
-  "website": "https://www.mulveylaw.ca",
-  "blurb": "Family Law in Kitchener. Rated 4.5 from 18 Google reviews.",
-  "type": "mono",
-  "initials": "JM",
-  "color": "#2e4a43",
-  "about": "Jacqueline Mulvey is a law firm in Kitchener, Ontario that practises family law. Clients rate the firm 4.5 out of 5 from 18 public Google reviews. The office is at 293 Frederick St, Kitchener, ON N2H 2N6, and you can call (519) 744-3704 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
-  "name": "Jagersky Baker Smith LLP",
-  "city": "Kitchener",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.4511806,
-  "lng": -80.4951806,
-  "address": "22 Water St S Unit 202, Kitchener, ON N2G 4K4",
-  "phone": "+12266461010",
-  "rating": 4.7,
-  "count": 15,
-  "slug": "jagersky-baker-smith-llp-kitchener",
-  "mapsUrl": "https://www.google.com/maps/search/Jagersky+Baker+Smith+LLP+Kitchener+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=22+Water+St+S+Unit+202%2C+Kitchener%2C+ON+N2G+4K4",
-  "website": "https://www.jbslaw.ca",
-  "blurb": "Family Law in Kitchener. Rated 4.7 from 15 Google reviews.",
-  "type": "mono",
-  "initials": "JB",
-  "color": "#4a3a5c",
-  "about": "Jagersky Baker Smith LLP is a law firm in Kitchener, Ontario that practises family law. Clients rate the firm 4.7 out of 5 from 15 public Google reviews. The office is at 22 Water St S Unit 202, Kitchener, ON N2G 4K4, and you can call (226) 646-1010 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Strategic family law advice in Kitchener-Waterloo, Ontario. Divorce, separation, child support and spousal support from a Boutique firm. Book a consultation today.”"
- },
- {
   "name": "Family Law Group",
   "city": "London",
   "featured": false,
@@ -2215,70 +1062,6 @@
   "src": "images/logos/family-law-group-london.webp"
  },
  {
-  "name": "Brown Beattie O'Donovan LLP",
-  "city": "London",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Personal Injury",
-   "Real Estate",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "family",
-   "injury",
-   "realestate",
-   "wills"
-  ],
-  "region": "southwestern",
-  "province": "ON",
-  "lat": 42.9841794,
-  "lng": -81.2444195,
-  "address": "380 Wellington St 16th Floor, London, ON N6A 5B5",
-  "phone": "+15196790400",
-  "rating": 4.5,
-  "count": 116,
-  "slug": "brown-beattie-o-donovan-llp-london",
-  "mapsUrl": "https://www.google.com/maps/search/Brown+Beattie+O%27Donovan+LLP+London+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=380+Wellington+St+16th+Floor%2C+London%2C+ON+N6A+5B5",
-  "website": "https://www.bbo.on.ca",
-  "blurb": "Family Law / Personal Injury in London. Rated 4.5 from 116 Google reviews.",
-  "type": "mono",
-  "initials": "BB",
-  "color": "#35506b",
-  "about": "Brown Beattie O'Donovan LLP is a law firm in London, Ontario that practises family law, personal injury and real estate. Clients rate the firm 4.5 out of 5 from 116 public Google reviews. The office is at 380 Wellington St 16th Floor, London, ON N6A 5B5, and you can call (519) 679-0400 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Brown Beattie O’Donovan LLP is a full-service law firm in London, Ontario, recognized for its high standards of service and expertise in many practice areas.”"
- },
- {
-  "name": "David Fysh Law Office",
-  "city": "London",
-  "featured": false,
-  "tags": [
-   "Wills & Estates",
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "wills",
-   "realestate"
-  ],
-  "region": "southwestern",
-  "province": "ON",
-  "lat": 42.964311,
-  "lng": -81.2904574,
-  "address": "520 Springbank Dr, London, ON N6J 1H3",
-  "phone": "+15194723974",
-  "rating": 4.6,
-  "count": 31,
-  "slug": "david-fysh-law-office-london",
-  "mapsUrl": "https://www.google.com/maps/search/David+Fysh+Law+Office+London+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=520+Springbank+Dr%2C+London%2C+ON+N6J+1H3",
-  "website": "https://www.davidfysh.com",
-  "blurb": "Wills & Estates / Real Estate in London. Rated 4.6 from 31 Google reviews.",
-  "type": "mono",
-  "initials": "DF",
-  "color": "#3a3a1c",
-  "about": "David Fysh Law Office is a law firm in London, Ontario that practises wills and estates and real estate. Clients rate the firm 4.6 out of 5 from 31 public Google reviews. The office is at 520 Springbank Dr, London, ON N6J 1H3, and you can call (519) 472-3974 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
   "name": "Wilhelm Family Law",
   "city": "London",
   "featured": false,
@@ -2304,38 +1087,6 @@
   "type": "logo",
   "about": "Wilhelm Family Law is a law firm in London, Ontario that practises family law. Clients rate the firm 4.5 out of 5 from 31 public Google reviews. The office is at 1555 Glenora Dr Unit #203, London, ON N5X 1V7, and you can call (519) 488-5561 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our family law team focuses on alternative dispute resolution with court as a last resort. Serving London and Southwestern Ontario”",
   "src": "images/logos/wilhelm-family-law-london.webp"
- },
- {
-  "name": "DARR LAW",
-  "city": "London",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates",
-   "Employment Law"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills",
-   "employment"
-  ],
-  "region": "southwestern",
-  "province": "ON",
-  "lat": 42.9811124,
-  "lng": -81.2511519,
-  "address": "341 Talbot St, London, ON N6A 2R5",
-  "phone": "+15483942646",
-  "rating": 5,
-  "count": 16,
-  "slug": "darr-law-london",
-  "mapsUrl": "https://www.google.com/maps/search/DARR+LAW+London+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=341+Talbot+St%2C+London%2C+ON+N6A+2R5",
-  "website": "https://www.darrlaw.ca",
-  "blurb": "Real Estate / Wills & Estates in London. Rated 5.0 from 16 Google reviews.",
-  "type": "mono",
-  "initials": "DA",
-  "color": "#5d5f63",
-  "about": "DARR LAW is a law firm in London, Ontario that practises real estate, wills and estates and employment law. Clients rate the firm 5.0 out of 5 from 16 public Google reviews. The office is at 341 Talbot St, London, ON N6A 2R5, and you can call (548) 394-2646 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “DARR LAW: Ontario real estate lawyers specializing in purchases, sales, refinances and title transfers. Client‑centred service with clear communication, reliable support, and efficient closings for homeowners and investors.”"
  },
  {
   "name": "Fletcher Barrow Law",
@@ -2396,34 +1147,6 @@
   "type": "logo",
   "about": "Family Law Office of Isaac Paonessa is a law firm in London, Ontario that practises family law. Clients rate the firm 5.0 out of 5 from 10 public Google reviews. The office is at 622, 380 Wellington St 6th Floor, London, ON N6A 5B5, and you can call (519) 660-0006 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "src": "images/logos/family-law-office-of-isaac-paonessa-london.png"
- },
- {
-  "name": "Mike Nyhof Family Law",
-  "city": "London",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "southwestern",
-  "province": "ON",
-  "lat": 42.9878186,
-  "lng": -81.2412514,
-  "address": "380 Queens Ave, London, ON N6B 1X6",
-  "phone": "+15196424015",
-  "rating": 4.6,
-  "count": 10,
-  "slug": "mike-nyhof-family-law-london",
-  "mapsUrl": "https://www.google.com/maps/search/Mike+Nyhof+Family+Law+London+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=380+Queens+Ave%2C+London%2C+ON+N6B+1X6",
-  "website": "https://www.nyhoflaw.ca",
-  "blurb": "Family Law in London. Rated 4.6 from 10 Google reviews.",
-  "type": "mono",
-  "initials": "MN",
-  "color": "#4f4a2e",
-  "about": "Mike Nyhof Family Law is a law firm in London, Ontario that practises family law. Clients rate the firm 4.6 out of 5 from 10 public Google reviews. The office is at 380 Queens Ave, London, ON N6B 1X6, and you can call (519) 642-4015 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Mike Nyhof Family Law, based in London, Ontario, provides compassionate and experienced family law services. With nearly 30 years of experience, we specialize in divorce, child custody, spousal support, prenuptial agreements, and more. Schedule a consultation today to discover tailored solutions to...”"
  },
  {
   "name": "AG Law Professional Corporation",
@@ -2519,186 +1242,6 @@
   "src": "images/logos/gunding-and-hans-llp-milton.jpg"
  },
  {
-  "name": "Evan Chang Family Law",
-  "city": "Milton",
-  "featured": false,
-  "tags": [
-   "Family Law"
-  ],
-  "caseTypes": [
-   "family"
-  ],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.50112,
-  "lng": -79.879195,
-  "address": "330 Bronte St. S, Milton, ON L9T 7X1",
-  "phone": "+14164713805",
-  "rating": 4.8,
-  "count": 64,
-  "slug": "evan-chang-family-law-milton",
-  "mapsUrl": "https://www.google.com/maps/search/Evan+Chang+Family+Law+Milton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=330+Bronte+St.+S%2C+Milton%2C+ON+L9T+7X1",
-  "website": "https://www.evanchangfamilylaw.ca",
-  "blurb": "Family Law in Milton. Rated 4.8 from 64 Google reviews.",
-  "type": "mono",
-  "about": "Evan Chang Family Law is a law firm in Milton, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 64 public Google reviews. The office is at 330 Bronte St. S, Milton, ON L9T 7X1, and you can call (416) 471-3805 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Separation and family law lawyer including criminal law matters serving Milton, Ontario and the Greater Toronto area including Halton and Peel.”",
-  "initials": "EC",
-  "color": "#3a3a1c"
- },
- {
-  "name": "Presse Law Offices",
-  "city": "Milton",
-  "featured": false,
-  "tags": [
-   "Real Estate",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "realestate",
-   "wills"
-  ],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.5118085,
-  "lng": -79.8852307,
-  "address": "9 James St, Milton, ON L9T 2P3",
-  "phone": "+19058764656",
-  "rating": 5,
-  "count": 58,
-  "slug": "presse-law-offices-milton",
-  "mapsUrl": "https://www.google.com/maps/search/Presse+Law+Offices+Milton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=9+James+St%2C+Milton%2C+ON+L9T+2P3",
-  "website": "https://www.presselaw.com",
-  "blurb": "Real Estate / Wills & Estates in Milton. Rated 5.0 from 58 Google reviews.",
-  "type": "mono",
-  "initials": "PR",
-  "color": "#5a4636",
-  "about": "Presse Law Offices is a law firm in Milton, Ontario that practises real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 58 public Google reviews. The office is at 9 James St, Milton, ON L9T 2P3, and you can call (905) 876-4656 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Milton, Ontario law firm offering corporate law, estate planning, and real estate legal services. Trusted, experienced lawyers providing reliable guidance for every client.”"
- },
- {
-  "name": "Trinity Law Office",
-  "city": "Milton",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Immigration",
-   "Real Estate"
-  ],
-  "caseTypes": [
-   "family",
-   "immigration",
-   "realestate"
-  ],
-  "region": "waterloo-guelph",
-  "province": "ON",
-  "lat": 43.4859291,
-  "lng": -79.9816227,
-  "address": "42 Main St S Ste 5, Campbellville, ON L0P 1B0",
-  "phone": "+12892704321",
-  "rating": 5,
-  "count": 29,
-  "slug": "trinity-law-office-milton",
-  "mapsUrl": "https://www.google.com/maps/search/Trinity+Law+Office+Milton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=42+Main+St+S+Ste+5%2C+Campbellville%2C+ON+L0P+1B0",
-  "website": "https://trinitylawoffice.ca",
-  "blurb": "Family Law / Immigration in Milton. Rated 5.0 from 29 Google reviews.",
-  "type": "mono",
-  "initials": "TR",
-  "color": "#35506b",
-  "about": "Trinity Law Office is a law firm in Milton, Ontario that practises family law, immigration and real estate. Clients rate the firm 5.0 out of 5 from 29 public Google reviews. The office is at 42 Main St S Ste 5, Campbellville, ON L0P 1B0, and you can call (289) 270-4321 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trinity Law Office (TLO) is a Wills/Estates Administration and Real Estate law firm. At Trinity Law Office, we diligently protect our clients’ interests by reviewing and interpreting the laws applicable to your various circumstances so that you can make informed decisions.”"
- },
- {
-  "name": "LAW DOCK LLP",
-  "city": "Milton",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Real Estate",
-   "Civil Litigation"
-  ],
-  "caseTypes": [
-   "family",
-   "realestate",
-   "litigation"
-  ],
-  "region": "peel-halton",
-  "province": "ON",
-  "lat": 43.4996037,
-  "lng": -79.8769772,
-  "address": "450 Bronte St. S Ste 211, Milton, ON L9T 8T2",
-  "phone": "+19058078154",
-  "rating": 4.8,
-  "count": 26,
-  "slug": "law-dock-llp-milton",
-  "mapsUrl": "https://www.google.com/maps/search/LAW+DOCK+LLP+Milton+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=450+Bronte+St.+S+Ste+211%2C+Milton%2C+ON+L9T+8T2",
-  "website": "https://www.lawdock.ca",
-  "blurb": "Family Law / Real Estate in Milton. Rated 4.8 from 26 Google reviews.",
-  "type": "mono",
-  "initials": "DO",
-  "color": "#5a4636",
-  "about": "LAW DOCK LLP is a law firm in Milton, Ontario that practises family law, real estate and civil litigation. Clients rate the firm 4.8 out of 5 from 26 public Google reviews. The office is at 450 Bronte St. S Ste 211, Milton, ON L9T 8T2, and you can call (905) 807-8154 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Law Dock LLP offers comprehensive legal services | Real Estate Law | Personal Injury | Wills & Estates | Family Law, your trusted legal anchor for all inquiries”"
- },
- {
-  "name": "Epstein & Associates",
-  "city": "Newmarket",
-  "featured": false,
-  "tags": [
-   "Family Law",
-   "Criminal Defence",
-   "Real Estate",
-   "Wills & Estates"
-  ],
-  "caseTypes": [
-   "family",
-   "criminal",
-   "realestate",
-   "wills"
-  ],
-  "region": "york-durham",
-  "province": "ON",
-  "lat": 44.0481533,
-  "lng": -79.467603,
-  "address": "235 Eagle St, Newmarket, ON L3Y 1J8",
-  "phone": "+19058982266",
-  "rating": 4.5,
-  "count": 322,
-  "slug": "epstein-and-associates-newmarket",
-  "mapsUrl": "https://www.google.com/maps/search/Epstein+%26+Associates+Newmarket+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=235+Eagle+St%2C+Newmarket%2C+ON+L3Y+1J8",
-  "website": "https://www.epsteinlawyers.com",
-  "blurb": "Family Law / Criminal Defence in Newmarket. Rated 4.5 from 322 Google reviews.",
-  "type": "mono",
-  "initials": "EA",
-  "color": "#5a4636",
-  "about": "Epstein & Associates is a law firm in Newmarket, Ontario that practises family law, criminal defence and real estate. Clients rate the firm 4.5 out of 5 from 322 public Google reviews. The office is at 235 Eagle St, Newmarket, ON L3Y 1J8, and you can call (905) 898-2266 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
-  "name": "Sharma Law",
-  "city": "Newmarket",
-  "featured": false,
-  "tags": [],
-  "caseTypes": [],
-  "region": "york-durham",
-  "province": "ON",
-  "lat": 44.0531813,
-  "lng": -79.4570062,
-  "address": "205 Main St S, Newmarket, ON L3Y 6M7",
-  "phone": "+16478494818",
-  "rating": 4.9,
-  "count": 261,
-  "slug": "sharma-law-newmarket",
-  "mapsUrl": "https://www.google.com/maps/search/Sharma+Law+Newmarket+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=205+Main+St+S%2C+Newmarket%2C+ON+L3Y+6M7",
-  "website": "http://www.vsharmalaw.ca",
-  "blurb": "Law firm in Newmarket. Rated 4.9 from 261 Google reviews.",
-  "type": "mono",
-  "initials": "SH",
-  "color": "#3a3a1c",
-  "about": "Sharma Law is a law firm in Newmarket, Ontario. Clients rate the firm 4.9 out of 5 from 261 public Google reviews. The office is at 205 Main St S, Newmarket, ON L3Y 6M7, and you can call (647) 849-4818 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
- },
- {
   "name": "Galbraith Family Law",
   "city": "Newmarket",
   "featured": false,
@@ -2724,38 +1267,6 @@
   "type": "logo",
   "about": "Galbraith Family Law is a law firm in Newmarket, Ontario that practises family law. Clients rate the firm 4.5 out of 5 from 128 public Google reviews. The office is at 1195 Stellar Dr #4, Newmarket, ON L3Y 7B8, and you can call (289) 319-0634 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Galbraith Family Law is a team of family and divorce lawyers serving Barrie, Newmarket, Oakville and St. Catharines the surrounding areas. Contact our caring lawyers today for a consultation.”",
   "src": "images/logos/galbraith-family-law-newmarket.png"
- },
- {
-  "name": "Pazuki Law Group",
-  "city": "Newmarket",
-  "featured": false,
-  "tags": [
-   "Criminal Defence",
-   "Civil Litigation",
-   "Personal Injury"
-  ],
-  "caseTypes": [
-   "criminal",
-   "litigation",
-   "injury"
-  ],
-  "region": "york-durham",
-  "province": "ON",
-  "lat": 44.0531399,
-  "lng": -79.4571885,
-  "address": "205 Main St S, Newmarket, ON L3Y 3Y9",
-  "phone": "+19055084878",
-  "rating": 4.9,
-  "count": 117,
-  "slug": "pazuki-law-group-newmarket",
-  "mapsUrl": "https://www.google.com/maps/search/Pazuki+Law+Group+Newmarket+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=205+Main+St+S%2C+Newmarket%2C+ON+L3Y+3Y9",
-  "website": "https://pazukilaw.com",
-  "blurb": "Criminal Defence / Civil Litigation in Newmarket. Rated 4.9 from 117 Google reviews.",
-  "type": "mono",
-  "initials": "PG",
-  "color": "#2e4a43",
-  "about": "Pazuki Law Group is a law firm in Newmarket, Ontario that practises criminal defence, civil litigation and personal injury. Clients rate the firm 4.9 out of 5 from 117 public Google reviews. The office is at 205 Main St S, Newmarket, ON L3Y 3Y9, and you can call (905) 508-4878 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
  },
  {
   "name": "Dunsmuir Ridler",
@@ -2816,8 +1327,122 @@
   "src": "images/logos/bpc-personal-injury-lawyer-newmarket.png"
  },
  {
-  "name": "Curtis Mcminn",
-  "city": "Newmarket",
+  "name": "Kelly Greenway Bruce",
+  "city": "Oshawa",
+  "featured": false,
+  "tags": [
+   "Criminal Defence",
+   "Personal Injury",
+   "Wills & Estates",
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "criminal",
+   "injury",
+   "wills",
+   "employment"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.898562,
+  "lng": -78.859394,
+  "address": "114 King, Oshawa, ON L1H 1B6",
+  "phone": "+19057232278",
+  "rating": 4.6,
+  "count": 138,
+  "slug": "kelly-greenway-bruce-oshawa",
+  "mapsUrl": "https://www.google.com/maps/search/Kelly+Greenway+Bruce+Oshawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=114+King%2C+Oshawa%2C+ON+L1H+1B6",
+  "website": "https://www.oshawalawyers.com",
+  "blurb": "Criminal Defence / Personal Injury in Oshawa. Rated 4.6 from 138 Google reviews.",
+  "type": "logo",
+  "about": "Kelly Greenway Bruce is a law firm in Oshawa, Ontario that practises criminal defence, personal injury and wills and estates. Clients rate the firm 4.6 out of 5 from 138 public Google reviews. The office is at 114 King, Oshawa, ON L1H 1B6, and you can call (905) 723-2278 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Kelly Greenway Bruce in Oshawa is the expert law firm for legal advice in personal injury, real estate, and more. Contact us for a consultation.”",
+  "src": "images/logos/kelly-greenway-bruce-oshawa.png"
+ },
+ {
+  "name": "Alibhai Law Professional Corporation",
+  "city": "Oshawa",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.9343023,
+  "lng": -78.8668323,
+  "address": "285 Taunton Rd E #207, Oshawa, ON L1G 3V2",
+  "phone": "+13654424816",
+  "rating": 5,
+  "count": 44,
+  "slug": "alibhai-law-professional-corporation-oshawa",
+  "mapsUrl": "https://www.google.com/maps/search/Alibhai+Law+Professional+Corporation+Oshawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=285+Taunton+Rd+E+%23207%2C+Oshawa%2C+ON+L1G+3V2",
+  "website": "https://alibhailaw.com",
+  "blurb": "Family Law in Oshawa. Rated 5.0 from 44 Google reviews.",
+  "type": "logo",
+  "about": "Alibhai Law Professional Corporation is a law firm in Oshawa, Ontario that practises family law. Clients rate the firm 5.0 out of 5 from 44 public Google reviews. The office is at 285 Taunton Rd E #207, Oshawa, ON L1G 3V2, and you can call (365) 442-4816 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trusted family & divorce lawyer serving Durham Region. Compassionate, experienced help with custody, support & property division. Book a consultation today.”",
+  "src": "images/logos/alibhai-law-professional-corporation-oshawa.webp"
+ },
+ {
+  "name": "Moss Law Professional Corporation",
+  "city": "Oshawa",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.9335157,
+  "lng": -78.8663964,
+  "address": "285 Taunton Rd E Ste 205, Oshawa, ON L1G 3V2",
+  "phone": "+19052407050",
+  "rating": 5,
+  "count": 26,
+  "slug": "moss-law-professional-corporation-oshawa",
+  "mapsUrl": "https://www.google.com/maps/search/Moss+Law+Professional+Corporation+Oshawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=285+Taunton+Rd+E+Ste+205%2C+Oshawa%2C+ON+L1G+3V2",
+  "website": "https://www.mosslawoffice.ca",
+  "blurb": "Family Law in Oshawa. Rated 5.0 from 26 Google reviews.",
+  "type": "logo",
+  "about": "Moss Law Professional Corporation is a law firm in Oshawa, Ontario that practises family law. Clients rate the firm 5.0 out of 5 from 26 public Google reviews. The office is at 285 Taunton Rd E Ste 205, Oshawa, ON L1G 3V2, and you can call (905) 240-7050 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trusted family lawyer in Oshawa & Durham Region. Moss Law helps with divorce, custody & access, child support, spousal support & property division. Call today!”",
+  "src": "images/logos/moss-law-professional-corporation-oshawa.png"
+ },
+ {
+  "name": "Walker Legal",
+  "city": "Ottawa",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "eastern",
+  "province": "ON",
+  "lat": 45.4204818,
+  "lng": -75.6928242,
+  "address": "150 Elgin St 10th Floor, Ottawa, ON K2P 1L4",
+  "phone": "+16132289742",
+  "rating": 4.7,
+  "count": 16,
+  "slug": "walker-legal-ottawa",
+  "mapsUrl": "https://www.google.com/maps/search/Walker+Legal+Ottawa+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=150+Elgin+St+10th+Floor%2C+Ottawa%2C+ON+K2P+1L4",
+  "website": "https://walkerlegal.ca",
+  "blurb": "Family Law in Ottawa. Rated 4.7 from 16 Google reviews.",
+  "type": "logo",
+  "about": "Walker Legal is a law firm in Ottawa, Ontario that practises family law. Clients rate the firm 4.7 out of 5 from 16 public Google reviews. The office is at 150 Elgin St 10th Floor, Ottawa, ON K2P 1L4, and you can call (613) 228-9742 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Need an employment or family lawyer in Ottawa? Walker Legal offers strategic legal guidance for divorce, custody, wrongful dismissal, and workplace disputes. Book a free 30-minute consultation today.”",
+  "src": "images/logos/walker-legal-ottawa.webp"
+ },
+ {
+  "name": "Rajasingam Law Professional Corporation",
+  "city": "Pickering",
   "featured": false,
   "tags": [
    "Real Estate"
@@ -2825,55 +1450,392 @@
   "caseTypes": [
    "realestate"
   ],
-  "region": "york-durham",
+  "region": "toronto",
   "province": "ON",
-  "lat": 44.0707473,
-  "lng": -79.431137,
-  "address": "17665 Leslie St Unit 46, Newmarket, ON L3Y 3E3",
-  "phone": "+19058951985",
-  "rating": 4.9,
-  "count": 34,
-  "slug": "curtis-mcminn-newmarket",
-  "mapsUrl": "https://www.google.com/maps/search/Curtis+Mcminn+Newmarket+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=17665+Leslie+St+Unit+46%2C+Newmarket%2C+ON+L3Y+3E3",
-  "website": "https://www.mcminnlaw.ca",
-  "blurb": "Real Estate in Newmarket. Rated 4.9 from 34 Google reviews.",
-  "type": "mono",
-  "initials": "CM",
-  "color": "#5c3a3a",
-  "about": "Curtis Mcminn is a law firm in Newmarket, Ontario that practises real estate. Clients rate the firm 4.9 out of 5 from 34 public Google reviews. The office is at 17665 Leslie St Unit 46, Newmarket, ON L3Y 3E3, and you can call (905) 895-1985 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “At Curtis McMinn Law Office, we specialize in residential real estate transactions, including purchases, sales and mortgage refinances. We also provide estate services including preparation of...”"
+  "lat": 43.8085007,
+  "lng": -79.1302875,
+  "address": "345 Kingston Rd #307, Pickering, ON L1V 1A1",
+  "phone": "+19055093919",
+  "rating": 5,
+  "count": 76,
+  "slug": "rajasingam-law-professional-corporation-pickering",
+  "mapsUrl": "https://www.google.com/maps/search/Rajasingam+Law+Professional+Corporation+Pickering+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=345+Kingston+Rd+%23307%2C+Pickering%2C+ON+L1V+1A1",
+  "website": "https://rajasingamlaw.ca",
+  "blurb": "Real Estate in Pickering. Rated 5.0 from 76 Google reviews.",
+  "type": "logo",
+  "about": "Rajasingam Law Professional Corporation is a law firm in Pickering, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 76 public Google reviews. The office is at 345 Kingston Rd #307, Pickering, ON L1V 1A1, and you can call (905) 509-3919 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/rajasingam-law-professional-corporation-pickering.webp"
  },
  {
-  "name": "Daniella Guido, Barrister & Solicitor",
-  "city": "Newmarket",
+  "name": "Mahin Law",
+  "city": "Pickering",
   "featured": false,
   "tags": [
-   "Criminal Defence"
+   "Family Law",
+   "Litigation"
   ],
   "caseTypes": [
-   "criminal"
+   "family",
+   "litigation"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.8332401,
+  "lng": -79.0880272,
+  "address": "1315 Pickering Pkwy Ste 204, Pickering, ON L1V 7G5",
+  "phone": "+16472549424",
+  "rating": 5,
+  "count": 65,
+  "slug": "mahin-law-pickering",
+  "mapsUrl": "https://www.google.com/maps/search/Mahin+Law+Pickering+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1315+Pickering+Pkwy+Ste+204%2C+Pickering%2C+ON+L1V+7G5",
+  "website": "https://mahinlaw.ca",
+  "blurb": "Family Law / Litigation in Pickering. Rated 5.0 from 65 Google reviews.",
+  "type": "logo",
+  "about": "Mahin Law is a law firm in Pickering, Ontario that practises family and litigation. Clients rate the firm 5.0 out of 5 from 65 public Google reviews. The office is at 1315 Pickering Pkwy Ste 204, Pickering, ON L1V 7G5, and you can call (647) 254-9424 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Your Trusted Family Law Advocates in the Greater Toronto Area: Book an Initial Consult. At Mahin Law, we understand that legal matters are complex and overwhelming”",
+  "src": "images/logos/mahin-law-pickering.png"
+ },
+ {
+  "name": "Tandem Law Professional Corporation",
+  "city": "Pickering",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.8332401,
+  "lng": -79.0880272,
+  "address": "1315 Pickering Pkwy Suite 200, Pickering, ON L1V 0C4",
+  "phone": "+12896609720",
+  "rating": 5,
+  "count": 56,
+  "slug": "tandem-law-professional-corporation-pickering",
+  "mapsUrl": "https://www.google.com/maps/search/Tandem+Law+Professional+Corporation+Pickering+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1315+Pickering+Pkwy+Suite+200%2C+Pickering%2C+ON+L1V+0C4",
+  "website": "https://www.tandemlawpc.com",
+  "blurb": "Real Estate in Pickering. Rated 5.0 from 56 Google reviews.",
+  "type": "logo",
+  "about": "Tandem Law Professional Corporation is a law firm in Pickering, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 56 public Google reviews. The office is at 1315 Pickering Pkwy Suite 200, Pickering, ON L1V 0C4, and you can call (289) 660-9720 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/tandem-law-professional-corporation-pickering.png"
+ },
+ {
+  "name": "U. OKEBUGWU LAW",
+  "city": "Pickering",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Immigration",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "immigration",
+   "wills",
+   "business"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.833094,
+  "lng": -79.088424,
+  "address": "1305 Pickering Pkwy #202, Pickering, ON L1V 3P2",
+  "phone": "+19058394871",
+  "rating": 4.7,
+  "count": 59,
+  "slug": "u-okebugwu-law-pickering",
+  "mapsUrl": "https://www.google.com/maps/search/U.+OKEBUGWU+LAW+Pickering+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1305+Pickering+Pkwy+%23202%2C+Pickering%2C+ON+L1V+3P2",
+  "website": "https://okebugwulaw.com",
+  "blurb": "Real Estate / Immigration in Pickering. Rated 4.7 from 59 Google reviews.",
+  "type": "logo",
+  "about": "U. OKEBUGWU LAW is a law firm in Pickering, Ontario that practises real estate, immigration and wills and estates. Clients rate the firm 4.7 out of 5 from 59 public Google reviews. The office is at 1305 Pickering Pkwy #202, Pickering, ON L1V 3P2, and you can call (905) 839-4871 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Welcome! Proudly Serving Durham Region and the GTA UO Law is proud to serve clients across Durham Region, Toronto, and beyond. Based in Pickering, our boutique law firm offers trusted legal services in real estate, immigration, business,”",
+  "src": "images/logos/u-okebugwu-law-pickering.png"
+ },
+ {
+  "name": "Fortelex Legal",
+  "city": "Pickering",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "realestate",
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.8330938,
+  "lng": -79.0884243,
+  "address": "1305 Pickering Pkwy Unit 201, Pickering, ON L1V 3P2",
+  "phone": "+12896604885",
+  "rating": 5,
+  "count": 45,
+  "slug": "fortelex-legal-pickering",
+  "mapsUrl": "https://www.google.com/maps/search/Fortelex+Legal+Pickering+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1305+Pickering+Pkwy+Unit+201%2C+Pickering%2C+ON+L1V+3P2",
+  "website": "https://fortelexlegal.com",
+  "blurb": "Family Law / Immigration in Pickering. Rated 5.0 from 45 Google reviews.",
+  "type": "logo",
+  "about": "Fortelex Legal is a law firm in Pickering, Ontario that practises family law, immigration and real estate. Clients rate the firm 5.0 out of 5 from 45 public Google reviews. The office is at 1305 Pickering Pkwy Unit 201, Pickering, ON L1V 3P2, and you can call (289) 660-4885 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/fortelex-legal-pickering.png"
+ },
+ {
+  "name": "Abrahams Law Professional Corporation",
+  "city": "Pickering",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates",
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills",
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.8275084,
+  "lng": -79.0919317,
+  "address": "1235 Bayly St Unit 13, Pickering, ON L1W 1L7",
+  "phone": "+19052502220",
+  "rating": 4.8,
+  "count": 29,
+  "slug": "abrahams-law-professional-corporation-pickering",
+  "mapsUrl": "https://www.google.com/maps/search/Abrahams+Law+Professional+Corporation+Pickering+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1235+Bayly+St+Unit+13%2C+Pickering%2C+ON+L1W+1L7",
+  "website": "https://www.abrahamsatlaw.com",
+  "blurb": "Family Law / Real Estate in Pickering. Rated 4.8 from 29 Google reviews.",
+  "type": "logo",
+  "about": "Abrahams Law Professional Corporation is a law firm in Pickering, Ontario that practises family, real estate and wills and estates. Clients rate the firm 4.8 out of 5 from 29 public Google reviews. The office is at 1235 Bayly St Unit 13, Pickering, ON L1W 1L7, and you can call (905) 250-2220 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Abrahams Law Professional Corporation — 75+ combined years of legal experience in real estate, immigration, family law, wills & estates, personal injury, and notary services across Durham Region and GTA.”",
+  "src": "images/logos/abrahams-law-professional-corporation-pickering.png"
+ },
+ {
+  "name": "Jolanta Bula & Associates",
+  "city": "St. Catharines",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "wills"
+  ],
+  "region": "hamilton-niagara",
+  "province": "ON",
+  "lat": 43.1594391,
+  "lng": -79.2481545,
+  "address": "43 Church St #304, St. Catharines, ON L2R 7E1",
+  "phone": "+19059385480",
+  "rating": 4.5,
+  "count": 75,
+  "slug": "jolanta-bula-and-associates-st-catharines",
+  "mapsUrl": "https://www.google.com/maps/search/Jolanta+Bula+%26+Associates+St.+Catharines+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=43+Church+St+%23304%2C+St.+Catharines%2C+ON+L2R+7E1",
+  "website": "https://www.jolantabulalaw.com",
+  "blurb": "Family Law / Wills & Estates in St. Catharines. Rated 4.5 from 75 Google reviews.",
+  "type": "logo",
+  "about": "Jolanta Bula & Associates is a law firm in St. Catharines, Ontario that practises family law and wills and estates. Clients rate the firm 4.5 out of 5 from 75 public Google reviews. The office is at 43 Church St #304, St. Catharines, ON L2R 7E1, and you can call (905) 938-5480 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trusted law firm in St. Catharines serving the Niagara Region. Jolanta Bula & Associates offers Family Law, Wills & Estate, Civil, and Criminal Law services.”",
+  "src": "images/logos/jolanta-bula-and-associates-st-catharines.png"
+ },
+ {
+  "name": "Carrel + Partners LLP Law Firm",
+  "city": "Thunder Bay",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates",
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills",
+   "employment"
+  ],
+  "region": "northern",
+  "province": "ON",
+  "lat": 48.4040451,
+  "lng": -89.2576675,
+  "address": "1100 Roland St Ste 1, Thunder Bay, ON P7B 5M4",
+  "phone": "+18073463000",
+  "rating": 4.6,
+  "count": 10,
+  "slug": "carrel-partners-llp-law-firm-thunder-bay",
+  "mapsUrl": "https://www.google.com/maps/search/Carrel+%2B+Partners+LLP+Law+Firm+Thunder+Bay+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1100+Roland+St+Ste+1%2C+Thunder+Bay%2C+ON+P7B+5M4",
+  "website": "https://www.carrel.com",
+  "blurb": "Family Law / Real Estate in Thunder Bay. Rated 4.6 from 10 Google reviews.",
+  "type": "logo",
+  "about": "Carrel + Partners LLP Law Firm is a law firm in Thunder Bay, Ontario that practises family law, real estate and wills and estates. Clients rate the firm 4.6 out of 5 from 10 public Google reviews. The office is at 1100 Roland St Ste 1, Thunder Bay, ON P7B 5M4, and you can call (807) 346-3000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our mission is to provide our clients with knowledgeable, in-depth legal guidance and service in a timely manner and at a reasonable price.”",
+  "src": "images/logos/carrel-partners-llp-law-firm-thunder-bay.jpg"
+ },
+ {
+  "name": "GB LAW PROFESSIONAL CORPORATION",
+  "city": "Vaughan",
+  "featured": false,
+  "tags": [
+   "Personal Injury"
+  ],
+  "caseTypes": [
+   "injury"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7900662,
+  "lng": -79.5470254,
+  "address": "7777 Weston Rd Unit 162, Vaughan, ON L4L 0G8",
+  "phone": "+18773342529",
+  "rating": 5,
+  "count": 636,
+  "slug": "gb-law-professional-corporation-vaughan",
+  "mapsUrl": "https://www.google.com/maps/search/GB+LAW+PROFESSIONAL+CORPORATION+Vaughan+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=7777+Weston+Rd+Unit+162%2C+Vaughan%2C+ON+L4L+0G8",
+  "website": "https://www.gblawpc.com",
+  "blurb": "Personal Injury in Vaughan. Rated 5.0 from 636 Google reviews.",
+  "type": "logo",
+  "about": "GB LAW PROFESSIONAL CORPORATION is a law firm in Vaughan, Ontario that practises personal injury. Clients rate the firm 5.0 out of 5 from 636 public Google reviews. The office is at 7777 Weston Rd Unit 162, Vaughan, ON L4L 0G8, and you can call (877) 334-2529 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Welcome to GB Law, your dedicated team of legal experts committed to providing unparalleled legal services. With a steadfast commitment to excellence, trust us to guide you through the complexities of the legal system with expertise and care.”",
+  "src": "images/logos/gb-law-professional-corporation-vaughan.png"
+ },
+ {
+  "name": "Bhardwaj Law Professional Corporation",
+  "city": "Vaughan",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Criminal Defence",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "criminal",
+   "realestate"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7701067,
+  "lng": -79.6215222,
+  "address": "7500 Hwy 27 Unit 18, Vaughan, ON L4H 0J2",
+  "phone": "+14167477777",
+  "rating": 4.9,
+  "count": 135,
+  "slug": "bhardwaj-law-professional-corporation-vaughan",
+  "mapsUrl": "https://www.google.com/maps/search/Bhardwaj+Law+Professional+Corporation+Vaughan+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=7500+Hwy+27+Unit+18%2C+Vaughan%2C+ON+L4H+0J2",
+  "website": "https://www.bblaw.ca",
+  "blurb": "Family Law / Immigration in Vaughan. Rated 4.9 from 135 Google reviews.",
+  "type": "logo",
+  "about": "Bhardwaj Law Professional Corporation is a law firm in Vaughan, Ontario that practises family law, immigration and criminal defence. Clients rate the firm 4.9 out of 5 from 135 public Google reviews. The office is at 7500 Hwy 27 Unit 18, Vaughan, ON L4H 0J2, and you can call (416) 747-7777 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/bhardwaj-law-professional-corporation-vaughan.png"
+ },
+ {
+  "name": "Mazzeo Law Barristers & Solicitors",
+  "city": "Vaughan",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "wills"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.7965885,
+  "lng": -79.5444407,
+  "address": "240 Chrislea Rd Ste 100, Vaughan, ON L4L 8A8",
+  "phone": "+19058515909",
+  "rating": 4.8,
+  "count": 123,
+  "slug": "mazzeo-law-barristers-and-solicitors-vaughan",
+  "mapsUrl": "https://www.google.com/maps/search/Mazzeo+Law+Barristers+%26+Solicitors+Vaughan+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=240+Chrislea+Rd+Ste+100%2C+Vaughan%2C+ON+L4L+8A8",
+  "website": "https://www.mazzeolaw.ca",
+  "blurb": "Family Law / Wills & Estates in Vaughan. Rated 4.8 from 123 Google reviews.",
+  "type": "logo",
+  "about": "Mazzeo Law Barristers & Solicitors is a law firm in Vaughan, Ontario that practises family law and wills and estates. Clients rate the firm 4.8 out of 5 from 123 public Google reviews. The office is at 240 Chrislea Rd Ste 100, Vaughan, ON L4L 8A8, and you can call (905) 851-5909 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/mazzeo-law-barristers-and-solicitors-vaughan.png"
+ },
+ {
+  "name": "Di Vito Law",
+  "city": "Vaughan",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.8104889,
+  "lng": -79.5513609,
+  "address": "8611 Weston Rd Unit 22, Vaughan, ON L4L 9P1",
+  "phone": "+12893040856",
+  "rating": 5,
+  "count": 107,
+  "slug": "di-vito-law-vaughan",
+  "mapsUrl": "https://www.google.com/maps/search/Di+Vito+Law+Vaughan+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8611+Weston+Rd+Unit+22%2C+Vaughan%2C+ON+L4L+9P1",
+  "website": "https://www.divitolaw.ca",
+  "blurb": "Family Law in Vaughan. Rated 5.0 from 107 Google reviews.",
+  "type": "logo",
+  "about": "Di Vito Law is a law firm in Vaughan, Ontario that practises family law. Clients rate the firm 5.0 out of 5 from 107 public Google reviews. The office is at 8611 Weston Rd Unit 22, Vaughan, ON L4L 9P1, and you can call (289) 304-0856 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Di Vito Law in Concord, Ontario specializes in Family Law, Estate Planning, Estate Litigation and Business Incorporations”",
+  "src": "images/logos/di-vito-law-vaughan.jpg"
+ },
+ {
+  "name": "Sutherland Law",
+  "city": "Vaughan",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Litigation",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "litigation",
+   "wills"
   ],
   "region": "york-durham",
   "province": "ON",
-  "lat": 44.0369857,
-  "lng": -79.4748888,
-  "address": "16775 Yonge St Ste 300, Newmarket, ON L3Y 8J4",
-  "phone": "+18885506265",
-  "rating": 5,
-  "count": 26,
-  "slug": "daniella-guido-barrister-and-solicitor-newmarket",
-  "mapsUrl": "https://www.google.com/maps/search/Daniella+Guido%2C+Barrister+%26+Solicitor+Newmarket+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=16775+Yonge+St+Ste+300%2C+Newmarket%2C+ON+L3Y+8J4",
-  "website": "https://www.daniellaguidolaw.ca",
-  "blurb": "Criminal Defence in Newmarket. Rated 5.0 from 26 Google reviews.",
-  "type": "mono",
-  "initials": "DG",
-  "color": "#2e4a43",
-  "about": "Daniella Guido, Barrister & Solicitor is a law firm in Newmarket, Ontario that practises criminal defence. Clients rate the firm 5.0 out of 5 from 26 public Google reviews. The office is at 16775 Yonge St Ste 300, Newmarket, ON L3Y 8J4, and you can call (888) 550-6265 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Daniella Guido, Barrister & Solicitor is a Newmarket criminal defence lawyer, committed to access to justice, inclusion, indigenous and mental health advocacy.”"
+  "lat": 43.8510861,
+  "lng": -79.5517964,
+  "address": "169 Cityview Blvd, Vaughan, ON L4H 5A4",
+  "phone": "+19056955500",
+  "rating": 4.5,
+  "count": 60,
+  "slug": "sutherland-law-vaughan",
+  "mapsUrl": "https://www.google.com/maps/search/Sutherland+Law+Vaughan+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=169+Cityview+Blvd%2C+Vaughan%2C+ON+L4H+5A4",
+  "website": "https://sutherlaw.ca",
+  "blurb": "Family Law / Real Estate in Vaughan. Rated 4.5 from 60 Google reviews.",
+  "type": "logo",
+  "about": "Sutherland Law is a law firm in Vaughan, Ontario that practises family, real estate and litigation. Clients rate the firm 4.5 out of 5 from 60 public Google reviews. The office is at 169 Cityview Blvd, Vaughan, ON L4H 5A4, and you can call (905) 695-5500 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Sutherland Law is a full-service law firm in Vaughan, Ontario, offering legal services in family law, business law, real estate, litigation, and more. Serving the GTA since 1989.”",
+  "src": "images/logos/sutherland-law-vaughan.png"
  },
  {
-  "name": "Dana Dyment",
-  "city": "Newmarket",
+  "name": "Michelle Iezzi, Barrister & Solicitor",
+  "city": "Vaughan",
   "featured": false,
   "tags": [
    "Real Estate",
@@ -2883,27 +1845,80 @@
    "realestate",
    "wills"
   ],
-  "region": "york-durham",
+  "region": "toronto",
   "province": "ON",
-  "lat": 44.0546154,
-  "lng": -79.4580226,
-  "address": "145 Main St S, Newmarket, ON L3Y 3Y9",
-  "phone": "+19058986121",
-  "rating": 4.8,
-  "count": 21,
-  "slug": "dana-dyment-newmarket",
-  "mapsUrl": "https://www.google.com/maps/search/Dana+Dyment+Newmarket+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=145+Main+St+S%2C+Newmarket%2C+ON+L3Y+3Y9",
-  "website": "https://www.danadyment.com",
-  "blurb": "Real Estate / Wills & Estates in Newmarket. Rated 4.8 from 21 Google reviews.",
-  "type": "mono",
-  "initials": "DD",
-  "color": "#35506b",
-  "about": "Dana Dyment is a law firm in Newmarket, Ontario that practises real estate and wills and estates. Clients rate the firm 4.8 out of 5 from 21 public Google reviews. The office is at 145 Main St S, Newmarket, ON L3Y 3Y9, and you can call (905) 898-6121 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "lat": 43.8040112,
+  "lng": -79.5407355,
+  "address": "400 Applewood Crescent Ste 100, Vaughan, ON L4K 0C3",
+  "phone": "+16478237330",
+  "rating": 5,
+  "count": 50,
+  "slug": "michelle-iezzi-barrister-and-solicitor-vaughan",
+  "mapsUrl": "https://www.google.com/maps/search/Michelle+Iezzi%2C+Barrister+%26+Solicitor+Vaughan+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=400+Applewood+Crescent+Ste+100%2C+Vaughan%2C+ON+L4K+0C3",
+  "website": "https://www.michelleiezzilaw.com",
+  "blurb": "Real Estate / Wills & Estates in Vaughan. Rated 5.0 from 50 Google reviews.",
+  "type": "logo",
+  "about": "Michelle Iezzi, Barrister & Solicitor is a law firm in Vaughan, Ontario that practises real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 50 public Google reviews. The office is at 400 Applewood Crescent Ste 100, Vaughan, ON L4K 0C3, and you can call (647) 823-7330 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Whether buying, selling or refinancing your property, our firm can help. Michelle Iezzi is dedicated to providing her clients with high quality and professional legal services that are both personalized and cost-effective. She will assist you with all your real estate needs.”",
+  "src": "images/logos/michelle-iezzi-barrister-and-solicitor-vaughan.png"
  },
  {
-  "name": "CL Burchett Professional Corporation dba Burchett Law",
-  "city": "Newmarket",
+  "name": "Caspersz Chegini LLP",
+  "city": "Vaughan",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "toronto",
+  "province": "ON",
+  "lat": 43.831248,
+  "lng": -79.533534,
+  "address": "3100 Rutherford Rd #101, Vaughan, ON L4K 0G6",
+  "phone": "+12898091358",
+  "rating": 4.9,
+  "count": 35,
+  "slug": "caspersz-chegini-llp-vaughan",
+  "mapsUrl": "https://www.google.com/maps/search/Caspersz+Chegini+LLP+Vaughan+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3100+Rutherford+Rd+%23101%2C+Vaughan%2C+ON+L4K+0G6",
+  "website": "https://www.ccfamilylaw.ca",
+  "blurb": "Family Law in Vaughan. Rated 4.9 from 35 Google reviews.",
+  "type": "logo",
+  "about": "Caspersz Chegini LLP is a law firm in Vaughan, Ontario that practises family law. Clients rate the firm 4.9 out of 5 from 35 public Google reviews. The office is at 3100 Rutherford Rd #101, Vaughan, ON L4K 0G6, and you can call (289) 809-1358 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Seeking a family lawyer in Vaughan? Caspersz Chegini LLP offers unparalleled legal expertise & compassionate support tailored to your unique situation. Call us.”",
+  "src": "images/logos/caspersz-chegini-llp-vaughan.webp"
+ },
+ {
+  "name": "Robin Anderson Barrister and Solicitor",
+  "city": "Waterloo",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "waterloo-guelph",
+  "province": "ON",
+  "lat": 43.4973751,
+  "lng": -80.5472313,
+  "address": "180 Northfield Dr W #4, Waterloo, ON N2L 0C7",
+  "phone": "+15197727620",
+  "rating": 4.9,
+  "count": 65,
+  "slug": "robin-anderson-barrister-and-solicitor-waterloo",
+  "mapsUrl": "https://www.google.com/maps/search/Robin+Anderson+Barrister+and+Solicitor+Waterloo+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=180+Northfield+Dr+W+%234%2C+Waterloo%2C+ON+N2L+0C7",
+  "website": "https://www.robinanderson.law",
+  "blurb": "Employment Law in Waterloo. Rated 4.9 from 65 Google reviews.",
+  "type": "logo",
+  "about": "Robin Anderson Barrister and Solicitor is a law firm in Waterloo, Ontario that practises employment law. Clients rate the firm 4.9 out of 5 from 65 public Google reviews. The office is at 180 Northfield Dr W #4, Waterloo, ON N2L 0C7, and you can call (519) 772-7620 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Robin Anderson, Barrister & Solicitor in Waterloo, Ontario. Contact me to help resolve your employment law issue — wrongful/constructive dismissal claims, discrimination & harassment claims, severance package review, and employment contract review.”",
+  "src": "images/logos/robin-anderson-barrister-and-solicitor-waterloo.png"
+ },
+ {
+  "name": "Clarke & Co.",
+  "city": "Waterloo",
   "featured": false,
   "tags": [
    "Real Estate"
@@ -2911,22 +1926,1362 @@
   "caseTypes": [
    "realestate"
   ],
+  "region": "waterloo-guelph",
+  "province": "ON",
+  "lat": 43.49452,
+  "lng": -80.53725,
+  "address": "490 Dutton Dr B5, Waterloo, ON N2L 6H7",
+  "phone": "+15197252929",
+  "rating": 5,
+  "count": 44,
+  "slug": "clarke-and-co-waterloo",
+  "mapsUrl": "https://www.google.com/maps/search/Clarke+%26+Co.+Waterloo+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=490+Dutton+Dr+B5%2C+Waterloo%2C+ON+N2L+6H7",
+  "website": "https://clarkeco.law",
+  "blurb": "Real Estate in Waterloo. Rated 5.0 from 44 Google reviews.",
+  "type": "logo",
+  "about": "Clarke & Co. is a law firm in Waterloo, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 44 public Google reviews. The office is at 490 Dutton Dr B5, Waterloo, ON N2L 6H7, and you can call (519) 725-2929 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Practice Areas Need something? We're here to help! Here are our main areas of focus, but if you have a different kind of problem, don't hesitate to reach out. .01 Real Estate We assist with residential and commercial purchases, sales, refinances, and leasing. Our team ensures every detail is...”",
+  "src": "images/logos/clarke-and-co-waterloo.webp"
+ },
+ {
+  "name": "Matt Milczarczyk Lawyer",
+  "city": "Waterloo",
+  "featured": false,
+  "tags": [
+   "Criminal Defence",
+   "Wills & Estates",
+   "Family Law"
+  ],
+  "caseTypes": [
+   "criminal",
+   "wills",
+   "family"
+  ],
+  "region": "waterloo-guelph",
+  "province": "ON",
+  "lat": 43.4653109,
+  "lng": -80.5239163,
+  "address": "20 Erb St. W #906, Waterloo, ON N2L 1T2",
+  "phone": "+15195792333",
+  "rating": 4.7,
+  "count": 15,
+  "slug": "matt-milczarczyk-lawyer-waterloo",
+  "mapsUrl": "https://www.google.com/maps/search/Matt+Milczarczyk+Lawyer+Waterloo+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=20+Erb+St.+W+%23906%2C+Waterloo%2C+ON+N2L+1T2",
+  "website": "https://www.milczarczyk.com",
+  "blurb": "Criminal Defence / Wills & Estates in Waterloo. Rated 4.7 from 15 Google reviews.",
+  "type": "logo",
+  "about": "Matt Milczarczyk Lawyer is a law firm in Waterloo, Ontario that practises criminal defence, wills and estates and family law. Clients rate the firm 4.7 out of 5 from 15 public Google reviews. The office is at 20 Erb St. W #906, Waterloo, ON N2L 1T2, and you can call (519) 579-2333 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Matt Milczarczyk is a Kitchener lawyer with 12 years of experience. He offers affordable legal services in the Kitchener-Waterloo area. Get Advice.”",
+  "src": "images/logos/matt-milczarczyk-lawyer-waterloo.png"
+ },
+ {
+  "name": "Isaiah Smith",
+  "city": "Waterloo",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "family",
+   "litigation"
+  ],
+  "region": "waterloo-guelph",
+  "province": "ON",
+  "lat": 43.4676931,
+  "lng": -80.5174764,
+  "address": "50 Laurel St, Waterloo, ON N2J 2H2",
+  "phone": "+15197072674",
+  "rating": 4.6,
+  "count": 11,
+  "slug": "isaiah-smith-waterloo",
+  "mapsUrl": "https://www.google.com/maps/search/Isaiah+Smith+Waterloo+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=50+Laurel+St%2C+Waterloo%2C+ON+N2J+2H2",
+  "website": "https://isaiahsmithlaw.ca",
+  "blurb": "Family Law / Civil Litigation in Waterloo. Rated 4.6 from 11 Google reviews.",
+  "type": "logo",
+  "about": "Isaiah Smith is a law firm in Waterloo, Ontario that practises family law and civil litigation. Clients rate the firm 4.6 out of 5 from 11 public Google reviews. The office is at 50 Laurel St, Waterloo, ON N2J 2H2, and you can call (519) 707-2674 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/isaiah-smith-waterloo.png"
+ },
+ {
+  "name": "Woitzik Polsinelli LLP",
+  "city": "Whitby",
+  "featured": false,
+  "tags": [
+   "Wills & Estates",
+   "Real Estate",
+   "Family Law",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "wills",
+   "realestate",
+   "family",
+   "business"
+  ],
   "region": "york-durham",
   "province": "ON",
-  "lat": 44.0779057,
-  "lng": -79.4267495,
-  "address": "320 Harry Walker Pkwy N, Newmarket, ON L3Y 7B8",
-  "phone": "+19058983012",
+  "lat": 43.8797928,
+  "lng": -78.9406023,
+  "address": "209 Dundas St E Unit 401, Whitby, ON L1N 4C9",
+  "phone": "+19056684486",
+  "rating": 4.8,
+  "count": 412,
+  "slug": "woitzik-polsinelli-llp-whitby",
+  "mapsUrl": "https://www.google.com/maps/search/Woitzik+Polsinelli+LLP+Whitby+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=209+Dundas+St+E+Unit+401%2C+Whitby%2C+ON+L1N+4C9",
+  "website": "https://www.durhamlawyer.ca",
+  "blurb": "Wills & Estates / Real Estate in Whitby. Rated 4.8 from 412 Google reviews.",
+  "type": "logo",
+  "about": "Woitzik Polsinelli LLP is a law firm in Whitby, Ontario that practises wills and estates, real estate and family. Clients rate the firm 4.8 out of 5 from 412 public Google reviews. The office is at 209 Dundas St E Unit 401, Whitby, ON L1N 4C9, and you can call (905) 668-4486 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Welcome to Woitzik Polsinelli LLP, your trusted legal partner in the Durham Region. Our dedicated team of lawyers in Whitby specializes in real estate law, including land transfer tax calculations and corporate transactions. Contact us today for expert legal guidance tailored to your needs.\"”",
+  "src": "images/logos/woitzik-polsinelli-llp-whitby.png"
+ },
+ {
+  "name": "Mehta Law Professional Corporation",
+  "city": "Whitby",
+  "featured": false,
+  "tags": [
+   "Wills & Estates",
+   "Family Law",
+   "Real Estate",
+   "Immigration"
+  ],
+  "caseTypes": [
+   "wills",
+   "family",
+   "realestate",
+   "immigration"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.9013291,
+  "lng": -78.9493963,
+  "address": "96 Longueuil Pl, Whitby, ON L1R 3H1",
+  "phone": "+14168365583",
+  "rating": 5,
+  "count": 134,
+  "slug": "mehta-law-professional-corporation-whitby",
+  "mapsUrl": "https://www.google.com/maps/search/Mehta+Law+Professional+Corporation+Whitby+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=96+Longueuil+Pl%2C+Whitby%2C+ON+L1R+3H1",
+  "website": "https://mehtalawyer.ca",
+  "blurb": "Wills & Estates / Family Law in Whitby. Rated 5.0 from 134 Google reviews.",
+  "type": "logo",
+  "about": "Mehta Law Professional Corporation is a law firm in Whitby, Ontario that practises wills and estates, family and real estate. Clients rate the firm 5.0 out of 5 from 134 public Google reviews. The office is at 96 Longueuil Pl, Whitby, ON L1R 3H1, and you can call (416) 836-5583 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Mr. Virag Mehta and his experienced and dedicated legal professionals will work hard on your behalf to resolve your case quickly and obtain the results you deserve.Our clients will receive high quality, cost-effective legal services in a timely manner and the personal attention that is essential to...”",
+  "src": "images/logos/mehta-law-professional-corporation-whitby.png"
+ },
+ {
+  "name": "Bedrock Law LLP",
+  "city": "Whitby",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Litigation"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "litigation"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.887573,
+  "lng": -78.9021912,
+  "address": "121 Kendalwood Rd Unit 3, Whitby, ON L1N 2E9",
+  "phone": "+19052407797",
+  "rating": 4.9,
+  "count": 48,
+  "slug": "bedrock-law-llp-whitby",
+  "mapsUrl": "https://www.google.com/maps/search/Bedrock+Law+LLP+Whitby+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=121+Kendalwood+Rd+Unit+3%2C+Whitby%2C+ON+L1N+2E9",
+  "website": "https://bedrocklaw.ca",
+  "blurb": "Real Estate / Wills & Estates in Whitby. Rated 4.9 from 48 Google reviews.",
+  "type": "logo",
+  "about": "Bedrock Law LLP is a law firm in Whitby, Ontario that practises real estate, wills and estates and litigation. Clients rate the firm 4.9 out of 5 from 48 public Google reviews. The office is at 121 Kendalwood Rd Unit 3, Whitby, ON L1N 2E9, and you can call (905) 240-7797 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/bedrock-law-llp-whitby.png"
+ },
+ {
+  "name": "Barnett Law",
+  "city": "Whitby",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "realestate"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8814559,
+  "lng": -78.9430992,
+  "address": "101 Mary St W Unit 101A, Whitby, ON L1N 2R4",
+  "phone": "+16479362529",
+  "rating": 5,
+  "count": 46,
+  "slug": "barnett-law-whitby",
+  "mapsUrl": "https://www.google.com/maps/search/Barnett+Law+Whitby+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=101+Mary+St+W+Unit+101A%2C+Whitby%2C+ON+L1N+2R4",
+  "website": "https://barnettlaw.ca",
+  "blurb": "Family Law / Immigration in Whitby. Rated 5.0 from 46 Google reviews.",
+  "type": "logo",
+  "about": "Barnett Law is a law firm in Whitby, Ontario that practises family law, immigration and real estate. Clients rate the firm 5.0 out of 5 from 46 public Google reviews. The office is at 101 Mary St W Unit 101A, Whitby, ON L1N 2R4, and you can call (647) 936-2529 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Barnett Law offers expert services in family, real estate, and business law. Trusted advisors providing personalized legal solutions.”",
+  "src": "images/logos/barnett-law-whitby.webp"
+ },
+ {
+  "name": "Vankirk Law Professional Corporation",
+  "city": "Whitby",
+  "featured": false,
+  "tags": [
+   "Civil Litigation",
+   "Real Estate",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "litigation",
+   "realestate",
+   "business"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.9785098,
+  "lng": -78.987947,
+  "address": "7742 Ashburn Rd, Whitby, ON L1M 1L5",
+  "phone": "+19053578106",
+  "rating": 5,
+  "count": 29,
+  "slug": "vankirk-law-professional-corporation-whitby",
+  "mapsUrl": "https://www.google.com/maps/search/Vankirk+Law+Professional+Corporation+Whitby+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=7742+Ashburn+Rd%2C+Whitby%2C+ON+L1M+1L5",
+  "website": "https://vankirklaw.ca",
+  "blurb": "Civil Litigation / Real Estate in Whitby. Rated 5.0 from 29 Google reviews.",
+  "type": "logo",
+  "about": "Vankirk Law Professional Corporation is a law firm in Whitby, Ontario that practises civil litigation, real estate and business law. Clients rate the firm 5.0 out of 5 from 29 public Google reviews. The office is at 7742 Ashburn Rd, Whitby, ON L1M 1L5, and you can call (905) 357-8106 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/vankirk-law-professional-corporation-whitby.png"
+ },
+ {
+  "name": "Shuter Law",
+  "city": "Whitby",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8798229,
+  "lng": -78.9398124,
+  "address": "112 Athol St Unit 206, Whitby, ON L1N 3Y9",
+  "phone": "+12892241019",
+  "rating": 5,
+  "count": 25,
+  "slug": "shuter-law-whitby",
+  "mapsUrl": "https://www.google.com/maps/search/Shuter+Law+Whitby+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=112+Athol+St+Unit+206%2C+Whitby%2C+ON+L1N+3Y9",
+  "website": "https://www.shuterlaw.com",
+  "blurb": "Family Law in Whitby. Rated 5.0 from 25 Google reviews.",
+  "type": "logo",
+  "about": "Shuter Law is a law firm in Whitby, Ontario that practises family law. Clients rate the firm 5.0 out of 5 from 25 public Google reviews. The office is at 112 Athol St Unit 206, Whitby, ON L1N 3Y9, and you can call (289) 224-1019 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trusted Ontario family law and wills lawyers with offices in Ajax, Toronto, and Sarnia. Affordable rates and quick, knowledgeable legal support.”",
+  "src": "images/logos/shuter-law-whitby.png"
+ },
+ {
+  "name": "Sat Law",
+  "city": "Whitby",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Litigation"
+  ],
+  "caseTypes": [
+   "family",
+   "litigation"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.8826839,
+  "lng": -78.9436347,
+  "address": "228 Brock St N Lower Floor, Whitby, ON L1N 4H6",
+  "phone": "+14169003529",
+  "rating": 4.9,
+  "count": 24,
+  "slug": "sat-law-whitby",
+  "mapsUrl": "https://www.google.com/maps/search/Sat+Law+Whitby+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=228+Brock+St+N+Lower+Floor%2C+Whitby%2C+ON+L1N+4H6",
+  "website": "https://www.mslpc.ca",
+  "blurb": "Family Law / Litigation in Whitby. Rated 4.9 from 24 Google reviews.",
+  "type": "logo",
+  "about": "Sat Law is a law firm in Whitby, Ontario that practises family and litigation. Clients rate the firm 4.9 out of 5 from 24 public Google reviews. The office is at 228 Brock St N Lower Floor, Whitby, ON L1N 4H6, and you can call (416) 900-3529 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Sat Law provides experienced family law services in the Greater Toronto Area, guiding clients through legal challenges with dedicated support and solutions.”",
+  "src": "images/logos/sat-law-whitby.webp"
+ },
+ {
+  "name": "Lloyd & Kemper LLP",
+  "city": "Whitby",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "york-durham",
+  "province": "ON",
+  "lat": 43.879332,
+  "lng": -78.9453862,
+  "address": "306 Dundas St W Ste 204, Whitby, ON L1N 2M5",
+  "phone": "+19054936788",
+  "rating": 4.8,
+  "count": 23,
+  "slug": "lloyd-and-kemper-llp-whitby",
+  "mapsUrl": "https://www.google.com/maps/search/Lloyd+%26+Kemper+LLP+Whitby+Ontario",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=306+Dundas+St+W+Ste+204%2C+Whitby%2C+ON+L1N+2M5",
+  "website": "https://www.lkfamilylawyers.com",
+  "blurb": "Family Law in Whitby. Rated 4.8 from 23 Google reviews.",
+  "type": "logo",
+  "about": "Lloyd & Kemper LLP is a law firm in Whitby, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 23 public Google reviews. The office is at 306 Dundas St W Ste 204, Whitby, ON L1N 2M5, and you can call (905) 493-6788 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Family Lawyer in Whitby Helping You Separate with Dignity. Providing our clients with the tools they need to feel empowered to make their own decisions, by providing advice, support and guidance throughout the separation process. Book a Legal Consultation About Llyod &#038; Kemper LLP Solutions...”",
+  "src": "images/logos/lloyd-and-kemper-llp-whitby.png"
+ },
+ {
+  "name": "Alpine Legal Services",
+  "city": "Chilliwack",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.156446,
+  "lng": -121.9578459,
+  "address": "8465 Harvard Pl #12, Chilliwack, BC V2P 7Z5",
+  "phone": "+17787166486",
+  "rating": 4.9,
+  "count": 297,
+  "slug": "alpine-legal-services-chilliwack",
+  "mapsUrl": "https://www.google.com/maps/search/Alpine+Legal+Services+Chilliwack+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8465+Harvard+Pl+%2312%2C+Chilliwack%2C+BC+V2P+7Z5",
+  "website": "https://alpinelawyers.com",
+  "blurb": "Real Estate / Wills & Estates in Chilliwack. Rated 4.9 from 297 Google reviews.",
+  "type": "logo",
+  "about": "Alpine Legal Services is a law firm in Chilliwack, British Columbia that practises real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 297 public Google reviews. The office is at 8465 Harvard Pl #12, Chilliwack, BC V2P 7Z5, and you can call (778) 716-6486 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Legal services Chilliwack. Alpine Legal provides real estate law, wills and estate planning, and business law across the Fraser Valley. Call 778-716-6436.”",
+  "src": "images/logos/alpine-legal-services-chilliwack.png"
+ },
+ {
+  "name": "Glendinning Smith LLP",
+  "city": "Chilliwack",
+  "featured": false,
+  "tags": [
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "employment"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.1392903,
+  "lng": -121.9646489,
+  "address": "45515 Knight Rd A, Chilliwack, BC V2R 5L2",
+  "phone": "+16047050022",
+  "rating": 4.5,
+  "count": 73,
+  "slug": "glendinning-smith-llp-chilliwack",
+  "mapsUrl": "https://www.google.com/maps/search/Glendinning+Smith+LLP+Chilliwack+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=45515+Knight+Rd+A%2C+Chilliwack%2C+BC+V2R+5L2",
+  "website": "https://glendinningsmith.com",
+  "blurb": "Employment Law in Chilliwack. Rated 4.5 from 73 Google reviews.",
+  "type": "logo",
+  "about": "Glendinning Smith LLP is a law firm in Chilliwack, British Columbia that practises employment. Clients rate the firm 4.5 out of 5 from 73 public Google reviews. The office is at 45515 Knight Rd A, Chilliwack, BC V2R 5L2, and you can call (604) 705-0022 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Glendinning Smith LLP is the Fraser Valley's leading employment law firm, offering expert legal services to both employees and employers.”",
+  "src": "images/logos/glendinning-smith-llp-chilliwack.webp"
+ },
+ {
+  "name": "Moes & More Law Corporation",
+  "city": "Chilliwack",
+  "featured": false,
+  "tags": [],
+  "caseTypes": [],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.1563402,
+  "lng": -121.9578867,
+  "address": "8465 Harvard Pl #12, Chilliwack, BC V2P 7Z5",
+  "phone": "+18888896673",
+  "rating": 5,
+  "count": 35,
+  "slug": "moes-and-more-law-corporation-chilliwack",
+  "mapsUrl": "https://www.google.com/maps/search/Moes+%26+More+Law+Corporation+Chilliwack+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8465+Harvard+Pl+%2312%2C+Chilliwack%2C+BC+V2P+7Z5",
+  "website": "https://moesandmore.com",
+  "blurb": "Law firm in Chilliwack. Rated 5.0 from 35 Google reviews.",
+  "type": "logo",
+  "about": "Moes & More Law Corporation is a law firm in Chilliwack, British Columbia. Clients rate the firm 5.0 out of 5 from 35 public Google reviews. The office is at 8465 Harvard Pl #12, Chilliwack, BC V2P 7Z5, and you can call (888) 889-6673 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/moes-and-more-law-corporation-chilliwack.png"
+ },
+ {
+  "name": "JD Law Corporation",
+  "city": "Coquitlam",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "bc-burnaby",
+  "province": "BC",
+  "lat": 49.3074802,
+  "lng": -122.8016922,
+  "address": "1705 Parkway Blvd #1, Coquitlam, BC V3E 3T3",
+  "phone": "+16043772501",
+  "rating": 4.9,
+  "count": 274,
+  "slug": "jd-law-corporation-coquitlam",
+  "mapsUrl": "https://www.google.com/maps/search/JD+Law+Corporation+Coquitlam+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1705+Parkway+Blvd+%231%2C+Coquitlam%2C+BC+V3E+3T3",
+  "website": "https://www.jdlawcorp.ca",
+  "blurb": "Criminal Defence in Coquitlam. Rated 4.9 from 274 Google reviews.",
+  "type": "logo",
+  "about": "JD Law Corporation is a law firm in Coquitlam, British Columbia that practises criminal defence. Clients rate the firm 4.9 out of 5 from 274 public Google reviews. The office is at 1705 Parkway Blvd #1, Coquitlam, BC V3E 3T3, and you can call (604) 377-2501 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Have JD Law Corp represent you in court and protect you. We are the local Tri-Cities legal experts that specialize in Criminal Law, Injuries, Litigation cases in Coquitlam, BC or Port Moody, Port Coquitlam, Pitt Meadows, Maple Ridge.”",
+  "src": "images/logos/jd-law-corporation-coquitlam.png"
+ },
+ {
+  "name": "Drysdale Bacon McStravick LLP",
+  "city": "Coquitlam",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.2275448,
+  "lng": -122.8392659,
+  "address": "95 Schooner St #100, Coquitlam, BC V3K 7A8",
+  "phone": "+16049398321",
+  "rating": 4.5,
+  "count": 184,
+  "slug": "drysdale-bacon-mcstravick-llp-coquitlam",
+  "mapsUrl": "https://www.google.com/maps/search/Drysdale+Bacon+McStravick+LLP+Coquitlam+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=95+Schooner+St+%23100%2C+Coquitlam%2C+BC+V3K+7A8",
+  "website": "https://www.dbmlaw.ca",
+  "blurb": "Family Law in Coquitlam. Rated 4.5 from 184 Google reviews.",
+  "type": "logo",
+  "about": "Drysdale Bacon McStravick LLP is a law firm in Coquitlam, British Columbia that practises family law. Clients rate the firm 4.5 out of 5 from 184 public Google reviews. The office is at 95 Schooner St #100, Coquitlam, BC V3K 7A8, and you can call (604) 939-8321 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “DBM Law is based in Coquitlam BC offers legal services in business law, family law, wills & estate, real estate law & litigation and dispute resolution.”",
+  "src": "images/logos/drysdale-bacon-mcstravick-llp-coquitlam.png"
+ },
+ {
+  "name": "Spraggs Law",
+  "city": "Coquitlam",
+  "featured": false,
+  "tags": [
+   "Wills & Estates",
+   "Employment Law",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "wills",
+   "employment",
+   "litigation"
+  ],
+  "region": "bc-burnaby",
+  "province": "BC",
+  "lat": 49.2722355,
+  "lng": -122.7909815,
+  "address": "1030 Westwood St #103, Coquitlam, BC V3C 4E4",
+  "phone": "+16044643333",
+  "rating": 4.6,
+  "count": 152,
+  "slug": "spraggs-law-coquitlam",
+  "mapsUrl": "https://www.google.com/maps/search/Spraggs+Law+Coquitlam+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1030+Westwood+St+%23103%2C+Coquitlam%2C+BC+V3C+4E4",
+  "website": "https://www.spraggslaw.ca",
+  "blurb": "Wills & Estates / Employment Law in Coquitlam. Rated 4.6 from 152 Google reviews.",
+  "type": "logo",
+  "about": "Spraggs Law is a law firm in Coquitlam, British Columbia that practises wills and estates, employment law and civil litigation. Clients rate the firm 4.6 out of 5 from 152 public Google reviews. The office is at 1030 Westwood St #103, Coquitlam, BC V3C 4E4, and you can call (604) 464-3333 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Talk to a lawyer without the lawyer-talk. Upfront pricing on employment, disputes, wills, and estates, from a firm with 55 years in the Tri-Cities.”",
+  "src": "images/logos/spraggs-law-coquitlam.png"
+ },
+ {
+  "name": "BTM Lawyers",
+  "city": "Coquitlam",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Personal Injury",
+   "Real Estate",
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "family",
+   "injury",
+   "realestate",
+   "employment"
+  ],
+  "region": "bc-burnaby",
+  "province": "BC",
+  "lat": 49.2824507,
+  "lng": -122.7946244,
+  "address": "2992 Glen Dr #1300, Coquitlam, BC V3B 0V2",
+  "phone": "+16049371166",
+  "rating": 4.5,
+  "count": 93,
+  "slug": "btm-lawyers-coquitlam",
+  "mapsUrl": "https://www.google.com/maps/search/BTM+Lawyers+Coquitlam+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2992+Glen+Dr+%231300%2C+Coquitlam%2C+BC+V3B+0V2",
+  "website": "https://btmlawyers.com",
+  "blurb": "Family Law / Personal Injury in Coquitlam. Rated 4.5 from 93 Google reviews.",
+  "type": "logo",
+  "about": "BTM Lawyers is a law firm in Coquitlam, British Columbia that practises family law, personal injury and real estate. Clients rate the firm 4.5 out of 5 from 93 public Google reviews. The office is at 2992 Glen Dr #1300, Coquitlam, BC V3B 0V2, and you can call (604) 937-1166 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Looking for an estate lawyer, family lawyer or business law firm? BTM Lawyers is a trusted full service law firm in the Tri-Cities ready to help you.”",
+  "src": "images/logos/btm-lawyers-coquitlam.png"
+ },
+ {
+  "name": "Ghankas Law Group",
+  "city": "Coquitlam",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "bc-burnaby",
+  "province": "BC",
+  "lat": 49.2884688,
+  "lng": -122.7587702,
+  "address": "1252 Ravensdale St, Coquitlam, BC V3B 7M9",
+  "phone": "+16043679504",
+  "rating": 5,
+  "count": 25,
+  "slug": "ghankas-law-group-coquitlam",
+  "mapsUrl": "https://www.google.com/maps/search/Ghankas+Law+Group+Coquitlam+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1252+Ravensdale+St%2C+Coquitlam%2C+BC+V3B+7M9",
+  "website": "https://www.ghankaslaw.com",
+  "blurb": "Family Law in Coquitlam. Rated 5.0 from 25 Google reviews.",
+  "type": "logo",
+  "about": "Ghankas Law Group is a law firm in Coquitlam, British Columbia that practises family law. Clients rate the firm 5.0 out of 5 from 25 public Google reviews. The office is at 1252 Ravensdale St, Coquitlam, BC V3B 7M9, and you can call (604) 367-9504 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our Philosophy Our Family Law firm, proudly based in the Tri-Cities, offers legal services throughout the Lower Mainland. We specialize in Family Law. We often hear that one of the biggest challenges clients face after hiring a lawyer is maintaining an open line of communication with their lawyer....”",
+  "src": "images/logos/ghankas-law-group-coquitlam.png"
+ },
+ {
+  "name": "Entrust Law Corporation",
+  "city": "Kelowna",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills"
+  ],
+  "region": "bc-okanagan",
+  "province": "BC",
+  "lat": 49.8646063,
+  "lng": -119.491932,
+  "address": "473 West Ave, Kelowna, BC V1Y 4Z3",
+  "phone": "+12504488558",
+  "rating": 4.7,
+  "count": 33,
+  "slug": "entrust-law-corporation-kelowna",
+  "mapsUrl": "https://www.google.com/maps/search/Entrust+Law+Corporation+Kelowna+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=473+West+Ave%2C+Kelowna%2C+BC+V1Y+4Z3",
+  "website": "https://www.entrustlaw.ca",
+  "blurb": "Family Law / Real Estate in Kelowna. Rated 4.7 from 33 Google reviews.",
+  "type": "logo",
+  "about": "Entrust Law Corporation is a law firm in Kelowna, British Columbia that practises family law, real estate and wills and estates. Clients rate the firm 4.7 out of 5 from 33 public Google reviews. The office is at 473 West Ave, Kelowna, BC V1Y 4Z3, and you can call (250) 448-8558 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Entrust Law Corporation is a full service law firm providing know how on wills & estates, business law, real estate law, patents & trademarks and estate litigation.”",
+  "src": "images/logos/entrust-law-corporation-kelowna.png"
+ },
+ {
+  "name": "Acorn Law Corporation",
+  "city": "Kelowna",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
+  "region": "bc-okanagan",
+  "province": "BC",
+  "lat": 49.857667,
+  "lng": -119.489583,
+  "address": "3320 Richter St #202, Kelowna, BC V1W 4V5",
+  "phone": "+17789403768",
+  "rating": 4.5,
+  "count": 21,
+  "slug": "acorn-law-corporation-kelowna",
+  "mapsUrl": "https://www.google.com/maps/search/Acorn+Law+Corporation+Kelowna+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3320+Richter+St+%23202%2C+Kelowna%2C+BC+V1W+4V5",
+  "website": "https://www.acornlaw.ca",
+  "blurb": "Real Estate / Wills & Estates in Kelowna. Rated 4.5 from 21 Google reviews.",
+  "type": "logo",
+  "about": "Acorn Law Corporation is a law firm in Kelowna, British Columbia that practises real estate and wills and estates. Clients rate the firm 4.5 out of 5 from 21 public Google reviews. The office is at 3320 Richter St #202, Kelowna, BC V1W 4V5, and you can call (778) 940-3768 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/acorn-law-corporation-kelowna.png"
+ },
+ {
+  "name": "Price-Stephens Family Law",
+  "city": "Kelowna",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "bc-okanagan",
+  "province": "BC",
+  "lat": 49.8847241,
+  "lng": -119.4952247,
+  "address": "1630 Pandosy St #502, Kelowna, BC V1Y 1P7",
+  "phone": "+17785833133",
+  "rating": 5,
+  "count": 13,
+  "slug": "price-stephens-family-law-kelowna",
+  "mapsUrl": "https://www.google.com/maps/search/Price-Stephens+Family+Law+Kelowna+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1630+Pandosy+St+%23502%2C+Kelowna%2C+BC+V1Y+1P7",
+  "website": "https://www.pricestephensfamilylaw.ca",
+  "blurb": "Family Law in Kelowna. Rated 5.0 from 13 Google reviews.",
+  "type": "logo",
+  "about": "Price-Stephens Family Law is a law firm in Kelowna, British Columbia that practises family law. Clients rate the firm 5.0 out of 5 from 13 public Google reviews. The office is at 1630 Pandosy St #502, Kelowna, BC V1Y 1P7, and you can call (778) 583-3133 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Expert Family Lawyers serving Kelowna, West Kelowna, and Lake Country. Get strong legal representation for your family law needs. Call: 778-583-3133.”",
+  "src": "images/logos/price-stephens-family-law-kelowna.png"
+ },
+ {
+  "name": "Cori L. McGuire Law Corporation",
+  "city": "Kelowna",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "bc-okanagan",
+  "province": "BC",
+  "lat": 49.8892559,
+  "lng": -119.4940812,
+  "address": "460 Doyle Ave #106, Kelowna, BC V1Y 0C2",
+  "phone": "+12507170926",
+  "rating": 4.6,
+  "count": 10,
+  "slug": "cori-l-mcguire-law-corporation-kelowna",
+  "mapsUrl": "https://www.google.com/maps/search/Cori+L.+McGuire+Law+Corporation+Kelowna+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=460+Doyle+Ave+%23106%2C+Kelowna%2C+BC+V1Y+0C2",
+  "website": "https://www.kelownalawyer.com",
+  "blurb": "Family Law in Kelowna. Rated 4.6 from 10 Google reviews.",
+  "type": "logo",
+  "about": "Cori L. McGuire Law Corporation is a law firm in Kelowna, British Columbia that practises family law. Clients rate the firm 4.6 out of 5 from 10 public Google reviews. The office is at 460 Doyle Ave #106, Kelowna, BC V1Y 0C2, and you can call (250) 717-0926 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Parenting Coordination, Family Arbitration, Child Voices, Separation Agreements, and Family Law Services across British Columbia. Help for high conflict parents to move forward.”",
+  "src": "images/logos/cori-l-mcguire-law-corporation-kelowna.png"
+ },
+ {
+  "name": "Waterstone Law Group LLP",
+  "city": "Langley",
+  "featured": false,
+  "tags": [
+   "Wills & Estates",
+   "Litigation",
+   "Family Law",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "wills",
+   "litigation",
+   "family",
+   "realestate"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.1202659,
+  "lng": -122.6595993,
+  "address": "20338 65 Ave. #304, Langley, BC V2Y 2X3",
+  "phone": "+16045332300",
+  "rating": 4.6,
+  "count": 53,
+  "slug": "waterstone-law-group-llp-langley",
+  "mapsUrl": "https://www.google.com/maps/search/Waterstone+Law+Group+LLP+Langley+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=20338+65+Ave.+%23304%2C+Langley%2C+BC+V2Y+2X3",
+  "website": "https://www.waterstonelaw.com",
+  "blurb": "Wills & Estates / Litigation in Langley. Rated 4.6 from 53 Google reviews.",
+  "type": "logo",
+  "about": "Waterstone Law Group LLP is a law firm in Langley, British Columbia that practises wills and estates, litigation and family. Clients rate the firm 4.6 out of 5 from 53 public Google reviews. The office is at 20338 65 Ave. #304, Langley, BC V2Y 2X3, and you can call (604) 533-2300 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Practice Areas You’re looking for a lawyer who is accessible, responsive and effective; someone who treats you like a person, not just a file number. We get that. Whether you need a will, are selling a business, or litigating a claim, we are committed to providing prompt, practical and professional...”",
+  "src": "images/logos/waterstone-law-group-llp-langley.jpg"
+ },
+ {
+  "name": "Alliance Lawyers Oberoi Haban Malli LLP",
+  "city": "Langley",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Business Law",
+   "Litigation",
+   "Family Law"
+  ],
+  "caseTypes": [
+   "immigration",
+   "business",
+   "litigation",
+   "family"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.1041517,
+  "lng": -122.6591779,
+  "address": "20316 56 Ave #103, Langley, BC V3A 3Y7",
+  "phone": "+17782772559",
+  "rating": 4.5,
+  "count": 53,
+  "slug": "alliance-lawyers-oberoi-haban-malli-llp-langley",
+  "mapsUrl": "https://www.google.com/maps/search/Alliance+Lawyers+Oberoi+Haban+Malli+LLP+Langley+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=20316+56+Ave+%23103%2C+Langley%2C+BC+V3A+3Y7",
+  "website": "https://www.alliancelawyers.ca",
+  "blurb": "Immigration / Business Law in Langley. Rated 4.5 from 53 Google reviews.",
+  "type": "logo",
+  "about": "Alliance Lawyers Oberoi Haban Malli LLP is a law firm in Langley, British Columbia that practises immigration, business and litigation. Clients rate the firm 4.5 out of 5 from 53 public Google reviews. The office is at 20316 56 Ave #103, Langley, BC V3A 3Y7, and you can call (778) 277-2559 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/alliance-lawyers-oberoi-haban-malli-llp-langley.png"
+ },
+ {
+  "name": "MacLeod & Holm Law Group",
+  "city": "Langley",
+  "featured": false,
+  "tags": [
+   "Wills & Estates",
+   "Real Estate",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "wills",
+   "realestate",
+   "business"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.1330034,
+  "lng": -122.6689675,
+  "address": "19978 72 Ave #303, Langley Twp, BC V2Y 1R7",
+  "phone": "+16045334101",
+  "rating": 5,
+  "count": 34,
+  "slug": "macleod-and-holm-law-group-langley",
+  "mapsUrl": "https://www.google.com/maps/search/MacLeod+%26+Holm+Law+Group+Langley+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=19978+72+Ave+%23303%2C+Langley+Twp%2C+BC+V2Y+1R7",
+  "website": "https://www.macleodholm.com",
+  "blurb": "Wills & Estates / Real Estate in Langley. Rated 5.0 from 34 Google reviews.",
+  "type": "logo",
+  "about": "MacLeod & Holm Law Group is a law firm in Langley, British Columbia that practises wills and estates, real estate and business. Clients rate the firm 5.0 out of 5 from 34 public Google reviews. The office is at 19978 72 Ave #303, Langley Twp, BC V2Y 1R7, and you can call (604) 533-4101 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “MacLeod & Holm Law Group specializes in real estate, estate planning, estates and probate, corporate and commercial transactions and private lending.”",
+  "src": "images/logos/macleod-and-holm-law-group-langley.webp"
+ },
+ {
+  "name": "LAWHUB-Langley",
+  "city": "Langley",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Real Estate",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "realestate",
+   "litigation"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.1712573,
+  "lng": -122.6642807,
+  "address": "20171 92A Ave Unit 106, Langley Twp, BC V1M 3A5",
+  "phone": "+16045039833",
+  "rating": 5,
+  "count": 21,
+  "slug": "lawhub-langley-langley",
+  "mapsUrl": "https://www.google.com/maps/search/LAWHUB-Langley+Langley+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=20171+92A+Ave+Unit+106%2C+Langley+Twp%2C+BC+V1M+3A5",
+  "website": "https://lawhublegal.ca",
+  "blurb": "Family Law / Immigration in Langley. Rated 5.0 from 21 Google reviews.",
+  "type": "logo",
+  "about": "LAWHUB-Langley is a law firm in Langley, British Columbia that practises family law, immigration and real estate. Clients rate the firm 5.0 out of 5 from 21 public Google reviews. The office is at 20171 92A Ave Unit 106, Langley Twp, BC V1M 3A5, and you can call (604) 503-9833 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Maple Ridge family lawyer, immigration lawyer & criminal defense experts. LAWHUB helps with custody & more. Free consultation.”",
+  "src": "images/logos/lawhub-langley-langley.webp"
+ },
+ {
+  "name": "Madaisky Pollock LLP",
+  "city": "Langley",
+  "featured": false,
+  "tags": [
+   "Business Law",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "business",
+   "realestate"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.1553101,
+  "lng": -122.6671903,
+  "address": "20020 84 Ave B520, Langley Twp, BC V2Y 5K9",
+  "phone": "+16046838885",
   "rating": 5,
   "count": 20,
-  "slug": "cl-burchett-professional-corporation-dba-burchett-law-newmarket",
-  "mapsUrl": "https://www.google.com/maps/search/CL+Burchett+Professional+Corporation+dba+Burchett+Law+Newmarket+Ontario",
-  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=320+Harry+Walker+Pkwy+N%2C+Newmarket%2C+ON+L3Y+7B8",
-  "website": "https://www.burchettlaw.ca",
-  "blurb": "Real Estate in Newmarket. Rated 5.0 from 20 Google reviews.",
-  "type": "mono",
-  "about": "CL Burchett Professional Corporation dba Burchett Law is a law firm in Newmarket, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 20 public Google reviews. The office is at 320 Harry Walker Pkwy N, Newmarket, ON L3Y 7B8, and you can call (905) 898-3012 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "initials": "CB",
-  "color": "#2e4a43"
+  "slug": "madaisky-pollock-llp-langley",
+  "mapsUrl": "https://www.google.com/maps/search/Madaisky+Pollock+LLP+Langley+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=20020+84+Ave+B520%2C+Langley+Twp%2C+BC+V2Y+5K9",
+  "website": "https://www.pcmlawco.com",
+  "blurb": "Business Law / Real Estate in Langley. Rated 5.0 from 20 Google reviews.",
+  "type": "logo",
+  "about": "Madaisky Pollock LLP is a law firm in Langley, British Columbia that practises business and real estate. Clients rate the firm 5.0 out of 5 from 20 public Google reviews. The office is at 20020 84 Ave B520, Langley Twp, BC V2Y 5K9, and you can call (604) 683-8885 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Madaisky Pollock LLP has been providing corporate, commercial, real estate and other business law services for over 20 years. While we have extensive experience dealing with health professionals, our team brings a wide variety of skills to assist small businesses of all kinds.”",
+  "src": "images/logos/madaisky-pollock-llp-langley.png"
+ },
+ {
+  "name": "LMN Law Group",
+  "city": "New Westminster",
+  "featured": false,
+  "tags": [
+   "Wills & Estates",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "wills",
+   "realestate"
+  ],
+  "region": "bc-burnaby",
+  "province": "BC",
+  "lat": 49.2136628,
+  "lng": -122.9191866,
+  "address": "500 6th Ave. #260, New Westminster, BC V3L 1V3",
+  "phone": "+16046203436",
+  "rating": 4.9,
+  "count": 117,
+  "slug": "lmn-law-group-new-westminster",
+  "mapsUrl": "https://www.google.com/maps/search/LMN+Law+Group+New+Westminster+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=500+6th+Ave.+%23260%2C+New+Westminster%2C+BC+V3L+1V3",
+  "website": "https://www.lmnlaw.ca",
+  "blurb": "Wills & Estates / Real Estate in New Westminster. Rated 4.9 from 117 Google reviews.",
+  "type": "logo",
+  "about": "LMN Law Group is a law firm in New Westminster, British Columbia that practises wills and estates and real estate. Clients rate the firm 4.9 out of 5 from 117 public Google reviews. The office is at 500 6th Ave. #260, New Westminster, BC V3L 1V3, and you can call (604) 620-3436 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/lmn-law-group-new-westminster.jpg"
+ },
+ {
+  "name": "Portside Law Corporation",
+  "city": "New Westminster",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.2022,
+  "lng": -122.9104901,
+  "address": "713 Columbia St #301, New Westminster, BC V3M 1B2",
+  "phone": "+16045456145",
+  "rating": 4.7,
+  "count": 98,
+  "slug": "portside-law-corporation-new-westminster",
+  "mapsUrl": "https://www.google.com/maps/search/Portside+Law+Corporation+New+Westminster+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=713+Columbia+St+%23301%2C+New+Westminster%2C+BC+V3M+1B2",
+  "website": "https://portsidelaw.ca",
+  "blurb": "Family Law in New Westminster. Rated 4.7 from 98 Google reviews.",
+  "type": "logo",
+  "about": "Portside Law Corporation is a law firm in New Westminster, British Columbia that practises family law. Clients rate the firm 4.7 out of 5 from 98 public Google reviews. The office is at 713 Columbia St #301, New Westminster, BC V3M 1B2, and you can call (604) 545-6145 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Client centred approach with quality, affordable legal advice that fits your needs and lifestyle. Divorce, property division, child and spousal support, child protection, parenting arrangements, emergency orders, prenuptials/cohabitation arrangements, adoption and legal coaching.”",
+  "src": "images/logos/portside-law-corporation-new-westminster.png"
+ },
+ {
+  "name": "Clean Divorce",
+  "city": "New Westminster",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "bc-burnaby",
+  "province": "BC",
+  "lat": 49.204794,
+  "lng": -122.905711,
+  "address": "26 4th St Suite 202, New Westminster, BC V3L 5M4",
+  "phone": "+16047071206",
+  "rating": 4.7,
+  "count": 29,
+  "slug": "clean-divorce-new-westminster",
+  "mapsUrl": "https://www.google.com/maps/search/Clean+Divorce+New+Westminster+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=26+4th+St+Suite+202%2C+New+Westminster%2C+BC+V3L+5M4",
+  "website": "https://www.cleandivorce.ca",
+  "blurb": "Family Law in New Westminster. Rated 4.7 from 29 Google reviews.",
+  "type": "logo",
+  "about": "Clean Divorce is a law firm in New Westminster, British Columbia that practises family law. Clients rate the firm 4.7 out of 5 from 29 public Google reviews. The office is at 26 4th St Suite 202, New Westminster, BC V3L 5M4, and you can call (604) 707-1206 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Clean Divorce helps mediate & resolve family disputes, spousal & child support, parenting time, guardianship, property settlement disputes, etc. Call us.”",
+  "src": "images/logos/clean-divorce-new-westminster.jpg"
+ },
+ {
+  "name": "Paperclip Law",
+  "city": "North Vancouver",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "realestate",
+   "litigation"
+  ],
+  "region": "bc-vancouver",
+  "province": "BC",
+  "lat": 49.3121279,
+  "lng": -123.0780797,
+  "address": "120 Lonsdale Ave, North Vancouver, BC V7M 2E8",
+  "phone": "+16049730188",
+  "rating": 4.9,
+  "count": 218,
+  "slug": "paperclip-law-north-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/Paperclip+Law+North+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=120+Lonsdale+Ave%2C+North+Vancouver%2C+BC+V7M+2E8",
+  "website": "https://www.papercliplaw.com",
+  "blurb": "Real Estate / Civil Litigation in North Vancouver. Rated 4.9 from 218 Google reviews.",
+  "type": "logo",
+  "about": "Paperclip Law is a law firm in North Vancouver, British Columbia that practises real estate and civil litigation. Clients rate the firm 4.9 out of 5 from 218 public Google reviews. The office is at 120 Lonsdale Ave, North Vancouver, BC V7M 2E8, and you can call (604) 973-0188 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “North Vancouver lawyers serving all of BC, for business owners, professionals and families. Clear advice, plain language, no stuffy lawyer stuff.”",
+  "src": "images/logos/paperclip-law-north-vancouver.png"
+ },
+ {
+  "name": "Themis Law Corporation",
+  "city": "North Vancouver",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "bc-vancouver",
+  "province": "BC",
+  "lat": 49.3223053,
+  "lng": -123.1080433,
+  "address": "1515 Pemberton Ave #101, North Vancouver, BC V7P 2S3",
+  "phone": "+16047061673",
+  "rating": 5,
+  "count": 89,
+  "slug": "themis-law-corporation-north-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/Themis+Law+Corporation+North+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1515+Pemberton+Ave+%23101%2C+North+Vancouver%2C+BC+V7P+2S3",
+  "website": "https://themislaw.ca",
+  "blurb": "Family Law / Real Estate in North Vancouver. Rated 5.0 from 89 Google reviews.",
+  "type": "logo",
+  "about": "Themis Law Corporation is a law firm in North Vancouver, British Columbia that practises family, real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 89 public Google reviews. The office is at 1515 Pemberton Ave #101, North Vancouver, BC V7P 2S3, and you can call (604) 706-1673 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/themis-law-corporation-north-vancouver.png"
+ },
+ {
+  "name": "Silver & Associates Law Corporation",
+  "city": "North Vancouver",
+  "featured": false,
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "bc-vancouver",
+  "province": "BC",
+  "lat": 49.3218844,
+  "lng": -123.0743264,
+  "address": "145 15th St W #301, North Vancouver, BC V7M 1R7",
+  "phone": "+16049862522",
+  "rating": 4.9,
+  "count": 88,
+  "slug": "silver-and-associates-law-corporation-north-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/Silver+%26+Associates+Law+Corporation+North+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=145+15th+St+W+%23301%2C+North+Vancouver%2C+BC+V7M+1R7",
+  "website": "https://www.silverlaw.ca",
+  "blurb": "Real Estate / Wills & Estates in North Vancouver. Rated 4.9 from 88 Google reviews.",
+  "type": "logo",
+  "about": "Silver & Associates Law Corporation is a law firm in North Vancouver, British Columbia that practises real estate, wills and estates and business law. Clients rate the firm 4.9 out of 5 from 88 public Google reviews. The office is at 145 15th St W #301, North Vancouver, BC V7M 1R7, and you can call (604) 986-2522 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Silver Law offers trusted legal services in North Vancouver, specializing in estate planning, corporate law, and real estate conveyancing.”",
+  "src": "images/logos/silver-and-associates-law-corporation-north-vancouver.png"
+ },
+ {
+  "name": "Kit Perrick Law Corp.",
+  "city": "North Vancouver",
+  "featured": false,
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
+  "region": "bc-vancouver",
+  "province": "BC",
+  "lat": 49.310623,
+  "lng": -123.082979,
+  "address": "139 Chadwick Ct, North Vancouver, BC V7M 3K2",
+  "phone": "+16044650077",
+  "rating": 5,
+  "count": 82,
+  "slug": "kit-perrick-law-corp-north-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/Kit+Perrick+Law+Corp.+North+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=139+Chadwick+Ct%2C+North+Vancouver%2C+BC+V7M+3K2",
+  "website": "https://www.kitperricklaw.com",
+  "blurb": "Family Law in North Vancouver. Rated 5.0 from 82 Google reviews.",
+  "type": "logo",
+  "about": "Kit Perrick Law Corp. is a law firm in North Vancouver, British Columbia that practises family. Clients rate the firm 5.0 out of 5 from 82 public Google reviews. The office is at 139 Chadwick Ct, North Vancouver, BC V7M 3K2, and you can call (604) 465-0077 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/kit-perrick-law-corp-north-vancouver.webp"
+ },
+ {
+  "name": "ِAdam Soliman Law Corporation",
+  "city": "North Vancouver",
+  "featured": false,
+  "tags": [
+   "Employment Law",
+   "Family Law",
+   "Real Estate",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "employment",
+   "family",
+   "realestate",
+   "business"
+  ],
+  "region": "bc-vancouver",
+  "province": "BC",
+  "lat": 49.3131151,
+  "lng": -123.0834664,
+  "address": "224 Esplanade W #500, North Vancouver, BC V7M 1A4",
+  "phone": "+17783746078",
+  "rating": 4.7,
+  "count": 53,
+  "slug": "adam-soliman-law-corporation-north-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/%D9%90Adam+Soliman+Law+Corporation+North+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=224+Esplanade+W+%23500%2C+North+Vancouver%2C+BC+V7M+1A4",
+  "website": "https://adamsoliman.ca",
+  "blurb": "Employment Law / Family Law in North Vancouver. Rated 4.7 from 53 Google reviews.",
+  "type": "logo",
+  "about": "ِAdam Soliman Law Corporation is a law firm in North Vancouver, British Columbia that practises employment, family and real estate. Clients rate the firm 4.7 out of 5 from 53 public Google reviews. The office is at 224 Esplanade W #500, North Vancouver, BC V7M 1A4, and you can call (778) 374-6078 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Adam Soliman Law Corporation is a North Vancouver law firm offering strategic, decisive representation in family, business, civil, and employment law. Book a consultation.”",
+  "src": "images/logos/adam-soliman-law-corporation-north-vancouver.webp"
+ },
+ {
+  "name": "Pettit & Company",
+  "city": "North Vancouver",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Personal Injury",
+   "Employment Law",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "family",
+   "injury",
+   "employment",
+   "litigation"
+  ],
+  "region": "bc-vancouver",
+  "province": "BC",
+  "lat": 49.3335662,
+  "lng": -123.0886187,
+  "address": "2609 Westview Dr #401, North Vancouver, BC V7N 4M2",
+  "phone": "+16049980901",
+  "rating": 4.8,
+  "count": 46,
+  "slug": "pettit-and-company-north-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/Pettit+%26+Company+North+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2609+Westview+Dr+%23401%2C+North+Vancouver%2C+BC+V7N+4M2",
+  "website": "https://www.pettitandco.com",
+  "blurb": "Family Law / Personal Injury in North Vancouver. Rated 4.8 from 46 Google reviews.",
+  "type": "logo",
+  "about": "Pettit & Company is a law firm in North Vancouver, British Columbia that practises family law, personal injury and employment law. Clients rate the firm 4.8 out of 5 from 46 public Google reviews. The office is at 2609 Westview Dr #401, North Vancouver, BC V7N 4M2, and you can call (604) 998-0901 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “We are a full-service law firm with an emphasis on high net-worth family law, divorce and separation, division of assets, parenting and support issues, and personal injury.”",
+  "src": "images/logos/pettit-and-company-north-vancouver.png"
+ },
+ {
+  "name": "Digby Leigh & Co.",
+  "city": "North Vancouver",
+  "featured": false,
+  "tags": [
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "wills",
+   "business"
+  ],
+  "region": "bc-vancouver",
+  "province": "BC",
+  "lat": 49.336872,
+  "lng": -123.1014649,
+  "address": "3053 Edgemont Blvd, North Vancouver, BC V7R 2N5",
+  "phone": "+16049843394",
+  "rating": 4.7,
+  "count": 30,
+  "slug": "digby-leigh-and-co-north-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/Digby+Leigh+%26+Co.+North+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3053+Edgemont+Blvd%2C+North+Vancouver%2C+BC+V7R+2N5",
+  "website": "https://www.leighco.ca",
+  "blurb": "Wills & Estates / Business Law in North Vancouver. Rated 4.7 from 30 Google reviews.",
+  "type": "logo",
+  "about": "Digby Leigh & Co. is a law firm in North Vancouver, British Columbia that practises wills and estates and business. Clients rate the firm 4.7 out of 5 from 30 public Google reviews. The office is at 3053 Edgemont Blvd, North Vancouver, BC V7R 2N5, and you can call (604) 984-3394 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our team of experienced lawyers combine innovative thinking, and a fresh approach to many areas of law including corporate, commercial, trust & estate planning.”",
+  "src": "images/logos/digby-leigh-and-co-north-vancouver.webp"
+ },
+ {
+  "name": "Fung Law Group",
+  "city": "North Vancouver",
+  "featured": false,
+  "tags": [
+   "Wills & Estates",
+   "Real Estate",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "wills",
+   "realestate",
+   "business"
+  ],
+  "region": "bc-vancouver",
+  "province": "BC",
+  "lat": 49.312105,
+  "lng": -123.0834032,
+  "address": "221 Esplanade W #409, North Vancouver, BC V7M 3J3",
+  "phone": "+16049002367",
+  "rating": 4.8,
+  "count": 29,
+  "slug": "fung-law-group-north-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/Fung+Law+Group+North+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=221+Esplanade+W+%23409%2C+North+Vancouver%2C+BC+V7M+3J3",
+  "website": "https://www.funglaw.ca",
+  "blurb": "Wills & Estates / Real Estate in North Vancouver. Rated 4.8 from 29 Google reviews.",
+  "type": "logo",
+  "about": "Fung Law Group is a law firm in North Vancouver, British Columbia that practises wills and estates, real estate and business. Clients rate the firm 4.8 out of 5 from 29 public Google reviews. The office is at 221 Esplanade W #409, North Vancouver, BC V7M 3J3, and you can call (604) 900-2367 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Fung Law Group is a local law firm focused on providing real estate, wills and estates, and business legal services. Locations at North Vancouver, Vancouver, Whistler, and Squamish. Contact us today for help with your residential real estate purchases and sales or to help you draft a will. We also...”",
+  "src": "images/logos/fung-law-group-north-vancouver.webp"
+ },
+ {
+  "name": "Hilex Law",
+  "city": "North Vancouver",
+  "featured": false,
+  "tags": [
+   "Immigration",
+   "Business Law",
+   "Criminal Defence",
+   "Family Law"
+  ],
+  "caseTypes": [
+   "immigration",
+   "business",
+   "criminal",
+   "family"
+  ],
+  "region": "bc-vancouver",
+  "province": "BC",
+  "lat": 49.3222055,
+  "lng": -123.0726466,
+  "address": "1501 Lonsdale Ave #26, North Vancouver, BC V7M 2J2",
+  "phone": "+18338779797",
+  "rating": 5,
+  "count": 20,
+  "slug": "hilex-law-north-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/Hilex+Law+North+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1501+Lonsdale+Ave+%2326%2C+North+Vancouver%2C+BC+V7M+2J2",
+  "website": "https://hilex.law",
+  "blurb": "Immigration / Business Law in North Vancouver. Rated 5.0 from 20 Google reviews.",
+  "type": "logo",
+  "about": "Hilex Law is a law firm in North Vancouver, British Columbia that practises immigration, business and criminal defence. Clients rate the firm 5.0 out of 5 from 20 public Google reviews. The office is at 1501 Lonsdale Ave #26, North Vancouver, BC V7M 2J2, and you can call (833) 877-9797 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “HiLex Law is a full-service BC law firm with offices in North Vancouver and Surrey. Strategic counsel in immigration, criminal defence, and corporate law.”",
+  "src": "images/logos/hilex-law-north-vancouver.png"
+ },
+ {
+  "name": "Ratcliff LLP",
+  "city": "North Vancouver",
+  "featured": false,
+  "tags": [
+   "Civil Litigation",
+   "Employment Law",
+   "Wills & Estates",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "litigation",
+   "employment",
+   "wills",
+   "realestate"
+  ],
+  "region": "bc-vancouver",
+  "province": "BC",
+  "lat": 49.3124736,
+  "lng": -123.0838555,
+  "address": "221 Esplanade W Suite 500, North Vancouver, BC V7M 3J3",
+  "phone": "+16049885201",
+  "rating": 4.7,
+  "count": 20,
+  "slug": "ratcliff-llp-north-vancouver",
+  "mapsUrl": "https://www.google.com/maps/search/Ratcliff+LLP+North+Vancouver+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=221+Esplanade+W+Suite+500%2C+North+Vancouver%2C+BC+V7M+3J3",
+  "website": "https://www.ratcliff.com",
+  "blurb": "Civil Litigation / Employment Law in North Vancouver. Rated 4.7 from 20 Google reviews.",
+  "type": "logo",
+  "about": "Ratcliff LLP is a law firm in North Vancouver, British Columbia that practises civil litigation, employment law and wills and estates. Clients rate the firm 4.7 out of 5 from 20 public Google reviews. The office is at 221 Esplanade W Suite 500, North Vancouver, BC V7M 3J3, and you can call (604) 988-5201 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ratcliff-llp-north-vancouver.webp"
+ },
+ {
+  "name": "Levine & Company",
+  "city": "Prince George",
+  "featured": false,
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
+  "region": "bc-north",
+  "province": "BC",
+  "lat": 53.9164099,
+  "lng": -122.7435,
+  "address": "1140 3rd Ave, Prince George, BC V2L 3E5",
+  "phone": "+12509602169",
+  "rating": 4.6,
+  "count": 17,
+  "slug": "levine-and-company-prince-george",
+  "mapsUrl": "https://www.google.com/maps/search/Levine+%26+Company+Prince+George+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1140+3rd+Ave%2C+Prince+George%2C+BC+V2L+3E5",
+  "website": "https://www.levineandco.ca",
+  "blurb": "Criminal Defence in Prince George. Rated 4.6 from 17 Google reviews.",
+  "type": "logo",
+  "about": "Levine & Company is a law firm in Prince George, British Columbia that practises criminal defence. Clients rate the firm 4.6 out of 5 from 17 public Google reviews. The office is at 1140 3rd Ave, Prince George, BC V2L 3E5, and you can call (250) 960-2169 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/levine-and-company-prince-george.png"
+ },
+ {
+  "name": "Virtus Counsel",
+  "city": "Richmond",
+  "featured": false,
+  "tags": [
+   "Business Law",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "business",
+   "litigation"
+  ],
+  "region": "bc-richmond",
+  "province": "BC",
+  "lat": 49.1838781,
+  "lng": -123.1362368,
+  "address": "4000 Number 3 Rd Unit 6080, Richmond, BC V6X 0J1",
+  "phone": "+17788200810",
+  "rating": 5,
+  "count": 14,
+  "slug": "virtus-counsel-richmond",
+  "mapsUrl": "https://www.google.com/maps/search/Virtus+Counsel+Richmond+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4000+Number+3+Rd+Unit+6080%2C+Richmond%2C+BC+V6X+0J1",
+  "website": "https://virtuscounsel.com",
+  "blurb": "Business Law / Civil Litigation in Richmond. Rated 5.0 from 14 Google reviews.",
+  "type": "logo",
+  "about": "Virtus Counsel is a law firm in Richmond, British Columbia that practises business law and civil litigation. Clients rate the firm 5.0 out of 5 from 14 public Google reviews. The office is at 4000 Number 3 Rd Unit 6080, Richmond, BC V6X 0J1, and you can call (778) 820-0810 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “We are your litigation and business lawyers, serving Richmond, Vancouver, Burnaby, and Surrey. Find out how we can handle your legal issues.”",
+  "src": "images/logos/virtus-counsel-richmond.webp"
+ },
+ {
+  "name": "Pun & Jiang Law Corporation",
+  "city": "Richmond",
+  "featured": false,
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
+  "region": "bc-richmond",
+  "province": "BC",
+  "lat": 49.1858826,
+  "lng": -123.1438302,
+  "address": "3820 Cessna Dr #340, Richmond, BC V7B 0A2",
+  "phone": "+16042140536",
+  "rating": 4.6,
+  "count": 10,
+  "slug": "pun-and-jiang-law-corporation-richmond",
+  "mapsUrl": "https://www.google.com/maps/search/Pun+%26+Jiang+Law+Corporation+Richmond+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3820+Cessna+Dr+%23340%2C+Richmond%2C+BC+V7B+0A2",
+  "website": "https://punjianglaw.com",
+  "blurb": "Real Estate in Richmond. Rated 4.6 from 10 Google reviews.",
+  "type": "logo",
+  "about": "Pun & Jiang Law Corporation is a law firm in Richmond, British Columbia that practises real estate. Clients rate the firm 4.6 out of 5 from 10 public Google reviews. The office is at 3820 Cessna Dr #340, Richmond, BC V7B 0A2, and you can call (604) 214-0536 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/pun-and-jiang-law-corporation-richmond.png"
+ },
+ {
+  "name": "Cube Law Corporation",
+  "city": "Surrey",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills",
+   "business"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.0598248,
+  "lng": -122.7995855,
+  "address": "15272 Croydon Dr #205, Surrey, BC V3Z 0Z5",
+  "phone": "+12369000010",
+  "rating": 4.9,
+  "count": 116,
+  "slug": "cube-law-corporation-surrey",
+  "mapsUrl": "https://www.google.com/maps/search/Cube+Law+Corporation+Surrey+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=15272+Croydon+Dr+%23205%2C+Surrey%2C+BC+V3Z+0Z5",
+  "website": "https://cubelaw.ca",
+  "blurb": "Family Law / Real Estate in Surrey. Rated 4.9 from 116 Google reviews.",
+  "type": "logo",
+  "about": "Cube Law Corporation is a law firm in Surrey, British Columbia that practises family law, real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 116 public Google reviews. The office is at 15272 Croydon Dr #205, Surrey, BC V3Z 0Z5, and you can call (236) 900-0010 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Law firm Surrey BC for probate, wills, incorporations, family agreements and uncontested divorce. Fixed fees quoted in writing before work starts. Call us.”",
+  "src": "images/logos/cube-law-corporation-surrey.png"
+ },
+ {
+  "name": "Grandview Law Group LLP",
+  "city": "Surrey",
+  "featured": false,
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Civil Litigation"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "litigation"
+  ],
+  "region": "bc-fraser",
+  "province": "BC",
+  "lat": 49.0580253,
+  "lng": -122.7964477,
+  "address": "15336 31st Ave #308, Surrey, BC V3Z 0X2",
+  "phone": "+16045601400",
+  "rating": 4.5,
+  "count": 82,
+  "slug": "grandview-law-group-llp-surrey",
+  "mapsUrl": "https://www.google.com/maps/search/Grandview+Law+Group+LLP+Surrey+British+Columbia",
+  "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=15336+31st+Ave+%23308%2C+Surrey%2C+BC+V3Z+0X2",
+  "website": "https://www.grandviewlaw.com",
+  "blurb": "Family Law / Immigration in Surrey. Rated 4.5 from 82 Google reviews.",
+  "type": "logo",
+  "about": "Grandview Law Group LLP is a law firm in Surrey, British Columbia that practises family law, immigration and civil litigation. Clients rate the firm 4.5 out of 5 from 82 public Google reviews. The office is at 15336 31st Ave #308, Surrey, BC V3Z 0X2, and you can call (604) 560-1400 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Spousal Support, Parenting Time, Property Division, Family Property, Divorce, Mobility, Restraining Order, Sale of Home, High Net Worth, Family law Lawyer, FMEP”",
+  "src": "images/logos/grandview-law-group-llp-surrey.webp"
  }
 ]

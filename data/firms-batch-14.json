@@ -18,17 +18,26 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=44+Gateway+Dr+NE+%23113%2C+Airdrie%2C+AB+T4B+0J6",
   "website": "https://www.kcolaw.ca",
   "blurb": "Law firm in Airdrie. Rated 4.9 from 164 Google reviews.",
-  "type": "mono",
-  "initials": "KC",
-  "color": "#35506b",
-  "about": "Kraft & Co. Law is a law firm in Airdrie, Alberta. Clients rate the firm 4.9 out of 5 from 164 public Google reviews. The office is at 44 Gateway Dr NE #113, Airdrie, AB T4B 0J6, and you can call (403) 945-0678 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Kraft & Co. Law is a law firm in Airdrie, Alberta. Clients rate the firm 4.9 out of 5 from 164 public Google reviews. The office is at 44 Gateway Dr NE #113, Airdrie, AB T4B 0J6, and you can call (403) 945-0678 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Welcome to KCo. Law - Our team of dedicated attorneys is committed to guiding you through even the most complex legal landscapes with precision and care.”",
+  "src": "images/logos/kraft-and-co-law-airdrie.png"
  },
  {
   "name": "Warnock & Associates",
   "city": "Airdrie",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Litigation",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "litigation",
+   "business"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 51.2925686,
@@ -41,18 +50,23 @@
   "mapsUrl": "https://www.google.com/maps/search/Warnock+%26+Associates+Airdrie+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=225+1+Ave+NW%2C+Airdrie%2C+AB+T4B+2M8",
   "website": "https://walawyers.ca",
-  "blurb": "Law firm in Airdrie. Rated 4.7 from 120 Google reviews.",
-  "type": "mono",
-  "initials": "WA",
-  "color": "#4f4a2e",
-  "about": "Warnock & Associates is a law firm in Airdrie, Alberta. Clients rate the firm 4.7 out of 5 from 120 public Google reviews. The office is at 225 1 Ave NW, Airdrie, AB T4B 2M8, and you can call (403) 948-0009 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Real Estate / Wills & Estates in Airdrie. Rated 4.7 from 120 Google reviews.",
+  "type": "logo",
+  "about": "Warnock & Associates is a law firm in Airdrie, Alberta that practises real estate, wills and estates and litigation. Clients rate the firm 4.7 out of 5 from 120 public Google reviews. The office is at 225 1 Ave NW, Airdrie, AB T4B 2M8, and you can call (403) 948-0009 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Homepage: Trusted legal experts in Corporate Law, Litigation, Real Estate, Wills, Estates, Family, Criminal, and Injury cases.”",
+  "src": "images/logos/warnock-and-associates-airdrie.png"
  },
  {
   "name": "MDJ Law & Co.",
   "city": "Airdrie",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 51.2889518,
@@ -64,12 +78,11 @@
   "slug": "mdj-law-and-co-airdrie",
   "mapsUrl": "https://www.google.com/maps/search/MDJ+Law+%26+Co.+Airdrie+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=104+MacKenzie+Way+SW+%234113%2C+Airdrie%2C+AB+T4B+3S4",
-  "website": "http://www.mdjlaw.ca",
-  "blurb": "Law firm in Airdrie. Rated 4.7 from 67 Google reviews.",
-  "type": "mono",
-  "initials": "MC",
-  "color": "#3a3a1c",
-  "about": "MDJ Law & Co. is a law firm in Airdrie, Alberta. Clients rate the firm 4.7 out of 5 from 67 public Google reviews. The office is at 104 MacKenzie Way SW #4113, Airdrie, AB T4B 3S4, and you can call (403) 612-3612 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "website": "https://www.mdjlaw.ca",
+  "blurb": "Real Estate / Wills & Estates in Airdrie. Rated 4.7 from 67 Google reviews.",
+  "type": "logo",
+  "about": "MDJ Law & Co. is a law firm in Airdrie, Alberta that practises real estate and wills and estates. Clients rate the firm 4.7 out of 5 from 67 public Google reviews. The office is at 104 MacKenzie Way SW #4113, Airdrie, AB T4B 3S4, and you can call (403) 612-3612 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “At MDJ Law & Co., we make it our priority to offer reliable and transparent legal services. We specialize in Real Estate, Wills, and Estate Law. If you're looking for a lawyer in Airdrie, AB, or the surrounding area, we're happy to assist you.”",
+  "src": "images/logos/mdj-law-and-co-airdrie.png"
  },
  {
   "name": "GP Law",
@@ -96,12 +109,11 @@
   "slug": "gp-law-airdrie",
   "mapsUrl": "https://www.google.com/maps/search/GP+Law+Airdrie+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=118+Main+St+N+Unit+3%2C+Airdrie%2C+AB+T4B+0R3",
-  "website": "http://www.gplawyers.ca",
+  "website": "https://www.gplawyers.ca",
   "blurb": "Family Law / Real Estate in Airdrie. Rated 4.9 from 56 Google reviews.",
-  "type": "mono",
-  "initials": "GP",
-  "color": "#35506b",
-  "about": "GP Law is a law firm in Airdrie, Alberta that practises family law, real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 56 public Google reviews. The office is at 118 Main St N Unit 3, Airdrie, AB T4B 0R3, and you can call (587) 254-6695 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "GP Law is a law firm in Airdrie, Alberta that practises family law, real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 56 public Google reviews. The office is at 118 Main St N Unit 3, Airdrie, AB T4B 0R3, and you can call (587) 254-6695 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/gp-law-airdrie.jpg"
  },
  {
   "name": "EBAB Personal Injury Lawyer",
@@ -127,9 +139,9 @@
   "website": "https://ebablaw.ca",
   "blurb": "Personal Injury in Airdrie. Rated 4.9 from 39 Google reviews.",
   "type": "mono",
+  "about": "EBAB Personal Injury Lawyer is a law firm in Airdrie, Alberta that practises personal injury. Clients rate the firm 4.9 out of 5 from 39 public Google reviews. The office is at 191 Edwards Way SW #202B, Airdrie, AB T4B 3E2, and you can call (587) 600-9113 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “EBAB Law is dedicated to serving Airdrie, Okotoks, and Lloydminster with a full spectrum of personal injury legal services. Our team is committed to delivering exceptional legal support for motor vehicle accidents, slip and falls, and more. Contact us for experienced legal assistance.”",
   "initials": "EP",
-  "color": "#5a4636",
-  "about": "EBAB Personal Injury Lawyer is a law firm in Airdrie, Alberta that practises personal injury. Clients rate the firm 4.9 out of 5 from 39 public Google reviews. The office is at 191 Edwards Way SW #202B, Airdrie, AB T4B 3E2, and you can call (587) 600-9113 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5a4636"
  },
  {
   "name": "SKV Professional Corporation",
@@ -149,7 +161,7 @@
   "lng": -113.9620373,
   "address": "78 Cityscape Way NE, Calgary, AB T3N 0S6",
   "phone": "+18255612549",
-  "rating": 5.0,
+  "rating": 5,
   "count": 443,
   "slug": "skv-professional-corporation-calgary",
   "mapsUrl": "https://www.google.com/maps/search/SKV+Professional+Corporation+Calgary+Alberta",
@@ -157,9 +169,9 @@
   "website": "https://skvprofessionalcorporation.godaddysites.com",
   "blurb": "Immigration / Criminal Defence in Calgary. Rated 5.0 from 443 Google reviews.",
   "type": "mono",
+  "about": "SKV Professional Corporation is a law firm in Calgary, Alberta that practises immigration and criminal defence. Clients rate the firm 5.0 out of 5 from 443 public Google reviews. The office is at 78 Cityscape Way NE, Calgary, AB T3N 0S6, and you can call (825) 561-2549 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Reliable Notary Public in Calgary with very affordable price. Just look for notary service near me and try the services of reliable notary public in Calgary.”",
   "initials": "SK",
-  "color": "#4a3a5c",
-  "about": "SKV Professional Corporation is a law firm in Calgary, Alberta that practises immigration and criminal defence. Clients rate the firm 5.0 out of 5 from 443 public Google reviews. The office is at 78 Cityscape Way NE, Calgary, AB T3N 0S6, and you can call (825) 561-2549 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#4a3a5c"
  },
  {
   "name": "Ms. Bawa Law Office",
@@ -177,24 +189,33 @@
   "lng": -113.9748573,
   "address": "4100 109 Ave NE #2110, Calgary, AB T3N 2J1",
   "phone": "+14039995297",
-  "rating": 5.0,
+  "rating": 5,
   "count": 528,
   "slug": "ms-bawa-law-office-calgary",
   "mapsUrl": "https://www.google.com/maps/search/Ms.+Bawa+Law+Office+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4100+109+Ave+NE+%232110%2C+Calgary%2C+AB+T3N+2J1",
-  "website": "http://bawalaw.ca",
+  "website": "https://bawalaw.ca",
   "blurb": "Family Law in Calgary. Rated 5.0 from 528 Google reviews.",
-  "type": "mono",
-  "initials": "MB",
-  "color": "#2e4a43",
-  "about": "Ms. Bawa Law Office is a law firm in Calgary, Alberta that practises family law. Clients rate the firm 5.0 out of 5 from 528 public Google reviews. The office is at 4100 109 Ave NE #2110, Calgary, AB T3N 2J1, and you can call (403) 999-5297 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Ms. Bawa Law Office is a law firm in Calgary, Alberta that practises family law. Clients rate the firm 5.0 out of 5 from 528 public Google reviews. The office is at 4100 109 Ave NE #2110, Calgary, AB T3N 2J1, and you can call (403) 999-5297 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Ms. Bawa Law Office is dedicated exclusively to family law in Calgary, Alberta. One area of law. Focused expertise. Personalized attention.”",
+  "src": "images/logos/ms-bawa-law-office-calgary.png"
  },
  {
   "name": "Altadore Law",
   "city": "Calgary",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate",
+   "Immigration",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "immigration",
+   "wills",
+   "business"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 51.0230514,
@@ -206,12 +227,12 @@
   "slug": "altadore-law-calgary",
   "mapsUrl": "https://www.google.com/maps/search/Altadore+Law+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1915+34+Ave+SW%2C+Calgary%2C+AB+T2T+2C2",
-  "website": "http://www.altadorelaw.com",
-  "blurb": "Law firm in Calgary. Rated 4.9 from 297 Google reviews.",
+  "website": "https://www.altadorelaw.com",
+  "blurb": "Real Estate / Immigration in Calgary. Rated 4.9 from 297 Google reviews.",
   "type": "mono",
   "initials": "AL",
   "color": "#35506b",
-  "about": "Altadore Law is a law firm in Calgary, Alberta. Clients rate the firm 4.9 out of 5 from 297 public Google reviews. The office is at 1915 34 Ave SW, Calgary, AB T2T 2C2, and you can call (403) 930-2590 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Altadore Law is a law firm in Calgary, Alberta that practises real estate, immigration and wills and estates. Clients rate the firm 4.9 out of 5 from 297 public Google reviews. The office is at 1915 34 Ave SW, Calgary, AB T2T 2C2, and you can call (403) 930-2590 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Get expert legal services in real estate & immigration. Contact us for assistance with property transactions, residency, and corporate law.”"
  },
  {
   "name": "Bench Law Office LLP",
@@ -264,10 +285,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=400+Crowfoot+Crescent+NW+Suite+06%2C+Calgary%2C+AB+T3G+5H6",
   "website": "https://www.stonetreelaw.com",
   "blurb": "Family Law / Real Estate in Calgary. Rated 4.5 from 207 Google reviews.",
-  "type": "mono",
-  "initials": "ST",
-  "color": "#2e4a43",
-  "about": "Stonetree Law is a law firm in Calgary, Alberta that practises family law, real estate and employment law. Clients rate the firm 4.5 out of 5 from 207 public Google reviews. The office is at 400 Crowfoot Crescent NW Suite 06, Calgary, AB T3G 5H6, and you can call (403) 537-2557 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Stonetree Law is a law firm in Calgary, Alberta that practises family law, real estate and employment law. Clients rate the firm 4.5 out of 5 from 207 public Google reviews. The office is at 400 Crowfoot Crescent NW Suite 06, Calgary, AB T3G 5H6, and you can call (403) 537-2557 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Choose Stonetree Law Calgary for clear, practical legal advice in Calgary—contact Stonetree Law today to book a consultation.”",
+  "src": "images/logos/stonetree-law-calgary.png"
  },
  {
   "name": "AB LAW",
@@ -298,10 +318,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5850+88+Ave+NE+Unit+%23+6270%2C+Calgary%2C+AB+T3J+0Z7",
   "website": "https://ablawoffice.ca",
   "blurb": "Family Law / Immigration in Calgary. Rated 4.8 from 136 Google reviews.",
-  "type": "mono",
-  "initials": "AB",
-  "color": "#5c3a3a",
-  "about": "AB LAW is a law firm in Calgary, Alberta that practises family law, immigration and real estate. Clients rate the firm 4.8 out of 5 from 136 public Google reviews. The office is at 5850 88 Ave NE Unit # 6270, Calgary, AB T3J 0Z7, and you can call (587) 955-9527 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "AB LAW is a law firm in Calgary, Alberta that practises family law, immigration and real estate. Clients rate the firm 4.8 out of 5 from 136 public Google reviews. The office is at 5850 88 Ave NE Unit # 6270, Calgary, AB T3J 0Z7, and you can call (587) 955-9527 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/ab-law-calgary.png"
  },
  {
   "name": "GSD LAW GROUP LLP",
@@ -333,16 +352,26 @@
   "website": "https://gsdlawgroup.ca",
   "blurb": "Family Law / Immigration in Calgary. Rated 4.9 from 132 Google reviews.",
   "type": "mono",
+  "about": "GSD LAW GROUP LLP is a law firm in Calgary, Alberta that practises family law, immigration and personal injury. Clients rate the firm 4.9 out of 5 from 132 public Google reviews. The office is at 9036 46 St NE Unit 406, Calgary, AB T3J 2E3, and you can call (403) 475-2157 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “GSD Law Group is a Calgary law firm offering family law and personal injury representation. Speak with a trusted family lawyer or personal injury lawyer in Calgary.”",
   "initials": "GG",
-  "color": "#4f4a2e",
-  "about": "GSD LAW GROUP LLP is a law firm in Calgary, Alberta that practises family law, immigration and personal injury. Clients rate the firm 4.9 out of 5 from 132 public Google reviews. The office is at 9036 46 St NE Unit 406, Calgary, AB T3J 2E3, and you can call (403) 475-2157 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#4f4a2e"
  },
  {
   "name": "Far-Sight Law Firm",
   "city": "Calgary",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law",
+   "Litigation",
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "litigation",
+   "realestate",
+   "wills"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 51.0599044,
@@ -354,19 +383,28 @@
   "slug": "far-sight-law-firm-calgary",
   "mapsUrl": "https://www.google.com/maps/search/Far-Sight+Law+Firm+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=352+8+Ave+NE%2C+Calgary%2C+AB+T2E+3J8",
-  "website": "http://far-sight.ca",
-  "blurb": "Law firm in Calgary. Rated 4.5 from 117 Google reviews.",
-  "type": "mono",
-  "initials": "FS",
-  "color": "#5d5f63",
-  "about": "Far-Sight Law Firm is a law firm in Calgary, Alberta. Clients rate the firm 4.5 out of 5 from 117 public Google reviews. The office is at 352 8 Ave NE, Calgary, AB T2E 3J8, and you can call (587) 329-7514 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "website": "https://far-sight.ca",
+  "blurb": "Family Law / Litigation in Calgary. Rated 4.5 from 117 Google reviews.",
+  "type": "logo",
+  "about": "Far-Sight Law Firm is a law firm in Calgary, Alberta that practises family, litigation and real estate. Clients rate the firm 4.5 out of 5 from 117 public Google reviews. The office is at 352 8 Ave NE, Calgary, AB T2E 3J8, and you can call (587) 329-7514 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Far-Sight Law Firm is a leading full-service law firm in Calgary, Alberta. Our experienced lawyers in Calgary specialize in family law, divorce, real estate, employment, and more. Trust our Calgary law experts for dedicated, skilled, and results-driven legal services.”",
+  "src": "images/logos/far-sight-law-firm-calgary.png"
  },
  {
   "name": "Westview Law LLP",
   "city": "Calgary",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate",
+   "Immigration",
+   "Family Law",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "immigration",
+   "family",
+   "wills"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 51.0767091,
@@ -379,18 +417,27 @@
   "mapsUrl": "https://www.google.com/maps/search/Westview+Law+LLP+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2816+11+St+NE+%23140%2C+Calgary%2C+AB+T2E+7S7",
   "website": "https://www.westviewlawllp.com",
-  "blurb": "Law firm in Calgary. Rated 4.8 from 87 Google reviews.",
-  "type": "mono",
-  "initials": "WE",
-  "color": "#5c3a3a",
-  "about": "Westview Law LLP is a law firm in Calgary, Alberta. Clients rate the firm 4.8 out of 5 from 87 public Google reviews. The office is at 2816 11 St NE #140, Calgary, AB T2E 7S7, and you can call (403) 930-5055 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Real Estate / Immigration in Calgary. Rated 4.8 from 87 Google reviews.",
+  "type": "logo",
+  "about": "Westview Law LLP is a law firm in Calgary, Alberta that practises real estate, immigration and family. Clients rate the firm 4.8 out of 5 from 87 public Google reviews. The office is at 2816 11 St NE #140, Calgary, AB T2E 7S7, and you can call (403) 930-5055 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/westview-law-llp-calgary.png"
  },
  {
   "name": "SKYLINE LEGAL GROUP LLP",
   "city": "Calgary",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates",
+   "Immigration"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills",
+   "immigration"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 51.0673446,
@@ -403,18 +450,27 @@
   "mapsUrl": "https://www.google.com/maps/search/SKYLINE+LEGAL+GROUP+LLP+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1701+Centre+St+NW+Ste+601%2C+Calgary%2C+AB+T2E+7Y2",
   "website": "https://skylinelegal.ca",
-  "blurb": "Law firm in Calgary. Rated 4.8 from 51 Google reviews.",
-  "type": "mono",
-  "initials": "SL",
-  "color": "#3a3a1c",
-  "about": "SKYLINE LEGAL GROUP LLP is a law firm in Calgary, Alberta. Clients rate the firm 4.8 out of 5 from 51 public Google reviews. The office is at 1701 Centre St NW Ste 601, Calgary, AB T2E 7Y2, and you can call (587) 997-8800 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Family Law / Real Estate in Calgary. Rated 4.8 from 51 Google reviews.",
+  "type": "logo",
+  "about": "SKYLINE LEGAL GROUP LLP is a law firm in Calgary, Alberta that practises family, real estate and wills and estates. Clients rate the firm 4.8 out of 5 from 51 public Google reviews. The office is at 1701 Centre St NW Ste 601, Calgary, AB T2E 7Y2, and you can call (587) 997-8800 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Calgary legal services for business owners, individuals and families. Explore business transactions, real estate, family law and estate planning at Skyline Legal.”",
+  "src": "images/logos/skyline-legal-group-llp-calgary.jpg"
  },
  {
   "name": "Amery Law",
   "city": "Calgary",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Personal Injury",
+   "Real Estate",
+   "Family Law",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "injury",
+   "realestate",
+   "family",
+   "wills"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 51.056653,
@@ -427,11 +483,11 @@
   "mapsUrl": "https://www.google.com/maps/search/Amery+Law+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3223+5+Ave+NE+Ste+313%2C+Calgary%2C+AB+T2A+6E9",
   "website": "https://amerylaw.ca",
-  "blurb": "Law firm in Calgary. Rated 4.5 from 51 Google reviews.",
+  "blurb": "Personal Injury / Real Estate in Calgary. Rated 4.5 from 51 Google reviews.",
   "type": "mono",
+  "about": "Amery Law is a law firm in Calgary, Alberta that practises personal injury, real estate and family. Clients rate the firm 4.5 out of 5 from 51 public Google reviews. The office is at 3223 5 Ave NE Ste 313, Calgary, AB T2A 6E9, and you can call (403) 293-5353 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Amery Law is a leading law firm in Canada! We provide family, motor vehicle accidents, real estate & personal injury lawyers for our clients to reach their legal goals.”",
   "initials": "AM",
-  "color": "#5a4636",
-  "about": "Amery Law is a law firm in Calgary, Alberta. Clients rate the firm 4.5 out of 5 from 51 public Google reviews. The office is at 3223 5 Ave NE Ste 313, Calgary, AB T2A 6E9, and you can call (403) 293-5353 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5a4636"
  },
  {
   "name": "Stewart / Marda Loop Law Group",
@@ -454,12 +510,12 @@
   "slug": "stewart-marda-loop-law-group-calgary",
   "mapsUrl": "https://www.google.com/maps/search/Stewart+%2F+Marda+Loop+Law+Group+Calgary+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=11012+Macleod+Trl+SE+Suite+280%2C+Calgary%2C+AB+T2J+6A5",
-  "website": "http://www.mardalooplaw.com",
+  "website": "https://www.mardalooplaw.com",
   "blurb": "Real Estate in Calgary. Rated 4.8 from 18 Google reviews.",
   "type": "mono",
+  "about": "Stewart / Marda Loop Law Group is a law firm in Calgary, Alberta that practises real estate. Clients rate the firm 4.8 out of 5 from 18 public Google reviews. The office is at 11012 Macleod Trl SE Suite 280, Calgary, AB T2J 6A5, and you can call (403) 875-6451 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “I am a Calgary and BC real estate lawyer and Calgary and BC Estate Probate lawyer”",
   "initials": "SM",
-  "color": "#4f4a2e",
-  "about": "Stewart / Marda Loop Law Group is a law firm in Calgary, Alberta that practises real estate. Clients rate the firm 4.8 out of 5 from 18 public Google reviews. The office is at 11012 Macleod Trl SE Suite 280, Calgary, AB T2J 6A5, and you can call (403) 875-6451 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#4f4a2e"
  },
  {
   "name": "Flow Real Property Law",
@@ -477,7 +533,7 @@
   "lng": -114.462928,
   "address": "307 1 St E, Cochrane, AB T4C 1Z3",
   "phone": "+14039323333",
-  "rating": 5.0,
+  "rating": 5,
   "count": 127,
   "slug": "flow-real-property-law-cochrane",
   "mapsUrl": "https://www.google.com/maps/search/Flow+Real+Property+Law+Cochrane+Alberta",
@@ -485,16 +541,22 @@
   "website": "https://flowlawyers.ca",
   "blurb": "Real Estate in Cochrane. Rated 5.0 from 127 Google reviews.",
   "type": "mono",
+  "about": "Flow Real Property Law is a law firm in Cochrane, Alberta that practises real estate. Clients rate the firm 5.0 out of 5 from 127 public Google reviews. The office is at 307 1 St E, Cochrane, AB T4C 1Z3, and you can call (403) 932-3333 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Flow Real Property Law provides expert legal guidance for all your residential real estate needs. Effortless transactions are ensured with our legal support.”",
   "initials": "FR",
-  "color": "#5c3a3a",
-  "about": "Flow Real Property Law is a law firm in Cochrane, Alberta that practises real estate. Clients rate the firm 5.0 out of 5 from 127 public Google reviews. The office is at 307 1 St E, Cochrane, AB T4C 1Z3, and you can call (403) 932-3333 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5c3a3a"
  },
  {
   "name": "Mountain Vista Law",
   "city": "Cochrane",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "family",
+   "wills"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 51.2134221,
@@ -506,12 +568,11 @@
   "slug": "mountain-vista-law-cochrane",
   "mapsUrl": "https://www.google.com/maps/search/Mountain+Vista+Law+Cochrane+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=101+Sunset+Dr+%234209%2C+Cochrane%2C+AB+T4C+0W7",
-  "website": "http://www.mountainvistalaw.com",
-  "blurb": "Law firm in Cochrane. Rated 4.8 from 65 Google reviews.",
-  "type": "mono",
-  "initials": "MV",
-  "color": "#3a3a1c",
-  "about": "Mountain Vista Law is a law firm in Cochrane, Alberta. Clients rate the firm 4.8 out of 5 from 65 public Google reviews. The office is at 101 Sunset Dr #4209, Cochrane, AB T4C 0W7, and you can call (403) 981-0700 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "website": "https://www.mountainvistalaw.com",
+  "blurb": "Family Law / Wills & Estates in Cochrane. Rated 4.8 from 65 Google reviews.",
+  "type": "logo",
+  "about": "Mountain Vista Law is a law firm in Cochrane, Alberta that practises family and wills and estates. Clients rate the firm 4.8 out of 5 from 65 public Google reviews. The office is at 101 Sunset Dr #4209, Cochrane, AB T4C 0W7, and you can call (403) 981-0700 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/mountain-vista-law-cochrane.jpg"
  },
  {
   "name": "Roper Canadian Immigration Services",
@@ -529,17 +590,16 @@
   "lng": -114.4615131,
   "address": "225 Railway St E Ste 115, Cochrane, AB T4C 2C3",
   "phone": "+14035885667",
-  "rating": 5.0,
+  "rating": 5,
   "count": 37,
   "slug": "roper-canadian-immigration-services-cochrane",
   "mapsUrl": "https://www.google.com/maps/search/Roper+Canadian+Immigration+Services+Cochrane+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=225+Railway+St+E+Ste+115%2C+Cochrane%2C+AB+T4C+2C3",
   "website": "https://ropercanadianimmigration.ca",
   "blurb": "Immigration in Cochrane. Rated 5.0 from 37 Google reviews.",
-  "type": "mono",
-  "initials": "RC",
-  "color": "#2e4a43",
-  "about": "Roper Canadian Immigration Services is a law firm in Cochrane, Alberta that practises immigration. Clients rate the firm 5.0 out of 5 from 37 public Google reviews. The office is at 225 Railway St E Ste 115, Cochrane, AB T4C 2C3, and you can call (403) 588-5667 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Roper Canadian Immigration Services is a law firm in Cochrane, Alberta that practises immigration. Clients rate the firm 5.0 out of 5 from 37 public Google reviews. The office is at 225 Railway St E Ste 115, Cochrane, AB T4C 2C3, and you can call (403) 588-5667 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “RCIC-regulated immigration consultant in Cochrane, Alberta. We help you immigration, work, study, or visit Canada. Book a consulatation today.”",
+  "src": "images/logos/roper-canadian-immigration-services-cochrane.webp"
  },
  {
   "name": "Keystone Legal",
@@ -563,17 +623,16 @@
   "lng": -114.4725344,
   "address": "505 Railway St W Unit 4, Cochrane, AB T4C 2E2",
   "phone": "+15873283328",
-  "rating": 5.0,
+  "rating": 5,
   "count": 35,
   "slug": "keystone-legal-cochrane",
   "mapsUrl": "https://www.google.com/maps/search/Keystone+Legal+Cochrane+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=505+Railway+St+W+Unit+4%2C+Cochrane%2C+AB+T4C+2E2",
   "website": "https://www.keystone-legal.ca",
   "blurb": "Family Law / Wills & Estates in Cochrane. Rated 5.0 from 35 Google reviews.",
-  "type": "mono",
-  "initials": "KL",
-  "color": "#5c3a3a",
-  "about": "Keystone Legal is a law firm in Cochrane, Alberta that practises family law, wills and estates and business law. Clients rate the firm 5.0 out of 5 from 35 public Google reviews. The office is at 505 Railway St W Unit 4, Cochrane, AB T4C 2E2, and you can call (587) 328-3328 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Keystone Legal is a law firm in Cochrane, Alberta that practises family law, wills and estates and business law. Clients rate the firm 5.0 out of 5 from 35 public Google reviews. The office is at 505 Railway St W Unit 4, Cochrane, AB T4C 2E2, and you can call (587) 328-3328 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Litigation in Calgary and across Alberta: business and commercial, construction and lien, estate, real estate, family property and professional disputes.”",
+  "src": "images/logos/keystone-legal-cochrane.png"
  },
  {
   "name": "Smith & Hersey Agribusiness Law LLP",
@@ -591,17 +650,16 @@
   "lng": -112.6998677,
   "address": "515 AB-10 #100, Drumheller, AB T0J 0Y0",
   "phone": "+14038215500",
-  "rating": 5.0,
+  "rating": 5,
   "count": 56,
   "slug": "smith-and-hersey-agribusiness-law-llp-drumheller",
   "mapsUrl": "https://www.google.com/maps/search/Smith+%26+Hersey+Agribusiness+Law+LLP+Drumheller+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=515+AB-10+%23100%2C+Drumheller%2C+AB+T0J+0Y0",
-  "website": "http://www.smithhersey.com",
+  "website": "https://www.smithhersey.com",
   "blurb": "Business Law in Drumheller. Rated 5.0 from 56 Google reviews.",
-  "type": "mono",
-  "initials": "SH",
-  "color": "#35506b",
-  "about": "Smith & Hersey Agribusiness Law LLP is a law firm in Drumheller, Alberta that practises business law. Clients rate the firm 5.0 out of 5 from 56 public Google reviews. The office is at 515 AB-10 #100, Drumheller, AB T0J 0Y0, and you can call (403) 821-5500 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Smith & Hersey Agribusiness Law LLP is a law firm in Drumheller, Alberta that practises business law. Clients rate the firm 5.0 out of 5 from 56 public Google reviews. The office is at 515 AB-10 #100, Drumheller, AB T0J 0Y0, and you can call (403) 821-5500 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Smith & Hersey Agribusiness Law LLP is a regional agribusiness law firm focused on providing specialized legal services for farmers and ranchers in the Southeast region of Alberta.”",
+  "src": "images/logos/smith-and-hersey-agribusiness-law-llp-drumheller.png"
  },
  {
   "name": "Valley Law Chambers",
@@ -621,24 +679,33 @@
   "lng": -112.7115568,
   "address": "VALLEY PLAZA, 249 3 Ave W, Drumheller, AB T0J 3R0",
   "phone": "+18444999681",
-  "rating": 5.0,
+  "rating": 5,
   "count": 33,
   "slug": "valley-law-chambers-drumheller",
   "mapsUrl": "https://www.google.com/maps/search/Valley+Law+Chambers+Drumheller+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=VALLEY+PLAZA%2C+249+3+Ave+W%2C+Drumheller%2C+AB+T0J+3R0",
   "website": "https://www.valleylawchambers.ca",
   "blurb": "Real Estate / Civil Litigation in Drumheller. Rated 5.0 from 33 Google reviews.",
-  "type": "mono",
-  "initials": "VC",
-  "color": "#5d5f63",
-  "about": "Valley Law Chambers is a law firm in Drumheller, Alberta that practises real estate and civil litigation. Clients rate the firm 5.0 out of 5 from 33 public Google reviews. The office is at VALLEY PLAZA, 249 3 Ave W, Drumheller, AB T0J 3R0, and you can call (844) 499-9681 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Valley Law Chambers is a law firm in Drumheller, Alberta that practises real estate and civil litigation. Clients rate the firm 5.0 out of 5 from 33 public Google reviews. The office is at VALLEY PLAZA, 249 3 Ave W, Drumheller, AB T0J 3R0, and you can call (844) 499-9681 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Excellence in Legal Services, Excellence in Value. Your Edge in Real Estate Law.”",
+  "src": "images/logos/valley-law-chambers-drumheller.webp"
  },
  {
   "name": "Barry & James LLP",
   "city": "Drumheller",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates",
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills",
+   "criminal"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 51.4640083,
@@ -651,11 +718,10 @@
   "mapsUrl": "https://www.google.com/maps/search/Barry+%26+James+LLP+Drumheller+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=98+3+Ave+W%2C+Drumheller%2C+AB+T0J+0Y0",
   "website": "https://barryjameslaw.ca",
-  "blurb": "Law firm in Drumheller. Rated 4.6 from 30 Google reviews.",
-  "type": "mono",
-  "initials": "BJ",
-  "color": "#4a3a5c",
-  "about": "Barry & James LLP is a law firm in Drumheller, Alberta. Clients rate the firm 4.6 out of 5 from 30 public Google reviews. The office is at 98 3 Ave W, Drumheller, AB T0J 0Y0, and you can call (403) 823-4000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Family Law / Real Estate in Drumheller. Rated 4.6 from 30 Google reviews.",
+  "type": "logo",
+  "about": "Barry & James LLP is a law firm in Drumheller, Alberta that practises family, real estate and wills and estates. Clients rate the firm 4.6 out of 5 from 30 public Google reviews. The office is at 98 3 Ave W, Drumheller, AB T0J 0Y0, and you can call (403) 823-4000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/barry-and-james-llp-drumheller.jpg"
  },
  {
   "name": "Pillay Law",
@@ -669,12 +735,12 @@
   "lng": -113.4822726,
   "address": "9811 34 Ave NW #303, Edmonton, AB T6E 5X9",
   "phone": "+17805408400",
-  "rating": 5.0,
+  "rating": 5,
   "count": 310,
   "slug": "pillay-law-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/Pillay+Law+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=9811+34+Ave+NW+%23303%2C+Edmonton%2C+AB+T6E+5X9",
-  "website": "http://www.pillaylaw.ca",
+  "website": "https://www.pillaylaw.ca",
   "blurb": "Law firm in Edmonton. Rated 5.0 from 310 Google reviews.",
   "type": "mono",
   "initials": "PI",
@@ -685,25 +751,35 @@
   "name": "Jurix Law",
   "city": "Edmonton",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law",
+   "Real Estate",
+   "Wills & Estates",
+   "Immigration"
+  ],
+  "caseTypes": [
+   "family",
+   "realestate",
+   "wills",
+   "immigration"
+  ],
   "region": "ab-edmonton",
   "province": "AB",
   "lat": 53.5489729,
   "lng": -113.631246,
   "address": "17920 105 Ave NW #200, Edmonton, AB T5S 2H5",
   "phone": "+17809823045",
-  "rating": 5.0,
+  "rating": 5,
   "count": 797,
   "slug": "jurix-law-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/Jurix+Law+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=17920+105+Ave+NW+%23200%2C+Edmonton%2C+AB+T5S+2H5",
   "website": "https://jurixlaw.ca",
-  "blurb": "Law firm in Edmonton. Rated 5.0 from 797 Google reviews.",
+  "blurb": "Family Law / Real Estate in Edmonton. Rated 5.0 from 797 Google reviews.",
   "type": "mono",
   "initials": "JU",
   "color": "#5c3a3a",
-  "about": "Jurix Law is a law firm in Edmonton, Alberta. Clients rate the firm 5.0 out of 5 from 797 public Google reviews. The office is at 17920 105 Ave NW #200, Edmonton, AB T5S 2H5, and you can call (780) 982-3045 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Jurix Law is a law firm in Edmonton, Alberta that practises family, real estate and wills and estates. Clients rate the firm 5.0 out of 5 from 797 public Google reviews. The office is at 17920 105 Ave NW #200, Edmonton, AB T5S 2H5, and you can call (780) 982-3045 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Jurix Law specializes in Immigration Law, Real Estate Law, Wills and Estates, Corporate and Commercial Law, and Family Law in Edmonton. Call (780) 982-3054”"
  },
  {
   "name": "Verhaeghe Law Office",
@@ -728,12 +804,12 @@
   "slug": "verhaeghe-law-office-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/Verhaeghe+Law+Office+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10525+170+St+NW+%23203%2C+Edmonton%2C+AB+T5P+4W2",
-  "website": "http://freedomlaw.ca",
+  "website": "https://freedomlaw.ca",
   "blurb": "Real Estate / Civil Litigation in Edmonton. Rated 4.5 from 543 Google reviews.",
   "type": "mono",
   "initials": "VE",
   "color": "#2e4a43",
-  "about": "Verhaeghe Law Office is a law firm in Edmonton, Alberta that practises real estate and civil litigation. Clients rate the firm 4.5 out of 5 from 543 public Google reviews. The office is at 10525 170 St NW #203, Edmonton, AB T5P 4W2, and you can call (587) 410-2500 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Verhaeghe Law Office is a law firm in Edmonton, Alberta that practises real estate and civil litigation. Clients rate the firm 4.5 out of 5 from 543 public Google reviews. The office is at 10525 170 St NW #203, Edmonton, AB T5P 4W2, and you can call (587) 410-2500 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Welcome to Verhaeghe Law Office in Edmonton. We provide trusted legal services in family law, personal injury, estate planning, and more. Contact us today.”"
  },
  {
   "name": "SINGH LAW OFFICE",
@@ -755,7 +831,7 @@
   "lng": -113.4735396,
   "address": "2627 Ellwood Dr SW #108, Edmonton, AB T6X 0P7",
   "phone": "+17807093434",
-  "rating": 5.0,
+  "rating": 5,
   "count": 224,
   "slug": "singh-law-office-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/SINGH+LAW+OFFICE+Edmonton+Alberta",
@@ -794,7 +870,7 @@
   "slug": "elsafadi-law-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/Elsafadi+Law+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10807+Castle+Downs+Rd+NW+Ste+214B%2C+Edmonton%2C+AB+T5X+3N7",
-  "website": "http://www.elsafadilaw.com",
+  "website": "https://www.elsafadilaw.com",
   "blurb": "Family Law / Immigration in Edmonton. Rated 4.9 from 219 Google reviews.",
   "type": "mono",
   "initials": "EL",
@@ -805,25 +881,34 @@
   "name": "Gondara Law Office",
   "city": "Edmonton",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Wills & Estates",
+   "Criminal Defence",
+   "Business Law",
+   "Litigation"
+  ],
+  "caseTypes": [
+   "wills",
+   "criminal",
+   "business",
+   "litigation"
+  ],
   "region": "ab-edmonton",
   "province": "AB",
   "lat": 53.4921099,
   "lng": -113.4403399,
   "address": "7317 Roper Rd NW, Edmonton, AB T6B 3K9",
   "phone": "+17809384633",
-  "rating": 5.0,
+  "rating": 5,
   "count": 177,
   "slug": "gondara-law-office-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/Gondara+Law+Office+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=7317+Roper+Rd+NW%2C+Edmonton%2C+AB+T6B+3K9",
   "website": "https://gondaralaw.ca",
-  "blurb": "Law firm in Edmonton. Rated 5.0 from 177 Google reviews.",
-  "type": "mono",
-  "initials": "GO",
-  "color": "#5a4636",
-  "about": "Gondara Law Office is a law firm in Edmonton, Alberta. Clients rate the firm 5.0 out of 5 from 177 public Google reviews. The office is at 7317 Roper Rd NW, Edmonton, AB T6B 3K9, and you can call (780) 938-4633 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Wills & Estates / Criminal Defence in Edmonton. Rated 5.0 from 177 Google reviews.",
+  "type": "logo",
+  "about": "Gondara Law Office is a law firm in Edmonton, Alberta that practises wills and estates, criminal defence and business. Clients rate the firm 5.0 out of 5 from 177 public Google reviews. The office is at 7317 Roper Rd NW, Edmonton, AB T6B 3K9, and you can call (780) 938-4633 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/gondara-law-office-edmonton.png"
  },
  {
   "name": "Lypkie Henderson",
@@ -885,14 +970,24 @@
   "type": "mono",
   "initials": "AL",
   "color": "#4f4a2e",
-  "about": "Alberta Law Office is a law firm in Edmonton, Alberta that practises family law and real estate. Clients rate the firm 4.9 out of 5 from 141 public Google reviews. The office is at 551 Mistatim Way NW #210, Edmonton, AB T6V 0M9, and you can call (780) 451-2959 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Alberta Law Office is a law firm in Edmonton, Alberta that practises family law and real estate. Clients rate the firm 4.9 out of 5 from 141 public Google reviews. The office is at 551 Mistatim Way NW #210, Edmonton, AB T6V 0M9, and you can call (780) 451-2959 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trusted Edmonton law firm for family, divorce, real estate, wills, immigration, business law. Serving Edmonton and Alberta. Book your free consultation today.”"
  },
  {
   "name": "Purewal & Virk law LLP",
   "city": "Edmonton",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Business Law",
+   "Personal Injury",
+   "Family Law",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "business",
+   "injury",
+   "family",
+   "wills"
+  ],
   "region": "ab-edmonton",
   "province": "AB",
   "lat": 53.4671124,
@@ -904,12 +999,12 @@
   "slug": "purewal-and-virk-law-llp-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/Purewal+%26+Virk+law+LLP+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=9811+34+Ave+NW+%23303%2C+Edmonton%2C+AB+T6E+6A4",
-  "website": "http://www.devinderjitpurewal.com",
-  "blurb": "Law firm in Edmonton. Rated 4.9 from 100 Google reviews.",
+  "website": "https://www.devinderjitpurewal.com",
+  "blurb": "Business Law / Personal Injury in Edmonton. Rated 4.9 from 100 Google reviews.",
   "type": "mono",
   "initials": "PV",
   "color": "#3a3a1c",
-  "about": "Purewal & Virk law LLP is a law firm in Edmonton, Alberta. Clients rate the firm 4.9 out of 5 from 100 public Google reviews. The office is at 9811 34 Ave NW #303, Edmonton, AB T6E 6A4, and you can call (780) 540-8488 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Purewal & Virk law LLP is a law firm in Edmonton, Alberta that practises business, personal injury and family. Clients rate the firm 4.9 out of 5 from 100 public Google reviews. The office is at 9811 34 Ave NW #303, Edmonton, AB T6E 6A4, and you can call (780) 540-8488 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
  },
  {
   "name": "Lopatka Law",
@@ -939,9 +1034,9 @@
   "website": "https://www.lopatkalaw.ca",
   "blurb": "Real Estate / Wills & Estates in Edmonton. Rated 4.5 from 101 Google reviews.",
   "type": "mono",
+  "about": "Lopatka Law is a law firm in Edmonton, Alberta that practises real estate, wills and estates and business law. Clients rate the firm 4.5 out of 5 from 101 public Google reviews. The office is at 5540 Windermere Blvd NW #220, Edmonton, AB T6W 2Z8, and you can call (780) 486-8602 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Edmonton law firm providing business and corporate law, residential and commercial real estate, wills, estate planning and estate administration services.”",
   "initials": "LO",
-  "color": "#4f4a2e",
-  "about": "Lopatka Law is a law firm in Edmonton, Alberta that practises real estate, wills and estates and business law. Clients rate the firm 4.5 out of 5 from 101 public Google reviews. The office is at 5540 Windermere Blvd NW #220, Edmonton, AB T6W 2Z8, and you can call (780) 486-8602 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#4f4a2e"
  },
  {
   "name": "Archana Law",
@@ -966,12 +1061,12 @@
   "slug": "archana-law-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/Archana+Law+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=302%2C+5083+Windermere+Blvd+S+W+3rd+Floor%2C+Edmonton%2C+AB+T6W+0J5",
-  "website": "http://www.archanalaw.com",
+  "website": "https://www.archanalaw.com",
   "blurb": "Real Estate / Wills & Estates in Edmonton. Rated 4.8 from 85 Google reviews.",
   "type": "mono",
   "initials": "AR",
   "color": "#3a3a1c",
-  "about": "Archana Law is a law firm in Edmonton, Alberta that practises real estate and wills and estates. Clients rate the firm 4.8 out of 5 from 85 public Google reviews. The office is at 302, 5083 Windermere Blvd S W 3rd Floor, Edmonton, AB T6W 0J5, and you can call (780) 705-2009 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Archana Law is a law firm in Edmonton, Alberta that practises real estate and wills and estates. Clients rate the firm 4.8 out of 5 from 85 public Google reviews. The office is at 302, 5083 Windermere Blvd S W 3rd Floor, Edmonton, AB T6W 0J5, and you can call (780) 705-2009 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Minev Law Office is an Edmonton Area Real Estate Law Firm specializing in both Residential and Commercial Real Estate, Wills and Notary Services.”"
  },
  {
   "name": "Mark Idler Law",
@@ -989,41 +1084,51 @@
   "lng": -113.4173894,
   "address": "4935 55 Ave NW #213, Edmonton, AB T6B 3S3",
   "phone": "+17809652905",
-  "rating": 5.0,
+  "rating": 5,
   "count": 79,
   "slug": "mark-idler-law-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/Mark+Idler+Law+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4935+55+Ave+NW+%23213%2C+Edmonton%2C+AB+T6B+3S3",
-  "website": "http://www.markidlerlaw.ca",
+  "website": "https://www.markidlerlaw.ca",
   "blurb": "Family Law in Edmonton. Rated 5.0 from 79 Google reviews.",
   "type": "mono",
   "initials": "MI",
   "color": "#2e4a43",
-  "about": "Mark Idler Law is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 5.0 out of 5 from 79 public Google reviews. The office is at 4935 55 Ave NW #213, Edmonton, AB T6B 3S3, and you can call (780) 965-2905 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Mark Idler Law is a law firm in Edmonton, Alberta that practises family law. Clients rate the firm 5.0 out of 5 from 79 public Google reviews. The office is at 4935 55 Ave NW #213, Edmonton, AB T6B 3S3, and you can call (780) 965-2905 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Mark Idler Law is an affordable family lawyer located in Edmonton. I provide Separation Agreements, Prenups, Cohab agreements, Wills and more.”"
  },
  {
   "name": "SPT Law Office",
   "city": "Edmonton",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Criminal Defence",
+   "Immigration"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "criminal",
+   "immigration"
+  ],
   "region": "ab-edmonton",
   "province": "AB",
   "lat": 53.4579718,
   "lng": -113.4713527,
   "address": "2720 92 St NW #202, Edmonton, AB T6N 0B7",
   "phone": "+15874154888",
-  "rating": 5.0,
+  "rating": 5,
   "count": 67,
   "slug": "spt-law-office-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/SPT+Law+Office+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2720+92+St+NW+%23202%2C+Edmonton%2C+AB+T6N+0B7",
   "website": "https://sptlawoffice.com",
-  "blurb": "Law firm in Edmonton. Rated 5.0 from 67 Google reviews.",
+  "blurb": "Real Estate / Wills & Estates in Edmonton. Rated 5.0 from 67 Google reviews.",
   "type": "mono",
   "initials": "SP",
   "color": "#2e4a43",
-  "about": "SPT Law Office is a law firm in Edmonton, Alberta. Clients rate the firm 5.0 out of 5 from 67 public Google reviews. The office is at 2720 92 St NW #202, Edmonton, AB T6N 0B7, and you can call (587) 415-4888 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "SPT Law Office is a law firm in Edmonton, Alberta that practises real estate, wills and estates and criminal defence. Clients rate the firm 5.0 out of 5 from 67 public Google reviews. The office is at 2720 92 St NW #202, Edmonton, AB T6N 0B7, and you can call (587) 415-4888 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “SPT Law Office offers expert legal services in family, real estate, civil litigation, criminal defense, immigration, and wills & estates across Alberta. Contact us today.”"
  },
  {
   "name": "JOSE LAW",
@@ -1055,9 +1160,9 @@
   "website": "https://www.joselaw.ca",
   "blurb": "Criminal Defence / Real Estate in Edmonton. Rated 4.9 from 51 Google reviews.",
   "type": "mono",
+  "about": "JOSE LAW is a law firm in Edmonton, Alberta that practises criminal defence, real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 51 public Google reviews. The office is at 8714 51 Ave NW #200, Edmonton, AB T6E 5E8, and you can call (780) 600-1078 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "JO",
-  "color": "#4a3a5c",
-  "about": "JOSE LAW is a law firm in Edmonton, Alberta that practises criminal defence, real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 51 public Google reviews. The office is at 8714 51 Ave NW #200, Edmonton, AB T6E 5E8, and you can call (780) 600-1078 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#4a3a5c"
  },
  {
   "name": "Cambria LLP Barristers & Solicitors",
@@ -1089,16 +1194,22 @@
   "website": "https://cambrialaw.ca",
   "blurb": "Family Law / Criminal Defence in Edmonton. Rated 4.6 from 52 Google reviews.",
   "type": "mono",
+  "about": "Cambria LLP Barristers & Solicitors is a law firm in Edmonton, Alberta that practises family law, criminal defence and personal injury. Clients rate the firm 4.6 out of 5 from 52 public Google reviews. The office is at 5474 Calgary Trl NW, Edmonton, AB T6H 4J8, and you can call (780) 540-8100 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Cambria LLP’s Edmonton lawyers provide trusted legal services in family law, criminal defence, personal injury, and civil litigation. Start with a free consultation.”",
   "initials": "CB",
-  "color": "#4a3a5c",
-  "about": "Cambria LLP Barristers & Solicitors is a law firm in Edmonton, Alberta that practises family law, criminal defence and personal injury. Clients rate the firm 4.6 out of 5 from 52 public Google reviews. The office is at 5474 Calgary Trl NW, Edmonton, AB T6H 4J8, and you can call (780) 540-8100 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#4a3a5c"
  },
  {
   "name": "O'Donnell Law",
   "city": "Edmonton",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Wills & Estates",
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "wills",
+   "realestate"
+  ],
   "region": "ab-edmonton",
   "province": "AB",
   "lat": 53.5482423,
@@ -1111,11 +1222,10 @@
   "mapsUrl": "https://www.google.com/maps/search/O%27Donnell+Law+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=10471+178+St+NW+%23103%2C+Edmonton%2C+AB+T5S+1G4",
   "website": "https://www.o-law.ca",
-  "blurb": "Law firm in Edmonton. Rated 4.8 from 46 Google reviews.",
-  "type": "mono",
-  "initials": "OD",
-  "color": "#2e4a43",
-  "about": "O'Donnell Law is a law firm in Edmonton, Alberta. Clients rate the firm 4.8 out of 5 from 46 public Google reviews. The office is at 10471 178 St NW #103, Edmonton, AB T5S 1G4, and you can call (780) 455-4458 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Wills & Estates / Real Estate in Edmonton. Rated 4.8 from 46 Google reviews.",
+  "type": "logo",
+  "about": "O'Donnell Law is a law firm in Edmonton, Alberta that practises wills and estates and real estate. Clients rate the firm 4.8 out of 5 from 46 public Google reviews. The office is at 10471 178 St NW #103, Edmonton, AB T5S 1G4, and you can call (780) 455-4458 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/o-donnell-law-edmonton.png"
  },
  {
   "name": "McCourt Law Offices",
@@ -1138,12 +1248,12 @@
   "slug": "mccourt-law-offices-edmonton",
   "mapsUrl": "https://www.google.com/maps/search/McCourt+Law+Offices+Edmonton+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=17404+108+Ave+NW%2C+Edmonton%2C+AB+T5S+1E8",
-  "website": "http://mccourtlaw.ca",
+  "website": "https://mccourtlaw.ca",
   "blurb": "Personal Injury in Edmonton. Rated 4.6 from 46 Google reviews.",
   "type": "mono",
   "initials": "MC",
   "color": "#4a3a5c",
-  "about": "McCourt Law Offices is a law firm in Edmonton, Alberta that practises personal injury. Clients rate the firm 4.6 out of 5 from 46 public Google reviews. The office is at 17404 108 Ave NW, Edmonton, AB T5S 1E8, and you can call (780) 448-0011 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "McCourt Law Offices is a law firm in Edmonton, Alberta that practises personal injury. Clients rate the firm 4.6 out of 5 from 46 public Google reviews. The office is at 17404 108 Ave NW, Edmonton, AB T5S 1E8, and you can call (780) 448-0011 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Car crash? Whiplash? Call our skilled and experienced injury lawyers in West Edmonton at McCourt Law Offices to help you get the cash compensation you deserve.”"
  },
  {
   "name": "Stringam Law",
@@ -1175,9 +1285,9 @@
   "website": "https://stringam.ca",
   "blurb": "Family Law / Personal Injury in Grande Prairie. Rated 4.5 from 291 Google reviews.",
   "type": "mono",
+  "about": "Stringam Law is a law firm in Grande Prairie, Alberta that practises family law, personal injury and real estate. Clients rate the firm 4.5 out of 5 from 291 public Google reviews. The office is at 9805 106A St, Grande Prairie, AB T8V 8E9, and you can call (780) 513-6883 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Your Local Full-Service Law Firm. Serving Clients with offices across Alberta, BC, and Saskatchewan. Get the right guidance across Western Canada.”",
   "initials": "ST",
-  "color": "#35506b",
-  "about": "Stringam Law is a law firm in Grande Prairie, Alberta that practises family law, personal injury and real estate. Clients rate the firm 4.5 out of 5 from 291 public Google reviews. The office is at 9805 106A St, Grande Prairie, AB T8V 8E9, and you can call (780) 513-6883 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#35506b"
  },
  {
   "name": "KMSC Law LLP",
@@ -1240,12 +1350,11 @@
   "slug": "hayes-fry-law-grande-prairie",
   "mapsUrl": "https://www.google.com/maps/search/Hayes+Fry+Law+Grande+Prairie+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=8805+Resources+Rd+%23106%2C+Grande+Prairie%2C+AB+T8V+3A6",
-  "website": "http://hayesfrylaw.ca",
+  "website": "https://hayesfrylaw.ca",
   "blurb": "Family Law / Real Estate in Grande Prairie. Rated 4.5 from 176 Google reviews.",
-  "type": "mono",
-  "initials": "HF",
-  "color": "#3a3a1c",
-  "about": "Hayes Fry Law is a law firm in Grande Prairie, Alberta that practises family law, real estate and wills and estates. Clients rate the firm 4.5 out of 5 from 176 public Google reviews. The office is at 8805 Resources Rd #106, Grande Prairie, AB T8V 3A6, and you can call (780) 831-7370 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Hayes Fry Law is a law firm in Grande Prairie, Alberta that practises family law, real estate and wills and estates. Clients rate the firm 4.5 out of 5 from 176 public Google reviews. The office is at 8805 Resources Rd #106, Grande Prairie, AB T8V 3A6, and you can call (780) 831-7370 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Hayes Fry Law offers a variety of services and caters to clients in Grande Prairie, the Peace Country and across Northern Alberta.”",
+  "src": "images/logos/hayes-fry-law-grande-prairie.png"
  },
  {
   "name": "Rigler Law",
@@ -1268,12 +1377,11 @@
   "slug": "rigler-law-grande-prairie",
   "mapsUrl": "https://www.google.com/maps/search/Rigler+Law+Grande+Prairie+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=9505+Resources+Rd%2C+Grande+Prairie%2C+AB+T8V+8C2",
-  "website": "http://www.riglerlaw.ca",
+  "website": "https://www.riglerlaw.ca",
   "blurb": "Real Estate in Grande Prairie. Rated 4.6 from 88 Google reviews.",
-  "type": "mono",
-  "initials": "RI",
-  "color": "#35506b",
-  "about": "Rigler Law is a law firm in Grande Prairie, Alberta that practises real estate. Clients rate the firm 4.6 out of 5 from 88 public Google reviews. The office is at 9505 Resources Rd, Grande Prairie, AB T8V 8C2, and you can call (780) 814-1916 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Rigler Law is a law firm in Grande Prairie, Alberta that practises real estate. Clients rate the firm 4.6 out of 5 from 88 public Google reviews. The office is at 9505 Resources Rd, Grande Prairie, AB T8V 8C2, and you can call (780) 814-1916 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/rigler-law-grande-prairie.png"
  },
  {
   "name": "CLHbid.com",
@@ -1296,12 +1404,12 @@
   "slug": "clhbid-com-grande-prairie",
   "mapsUrl": "https://www.google.com/maps/search/CLHbid.com+Grande+Prairie+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=9803+101+Ave+%23200%2C+Grande+Prairie%2C+AB+T8V+0X6",
-  "website": "http://www.clhbid.com",
+  "website": "https://www.clhbid.com",
   "blurb": "Real Estate in Grande Prairie. Rated 4.7 from 27 Google reviews.",
   "type": "mono",
+  "about": "CLHbid.com is a law firm in Grande Prairie, Alberta that practises real estate. Clients rate the firm 4.7 out of 5 from 27 public Google reviews. The office is at 9803 101 Ave #200, Grande Prairie, AB T8V 0X6, and you can call (866) 263-7480 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "CC",
-  "color": "#5d5f63",
-  "about": "CLHbid.com is a law firm in Grande Prairie, Alberta that practises real estate. Clients rate the firm 4.7 out of 5 from 27 public Google reviews. The office is at 9803 101 Ave #200, Grande Prairie, AB T8V 0X6, and you can call (866) 263-7480 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5d5f63"
  },
  {
   "name": "LETOURNEAU LLP",
@@ -1333,16 +1441,24 @@
   "website": "https://www.lelaw.ca",
   "blurb": "Family Law / Criminal Defence in Lethbridge. Rated 4.9 from 377 Google reviews.",
   "type": "mono",
+  "about": "LETOURNEAU LLP is a law firm in Lethbridge, Alberta that practises family law, criminal defence and personal injury. Clients rate the firm 4.9 out of 5 from 377 public Google reviews. The office is at 416 6 Ave S #110, Lethbridge, AB T1J 0Y7, and you can call (403) 329-4311 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “LETOURNEAU LLP is a trusted Lethbridge law firm serving Southern Alberta. We focus on family law, personal injury, and criminal defence, with services in real estate, business, and estate planning.”",
   "initials": "LE",
-  "color": "#3a3a1c",
-  "about": "LETOURNEAU LLP is a law firm in Lethbridge, Alberta that practises family law, criminal defence and personal injury. Clients rate the firm 4.9 out of 5 from 377 public Google reviews. The office is at 416 6 Ave S #110, Lethbridge, AB T1J 0Y7, and you can call (403) 329-4311 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#3a3a1c"
  },
  {
   "name": "Low & Company LLP",
   "city": "Lethbridge",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law",
+   "Personal Injury",
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "family",
+   "injury",
+   "criminal"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 49.6684958,
@@ -1354,12 +1470,11 @@
   "slug": "low-and-company-llp-lethbridge",
   "mapsUrl": "https://www.google.com/maps/search/Low+%26+Company+LLP+Lethbridge+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3428+Fairway+Plaza+Rd+S+%23270%2C+Lethbridge%2C+AB+T1K+7T5",
-  "website": "http://www.lowlaw.ca",
-  "blurb": "Law firm in Lethbridge. Rated 4.9 from 227 Google reviews.",
-  "type": "mono",
-  "initials": "LC",
-  "color": "#2e4a43",
-  "about": "Low & Company LLP is a law firm in Lethbridge, Alberta. Clients rate the firm 4.9 out of 5 from 227 public Google reviews. The office is at 3428 Fairway Plaza Rd S #270, Lethbridge, AB T1K 7T5, and you can call (403) 380-2499 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "website": "https://www.lowlaw.ca",
+  "blurb": "Family Law / Personal Injury in Lethbridge. Rated 4.9 from 227 Google reviews.",
+  "type": "logo",
+  "about": "Low & Company LLP is a law firm in Lethbridge, Alberta that practises family, personal injury and criminal defence. Clients rate the firm 4.9 out of 5 from 227 public Google reviews. The office is at 3428 Fairway Plaza Rd S #270, Lethbridge, AB T1K 7T5, and you can call (403) 380-2499 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Low and Company are experienced lawyers in Lethbridge, Alberta, offering professional legal services in family law, personal injury, criminal defense, and more. Contact us for trusted legal advice.”",
+  "src": "images/logos/low-and-company-llp-lethbridge.png"
  },
  {
   "name": "Ivy Law",
@@ -1390,10 +1505,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=719+4+Ave+S+%23170%2C+Lethbridge%2C+AB+T1J+0P1",
   "website": "https://ivylaw.ca",
   "blurb": "Criminal Defence / Civil Litigation in Lethbridge. Rated 4.8 from 180 Google reviews.",
-  "type": "mono",
-  "initials": "IV",
-  "color": "#3a3a1c",
-  "about": "Ivy Law is a law firm in Lethbridge, Alberta that practises criminal defence, civil litigation and wills and estates. Clients rate the firm 4.8 out of 5 from 180 public Google reviews. The office is at 719 4 Ave S #170, Lethbridge, AB T1J 0P1, and you can call (403) 380-1999 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Ivy Law is a law firm in Lethbridge, Alberta that practises criminal defence, civil litigation and wills and estates. Clients rate the firm 4.8 out of 5 from 180 public Google reviews. The office is at 719 4 Ave S #170, Lethbridge, AB T1J 0P1, and you can call (403) 380-1999 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Ivy Law provides strategic legal representation across AB & BC. Skilled in family law, criminal defence, civil litigation, estates and much more.”",
+  "src": "images/logos/ivy-law-lethbridge.png"
  },
  {
   "name": "Huckvale LLP",
@@ -1422,19 +1536,29 @@
   "slug": "huckvale-llp-lethbridge",
   "mapsUrl": "https://www.google.com/maps/search/Huckvale+LLP+Lethbridge+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=410+6+St+S%2C+Lethbridge%2C+AB+T1J+2C8",
-  "website": "http://www.huckvale.ca",
+  "website": "https://www.huckvale.ca",
   "blurb": "Family Law / Wills & Estates in Lethbridge. Rated 4.6 from 103 Google reviews.",
   "type": "mono",
   "initials": "HU",
   "color": "#5a4636",
-  "about": "Huckvale LLP is a law firm in Lethbridge, Alberta that practises family law, wills and estates and immigration. Clients rate the firm 4.6 out of 5 from 103 public Google reviews. The office is at 410 6 St S, Lethbridge, AB T1J 2C8, and you can call (403) 328-8856 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Huckvale LLP is a law firm in Lethbridge, Alberta that practises family law, wills and estates and immigration. Clients rate the firm 4.6 out of 5 from 103 public Google reviews. The office is at 410 6 St S, Lethbridge, AB T1J 2C8, and you can call (403) 328-8856 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Getting You There Since 1906, Huckvale LLP has been providing Southern Alberta with dedicated, quality legal assistance to help our clients get where they need to be, from resolving a legal dispute, to successfully closing a business or real estate transaction. Request a Consultation Committed”"
  },
  {
   "name": "Compass Legal LLP",
   "city": "Lethbridge",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Personal Injury",
+   "Employment Law",
+   "Litigation",
+   "Family Law"
+  ],
+  "caseTypes": [
+   "injury",
+   "employment",
+   "litigation",
+   "family"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 49.6932367,
@@ -1446,12 +1570,11 @@
   "slug": "compass-legal-llp-lethbridge",
   "mapsUrl": "https://www.google.com/maps/search/Compass+Legal+LLP+Lethbridge+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=117+5+Ave+S%2C+Lethbridge%2C+AB+T1J+0T7",
-  "website": "http://compass-legal.ca",
-  "blurb": "Law firm in Lethbridge. Rated 4.9 from 84 Google reviews.",
-  "type": "mono",
-  "initials": "CL",
-  "color": "#5c3a3a",
-  "about": "Compass Legal LLP is a law firm in Lethbridge, Alberta. Clients rate the firm 4.9 out of 5 from 84 public Google reviews. The office is at 117 5 Ave S, Lethbridge, AB T1J 0T7, and you can call (587) 782-2880 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "website": "https://compass-legal.ca",
+  "blurb": "Personal Injury / Employment Law in Lethbridge. Rated 4.9 from 84 Google reviews.",
+  "type": "logo",
+  "about": "Compass Legal LLP is a law firm in Lethbridge, Alberta that practises personal injury, employment and litigation. Clients rate the firm 4.9 out of 5 from 84 public Google reviews. The office is at 117 5 Ave S, Lethbridge, AB T1J 0T7, and you can call (587) 782-2880 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “From personal injury to family and workplace law, Compass Legal LLP guides Lethbridge clients through legal challenges with clarity, care, and confidence.”",
+  "src": "images/logos/compass-legal-llp-lethbridge.png"
  },
  {
   "name": "Clear Title Law",
@@ -1480,17 +1603,22 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1921+Mayor+Magrath+Dr+S+%23204%2C+Lethbridge%2C+AB+T1K+2R8",
   "website": "https://www.cleartitlelaw.com",
   "blurb": "Real Estate / Wills & Estates in Lethbridge. Rated 4.9 from 42 Google reviews.",
-  "type": "mono",
-  "initials": "CT",
-  "color": "#4f4a2e",
-  "about": "Clear Title Law is a law firm in Lethbridge, Alberta that practises real estate, wills and estates and business law. Clients rate the firm 4.9 out of 5 from 42 public Google reviews. The office is at 1921 Mayor Magrath Dr S #204, Lethbridge, AB T1K 2R8, and you can call (587) 800-5895 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Clear Title Law is a law firm in Lethbridge, Alberta that practises real estate, wills and estates and business law. Clients rate the firm 4.9 out of 5 from 42 public Google reviews. The office is at 1921 Mayor Magrath Dr S #204, Lethbridge, AB T1K 2R8, and you can call (587) 800-5895 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Clear Title Law is a leading law firm in Lethbridge, AB. We specialise in real estate, corporate and estate planning law. Call today for a legal consultation.”",
+  "src": "images/logos/clear-title-law-lethbridge.webp"
  },
  {
   "name": "Fee Simple Law, LLP",
   "city": "Lethbridge",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 49.6948928,
@@ -1502,19 +1630,27 @@
   "slug": "fee-simple-law-llp-lethbridge",
   "mapsUrl": "https://www.google.com/maps/search/Fee+Simple+Law%2C+LLP+Lethbridge+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=319+4+St+S%2C+Lethbridge%2C+AB+T1J+1Z9",
-  "website": "http://feesimplelaw.ca",
-  "blurb": "Law firm in Lethbridge. Rated 4.6 from 44 Google reviews.",
+  "website": "https://feesimplelaw.ca",
+  "blurb": "Real Estate / Wills & Estates in Lethbridge. Rated 4.6 from 44 Google reviews.",
   "type": "mono",
+  "about": "Fee Simple Law, LLP is a law firm in Lethbridge, Alberta that practises real estate and wills and estates. Clients rate the firm 4.6 out of 5 from 44 public Google reviews. The office is at 319 4 St S, Lethbridge, AB T1J 1Z9, and you can call (587) 425-5430 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “At Fee Simple Law we make all legal matters related to your property simple. We do one thing and we do it well — real estate law.”",
   "initials": "FS",
-  "color": "#5c3a3a",
-  "about": "Fee Simple Law, LLP is a law firm in Lethbridge, Alberta. Clients rate the firm 4.6 out of 5 from 44 public Google reviews. The office is at 319 4 St S, Lethbridge, AB T1J 1Z9, and you can call (587) 425-5430 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5c3a3a"
  },
  {
   "name": "Schindel Law Office",
   "city": "Medicine Hat",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills",
+   "business"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 50.0056773,
@@ -1526,19 +1662,29 @@
   "slug": "schindel-law-office-medicine-hat",
   "mapsUrl": "https://www.google.com/maps/search/Schindel+Law+Office+Medicine+Hat+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3295+Dunmore+Rd+SE+%231%2C+Medicine+Hat%2C+AB+T1B+3R2",
-  "website": "http://www.schindellaw.com",
-  "blurb": "Law firm in Medicine Hat. Rated 4.8 from 37 Google reviews.",
+  "website": "https://www.schindellaw.com",
+  "blurb": "Real Estate / Wills & Estates in Medicine Hat. Rated 4.8 from 37 Google reviews.",
   "type": "mono",
   "initials": "SC",
   "color": "#5d5f63",
-  "about": "Schindel Law Office is a law firm in Medicine Hat, Alberta. Clients rate the firm 4.8 out of 5 from 37 public Google reviews. The office is at 3295 Dunmore Rd SE #1, Medicine Hat, AB T1B 3R2, and you can call (403) 529-5548 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Schindel Law Office is a law firm in Medicine Hat, Alberta that practises real estate, wills and estates and business. Clients rate the firm 4.8 out of 5 from 37 public Google reviews. The office is at 3295 Dunmore Rd SE #1, Medicine Hat, AB T1B 3R2, and you can call (403) 529-5548 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
  },
  {
   "name": "Hill & Hill Law",
   "city": "Medicine Hat",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Personal Injury",
+   "Real Estate",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "injury",
+   "realestate",
+   "wills",
+   "business"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 50.009805,
@@ -1550,12 +1696,12 @@
   "slug": "hill-and-hill-law-medicine-hat",
   "mapsUrl": "https://www.google.com/maps/search/Hill+%26+Hill+Law+Medicine+Hat+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3151+Dunmore+Rd+SE+Unit+6%2C+Medicine+Hat%2C+AB+T1B+2H2",
-  "website": "http://www.hillandhill.ca",
-  "blurb": "Law firm in Medicine Hat. Rated 4.8 from 32 Google reviews.",
+  "website": "https://www.hillandhill.ca",
+  "blurb": "Personal Injury / Real Estate in Medicine Hat. Rated 4.8 from 32 Google reviews.",
   "type": "mono",
   "initials": "HH",
   "color": "#35506b",
-  "about": "Hill & Hill Law is a law firm in Medicine Hat, Alberta. Clients rate the firm 4.8 out of 5 from 32 public Google reviews. The office is at 3151 Dunmore Rd SE Unit 6, Medicine Hat, AB T1B 2H2, and you can call (403) 527-1544 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Hill & Hill Law is a law firm in Medicine Hat, Alberta that practises personal injury, real estate and wills and estates. Clients rate the firm 4.8 out of 5 from 32 public Google reviews. The office is at 3151 Dunmore Rd SE Unit 6, Medicine Hat, AB T1B 2H2, and you can call (403) 527-1544 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Hill and Hill Law Office provides experienced legal representation in Medicine Hat, Alberta. Personal injury, real estate, wills and estates, and more.”"
  },
  {
   "name": "Hamilton Cahoon",
@@ -1584,19 +1730,26 @@
   "slug": "hamilton-cahoon-medicine-hat",
   "mapsUrl": "https://www.google.com/maps/search/Hamilton+Cahoon+Medicine+Hat+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=202%2C+462+4+St+SE%2C+Medicine+Hat%2C+AB+T1A+0K6",
-  "website": "http://hamiltoncahoon.ca",
+  "website": "https://hamiltoncahoon.ca",
   "blurb": "Family Law / Personal Injury in Medicine Hat. Rated 4.8 from 30 Google reviews.",
-  "type": "mono",
-  "initials": "HC",
-  "color": "#4f4a2e",
-  "about": "Hamilton Cahoon is a law firm in Medicine Hat, Alberta that practises family law, personal injury and wills and estates. Clients rate the firm 4.8 out of 5 from 30 public Google reviews. The office is at 202, 462 4 St SE, Medicine Hat, AB T1A 0K6, and you can call (403) 487-1495 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Hamilton Cahoon is a law firm in Medicine Hat, Alberta that practises family law, personal injury and wills and estates. Clients rate the firm 4.8 out of 5 from 30 public Google reviews. The office is at 202, 462 4 St SE, Medicine Hat, AB T1A 0K6, and you can call (403) 487-1495 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Looking for lawyers in Medicine Hat, Alberta? We'll assist you with your legal matters including family law, civil litigation, personal injury, & real estate.”",
+  "src": "images/logos/hamilton-cahoon-medicine-hat.png"
  },
  {
   "name": "JD Law",
   "city": "Red Deer",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Wills & Estates",
+   "Real Estate",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "wills",
+   "realestate",
+   "business"
+  ],
   "region": "ab-edmonton",
   "province": "AB",
   "lat": 52.2750728,
@@ -1608,12 +1761,11 @@
   "slug": "jd-law-red-deer",
   "mapsUrl": "https://www.google.com/maps/search/JD+Law+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5002+55+St+%23105%2C+Red+Deer%2C+AB+T4N+7A4",
-  "website": "http://reddeerlawyer.com",
-  "blurb": "Law firm in Red Deer. Rated 4.9 from 335 Google reviews.",
-  "type": "mono",
-  "initials": "JD",
-  "color": "#5c3a3a",
-  "about": "JD Law is a law firm in Red Deer, Alberta. Clients rate the firm 4.9 out of 5 from 335 public Google reviews. The office is at 5002 55 St #105, Red Deer, AB T4N 7A4, and you can call (587) 272-2050 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "website": "https://reddeerlawyer.com",
+  "blurb": "Wills & Estates / Real Estate in Red Deer. Rated 4.9 from 335 Google reviews.",
+  "type": "logo",
+  "about": "JD Law is a law firm in Red Deer, Alberta that practises wills and estates, real estate and business. Clients rate the firm 4.9 out of 5 from 335 public Google reviews. The office is at 5002 55 St #105, Red Deer, AB T4N 7A4, and you can call (587) 272-2050 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Christopher Stephan, lawyer specializing in Real Estate, Wills & Estates and Corporate law in Red Deer, Alberta.”",
+  "src": "images/logos/jd-law-red-deer.jpg"
  },
  {
   "name": "Kensian & Associates",
@@ -1640,7 +1792,7 @@
   "slug": "kensian-and-associates-red-deer",
   "mapsUrl": "https://www.google.com/maps/search/Kensian+%26+Associates+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4702+49+Ave+%23201%2C+Red+Deer%2C+AB+T4N+6L5",
-  "website": "http://www.kensianlaw.ca",
+  "website": "https://www.kensianlaw.ca",
   "blurb": "Family Law / Immigration in Red Deer. Rated 4.5 from 85 Google reviews.",
   "type": "mono",
   "initials": "KA",
@@ -1668,12 +1820,12 @@
   "slug": "kevin-sproule-law-office-red-deer",
   "mapsUrl": "https://www.google.com/maps/search/Kevin+Sproule+Law+Office+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4909+50+St+Ste+200%2C+Red+Deer%2C+AB+T4N+6X2",
-  "website": "http://www.kevinsproule.com",
+  "website": "https://www.kevinsproule.com",
   "blurb": "Criminal Defence in Red Deer. Rated 4.9 from 66 Google reviews.",
   "type": "mono",
   "initials": "KS",
   "color": "#4a3a5c",
-  "about": "Kevin Sproule Law Office is a law firm in Red Deer, Alberta that practises criminal defence. Clients rate the firm 4.9 out of 5 from 66 public Google reviews. The office is at 4909 50 St Ste 200, Red Deer, AB T4N 6X2, and you can call (403) 391-2457 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Kevin Sproule Law Office is a law firm in Red Deer, Alberta that practises criminal defence. Clients rate the firm 4.9 out of 5 from 66 public Google reviews. The office is at 4909 50 St Ste 200, Red Deer, AB T4N 6X2, and you can call (403) 391-2457 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Kevin Sproule Law Office is a criminal defence lawyer in Red Deer helping clients with impaired driving and other criminal charges. We take after-hours calls.”"
  },
  {
   "name": "Jennifer L. Cragg",
@@ -1698,43 +1850,61 @@
   "slug": "jennifer-l-cragg-red-deer",
   "mapsUrl": "https://www.google.com/maps/search/Jennifer+L.+Cragg+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4311+54+Ave+%23160%2C+Red+Deer%2C+AB+T4N+4L9",
-  "website": "http://www.jcragglaw.ca",
+  "website": "https://www.jcragglaw.ca",
   "blurb": "Real Estate / Wills & Estates in Red Deer. Rated 4.9 from 58 Google reviews.",
-  "type": "mono",
-  "initials": "JL",
-  "color": "#3a3a1c",
-  "about": "Jennifer L. Cragg is a law firm in Red Deer, Alberta that practises real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 58 public Google reviews. The office is at 4311 54 Ave #160, Red Deer, AB T4N 4L9, and you can call (587) 272-1414 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Jennifer L. Cragg is a law firm in Red Deer, Alberta that practises real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 58 public Google reviews. The office is at 4311 54 Ave #160, Red Deer, AB T4N 4L9, and you can call (587) 272-1414 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Jennifer Cragg, with JCragg Law is a Red Deer real estate lawyer also specializing in corporate law, estate law, and wills.”",
+  "src": "images/logos/jennifer-l-cragg-red-deer.jpg"
  },
  {
   "name": "Red Deer Legal",
   "city": "Red Deer",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law",
+   "Wills & Estates",
+   "Personal Injury",
+   "Employment Law"
+  ],
+  "caseTypes": [
+   "family",
+   "wills",
+   "injury",
+   "employment"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 52.2693542,
   "lng": -113.8119319,
   "address": "4900 50 St Unit 201, Red Deer, AB T4N 6X2",
   "phone": "+14033046419",
-  "rating": 5.0,
+  "rating": 5,
   "count": 49,
   "slug": "red-deer-legal-red-deer",
   "mapsUrl": "https://www.google.com/maps/search/Red+Deer+Legal+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4900+50+St+Unit+201%2C+Red+Deer%2C+AB+T4N+6X2",
   "website": "https://reddeerlawyers.com",
-  "blurb": "Law firm in Red Deer. Rated 5.0 from 49 Google reviews.",
-  "type": "mono",
-  "initials": "RD",
-  "color": "#5a4636",
-  "about": "Red Deer Legal is a law firm in Red Deer, Alberta. Clients rate the firm 5.0 out of 5 from 49 public Google reviews. The office is at 4900 50 St Unit 201, Red Deer, AB T4N 6X2, and you can call (403) 304-6419 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Family Law / Wills & Estates in Red Deer. Rated 5.0 from 49 Google reviews.",
+  "type": "logo",
+  "about": "Red Deer Legal is a law firm in Red Deer, Alberta that practises family, wills and estates and personal injury. Clients rate the firm 5.0 out of 5 from 49 public Google reviews. The office is at 4900 50 St Unit 201, Red Deer, AB T4N 6X2, and you can call (403) 304-6419 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “At Red Deer Legal Lawyers and Mediators, we are committed to providing top-tier legal solutions tailored to your needs. Located in the heart of Red Deer, Alberta, our experienced team of lawyers and mediators specializes in delivering results-driven legal advice and personalized conflict resolution...”",
+  "src": "images/logos/red-deer-legal-red-deer.webp"
  },
  {
   "name": "Schnell Hardy Jones LLP",
   "city": "Red Deer",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law",
+   "Wills & Estates",
+   "Real Estate",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "family",
+   "wills",
+   "realestate",
+   "business"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 52.2677955,
@@ -1747,11 +1917,11 @@
   "mapsUrl": "https://www.google.com/maps/search/Schnell+Hardy+Jones+LLP+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4909+49+St+%23504%2C+Red+Deer%2C+AB+T4N+6L5",
   "website": "https://www.schnell-law.com",
-  "blurb": "Law firm in Red Deer. Rated 4.5 from 51 Google reviews.",
+  "blurb": "Family Law / Wills & Estates in Red Deer. Rated 4.5 from 51 Google reviews.",
   "type": "mono",
   "initials": "SH",
   "color": "#5c3a3a",
-  "about": "Schnell Hardy Jones LLP is a law firm in Red Deer, Alberta. Clients rate the firm 4.5 out of 5 from 51 public Google reviews. The office is at 4909 49 St #504, Red Deer, AB T4N 6L5, and you can call (403) 342-7400 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Schnell Hardy Jones LLP is a law firm in Red Deer, Alberta that practises family, wills and estates and real estate. Clients rate the firm 4.5 out of 5 from 51 public Google reviews. The office is at 4909 49 St #504, Red Deer, AB T4N 6L5, and you can call (403) 342-7400 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Based in Red Deer, Alberta, Schnell Hardy Jones LLP is a Central Alberta law firm serving clients from the Saskatchewan border to the British Columbia border. We offer an array of services and practice in the following areas: Family Law, Collaborative Law, Estate Planning and Administration, Real...”"
  },
  {
   "name": "Doyle Rivet Lawyers",
@@ -1773,24 +1943,33 @@
   "lng": -113.822351,
   "address": "5301 43 St Unit 121, Red Deer, AB T4N 1C8",
   "phone": "+14039671220",
-  "rating": 5.0,
+  "rating": 5,
   "count": 35,
   "slug": "doyle-rivet-lawyers-red-deer",
   "mapsUrl": "https://www.google.com/maps/search/Doyle+Rivet+Lawyers+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5301+43+St+Unit+121%2C+Red+Deer%2C+AB+T4N+1C8",
-  "website": "http://www.drlegal.ca",
+  "website": "https://www.drlegal.ca",
   "blurb": "Personal Injury / Employment Law in Red Deer. Rated 5.0 from 35 Google reviews.",
-  "type": "mono",
-  "initials": "DR",
-  "color": "#35506b",
-  "about": "Doyle Rivet Lawyers is a law firm in Red Deer, Alberta that practises personal injury, employment law and civil litigation. Clients rate the firm 5.0 out of 5 from 35 public Google reviews. The office is at 5301 43 St Unit 121, Red Deer, AB T4N 1C8, and you can call (403) 967-1220 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Doyle Rivet Lawyers is a law firm in Red Deer, Alberta that practises personal injury, employment law and civil litigation. Clients rate the firm 5.0 out of 5 from 35 public Google reviews. The office is at 5301 43 St Unit 121, Red Deer, AB T4N 1C8, and you can call (403) 967-1220 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “What is the best way to get practical, cost-effective legal advice in Red Deer, Alberta? Call us at Doyle Rivet Lawyers today and speak to our knowledgeable legal team.”",
+  "src": "images/logos/doyle-rivet-lawyers-red-deer.png"
  },
  {
   "name": "Gasoline Alley Law Group",
   "city": "Red Deer",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Wills & Estates",
+   "Real Estate",
+   "Business Law",
+   "Litigation"
+  ],
+  "caseTypes": [
+   "wills",
+   "realestate",
+   "business",
+   "litigation"
+  ],
   "region": "ab-calgary",
   "province": "AB",
   "lat": 52.2066849,
@@ -1803,11 +1982,10 @@
   "mapsUrl": "https://www.google.com/maps/search/Gasoline+Alley+Law+Group+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=536+Laura+Ave+%23101%2C+Red+Deer+County%2C+AB+T4E+0A5",
   "website": "https://www.gasolinealleylawgroup.com",
-  "blurb": "Law firm in Red Deer. Rated 4.6 from 34 Google reviews.",
-  "type": "mono",
-  "initials": "GA",
-  "color": "#4f4a2e",
-  "about": "Gasoline Alley Law Group is a law firm in Red Deer, Alberta. Clients rate the firm 4.6 out of 5 from 34 public Google reviews. The office is at 536 Laura Ave #101, Red Deer County, AB T4E 0A5, and you can call (587) 815-5411 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Wills & Estates / Real Estate in Red Deer. Rated 4.6 from 34 Google reviews.",
+  "type": "logo",
+  "about": "Gasoline Alley Law Group is a law firm in Red Deer, Alberta that practises wills and estates, real estate and business. Clients rate the firm 4.6 out of 5 from 34 public Google reviews. The office is at 536 Laura Ave #101, Red Deer County, AB T4E 0A5, and you can call (587) 815-5411 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Gasoline Alley Law Group is an association of independent law practices proudly serving Central Alberta. Our group of experienced and trusted lawyers specialize in Real Estate, Commercial Transactions, Corporate Matters, Wills and Estate Planning, and Estate Administration.”",
+  "src": "images/logos/gasoline-alley-law-group-red-deer.png"
  },
  {
   "name": "Red Deer DUI Lawyer",
@@ -1830,19 +2008,29 @@
   "slug": "red-deer-dui-lawyer-red-deer",
   "mapsUrl": "https://www.google.com/maps/search/Red+Deer+DUI+Lawyer+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4728+50+St+%23200%2C+Red+Deer%2C+AB+T4N+1X2",
-  "website": "http://www.reddeerduilawyer.ca",
+  "website": "https://www.reddeerduilawyer.ca",
   "blurb": "Criminal Defence in Red Deer. Rated 4.9 from 28 Google reviews.",
   "type": "mono",
+  "about": "Red Deer DUI Lawyer is a law firm in Red Deer, Alberta that practises criminal defence. Clients rate the firm 4.9 out of 5 from 28 public Google reviews. The office is at 4728 50 St #200, Red Deer, AB T4N 1X2, and you can call (866) 912-3560 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “I'll fight your Red Deer DUI charge. If you’re over .08, it’s not too late. Call Alan Pearse today for a free consultation. 1-866-912-3560”",
   "initials": "RD",
-  "color": "#35506b",
-  "about": "Red Deer DUI Lawyer is a law firm in Red Deer, Alberta that practises criminal defence. Clients rate the firm 4.9 out of 5 from 28 public Google reviews. The office is at 4728 50 St #200, Red Deer, AB T4N 1X2, and you can call (866) 912-3560 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#35506b"
  },
  {
   "name": "Woodbine Legal Services",
   "city": "Red Deer",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Litigation",
+   "Real Estate",
+   "Family Law",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "litigation",
+   "realestate",
+   "family",
+   "wills"
+  ],
   "region": "ab-edmonton",
   "province": "AB",
   "lat": 52.2915347,
@@ -1854,19 +2042,23 @@
   "slug": "woodbine-legal-services-red-deer",
   "mapsUrl": "https://www.google.com/maps/search/Woodbine+Legal+Services+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=180%2C+6900+Taylor+Dr.+Floor+2%2C+Red+Deer%2C+AB+T4P+1K4",
-  "website": "http://woodbinelegalservices.ca",
-  "blurb": "Law firm in Red Deer. Rated 4.8 from 26 Google reviews.",
+  "website": "https://woodbinelegalservices.ca",
+  "blurb": "Litigation / Real Estate in Red Deer. Rated 4.8 from 26 Google reviews.",
   "type": "mono",
+  "about": "Woodbine Legal Services is a law firm in Red Deer, Alberta that practises litigation, real estate and family. Clients rate the firm 4.8 out of 5 from 26 public Google reviews. The office is at 180, 6900 Taylor Dr. Floor 2, Red Deer, AB T4P 1K4, and you can call (403) 344-0401 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Woodbine Legal Services is a law firm in Red Deer, Alberta offering legal and paralegal services for individuals, families, and businesses across Central Alberta.”",
   "initials": "WL",
-  "color": "#5a4636",
-  "about": "Woodbine Legal Services is a law firm in Red Deer, Alberta. Clients rate the firm 4.8 out of 5 from 26 public Google reviews. The office is at 180, 6900 Taylor Dr. Floor 2, Red Deer, AB T4P 1K4, and you can call (403) 344-0401 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5a4636"
  },
  {
   "name": "Joyce Sawchuk Law",
   "city": "Red Deer",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
   "region": "ab-edmonton",
   "province": "AB",
   "lat": 52.28969,
@@ -1878,12 +2070,11 @@
   "slug": "joyce-sawchuk-law-red-deer",
   "mapsUrl": "https://www.google.com/maps/search/Joyce+Sawchuk+Law+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=6005+67a+St+%23110%2C+Red+Deer%2C+AB+T4P+2Z9",
-  "website": "http://joycesawchuk.ca",
-  "blurb": "Law firm in Red Deer. Rated 4.8 from 23 Google reviews.",
-  "type": "mono",
-  "initials": "JS",
-  "color": "#4a3a5c",
-  "about": "Joyce Sawchuk Law is a law firm in Red Deer, Alberta. Clients rate the firm 4.8 out of 5 from 23 public Google reviews. The office is at 6005 67a St #110, Red Deer, AB T4P 2Z9, and you can call (403) 342-8770 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "website": "https://joycesawchuk.ca",
+  "blurb": "Real Estate in Red Deer. Rated 4.8 from 23 Google reviews.",
+  "type": "logo",
+  "about": "Joyce Sawchuk Law is a law firm in Red Deer, Alberta that practises real estate. Clients rate the firm 4.8 out of 5 from 23 public Google reviews. The office is at 6005 67a St #110, Red Deer, AB T4P 2Z9, and you can call (403) 342-8770 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Our highly experienced Red Deer real estate lawyers, like Joyce Sawchuk, specialize in comprehensive real estate legal services, catering to commercial, residential, and agricultural clients across Alberta.”",
+  "src": "images/logos/joyce-sawchuk-law-red-deer.png"
  },
  {
   "name": "Brian Scott MacNairn",
@@ -1908,12 +2099,12 @@
   "slug": "brian-scott-macnairn-red-deer",
   "mapsUrl": "https://www.google.com/maps/search/Brian+Scott+MacNairn+Red+Deer+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=5008+50+St+%23201%2C+Red+Deer%2C+AB+T4N+1Y3",
-  "website": "http://macnairn.ca",
+  "website": "https://macnairn.ca",
   "blurb": "Family Law / Wills & Estates in Red Deer. Rated 4.6 from 20 Google reviews.",
   "type": "mono",
   "initials": "BS",
   "color": "#5d5f63",
-  "about": "Brian Scott MacNairn is a law firm in Red Deer, Alberta that practises family law and wills and estates. Clients rate the firm 4.6 out of 5 from 20 public Google reviews. The office is at 5008 50 St #201, Red Deer, AB T4N 1Y3, and you can call (403) 347-2700 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Brian Scott MacNairn is a law firm in Red Deer, Alberta that practises family law and wills and estates. Clients rate the firm 4.6 out of 5 from 20 public Google reviews. The office is at 5008 50 St #201, Red Deer, AB T4N 1Y3, and you can call (403) 347-2700 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Call Brian S. MacNairn now at 403-347-2700 to learn more about Lawyer in Red Deer, Alberta.”"
  },
  {
   "name": "Homestead Law",
@@ -1940,17 +2131,20 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2457+Broadmoor+Blvd+%23104%2C+Sherwood+Park%2C+AB+T8H+0Y6",
   "website": "https://www.homesteadlaw.ca",
   "blurb": "Real Estate / Wills & Estates in Sherwood Park. Rated 4.9 from 329 Google reviews.",
-  "type": "mono",
-  "initials": "HO",
-  "color": "#4f4a2e",
-  "about": "Homestead Law is a law firm in Sherwood Park, Alberta that practises real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 329 public Google reviews. The office is at 2457 Broadmoor Blvd #104, Sherwood Park, AB T8H 0Y6, and you can call (780) 243-2116 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Homestead Law is a law firm in Sherwood Park, Alberta that practises real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 329 public Google reviews. The office is at 2457 Broadmoor Blvd #104, Sherwood Park, AB T8H 0Y6, and you can call (780) 243-2116 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Tamara Epple is a five star rated Sherwood Park lawyer experienced in real estate, wills and estate planning, contract law, and business law.”",
+  "src": "images/logos/homestead-law-sherwood-park.png"
  },
  {
   "name": "Brick & Mortar Law",
   "city": "Sherwood Park",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
   "region": "ab-edmonton",
   "province": "AB",
   "lat": 53.5100548,
@@ -1963,11 +2157,10 @@
   "mapsUrl": "https://www.google.com/maps/search/Brick+%26+Mortar+Law+Sherwood+Park+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=450+Ordze+Rd+%23430%2C+Sherwood+Park%2C+AB+T8B+0C5",
   "website": "https://www.brickandmortarlaw.ca",
-  "blurb": "Law firm in Sherwood Park. Rated 4.9 from 81 Google reviews.",
-  "type": "mono",
-  "initials": "BM",
-  "color": "#5d5f63",
-  "about": "Brick & Mortar Law is a law firm in Sherwood Park, Alberta. Clients rate the firm 4.9 out of 5 from 81 public Google reviews. The office is at 450 Ordze Rd #430, Sherwood Park, AB T8B 0C5, and you can call (780) 570-5780 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Real Estate in Sherwood Park. Rated 4.9 from 81 Google reviews.",
+  "type": "logo",
+  "about": "Brick & Mortar Law is a law firm in Sherwood Park, Alberta that practises real estate. Clients rate the firm 4.9 out of 5 from 81 public Google reviews. The office is at 450 Ordze Rd #430, Sherwood Park, AB T8B 0C5, and you can call (780) 570-5780 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Buy or selling a home? Brick & Mortar Law offers face to face legal interactions with a strong emphasis on effective legal communication. Please contact our office to learn more on how we can assist you and your family on your home buying/selling journey.”",
+  "src": "images/logos/brick-and-mortar-law-sherwood-park.png"
  },
  {
   "name": "Worobec Law Offices",
@@ -2023,9 +2216,9 @@
   "website": "https://kurielaw.ca",
   "blurb": "Family Law / Criminal Defence in Sherwood Park. Rated 4.8 from 61 Google reviews.",
   "type": "mono",
+  "about": "Kurie Moore Law Group is a law firm in Sherwood Park, Alberta that practises family law, criminal defence and wills and estates. Clients rate the firm 4.8 out of 5 from 61 public Google reviews. The office is at 168 Kaska Rd, Sherwood Park, AB T8A 4G7, and you can call (780) 809-3545 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Kurie Law Group are Sherwood Park lawyers who care deeply about the well-being and success of the people who choose us to handle their legal affairs.”",
   "initials": "KM",
-  "color": "#35506b",
-  "about": "Kurie Moore Law Group is a law firm in Sherwood Park, Alberta that practises family law, criminal defence and wills and estates. Clients rate the firm 4.8 out of 5 from 61 public Google reviews. The office is at 168 Kaska Rd, Sherwood Park, AB T8A 4G7, and you can call (780) 809-3545 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#35506b"
  },
  {
   "name": "Ahlstrom Wright",
@@ -2054,12 +2247,11 @@
   "slug": "ahlstrom-wright-sherwood-park",
   "mapsUrl": "https://www.google.com/maps/search/Ahlstrom+Wright+Sherwood+Park+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=80+Chippewa+Rd+%23200%2C+Sherwood+Park%2C+AB+T8A+6J7",
-  "website": "http://ahlstromwright.ca",
+  "website": "https://ahlstromwright.ca",
   "blurb": "Employment Law / Wills & Estates in Sherwood Park. Rated 4.7 from 60 Google reviews.",
-  "type": "mono",
-  "initials": "AW",
-  "color": "#5a4636",
-  "about": "Ahlstrom Wright is a law firm in Sherwood Park, Alberta that practises employment law, wills and estates and family law. Clients rate the firm 4.7 out of 5 from 60 public Google reviews. The office is at 80 Chippewa Rd #200, Sherwood Park, AB T8A 6J7, and you can call (780) 464-7477 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Ahlstrom Wright is a law firm in Sherwood Park, Alberta that practises employment law, wills and estates and family law. Clients rate the firm 4.7 out of 5 from 60 public Google reviews. The office is at 80 Chippewa Rd #200, Sherwood Park, AB T8A 6J7, and you can call (780) 464-7477 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Ahlstrom Wright is a full-service law firm with offices in Sherwood Park and Yellowknife. Our lawyers practice in family law, real estate, wills, civil litigation, and more. We serve Alberta, Nunavut, Northwest Territories, and Yukon”",
+  "src": "images/logos/ahlstrom-wright-sherwood-park.png"
  },
  {
   "name": "Veria Law",
@@ -2088,12 +2280,12 @@
   "slug": "veria-law-sherwood-park",
   "mapsUrl": "https://www.google.com/maps/search/Veria+Law+Sherwood+Park+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2833+Broadmoor+Blvd+%23160%2C+Sherwood+Park%2C+AB+T8H+2H3",
-  "website": "http://www.verialaw.com",
+  "website": "https://www.verialaw.com",
   "blurb": "Family Law / Employment Law in Sherwood Park. Rated 4.8 from 51 Google reviews.",
   "type": "mono",
+  "about": "Veria Law is a law firm in Sherwood Park, Alberta that practises family law, employment law and personal injury. Clients rate the firm 4.8 out of 5 from 51 public Google reviews. The office is at 2833 Broadmoor Blvd #160, Sherwood Park, AB T8H 2H3, and you can call (780) 570-9108 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
   "initials": "VE",
-  "color": "#4a3a5c",
-  "about": "Veria Law is a law firm in Sherwood Park, Alberta that practises family law, employment law and personal injury. Clients rate the firm 4.8 out of 5 from 51 public Google reviews. The office is at 2833 Broadmoor Blvd #160, Sherwood Park, AB T8H 2H3, and you can call (780) 570-9108 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#4a3a5c"
  },
  {
   "name": "Simpson & Associates LLP",
@@ -2120,10 +2312,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2+Athabascan+Ave%2C+Sherwood+Park%2C+AB+T8A+4E3",
   "website": "https://sallp.ca",
   "blurb": "Wills & Estates / Real Estate in Sherwood Park. Rated 4.9 from 40 Google reviews.",
-  "type": "mono",
-  "initials": "SA",
-  "color": "#35506b",
-  "about": "Simpson & Associates LLP is a law firm in Sherwood Park, Alberta that practises wills and estates and real estate. Clients rate the firm 4.9 out of 5 from 40 public Google reviews. The office is at 2 Athabascan Ave, Sherwood Park, AB T8A 4E3, and you can call (780) 449-1606 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Simpson & Associates LLP is a law firm in Sherwood Park, Alberta that practises wills and estates and real estate. Clients rate the firm 4.9 out of 5 from 40 public Google reviews. The office is at 2 Athabascan Ave, Sherwood Park, AB T8A 4E3, and you can call (780) 449-1606 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “SALLP Law Offices is based in Sherwood Park, AB. - Real Estate, Will & Estate, Corporate & Commerical and Civil Litigation.”",
+  "src": "images/logos/simpson-and-associates-llp-sherwood-park.png"
  },
  {
   "name": "Nigro Manucci",
@@ -2176,12 +2367,11 @@
   "slug": "taylor-wray-llp-sherwood-park",
   "mapsUrl": "https://www.google.com/maps/search/Taylor+Wray+LLP+Sherwood+Park+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=2755+Broadmoor+Blvd+%23232%2C+Sherwood+Park%2C+AB+T8H+2W7",
-  "website": "http://www.taylorwray.ca",
+  "website": "https://www.taylorwray.ca",
   "blurb": "Family Law in Sherwood Park. Rated 4.6 from 29 Google reviews.",
-  "type": "mono",
-  "initials": "TW",
-  "color": "#4a3a5c",
-  "about": "Taylor Wray LLP is a law firm in Sherwood Park, Alberta that practises family law. Clients rate the firm 4.6 out of 5 from 29 public Google reviews. The office is at 2755 Broadmoor Blvd #232, Sherwood Park, AB T8H 2W7, and you can call (587) 456-2689 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Taylor Wray LLP is a law firm in Sherwood Park, Alberta that practises family law. Clients rate the firm 4.6 out of 5 from 29 public Google reviews. The office is at 2755 Broadmoor Blvd #232, Sherwood Park, AB T8H 2W7, and you can call (587) 456-2689 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Sherwood Park and area family law firm | separation and divorce | collaborative family law | real estate law | wills and estate planning”",
+  "src": "images/logos/taylor-wray-llp-sherwood-park.png"
  },
  {
   "name": "Dalton Law",
@@ -2215,8 +2405,14 @@
   "name": "Weary & Company",
   "city": "St. Albert",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate",
+   "Wills & Estates"
+  ],
+  "caseTypes": [
+   "realestate",
+   "wills"
+  ],
   "region": "ab-edmonton",
   "province": "AB",
   "lat": 53.6292626,
@@ -2229,11 +2425,10 @@
   "mapsUrl": "https://www.google.com/maps/search/Weary+%26+Company+St.+Albert+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=30+Green+Grove+Dr+%23400%2C+St.+Albert%2C+AB+T8N+5H6",
   "website": "https://wearyco.com",
-  "blurb": "Law firm in St. Albert. Rated 4.8 from 78 Google reviews.",
-  "type": "mono",
-  "initials": "WC",
-  "color": "#5a4636",
-  "about": "Weary & Company is a law firm in St. Albert, Alberta. Clients rate the firm 4.8 out of 5 from 78 public Google reviews. The office is at 30 Green Grove Dr #400, St. Albert, AB T8N 5H6, and you can call (780) 459-5596 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Real Estate / Wills & Estates in St. Albert. Rated 4.8 from 78 Google reviews.",
+  "type": "logo",
+  "about": "Weary & Company is a law firm in St. Albert, Alberta that practises real estate and wills and estates. Clients rate the firm 4.8 out of 5 from 78 public Google reviews. The office is at 30 Green Grove Dr #400, St. Albert, AB T8N 5H6, and you can call (780) 459-5596 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Providing friendly, trusted legal service with a personal touch to the St. Albert, Edmonton, and surrounding communities for over 30 years. Learn Our Story.”",
+  "src": "images/logos/weary-and-company-st-albert.webp"
  },
  {
   "name": "Lift Legal",
@@ -2262,10 +2457,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1+Tache+St+%23605%2C+St.+Albert%2C+AB+T8N+7T4",
   "website": "https://liftlegal.ca",
   "blurb": "Family Law / Real Estate in St. Albert. Rated 4.8 from 53 Google reviews.",
-  "type": "mono",
-  "initials": "LL",
-  "color": "#5c3a3a",
-  "about": "Lift Legal is a law firm in St. Albert, Alberta that practises family law, real estate and employment law. Clients rate the firm 4.8 out of 5 from 53 public Google reviews. The office is at 1 Tache St #605, St. Albert, AB T8N 7T4, and you can call (780) 809-2225 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Lift Legal is a law firm in St. Albert, Alberta that practises family law, real estate and employment law. Clients rate the firm 4.8 out of 5 from 53 public Google reviews. The office is at 1 Tache St #605, St. Albert, AB T8N 7T4, and you can call (780) 809-2225 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Lift Legal is a boutique Corporate, Real Estate and Family Law firm located in St. Albert, Alberta. We work with clients in St. Albert, Edmonton, Sherwood Park, Spruce Grove, Morinville, Fort McMurray, Fort Saskatchewan, Calgary and more.”",
+  "src": "images/logos/lift-legal-st-albert.png"
  },
  {
   "name": "Kaup Law Office",
@@ -2290,10 +2484,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=39+St+Thomas+St+Unit+200%2C+St.+Albert%2C+AB+T8N+6Z1",
   "website": "https://kauplaw.com",
   "blurb": "Wills & Estates in St. Albert. Rated 4.5 from 45 Google reviews.",
-  "type": "mono",
-  "initials": "KA",
-  "color": "#4f4a2e",
-  "about": "Kaup Law Office is a law firm in St. Albert, Alberta that practises wills and estates. Clients rate the firm 4.5 out of 5 from 45 public Google reviews. The office is at 39 St Thomas St Unit 200, St. Albert, AB T8N 6Z1, and you can call (780) 459-2220 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "Kaup Law Office is a law firm in St. Albert, Alberta that practises wills and estates. Clients rate the firm 4.5 out of 5 from 45 public Google reviews. The office is at 39 St Thomas St Unit 200, St. Albert, AB T8N 6Z1, and you can call (780) 459-2220 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “The St. Albert lawyers at Kaup Law will serve you in: Real Estate, Wills & Estates, Corporate & Business Law, and Litigation. Call 780-459-2220.”",
+  "src": "images/logos/kaup-law-office-st-albert.png"
  },
  {
   "name": "KGPC LAW",
@@ -2307,7 +2500,7 @@
   "lng": -113.6126736,
   "address": "156 St Albert Trl, St. Albert, AB T8N 0P5",
   "phone": "+17804186749",
-  "rating": 5.0,
+  "rating": 5,
   "count": 39,
   "slug": "kgpc-law-st-albert",
   "mapsUrl": "https://www.google.com/maps/search/KGPC+LAW+St.+Albert+Alberta",
@@ -2335,17 +2528,16 @@
   "lng": -113.5739739,
   "address": "200 Carnegie Dr, St. Albert, AB T8N 5A8",
   "phone": "+15878054119",
-  "rating": 5.0,
+  "rating": 5,
   "count": 36,
   "slug": "blfab-personal-injury-lawyer-st-albert",
   "mapsUrl": "https://www.google.com/maps/search/BLFAB+Personal+Injury+Lawyer+St.+Albert+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=200+Carnegie+Dr%2C+St.+Albert%2C+AB+T8N+5A8",
   "website": "https://injurylawyersab.ca",
   "blurb": "Personal Injury in St. Albert. Rated 5.0 from 36 Google reviews.",
-  "type": "mono",
-  "initials": "BP",
-  "color": "#2e4a43",
-  "about": "BLFAB Personal Injury Lawyer is a law firm in St. Albert, Alberta that practises personal injury. Clients rate the firm 5.0 out of 5 from 36 public Google reviews. The office is at 200 Carnegie Dr, St. Albert, AB T8N 5A8, and you can call (587) 805-4119 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "BLFAB Personal Injury Lawyer is a law firm in St. Albert, Alberta that practises personal injury. Clients rate the firm 5.0 out of 5 from 36 public Google reviews. The office is at 200 Carnegie Dr, St. Albert, AB T8N 5A8, and you can call (587) 805-4119 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “BLF AB Law handles personal injury cases across St. Albert, Red Deer, and Spruce Grove, offering experienced legal support for car accidents, slip and falls, and more. Our dedicated team is committed to securing strong outcomes for our clients.”",
+  "src": "images/logos/blfab-personal-injury-lawyer-st-albert.png"
  },
  {
   "name": "Szekely Law",
@@ -2368,7 +2560,7 @@
   "slug": "szekely-law-st-albert",
   "mapsUrl": "https://www.google.com/maps/search/Szekely+Law+St.+Albert+Alberta",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=17+Nettle+Cres%2C+St.+Albert%2C+AB+T8N+7Z8",
-  "website": "http://www.szlaw.ca",
+  "website": "https://www.szlaw.ca",
   "blurb": "Immigration in St. Albert. Rated 4.8 from 28 Google reviews.",
   "type": "mono",
   "initials": "SZ",
@@ -2379,25 +2571,30 @@
   "name": "MJM Avocats Fiscalistes inc.",
   "city": "Gatineau",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Business Law",
+   "Litigation"
+  ],
+  "caseTypes": [
+   "business",
+   "litigation"
+  ],
   "region": "qc-outaouais",
   "province": "QC",
   "lat": 45.4404982,
   "lng": -75.7349043,
   "address": "44 Bd Montclair, Gatineau, QC J8Y 2E6",
   "phone": "+18735860086",
-  "rating": 5.0,
+  "rating": 5,
   "count": 13,
   "slug": "mjm-avocats-fiscalistes-inc-gatineau",
   "mapsUrl": "https://www.google.com/maps/search/MJM+Avocats+Fiscalistes+inc.+Gatineau+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=44+Bd+Montclair%2C+Gatineau%2C+QC+J8Y+2E6",
   "website": "https://mjmavocat.com",
-  "blurb": "Law firm in Gatineau. Rated 5.0 from 13 Google reviews.",
-  "type": "mono",
-  "initials": "MF",
-  "color": "#4a3a5c",
-  "about": "MJM Avocats Fiscalistes inc. is a law firm in Gatineau, Quebec. Clients rate the firm 5.0 out of 5 from 13 public Google reviews. The office is at 44 Bd Montclair, Gatineau, QC J8Y 2E6, and you can call (873) 586-0086 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "blurb": "Business Law / Litigation in Gatineau. Rated 5.0 from 13 Google reviews.",
+  "type": "logo",
+  "about": "MJM Avocats Fiscalistes inc. is a law firm in Gatineau, Quebec that practises business and litigation. Clients rate the firm 5.0 out of 5 from 13 public Google reviews. The office is at 44 Bd Montclair, Gatineau, QC J8Y 2E6, and you can call (873) 586-0086 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
+  "src": "images/logos/mjm-avocats-fiscalistes-inc-gatineau.png"
  },
  {
   "name": "Brigitte Pinard",
@@ -2416,7 +2613,7 @@
   "slug": "brigitte-pinard-granby",
   "mapsUrl": "https://www.google.com/maps/search/Brigitte+Pinard+Granby+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=443+Principale%2C+Granby%2C+QC+J2G+2W9",
-  "website": "http://www.vertdesconseils.ca",
+  "website": "https://www.vertdesconseils.ca",
   "blurb": "Law firm in Granby. Rated 4.9 from 13 Google reviews.",
   "type": "mono",
   "initials": "BP",
@@ -2427,25 +2624,29 @@
   "name": "Cordeau Nadon Morel Avocats",
   "city": "Laval",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
   "region": "qc-laval-laurentides",
   "province": "QC",
   "lat": 45.5597488,
   "lng": -73.7883846,
   "address": "4494 Desserte S Autoroute 440 Ste 200, Laval, QC H7T 2P7",
   "phone": "+14506812000",
-  "rating": 5.0,
+  "rating": 5,
   "count": 26,
   "slug": "cordeau-nadon-morel-avocats-laval",
   "mapsUrl": "https://www.google.com/maps/search/Cordeau+Nadon+Morel+Avocats+Laval+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=4494+Desserte+S+Autoroute+440+Ste+200%2C+Laval%2C+QC+H7T+2P7",
   "website": "https://cpmavocats.com",
-  "blurb": "Law firm in Laval. Rated 5.0 from 26 Google reviews.",
+  "blurb": "Criminal Defence in Laval. Rated 5.0 from 26 Google reviews.",
   "type": "mono",
+  "about": "Cordeau Nadon Morel Avocats is a law firm in Laval, Quebec that practises criminal defence. Clients rate the firm 5.0 out of 5 from 26 public Google reviews. The office is at 4494 Desserte S Autoroute 440 Ste 200, Laval, QC H7T 2P7, and you can call (450) 681-2000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Cordeau Nadon Morel Avocats à Laval est votre avocat spécialisé en droit criminel et pénal. Défense experte et personnalisée. Près de 40 ans d’expérience.”",
   "initials": "CN",
-  "color": "#5a4636",
-  "about": "Cordeau Nadon Morel Avocats is a law firm in Laval, Quebec. Clients rate the firm 5.0 out of 5 from 26 public Google reviews. The office is at 4494 Desserte S Autoroute 440 Ste 200, Laval, QC H7T 2P7, and you can call (450) 681-2000 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5a4636"
  },
  {
   "name": "LP Avocate inc",
@@ -2470,17 +2671,20 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=3030+Bd+Cur%C3%A9-Labelle%2C+Laval%2C+QC+H7P+0H9",
   "website": "https://lpavocate.com",
   "blurb": "Personal Injury in Laval. Rated 4.7 from 27 Google reviews.",
-  "type": "mono",
-  "initials": "LA",
-  "color": "#3a3a1c",
-  "about": "LP Avocate inc is a law firm in Laval, Quebec that practises personal injury. Clients rate the firm 4.7 out of 5 from 27 public Google reviews. The office is at 3030 Bd Curé-Labelle, Laval, QC H7P 0H9, and you can call (514) 317-2848 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "type": "logo",
+  "about": "LP Avocate inc is a law firm in Laval, Quebec that practises personal injury. Clients rate the firm 4.7 out of 5 from 27 public Google reviews. The office is at 3030 Bd Curé-Labelle, Laval, QC H7P 0H9, and you can call (514) 317-2848 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “LP AVOCATE vous informe sur vos droits et vous dirige vers la bonne direction. Cessez de vous compliquer la vie avec un dossier litigieux.”",
+  "src": "images/logos/lp-avocate-inc-laval.webp"
  },
  {
   "name": "Carrefour juridique",
   "city": "Laval",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
   "region": "qc-laval-laurentides",
   "province": "QC",
   "lat": 45.569301,
@@ -2493,18 +2697,22 @@
   "mapsUrl": "https://www.google.com/maps/search/Carrefour+juridique+Laval+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1695+Boul.+Laval+%23104%2C+Laval%2C+QC+H7S+2M2",
   "website": "https://www.cjuridique.com",
-  "blurb": "Law firm in Laval. Rated 4.9 from 13 Google reviews.",
+  "blurb": "Real Estate in Laval. Rated 4.9 from 13 Google reviews.",
   "type": "mono",
   "initials": "CJ",
   "color": "#35506b",
-  "about": "Carrefour juridique is a law firm in Laval, Quebec. Clients rate the firm 4.9 out of 5 from 13 public Google reviews. The office is at 1695 Boul. Laval #104, Laval, QC H7S 2M2, and you can call (450) 490-3338 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Carrefour juridique is a law firm in Laval, Quebec that practises real estate. Clients rate the firm 4.9 out of 5 from 13 public Google reviews. The office is at 1695 Boul. Laval #104, Laval, QC H7S 2M2, and you can call (450) 490-3338 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Cabinet d'avocats et de notaires à Laval. Carrefour juridique accompagne particuliers et entreprises en droit civil, familial, immobilier, notarial et commercial.”"
  },
  {
   "name": "Nada Atallah Avocate",
   "city": "Laval",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Real Estate"
+  ],
+  "caseTypes": [
+   "realestate"
+  ],
   "region": "qc-laval-laurentides",
   "province": "QC",
   "lat": 45.569814,
@@ -2516,19 +2724,25 @@
   "slug": "nada-atallah-avocate-laval",
   "mapsUrl": "https://www.google.com/maps/search/Nada+Atallah+Avocate+Laval+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1430+Blvd.+Saint-Martin+O%2C+Laval%2C+QC+H7S+1M9",
-  "website": "http://www.nadaatallahlegal.com",
-  "blurb": "Law firm in Laval. Rated 4.9 from 13 Google reviews.",
+  "website": "https://www.nadaatallahlegal.com",
+  "blurb": "Real Estate in Laval. Rated 4.9 from 13 Google reviews.",
   "type": "mono",
   "initials": "NA",
   "color": "#35506b",
-  "about": "Nada Atallah Avocate is a law firm in Laval, Quebec. Clients rate the firm 4.9 out of 5 from 13 public Google reviews. The office is at 1430 Blvd. Saint-Martin O, Laval, QC H7S 1M9, and you can call (579) 640-1679 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Nada Atallah Avocate is a law firm in Laval, Quebec that practises real estate. Clients rate the firm 4.9 out of 5 from 13 public Google reviews. The office is at 1430 Blvd. Saint-Martin O, Laval, QC H7S 1M9, and you can call (579) 640-1679 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Nada Atallah Legal offers expert legal services in civil, family, business, real estate, employment, insurance, and personal law in Laval, QC. Contact us for tailored legal solutions.”"
  },
  {
   "name": "Dupuis Paquin Avocats",
   "city": "Laval",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Criminal Defence",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "criminal",
+   "business"
+  ],
   "region": "qc-laval-laurentides",
   "province": "QC",
   "lat": 45.5660606,
@@ -2540,12 +2754,12 @@
   "slug": "dupuis-paquin-avocats-laval",
   "mapsUrl": "https://www.google.com/maps/search/Dupuis+Paquin+Avocats+Laval+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1575+Bd+de+l%27Avenir+Ste+400%2C+Laval%2C+QC+H7S+2N5",
-  "website": "http://www.dupuispaquin.com",
-  "blurb": "Law firm in Laval. Rated 4.6 from 10 Google reviews.",
+  "website": "https://www.dupuispaquin.com",
+  "blurb": "Criminal Defence / Business Law in Laval. Rated 4.6 from 10 Google reviews.",
   "type": "mono",
+  "about": "Dupuis Paquin Avocats is a law firm in Laval, Quebec that practises criminal defence and business. Clients rate the firm 4.6 out of 5 from 10 public Google reviews. The office is at 1575 Bd de l'Avenir Ste 400, Laval, QC H7S 2N5, and you can call (450) 696-1086 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “DROITDUPUIS PAQUIN vous offre une expertise en droit des affaires, en droit fiscal et en droit criminel et pénal économique. GESTION DUPUIS PAQUIN vous offre une expertise en consultation en gestion, qui vous aidera à réussir dans vos affaires. NOTRE FORCE: Des avocats animés par le sens de...”",
   "initials": "DP",
-  "color": "#3a3a1c",
-  "about": "Dupuis Paquin Avocats is a law firm in Laval, Quebec. Clients rate the firm 4.6 out of 5 from 10 public Google reviews. The office is at 1575 Bd de l'Avenir Ste 400, Laval, QC H7S 2N5, and you can call (450) 696-1086 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#3a3a1c"
  },
  {
   "name": "Gaucher Ross Avocats",
@@ -2577,16 +2791,20 @@
   "website": "https://gaucher-ross.com",
   "blurb": "Family Law / Real Estate in Levis. Rated 4.6 from 20 Google reviews.",
   "type": "mono",
+  "about": "Gaucher Ross Avocats is a law firm in Levis, Quebec that practises family law, real estate and employment law. Clients rate the firm 4.6 out of 5 from 20 public Google reviews. The office is at 1100 Bd Guillaume-Couture #200, Lévis, QC G6W 0R8, and you can call (418) 573-2929 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Chez Gaucher Ross, nous sommes des experts du litige. Nés de la vision audacieuse d’avocats chevronnés, nous repoussons les limites du droit avec innovation et efficacité.”",
   "initials": "GR",
-  "color": "#5d5f63",
-  "about": "Gaucher Ross Avocats is a law firm in Levis, Quebec that practises family law, real estate and employment law. Clients rate the firm 4.6 out of 5 from 20 public Google reviews. The office is at 1100 Bd Guillaume-Couture #200, Lévis, QC G6W 0R8, and you can call (418) 573-2929 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5d5f63"
  },
  {
   "name": "Frédérick Hains Demers",
   "city": "Levis",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law"
+  ],
+  "caseTypes": [
+   "family"
+  ],
   "region": "qc-quebec",
   "province": "QC",
   "lat": 46.7324922,
@@ -2598,12 +2816,11 @@
   "slug": "frederick-hains-demers-levis",
   "mapsUrl": "https://www.google.com/maps/search/Fr%C3%A9d%C3%A9rick+Hains+Demers+Levis+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1190+B+R.+de+Courchevel+4e+etage%2C+Saint-Romuald%2C+QC+G6W+0M6",
-  "website": "http://fhdavocates.ca",
-  "blurb": "Law firm in Levis. Rated 4.8 from 19 Google reviews.",
-  "type": "mono",
-  "initials": "FH",
-  "color": "#5c3a3a",
-  "about": "Frédérick Hains Demers is a law firm in Levis, Quebec. Clients rate the firm 4.8 out of 5 from 19 public Google reviews. The office is at 1190 B R. de Courchevel 4e etage, Saint-Romuald, QC G6W 0M6, and you can call (418) 304-0979 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "website": "https://fhdavocates.ca",
+  "blurb": "Family Law in Levis. Rated 4.8 from 19 Google reviews.",
+  "type": "logo",
+  "about": "Frédérick Hains Demers is a law firm in Levis, Quebec that practises family. Clients rate the firm 4.8 out of 5 from 19 public Google reviews. The office is at 1190 B R. de Courchevel 4e etage, Saint-Romuald, QC G6W 0M6, and you can call (418) 304-0979 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Avocates spécialisées en droit de la famille, droit collaboratif et médiation familiale à Lévis et Québec.”",
+  "src": "images/logos/frederick-hains-demers-levis.png"
  },
  {
   "name": "Slogar",
@@ -2653,40 +2870,52 @@
   "website": "https://www.louisepoliquinavocatemediatrice.com",
   "blurb": "Family Law in Longueuil. Rated 4.6 from 23 Google reviews.",
   "type": "mono",
+  "about": "Me Louise Poliquin is a law firm in Longueuil, Quebec that practises family law. Clients rate the firm 4.6 out of 5 from 23 public Google reviews. The office is at 2126 Rue Victoria Bureau 204, Greenfield Park, Quebec J4V 1M9, and you can call (450) 465-3282 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Avocate et médiatrice d'expérience, plusieurs domaines de pratiques, Brossard, Greenfield Park, Longueuil”",
   "initials": "LP",
-  "color": "#5a4636",
-  "about": "Me Louise Poliquin is a law firm in Longueuil, Quebec that practises family law. Clients rate the firm 4.6 out of 5 from 23 public Google reviews. The office is at 2126 Rue Victoria Bureau 204, Greenfield Park, Quebec J4V 1M9, and you can call (450) 465-3282 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5a4636"
  },
  {
   "name": "Éric Lamontagne cabinet d'avocat",
   "city": "Longueuil",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "criminal"
+  ],
   "region": "qc-monteregie",
   "province": "QC",
   "lat": 45.5220403,
   "lng": -73.5130872,
   "address": "1160 Rue Saint-Laurent O #100, Longueuil, Quebec J4K 1E3",
   "phone": "+15145782982",
-  "rating": 5.0,
+  "rating": 5,
   "count": 18,
   "slug": "eric-lamontagne-cabinet-d-avocat-longueuil",
   "mapsUrl": "https://www.google.com/maps/search/%C3%89ric+Lamontagne+cabinet+d%27avocat+Longueuil+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1160+Rue+Saint-Laurent+O+%23100%2C+Longueuil%2C+Quebec+J4K+1E3",
   "website": "https://www.ericlamontagneavocat.com",
-  "blurb": "Law firm in Longueuil. Rated 5.0 from 18 Google reviews.",
+  "blurb": "Criminal Defence in Longueuil. Rated 5.0 from 18 Google reviews.",
   "type": "mono",
   "initials": "EL",
   "color": "#4f4a2e",
-  "about": "Éric Lamontagne cabinet d'avocat is a law firm in Longueuil, Quebec. Clients rate the firm 5.0 out of 5 from 18 public Google reviews. The office is at 1160 Rue Saint-Laurent O #100, Longueuil, Quebec J4K 1E3, and you can call (514) 578-2982 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Éric Lamontagne cabinet d'avocat is a law firm in Longueuil, Quebec that practises criminal defence. Clients rate the firm 5.0 out of 5 from 18 public Google reviews. The office is at 1160 Rue Saint-Laurent O #100, Longueuil, Quebec J4K 1E3, and you can call (514) 578-2982 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Avocat criminaliste expérimenté qui défend les Québécois.se depuis plus de de 25 ans. Droit criminel, infractions pénales, conseils aux entreprises, accusations criminelles et tout autre situation juridique qui vous préoccupe”"
  },
  {
   "name": "Droit Légal",
   "city": "Montreal",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law",
+   "Wills & Estates",
+   "Business Law"
+  ],
+  "caseTypes": [
+   "family",
+   "wills",
+   "business"
+  ],
   "region": "qc-montreal",
   "province": "QC",
   "lat": 45.4960954,
@@ -2698,12 +2927,12 @@
   "slug": "droit-legal-montreal",
   "mapsUrl": "https://www.google.com/maps/search/Droit+L%C3%A9gal+Montreal+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1111+Bd+Dr.-Frederik-Philips%2C+Saint-Laurent%2C+QC+H4M+2X6",
-  "website": "http://droit.legal",
-  "blurb": "Law firm in Montreal. Rated 4.5 from 508 Google reviews.",
+  "website": "https://droit.legal",
+  "blurb": "Family Law / Wills & Estates in Montreal. Rated 4.5 from 508 Google reviews.",
   "type": "mono",
   "initials": "DL",
   "color": "#4a3a5c",
-  "about": "Droit Légal is a law firm in Montreal, Quebec. Clients rate the firm 4.5 out of 5 from 508 public Google reviews. The office is at 1111 Bd Dr.-Frederik-Philips, Saint-Laurent, QC H4M 2X6, and you can call (888) 653-8299 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "about": "Droit Légal is a law firm in Montreal, Quebec that practises family, wills and estates and business. Clients rate the firm 4.5 out of 5 from 508 public Google reviews. The office is at 1111 Bd Dr.-Frederik-Philips, Saint-Laurent, QC H4M 2X6, and you can call (888) 653-8299 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
  },
  {
   "name": "Ikram Belhadj",
@@ -2729,16 +2958,24 @@
   "website": "https://ibavocate.ca",
   "blurb": "Immigration in Montreal. Rated 4.8 from 176 Google reviews.",
   "type": "mono",
+  "about": "Ikram Belhadj is a law firm in Montreal, Quebec that practises immigration. Clients rate the firm 4.8 out of 5 from 176 public Google reviews. The office is at 6520 Rue Beaubien E Bur 105, Montréal, QC H1M 1A9, and you can call (514) 660-1020 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Welcome ! YOUR IMMIGRATION SUCCESS STORY BEGINS HERE Contact Us our services years of experience IKRAM BELHADJ, IMMIGRATION LAWYER Your future in Canada “ Dream”",
   "initials": "IB",
-  "color": "#2e4a43",
-  "about": "Ikram Belhadj is a law firm in Montreal, Quebec that practises immigration. Clients rate the firm 4.8 out of 5 from 176 public Google reviews. The office is at 6520 Rue Beaubien E Bur 105, Montréal, QC H1M 1A9, and you can call (514) 660-1020 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#2e4a43"
  },
  {
   "name": "Riendeau avocats",
   "city": "Montreal",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Criminal Defence",
+   "Family Law",
+   "Immigration"
+  ],
+  "caseTypes": [
+   "criminal",
+   "family",
+   "immigration"
+  ],
   "region": "qc-montreal",
   "province": "QC",
   "lat": 45.5041388,
@@ -2751,18 +2988,26 @@
   "mapsUrl": "https://www.google.com/maps/search/Riendeau+avocats+Montreal+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=215+Rue+Saint-Jacques+Ste+810%2C+Montr%C3%A9al%2C+QC+H2Y+1M6",
   "website": "https://riendeauavocats.ca",
-  "blurb": "Law firm in Montreal. Rated 4.5 from 175 Google reviews.",
+  "blurb": "Criminal Defence / Family Law in Montreal. Rated 4.5 from 175 Google reviews.",
   "type": "mono",
+  "about": "Riendeau avocats is a law firm in Montreal, Quebec that practises criminal defence, family and immigration. Clients rate the firm 4.5 out of 5 from 175 public Google reviews. The office is at 215 Rue Saint-Jacques Ste 810, Montréal, QC H2Y 1M6, and you can call (438) 600-9263 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Besoin d'un avocat criminel à Montréal pour vous défendre contre une accusation ? Bénéficiez de notre expertise en droit criminel pour la défense judiciaire.”",
   "initials": "RI",
-  "color": "#2e4a43",
-  "about": "Riendeau avocats is a law firm in Montreal, Quebec. Clients rate the firm 4.5 out of 5 from 175 public Google reviews. The office is at 215 Rue Saint-Jacques Ste 810, Montréal, QC H2Y 1M6, and you can call (438) 600-9263 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#2e4a43"
  },
  {
   "name": "Guzun and Associates",
   "city": "Montreal",
   "featured": false,
-  "tags": [],
-  "caseTypes": [],
+  "tags": [
+   "Family Law",
+   "Immigration",
+   "Criminal Defence"
+  ],
+  "caseTypes": [
+   "family",
+   "immigration",
+   "criminal"
+  ],
   "region": "qc-montreal",
   "province": "QC",
   "lat": 45.4991119,
@@ -2775,10 +3020,10 @@
   "mapsUrl": "https://www.google.com/maps/search/Guzun+and+Associates+Montreal+Quebec",
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=15B+Rue+McGill%2C+Montr%C3%A9al%2C+QC+H2Y+4A3",
   "website": "https://www.avocatguzun.com",
-  "blurb": "Law firm in Montreal. Rated 4.7 from 164 Google reviews.",
+  "blurb": "Family Law / Immigration in Montreal. Rated 4.7 from 164 Google reviews.",
   "type": "mono",
+  "about": "Guzun and Associates is a law firm in Montreal, Quebec that practises family, immigration and criminal defence. Clients rate the firm 4.7 out of 5 from 164 public Google reviews. The office is at 15B Rue McGill, Montréal, QC H2Y 4A3, and you can call (514) 576-7414 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Cabinet d'avocats à Montréal : droit de la famille, droit criminel, immigration. Consultation rapide, conseils personnalisés, tarifs flexibles.”",
   "initials": "GA",
-  "color": "#5c3a3a",
-  "about": "Guzun and Associates is a law firm in Montreal, Quebec. Clients rate the firm 4.7 out of 5 from 164 public Google reviews. The office is at 15B Rue McGill, Montréal, QC H2Y 4A3, and you can call (514) 576-7414 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours."
+  "color": "#5c3a3a"
  }
 ]

@@ -414,9 +414,10 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=247+John+St%2C+Belleville%2C+ON+K8N+3G2",
   "website": "https://jmurraylaw.ca",
   "blurb": "Real Estate / Wills & Estates in Belleville. Rated 4.9 from 206 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "Jeffrey Murray Law is a law firm in Belleville, Ontario that practises real estate and wills and estates. Clients rate the firm 4.9 out of 5 from 206 public Google reviews. The office is at 247 John St, Belleville, ON K8N 3G2, and you can call (613) 779-5855 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/jeffrey-murray-law-belleville.png"
+  "initials": "JM",
+  "color": "#4f4a2e"
  },
  {
   "name": "Bonn Law",
@@ -530,9 +531,10 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=6+Queen+St+N+%23206%2C+Bolton%2C+ON+L7E+4J5",
   "website": "https://lpclaw.ca",
   "blurb": "Personal Injury in Bolton. Rated 4.7 from 50 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "LPC Personal Injury Lawyer is a law firm in Bolton, Ontario that practises personal injury. Clients rate the firm 4.7 out of 5 from 50 public Google reviews. The office is at 6 Queen St N #206, Bolton, ON L7E 4J5, and you can call (800) 965-3402 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “LPC LAW serves Bolton, Oshawa, and Peterborough, offering experienced legal assistance for car accidents, slip and falls, and more. Our dedicated team ensures the strongest outcome for your personal injury claims across these regions.”",
-  "src": "images/logos/lpc-personal-injury-lawyer-bolton.png"
+  "initials": "LP",
+  "color": "#2e4a43"
  },
  {
   "name": "Palmateer & Nicol Professional Corporation",
@@ -701,9 +703,10 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=1001+Champlain+Ave+%23107%2C+Burlington%2C+ON+L7L+5Z4",
   "website": "https://hsklawfirm.ca",
   "blurb": "Law firm in Burlington. Rated 5.0 from 193 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "HSK Law Firm is a law firm in Burlington, Ontario. Clients rate the firm 5.0 out of 5 from 193 public Google reviews. The office is at 1001 Champlain Ave #107, Burlington, ON L7L 5Z4, and you can call (289) 266-0553 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/hsk-law-firm-burlington.png"
+  "initials": "HS",
+  "color": "#4a3a5c"
  },
  {
   "name": "Fieldstone Law",
@@ -1437,9 +1440,10 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=42+Second+St+E%2C+Cornwall%2C+ON+K6H+1Y3",
   "website": "https://www.langevinlawyers.ca",
   "blurb": "Criminal Defence in Cornwall. Rated 4.8 from 29 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "Langevin Law PC is a law firm in Cornwall, Ontario that practises criminal defence. Clients rate the firm 4.8 out of 5 from 29 public Google reviews. The office is at 42 Second St E, Cornwall, ON K6H 1Y3, and you can call (613) 936-0006 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Langevin Law provides high-quality criminal litigation and other legal services in Cornwall, Ontario. Contact us today to get started.”",
-  "src": "images/logos/langevin-law-pc-cornwall.png"
+  "initials": "LP",
+  "color": "#5c3a3a"
  },
  {
   "name": "A M Personal Injury Lawyer",
@@ -1554,9 +1558,10 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=767+Barry+Downe+Rd+%23208B%2C+Greater+Sudbury%2C+ON+P3A+3T6",
   "website": "https://blpclaw.ca",
   "blurb": "Personal Injury in Greater Sudbury. Rated 5.0 from 34 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "BLPC Law is a law firm in Greater Sudbury, Ontario that practises personal injury. Clients rate the firm 5.0 out of 5 from 34 public Google reviews. The office is at 767 Barry Downe Rd #208B, Greater Sudbury, ON P3A 3T6, and you can call (800) 758-3108 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “BLPC Injury Law Firm focuses on personal injury cases in Sudbury, offering experienced legal assistance for car accidents, slip and falls, and more. Our dedicated team is here to secure the justice and compensation you deserve.”",
-  "src": "images/logos/blpc-law-greater-sudbury.png"
+  "initials": "BL",
+  "color": "#5c3a3a"
  },
  {
   "name": "Brunet Law",
@@ -1642,9 +1647,10 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=291+Woodlawn+Rd+W+Unit+10B%2C+Guelph%2C+ON+N1H+7L6",
   "website": "https://www.saglaw.ca",
   "blurb": "Family Law in Guelph. Rated 4.8 from 25 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "GREATRIX LAW is a law firm in Guelph, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 25 public Google reviews. The office is at 291 Woodlawn Rd W Unit 10B, Guelph, ON N1H 7L6, and you can call (519) 829-4853 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Experienced Family Law &#038; Divorce Lawyer We care. We listen. We advocate. Nearly 20 years of trusted legal experience helping individuals and families move forward”",
-  "src": "images/logos/greatrix-law-guelph.png"
+  "initials": "GR",
+  "color": "#5d5f63"
  },
  {
   "name": "Moon Law",
@@ -1810,9 +1816,10 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=25+Main+St+W+Ste+410%2C+Hamilton%2C+ON+L8P+1H1",
   "website": "https://familylawyerhamilton.ca",
   "blurb": "Family Law in Hamilton. Rated 4.5 from 25 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "Martin Cohan Associates is a law firm in Hamilton, Ontario that practises family law. Clients rate the firm 4.5 out of 5 from 25 public Google reviews. The office is at 25 Main St W Ste 410, Hamilton, ON L8P 1H1, and you can call (905) 667-6848 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Trusted family law services in Hamilton. Our experienced lawyers provide compassionate guidance for divorce, child protection & more.”",
-  "src": "images/logos/martin-cohan-associates-hamilton.png"
+  "initials": "MC",
+  "color": "#4f4a2e"
  },
  {
   "name": "Whitney Smith Family Law",
@@ -2063,9 +2070,10 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=353+King+St+E+Ste+201%2C+Kingston%2C+ON+K7L+3B5",
   "website": "https://www.warderlaw.ca",
   "blurb": "Family Law / Wills & Estates in Kingston. Rated 4.6 from 11 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "Warder Law Professional Corporation is a law firm in Kingston, Ontario that practises family and wills and estates. Clients rate the firm 4.6 out of 5 from 11 public Google reviews. The office is at 353 King St E Ste 201, Kingston, ON K7L 3B5, and you can call (613) 549-7777 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “With over 30 years of experience, Warder Law provides high quality family law and wills and estates services to clients in Kingston, Ontario and surrounding areas.”",
-  "src": "images/logos/warder-law-professional-corporation-kingston.png"
+  "initials": "WA",
+  "color": "#5a4636"
  },
  {
   "name": "Victor Hussein Law Office",
@@ -2090,9 +2098,10 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=275+Lancaster+St+W+2nd+Floor%2C+Kitchener%2C+ON+N2H+4V2",
   "website": "https://www.vhlaw.ca",
   "blurb": "Real Estate in Kitchener. Rated 4.5 from 190 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "Victor Hussein Law Office is a law firm in Kitchener, Ontario that practises real estate. Clients rate the firm 4.5 out of 5 from 190 public Google reviews. The office is at 275 Lancaster St W 2nd Floor, Kitchener, ON N2H 4V2, and you can call (519) 744-8585 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Residential real estate law in Kitchener, Waterloo, Cambridge, and surrounding areas.”",
-  "src": "images/logos/victor-hussein-law-office-kitchener.webp"
+  "initials": "VH",
+  "color": "#5a4636"
  },
  {
   "name": "MS Law Chambers",
@@ -2532,9 +2541,10 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=330+Bronte+St.+S%2C+Milton%2C+ON+L9T+7X1",
   "website": "https://www.evanchangfamilylaw.ca",
   "blurb": "Family Law in Milton. Rated 4.8 from 64 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "Evan Chang Family Law is a law firm in Milton, Ontario that practises family law. Clients rate the firm 4.8 out of 5 from 64 public Google reviews. The office is at 330 Bronte St. S, Milton, ON L9T 7X1, and you can call (416) 471-3805 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours. In its own words: “Separation and family law lawyer including criminal law matters serving Milton, Ontario and the Greater Toronto area including Halton and Peel.”",
-  "src": "images/logos/evan-chang-family-law-milton.jpg"
+  "initials": "EC",
+  "color": "#3a3a1c"
  },
  {
   "name": "Presse Law Offices",
@@ -2914,8 +2924,9 @@
   "dirUrl": "https://www.google.com/maps/dir/?api=1&destination=320+Harry+Walker+Pkwy+N%2C+Newmarket%2C+ON+L3Y+7B8",
   "website": "https://www.burchettlaw.ca",
   "blurb": "Real Estate in Newmarket. Rated 5.0 from 20 Google reviews.",
-  "type": "logo",
+  "type": "mono",
   "about": "CL Burchett Professional Corporation dba Burchett Law is a law firm in Newmarket, Ontario that practises real estate. Clients rate the firm 5.0 out of 5 from 20 public Google reviews. The office is at 320 Harry Walker Pkwy N, Newmarket, ON L3Y 7B8, and you can call (905) 898-3012 or visit the firm's website to ask about your matter. This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours.",
-  "src": "images/logos/cl-burchett-professional-corporation-dba-burchett-law-newmarket.png"
+  "initials": "CB",
+  "color": "#2e4a43"
  }
 ]

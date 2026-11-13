@@ -51,7 +51,7 @@ for (const [dirName, code] of Object.entries(PROV)) {
       if (!t || !f.endsWith('.html')) continue;
       pages++;
       const html = readFileSync(`${dir}/${f}`, 'utf8');
-      const attrs = html.match(/<body class="[^"]*\bpg-city\b[^"]*" data-city="([^"]*)" data-prov="([A-Z]{2})" data-type="([a-z]+)">/);
+      const attrs = html.match(/<body class="[^"]*\bpg-city\b[^"]*" data-city="([^"]*)" data-prov="([A-Z]{2})" data-type="([a-z]+)"(?: data-bg="[^"]*")?>/);
       const unesc = (s) => s.replace(/&#x27;/g, "'").replace(/&amp;/g, '&');
       if (!attrs || unesc(attrs[1]) !== city || attrs[2] !== code || attrs[3] !== t[0]) wrong.push(`${dir}/${f}: body attributes`);
       if (!html.includes(`href="../../city-pages.css?v=${cssV}"`) || !html.includes(`src="../../city-pages.js?v=${jsV}"`)) wrong.push(`${dir}/${f}: links`);
@@ -59,6 +59,30 @@ for (const [dirName, code] of Object.entries(PROV)) {
   }
 }
 ok(pages > 100 && wrong.length === 0, `all ${pages} city practice pages know their city, province and case type and link the current files${wrong.length ? ': ' + wrong.slice(0, 3).join('; ') : ''}`);
+
+// the top bar and the photo behind the title
+const NAV = /<nav class="desktop-nav"[^>]*>([\s\S]*?)<\/nav>/;
+let navBad = 0, photoPages = 0; const used = new Map();
+for (const [dirName] of Object.entries(PROV)) {
+  for (const d of readdirSync(dirName, { withFileTypes: true })) {
+    const dir = `${dirName}/${d.name}`;
+    if (!d.isDirectory() || !existsSync(`${dir}/index.html`)) continue;
+    for (const f of readdirSync(dir)) {
+      if (!BY_SLUG.get(f.replace(/\.html$/, '')) || !f.endsWith('.html')) continue;
+      const html = readFileSync(`${dir}/${f}`, 'utf8');
+      const nav = (html.match(NAV) || [])[1] || '';
+      if (!/<a class="nav-signin" href="\/account\/">Sign in<\/a><\/nav>$|<a class="nav-signin" href="\/account\/">Sign in<\/a>$/.test(nav) || /nav-join|Request a Consultation|nav-cta/.test(nav)) navBad++;
+      const bg = (html.match(/<body[^>]* data-bg="([^"?]+)(?:\?v=[0-9a-f]{8})?"/) || [])[1];
+      if (bg) { photoPages++; if (!existsSync(bg.slice(1))) navBad++; used.set(bg, (used.get(bg) || []).concat(`${dir}/${f}`)); }
+    }
+  }
+}
+ok(navBad === 0, 'every case-type page has the sign-in page\'s top bar: one Sign in button, no Join now, no consultation button; every photo it names exists');
+const files = existsSync('images/city-bg') ? readdirSync('images/city-bg').filter((f) => /\.(webp|jpe?g)$/i.test(f)) : [];
+const hashes = new Map(files.map((f) => [f, createHash('sha1').update(readFileSync(`images/city-bg/${f}`)).digest('hex')]));
+ok([...used.values()].every((pages) => pages.length === 1) && files.every((f) => used.has(`/images/city-bg/${f}`)), `each background photo belongs to exactly one page, and every photo file is used (${files.length} photos)`);
+ok(new Set(hashes.values()).size === hashes.size, 'no two background photos are the same picture');
+ok(files.every((f) => /^(ontario|quebec|british-columbia|alberta|manitoba)-[a-z0-9-]+-(business|criminal-defence|employment|family|immigration|litigation|personal-injury|real-estate|traffic-ticket|wills-estate)\.webp$/.test(f)), 'photo files are named <province>-<city>-<practice>.webp');
 
 // the script's promises
 const js = readFileSync('city-pages.js', 'utf8'), css = readFileSync('city-pages.css', 'utf8');

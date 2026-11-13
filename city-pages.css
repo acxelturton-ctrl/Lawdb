@@ -17,6 +17,52 @@ body.pg-city .seo-stats span, .seo-city .seo-stats span { color:#b4bac4; font-si
   body.pg-city .seo-stats b, .seo-city .seo-stats b { font-size:28px; }
 }
 
+/* ---------- the top bar on the case-type pages: the sign-in page's header, with one button ---------- */
+body.pg-city .site-header.lw-light { background:#fff !important; padding:0 20px !important; }
+@media (min-width:900px){
+  body.pg-city .desktop-nav a:not(.nav-signin) { padding:4px 0 !important; }
+  body.pg-city .desktop-nav .nav-sep { width:1px; height:28px; background:#e3dfd3; margin:0 26px 0 0; }
+  body.pg-city .desktop-nav a.nav-signin { padding:10px 22px !important; border:1.5px solid #142434; border-radius:999px; margin-right:0; background-image:none !important; }
+  body.pg-city .desktop-nav a.nav-signin:hover { background:#142434 !important; color:#fff; }
+}
+
+/* ---------- the photo (or the drawn skyline) behind the title ---------- */
+body.pg-city { overflow-x:clip; }
+body.pg-city .wrap { position:relative; z-index:0; }
+.cp-bg { position:absolute; left:50%; margin-left:-50vw; width:100vw; top:calc(-1 * var(--cp-pt, 44px)); z-index:-1; overflow:hidden; background-color:#142434; background-size:cover; background-position:center 40%; }
+.cp-photo { background-image:linear-gradient(180deg, rgba(20,36,52,0.78), rgba(20,36,52,0.9)), var(--cp-img, none); }
+.cp-design { background-image:radial-gradient(900px 420px at 88% 0, #2b3a4c, transparent 62%), linear-gradient(180deg, #142434, #1b242d); }
+.cp-bg svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+.cp-sk-g { stroke:#c9a050; stroke-opacity:.06; }
+.cp-sk-wm { fill:#e2bd6a; fill-opacity:.07; font-family:'Source Serif 4',serif; font-weight:700; }
+.cp-sk-b1 { fill:#1b242d; fill-opacity:.92; }
+.cp-sk-b2 { fill:#2b3a4c; fill-opacity:.55; }
+.cp-sk-w { fill:#e2bd6a; }
+.cp-sk-t { fill:#2b3a4c; }
+.cp-on .crumb, .cp-on .crumb a { color:#e2bd6a; }
+.cp-on .crumb { color:#b4bac4; }
+.cp-on h1 { color:#fff; text-shadow:0 2px 24px rgba(20,36,52,0.45); }
+.cp-intro, .cp-intro p { color:#f5f3ec !important; text-shadow:0 1px 14px rgba(20,36,52,0.55); }
+
+/* ---------- the numbers: one sentence and a bar, floating over the bottom edge of the background ---------- */
+.cp-float { position:relative; background:#fff; border:1px solid #e3dfd3; border-radius:22px; padding:28px 34px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:40px; align-items:center; box-shadow:0 24px 54px rgba(20,36,52,0.22); margin:38px 0 30px; }
+.cp-float h3 { margin:0; font-family:'Source Serif 4',serif; font-weight:700; font-size:30px; line-height:1.2; color:#142434; }
+.cp-float h3 em { font-style:normal; color:#c9a050; }
+.cp-float p { margin:10px 0 0; color:#586170; font-size:14.5px; }
+.cp-seg { display:flex; height:16px; border-radius:16px; overflow:hidden; gap:3px; }
+.cp-seg i { display:block; height:100%; flex:0 1 0; transition:flex-grow 1s cubic-bezier(.2,.7,.2,1); }
+.cp-seg.on i { flex-grow:var(--n, 1); }
+.s1 { --c:#c9a050; } .s2 { --c:#142434; } .s3 { --c:#8a919b; } .s4 { --c:#e3dfd3; }
+.cp-seg i { background:var(--c); }
+.cp-leg { display:grid; grid-template-columns:repeat(4,auto); justify-content:start; gap:6px 18px; margin-top:16px; font-size:13px; color:#586170; }
+.cp-leg b { color:#142434; font-size:15px; margin-right:6px; }
+.cp-leg span::before { content:''; display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:7px; background:var(--c); }
+@media (max-width:760px){
+  .cp-float { grid-template-columns:minmax(0,1fr); gap:22px; padding:22px; }
+  .cp-float h3 { font-size:24px; }
+  .cp-leg { grid-template-columns:repeat(2,auto); }
+}
+
 /* ---------- reading column ---------- */
 body.pg-city .wrap > .seo-text:first-of-type { font-size:17px; line-height:1.75; }
 body.pg-city .seo-h { position:relative; margin-top:38px; padding-bottom:12px; }
@@ -148,4 +194,5 @@ body.pg-city .seo-table tbody tr:hover { background:#f4ecd8; }
   .cp-pin.hot .cp-halo { animation:none; }
   body.pg-city .seo-h::after { transition:none; }
   .cp-pill, .seo-city .frow { transition:none; }
+  .cp-seg i { transition:none; }
 }

@@ -156,6 +156,29 @@
   /* widths and delays are set through the style object, not inline attributes, so the markup carries no inline styles */
   function paint(root) {
     [].forEach.call(root.querySelectorAll('[data-w]'), function (e) { e.style.setProperty('--w', e.getAttribute('data-w') + '%'); });
+    [].forEach.call(root.querySelectorAll('[data-n]'), function (e) { e.style.setProperty('--n', e.getAttribute('data-n')); });
+  }
+
+  /* the drawn skyline behind the title of a page that has no photo of its own (the shapes differ a little from city to city; Toronto gets its tower) */
+  function skyline(name) {
+    var s = svgEl('svg', { viewBox: '0 0 1440 400', preserveAspectRatio: 'xMidYMax slice' });
+    var seed = 7, i; for (i = 0; i < name.length; i++) seed = (seed * 31 + name.charCodeAt(i)) % 233280;
+    var rnd = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    for (i = 0; i < 26; i++) svgEl('line', { x1: i * 58, y1: 0, x2: i * 58 - 60, y2: 400, class: 'cp-sk-g' }, s);
+    for (i = 0; i < 8; i++) svgEl('line', { x1: 0, y1: 40 + i * 52, x2: 1440, y2: 40 + i * 52, class: 'cp-sk-g' }, s);
+    var wm = svgEl('text', { x: 1410, y: 150, 'text-anchor': 'end', class: 'cp-sk-wm', 'font-size': Math.round(Math.min(190, 1250 / Math.max(5, name.length))) }, s); wm.textContent = name.toUpperCase();
+    var x = 760;
+    while (x < 1440) {
+      var w = 34 + rnd() * 54, h = 50 + rnd() * 150, q;
+      svgEl('rect', { x: x, y: 400 - h, width: w, height: h, class: rnd() > 0.5 ? 'cp-sk-b1' : 'cp-sk-b2' }, s);
+      for (q = 0; q < Math.floor(w * h / 520); q++) svgEl('rect', { x: (x + 5 + rnd() * (w - 12)).toFixed(1), y: (400 - h + 8 + rnd() * (h - 16)).toFixed(1), width: 3, height: 4, class: 'cp-sk-w', opacity: (0.15 + rnd() * 0.5).toFixed(2) }, s);
+      x += w + 3;
+    }
+    if (/^toronto$/i.test(name)) {
+      svgEl('path', { d: 'M1250 400 L1255 120 L1252 116 L1248 100 L1252 94 L1246 90 L1246 30 L1244 90 L1238 94 L1242 100 L1238 116 L1235 120 L1240 400Z', class: 'cp-sk-t' }, s);
+      svgEl('ellipse', { cx: 1245, cy: 126, rx: 22, ry: 6, class: 'cp-sk-t' }, s);
+    }
+    return s;
   }
 
   function enhance() {
@@ -184,6 +207,37 @@
     tools.insertAdjacentElement('afterend', split);
     tableWrap.hidden = true;
     B.classList.add('cp-ready');
+
+    /* the numbers become one sentence and a bar, floating over the bottom edge of the background */
+    var floatEl = D.createElement('div'); floatEl.className = 'cp-float';
+    var oldStats = D.querySelector('.wrap .seo-stats');
+    if (oldStats) oldStats.replaceWith(floatEl); else h2.insertAdjacentElement('beforebegin', floatEl);
+    function renderCard() {
+      var r = firms.filter(rated), n = firms.length, hi = r.filter(function (f) { return f.rating >= 4.5; }).length;
+      var avg = r.length ? (r.reduce(function (a, f) { return a + f.rating; }, 0) / r.length).toFixed(1) : '0.0', rev = firms.reduce(function (a, f) { return a + (f.count || 0); }, 0);
+      var head = hi ? '<em>' + hi + ' of ' + n + '</em> firms are rated 4.5 stars or higher.' : r.length ? '<em>' + n + ' firms</em>, rated ' + avg + ' on average.' : '<em>' + n + ' firms</em> listed so far.';
+      var sub = r.length ? 'Average ' + avg + ' stars across ' + fmt(rev) + ' Google review' + (rev === 1 ? '' : 's') + '.' : 'None has a Google rating on LawDB yet.';
+      var seg = [['4.5 and up', hi, 's1'], ['4.0 to 4.4', r.filter(function (f) { return f.rating >= 4 && f.rating < 4.5; }).length, 's2'], ['Below 4.0', r.filter(function (f) { return f.rating < 4; }).length, 's3'], ['No rating yet', n - r.length, 's4']].filter(function (x) { return x[1] > 0; });
+      floatEl.innerHTML = '<div><h3>' + head + '</h3><p>' + sub + '</p></div><div><div class="cp-seg" role="img" aria-label="' + seg.map(function (x) { return x[1] + ' ' + x[0]; }).join(', ') + '">'
+        + seg.map(function (x) { return '<i class="' + x[2] + '" data-n="' + x[1] + '"></i>'; }).join('') + '</div><div class="cp-leg">'
+        + seg.map(function (x) { return '<span class="' + x[2] + '"><b>' + x[1] + '</b>' + x[0] + '</span>'; }).join('') + '</div></div>';
+      paint(floatEl);
+      var bar = floatEl.querySelector('.cp-seg');
+      if (RM) bar.classList.add('on'); else setTimeout(function () { bar.classList.add('on'); }, 250);
+    }
+    /* the photo (or the drawn skyline) behind the title, down to the middle of that card */
+    var band = D.createElement('div'), photo = B.getAttribute('data-bg');
+    band.className = 'cp-bg ' + (photo ? 'cp-photo' : 'cp-design'); band.setAttribute('aria-hidden', 'true');
+    if (photo) band.style.setProperty('--cp-img', 'url("' + photo.replace(/"/g, '%22') + '")'); else band.appendChild(skyline(city || ''));
+    wrap.insertBefore(band, wrap.firstChild); wrap.classList.add('cp-on');
+    var intro = wrap.querySelector('.seo-text'); if (intro) intro.classList.add('cp-intro');
+    function fitBand() {
+      var pt = parseFloat(getComputedStyle(wrap).paddingTop) || 0;
+      band.style.setProperty('--cp-pt', pt + 'px'); band.style.height = Math.round(floatEl.offsetTop + floatEl.offsetHeight * 0.42 + pt) + 'px';
+    }
+    window.addEventListener('resize', fitBand);
+    if (window.ResizeObserver) new ResizeObserver(fitBand).observe(floatEl);
+    if (D.fonts && D.fonts.ready) D.fonts.ready.then(fitBand);
 
     var q = tools.querySelector('input'), sel = tools.querySelector('select');
     var pillFeat = tools.querySelector('[data-f="feat"]'), zoneBox = tools.querySelector('.cp-zones');
@@ -330,15 +384,9 @@
     }, true);
     more.addEventListener('click', function () { st.shown += PAGE; draw(true); });
 
-    buildMap(); draw(false);
+    buildMap(); draw(false); renderCard(); fitBand();
 
     /* the live list: same city, same case type */
-    function setStats(arr) {
-      var r = arr.filter(rated), cells = D.querySelectorAll('.wrap .seo-stats b');
-      if (cells.length < 4) return;
-      var vals = [String(arr.length), r.length ? (r.reduce(function (a, f) { return a + f.rating; }, 0) / r.length).toFixed(1) : '0.0', fmt(arr.reduce(function (a, f) { return a + (f.count || 0); }, 0)), String(arr.filter(function (f) { return f.rating >= 4.5; }).length)];
-      vals.forEach(function (v, i) { cells[i]._t = v; if (cells[i]._done || RM || !('IntersectionObserver' in window)) cells[i].textContent = v; });
-    }
     if (!window.fetch || !prov || !city || !type) return;
     fetch('/api/firms?province=' + encodeURIComponent(prov) + '&city=' + encodeURIComponent(city) + '&limit=500', { headers: { accept: 'application/json' } })
       .then(function (r) { if (!r.ok) throw new Error('bad'); return r.json(); })
@@ -354,18 +402,18 @@
         if (same(baked, live)) {
           var by = {}; live.forEach(function (f) { by[f.slug] = f; });
           firms.forEach(function (f) { var l = by[f.slug]; f.tags = l.tags; f.logo = l.logo; });
-        } else { firms = live; setStats(live); }
-        buildMap(); draw(false);
+        } else { firms = live; }
+        buildMap(); draw(false); renderCard(); fitBand();
       })
       .catch(function () { /* the baked list stays */ });
   }
 
   function init() {
-    statCountUps();
     if (B.getAttribute('data-type') && B.getAttribute('data-city')) {
       enhance();
       reveal('.wrap > .seo-h, .wrap > .seo-text, .wrap > .seo-ul, .wrap > .seo-ol, .wrap > .seo-faq, .wrap > .seo-chips, .wrap > .cta-box, .wrap > .seo-note');
     } else if (D.querySelector('.seo-city')) {
+      statCountUps();
       reveal('.seo-city .seo-wrap > h3, .seo-city .seo-wrap > .seo-chips, .seo-city .flist, .seo-city .seo-all, .seo-city .seo-faq, .seo-city .seo-ul, .seo-city .seo-ol');
     }
   }

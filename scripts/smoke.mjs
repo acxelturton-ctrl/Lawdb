@@ -991,7 +991,9 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     // the hamburger menu is the same on every page: the links, Contact Us, then one gold Sign in button (the consultation button is in the desktop top bar and the footer, not here);
     // the home page top bar carries its own Sign in button instead of the nav's two buttons
     const home = f === 'index.html';
-    const navWant = home ? ['Find Your Lawyer', 'LawDB News', 'For Law Firms'] : ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Request a Consultation'];
+    // a city case-type page carries the sign-in page's top bar: the links, a divider, and one outlined Sign in button (no consultation button, no Join now)
+    const cityPage = f === 'ontario/toronto/family-lawyers.html';
+    const navWant = home ? ['Find Your Lawyer', 'LawDB News', 'For Law Firms'] : cityPage ? ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in'] : ['Find Your Lawyer', 'LawDB News', 'For Law Firms', 'Sign in', 'Request a Consultation'];
     const drawerWant = ['Find Your Lawyer', 'LawDB News', 'New listed firms', 'Grow Leads to Your Law Firm', 'Contact Us', 'Sign in', 'Get Featured', 'List your firm free'];
     const topBar = home ? /<div class="hdr-auth"><a class="hdr-signin" href="\/account\/">Sign in<\/a><\/div>/.test(h) : true;
     ok(isDeepStrictEqual(labels(navOf(h)), navWant) && isDeepStrictEqual(labels(drawerOf(h)), drawerWant) && topBar, `${f}: the menu has three items and Sign in; the hamburger menu ends its links with Contact Us and one Sign in button, once${home ? '; the home page top bar has one Sign in button' : ''}`);

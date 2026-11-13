@@ -2,15 +2,12 @@
 // another page links to it. The city hub pages list every firm in the city, A to Z; this fails if a firm is missing from its hub, or if a firm
 // is in a city that has no hub page (so nothing would link to it).
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { loadSiteFirms } from './lib/site-firms.mjs';
 
 let bad = 0;
 const ok = (c, label) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${label}`); if (!c) bad++; };
 
-const firms = JSON.parse(readFileSync('firms_data.json', 'utf8'));
-const released = new Set(JSON.parse(readFileSync('data/release.json', 'utf8')).released);
-for (const f of readdirSync('data').filter((x) => /^firms-batch-\d+\.json$/.test(x)).sort()) {
-  if (released.has(Number(f.match(/\d+/)[0]))) firms.push(...JSON.parse(readFileSync(`data/${f}`, 'utf8')));
-}
+const firms = loadSiteFirms();
 
 const PROV = { ON: 'ontario', QC: 'quebec', BC: 'british-columbia', AB: 'alberta', MB: 'manitoba' };
 const hubOf = new Map(); // 'ON|Toronto' -> page text

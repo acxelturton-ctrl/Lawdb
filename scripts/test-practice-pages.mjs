@@ -1,15 +1,12 @@
 // A city practice page must say the same thing everywhere about how many firms it lists, and must list every firm the directory has for that city
 // and practice area. (The wording of each part is rebuilt by refresh-practice-pages.mjs, whose --check keeps the pages in step with the data.)
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { loadSiteFirms } from './lib/site-firms.mjs';
 
 let bad = 0;
 const ok = (c, label) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${label}`); if (!c) bad++; };
 
-const firms = JSON.parse(readFileSync('firms_data.json', 'utf8'));
-const released = new Set(JSON.parse(readFileSync('data/release.json', 'utf8')).released);
-for (const f of readdirSync('data').filter((x) => /^firms-batch-\d+\.json$/.test(x)).sort()) {
-  if (released.has(Number(f.match(/\d+/)[0]))) firms.push(...JSON.parse(readFileSync(`data/${f}`, 'utf8')));
-}
+const firms = loadSiteFirms();
 
 const KEY = { 'business-lawyers': 'business', 'criminal-defence-lawyers': 'criminal', 'employment-lawyers': 'employment', 'family-lawyers': 'family', 'immigration-lawyers': 'immigration', 'litigation-lawyers': 'litigation', 'personal-injury-lawyers': 'injury', 'real-estate-lawyers': 'realestate', 'traffic-ticket-lawyers': 'traffic', 'wills-estate-lawyers': 'wills' };
 const PROV = { ontario: 'ON', quebec: 'QC', 'british-columbia': 'BC', alberta: 'AB', manitoba: 'MB' };

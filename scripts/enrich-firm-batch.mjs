@@ -15,11 +15,35 @@ const EXT = { jpeg: 'jpg', jpg: 'jpg', png: 'png', webp: 'webp' };
 mkdirSync('images/logos', { recursive: true });
 
 const decode = (s) => s.replace(/&#x27;|&#039;/g, "'").replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#0?39;|&apos;|&rsquo;/g, "'").replace(/&nbsp;/g, ' ').replace(/&#8217;/g, "'").replace(/&#8211;|&ndash;/g, '-').replace(/&[a-z]+;/g, ' ');
+// Practice areas read from the firm's own home page (title, description, headings, menu links), for firms whose Google category is only "Attorney" or "Law firm".
+const KINDS = [
+  ['family', 'Family Law', /family law|divorce|separation agreement|child custody|child support|droit de la famille|divorce|s[ée]paration/],
+  ['realestate', 'Real Estate', /real estate|conveyanc|property transaction|buying or selling (a )?(home|property)|droit immobilier|immobilier/],
+  ['wills', 'Wills & Estates', /\bwills?\b|estate planning|estate administration|estate litigation|probate|power of attorney|succession|testament/],
+  ['injury', 'Personal Injury', /personal injury|accident|injur|blessures corporelles|long[- ]term disability/],
+  ['criminal', 'Criminal Defence', /criminal (law|defen[cs]e)|\bdui\b|impaired driving|droit criminel|droit p[ée]nal|d[ée]fense p[ée]nale/],
+  ['immigration', 'Immigration', /immigration|citizenship|refugee|work permit|study permit/],
+  ['employment', 'Employment Law', /employment law|wrongful dismissal|labou?r (and employment )?law|workplace|droit du travail|droit de l'emploi/],
+  ['business', 'Business Law', /business law|corporate (law|and commercial)|commercial law|incorporation|shareholder|droit des affaires|droit commercial|droit corporatif/],
+  ['litigation', 'Litigation', /litigation|dispute resolution|civil (disputes|claims)|contentieux|litige/],
+  ['traffic', 'Traffic Tickets', /traffic (ticket|court|violation)|provincial offences?/],
+];
+function inferKinds(html) {
+  const text = [
+    (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || '',
+    ...[...html.matchAll(/<meta\b[^>]*(?:name|property)\s*=\s*["'](?:description|og:description|og:title)["'][^>]*>/gi)].map((m) => (m[0].match(/content\s*=\s*"([^"]*)"|content\s*=\s*'([^']*)'/i) || [])[1] || ''),
+    ...[...html.matchAll(/<h[1-3][^>]*>([\s\S]*?)<\/h[1-3]>/gi)].slice(0, 25).map((m) => m[1]),
+    ...[...html.matchAll(/<a\b[^>]*>([\s\S]{2,60}?)<\/a>/gi)].slice(0, 80).map((m) => m[1]),
+  ].join(' \n ').replace(/<[^>]+>/g, ' ').toLowerCase();
+  return KINDS.map(([k, label, rx]) => [k, label, (text.match(new RegExp(rx.source, 'g')) || []).length]).filter((x) => x[2] > 0).sort((a, b) => b[2] - a[2]).slice(0, 4);
+}
+let lastKinds = new Map();
 async function description(site) {
   try {
     const res = await fetch(site, { redirect: 'follow', headers: { 'user-agent': 'LawDB-LogoFinder/1.0 (+https://lawdb.ca; info@lawdb.ca)', accept: 'text/html' }, signal: AbortSignal.timeout(9000) });
     if (!res.ok) return '';
     const html = (await res.text()).slice(0, 300_000);
+    lastKinds.set(site, inferKinds(html));
     const meta = [...html.matchAll(/<meta\b[^>]*>/gi)].map((m) => m[0]);
     const get = (key) => {
       for (const t of meta) {
@@ -65,6 +89,17 @@ async function one(f) {
     } else out.note = cands.length ? 'no clearly-labelled logo' : 'none found';
   } catch (e) { out.note = String(e.message || e).slice(0, 80); }
   const d = await description(f.website);
+  if (!(f.caseTypes || []).length) {
+    const ks = lastKinds.get(f.website) || [];
+    if (ks.length) {
+      f.caseTypes = ks.map((x) => x[0]); f.tags = ks.map((x) => x[1]);
+      const al = f.tags.slice(0, 3).map((t) => (t === 'Wills & Estates' ? 'wills and estates' : t.toLowerCase().replace(/ law$/, '')));
+      const area = al.length < 2 ? al[0] : al.slice(0, -1).join(', ') + ' and ' + al[al.length - 1];
+      f.about = f.about.replace(/^(.*? is a law firm in [^,]+, [^.]*?)\./, `$1 that practises ${area}.`);
+      f.blurb = `${f.tags.slice(0, 2).join(' / ')} in ${f.city}. ${(f.blurb.match(/Rated .*$/) || [''])[0]}`.trim();
+      out.kinds = f.caseTypes.join('+');
+    }
+  }
   if (d && !/In its own words/.test(f.about)) { f.about += ` In its own words: “${d}”`; out.desc = true; }
   return out;
 }
@@ -76,5 +111,5 @@ const results = [];
 let i = 0;
 await Promise.all(Array.from({ length: 6 }, async () => { while (i < todo.length) { const f = todo[i++]; results.push(await one(f)); process.stdout.write('.'); } }));
 writeFileSync(file, JSON.stringify(firms, null, 1) + '\n');
-console.log(`\nlogos ${results.filter((r) => r.logo).length}/${todo.length}, descriptions ${results.filter((r) => r.desc).length}/${todo.length}`);
+console.log(`\nlogos ${results.filter((r) => r.logo).length}/${todo.length}, descriptions ${results.filter((r) => r.desc).length}/${todo.length}, practice areas read from the site ${results.filter((r) => r.kinds).length}`);
 for (const r of results.filter((x) => !x.logo)) console.log('  no logo:', r.slug, '-', r.note);

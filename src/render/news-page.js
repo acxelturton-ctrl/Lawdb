@@ -3,6 +3,8 @@
 import * as C from './firm-chunks.generated.js';
 import { esc, safeUrl } from './firm-page.js';
 import { BLOG_CSS, cardHtml, safePostUrl } from './blog-cards.js';
+import { ICON as SOCIAL_ICON } from './story-page.js';
+import { NETWORKS, cleanSocial } from '../lib/social.js';
 
 
 const CSS = `<style>
@@ -81,7 +83,7 @@ a.news-step:hover{border-color:#c9a050}
 .news-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(18px,2.4vw,32px);align-items:start}
 @media(min-width:1000px){.news-layout{grid-template-columns:minmax(0,1fr) 340px}}
 .news-layout .lw-feed{max-width:none;margin:0}
-.news-layout .lw-feed .lw-bc-img{width:clamp(110px,34%,280px)}
+.news-layout .lw-feed .lw-bc-img{width:clamp(110px,32%,250px);aspect-ratio:16/11}
 .news-layout .lw-feed .lw-bc h3{font-size:clamp(17px,1.6vw,21px)}
 .news-layout .lw-feed .lw-teaser{font-size:clamp(14px,1.2vw,15.5px)}
 .news-side{display:grid;gap:16px}
@@ -104,6 +106,21 @@ a.news-step:hover{border-color:#c9a050}
 .ns-cta b{display:block;font:700 21px/1.2 'Source Serif 4',serif;margin-bottom:6px}
 .ns-cta p{margin:0 0 12px;font-size:14px;line-height:1.5;color:#2b3a4c}
 .ns-cta a{display:inline-block;background:#142434;color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:11px 18px;font-size:14px}
+/* the strip at the foot of each story card: rating, practice areas, the firm's social links and its LawDB profile */
+.cf{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0 16px;padding:12px 0 14px;border-top:1px solid #efece3}
+.cf-rate{display:inline-flex;align-items:center;gap:5px;font:600 13px/1 'Inter',sans-serif;color:#142434}
+.cf-rate i{font-style:normal;color:#e2bd6a;letter-spacing:1px}
+.cf-rate span{font-weight:400;color:#8a919b}
+.cf-tags{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.cf-tags span{background:#f4ecd8;color:#8a6a1f;border-radius:999px;padding:5px 10px;font:600 11.5px/1 'Inter',sans-serif;white-space:nowrap}
+.cf-end{margin-left:auto;display:flex;align-items:center;gap:10px}
+.cf-soc{display:flex;gap:6px}
+.cf-soc a{width:32px;height:32px;border-radius:50%;border:1px solid #e3dfd3;background:#fff;color:#586170;display:flex;align-items:center;justify-content:center}
+.cf-soc a:hover{border-color:#c9a050;color:#142434}
+.cf-go{font:700 13px/1 'Inter',sans-serif;color:#142434;text-decoration:none;white-space:nowrap;background:#f5f3ec;border-radius:8px;padding:9px 12px}
+.cf-go:hover{background:#f4ecd8}
+@media(max-width:560px){.cf-end{margin-left:0;width:100%;justify-content:space-between}}
+.news-layout .lw-feed .lw-teaser{-webkit-line-clamp:4}
 .news-steps{margin-top:clamp(24px,3.5vw,48px)}
 .news-foot{padding:clamp(16px,2vw,28px) clamp(16px,4vw,72px) clamp(26px,3vw,44px);font-size:13px;color:#8a919b;line-height:1.6;max-width:70em;margin:0}
 </style>`;
@@ -195,6 +212,19 @@ export const TOPIC_JS = `(function(){var bar=document.getElementById('news-topic
 bar.addEventListener('click',function(e){var b=e.target.closest('button[data-topic]');if(!b)return;var t=b.getAttribute('data-topic');bar.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});
 feed.querySelectorAll('article[data-topic]').forEach(function(a){a.hidden=!!t&&a.getAttribute('data-topic')!==t})})})();`;
 
+// The strip at the foot of a story card (only the parts the firm has): Google rating, up to three practice areas, its social links, and its LawDB profile.
+const parseJson = (v) => { if (v && typeof v === 'object') return v; try { return v ? JSON.parse(v) : null; } catch { return null; } };
+function footHtml(p) {
+  const rating = Number(p.rating);
+  const reviews = Number(p.reviews);
+  const tags = (parseJson(p.tags) || []).filter((t) => typeof t === 'string' && t.trim()).slice(0, 3);
+  const soc = cleanSocial(parseJson(p.social));
+  const rate = rating > 0 ? `<span class="cf-rate"><i aria-hidden="true">&#9733;</i>${rating.toFixed(1)}${reviews > 0 ? ` <span>(${reviews} Google reviews)</span>` : ''}</span>` : '';
+  const icons = NETWORKS.filter(({ key }) => soc[key]).map(({ key, label }) =>
+    `<a href="${esc(soc[key])}" target="_blank" rel="noopener nofollow" aria-label="${esc(p.firmName)} on ${label}" title="${label}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SOCIAL_ICON[key]}</svg></a>`).join('');
+  return `<div class="cf">${rate}${tags.length ? `<span class="cf-tags">${tags.map((t) => `<span>${esc(t)}</span>`).join('')}</span>` : ''}<span class="cf-end">${icons ? `<span class="cf-soc">${icons}</span>` : ''}<a class="cf-go" href="/firms/${esc(p.firmSlug)}">View profile &rarr;</a></span></div>`;
+}
+
 const fmtDay = (d) => {
   const t = d ? new Date(String(d).replace(' ', 'T') + 'Z') : null;
   return t && !Number.isNaN(t.getTime()) ? t.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', timeZone: 'UTC' }) : '';
@@ -228,7 +258,7 @@ export function renderNewsPage({ posts, firms, people: strip = null, selected = 
     ? `<div class="nh" id="news-hero" aria-label="Top stories"><div class="nh-slides"><a class="nh-slide on nh-first" href="${esc(lead.storyHref || lead.url)}"${lead.storyHref ? ' data-story' : ' target="_blank" rel="noopener nofollow"'}><img class="nh-img" src="${esc(lead.image)}" alt="" referrerpolicy="no-referrer" fetchpriority="high" decoding="async"><div class="nh-ov"><span class="nh-tag">${esc(topicOf(lead))}</span><h2 class="nh-t">${esc(lead.title)}</h2>${lead.excerpt ? `<p class="nh-x">${esc(String(lead.excerpt).replace(/\s+/g, ' ').slice(0, 170))}</p>` : ''}<span class="nh-by"><span class="nh-av">${lead.logo ? avatarOf(lead.logo, lead.firmName) : initial(lead.firmName)}</span><span>${esc(lead.firmName)}</span></span></div></a></div><div class="nh-dots"></div>` +
       (heroPool.length > 1 ? `<script type="application/json" id="news-hero-data">${JSON.stringify(heroPool.map(heroItem)).replace(/</g, '\\u003c')}</script>` : '') + `</div>`
     : '';
-  const cards = shown.map((q) => cardHtml(q, { head: headOf(q) }).replace('<article class="lw-bc', `<article data-topic="${esc(topicOf(q))}" class="lw-bc`)).join('');
+  const cards = shown.map((q) => cardHtml(q, { head: headOf(q) }).replace('<article class="lw-bc', `<article data-topic="${esc(topicOf(q))}" class="lw-bc`).replace(/<\/article>$/, footHtml(q) + '</article>')).join('');
   const body = shown.length
     ? `<div class="lw-bc-grid lw-feed" id="feed">${cards}</div>`
     : '<div class="news-empty"><b>LawDB News is filling up.</b><br>Articles from the firms listed on LawDB appear here as soon as their blogs are found. Check back soon.</div>';

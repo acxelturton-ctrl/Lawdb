@@ -45,7 +45,7 @@ const avatarOf = (firm) => {
 
 
 // The firm's own social profiles, one round icon each (only those found on the firm's own website; src/lib/social.js decides what is a valid address).
-const ICON = {
+export const ICON = {
   facebook: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8.5c0-.3.2-.5.5-.5z" fill="currentColor" stroke="none"/>',
   instagram: '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/>',
   linkedin: '<path d="M5 9.5h3V19H5zM11 9.5h3v1.4c.5-.9 1.5-1.6 3-1.6 2.7 0 3.5 1.7 3.5 4.2V19h-3v-4.9c0-1.2-.3-2.1-1.5-2.1s-2 .8-2 2.2V19h-3z" fill="currentColor" stroke="none"/><circle cx="6.5" cy="5.8" r="1.7" fill="currentColor" stroke="none"/>',

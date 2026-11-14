@@ -252,7 +252,7 @@ a.news-step:hover{border-color:#c9a050}
 .news-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(18px,2.4vw,32px);align-items:start}
 @media(min-width:1000px){.news-layout{grid-template-columns:minmax(0,1fr) 340px}}
 .news-layout .lw-feed{max-width:none;margin:0}
-.news-layout .lw-feed .lw-bc-img{width:clamp(110px,34%,280px)}
+.news-layout .lw-feed .lw-bc-img{width:clamp(110px,26%,210px);aspect-ratio:4/3}
 .news-layout .lw-feed .lw-bc h3{font-size:clamp(17px,1.6vw,21px)}
 .news-layout .lw-feed .lw-teaser{font-size:clamp(14px,1.2vw,15.5px)}
 .news-side{display:grid;gap:16px}
@@ -275,6 +275,18 @@ a.news-step:hover{border-color:#c9a050}
 .ns-cta b{display:block;font:700 21px/1.2 'Source Serif 4',serif;margin-bottom:6px}
 .ns-cta p{margin:0 0 12px;font-size:14px;line-height:1.5;color:#2b3a4c}
 .ns-cta a{display:inline-block;background:#142434;color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:11px 18px;font-size:14px}
+/* the strip at the foot of each story card: practice areas, the firm's social links and its LawDB profile */
+.cf{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0 16px;padding:12px 0 14px;border-top:1px solid #efece3}
+.cf-tags{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.cf-tags span{background:#f4ecd8;color:#8a6a1f;border-radius:999px;padding:5px 10px;font:600 11.5px/1 'Inter',sans-serif;white-space:nowrap}
+.cf-end{margin-left:auto;display:flex;align-items:center;gap:10px}
+.cf-soc{display:flex;gap:6px}
+.cf-soc a{width:32px;height:32px;border-radius:50%;border:1px solid #e3dfd3;background:#fff;color:#586170;display:flex;align-items:center;justify-content:center}
+.cf-soc a:hover{border-color:#c9a050;color:#142434}
+.cf-go{font:700 13px/1 'Inter',sans-serif;color:#142434;text-decoration:none;white-space:nowrap;background:#f5f3ec;border-radius:8px;padding:9px 12px}
+.cf-go:hover{background:#f4ecd8}
+@media(max-width:560px){.cf-end{margin-left:0;width:100%;justify-content:space-between}}
+.news-layout .lw-feed .lw-teaser{-webkit-line-clamp:7}
 .news-steps{margin-top:clamp(24px,3.5vw,48px)}
 .news-foot{padding:clamp(16px,2vw,28px) clamp(16px,4vw,72px) clamp(26px,3vw,44px);font-size:13px;color:#8a919b;line-height:1.6;max-width:70em;margin:0}
 </style><style>

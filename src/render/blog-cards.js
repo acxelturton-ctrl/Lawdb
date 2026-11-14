@@ -88,10 +88,10 @@ const DOTS = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor
 
 // One card. `byline` (optional) names the firm, for compact lists. `head` (optional) makes it a LawDB News post:
 // { avatar, name, href, featured, place, follow } (see feedCardHtml).
-export function cardHtml(p, { byline = '', head = null, hero = false } = {}) {
+export function cardHtml(p, { byline = '', head = null, hero = false, length = 0 } = {}) {
   let host = '';
   try { host = new URL(p.url).hostname.replace(/^www\./, ''); } catch {}
-  const max = hero ? 380 : 170;
+  const max = length || (hero ? 380 : 170);
   const more = p.excerpt && p.excerpt.length > max;
   const date = fmtDate(p.publishedAt);
   // The picture is the one the firm chose for the article, loaded from their own site; if it cannot load the card just drops it.
@@ -100,7 +100,7 @@ export function cardHtml(p, { byline = '', head = null, hero = false } = {}) {
   const pic = p.image && safePostUrl(p.image)
     ? `<a class="lw-bc-img" href="${esc(here.href)}"${here.extra} tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="640" height="360" onerror="this.parentNode.remove()"></a>`
     : '';
-  if (head) return feedCardHtml(p, { head, here, pic, host, hero });
+  if (head) return feedCardHtml(p, { head, here, pic, host, hero, length });
   const action = p.storyHref
     ? `<div class="lw-row"><a class="lw-go" href="${esc(p.storyHref)}" data-story>Read the story &rarr;</a>${p.id ? `<button class="lw-sbtn" type="button" data-save="${Number(p.id)}">Save</button>` : ''}</div>`
     : more
@@ -113,8 +113,8 @@ export function cardHtml(p, { byline = '', head = null, hero = false } = {}) {
 
 // A LawDB News post in the MSPdatabase layout: the firm's header (logo, name, place, time) with a menu of the post's actions,
 // then the headline and preview on the left and the picture on the right. The menu holds every action, so the card has no buttons of its own.
-function feedCardHtml(p, { head, here, pic, host, hero }) {
-  const max = hero ? 380 : 200;
+function feedCardHtml(p, { head, here, pic, host, hero, length = 0 }) {
+  const max = length || (hero ? 380 : 200);
   const when = timeOf(p.publishedAt);
   const menu = p.storyHref
     ? `<a href="${esc(p.storyHref)}" data-story>Read the story</a>${p.id ? `<button type="button" data-save="${Number(p.id)}">Save</button>` : ''}`

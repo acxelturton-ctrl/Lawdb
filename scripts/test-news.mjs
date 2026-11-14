@@ -20,7 +20,10 @@ const posts = [{ firmSlug: 'firm-1', firmName: 'Firm 1', featured: false, indexa
   { firmSlug: 'firm-2', firmName: 'Firm 2', featured: true, indexable: true, logo: null, title: 'Featured article here', url: 'https://f2.example/a', publishedAt: '2026-01-04', excerpt: 'Preview text.', image: 'https://f2.example/a.jpg', storyHref: '/news/firm-2/featured-article-here-2', id: 2 }];
 const html = renderNewsPage({ posts, firms, people: firms.slice(0, 15), stats: { firms: 90, articles: 400, latest: '2026-01-05' } });
 ok((html.match(/<option value="firm-/g) || []).length === 90 && html.includes('All 90 firms'), 'the filter lists every firm that writes');
-ok((html.match(/class="news-people"[\s\S]*?<\/div>/)[0].match(/<a href="\/news\?firm=/g) || []).length === 15 && html.includes('and 75 more'), 'the "firms writing here" grid shows 15 and says how many more');
+ok((html.match(/id="firms"[\s\S]*?<\/aside>/)[0].match(/<a class="ns-firm" href="\/news\?firm=/g) || []).length === 9 && html.includes('Firms writing now'), 'the sidebar lists nine of the firms writing');
+ok(html.includes('id="news-hero"') && html.includes('class="news-layout"') && html.includes('Firms writing now'), 'the page has the top story banner, the sidebar and the one-column layout');
+const two = renderNewsPage({ posts: [posts[1], { ...posts[1], firmSlug: 'firm-3', id: 3, title: 'Divorce and the family home', storyHref: '/news/firm-3/divorce-3', url: 'https://f3.example/a' }], firms, people: firms.slice(0, 3), stats: { firms: 3, articles: 2, latest: '2026-01-05' } });
+ok(two.includes('Browse by topic') && two.includes('data-topic="Family"') && two.includes('id="news-hero-data"'), 'topic buttons and the rotating stories appear when there is more than one story');
 const ld = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(html)[1]);
 ok(ld.mainEntity.itemListElement.length === 1 && ld.mainEntity.itemListElement[0].url.endsWith('featured-article-here-2'), 'only indexable stories are listed in the page\'s structured data');
 ok(!/Featured law firms|Featured members\' blogs/.test(html), 'the page no longer says only Featured firms appear');

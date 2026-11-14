@@ -43,7 +43,7 @@ async function loadPosts(env, featuredOnly, firm = '') {
 async function loadFirms(env, featuredOnly) {
   const where = `WHERE ${PHOTO}${featuredOnly ? ' AND f.featured = 1' : ''}`;
   const [{ results }, totals] = await Promise.all([
-    env.DB.prepare(`SELECT p.firm_slug AS slug, json_extract(f.data, '$.name') AS name, json_extract(f.data, '$.src') AS logo, MAX(p.published_at) AS latest ${VISIBLE} ${where} GROUP BY p.firm_slug ORDER BY name`).all(),
+    env.DB.prepare(`SELECT p.firm_slug AS slug, json_extract(f.data, '$.name') AS name, json_extract(f.data, '$.src') AS logo, f.city AS city, MAX(p.published_at) AS latest ${VISIBLE} ${where} GROUP BY p.firm_slug ORDER BY name`).all(),
     env.DB.prepare(`SELECT COUNT(*) AS articles, MAX(p.published_at) AS latest ${VISIBLE} ${where}`).first(),
   ]);
   return { firms: results, articles: totals?.articles || 0, latest: totals?.latest || null };

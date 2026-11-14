@@ -62,6 +62,49 @@ a.news-step:hover{border-color:#c9a050}
 .news-cta b{display:block;font-family:'Source Serif 4',serif;font-size:clamp(22px,2.4vw,34px);margin-bottom:4px}
 .news-cta span{font-size:clamp(15px,1.2vw,18px);color:#2b3a4c}
 .news-cta a{background:#142434;color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:14px 24px;font-size:clamp(15px,1.15vw,17px)}
+/* the rotating top story, then the one-column feed beside a sidebar (browse by topic, firms writing now) */
+.nh{position:relative;display:block;border-radius:18px;overflow:hidden;height:clamp(250px,36vw,440px);margin:0 0 clamp(16px,2vw,24px);background:#142434;color:#fff;isolation:isolate}
+.nh-slide{position:absolute;inset:0;opacity:0;transition:opacity .7s ease;pointer-events:none;color:inherit;text-decoration:none;display:block}
+.nh-slide.on{opacity:1;pointer-events:auto}
+.nh-slide img.nh-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.nh-ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:clamp(6px,1vw,12px);padding:clamp(16px,3vw,40px) clamp(16px,3.4vw,48px) clamp(34px,4vw,48px);background:linear-gradient(0deg,rgba(20,36,52,.95) 0%,rgba(20,36,52,.7) 45%,rgba(20,36,52,.12) 100%);z-index:-1}
+.nh-tag{align-self:flex-start;background:#e2bd6a;color:#142434;border-radius:999px;padding:5px 11px;font:700 clamp(9.5px,1vw,11px)/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.nh-t{margin:0;max-width:820px;font:700 clamp(21px,3.4vw,42px)/1.15 'Source Serif 4',serif}
+.nh-x{margin:0;max-width:660px;font:400 clamp(13px,1.3vw,17px)/1.5 'Inter',sans-serif;color:#e6e9ee;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.nh-by{display:flex;align-items:center;gap:10px;font:600 clamp(12px,1.1vw,14px)/1.25 'Inter',sans-serif}
+.nh-by small{display:block;font-weight:400;color:#cfd5dd}
+.nh-av{flex:none;width:clamp(30px,3vw,40px);height:clamp(30px,3vw,40px);border-radius:50%;background:#fff;border:1px solid #e3dfd3;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#586170;font:700 16px 'Source Serif 4',serif}
+.nh-av img{width:100%;height:100%;object-fit:contain}
+.nh-dots{position:absolute;right:clamp(14px,2vw,26px);bottom:clamp(12px,1.6vw,20px);display:flex;gap:7px;z-index:2}
+.nh-dots button{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer}
+.nh-dots button.on{background:#e2bd6a;width:22px;border-radius:6px}
+.news-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(18px,2.4vw,32px);align-items:start}
+@media(min-width:1000px){.news-layout{grid-template-columns:minmax(0,1fr) 340px}}
+.news-layout .lw-feed{max-width:none;margin:0}
+.news-layout .lw-feed .lw-bc-img{width:clamp(110px,34%,280px)}
+.news-layout .lw-feed .lw-bc h3{font-size:clamp(17px,1.6vw,21px)}
+.news-layout .lw-feed .lw-teaser{font-size:clamp(14px,1.2vw,15.5px)}
+.news-side{display:grid;gap:16px}
+@media(min-width:1000px){.news-side{position:sticky;top:16px}}
+.ns-box{background:#fff;border:1px solid #e3dfd3;border-radius:14px;padding:18px}
+.ns-box h2{display:flex;align-items:center;gap:12px;margin:0 0 12px;font:600 20px/1.2 'Source Serif 4',serif;color:#142434}
+.ns-box h2::after{content:'';flex:1;height:1px;background:#c9a050}
+.ns-topics{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.ns-topics button{border:1px solid #e3dfd3;background:#fff;border-radius:999px;padding:8px 13px;font:600 13px/1 'Inter',sans-serif;color:#2b3a4c;cursor:pointer}
+.ns-topics button:hover{border-color:#c9a050}
+.ns-topics button.on{background:#142434;color:#fff;border-color:#142434}
+.ns-firm{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid #efece3;color:#142434;text-decoration:none;min-width:0}
+.ns-firm:first-of-type{border-top:0}
+.ns-firm .lw-av{flex:none;width:38px;height:38px;border-radius:50%;background:#edeae1;border:1px solid #e3dfd3;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 15px 'Source Serif 4',serif;color:#586170}
+.ns-firm .lw-av img{width:100%;height:100%;object-fit:contain;background:#fff}
+.ns-firm b{display:block;font:600 14px/1.25 'Inter',sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ns-firm small{display:block;font:400 12.5px 'Inter',sans-serif;color:#8a919b}
+.ns-firm:hover b{text-decoration:underline}
+.ns-cta{background:#f4ecd8;border-color:#e6d4a4}
+.ns-cta b{display:block;font:700 21px/1.2 'Source Serif 4',serif;margin-bottom:6px}
+.ns-cta p{margin:0 0 12px;font-size:14px;line-height:1.5;color:#2b3a4c}
+.ns-cta a{display:inline-block;background:#142434;color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:11px 18px;font-size:14px}
+.news-steps{margin-top:clamp(24px,3.5vw,48px)}
 .news-foot{padding:clamp(16px,2vw,28px) clamp(16px,4vw,72px) clamp(26px,3vw,44px);font-size:13px;color:#8a919b;line-height:1.6;max-width:70em;margin:0}
 </style>`;
 
@@ -112,6 +155,46 @@ export function newsCardsHtml(posts, { lead = false } = {}) {
   return (first ? [cardHtml(first, { head: headOf(first), hero: true })] : []).concat(shown.filter((p) => p !== first).map((p) => cardHtml(p, { head: headOf(p) }))).join('');
 }
 
+// Browse by topic: a story's topic is guessed from its headline and preview (the first match wins), and a topic shows only when a story has it.
+const TOPICS = [
+  ['Family', /divorc|custody|child support|spous|separat|family law|parenting|matrimonial/i],
+  ['Criminal', /criminal|police|arrest|bail\b|impaired|\bdui\b|assault|charged|\bcharges\b|search your/i],
+  ['Injury', /injur|accident|collision|rear-ended|icbc|slip and fall|whiplash|disabilit|insurer/i],
+  ['Immigration', /immigra|visa\b|citizenship|express entry|permanent resident|refugee|work permit|study permit|sponsor/i],
+  ['Employment', /employ|fired|terminat|severance|dismissal|workplace|labour/i],
+  ['Real estate', /real estate|\bhome\b|house|condo|mortgage|landlord|tenant|lease|closing|propert|title insurance/i],
+  ['Wills & estates', /\bwills?\b|estate|probate|power of attorney|executor|inherit/i],
+  ['Business', /business|corporat|shareholder|commercial|startup|incorporat|partnership/i],
+  ['Litigation', /litigation|lawsuit|court|dispute|appeal|small claims/i],
+];
+export const topicOf = (p) => {
+  const t = `${p.title || ''} ${p.excerpt || ''}`;
+  const hit = TOPICS.find(([, re]) => re.test(t));
+  return hit ? hit[0] : 'General';
+};
+
+// The top story banner: shows one story with its picture, headline and firm; the page script shuffles the stories and switches every 3 seconds.
+const heroItem = (p) => ({
+  t: p.title, x: String(p.excerpt || '').replace(/\s+/g, ' ').slice(0, 170), i: p.image, h: p.storyHref || p.url, s: p.storyHref ? 1 : 0,
+  f: p.firmName, p: [p.city, PROVINCE[p.province] || p.province].filter(Boolean).join(', '), l: p.logo ? avatarOf(p.logo, p.firmName) : '', c: topicOf(p),
+});
+export const HERO_JS = `(function(){var el=document.getElementById('news-hero'),d=document.getElementById('news-hero-data');if(!el||!d)return;var items;try{items=JSON.parse(d.textContent)}catch(e){return}
+if(!items||items.length<2)return;for(var i=items.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=items[i];items[i]=items[j];items[j]=t}
+var box=el.querySelector('.nh-slides'),dots=el.querySelector('.nh-dots'),cur=-1,timer=0,paused=false,slides=[];
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+items.forEach(function(it,n){var a=document.createElement('a');a.className='nh-slide';a.href=it.h;if(it.s)a.setAttribute('data-story','');else{a.target='_blank';a.rel='noopener nofollow'}
+a.innerHTML='<img class="nh-img" src="'+esc(it.i)+'" alt="" referrerpolicy="no-referrer"'+(n<2?'':' loading="lazy"')+' decoding="async"><div class="nh-ov"><span class="nh-tag">'+esc(it.c)+'</span><h2 class="nh-t">'+esc(it.t)+'</h2>'+(it.x?'<p class="nh-x">'+esc(it.x)+'</p>':'')+'<span class="nh-by"><span class="nh-av">'+(it.l||esc((it.f||'?').charAt(0)))+'</span><span>'+esc(it.f)+(it.p?'<small>'+esc(it.p)+'</small>':'')+'</span></span></div>';
+var im=a.querySelector('img');im.onerror=function(){a.setAttribute('data-bad','1');if(slides[cur]===a)go(cur+1)};slides.push(a);box.appendChild(a)});
+dots.innerHTML='';items.forEach(function(_,n){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Show story '+(n+1));b.onclick=function(){go(n);restart()};dots.appendChild(b)});
+function go(n){var k=slides.length;for(var tries=0;tries<k;tries++){n=(n+k)%k;if(!slides[n].getAttribute('data-bad'))break;n++}
+if(n===cur)return;slides.forEach(function(s,m){s.classList.toggle('on',m===n);s.setAttribute('aria-hidden',m===n?'false':'true');s.tabIndex=m===n?0:-1;dots.children[m].classList.toggle('on',m===n)});cur=n}
+function restart(){clearInterval(timer);if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;timer=setInterval(function(){if(!paused&&!document.hidden)go(cur+1)},3000)}
+el.addEventListener('mouseenter',function(){paused=true});el.addEventListener('mouseleave',function(){paused=false});el.addEventListener('focusin',function(){paused=true});el.addEventListener('focusout',function(){paused=false});
+el.querySelector('.nh-first').remove();go(0);restart()})();`;
+export const TOPIC_JS = `(function(){var bar=document.getElementById('news-topics'),feed=document.getElementById('feed');if(!bar||!feed)return;bar.hidden=false;
+bar.addEventListener('click',function(e){var b=e.target.closest('button[data-topic]');if(!b)return;var t=b.getAttribute('data-topic');bar.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});
+feed.querySelectorAll('article[data-topic]').forEach(function(a){a.hidden=!!t&&a.getAttribute('data-topic')!==t})})})();`;
+
 const fmtDay = (d) => {
   const t = d ? new Date(String(d).replace(' ', 'T') + 'Z') : null;
   return t && !Number.isNaN(t.getTime()) ? t.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', timeZone: 'UTC' }) : '';
@@ -131,10 +214,21 @@ export function renderNewsPage({ posts, firms, people: strip = null, selected = 
         `<option value="${esc(f.slug)}"${selected === f.slug ? ' selected' : ''}>${esc(f.name)}</option>`).join('')}</select></label><noscript><button type="submit">Show</button></noscript>${selected ? '<a href="/news">Show all firms</a>' : ''}</form>`
     : '';
   const faces = strip || firms.slice(0, 15);
-  const people = faces.length
-    ? `<section class="news-people" id="firms"><h2>The firms writing here</h2><div class="news-faces">${faces.map((f) => `<a href="/news?firm=${esc(f.slug)}"><span class="lw-av">${avatarOf(f.logo, f.name)}</span><span class="nm">${esc(f.name)}</span></a>`).join('')}</div>${firms.length > faces.length ? `<a class="news-more" href="#news-firm">and ${firms.length - faces.length} more &rsaquo;</a>` : ''}</section>`
+  const sideFirms = faces.slice(0, 9).map((f) => `<a class="ns-firm" href="/news?firm=${esc(f.slug)}"><span class="lw-av">${avatarOf(f.logo, f.name)}</span><span style="min-width:0"><b>${esc(f.name)}</b>${f.city ? `<small>${esc(f.city)}</small>` : ''}</span></a>`).join('');
+  const topicNames = TOPICS.map(([n]) => n).concat('General').filter((n) => shown.some((p) => topicOf(p) === n));
+  const side = `<aside class="news-side" aria-label="Browse and firms">` +
+    (topicNames.length > 1 && shown.length ? `<div class="ns-box" id="news-topics" hidden><h2>Browse by topic</h2><ul class="ns-topics"><li><button type="button" class="on" data-topic="">All</button></li>${topicNames.map((n) => `<li><button type="button" data-topic="${esc(n)}">${esc(n)}</button></li>`).join('')}</ul></div>` : '') +
+    (faces.length ? `<div class="ns-box" id="firms"><h2>Firms writing now</h2>${sideFirms}</div>` : '') +
+    `</aside>`;
+  const lead = shown[0];
+  const heroPool = [];
+  const heroFirms = new Set();
+  for (const q of shown) { if (!heroFirms.has(q.firmSlug)) { heroFirms.add(q.firmSlug); heroPool.push(q); } if (heroPool.length >= 8) break; }
+  const hero = lead
+    ? `<div class="nh" id="news-hero" aria-label="Top stories"><div class="nh-slides"><a class="nh-slide on nh-first" href="${esc(lead.storyHref || lead.url)}"${lead.storyHref ? ' data-story' : ' target="_blank" rel="noopener nofollow"'}><img class="nh-img" src="${esc(lead.image)}" alt="" referrerpolicy="no-referrer" fetchpriority="high" decoding="async"><div class="nh-ov"><span class="nh-tag">${esc(topicOf(lead))}</span><h2 class="nh-t">${esc(lead.title)}</h2>${lead.excerpt ? `<p class="nh-x">${esc(String(lead.excerpt).replace(/\s+/g, ' ').slice(0, 170))}</p>` : ''}<span class="nh-by"><span class="nh-av">${lead.logo ? avatarOf(lead.logo, lead.firmName) : initial(lead.firmName)}</span><span>${esc(lead.firmName)}</span></span></div></a></div><div class="nh-dots"></div>` +
+      (heroPool.length > 1 ? `<script type="application/json" id="news-hero-data">${JSON.stringify(heroPool.map(heroItem)).replace(/</g, '\\u003c')}</script>` : '') + `</div>`
     : '';
-  const cards = newsCardsHtml(shown);
+  const cards = shown.map((q) => cardHtml(q, { head: headOf(q) }).replace('<article class="lw-bc', `<article data-topic="${esc(topicOf(q))}" class="lw-bc`)).join('');
   const body = shown.length
     ? `<div class="lw-bc-grid lw-feed" id="feed">${cards}</div>`
     : '<div class="news-empty"><b>LawDB News is filling up.</b><br>Articles from the firms listed on LawDB appear here as soon as their blogs are found. Check back soon.</div>';
@@ -166,10 +260,14 @@ export function renderNewsPage({ posts, firms, people: strip = null, selected = 
     '  <header class="news-band"><p class="news-eyebrow">News &amp; insights</p><h1><span class="u">LawDB News</span></h1><p class="news-lede">Real stories. Practical advice. <em>All in one place.</em></p>' +
     '<p class="news-intro">Stay informed with the latest legal news, helpful articles and expert insights from the lawyers and firms listed on LawDB. Every article is written by the firm that publishes it; we gather them here so you can understand a complex topic before you pick up the phone.</p>' + stats3 + '</header>',
     '  <main class="news-main">',
-    '    ' + steps,
-    '    ' + people,
+    '    ' + hero,
+    '    <div class="news-layout"><div class="news-col">',
     '    ' + chips,
     '    ' + body,
+    '    </div>',
+    '    ' + side,
+    '    </div>',
+    '    ' + steps,
     '  </main>',
     '  <div class="news-cta"><div><b>Run a law firm?</b><span>If your website has a blog, LawDB finds it and shows your latest articles here, free, with your logo and a link back to your site. Featured members also get a badge on every story.</span></div><a href="/for-firms">For law firms &rarr;</a></div>',
     '  <p class="news-foot">Headlines and short excerpts come from each firm\'s public blog. The articles belong to the firms that wrote them, and the full text is on their websites. LawDB is an independent directory and does not endorse any article or firm.</p>',
@@ -178,6 +276,8 @@ export function renderNewsPage({ posts, firms, people: strip = null, selected = 
     '<script src="/site.js" defer></script>',
     '<script src="/follow.js" defer></script>',
     '<script>' + STORY_JS + '</script>',
+    '<script>' + HERO_JS + '</script>',
+    '<script>' + TOPIC_JS + '</script>',
     '</body>\n</html>\n',
   ].join('\n');
 }

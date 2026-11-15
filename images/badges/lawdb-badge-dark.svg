@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 72" width="240" height="72" role="img" aria-label="Listed on LawDB.ca">
+<title>Listed on LawDB.ca</title>
+<rect x="1" y="1" width="238" height="70" rx="12" fill="#142434" stroke="#c9a050" stroke-width="2"/>
+<defs>
+<linearGradient id="dg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="190"><stop offset="0" stop-color="#e6d4a4"/><stop offset=".45" stop-color="#e2bd6a"/><stop offset="1" stop-color="#c9a050"/></linearGradient>
+<linearGradient id="dd" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="75"><stop offset="0" stop-color="#f4ecd8"/><stop offset="1" stop-color="#e2bd6a"/></linearGradient>
+<mask id="dm" maskUnits="userSpaceOnUse" x="-5" y="-5" width="205" height="201">
+<path fill="#fff" d="M0.3 59A97.2 30 0 0 0 194.7 59V153A97.2 36.2 0 0 1 0.3 153Z"/>
+<path fill="#142434" d="M-2 96H0.3A97.2 34.5 0 0 0 50 126.1V139.2A97.2 27.6 0 0 1 0.3 115.1H-2Z"/>
+<path fill="#142434" d="M197 96H194.7A97.2 34.5 0 0 1 145 126.1V139.2A97.2 27.6 0 0 0 194.7 115.1H197Z"/>
+<polygon fill="#142434" stroke="#142434" stroke-width="1" stroke-linejoin="round" points="97.50,105.40 103.90,118.00 110.90,117.00 109.70,139.00 120.80,130.00 125.00,134.40 134.00,133.60 131.00,146.00 134.40,151.00 117.00,166.00 118.00,170.40 99.70,169.60 99.70,192.00 95.30,192.00 95.30,169.60 77.00,170.40 78.00,166.00 60.60,151.00 64.00,146.00 61.00,133.60 70.00,134.40 74.20,130.00 85.30,139.00 84.10,117.00 91.10,118.00"/>
+</mask>
+</defs><g transform="translate(16 14) scale(0.2304)"><ellipse cx="97.5" cy="37.3" rx="97.2" ry="37.3" fill="url(#dd)"/>
+<rect x="-5" y="-5" width="205" height="201" fill="url(#dg)" mask="url(#dm)"/></g>
+<text x="72" y="30" font-family="Inter,Arial,Helvetica,sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#b4bac4">LISTED ON</text>
+<text x="72" y="53" font-family="Georgia,'Times New Roman',serif" font-size="25" font-weight="700" fill="#ffffff">Law<tspan fill="#e2bd6a">DB</tspan><tspan font-size="14" fill="#b4bac4" font-weight="400">.ca</tspan></text>
+</svg>

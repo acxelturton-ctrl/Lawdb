@@ -193,7 +193,6 @@ const COMMENTS_CSS = `<style>
 .cm-head{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}
 .cm-eyebrow{margin:0 0 6px;font:700 11px/1.2 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#e2bd6a}
 .cm h2{margin:0;font-size:26px;line-height:1.15;color:#fff}
-.cm-sub{margin:6px 0 0;font-size:14px;color:#b4bac4}
 .cm-ctl{display:none;gap:10px;flex:none}
 .cm-ar{width:42px;height:42px;padding:0;border-radius:50%;border:1.5px solid #c9a050;background:transparent;color:#e2bd6a;display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s}
 .cm-ar:hover:not([disabled]){background:#c9a050;color:#142434}
@@ -260,7 +259,7 @@ export function commentsHtml(f) {
   const arrow = (dir, label, d) => `<button type="button" class="cm-ar" data-cm="${dir}" aria-label="${label}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg></button>`;
   const ctl = many ? `<div class="cm-ctl">${arrow('prev', 'Previous comment', 'M15 5l-7 7 7 7')}${arrow('next', 'Next comment', 'M9 5l7 7-7 7')}</div>` : '';
   const dots = many ? `<div class="cm-dots">${list.map((_, i) => `<button type="button" aria-label="Show comment ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>` : '';
-  return `\n    <section class="cm" aria-labelledby="cmH" aria-roledescription="carousel"><div class="cm-head"><div><p class="cm-eyebrow">Client comments</p><h2 id="cmH">What clients say</h2><p class="cm-sub">Comments ${esc(f.name)} publishes on its own website.</p></div>${ctl}</div><div class="cm-track n${list.length}" tabindex="0" role="group" aria-label="Client comments">${cards}</div>${dots}<p class="cm-note">Shown as the firm published them. LawDB has not verified these comments. <a href="${esc(list[0].url)}" target="_blank" rel="nofollow noopener">Read more on the firm&rsquo;s website &#8599;</a> &middot; Firm owner? <a href="/contact">Ask us to change or remove this</a>.</p>${COMMENTS_JS}</section>`;
+  return `\n    <section class="cm" aria-labelledby="cmH" aria-roledescription="carousel"><div class="cm-head"><div><p class="cm-eyebrow">Client comments</p><h2 id="cmH">What clients say</h2></div>${ctl}</div><div class="cm-track n${list.length}" tabindex="0" role="group" aria-label="Client comments">${cards}</div>${dots}<p class="cm-note">Shown as the firm published them. LawDB has not verified these comments. <a href="${esc(list[0].url)}" target="_blank" rel="nofollow noopener">Read more on the firm&rsquo;s website &#8599;</a> &middot; Firm owner? <a href="/contact">Ask us to change or remove this</a>.</p>${COMMENTS_JS}</section>`;
 }
 const IMG_ID = /^[0-9a-f]{24}$/;
 

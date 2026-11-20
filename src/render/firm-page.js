@@ -187,15 +187,77 @@ function verifiedHtml(v) {
 }
 const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#586170}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
 const OFFICES_CSS = '<style>.offices{margin:22px 0}.offices h2{font-size:18px;margin:0 0 10px}.offices ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;line-height:1.5}.offices li{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.offices .office-name{font-weight:700;color:#142434}.offices a{color:#142434;text-decoration:underline;text-decoration-color:#c9a050;text-underline-offset:3px}.offices a:hover{text-decoration-color:#142434}.offices-note{margin:10px 0 0;font-size:14px;color:#586170}</style>';
-const COMMENTS_CSS = '<style>.cm{margin:22px 0;padding:22px 22px 18px;background:#fff;border:1px solid #e3dfd3;border-radius:16px}.cm h2{margin:0 0 4px;font-size:22px;line-height:1.2}.cm-sub{margin:0 0 16px;font-size:14px;color:#586170}.cm-grid{display:grid;gap:14px;grid-template-columns:repeat(3,minmax(0,1fr))}.cm-grid.n2{grid-template-columns:repeat(2,minmax(0,1fr))}.cm-grid.n1{grid-template-columns:minmax(0,1fr)}@media(max-width:760px){.cm-grid,.cm-grid.n2{grid-template-columns:minmax(0,1fr)}}.cm-card{position:relative;margin:0;padding:20px 18px 16px;background:#f5f3ec;border:1px solid #e3dfd3;border-radius:14px;display:flex;flex-direction:column;gap:12px}.cm-card::before{content:"\\201C";position:absolute;top:2px;left:14px;font:700 54px/1 Georgia,serif;color:#e2bd6a}.cm-card blockquote{margin:22px 0 0;font-size:15px;line-height:1.6;color:#142434}.cm-card figcaption{margin-top:auto;font-size:13px;color:#586170}.cm-card figcaption b{color:#142434}.cm-card figcaption a{color:#586170}.cm-note{margin:14px 0 0;font-size:12.5px;line-height:1.5;color:#586170}.cm-note a{color:#142434;font-weight:600}</style>';
+const COMMENTS_CSS = `<style>
+.cm{position:relative;margin:26px 0;padding:28px 26px 22px;border-radius:22px;overflow:hidden;color:#fff;background:linear-gradient(135deg,#142434 0%,#1b242d 100%);box-shadow:0 24px 50px -28px #142434}
+.cm::before{content:"\\201C";position:absolute;right:18px;top:-30px;font:700 230px/1 Georgia,serif;color:#2b3a4c;pointer-events:none}
+.cm-head{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}
+.cm-eyebrow{margin:0 0 6px;font:700 11px/1.2 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#e2bd6a}
+.cm h2{margin:0;font-size:26px;line-height:1.15;color:#fff}
+.cm-sub{margin:6px 0 0;font-size:14px;color:#b4bac4}
+.cm-ctl{display:none;gap:10px;flex:none}
+.cm-ar{width:42px;height:42px;padding:0;border-radius:50%;border:1.5px solid #c9a050;background:transparent;color:#e2bd6a;display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s}
+.cm-ar:hover:not([disabled]){background:#c9a050;color:#142434}
+.cm-ar[disabled]{opacity:.35;cursor:default}
+.cm-track{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cm-track.n2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cm-track.n1{grid-template-columns:minmax(0,1fr)}
+.cm-track.n1 blockquote{max-width:46em}
+.cm-card{position:relative;margin:0;padding:24px 20px 18px;border-radius:16px;background:#1b242d;border:1px solid #2b3a4c;display:flex;flex-direction:column;gap:16px;transition:transform .25s,border-color .25s}
+.cm-card:hover{transform:translateY(-3px);border-color:#c9a050}
+.cm-card::before{content:"";position:absolute;left:20px;top:-1px;width:44px;height:3px;border-radius:0 0 3px 3px;background:#e2bd6a}
+.cm-card blockquote{margin:0;font:400 17px/1.65 "Source Serif 4",Georgia,serif;color:#fff}
+.cm-card blockquote::before{content:"\\201C";color:#e2bd6a;font-size:1.35em;line-height:0;margin-right:3px;vertical-align:-.25em}
+.cm-who{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid #2b3a4c}
+.cm-av{flex:none;width:38px;height:38px;border-radius:50%;background:#e2bd6a;color:#142434;display:grid;place-items:center;font:700 15px Inter,sans-serif}
+.cm-who b{display:block;font-size:14px;color:#fff}
+.cm-who a{font-size:12.5px;white-space:nowrap;color:#b4bac4;text-decoration:none;border-bottom:1px solid #2b3a4c}
+.cm-who a:hover{color:#e2bd6a;border-color:#e2bd6a}
+.cm-dots{display:none;justify-content:center;gap:8px;margin-top:16px}
+.cm-dots button{width:8px;height:8px;padding:0;border:0;border-radius:99px;background:#2b3a4c;cursor:pointer;transition:width .3s,background .3s}
+.cm-dots button[aria-current="true"]{width:26px;background:#e2bd6a}
+.cm-note{position:relative;margin:18px 0 0;font-size:12.5px;line-height:1.5;color:#b4bac4}
+.cm-note a{color:#e2bd6a;font-weight:600}
+.cm-track:focus-visible,.cm-ar:focus-visible,.cm-dots button:focus-visible{outline:2px solid #e2bd6a;outline-offset:3px}
+@media(max-width:760px){
+.cm{padding:24px 16px 20px}
+.cm h2{font-size:22px}
+.cm-ctl{display:flex}
+.cm-dots{display:flex}
+.cm-track,.cm-track.n2,.cm-track.n1{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.cm-track::-webkit-scrollbar{display:none}
+.cm-card{flex:0 0 88%;scroll-snap-align:center}
+.cm-track.n1 .cm-card{flex-basis:100%}
+.cm-card:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){.cm-card,.cm-ar,.cm-dots button{transition:none}}
+</style>`;
+// The carousel on phones and tablets: swipe (the browser's own scroll snapping), the arrows, the dots and the arrow keys all move the same strip.
+const COMMENTS_JS = "<script>(function(){var s=document.currentScript.parentNode,t=s.querySelector('.cm-track'),c=t.children,p=s.querySelector('[data-cm=prev]'),n=s.querySelector('[data-cm=next]'),d=s.querySelectorAll('.cm-dots button'),rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,q=0;" +
+  "function at(){var m=t.scrollLeft+t.clientWidth/2,b=0,x=1e9,k,y;for(k=0;k<c.length;k++){y=Math.abs(c[k].offsetLeft+c[k].offsetWidth/2-m);if(y<x){x=y;b=k}}return b}" +
+  "function go(i){i=Math.max(0,Math.min(c.length-1,i));t.scrollTo({left:c[i].offsetLeft+c[i].offsetWidth/2-t.clientWidth/2,behavior:rm?'auto':'smooth'})}" +
+  "function sync(){q=0;var i=at(),k;for(k=0;k<d.length;k++)d[k].setAttribute('aria-current',k===i?'true':'false');if(p)p.disabled=i===0;if(n)n.disabled=i===c.length-1}" +
+  "t.addEventListener('scroll',function(){if(!q)q=requestAnimationFrame(sync)},{passive:true});" +
+  "if(p)p.addEventListener('click',function(){go(at()-1)});if(n)n.addEventListener('click',function(){go(at()+1)});" +
+  "d.forEach(function(b,k){b.addEventListener('click',function(){go(k)})});" +
+  "t.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){e.preventDefault();go(at()-1)}else if(e.key==='ArrowRight'){e.preventDefault();go(at()+1)}});" +
+  "window.addEventListener('resize',sync);sync()})()</script>";
 // "What clients say": up to three comments the firm itself publishes on its own website (see src/lib/comments.js), each linked to the firm's page it came from.
-// A firm whose record says commentsOff shows none. LawDB has not verified them, and the section says so.
+// Three cards side by side on a wide screen; a swipeable strip with arrows and dots on a phone. A firm whose record says commentsOff shows none.
+// LawDB has not verified the comments, and the section says so.
 export function commentsHtml(f) {
   if (f.commentsOff === true) return '';
   const list = cleanComments(f.comments, { website: f.website });
   if (!list) return '';
-  const cards = list.map((c) => `<figure class="cm-card"><blockquote>${esc(c.text)}</blockquote><figcaption><b>${esc(c.author || 'A client')}</b> &middot; <a href="${esc(c.url)}" target="_blank" rel="nofollow noopener">from the firm&rsquo;s website</a></figcaption></figure>`).join('');
-  return `\n    <section class="cm" aria-labelledby="cmH"><h2 id="cmH">What clients say</h2><p class="cm-sub">Comments ${esc(f.name)} publishes on its own website.</p><div class="cm-grid n${list.length}">${cards}</div><p class="cm-note">Shown as the firm published them. LawDB has not verified these comments. Firm owner? <a href="/contact">Ask us to change or remove this</a>.</p></section>`;
+  const many = list.length > 1;
+  const who = (c) => {
+    const first = (c.author || '').match(/\p{Lu}/u);
+    return first ? first[0] : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>';
+  };
+  const cards = list.map((c, i) => `<figure class="cm-card" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${list.length}"><blockquote>${esc(c.text)}</blockquote><figcaption class="cm-who"><span class="cm-av" aria-hidden="true">${who(c)}</span><span><b>${esc(c.author || 'A client')}</b><a href="${esc(c.url)}" target="_blank" rel="nofollow noopener">from the firm&rsquo;s site &#8599;</a></span></figcaption></figure>`).join('');
+  const arrow = (dir, label, d) => `<button type="button" class="cm-ar" data-cm="${dir}" aria-label="${label}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg></button>`;
+  const ctl = many ? `<div class="cm-ctl">${arrow('prev', 'Previous comment', 'M15 5l-7 7 7 7')}${arrow('next', 'Next comment', 'M9 5l7 7-7 7')}</div>` : '';
+  const dots = many ? `<div class="cm-dots">${list.map((_, i) => `<button type="button" aria-label="Show comment ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>` : '';
+  return `\n    <section class="cm" aria-labelledby="cmH" aria-roledescription="carousel"><div class="cm-head"><div><p class="cm-eyebrow">Client comments</p><h2 id="cmH">What clients say</h2><p class="cm-sub">Comments ${esc(f.name)} publishes on its own website.</p></div>${ctl}</div><div class="cm-track n${list.length}" tabindex="0" role="group" aria-label="Client comments">${cards}</div>${dots}<p class="cm-note">Shown as the firm published them. LawDB has not verified these comments. Firm owner? <a href="/contact">Ask us to change or remove this</a>.</p>${many ? COMMENTS_JS : ''}</section>`;
 }
 const IMG_ID = /^[0-9a-f]{24}$/;
 

@@ -63,9 +63,15 @@ ok(shorten(noStop).endsWith('…') && shorten(noStop).split(/\s+/).length === 60
 // ---- the page section
 const firm = { name: 'Test <b>Law</b> LLP', website: SITE, comments: [c(good, { author: 'Maria Gonzalez' }), c('Their team was kind and explained every single step of the process to us very clearly.')] };
 const html = commentsHtml(firm);
-ok(html.includes('What clients say') && html.includes('cm-grid n2'), 'the section shows two cards for two comments');
+ok(html.includes('What clients say') && html.includes('cm-track n2') && (html.match(/<figure class="cm-card"/g) || []).length === 2, 'the section shows two cards for two comments');
+ok((html.match(/class="cm-ar"/g) || []).length === 2 && (html.match(/<div class="cm-dots">/g) || []).length === 1 && (html.match(/<button type="button" aria-label="Show comment/g) || []).length === 2, 'two comments: previous and next arrows and two dots (for the swipe strip on a phone)');
+ok(/<script>/.test(html) && !/Maria|wonderful/.test(html.slice(html.indexOf('<script>'))), 'the strip script is there and holds no comment text');
+const one = commentsHtml({ ...firm, comments: [c(good)] });
+ok(one.includes('cm-track n1') && !/cm-ar|cm-dots|<script/.test(one), 'one comment: no arrows, no dots, no script');
+ok(commentsHtml({ ...firm, comments: [c(good, { author: 'Maria Gonzalez' })] }).includes('<span class="cm-av" aria-hidden="true">M</span>'), 'the avatar shows the reviewer\u2019s initial');
+ok(/<svg/.test(one.slice(one.indexOf('cm-av'), one.indexOf('cm-av') + 200)), 'a client with no name gets a plain person icon');
 ok(html.includes('Maria G.') && html.includes('A client'), 'a name when there is one, "A client" when not');
-ok(html.includes('from the firm&rsquo;s website') && html.includes('href="https://testlaw.ca/testimonials/"'), 'each comment links to where the firm published it');
+ok(html.includes('from the firm&rsquo;s site') && html.includes('href="https://testlaw.ca/testimonials/"'), 'each comment links to where the firm published it');
 ok(/LawDB has not verified/.test(html), 'the page says the comments are not verified');
 ok(!html.includes('<b>Law</b>') && html.includes('Test &lt;b&gt;Law&lt;/b&gt; LLP'), 'the firm name is escaped');
 ok(!/★|stars?\b/i.test(html), 'no stars');

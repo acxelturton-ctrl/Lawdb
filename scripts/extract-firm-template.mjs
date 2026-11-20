@@ -75,9 +75,9 @@ chunks.MAP_EMBED = tokenize(block(REF, '<div class="map-embed">'), refFirm);
   const svgs = (s) => [...s.matchAll(/<svg class="ic".*?<\/svg>/gs)].map((m) => m[0]);
   const act = block(REF, '<div class="li-actions">');
   const [phone, globe, pin] = svgs(act);
-  const soc = block(REF, '<div class="socials">');
-  const [star, linkedin, pin2] = svgs(soc);
-  chunks.ICONS = { phone: must(phone, 'phone icon'), globe: must(globe, 'globe icon'), pin: must(pin, 'pin icon'), star: must(star, 'star'), linkedin: must(linkedin, 'linkedin'), pin2: must(pin2, 'pin2') };
+  // the star on the rating chips; the Google Maps / LinkedIn / reviews row that used to carry it is gone from the profile pages
+  const star = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>';
+  chunks.ICONS = { phone: must(phone, 'phone icon'), globe: must(globe, 'globe icon'), pin: must(pin, 'pin icon'), star };
   const dan = page('barbarian-law'); // a firm that is still Featured, so its page still has the tick
   const tick = must(dan.match(/<span class="li-tick".*?<\/svg><\/span>/s), 'tick')[0];
   chunks.TICK = tick;

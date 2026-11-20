@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
-import { cleanComments, tidyAuthor, shorten, MAX_COMMENTS } from '../src/lib/comments.js';
+import { cleanComments, tidyAuthor, shorten, MAX_COMMENTS, TARGET_CHARS } from '../src/lib/comments.js';
 import { commentsHtml } from '../src/render/firm-page.js';
 import { DROPPED_FIELDS } from '../src/routes/dynamic.js';
 
@@ -44,6 +44,17 @@ eq(cleanComments([c(good, { url: 'https://reviews.testlaw.ca/x' })], { website: 
 eq(cleanComments([c(good, { url: 'https://testlaw.ca.evil.io/x' })], { website: SITE }), null, 'a look-alike address is not the firm’s site');
 eq(cleanComments(['x', 5, null, { text: 5 }], { website: SITE }), null, 'odd data is ignored, not trusted');
 
+// ---- the cards come out about the same size
+const sentence = (n) => Array.from({ length: n }, (_, k) => `Word${k}`).join(' ') + ' made us very happy with this firm.';
+const mk = (label, n) => c(`${label} ${sentence(n)}`);
+const pool = [mk('Aaa', 4), mk('Bbb', 52), mk('Ccc', 26), mk('Ddd', 9), mk('Eee', 30), mk('Fff', 28), mk('Ggg', 2)];
+const picked = cleanComments(pool, { website: SITE });
+eq(picked.map((x) => x.text.slice(0, 3)), ['Ccc', 'Eee', 'Fff'], 'with more than three to choose from, the three closest to the target length are kept, in their original order');
+const spread = (l) => Math.max(...l.map((x) => x.text.length)) - Math.min(...l.map((x) => x.text.length));
+ok(spread(picked) < spread(cleanComments(pool.slice(0, 3), { website: SITE })), 'and they are closer in length than the first three would have been');
+eq(cleanComments(pool.slice(0, 3), { website: SITE }).map((x) => x.text.slice(0, 3)), ['Aaa', 'Bbb', 'Ccc'], 'with three or fewer, they are all kept as they are');
+ok(TARGET_CHARS > 100 && TARGET_CHARS < 300, 'the target is a few lines of text');
+
 // ---- names and length
 eq(tidyAuthor('Maria Gonzalez'), 'Maria G.', 'first name and last initial');
 eq(tidyAuthor('Jean-Luc de la Cruz'), '', 'a name that is not plainly First Last is not shown');
@@ -64,14 +75,15 @@ ok(shorten(noStop).endsWith('…') && shorten(noStop).split(/\s+/).length === 60
 const firm = { name: 'Test <b>Law</b> LLP', website: SITE, comments: [c(good, { author: 'Maria Gonzalez' }), c('Their team was kind and explained every single step of the process to us very clearly.')] };
 const html = commentsHtml(firm);
 ok(html.includes('What clients say') && html.includes('cm-track n2') && (html.match(/<figure class="cm-card"/g) || []).length === 2, 'the section shows two cards for two comments');
-ok((html.match(/class="cm-ar"/g) || []).length === 2 && (html.match(/<div class="cm-dots">/g) || []).length === 1 && (html.match(/<button type="button" aria-label="Show comment/g) || []).length === 2, 'two comments: previous and next arrows and two dots (for the swipe strip on a phone)');
-ok(/<script>/.test(html) && !/Maria|wonderful/.test(html.slice(html.indexOf('<script>'))), 'the strip script is there and holds no comment text');
+ok(/<script>/.test(html) && !/Maria|wonderful/.test(html.slice(html.indexOf('<script>'))), 'the script (See more, and the swipe strip on phones) is there and holds no comment text');
+ok((html.match(/class="cm-ar"/g) || []).length === 2 && (html.match(/<div class="cm-dots">/g) || []).length === 1 && (html.match(/aria-label="Show comment/g) || []).length === 2, 'two comments: previous and next arrows and two dots (for the swipe strip on a phone)');
 const one = commentsHtml({ ...firm, comments: [c(good)] });
-ok(one.includes('cm-track n1') && !/cm-ar|cm-dots|<script/.test(one), 'one comment: no arrows, no dots, no script');
-ok(commentsHtml({ ...firm, comments: [c(good, { author: 'Maria Gonzalez' })] }).includes('<span class="cm-av" aria-hidden="true">M</span>'), 'the avatar shows the reviewer\u2019s initial');
-ok(/<svg/.test(one.slice(one.indexOf('cm-av'), one.indexOf('cm-av') + 200)), 'a client with no name gets a plain person icon');
-ok(html.includes('Maria G.') && html.includes('A client'), 'a name when there is one, "A client" when not');
-ok(html.includes('from the firm&rsquo;s site') && html.includes('href="https://testlaw.ca/testimonials/"'), 'each comment links to where the firm published it');
+ok(one.includes('cm-track n1') && !/class="cm-ar"|class="cm-dots"/.test(one), 'one comment: no arrows and no dots');
+ok(html.includes('<figcaption class="cm-by">Maria G.</figcaption>'), 'a reviewer with a name is shown by first name and last initial');
+ok((html.match(/<figcaption/g) || []).length === 1, 'a comment with no name shows no name line at all');
+ok(!/A client|from the firm&rsquo;s site|cm-av|cm-who/.test(html + one), 'no "A client" label, no per-card site link, no avatar');
+ok((html.match(/class="cm-more"/g) || []).length === 2 && html.includes('>See more</button>'), 'each card carries a See more button (shown only when a comment is cut short)');
+ok(html.includes('Read more on the firm&rsquo;s website') && html.includes('href="https://testlaw.ca/testimonials/"'), 'one link under the section goes to the page the firm published them on');
 ok(/LawDB has not verified/.test(html), 'the page says the comments are not verified');
 ok(!html.includes('<b>Law</b>') && html.includes('Test &lt;b&gt;Law&lt;/b&gt; LLP'), 'the firm name is escaped');
 ok(!/★|stars?\b/i.test(html), 'no stars');

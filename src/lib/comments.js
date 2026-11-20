@@ -11,6 +11,8 @@ import { checkOwnerText } from './content-rules.js';
 export const MAX_COMMENTS = 3;
 const MIN_WORDS = 8;
 const MAX_WORDS = 60;
+// The cards sit side by side, so the three comments chosen are the ones closest to this length (in characters): no card much longer or shorter than the others.
+export const TARGET_CHARS = 190;
 
 // Grief and crime: a family's worst day is not something to put in a card on a directory page, even when the firm published it.
 const SENSITIVE = /\b(?:kill(?:ed|ing)?|die[sd]?|dying|death|dead|deceased|passed\s+away|funeral|murder(?:ed)?|suicide|rape[sd]?|sexual(?:ly)?|assault(?:ed)?|molest\w*|abus(?:e|ed|ive)|grie[fv]\w*|lost\s+(?:my|our)\s+(?:son|daughter|husband|wife|child|mother|father|baby|brother|sister)|wrongful\s+death|décéd\w*|mort|meurtre|suicid\w*|agression|viol)\b/i;
@@ -50,10 +52,11 @@ const sameSite = (url, website) => {
 };
 
 // list: [{ text, author?, url }] in order of preference. website: the firm's own site (a comment's source must be on it).
-// Returns up to MAX_COMMENTS of { text, author, url }, or null when none is fit to show.
+// Returns up to MAX_COMMENTS of { text, author, url }, or null when none is fit to show. When there are more than three that qualify, the three whose
+// length is closest to TARGET_CHARS are kept (in their original order), so the cards come out about the same size.
 export function cleanComments(list, { website = '' } = {}) {
   if (!Array.isArray(list)) return null;
-  const out = [];
+  const valid = [];
   const seen = new Set();
   for (const c of list) {
     if (!c || typeof c !== 'object' || typeof c.text !== 'string') continue;
@@ -67,8 +70,9 @@ export function cleanComments(list, { website = '' } = {}) {
     const key = norm(text);
     if (seen.has(key)) continue;
     seen.add(key);
-    out.push({ text, author: tidyAuthor(c.author), url });
-    if (out.length === MAX_COMMENTS) break;
+    valid.push({ text, author: tidyAuthor(c.author), url, order: valid.length });
   }
-  return out.length ? out : null;
+  if (!valid.length) return null;
+  const chosen = valid.length <= MAX_COMMENTS ? valid : [...valid].sort((a, b) => Math.abs(a.text.length - TARGET_CHARS) - Math.abs(b.text.length - TARGET_CHARS) || a.order - b.order).slice(0, MAX_COMMENTS).sort((a, b) => a.order - b.order);
+  return chosen.map(({ text, author, url }) => ({ text, author, url }));
 }

@@ -1,6 +1,7 @@
 // Renders a firm profile page from a database record: the one page every firm has. Built from the same chunks as the saved copies of the pages
 // (see scripts/extract-firm-template.mjs), so a rendered page looks like the originals.
 import { cleanDetails } from '../lib/details.js';
+import { cleanComments } from '../lib/comments.js';
 import { AVAILABILITY } from '../lib/profile-strength.js';
 import * as C from './firm-chunks.generated.js';
 import { renderFirmArticles } from './blog-cards.js';
@@ -186,6 +187,16 @@ function verifiedHtml(v) {
 }
 const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#586170}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
 const OFFICES_CSS = '<style>.offices{margin:22px 0}.offices h2{font-size:18px;margin:0 0 10px}.offices ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;line-height:1.5}.offices li{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.offices .office-name{font-weight:700;color:#142434}.offices a{color:#142434;text-decoration:underline;text-decoration-color:#c9a050;text-underline-offset:3px}.offices a:hover{text-decoration-color:#142434}.offices-note{margin:10px 0 0;font-size:14px;color:#586170}</style>';
+const COMMENTS_CSS = '<style>.cm{margin:22px 0;padding:22px 22px 18px;background:#fff;border:1px solid #e3dfd3;border-radius:16px}.cm h2{margin:0 0 4px;font-size:22px;line-height:1.2}.cm-sub{margin:0 0 16px;font-size:14px;color:#586170}.cm-grid{display:grid;gap:14px;grid-template-columns:repeat(3,minmax(0,1fr))}.cm-grid.n2{grid-template-columns:repeat(2,minmax(0,1fr))}.cm-grid.n1{grid-template-columns:minmax(0,1fr)}@media(max-width:760px){.cm-grid,.cm-grid.n2{grid-template-columns:minmax(0,1fr)}}.cm-card{position:relative;margin:0;padding:20px 18px 16px;background:#f5f3ec;border:1px solid #e3dfd3;border-radius:14px;display:flex;flex-direction:column;gap:12px}.cm-card::before{content:"\\201C";position:absolute;top:2px;left:14px;font:700 54px/1 Georgia,serif;color:#e2bd6a}.cm-card blockquote{margin:22px 0 0;font-size:15px;line-height:1.6;color:#142434}.cm-card figcaption{margin-top:auto;font-size:13px;color:#586170}.cm-card figcaption b{color:#142434}.cm-card figcaption a{color:#586170}.cm-note{margin:14px 0 0;font-size:12.5px;line-height:1.5;color:#586170}.cm-note a{color:#142434;font-weight:600}</style>';
+// "What clients say": up to three comments the firm itself publishes on its own website (see src/lib/comments.js), each linked to the firm's page it came from.
+// A firm whose record says commentsOff shows none. LawDB has not verified them, and the section says so.
+export function commentsHtml(f) {
+  if (f.commentsOff === true) return '';
+  const list = cleanComments(f.comments, { website: f.website });
+  if (!list) return '';
+  const cards = list.map((c) => `<figure class="cm-card"><blockquote>${esc(c.text)}</blockquote><figcaption><b>${esc(c.author || 'A client')}</b> &middot; <a href="${esc(c.url)}" target="_blank" rel="nofollow noopener">from the firm&rsquo;s website</a></figcaption></figure>`).join('');
+  return `\n    <section class="cm" aria-labelledby="cmH"><h2 id="cmH">What clients say</h2><p class="cm-sub">Comments ${esc(f.name)} publishes on its own website.</p><div class="cm-grid n${list.length}">${cards}</div><p class="cm-note">Shown as the firm published them. LawDB has not verified these comments. Firm owner? <a href="/contact">Ask us to change or remove this</a>.</p></section>`;
+}
 const IMG_ID = /^[0-9a-f]{24}$/;
 
 // Facts the firm's own website states (see src/lib/details.js): shown as a plain list, never as claims of our own.
@@ -402,9 +413,9 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
     `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
     `<script type="application/ld+json">\n${jsonForHtml(crumbLd)}\n</script>`,
-    C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (f.block && f.block.image ? BLOCK_CSS : '') + (practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
+    C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (commentsHtml(f) ? COMMENTS_CSS : '') + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (f.block && f.block.image ? BLOCK_CSS : '') + (practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
-    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + locationsHtml(f, locations) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + verifiedHtml(verified) + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + commentsHtml(f) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + locationsHtml(f, locations) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + verifiedHtml(verified) + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
     articlesHtml ? '\n    ' + articlesHtml : '',
     carousel(f, nearby),
     '\n\n    ' + leadScript,

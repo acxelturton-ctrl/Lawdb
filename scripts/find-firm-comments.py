@@ -34,6 +34,7 @@ if not args:
 OUT = args[0]
 LIMIT = int(opt.get('limit', 0)) or None
 PROVINCE = opt.get('province')
+ONLY = set(open(opt['slugs']).read().split()) if opt.get('slugs') else None
 WORKERS = int(opt.get('workers', 12))
 os.makedirs(OUT, exist_ok=True)
 
@@ -156,6 +157,41 @@ def split_author(text):
     return text, ''
 
 
+EMPTY_STAR = re.compile(r'empty|outline|inactive|\boff\b|-o\b|regular|far\b|unfilled|gray|grey', re.I)
+
+
+def stars_near(el):
+    """The star rating a firm printed with one comment (1-5), or None. Looks inside the comment's block, then at its parent card."""
+    for node in (el, el.parent):
+        if node is None or node.name in ('body', 'html', 'main'):
+            continue
+        v = node.find(attrs={'itemprop': 'ratingValue'})
+        if v is not None:
+            try:
+                x = float(str(v.get('content') or v.get_text()).strip())
+                if 1 <= x <= 5:
+                    return x
+            except ValueError:
+                pass
+        for t in node.find_all(attrs={'aria-label': re.compile(r'(\d(?:\.\d)?)\s*(?:out of 5\s*)?stars?', re.I)}, limit=2):
+            m = re.search(r'(\d(?:\.\d)?)\s*(?:out of 5\s*)?stars?', t['aria-label'], re.I)
+            if m and 1 <= float(m.group(1)) <= 5:
+                return float(m.group(1))
+        r = node.get('data-rating') or (node.find(attrs={'data-rating': True}) or {}).get('data-rating') if hasattr(node, 'get') else None
+        try:
+            if r and 1 <= float(r) <= 5:
+                return float(r)
+        except (TypeError, ValueError):
+            pass
+        n = node.get_text(' ').count('\u2605')
+        if 1 <= n <= 5 and words(clean(node.get_text(' '))) < 190:
+            return float(n)
+        icons = [i for i in node.find_all(class_=re.compile(r'star', re.I)) if not i.find(class_=re.compile(r'star', re.I)) and not EMPTY_STAR.search(' '.join(i.get('class', [])))]
+        if 1 <= len(icons) <= 5 and node is el.parent and words(clean(node.get_text(' '))) < 190:
+            return float(len(icons))
+    return None
+
+
 def block_comments(soup, page_is_reviews):
     found = []
     seen = set()
@@ -180,7 +216,7 @@ def block_comments(soup, page_is_reviews):
         if key in seen:
             continue
         seen.add(key)
-        found.append({'text': body, 'author': author, 'rating': None, 'source': 'blocks'})
+        found.append({'text': body, 'author': author, 'rating': stars_near(el), 'source': 'blocks'})
     return found
 
 
@@ -282,7 +318,7 @@ def load_firms():
 
 def main():
     firms = load_firms()
-    todo = [f for f in firms if not os.path.exists(f"{OUT}/{f['slug']}.json") and (not PROVINCE or f.get('province') == PROVINCE)]
+    todo = [f for f in firms if not os.path.exists(f"{OUT}/{f['slug']}.json") and (not PROVINCE or f.get('province') == PROVINCE) and (not ONLY or f['slug'] in ONLY)]
     if LIMIT:
         todo = todo[:LIMIT]
     done = 0
@@ -311,6 +347,11 @@ def main():
         r['genuine'] = [c for c in r['comments'] if genuine(c, repeated)]
         r['province'] = by_slug.get(r['slug'], {}).get('province', '')
     summary = summarise(recs)
+    if opt.get('export'):
+        # the candidates for the profile pages (up to 6 per firm); scripts/apply-firm-comments.mjs makes the final choice with the site's own text rules
+        cand = {r['slug']: {'site': r['website'], 'comments': [{'text': c['text'], 'author': c['author'], 'url': c['url']} for c in r['genuine'][:6]]} for r in recs if r['genuine']}
+        json.dump(dict(sorted(cand.items())), open(opt['export'], 'w'), ensure_ascii=False, indent=1)
+        print(f"exported {len(cand)} firms to {opt['export']}")
     json.dump(summary, open(f'{OUT}/summary.json', 'w'), indent=1)
     with open(f'{OUT}/summary.csv', 'w', newline='') as fh:
         w = csv.writer(fh)

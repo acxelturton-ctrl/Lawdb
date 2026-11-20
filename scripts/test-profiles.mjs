@@ -28,11 +28,15 @@ const at = withAll.indexOf('data-profiles');
 ok(at > withAll.indexOf('class="article"') && at < withAll.indexOf('<footer') && at > withAll.indexOf('</section>'), 'a database page shows the box under the description, not in the header card');
 const noAbout = renderFirmPage({ firm: { ...firm, about: '', social: all } });
 ok(noAbout.includes('data-profiles') && noAbout.indexOf('data-profiles') > noAbout.indexOf('</section>') && noAbout.indexOf('data-profiles') < noAbout.indexOf('<footer'), 'a firm with no description yet still shows the box, where the description would be');
-ok(!withAll.includes('linkedin.com/search/results'), 'with the firm\'s own LinkedIn page, the generic LinkedIn search link is gone');
+ok(!withAll.includes('linkedin.com/search/results'), 'with the firm\'s own LinkedIn page there is no LinkedIn search link');
 const none = renderFirmPage({ firm });
-ok(!none.includes('data-profiles') && none.includes('linkedin.com/search/results'), 'with no profiles there is no box and the search link stays');
+ok(!none.includes('data-profiles') && !none.includes('linkedin.com/search/results'), 'with no profiles there is no box, and still no LinkedIn search link');
 const noLi = renderFirmPage({ firm: { ...firm, social: { x: all.x } } });
-ok(noLi.includes('data-profiles') && noLi.includes('linkedin.com/search/results'), 'without a LinkedIn page the search link stays next to the box');
+ok(noLi.includes('data-profiles') && !noLi.includes('linkedin.com/search/results'), 'without a LinkedIn page the box shows and there is no LinkedIn search link');
+// the three outbound links that were removed (View on Google Maps, Find on LinkedIn, Read Google Reviews) and the Maps pill on the map
+for (const page of [withAll, none, noLi]) ok(!/View on Google Maps|Read Google Reviews|Find on LinkedIn|class="socials"|class="pf-maps"|google\.com\/maps\/search/.test(page), 'a profile has no View on Google Maps, Find on LinkedIn, Read Google Reviews or Maps link');
+ok(withAll.includes('class="pf-dir"') || withAll.includes('pf-dir'), 'Directions is still there');
+ok(withAll.includes('<b>4.8</b> from 40 Google reviews</span>') && [...withAll.matchAll(/<a\b[^>]*>(.*?)<\/a>/gs)].every((m) => !/Google reviews/.test(m[1])), 'the Google rating still shows as plain text, not a link to Google');
 const hostile = renderFirmPage({ firm: { ...firm, social: { x: 'https://x.com/a"><script>alert(1)</script>' } } });
 ok(!hostile.includes('<script>alert(1)') && !hostile.includes('data-profiles'), 'a hostile address is refused, not injected');
 

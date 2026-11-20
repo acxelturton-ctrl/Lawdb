@@ -309,7 +309,7 @@ function postal(f) {
 // The Location card on a profile, right under the contact card ("Contact <firm>" / Send message): the map (MapLibre, the same map as the Find page) with a "Maps" chip that
 // opens the same place on Google Maps, and under it the address with a Directions link. The map shows the office pin only: no shaded service-area circle
 // (the owner does not want one anywhere on the site). The site has no Google Maps key, so the map is drawn here. A firm with no usable coordinates still gets the address row.
-function firmMapHtml(f, mapsSearch) {
+function firmMapHtml(f) {
   const lat = Number(f.lat), lng = Number(f.lng);
   const script = `(function(){var lng=${lng},lat=${lat};` +
     "window.addEventListener('load',function(){var el=document.getElementById('firmMap');if(!el||!window.maplibregl)return;" +
@@ -319,15 +319,14 @@ function firmMapHtml(f, mapsSearch) {
     "new maplibregl.Marker({color:'#c9a050'}).setLngLat([lng,lat]).addTo(map);});});})();";
   return '<div class="pf-map">\n      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.css">\n' +
     '      <style>.firm-map{overflow:hidden;background:#edeae1;max-width:100%}</style>\n' +
-    `      <a class="pf-maps" href="${esc(mapsSearch)}" target="_blank" rel="noopener">Maps ${IC.out}</a>\n` +
     `      <div id="firmMap" class="firm-map" role="img" aria-label="Map of ${esc(f.name)} and the area around its office"></div>\n` +
     '      <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.js" defer></script>\n' +
     `      <script>${script}</script>\n    </div>`;
 }
 
-function locationHtml(f, { mapsSearch, dir, withMap }) {
+function locationHtml(f, { dir, withMap }) {
   const addr = f.address ? `<div class="pf-addr">${C.ICONS.pin}<span><b>${esc(f.address)}</b></span><a class="pf-btn pf-sm pf-dir" href="${esc(dir)}" target="_blank" rel="noopener">Directions</a></div>` : '';
-  const map = withMap ? firmMapHtml(f, mapsSearch) : '';
+  const map = withMap ? firmMapHtml(f) : '';
   if (!map && !addr) return '';
   return `<section class="pf-loc" aria-label="Location of ${esc(f.name)}">\n      ${map}${addr}\n    </section>`;
 }
@@ -382,8 +381,6 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const rated = num(f.rating) > 0 && num(f.count) > 0;
   const title = `${esc(f.name)} | ${esc(f.city)}, ${esc(f.province)} Lawyers | LawDB`;
   const website = /^https?:\/\/[^\s"'<>]+$/i.test(f.website || '') ? f.website : '';
-  const q = encodeURIComponent(`${f.name} ${f.city} ${prov}`).replace(/%20/g, '+');
-  const mapsSearch = `https://www.google.com/maps/search/${q}`;
   const dir = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(f.address || `${f.name} ${f.city}`).replace(/%20/g, '+')}`;
 
   const glance = cleanDetails(f.details);
@@ -425,7 +422,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const meta =
     `<div class="pf-meta"><span class="pf-mi">${C.ICONS.pin}${esc(f.city)}, ${esc(prov)}, Canada</span>` +
     (website ? `<a class="pf-mi" href="${esc(website)}" target="_blank" rel="${f.featured ? 'noopener sponsored' : 'noopener nofollow'}">${IC.link}${esc(hostOf(website))}</a>` : '') +
-    (rated ? `<a class="pf-mi" href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.star}<b>${num(f.rating).toFixed(1)}</b> from ${num(f.count)} Google reviews</a>` : '') +
+    (rated ? `<span class="pf-mi">${C.ICONS.star}<b>${num(f.rating).toFixed(1)}</b> from ${num(f.count)} Google reviews</span>` : '') +
     // The LawDB member rating, apart from the Google one: the Worker's script (follow.js) fills in the average and count, or invites the first rating.
     `<a class="pf-mi pf-lrate" href="#rate" data-lawdb-rating="${esc(f.slug)}">${C.ICONS.star}<span>Rate this firm on LawDB</span></a>` +
     `<span class="pf-mi lw-fcount" data-fcount="${esc(f.slug)}"></span></div>`;
@@ -448,14 +445,8 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   // Same text on every firm of a case type, so only Featured firms show it (see also the Worker, which does the same for hand-built pages).
   const guide = f.featured ? (C.GUIDES[(f.caseTypes || [])[0]] || '') : '';
 
-  const socials =
-    `<div class="socials">\n      <a href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.star}<span>Read Google Reviews</span></a>\n` +
-    // the Profiles box in the header card has the firm's real LinkedIn page; this search link is only for firms without one
-    (hasLinkedIn(f.social) ? '' : `      <a href="https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(f.name)}" target="_blank" rel="noopener">${C.ICONS.linkedin}<span>Find on LinkedIn</span></a>\n`) +
-    `      <a href="${esc(mapsSearch)}" target="_blank" rel="noopener">${C.ICONS.pin2}<span>View on Google Maps</span></a>\n    </div>`;
-
   const toks = { NAME: esc(f.name), SLUG: esc(f.slug), LAT: esc(f.lat), LNG: esc(f.lng) };
-  const locHtml = locationHtml(f, { mapsSearch, dir, withMap: !!(num(f.lat) && num(f.lng) && !f.approxCoords) });
+  const locHtml = locationHtml(f, { dir, withMap: !!(num(f.lat) && num(f.lng) && !f.approxCoords) });
   // The firm's own articles come after the profile, as on MSPdatabase.
   const articlesHtml = renderFirmArticles({ firmName: f.name, posts });
   // The lead script is JavaScript, so the name goes in as a JS-safe string, not HTML.
@@ -479,7 +470,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<script type="application/ld+json">\n${jsonForHtml(crumbLd)}\n</script>`,
     C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (commentsHtml(f) ? COMMENTS_CSS : '') + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (f.block && f.block.image ? BLOCK_CSS : '') + (practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
-    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + commentsHtml(f) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + locationsHtml(f, locations) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + verifiedHtml(verified) + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '') + '\n\n    ' + socials,
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + commentsHtml(f) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + locationsHtml(f, locations) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + verifiedHtml(verified) + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : ''),
     articlesHtml ? '\n    ' + articlesHtml : '',
     carousel(f, nearby),
     '\n\n    ' + leadScript,

@@ -85,7 +85,8 @@ ok(!/A client|from the firm&rsquo;s site|cm-av|cm-who/.test(html + one), 'no "A 
 ok((html.match(/class="cm-more"/g) || []).length === 2 && html.includes('>See more</button>'), 'each card carries a See more button (shown only when a comment is cut short)');
 ok(html.includes('Read more on the firm&rsquo;s website') && html.includes('href="https://testlaw.ca/testimonials/"'), 'one link under the section goes to the page the firm published them on');
 ok(/LawDB has not verified/.test(html), 'the page says the comments are not verified');
-ok(!html.includes('<b>Law</b>') && html.includes('Test &lt;b&gt;Law&lt;/b&gt; LLP'), 'the firm name is escaped');
+ok(!/publishes on its own website|cm-sub/.test(html), 'no "comments from the company\u2019s own website" line under the heading');
+ok(!html.includes('<b>Law</b>') && !html.includes('Test &lt;b&gt;'), 'the firm name is not shown in the section at all, so it cannot break the markup');
 ok(!/★|stars?\b/i.test(html), 'no stars');
 eq(commentsHtml({ ...firm, commentsOff: true }), '', 'a firm marked commentsOff shows nothing');
 eq(commentsHtml({ name: 'x', website: SITE }), '', 'no comments, no section');

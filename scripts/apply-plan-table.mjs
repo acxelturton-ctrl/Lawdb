@@ -44,6 +44,7 @@ export const FEATURED = {
       ['Gold tick and Featured badge', 'On your profile and wherever your firm appears'],
       ['First among nearby firms', 'On other firms\' profiles and story pages'],
       ['Featured badge and story pages on LawDB News', 'Story pages that search engines can find, with higher placement'],
+      ['An Articles tab on your profile', 'All your articles on one page of their own, once you have three'],
     ]],
     ['Your page, your way', [
       ['Your logo, cover picture and photos', 'Make the page look like your firm'],

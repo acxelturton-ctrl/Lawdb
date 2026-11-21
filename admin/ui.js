@@ -223,7 +223,7 @@ export const FEATURED_PERKS = [
   ['A page for every office.', 'A firm with offices in several cities gets a page for each, in its own city and on the map. One Featured plan covers every page.'],
   ['An analytics dashboard.', 'Page views, visitors, every button clicked, where visitors came from, their devices and regions, with trends and a spreadsheet export.'],
   ['An enquiries dashboard.', 'Read, filter, add private notes, reply with one tap and export your enquiries to a spreadsheet.'],
-  ['Articles that work harder.', 'A Featured badge on each story on LawDB News, a LawDB page for every article that search engines can find, and higher placement in the home page news strip.'],
+  ['Articles that work harder.', 'A Featured badge on each story on LawDB News, a LawDB page for every article that search engines can find, an Articles tab on your profile once you have three, and higher placement in the home page news strip.'],
 ];
 
 // One click, no card: starts the owner's free month of Featured (POST .../trial), then reloads so every screen shows the new plan.

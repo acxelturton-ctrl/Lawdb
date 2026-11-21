@@ -61,7 +61,10 @@ export async function safeGet(env, raw, { maxBytes, accept }) {
 }
 
 // ---------------------------------------------------------------- parsing
-const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', ndash: '-', mdash: '-', hellip: '...', rsquo: "'", lsquo: "'", rdquo: '"', ldquo: '"' };
+const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', ndash: '-', mdash: '-', hellip: '...', rsquo: "'", lsquo: "'", rdquo: '"', ldquo: '"',
+  // firms' previews often carry these: a separator dot, trade marks, bullets and French letters
+  middot: '\u00b7', reg: '\u00ae', copy: '\u00a9', trade: '\u2122', bull: '\u2022', laquo: '\u00ab', raquo: '\u00bb', euro: '\u20ac',
+  eacute: '\u00e9', egrave: '\u00e8', agrave: '\u00e0', ecirc: '\u00ea', ccedil: '\u00e7', ocirc: '\u00f4', ucirc: '\u00fb', icirc: '\u00ee' };
 const decode = (s) => s.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => {
   if (e[0] === '#') { const n = e[1].toLowerCase() === 'x' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10); return n > 0 && n < 0x110000 ? String.fromCodePoint(n) : ' '; }
   return ENTITIES[e.toLowerCase()] ?? m;

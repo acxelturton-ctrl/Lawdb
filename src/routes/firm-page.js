@@ -9,8 +9,9 @@ import { redirectTarget } from '../lib/firm-slug.js';
 import { siblingsOf } from '../lib/locations.js';
 import { firmStats } from '../lib/firm-stats.js';
 import { bookingRow } from '../render/booking.js';
+import { listArticles } from '../lib/articles.js';
 
-const CACHE_GENERATION = 6; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
+const CACHE_GENERATION = 7; // 7: the Articles page and a tab bar that can hold more pages; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -72,10 +73,10 @@ const nameOf = (row) => { try { return JSON.parse(row.data).name || 'This firm';
 
 export async function firmPage({ request, env, ctx }) {
   const url = new URL(request.url);
-  // /firms/<slug> (the Overview), /firms/<slug>/lawyers and /firms/<slug>/lawyers/<lawyer>: one page each, each with its own address.
-  const m = url.pathname.match(/^\/firms\/([a-z0-9][a-z0-9-]*?)(?:\/lawyers(?:\/([a-z0-9][a-z0-9-]*))?)?\/?$/);
-  if (!m) return env.ASSETS.fetch(request);
-  const view = m[2] ? { tab: 'lawyer', lawyer: m[2] } : /\/lawyers\/?$/.test(url.pathname) ? { tab: 'lawyers' } : null;
+  // /firms/<slug> (the Overview), /firms/<slug>/lawyers, /firms/<slug>/lawyers/<lawyer> and /firms/<slug>/articles: one page each, each with its own address.
+  const m = url.pathname.match(/^\/firms\/([a-z0-9][a-z0-9-]*?)(?:\/(lawyers|articles)(?:\/([a-z0-9][a-z0-9-]*))?)?\/?$/);
+  if (!m || (m[2] === 'articles' && m[3])) return env.ASSETS.fetch(request);
+  const view = m[2] === 'articles' ? { tab: 'articles' } : m[3] ? { tab: 'lawyer', lawyer: m[3] } : m[2] === 'lawyers' ? { tab: 'lawyers' } : null;
   if (view && url.pathname.endsWith('/')) return new Response(null, { status: 301, headers: { location: url.pathname.replace(/\/+$/, '') + url.search, 'cache-control': 'public, max-age=3600' } }); // one address per page
 
   const ttl = ttlOf(env);
@@ -110,7 +111,9 @@ export async function firmPage({ request, env, ctx }) {
     const hours = row.hours ? JSON.parse(row.hours) : null;
     const photos = (await env.DB.prepare("SELECT id, alt FROM firm_images WHERE firm_slug = ? AND kind = 'photo' ORDER BY created_at, id").bind(m[1]).all()).results;
     const verified = publicView(await getVerification(env, m[1])); // only a firm the admin has checked; never the name or number the firm gave us
-    html = renderFirmPage({ firm, hours, images: photos, posts: await feedPosts(env, m[1]), nearby: await nearbyFirms(env, firm), locations: await siblingsOf(env, m[1]), stats: await firmStats(env, firm), verified, view, origin: env.SITE_ORIGIN || url.origin });
+    // the Articles tab exists only for a Featured firm with enough articles (src/lib/articles.js), so nobody else is asked
+    const articles = row.featured ? await listArticles(env, m[1]) : [];
+    html = renderFirmPage({ firm, hours, images: photos, posts: await feedPosts(env, m[1]), articles, nearby: await nearbyFirms(env, firm), locations: await siblingsOf(env, m[1]), stats: await firmStats(env, firm), verified, view, origin: env.SITE_ORIGIN || url.origin });
     // A Lawyers page for a firm with no lawyers to show, or a page for a lawyer who has none, does not exist: 404, never an empty page.
     if (html === null) return env.ASSETS.fetch(request);
   } catch (err) {

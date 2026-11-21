@@ -14,18 +14,21 @@ const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
 const P = PALETTE;
 
 const hexes = Object.values(P);
-ok(new Set(hexes).size === hexes.length && hexes.length === 14, `${hexes.length} palette colours, none repeated`);
+// the dark panel is deliberately the same charcoal as the text (as on lawdb.ai); every other colour is listed once
+const { panel, ...others } = P;
+ok(new Set(Object.values(others)).size === Object.keys(others).length && panel === P.ink && hexes.length === 15, `${hexes.length} palette entries, 14 different colours`);
 for (const [fg, bg, why] of [
   ['ink', 'cream', 'text on the page'], ['ink', 'white', 'text on a card'], ['slate', 'cream', 'secondary text on the page'], ['slate', 'white', 'secondary text on a card'],
-  ['ink', 'gold', 'text on a gold button'], ['white', 'ink', 'white on navy'], ['white', 'panel', 'white on a dark panel'], ['white', 'ink2', 'white on a monogram'],
-  ['goldLight', 'panel', 'gold on a dark panel'], ['slate3', 'panel', 'muted text on a dark panel'], ['slate3', 'ink', 'muted text on navy'],
-  ['ink', 'goldLight', 'navy numbers on a gold map cluster'],
+  ['ink', 'gold', 'text on a gold button'], ['white', 'ink', 'white on charcoal'], ['white', 'panel', 'white on a dark panel'], ['white', 'ink2', 'white on a monogram'],
+  ['goldLight', 'panel', 'gold on a dark panel'], ['slate3', 'panel', 'muted text on a dark panel'], ['slate3', 'ink', 'muted text on charcoal'],
+  ['ink', 'goldLight', 'charcoal numbers on a gold map cluster'], ['goldDeep', 'cream', 'gold text on the page'], ['goldDeep', 'white', 'gold text on a card'],
 ]) ok(ratio(P[fg], P[bg]) >= 4.5, `${why}: ${fg} on ${bg} is ${ratio(P[fg], P[bg]).toFixed(1)}:1 (4.5 needed)`);
 for (const [fg, bg, why] of [
   ['goldLight', 'cream', 'gold text on the page'], ['goldLight', 'white', 'gold text on a card'], ['goldLight', 'goldTint', 'gold text on a gold tint'], ['goldLight', 'cream2', 'gold numbers on the band'],
+  ['goldDeep', 'goldTint', 'deep gold chip text on a gold tint'], ['goldDeep', 'cream2', 'deep gold text on a band'],
 ]) console.log(`NOTE  ${why}: ${fg} on ${bg} is ${ratio(P[fg], P[bg]).toFixed(1)}:1 (accepted: the logo's gold, see scripts/palette.mjs)`);
 // white on the gold fill is the one thing that must never be used
-ok(ratio(P.white, P.gold) < 3, `white on gold is only ${ratio(P.white, P.gold).toFixed(1)}:1, so buttons use navy text (scripts/recolor-site.mjs fixes any white-on-gold)`);
+ok(ratio(P.white, P.gold) < 3, `white on gold is only ${ratio(P.white, P.gold).toFixed(1)}:1, so buttons use charcoal text (scripts/recolor-site.mjs fixes any white-on-gold)`);
 
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }
 console.log('All checks passed');

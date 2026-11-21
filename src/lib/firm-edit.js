@@ -250,7 +250,7 @@ const FOLD = new RegExp('[' + String.fromCharCode(0x300) + '-' + String.fromChar
 export const slugify = (text) =>
   String(text).normalize('NFKD').replace(FOLD, '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
 
-const MONO_COLORS = ['#2b3a4c']; // every monogram is the same navy (the palette); the field stays so older records keep their shape
+const MONO_COLORS = ['#3a3a3a']; // every monogram is the same navy (the palette); the field stays so older records keep their shape
 const initialsOf = (name) => {
   const words = name.replace(/[^A-Za-z0-9 ]/g, ' ').split(/\s+/).filter((w) => w && !/^(law|llp|the|and|of|office|offices|firm|professional|corporation)$/i.test(w));
   return ((words[0] || name)[0] + ((words[1] || '')[0] || '')).toUpperCase();

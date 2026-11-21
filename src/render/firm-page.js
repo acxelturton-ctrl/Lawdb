@@ -50,7 +50,7 @@ export function hoursCard(hours, province) {
 
 function monogram(f) {
   const ini = esc((f.initials || f.name || '?').slice(0, 3).toUpperCase());
-  const col = '#2b3a4c'; // one navy for every monogram (a firm's own colour is not used)
+  const col = '#3a3a3a'; // one navy for every monogram (a firm's own colour is not used)
   return `<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${ini}"><rect width="60" height="60" rx="10.8" fill="${col}"/><text x="50%" y="50%" dy="0.35em" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="24.0" fill="#ffffff" letter-spacing="0.02em">${ini}</text></svg>`;
 }
 
@@ -129,7 +129,7 @@ function description(f) {
     : `${lead}. Practice areas, address, phone and directions on LawDB.`;
 }
 
-const PHOTO_CSS = '<style>.photos{margin:22px 0}.photos h2{font-size:18px;margin:0 0 10px}.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.photo-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block;background:#edeae1}</style>';
+const PHOTO_CSS = '<style>.photos{margin:22px 0}.photos h2{font-size:18px;margin:0 0 10px}.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.photo-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block;background:#f7f1e0}</style>';
 const BLOCK_CSS = '<style>.article-photo{width:100%;height:auto;border-radius:6px;margin:12px 0;display:block}</style>';
 
 // A small hand-written block under the description ("From the Firm", "Related reading"): headline, teaser, optional picture, one link.
@@ -144,7 +144,7 @@ function blockHtml(b) {
     `<p class="article-teaser">${esc(String(b.teaser).slice(0, 500))}</p><a class="read-link" href="${esc(b.href)}"${ext ? ' target="_blank" rel="noopener nofollow"' : ''}>${esc(String(b.linkText || 'Read more').slice(0, 120))}</a></div>`;
 }
 
-const PRACTICE_CSS = '<style>.pa-wrap{margin-bottom:20px}.pa-wrap h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 10px}.pa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.pa-card{display:block;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--ink)}.pa-card:hover{border-color:var(--brass);box-shadow:0 2px 10px rgba(20,36,52,0.08)}.pa-card b{display:block;font-size:15px;margin-bottom:4px}.pa-card span{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.45}.pa-card em{display:block;font-style:normal;font-size:12.5px;font-weight:700;color:var(--brass-deep);margin-top:8px}.pa-tags{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;gap:8px}.pa-tags li{background:#f4ecd8;border:1px solid #e6d4a4;border-radius:999px;padding:6px 14px;font:600 13.5px Inter,system-ui,sans-serif;color:#142434}</style>';
+const PRACTICE_CSS = '<style>.pa-wrap{margin-bottom:20px}.pa-wrap h2{font-family:\'Source Serif 4\',serif;font-size:16px;margin:0 0 10px}.pa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.pa-card{display:block;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--ink)}.pa-card:hover{border-color:var(--brass);box-shadow:0 2px 10px rgba(42,42,42,0.08)}.pa-card b{display:block;font-size:15px;margin-bottom:4px}.pa-card span{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.45}.pa-card em{display:block;font-style:normal;font-size:12.5px;font-weight:700;color:var(--brass-deep);margin-top:8px}.pa-tags{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;gap:8px}.pa-tags li{background:#f4ecd8;border:1px solid #e6d4a4;border-radius:999px;padding:6px 14px;font:600 13.5px Inter,system-ui,sans-serif;color:#2a2a2a}</style>';
 
 // The "Practice areas" block, right under the description: the areas the firm practises as pills (its own list, or the categories it is filed under when it
 // has none), then cards to the province practice pages for its case types (only pages that exist), with how many firms each page compares.
@@ -159,7 +159,7 @@ function practiceHtml(f, cards) {
 }
 
 // Two things a visitor wants to know before calling: is the firm taking new clients, and does it do consultations online. Both are set by the firm's owner.
-const CHIPS_CSS = '<style>.pf-chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;padding:0;list-style:none}.pf-chip{display:inline-flex;align-items:center;gap:7px;padding:4px 11px;border:1px solid #e6d4a4;border-radius:999px;background:#f4ecd8;color:#142434;font-size:13px;font-weight:600;line-height:1.4}.pf-chip i{width:8px;height:8px;border-radius:50%;background:#142434;flex:none}.pf-chip.is-limited i{background:#e2bd6a}.pf-chip.is-closed i{background:#8a919b}</style>';
+const CHIPS_CSS = '<style>.pf-chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;padding:0;list-style:none}.pf-chip{display:inline-flex;align-items:center;gap:7px;padding:4px 11px;border:1px solid #e6d4a4;border-radius:999px;background:#f4ecd8;color:#2a2a2a;font-size:13px;font-weight:600;line-height:1.4}.pf-chip i{width:8px;height:8px;border-radius:50%;background:#2a2a2a;flex:none}.pf-chip.is-limited i{background:#e2bd6a}.pf-chip.is-closed i{background:#8c8c8c}</style>';
 const TICK_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function chipsHtml(f, v) {
   const chips = [];
@@ -171,7 +171,7 @@ function chipsHtml(f, v) {
 
 // "Verified by LawDB": what the admin checked, when, and a link to the law society's own directory. It never shows the name or number the firm gave us,
 // and says plainly that it is a check made on a date, not an endorsement (see src/lib/verification.js).
-const VERIFIED_CSS = '<style>.pf-chip.is-verified{background:#142434;border-color:#142434;color:#f5f3ec}.pf-chip.is-verified svg{width:14px;height:14px;flex:none;color:#e2bd6a}.pf-chip a{color:inherit;text-decoration:none}.verified{margin:22px 0;padding:16px 18px;border:1px solid #e6d4a4;border-radius:12px;background:#f4ecd8;color:#142434}.verified h2{display:flex;align-items:center;gap:8px;font-size:18px;margin:0 0 6px}.verified h2 svg{width:20px;height:20px;flex:none}.verified p{margin:6px 0 0;font-size:14.5px;line-height:1.55}.verified ul{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:4px;font-size:14.5px;line-height:1.5}.verified li:before{content:"\\2713";margin-right:8px;font-weight:700}.verified .vf-note{font-size:13px;color:#586170}.verified a{color:#142434;font-weight:600}</style>';
+const VERIFIED_CSS = '<style>.pf-chip.is-verified{background:#2a2a2a;border-color:#2a2a2a;color:#fffdf8}.pf-chip.is-verified svg{width:14px;height:14px;flex:none;color:#e2bd6a}.pf-chip a{color:inherit;text-decoration:none}.verified{margin:22px 0;padding:16px 18px;border:1px solid #e6d4a4;border-radius:12px;background:#f4ecd8;color:#2a2a2a}.verified h2{display:flex;align-items:center;gap:8px;font-size:18px;margin:0 0 6px}.verified h2 svg{width:20px;height:20px;flex:none}.verified p{margin:6px 0 0;font-size:14.5px;line-height:1.55}.verified ul{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:4px;font-size:14.5px;line-height:1.5}.verified li:before{content:"\\2713";margin-right:8px;font-weight:700}.verified .vf-note{font-size:13px;color:#5f5f5f}.verified a{color:#2a2a2a;font-weight:600}</style>';
 function verifiedHtml(v) {
   if (!v) return '';
   let when = v.at;
@@ -185,23 +185,23 @@ function verifiedHtml(v) {
     `<p>Look for yourself: <a href="${esc(v.society.directory)}" target="_blank" rel="noopener nofollow">${esc(v.society.name)} directory</a>.</p>` +
     '<p class="vf-note">This is a check that was made on that date. It is not an endorsement of the firm or its lawyers, and a lawyer\u2019s status can change, so check the directory before you hire anyone.</p></section>';
 }
-const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#586170}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
-const OFFICES_CSS = '<style>.offices{margin:22px 0}.offices h2{font-size:18px;margin:0 0 10px}.offices ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;line-height:1.5}.offices li{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.offices .office-name{font-weight:700;color:#142434}.offices a{color:#142434;text-decoration:underline;text-decoration-color:#c9a050;text-underline-offset:3px}.offices a:hover{text-decoration-color:#142434}.offices-note{margin:10px 0 0;font-size:14px;color:#586170}</style>';
+const GLANCE_CSS = '<style>.glance{margin:22px 0}.glance h2{font-size:18px;margin:0 0 10px}.glance dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.glance dt{font-weight:700;color:#5f5f5f}.glance dd{margin:0}.glance ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px}@media(max-width:520px){.glance dl{grid-template-columns:1fr;gap:2px}.glance dd{margin-bottom:8px}}</style>';
+const OFFICES_CSS = '<style>.offices{margin:22px 0}.offices h2{font-size:18px;margin:0 0 10px}.offices ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;line-height:1.5}.offices li{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.offices .office-name{font-weight:700;color:#2a2a2a}.offices a{color:#2a2a2a;text-decoration:underline;text-decoration-color:#c9a050;text-underline-offset:3px}.offices a:hover{text-decoration-color:#2a2a2a}.offices-note{margin:10px 0 0;font-size:14px;color:#5f5f5f}</style>';
 const COMMENTS_CSS = `<style>
-.cm{position:relative;margin:26px 0;padding:28px 26px 22px;border-radius:22px;overflow:hidden;color:#fff;background:linear-gradient(135deg,#142434 0%,#1b242d 100%);box-shadow:0 24px 50px -28px #142434}
-.cm::before{content:"\\201C";position:absolute;right:18px;top:-30px;font:700 230px/1 Georgia,serif;color:#2b3a4c;pointer-events:none}
+.cm{position:relative;margin:26px 0;padding:28px 26px 22px;border-radius:22px;overflow:hidden;color:#fff;background:linear-gradient(135deg,#2a2a2a 0%,#2a2a2a 100%);box-shadow:0 24px 50px -28px #2a2a2a}
+.cm::before{content:"\\201C";position:absolute;right:18px;top:-30px;font:700 230px/1 Georgia,serif;color:#3a3a3a;pointer-events:none}
 .cm-head{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}
 .cm-eyebrow{margin:0 0 6px;font:700 11px/1.2 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#e2bd6a}
 .cm h2{margin:0;font-size:26px;line-height:1.15;color:#fff}
 .cm-ctl{display:none;gap:10px;flex:none}
 .cm-ar{width:42px;height:42px;padding:0;border-radius:50%;border:1.5px solid #c9a050;background:transparent;color:#e2bd6a;display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s}
-.cm-ar:hover:not([disabled]){background:#c9a050;color:#142434}
+.cm-ar:hover:not([disabled]){background:#c9a050;color:#2a2a2a}
 .cm-ar[disabled]{opacity:.35;cursor:default}
 .cm-track{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .cm-track.n2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .cm-track.n1{grid-template-columns:minmax(0,1fr)}
 .cm-track.n1 blockquote{max-width:46em}
-.cm-card{position:relative;margin:0;padding:26px 20px 18px;border-radius:16px;background:#1b242d;border:1px solid #2b3a4c;display:flex;flex-direction:column;gap:14px;transition:transform .25s,border-color .25s}
+.cm-card{position:relative;margin:0;padding:26px 20px 18px;border-radius:16px;background:#2a2a2a;border:1px solid #3a3a3a;display:flex;flex-direction:column;gap:14px;transition:transform .25s,border-color .25s}
 .cm-card:hover{transform:translateY(-3px);border-color:#c9a050}
 .cm-card::before{content:"";position:absolute;left:20px;top:-1px;width:44px;height:3px;border-radius:0 0 3px 3px;background:#e2bd6a}
 .cm-card blockquote{margin:0;font:400 16px/1.6 "Source Serif 4",Georgia,serif;color:#fff}
@@ -214,9 +214,9 @@ const COMMENTS_CSS = `<style>
 .cm-by{font:600 13px Inter,sans-serif;color:#e2bd6a}
 .cm-by::before{content:"\\2014\\00a0"}
 .cm-dots{display:none;justify-content:center;gap:8px;margin-top:16px}
-.cm-dots button{width:8px;height:8px;padding:0;border:0;border-radius:99px;background:#2b3a4c;cursor:pointer;transition:width .3s,background .3s}
+.cm-dots button{width:8px;height:8px;padding:0;border:0;border-radius:99px;background:#3a3a3a;cursor:pointer;transition:width .3s,background .3s}
 .cm-dots button[aria-current="true"]{width:26px;background:#e2bd6a}
-.cm-note{position:relative;margin:18px 0 0;font-size:12.5px;line-height:1.55;color:#b4bac4}
+.cm-note{position:relative;margin:18px 0 0;font-size:12.5px;line-height:1.55;color:#bdbdbd}
 .cm-note a{color:#e2bd6a;font-weight:600}
 .cm-track:focus-visible,.cm-ar:focus-visible,.cm-more:focus-visible,.cm-dots button:focus-visible{outline:2px solid #e2bd6a;outline-offset:3px}
 @media(max-width:760px){
@@ -270,7 +270,7 @@ function glanceHtml(f) {
   const row = (label, html) => `<dt>${label}</dt><dd>${html}</dd>`;
   const rows = [
     d.founded ? row('Founded', String(d.founded)) : '',
-    d.lawyers ? row('Lawyers named by the firm', `<ul>${d.lawyers.map((l) => `<li>${esc(l.name)}${l.title ? ` <span style="color:#586170">(${esc(l.title)})</span>` : ''}</li>`).join('')}</ul>`) : '',
+    d.lawyers ? row('Lawyers named by the firm', `<ul>${d.lawyers.map((l) => `<li>${esc(l.name)}${l.title ? ` <span style="color:#5f5f5f">(${esc(l.title)})</span>` : ''}</li>`).join('')}</ul>`) : '',
     d.languages ? row('Languages', esc(d.languages.join(', '))) : '',
     d.serving ? row('Places served', esc(d.serving.join(', '))) : '',
     d.areas ? row('Areas of law listed', `<ul>${d.areas.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>`) : '',
@@ -318,7 +318,7 @@ function firmMapHtml(f) {
     "map.on('load',function(){" +
     "new maplibregl.Marker({color:'#c9a050'}).setLngLat([lng,lat]).addTo(map);});});})();";
   return '<div class="pf-map">\n      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.css">\n' +
-    '      <style>.firm-map{overflow:hidden;background:#edeae1;max-width:100%}</style>\n' +
+    '      <style>.firm-map{overflow:hidden;background:#f7f1e0;max-width:100%}</style>\n' +
     `      <div id="firmMap" class="firm-map" role="img" aria-label="Map of ${esc(f.name)} and the area around its office"></div>\n` +
     '      <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.js" defer></script>\n' +
     `      <script>${script}</script>\n    </div>`;

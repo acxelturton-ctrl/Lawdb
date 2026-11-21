@@ -16,15 +16,15 @@ const EXT = new Set(['.html', '.css', '.js', '.mjs', '.svg']);
 
 // what a few colours stand for on this site (the rest follow the rules in palette.mjs)
 const OVERRIDES = {
-  '#1f2328': '#142434', '#15181c': '#1b242d', '#8d9197': '#8a919b', '#636870': '#586170', '#30353b': '#2b3a4c', '#3f444b': '#2b3a4c',
-  '#e8a91f': '#c9a050', '#e0a93a': '#c9a050', '#b45309': '#e2bd6a', '#e3dfd5': '#e3dfd3', '#f8f6f1': '#f5f3ec', '#fdfcf9': '#ffffff',
-  '#fff3d4': '#f4ecd8', '#f6dc9a': '#e6d4a4', '#f0ede5': '#edeae1', '#eef0f2': '#edeae1', '#c7cfda': '#e3dfd3', '#e0342f': '#c9a050',
-  '#b91c1c': '#e2bd6a', '#1f6f6b': '#2b3a4c', '#e8f2e2': '#edeae1', '#f3a9a5': '#e6d4a4',
-  // the monogram colours firms had for their avatar: all the same navy now
-  '#2f4858': '#2b3a4c', '#1c2a3a': '#2b3a4c', '#2e4a43': '#2b3a4c', '#3f4a5a': '#2b3a4c', '#4a3b52': '#2b3a4c', '#3d5a6c': '#2b3a4c', '#5a4632': '#2b3a4c',
-  '#4a5d5f': '#2b3a4c', '#4a3a1e': '#2b3a4c', '#3a3a1c': '#2b3a4c', '#3a2a1c': '#2b3a4c', '#2a3a2c': '#2b3a4c', '#3a1c2a': '#2b3a4c', '#2a1c3a': '#2b3a4c', '#1c3a3a': '#2b3a4c',
+  '#1f2328': '#2a2a2a', '#15181c': '#2a2a2a', '#8d9197': '#8c8c8c', '#636870': '#5f5f5f', '#30353b': '#3a3a3a', '#3f444b': '#3a3a3a',
+  '#e8a91f': '#c9a050', '#e0a93a': '#c9a050', '#b45309': '#8a6a1f', '#e3dfd5': '#ece6d3', '#f8f6f1': '#fffdf8', '#fdfcf9': '#ffffff',
+  '#fff3d4': '#f4ecd8', '#f6dc9a': '#e6d4a4', '#f0ede5': '#f7f1e0', '#eef0f2': '#f7f1e0', '#c7cfda': '#ece6d3', '#e0342f': '#c9a050',
+  '#b91c1c': '#8a6a1f', '#1f6f6b': '#3a3a3a', '#e8f2e2': '#f7f1e0', '#f3a9a5': '#e6d4a4',
+  // the monogram colours firms had for their avatar: all the same charcoal now
+  '#2f4858': '#3a3a3a', '#1c2a3a': '#3a3a3a', '#2e4a43': '#3a3a3a', '#3f4a5a': '#3a3a3a', '#4a3b52': '#3a3a3a', '#3d5a6c': '#3a3a3a', '#5a4632': '#3a3a3a',
+  '#4a5d5f': '#3a3a3a', '#4a3a1e': '#3a3a3a', '#3a3a1c': '#3a3a3a', '#3a2a1c': '#3a3a3a', '#2a3a2c': '#3a3a3a', '#3a1c2a': '#3a3a3a', '#2a1c3a': '#3a3a3a', '#1c3a3a': '#3a3a3a',
   // social brand blues
-  '#0a66c2': '#142434', '#1877f2': '#142434', '#1d5fb4': '#142434', '#000': '#142434', '#000000': '#142434',
+  '#0a66c2': '#2a2a2a', '#1877f2': '#2a2a2a', '#1d5fb4': '#2a2a2a', '#000': '#2a2a2a', '#000000': '#2a2a2a',
 };
 
 const cssProp = /(^|[;{\s"'(`])((?:color|background(?:-color|-image)?|border(?:-top|-right|-bottom|-left)?(?:-color)?|outline(?:-color)?|fill|stroke|stop-color|flood-color|box-shadow|text-shadow|caret-color|accent-color|column-rule(?:-color)?|text-decoration(?:-color)?|filter|-webkit-text-fill-color|--[\w-]+)\s*:\s*)([^;}"`\n]*)/gi;
@@ -53,14 +53,14 @@ function recolor(text, semantic, file) {
   return t;
 }
 
-// Text on a gold button or badge is navy, not white (white on this gold is only 2.4:1; navy is 6.5:1).
+// Text on a gold button or badge is charcoal, not white (white on this gold is only 2.4:1; charcoal is 6.5:1).
 const GOLD_BG = /background(?:-color)?\s*:\s*(?:#c9a050|#e2bd6a|var\(--(?:brass|red|gold)(?![\w-])[^)]*\))/i;
 const WHITE_TEXT = /(^|[;{\s"'])(color\s*:\s*)(#fff(?:fff)?|white)(?![\w-])/i;
-const fixOnGold = (block) => (GOLD_BG.test(block) && WHITE_TEXT.test(block) ? block.replace(WHITE_TEXT, '$1$2#142434') : block);
+const fixOnGold = (block) => (GOLD_BG.test(block) && WHITE_TEXT.test(block) ? block.replace(WHITE_TEXT, '$1$2#2a2a2a') : block);
 // Muted text in a block that has a dark background is the lighter slate (the darker one is for light pages).
-const DARK_BG = /background(?:-color)?\s*:\s*(?:#142434|#2b3a4c|#1b242d|var\(--(?:dark|dark-2|ink|panel)(?![\w-])[^)]*\))/i;
-const SLATE2_TEXT = /(^|[;{\s"'])(color\s*:\s*)#8a919b(?![\w-])/i;
-const fixOnDark = (block) => (DARK_BG.test(block) && SLATE2_TEXT.test(block) ? block.replace(SLATE2_TEXT, '$1$2#b4bac4') : block);
+const DARK_BG = /background(?:-color)?\s*:\s*(?:#2a2a2a|#3a3a3a|var\(--(?:dark|dark-2|ink|panel)(?![\w-])[^)]*\))/i;
+const SLATE2_TEXT = /(^|[;{\s"'])(color\s*:\s*)#8c8c8c(?![\w-])/i;
+const fixOnDark = (block) => (DARK_BG.test(block) && SLATE2_TEXT.test(block) ? block.replace(SLATE2_TEXT, '$1$2#bdbdbd') : block);
 function onGold(text) {
   return text.replace(/\{[^{}]*\}/g, (b) => fixOnDark(fixOnGold(b))).replace(/style=("[^"]*"|'[^']*')/g, (all, v) => 'style=' + fixOnDark(fixOnGold(v)));
 }

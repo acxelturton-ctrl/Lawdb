@@ -140,6 +140,8 @@ ok(!/<img[^>]+class="[^"]*lw-av[^"]*"[^>]*src=/.test(views.lawyers) && !views.la
 const confirmed = render({ ...withLawyers, lawyers: stored[PILOT].map((l) => ({ ...l, photoConfirmed: true })) }, { tab: 'lawyers' });
 ok(/<img[^>]+src="https:\/\//.test(confirmed.slice(confirmed.indexOf('lw-grid'))), 'a confirmed picture is shown');
 ok(!/\$\s?\d[\d,.]*\s*(\/|per)\s*h/i.test(views.lawyers + views.lawyer), 'no billing rate on a lawyer page');
+const initials = render({ ...withLawyers, lawyers: [{ name: 'Martin Y. St-Onge', title: 'Partner' }, { name: 'Anthony A. Vecchio', title: 'Partner' }, { name: 'Ann Lee', title: 'Associate' }] }, { tab: 'lawyers' });
+ok(initials.includes('>MS</span>') && initials.includes('>AV</span>') && initials.includes('>AL</span>') && !initials.includes('>MY</span>'), 'the initials badge is the first and the last name ("Martin Y. St-Onge" is MS)');
 
 // pages that must not exist
 ok(render(withLawyers, { tab: 'lawyer', lawyer: 'nobody-here' }) === null, 'a lawyer who is not listed has no page');

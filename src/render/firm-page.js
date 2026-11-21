@@ -384,7 +384,8 @@ const TABS_CSS = '<style>.pf-tabs{display:flex;gap:4px;margin:0 0 20px;border-bo
   '.pf-lawyers{margin:22px 0}.pf-lawyers h2{font-size:18px;margin:0 0 10px}.pf-lawyers ul{margin:0 0 10px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}.pf-lawyers li a,.pf-lawyers li span{display:inline-block;padding:7px 12px;border:1px solid #ece6d3;border-radius:999px;background:#fff;font:600 14px Inter,sans-serif;color:#2a2a2a;text-decoration:none}.pf-lawyers li a:hover{border-color:#c9a050}.pf-lawyers .all{font:700 14px Inter,sans-serif;color:#8a6a1f;text-decoration:none}' +
   '.lp-head{display:flex;gap:18px;align-items:center;margin:0 0 16px}.lp-head .pf-h1{margin:0}.lp-head .t{margin:4px 0 0;color:#5f5f5f;font:500 15.5px/1.4 Inter,sans-serif}.lp-facts{margin:18px 0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.lp-facts dt{font-weight:700;color:#5f5f5f}.lp-facts dd{margin:0}.lp-links{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}.lp-back{margin:0 0 18px}.lp-back a{font:700 14px Inter,sans-serif;color:#8a6a1f;text-decoration:none}@media(max-width:520px){.lp-facts{grid-template-columns:1fr;gap:2px}.lp-facts dd{margin-bottom:8px}.lp-head{flex-direction:column;align-items:flex-start}}</style>';
 
-const initialsOf = (n) => String(n).split(/[\s.]+/).filter((w) => /^\p{Lu}/u.test(w)).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+// first letter of the first name and of the last name ("Martin Y. St-Onge" -> MS, not MY)
+const initialsOf = (n) => { const w = String(n).split(/\s+/).filter((x) => /^\p{Lu}/u.test(x)); return ((w[0] || '')[0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase(); };
 function lawyerAvatar(l, big) {
   return `<span class="lw-av${big ? ' lw-av-lg' : ''}">${l.photo ? `<img src="${esc(l.photo)}" alt="${esc(l.name)}" loading="lazy" referrerpolicy="no-referrer" width="96" height="96">` : esc(initialsOf(l.name))}</span>`;
 }

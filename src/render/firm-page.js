@@ -1,6 +1,7 @@
 // Renders a firm profile page from a database record: the one page every firm has. Built from the same chunks as the saved copies of the pages
 // (see scripts/extract-firm-template.mjs), so a rendered page looks like the originals.
 import { cleanDetails } from '../lib/details.js';
+import { lawyersOf, lawyerHasPage, lawyerFacts, lawyerLead } from '../lib/lawyers.js';
 import { cleanComments } from '../lib/comments.js';
 import { AVAILABILITY } from '../lib/profile-strength.js';
 import * as C from './firm-chunks.generated.js';
@@ -347,7 +348,7 @@ const IC = {
   out: SVG('<path d="M14 4h6v6M20 4l-9 9M18 14v5H5V6h5"/>'),
 };
 
-function breadcrumb(f, prov) {
+function breadcrumb(f, prov, extra = []) {
   const ps = PROV_SLUG[f.province];
   const cs = citySlug(f.city);
   const sep = '<span class="sep" aria-hidden="true">&rsaquo;</span>';
@@ -356,6 +357,7 @@ function breadcrumb(f, prov) {
     `<a href="/find-lawyers">Canada</a>${sep}` +
     (ps ? `<a href="/${ps}/">${esc(prov)}</a>` : `<span>${esc(prov)}</span>`) + sep +
     (ps && CITY_HUBS.has(`${ps}/${cs}`) ? `<a href="/${ps}/${cs}/">${esc(f.city)}</a>` : `<span>${esc(f.city)}</span>`) +
+    (extra.length ? sep + `<a href="/firms/${esc(f.slug)}">${esc(f.name)}</a>` + extra.map(([label, href]) => sep + (href ? `<a href="${esc(href)}">${esc(label)}</a>` : `<span>${esc(label)}</span>`)).join('') : '') +
     '</nav>';
 }
 
@@ -374,22 +376,87 @@ function likeAside(nearby) {
 // A visitor who arrives from LawDB AI's "Request consultation" button has a short, neutral note about the need put in the message box (the form opens).
 const CONTACT_JS = "<script>(function(){var b=document.querySelector('[data-open-contact]'),s=document.querySelector('.lead-slim');if(b&&s)b.addEventListener('click',function(){s.classList.add('open');});var q=new URLSearchParams(location.search),a=(q.get('ask')||'').slice(0,240),m=document.querySelector('.lead-slim textarea[name=message]');if(a&&m&&s){if(!m.value)m.value=(q.get('lang')==='fr'?'Bonjour, j\\u2019ai trouv\\u00e9 votre cabinet gr\\u00e2ce \\u00e0 LawDB AI. (J\\u2019\\u00e9cris en fran\\u00e7ais.) ':'Hello, I found your firm through LawDB AI. ')+a;s.classList.add('open');}})();</script>";
 
-export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null }) {
+// ---- the tabs of a firm's profile: Overview (the firm's own address) and Lawyers (/lawyers), and a page for each lawyer with enough to say (/lawyers/<lawyer>) ----
+const TABS_CSS = '<style>.pf-tabs{display:flex;gap:4px;margin:0 0 20px;border-bottom:1px solid #ece6d3;overflow-x:auto;scrollbar-width:none}.pf-tabs::-webkit-scrollbar{display:none}.pf-tabs a{flex:none;display:inline-flex;align-items:center;gap:7px;padding:12px 16px;font:600 15px Inter,sans-serif;color:#5f5f5f;text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap}.pf-tabs a:hover{color:#2a2a2a}.pf-tabs a[aria-current="page"]{color:#2a2a2a;border-bottom-color:#c9a050}.pf-tabs .n{font:700 12px Inter,sans-serif;background:#f4ecd8;color:#8a6a1f;border-radius:999px;padding:2px 8px}' +
+  '.pf-h1{margin:0 0 8px;font:700 clamp(24px,3vw,32px)/1.15 "Source Serif 4",Georgia,serif;color:#2a2a2a}.pf-lede{margin:0 0 18px;color:#5f5f5f;font-size:15.5px;line-height:1.55}.pf-note{margin:6px 0 24px;font-size:13.5px;line-height:1.5;color:#5f5f5f}.pf-note a{color:#8a6a1f;font-weight:600}' +
+  '.lw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:0 0 18px}.lw-person{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid #ece6d3;border-radius:14px;padding:14px}.lw-av{flex:none;width:64px;height:64px;border-radius:50%;background:#2a2a2a;color:#e2bd6a;display:grid;place-items:center;font:700 20px "Source Serif 4",Georgia,serif;overflow:hidden}.lw-av img{width:100%;height:100%;object-fit:cover;display:block}.lw-av-lg{width:96px;height:96px;font-size:30px}' +
+  '.lw-person b{display:block;font:700 16px/1.25 Inter,sans-serif;color:#2a2a2a}.lw-person b a{color:inherit;text-decoration:none}.lw-person b a:hover{text-decoration:underline;text-decoration-color:#c9a050;text-underline-offset:3px}.lw-person span.t{display:block;margin-top:3px;font:500 13.5px/1.4 Inter,sans-serif;color:#5f5f5f}.lw-person span.f{display:block;margin-top:5px;font:500 12.5px/1.4 Inter,sans-serif;color:#5f5f5f}.lw-person .go{display:inline-block;margin-top:8px;font:700 13px Inter,sans-serif;color:#8a6a1f;text-decoration:none}' +
+  '.pf-lawyers{margin:22px 0}.pf-lawyers h2{font-size:18px;margin:0 0 10px}.pf-lawyers ul{margin:0 0 10px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}.pf-lawyers li a,.pf-lawyers li span{display:inline-block;padding:7px 12px;border:1px solid #ece6d3;border-radius:999px;background:#fff;font:600 14px Inter,sans-serif;color:#2a2a2a;text-decoration:none}.pf-lawyers li a:hover{border-color:#c9a050}.pf-lawyers .all{font:700 14px Inter,sans-serif;color:#8a6a1f;text-decoration:none}' +
+  '.lp-head{display:flex;gap:18px;align-items:center;margin:0 0 16px}.lp-head .pf-h1{margin:0}.lp-head .t{margin:4px 0 0;color:#5f5f5f;font:500 15.5px/1.4 Inter,sans-serif}.lp-facts{margin:18px 0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.lp-facts dt{font-weight:700;color:#5f5f5f}.lp-facts dd{margin:0}.lp-links{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}.lp-back{margin:0 0 18px}.lp-back a{font:700 14px Inter,sans-serif;color:#8a6a1f;text-decoration:none}@media(max-width:520px){.lp-facts{grid-template-columns:1fr;gap:2px}.lp-facts dd{margin-bottom:8px}.lp-head{flex-direction:column;align-items:flex-start}}</style>';
+
+const initialsOf = (n) => String(n).split(/[\s.]+/).filter((w) => /^\p{Lu}/u.test(w)).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+function lawyerAvatar(l, big) {
+  return `<span class="lw-av${big ? ' lw-av-lg' : ''}">${l.photo ? `<img src="${esc(l.photo)}" alt="${esc(l.name)}" loading="lazy" referrerpolicy="no-referrer" width="96" height="96">` : esc(initialsOf(l.name))}</span>`;
+}
+const joinAnd = (a) => a.join(', ').replace(/, ([^,]*)$/, ' and $1');
+
+function tabsHtml(f, lw, tab) {
+  if (!lw.length) return '';
+  const cur = (k) => (tab === k || (k === 'lawyers' && tab === 'lawyer') ? ' aria-current="page"' : '');
+  return `<nav class="pf-tabs" aria-label="${esc(f.name)} sections"><a href="/firms/${esc(f.slug)}"${tab === 'overview' ? ' aria-current="page"' : ''}>Overview</a><a href="/firms/${esc(f.slug)}/lawyers"${cur('lawyers')}>Lawyers <span class="n">${lw.length}</span></a></nav>`;
+}
+
+// On the Overview: the lawyers by name, linking to the Lawyers page and to each lawyer's own page.
+function lawyersTeaser(f, lw) {
+  if (!lw.length) return '';
+  const shown = lw.slice(0, 8).map((l) => `<li>${lawyerHasPage(l) ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">${esc(l.name)}</a>` : `<span>${esc(l.name)}</span>`}</li>`).join('');
+  return `\n    <section class="pf-lawyers" aria-label="Lawyers at ${esc(f.name)}"><h2>Lawyers at ${esc(f.name)}</h2><ul>${shown}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">${lw.length > 8 ? `See all ${lw.length} lawyers` : 'See the lawyers page'} &rarr;</a></section>`;
+}
+
+function lawyersTabHtml(f, lw, prov) {
+  const cards = lw.map((l) => {
+    const has = lawyerHasPage(l);
+    const facts = [l.callYear ? `Called ${l.callYear}` : '', l.languages ? joinAnd(l.languages) : ''].filter(Boolean).join(' · ');
+    return `<li class="lw-person">${lawyerAvatar(l)}<div><b>${has ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">${esc(l.name)}</a>` : esc(l.name)}</b>${l.title ? `<span class="t">${esc(l.title)}</span>` : ''}${facts ? `<span class="f">${esc(facts)}</span>` : ''}${has ? `<a class="go" href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">View profile &rarr;</a>` : ''}</div></li>`;
+  }).join('');
+  const areas = (f.tags || []).filter(Boolean).slice(0, 4);
+  return `\n    <h1 class="pf-h1">Lawyers at ${esc(f.name)}</h1>\n    <p class="pf-lede">${lw.length} lawyers at ${esc(f.name)} in ${esc(f.city)}, ${esc(prov)}${areas.length ? `, a firm that practises ${esc(joinAnd(areas.map((t) => t.toLowerCase())))}` : ''}. Each entry shows the lawyer's title and, where the firm publishes it, the year they were called to the bar, their languages and their education.</p>\n    <ul class="lw-grid" style="list-style:none;padding:0">${cards}</ul>\n    <p class="pf-note">Taken from the firm's own website and not checked with the law society. Something to correct or remove? <a href="/contact">Tell us</a>.</p>`;
+}
+
+function lawyerPageHtml(f, lw, l, prov) {
+  const facts = lawyerFacts(l, prov).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
+  const others = lw.filter((x) => x.slug !== l.slug).slice(0, 6).map((x) => `<li>${lawyerHasPage(x) ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(x.slug)}">${esc(x.name)}</a>` : `<span>${esc(x.name)}</span>`}</li>`).join('');
+  const links = (l.linkedin ? `<a class="pf-btn" href="${esc(l.linkedin)}" target="_blank" rel="noopener nofollow">LinkedIn</a>` : '') + (l.site ? `<a class="pf-btn" href="${esc(l.site)}" target="_blank" rel="noopener nofollow">On the firm's website</a>` : '') + `<a class="pf-btn" href="/firms/${esc(f.slug)}#contact">Message ${esc(f.name)}</a>`;
+  return `\n    <p class="lp-back"><a href="/firms/${esc(f.slug)}/lawyers">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="/firms/${esc(f.slug)}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>\n    <p class="pf-lede">${esc(lawyerLead(l, f, prov))}</p>\n    <dl class="lp-facts">${facts}</dl>\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">All ${lw.length} lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">Taken from the firm's own website and not checked with the law society. Something to correct or remove? <a href="/contact">Tell us</a>.</p>`;
+}
+
+export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null, view = null }) {
   const prov = PROVINCES[f.province] || f.province;
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
   const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-default.jpg`;
-  const url = `${origin}/firms/${f.slug}`;
+  // Which page of the profile: the Overview, the Lawyers page, or one lawyer's page. null when that page has nothing to show (the route answers 404, never an empty page).
+  const lw = lawyersOf(f);
+  const tab = view && view.tab === 'lawyers' ? 'lawyers' : view && view.tab === 'lawyer' ? 'lawyer' : 'overview';
+  const lawyer = tab === 'lawyer' ? lw.find((x) => x.slug === view.lawyer) : null;
+  if ((tab === 'lawyers' && !lw.length) || (tab === 'lawyer' && !(lawyer && lawyerHasPage(lawyer)))) return null;
+  const base = `${origin}/firms/${f.slug}`;
+  const url = tab === 'overview' ? base : tab === 'lawyers' ? `${base}/lawyers` : `${base}/lawyers/${lawyer.slug}`;
   const about = typeof f.about === 'string' ? f.about.trim() : '';
-  const desc = metaFromAbout(about) || description(f);
+  // The search result shows about 155 characters: as many names as fit, then "and N more".
+  const lawyersDesc = () => {
+    const where = `${f.name} in ${f.city}, ${PROVINCES[f.province] || f.province}`;
+    const build = (k) => `${lw.length} lawyers at ${where}: ${joinAnd(lw.slice(0, k).map((l) => l.name))}${lw.length > k ? ` and ${lw.length - k} more` : ''}. Titles and details on LawDB.`;
+    let k = Math.min(4, lw.length);
+    while (k > 1 && build(k).length > 158) k--;
+    const d = build(k);
+    return d.length <= 160 ? d : `The ${lw.length} lawyers at ${where}, with their titles and details, on LawDB.`.slice(0, 160);
+  };
+  // the longest of these that fits a search result
+  const lawyerDesc = () => {
+    const prov = PROVINCES[f.province] || f.province;
+    const tries = [`${lawyerLead(lawyer, f, prov)} See the profile on LawDB.`, lawyerLead(lawyer, f, prov), `${lawyer.name}${lawyer.title ? `, ${lawyer.title}` : ''} at ${f.name} in ${f.city}, ${prov}.`, `${lawyer.name} at ${f.name} in ${f.city}, ${prov}.`];
+    return tries.find((d) => d.length <= 160) || tries[3].slice(0, 160);
+  };
+  const desc = tab === 'overview' ? metaFromAbout(about) || description(f) : tab === 'lawyers' ? lawyersDesc() : lawyerDesc();
   const rated = num(f.rating) > 0 && num(f.count) > 0;
-  const title = `${esc(f.name)} | ${esc(f.city)}, ${esc(f.province)} Lawyers | LawDB`;
+  const title = tab === 'overview' ? `${esc(f.name)} | ${esc(f.city)}, ${esc(f.province)} Lawyers | LawDB` : tab === 'lawyers' ? `${esc(f.name)} \u2013 Lawyers in ${esc(f.city)} | LawDB` : `${esc(lawyer.name)}${lawyer.title ? ` \u2013 ${esc(lawyer.title)}` : ''} at ${esc(f.name)} | LawDB`;
   const website = /^https?:\/\/[^\s"'<>]+$/i.test(f.website || '') ? f.website : '';
   const dir = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(f.address || `${f.name} ${f.city}`).replace(/%20/g, '+')}`;
 
   const glance = cleanDetails(f.details);
   // The same trail as the visible breadcrumb (Canada, province, city when it has a page, the firm), so search engines can show it under the result.
   const ps = PROV_SLUG[f.province], cs = citySlug(f.city);
-  const trail = [['LawDB', `${origin}/`], ['Canada', `${origin}/find-lawyers`], ...(ps ? [[prov, `${origin}/${ps}/`]] : []), ...(ps && CITY_HUBS.has(`${ps}/${cs}`) ? [[f.city, `${origin}/${ps}/${cs}/`]] : []), [f.name, url]];
+  const trail = [['LawDB', `${origin}/`], ['Canada', `${origin}/find-lawyers`], ...(ps ? [[prov, `${origin}/${ps}/`]] : []), ...(ps && CITY_HUBS.has(`${ps}/${cs}`) ? [[f.city, `${origin}/${ps}/${cs}/`]] : []), [f.name, base], ...(tab !== 'overview' ? [['Lawyers', `${base}/lawyers`]] : []), ...(tab === 'lawyer' ? [[lawyer.name, url]] : [])];
   const crumbLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: trail.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })) };
   // No aggregateRating here on purpose: the rating on the page is Google's, collected on Google, and Google's structured data rules say ratings that are
   // marked up must come from the site itself (a business's own reviews of itself are not eligible either). The visible Google rating stays, named as Google's.
@@ -401,18 +468,26 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     address: postal(f),
     ...(f.phone ? { telephone: f.phone } : {}),
     ...(num(f.lat) && num(f.lng) && !f.approxCoords ? { geo: { '@type': 'GeoCoordinates', latitude: f.lat, longitude: f.lng } } : {}),
-    url,
+    url: base,
     ...(customCover ? { image: ogImage } : {}),
+    ...(tab === 'lawyers' ? { employee: lw.map((l) => ({ '@type': 'Person', name: l.name, ...(l.title ? { jobTitle: l.title } : {}), ...(lawyerHasPage(l) ? { url: `${base}/lawyers/${l.slug}` } : {}) })) } : {}),
     ...(website ? { sameAs: [website] } : {}),
     ...(glance ? { ...(glance.founded ? { foundingDate: String(glance.founded) } : {}), ...(glance.languages ? { knowsLanguage: glance.languages } : {}), ...(glance.serving ? { areaServed: glance.serving } : {}) } : {}),
   };
+
+  const personLd = tab === 'lawyer' ? {
+    '@context': 'https://schema.org', '@type': 'Person', name: lawyer.name, ...(lawyer.title ? { jobTitle: lawyer.title } : {}), url,
+    worksFor: { '@type': 'LegalService', name: f.name, url: base },
+    ...([lawyer.linkedin, lawyer.site].filter(Boolean).length ? { sameAs: [lawyer.linkedin, lawyer.site].filter(Boolean) } : {}),
+    ...(lawyer.languages ? { knowsLanguage: lawyer.languages } : {}), ...(lawyer.photo ? { image: lawyer.photo } : {}),
+  } : null;
 
   // Buttons, as on MSPdatabase: Follow (filled), Message, Book a call (the Worker puts it in the slot), and the phone number. The website is in the icon row and
   // Directions is on the location card.
   const actions =
     '<div class="li-actions pf-actions">' +
     `<button class="lw-fbtn pf-btn pf-follow" type="button" data-follow="${esc(f.slug)}">+ Follow</button>` +
-    `<a class="pf-btn" href="#contact" data-open-contact>${IC.msg}<span>Message</span></a>` +
+    `<a class="pf-btn" href="${tab === 'overview' ? '#contact' : `/firms/${esc(f.slug)}#contact`}"${tab === 'overview' ? ' data-open-contact' : ''}>${IC.msg}<span>Message</span></a>` +
     '<span class="pf-slot" data-slot="book"></span>' +
     (f.phone ? `<a class="pf-btn" href="tel:${esc(f.phone)}">${C.ICONS.phone}<span>${esc(showPhone(f.phone))}</span></a>` : '') +
     '</div>';
@@ -432,7 +507,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
 
   const card =
     `<section class="li-card pf-card" aria-label="${esc(f.name)} profile">\n      ${coverDiv(f)}\n      <div class="li-body">\n        ${f.featured ? '<span class="pf-feat li-feat">Featured on LawDB</span>\n        ' : ''}${logoSpan(f)}\n` +
-    `        <h1 class="li-name">${esc(f.name)}${f.featured ? ' ' + C.TICK : ''}</h1>\n        <p class="pf-handle">@${esc(f.slug)}</p>\n        <p class="li-tag">${tagline(f)}</p>\n${chipsHtml(f, verified)}` +
+    `        <${tab === 'overview' ? 'h1' : 'p'} class="li-name">${esc(f.name)}${f.featured ? ' ' + C.TICK : ''}</${tab === 'overview' ? 'h1' : 'p'}>\n        <p class="pf-handle">@${esc(f.slug)}</p>\n        <p class="li-tag">${tagline(f)}</p>\n${chipsHtml(f, verified)}` +
     `        ${meta}\n        ${actions}${planLine ? '\n        ' + planLine : ''}\n      </div>\n    </section>`;
 
   const aboutHtml = about ? `\n    <div class="article">${esc(about).replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>')}</div>` : '';
@@ -456,28 +531,30 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const jsName = String(f.name).replace(/[\\'"<>&\n\r]/g, ' ');
   const leadScript = fill(C.LEAD_SCRIPT, { SLUG: String(f.slug).replace(/[^a-z0-9-]/g, ''), NAME: jsName });
 
-  return [
+  const overviewRest = '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + locationsHtml(f, locations) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + verifiedHtml(verified) + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : '');
+  const out = [
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n' + C.FAVICONS + '\n<meta name="viewport" content="width=device-width, initial-scale=1.0">',
     `<title>${title}</title>`,
     `<meta name="description" content="${esc(desc)}">`,
     `<meta property="og:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
     `<meta property="og:description" content="${esc(desc)}">`,
-    '<meta property="og:type" content="business.business">',
+    `<meta property="og:type" content="${tab === 'lawyer' ? 'profile' : 'business.business'}">`,
     `<link rel="canonical" href="${esc(url)}">`,
     `<meta property="og:url" content="${esc(url)}">`,
     '<meta property="og:site_name" content="LawDB.ca">\n<meta property="og:locale" content="en_CA">',
     `<meta property="og:image" content="${ogImage}">${customCover ? '' : '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'}`,
     `<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
     `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
-    `<script type="application/ld+json">\n${jsonForHtml(ld)}\n</script>`,
-    `<script type="application/ld+json">\n${jsonForHtml(crumbLd)}\n</script>`,
-    C.STYLE + PHOTO_CSS + GLANCE_CSS + OFFICES_CSS + (commentsHtml(f) ? COMMENTS_CSS : '') + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (f.block && f.block.image ? BLOCK_CSS : '') + (practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
+    ...[tab === 'lawyer' ? personLd : ld, crumbLd].map((o) => `<script type="application/ld+json">\n${jsonForHtml(o)}\n</script>`),
+    C.STYLE + (tab === 'overview' ? PHOTO_CSS + GLANCE_CSS + OFFICES_CSS : '') + (lw.length ? TABS_CSS : '') + (tab === 'overview' && commentsHtml(f) ? COMMENTS_CSS : '') + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (tab === 'overview' && f.block && f.block.image ? BLOCK_CSS : '') + (tab === 'overview' && practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
-    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov) + card + aboutHtml + practiceHtml(f, cards) + commentsHtml(f) + '\n    <span id="contact" class="pf-anchor"></span>' + fill(C.LEAD_SLIM, toks) + (locHtml ? '\n    ' + locHtml : '') + officesHtml(f) + locationsHtml(f, locations) + '\n    <span class="pf-rate-slot" data-slot="rate"></span>' + profilesHtml + bioHtml + verifiedHtml(verified) + glanceHtml(f) + blockHtml(f.block) + photosHtml + (hoursHtml ? '\n    ' + hoursHtml : '') + (guide ? '\n    ' + guide : ''),
-    articlesHtml ? '\n    ' + articlesHtml : '',
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov, tab === 'overview' ? [] : tab === 'lawyers' ? [['Lawyers', null]] : [['Lawyers', `/firms/${f.slug}/lawyers`], [lawyer.name, null]]) + card + tabsHtml(f, lw, tab) + (tab === 'lawyers' ? lawyersTabHtml(f, lw, prov) : tab === 'lawyer' ? lawyerPageHtml(f, lw, lawyer, prov) : aboutHtml + practiceHtml(f, cards) + lawyersTeaser(f, lw) + commentsHtml(f) + overviewRest),
+    tab === 'overview' && articlesHtml ? '\n    ' + articlesHtml : '',
     carousel(f, nearby),
-    '\n\n    ' + leadScript,
-    '\n    ' + CONTACT_JS,
+    tab === 'overview' ? '\n\n    ' + leadScript : '',
+    tab === 'overview' ? '\n    ' + CONTACT_JS : '',
     '\n   </div>' + likeAside(nearby) + '\n  </div>\n  ' + C.FOOTER,
   ].join('\n');
+  // The saved page parts use addresses like ../site.css, written for /firms/<slug>; one level deeper they would point at the wrong folder, so they become absolute.
+  return tab === 'overview' ? out : out.replace(/(href|src)="\.\.\//g, '$1="/');
 }

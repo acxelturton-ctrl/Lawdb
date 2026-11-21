@@ -10,6 +10,9 @@ export const CASE_IDS = new Set(['injury', 'traffic', 'criminal', 'family', 'rea
 // The clicks that matter. The first group is what a firm's visitors do on its page (shown on the firm's dashboard); cta-* are the buttons that sell Featured.
 export const FIRM_ACTIONS = ['call', 'message', 'email', 'website', 'directions', 'reviews', 'book', 'book-locked', 'follow', 'rate', 'blog',
   'social-facebook', 'social-instagram', 'social-linkedin', 'social-x', 'social-youtube'];
+// What visitors answered when the page asked whether it may use their location (see locate.js): only the answer is counted, never a place.
+//   yes: shared it   no: refused in the browser's prompt   later: tapped Not now (or no position this time)   fail: the browser could not find them   auto: the browser already allowed it
+export const LOCATION_CHOICES = new Set(['yes', 'no', 'later', 'fail', 'auto']);
 export const EVENTS = new Set([...FIRM_ACTIONS, 'claim', 'cta-featured', 'cta-list']);
 export const RETENTION_DAYS = { counts: 400, searchText: 90, aiThrottle: 2 };
 
@@ -71,6 +74,7 @@ export function eventIncs(body, geo = {}) {
     const path = cleanPath(body.p);
     return EVENTS.has(body.e) && path ? [['ev', body.e, path]] : null;
   }
+  if (body.t === 'loc') return LOCATION_CHOICES.has(body.v) ? [['loc', body.v, '']] : null;
   if (body.t === 'search') {
     const c = CASE_IDS.has(body.c) ? body.c : '';
     const city = cleanCity(body.city);
@@ -144,7 +148,7 @@ export async function trafficReport(env, days) {
   const to = torontoDay();
   const from = torontoDay(new Date(Date.now() - (days - 1) * 86400000));
   const sum = (kind, limit, extra = '') => env.DB.prepare(`SELECT k1, k2, SUM(n) AS n FROM stats_daily WHERE kind = ? AND day >= ? ${extra} GROUP BY k1, k2 ORDER BY n DESC, k1 LIMIT ${limit}`).bind(kind, from);
-  const [series, totals, pages, entries, refs, devices, geo, utm, events, eventFirms, searches, towns, noparse, firmPages, first, visits60, coverage] = await env.DB.batch([
+  const [series, totals, pages, entries, refs, devices, geo, utm, events, eventFirms, searches, towns, noparse, firmPages, first, visits60, coverage, location] = await env.DB.batch([
     env.DB.prepare("SELECT day, kind, SUM(n) AS n FROM stats_daily WHERE kind IN ('pv', 'visit') AND day >= ? GROUP BY day, kind ORDER BY day").bind(from),
     env.DB.prepare("SELECT kind, SUM(n) AS n FROM stats_daily WHERE kind IN ('pv', 'visit', 'search', 'ev') AND day >= ? GROUP BY kind").bind(from),
     sum('pv', 15), sum('entry', 15), sum('ref', 12), sum('dev', 3), sum('geo', 12), sum('utm', 10),
@@ -155,6 +159,7 @@ export async function trafficReport(env, days) {
     env.DB.prepare('SELECT MIN(day) AS d FROM stats_daily'),
     env.DB.prepare("SELECT day, SUM(n) AS n FROM stats_daily WHERE kind = 'visit' AND day >= ? GROUP BY day ORDER BY day").bind(torontoDay(new Date(Date.now() - 59 * 86400000))),
     env.DB.prepare("SELECT province, COUNT(*) AS firms FROM firms WHERE status = 'live' GROUP BY province ORDER BY firms DESC"),
+    sum('loc', 6),
   ]);
 
   const byDay = new Map();
@@ -186,6 +191,7 @@ export async function trafficReport(env, days) {
     towns: towns.results.map((r) => ({ label: r.k1, kase: r.k2, n: r.n })),
     noparse: top(noparse.results),
     coverage: coverage.results.map((r) => ({ province: r.province, firms: r.firms })),
+    location: top(location.results),
   };
 
   // The projection is fitted on up to 60 days whatever range is on screen (a 7-day view would be too short to say anything).

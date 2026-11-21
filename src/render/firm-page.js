@@ -480,7 +480,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     '@context': 'https://schema.org', '@type': 'Person', name: lawyer.name, ...(lawyer.title ? { jobTitle: lawyer.title } : {}), url,
     worksFor: { '@type': 'LegalService', name: f.name, url: base },
     ...([lawyer.linkedin, lawyer.site].filter(Boolean).length ? { sameAs: [lawyer.linkedin, lawyer.site].filter(Boolean) } : {}),
-    ...(lawyer.languages ? { knowsLanguage: lawyer.languages } : {}), ...(lawyer.photo ? { image: lawyer.photo } : {}),
+    ...(lawyer.languages ? { knowsLanguage: lawyer.languages } : {}), ...(lawyer.photo ? { image: lawyer.photo.startsWith('/') ? origin + lawyer.photo : lawyer.photo } : {}),
   } : null;
 
   // Buttons, as on MSPdatabase: Follow (filled), Message, Book a call (the Worker puts it in the slot), and the phone number. The website is in the icon row and

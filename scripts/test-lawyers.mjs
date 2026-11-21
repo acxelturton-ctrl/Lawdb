@@ -200,6 +200,18 @@ const slash = await firmPage({ request: new Request('https://lawdb.ca/firms/a-fi
 const slash2 = await firmPage({ request: new Request('https://lawdb.ca/firms/a-firm/lawyers/ann-lee/?x=1'), env });
 ok(slash.status === 301 && slash.headers.get('location') === '/firms/a-firm/lawyers' && slash2.status === 301 && slash2.headers.get('location') === '/firms/a-firm/lawyers/ann-lee?x=1', 'a trailing slash on the new pages goes to the one address (301)');
 
+// ---- an accepted picture (kept on LawDB) is in the person markup as a full address ----
+{
+  const id = 'a'.repeat(24);
+  const slugOf = pageWorthy.slug;
+  const firm = { ...withLawyers, lawyerPhotos: { [slugOf]: { status: 'ok', photo: `/img/lawyer/${id}` } } };
+  const html = render(firm, { tab: 'lawyer', lawyer: slugOf });
+  const person = parts(html).ld.find((x) => x && x['@type'] === 'Person');
+  ok(person && person.image === `https://lawdb.ca/img/lawyer/${id}`, 'an accepted picture is the person\'s image in the markup, as a full address');
+  ok(html.includes(`src="/img/lawyer/${id}"`), 'and it is the lawyer\'s picture on the page');
+  ok(!render(withLawyers, { tab: 'lawyer', lawyer: slugOf }).includes('/img/lawyer/'), 'with no decision, no lawyer picture is on the page');
+}
+
 // ---- a really good lawyer profile (the bar for the home page) ----
 {
   const person = (name, extra = {}) => ({ name, title: 'Associate', ...extra });

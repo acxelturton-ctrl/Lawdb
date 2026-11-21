@@ -17,6 +17,7 @@ import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES, FIRM_STATUSES } 
 import { placeFor } from '../lib/geocode.js';
 import { signinCheck } from '../lib/oauth.js';
 import { findLogos, fetchPicture } from '../lib/logo-finder.js';
+import { photoQueue, previewPhoto, decidePhoto } from '../lib/lawyer-photos.js';
 import { firmAnalytics, RANGES } from '../lib/firm-analytics.js';
 import { startTrial, endTrial, getTrial, trialFunnel, trialAdminChanged } from '../lib/trial.js';
 
@@ -556,6 +557,25 @@ export async function logoAccept({ request, env, params }) {
   const image = await addImage(env, admin, params.slug, new Request(`https://lawdb.invalid/?kind=logo&alt=${alt}`, { method: 'POST', headers: { 'content-type': 'application/octet-stream' }, body: bytes }), { admin: true });
   await audit(env, admin, 'logo.from_site', 'firm', params.slug, { from: src.slice(0, 200) });
   return reply({ ok: true, image }, 201);
+}
+
+// ---------------------------------------------------------------- lawyer photos
+// The pictures of lawyers read from the firms' own websites, a few firms at a time. Each is accepted (check mark) or erased (cross); see src/lib/lawyer-photos.js.
+export async function lawyerPhotoQueue({ request, env, url }) {
+  await requireAdmin(env, request);
+  return reply(await photoQueue(env, (url.searchParams.get('after') || '').slice(0, 200), clampInt(url.searchParams.get('limit'), 5, 1, 10)));
+}
+
+export async function lawyerPhotoPreview({ request, env, params }) {
+  await requireAdmin(env, request);
+  const { bytes, info } = await previewPhoto(env, params.slug, params.lawyer);
+  return new Response(bytes, { headers: { 'content-type': { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' }[info.format], 'cache-control': 'private, max-age=600', 'x-content-type-options': 'nosniff', 'content-security-policy': "default-src 'none'; sandbox" } });
+}
+
+export async function lawyerPhotoDecide({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 500);
+  return reply(await decidePhoto(env, admin, params.slug, params.lawyer, body.decision));
 }
 
 // Verified by LawDB (see src/lib/verification.js): the admin looks the lawyer up in the province's public directory and records what was checked.

@@ -1,0 +1,315 @@
+{
+ "_about": "Plain-language guide text for the province practice pages (<province>/<practice>-lawyers.html). Built into the pages by scripts/build-province-pages.mjs. General guidance only: no fees, no deadlines, no promises about outcomes. The name in the sentences is `sent` from scripts/practice-pages-core.mjs TYPES.",
+ "types": {
+  "realestate": {
+   "helps": [
+    "Buying or selling a home, condo or cottage",
+    "Reviewing an agreement of purchase and sale before you sign",
+    "Title searches, title insurance and closing",
+    "Mortgages, refinancing and private lending",
+    "Landlord and tenant matters",
+    "Commercial property purchases and leases"
+   ],
+   "choose": [
+    "Look for a firm that handles the kind of property you are dealing with, such as a condo, a rural property or a commercial building.",
+    "Ask who will actually do the work and how closings are scheduled around your possession date.",
+    "Check the firm's Google rating and read what recent clients say about communication.",
+    "Confirm the lawyer is licensed with the provincial law society before you send documents or money."
+   ],
+   "ask": [
+    "Who will handle my file, and who can I call if they are away?",
+    "What is included in your fee, and which costs are paid on top of it?",
+    "How long will the closing take, and what could delay it?",
+    "Do you need anything from me before the closing date?",
+    "Have you handled a property like this one before?"
+   ],
+   "bring": [
+    "The agreement of purchase and sale, or the listing and offer if you have not signed",
+    "Photo identification",
+    "Mortgage approval or lender details",
+    "Condo documents, if the property is a condo",
+    "Any survey, title or inspection reports you already have"
+   ],
+   "cost": "Real estate lawyers usually quote a fee for the work plus separate costs paid to others, such as title insurance, registration and taxes. Ask each firm for a written quote that lists both."
+  },
+  "wills": {
+   "helps": [
+    "Wills and powers of attorney",
+    "Estate planning, including trusts",
+    "Applying to administer an estate after a death",
+    "Estate disputes and contested wills",
+    "Guardianship and capacity questions",
+    "Updating documents after a marriage, separation or birth"
+   ],
+   "choose": [
+    "Decide whether you need documents drawn up, or help with an estate after someone has died, since firms often lean one way.",
+    "Ask how the firm handles a family with property in more than one province or country.",
+    "Read recent client reviews for patience and clear explanations, because these matters are personal.",
+    "Confirm the lawyer is licensed with the provincial law society."
+   ],
+   "ask": [
+    "Which documents do I need, and why?",
+    "What happens to my estate if I do not have a will?",
+    "How should I choose who acts for me, and what does that role involve?",
+    "How often should these documents be reviewed?",
+    "Where should the originals be kept?"
+   ],
+   "bring": [
+    "A list of your assets, debts and insurance",
+    "The names and contact details of the people you want to name",
+    "Any existing wills or powers of attorney",
+    "Photo identification",
+    "For an estate: the death certificate and the will, if there is one"
+   ],
+   "cost": "Fees depend on how complex your affairs are and whether you need documents drawn up or an estate administered. Ask for the approach to fees and any filing costs before you begin."
+  },
+  "litigation": {
+   "helps": [
+    "Contract and business disputes",
+    "Claims for unpaid money or damage to property",
+    "Construction and real property disputes",
+    "Shareholder and partnership disputes",
+    "Defending a lawsuit that has been filed against you",
+    "Settlement negotiations, mediation and arbitration"
+   ],
+   "choose": [
+    "Look for a firm that has handled disputes like yours, and ask about the courts or tribunals it appears in.",
+    "Ask how the firm weighs the cost of a case against what is at stake.",
+    "Check the firm's rating and recent reviews for communication during a long matter.",
+    "Confirm the lawyer is licensed with the provincial law society."
+   ],
+   "ask": [
+    "What are the realistic options, including settling without a trial?",
+    "How is the work billed, and how often will I get an update?",
+    "What are the time limits that apply to my claim?",
+    "What could the total cost look like at each stage?",
+    "Who will be working on my file?"
+   ],
+   "bring": [
+    "Contracts, invoices, emails and messages about the dispute",
+    "A timeline of what happened and when",
+    "Any letters or legal documents you have received",
+    "The names of everyone involved",
+    "Photo identification"
+   ],
+   "cost": "Litigation costs depend on how far a case goes. Ask how the firm bills, what you may be asked to pay at each stage, and what could be recovered if you succeed."
+  },
+  "business": {
+   "helps": [
+    "Starting a business and choosing a structure",
+    "Contracts, leases and terms of service",
+    "Buying or selling a business",
+    "Shareholder and partnership agreements",
+    "Financing, mergers and acquisitions",
+    "Trademarks and commercial agreements"
+   ],
+   "choose": [
+    "Pick a firm that works with businesses of your size and in your industry.",
+    "Ask whether you will deal with a partner or a more junior lawyer, and how that affects the fee.",
+    "Check the rating and recent reviews for responsiveness, since deals run on deadlines.",
+    "Confirm the lawyer is licensed with the provincial law society."
+   ],
+   "ask": [
+    "What structure suits my business, and what are the trade-offs?",
+    "What should be in writing before I start working with a partner or investor?",
+    "What do you need from me to prepare the documents?",
+    "How do you charge for ongoing advice?",
+    "Which other advisers, such as an accountant, should be involved?"
+   ],
+   "bring": [
+    "A short description of the business and its owners",
+    "Existing contracts, leases or incorporation documents",
+    "Financial statements, if they exist",
+    "A description of the deal or problem and any deadline",
+    "Photo identification"
+   ],
+   "cost": "Business lawyers may quote a fixed fee for a defined task, such as an incorporation, and bill by time for open-ended work. Ask which applies to your matter."
+  },
+  "family": {
+   "helps": [
+    "Separation, divorce and separation agreements",
+    "Parenting time, decision-making and child support",
+    "Spousal support",
+    "Dividing property and debts",
+    "Marriage contracts and cohabitation agreements",
+    "Changing an existing order or agreement"
+   ],
+   "choose": [
+    "Look for a firm that does family law as a main part of its practice, not a side service.",
+    "Ask whether the firm also offers mediation or collaborative approaches if you want to avoid court.",
+    "Read recent reviews for how clients were treated at a stressful time.",
+    "Confirm the lawyer is licensed with the provincial law society."
+   ],
+   "ask": [
+    "What are my options, and what do you recommend for my situation?",
+    "How is the fee set, and is there a retainer?",
+    "What are the steps from here, and how long do they usually take?",
+    "What documents will I need to disclose?",
+    "How can I keep costs down?"
+   ],
+   "bring": [
+    "Marriage or relationship details and the date of separation",
+    "Information about your children and current arrangements",
+    "Income documents, such as tax returns and pay stubs",
+    "A list of assets, debts and accounts",
+    "Any agreements, court papers or letters"
+   ],
+   "cost": "Family lawyers often ask for a retainer and then bill by time, and some offer limited services for part of a matter. Ask which options a firm offers and what each would cost."
+  },
+  "injury": {
+   "helps": [
+    "Car, truck, motorcycle and bicycle collisions",
+    "Slip and fall and other injuries on someone else's property",
+    "Long-term disability and insurance claims",
+    "Dealing with insurers after an accident",
+    "Serious or catastrophic injuries",
+    "Fatal accident claims for families"
+   ],
+   "choose": [
+    "Look for a firm that focuses on injury claims and has taken cases like yours to a settlement or trial.",
+    "Ask how the firm is paid and what happens if the claim does not succeed.",
+    "Read recent reviews for communication, since claims can take a long time.",
+    "Confirm the lawyer is licensed with the provincial law society."
+   ],
+   "ask": [
+    "How do you charge, and what costs could I owe along the way?",
+    "What time limits apply to my claim?",
+    "What evidence should I be keeping now?",
+    "How long do claims like mine usually take?",
+    "Who will work on my file, and how will I get updates?"
+   ],
+   "bring": [
+    "Any accident or police report",
+    "Photos of the scene, vehicles and injuries",
+    "Medical records, or the names of the doctors and clinics you have seen",
+    "Insurance details and letters from insurers",
+    "Records of time off work and any other costs"
+   ],
+   "cost": "Many personal injury firms act on a contingency basis, meaning the fee comes from a settlement or award. Ask for the terms in writing, including how costs paid out along the way are handled."
+  },
+  "employment": {
+   "helps": [
+    "Being fired or laid off, and severance",
+    "Constructive dismissal",
+    "Employment contracts and non-compete clauses",
+    "Workplace harassment and discrimination",
+    "Unpaid wages, overtime and vacation pay",
+    "Advice for employers on policies and terminations"
+   ],
+   "choose": [
+    "Decide whether you are an employee or an employer, then pick a firm that acts for that side.",
+    "Ask how soon the firm can review a termination letter or an offer, since time can matter.",
+    "Check the rating and recent reviews for how clearly the firm explains options.",
+    "Confirm the lawyer is licensed with the provincial law society."
+   ],
+   "ask": [
+    "What is a fair package in my situation, and how is it worked out?",
+    "Should I sign what I have been given?",
+    "What time limits apply to a claim?",
+    "What would the process and cost look like if this does not settle?",
+    "What should I avoid doing or saying in the meantime?"
+   ],
+   "bring": [
+    "Your employment contract and any amendments",
+    "The termination letter or offer, if you have one",
+    "Pay stubs and records of bonuses and benefits",
+    "Performance reviews and relevant emails",
+    "A timeline of events at work"
+   ],
+   "cost": "Employment lawyers may offer a short first review and then bill by time, by a fixed fee for a defined task, or on a contingency basis for some claims. Ask which applies to you."
+  },
+  "immigration": {
+   "helps": [
+    "Visitor visas, study permits and work permits",
+    "Permanent residence applications",
+    "Family sponsorship",
+    "Refugee claims and appeals",
+    "Citizenship applications",
+    "Responding to refusals and procedural fairness letters"
+   ],
+   "choose": [
+    "Make sure the person who will represent you is a licensed lawyer or another authorised representative, and ask for their licence details.",
+    "Ask how often the firm handles your type of application.",
+    "Read recent reviews for clear communication and honest timelines.",
+    "Confirm the lawyer is licensed with the provincial law society."
+   ],
+   "ask": [
+    "Which program fits my situation, and what are the alternatives?",
+    "What documents will I need, and how long do they take to get?",
+    "What is your fee, and what government fees are paid on top of it?",
+    "What can go wrong with my application?",
+    "How will you keep me updated?"
+   ],
+   "bring": [
+    "Passport and any travel documents",
+    "Your immigration history and any previous applications or refusals",
+    "Proof of education, work and language ability",
+    "Family details for you and anyone included",
+    "Any letters or notices from immigration authorities"
+   ],
+   "cost": "Immigration lawyers usually quote a fee for each application, plus government fees paid separately. Ask for a written quote and what is included if an application is refused."
+  },
+  "criminal": {
+   "helps": [
+    "Bail hearings and release conditions",
+    "Assault, theft, fraud and drug charges",
+    "Impaired driving and other driving charges",
+    "Charges involving weapons or domestic incidents",
+    "Youth justice matters",
+    "Appeals and record suspensions"
+   ],
+   "choose": [
+    "Look for a firm that defends criminal charges as its main work and appears regularly in the court where your case will be heard.",
+    "Ask how quickly the firm can act, since early steps such as bail can matter.",
+    "Check the rating and recent reviews for how clients were kept informed.",
+    "Confirm the lawyer is licensed with the provincial law society."
+   ],
+   "ask": [
+    "What are the possible outcomes, and what do you recommend?",
+    "What should I do and not do while this is going on?",
+    "How do you charge, and what is the retainer?",
+    "Who will appear in court for me?",
+    "What does this mean for my job, travel or immigration status?"
+   ],
+   "bring": [
+    "Any charge documents, court dates and release papers",
+    "Disclosure from the Crown, if you have it",
+    "A written account of what happened, kept private between you and your lawyer",
+    "Names of witnesses",
+    "Photo identification"
+   ],
+   "cost": "Criminal defence fees depend on the charge and how far the case goes. Ask for a written fee agreement that says what stage of the case it covers."
+  },
+  "traffic": {
+   "helps": [
+    "Speeding and other traffic tickets",
+    "Stunt driving and excessive speed charges",
+    "Careless and dangerous driving charges",
+    "Driving while suspended",
+    "Demerit points and licence suspensions",
+    "Impaired driving charges, usually alongside criminal defence counsel"
+   ],
+   "choose": [
+    "Find out whether your charge is a ticket or a more serious offence, since that affects who you need.",
+    "Ask whether the firm appears at the courthouse where your matter will be heard.",
+    "Check the firm's rating and recent reviews, and how quickly it responds, because court dates and deadlines can be short.",
+    "Confirm that whoever represents you is licensed with the provincial law society or another authorised regulator."
+   ],
+   "ask": [
+    "What are the possible outcomes for my charge?",
+    "What would a conviction mean for my licence, insurance and record?",
+    "Do I need to attend court myself?",
+    "What is your fee, and what is included?",
+    "How soon do I need to act?"
+   ],
+   "bring": [
+    "The ticket or summons and any court notices",
+    "Your driver's licence",
+    "Your driving record, if you have it",
+    "Photos, dashcam video or notes about what happened",
+    "Insurance details, if the charge involves a collision"
+   ],
+   "cost": "Many firms quote a fixed fee for a ticket and a different fee for a serious charge. Ask what is included and whether a court appearance costs extra."
+  }
+ }
+}

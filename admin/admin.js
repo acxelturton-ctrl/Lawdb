@@ -36,7 +36,7 @@ function renderLogin() {
 let pendingCount = 0;
 let paymentCount = 0;
 let commentCount = 0;
-const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['outreach', 'Outreach'], ['firms', 'Firms'], ['logos', 'Logos'], ['news', 'News'], ['traffic', 'Traffic'], ['projects', 'Projects'], ['journal', 'Journal'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
+const TABS = [['overview', 'Overview'], ['approvals', 'Approvals'], ['leads', 'Leads'], ['outreach', 'Outreach'], ['firms', 'Firms'], ['logos', 'Logos'], ['lawyerphotos', 'Lawyer photos'], ['news', 'News'], ['traffic', 'Traffic'], ['projects', 'Projects'], ['journal', 'Journal'], ['search', 'Search'], ['reviews', 'Reviews'], ['payments', 'Payments'], ['people', 'People'], ['activity', 'Activity']];
 
 // The bar at the top shows the live counts and the clock; the user menu is on its right. The menu bar under it is the list of sections.
 let appStats = null;
@@ -377,6 +377,86 @@ function viewFirmImport() {
       h('p', { class: 'muted' }, h('code', null, CSV_COLUMNS.join(', ')), '. Only name, city and province are required. Separate several practice areas with a semicolon. Categories can be written as shown on the site (for example Family Law / Divorce). The map pin is found from the address unless you give lat and lng.'),
       h('div', { class: 'row' }, file, h('button', { type: 'button', onclick: template }, 'Download an empty template')),
       area, h('div', { class: 'row' }, publish, go), preview));
+}
+
+// ---------------------------------------------------------------- lawyer photos
+// The pictures of lawyers that LawDB read from each firm's own website. None is shown on any page until it is accepted here: the check mark keeps a copy on
+// LawDB and shows it on the lawyer's page, the cross erases it for good. Firms with the strongest lawyer profiles come first.
+async function viewLawyerPhotos() {
+  const list = h('div');
+  const status = h('p', { class: 'muted' });
+  const more = h('div', { class: 'row' });
+  let cursor = '';
+  let busy = false;
+  let left = 0, firmsLeft = 0;
+  const counts = { accepted: 0, erased: 0 }; // the totals so far; set from the server at each load and kept up to date as pictures are decided
+
+  const tile = (f, p) => {
+    const url = `/api/admin/firms/${encodeURIComponent(f.slug)}/lawyers/${encodeURIComponent(p.slug)}/photo`;
+    const msg = h('div', { class: 'lp-msg' });
+    const img = h('img', { class: 'lp-img', src: url, alt: `Photo of ${p.name}`, width: 140, height: 140 });
+    const yes = h('button', { type: 'button', class: 'lp-yes primary', 'aria-label': `Accept the photo of ${p.name}`, title: 'Accept: keep this photo' }, '✓');
+    const no = h('button', { type: 'button', class: 'lp-no', 'aria-label': `Erase the photo of ${p.name}`, title: 'Erase: never show this photo' }, '✕');
+    const buttons = h('div', { class: 'lp-btns' }, yes, no);
+    const t = h('div', { class: 'lp-tile' }, img, h('div', { class: 'lp-name' }, p.name), p.title ? h('div', { class: 'lp-title muted' }, p.title) : null, buttons, msg);
+
+    const done = (what) => {
+      t.classList.add('lp-done', what === 'accept' ? 'lp-accepted' : 'lp-erased');
+      const undo = h('button', { type: 'button', class: 'lp-undo' }, 'Undo');
+      undo.addEventListener('click', async () => {
+        undo.disabled = true;
+        try {
+          await api('POST', `${url}`, { decision: 'undo' });
+          if (what === 'accept') counts.accepted--; else counts.erased--;
+          left++;
+          t.classList.remove('lp-done', 'lp-accepted', 'lp-erased');
+          yes.disabled = no.disabled = false; buttons.hidden = false; msg.replaceChildren(); showCounts();
+        } catch (err) { undo.disabled = false; msg.append(note('msg-err', err.message)); }
+      });
+      buttons.hidden = true;
+      msg.replaceChildren(h('span', { class: 'lp-state' }, what === 'accept' ? 'Accepted' : 'Erased'), ' ', undo);
+    };
+    const decide = async (decision) => {
+      yes.disabled = no.disabled = true;
+      msg.replaceChildren(h('span', { class: 'muted' }, decision === 'accept' ? 'Saving...' : 'Erasing...'));
+      try {
+        await api('POST', url, { decision });
+        if (decision === 'accept') counts.accepted++; else counts.erased++;
+        left = Math.max(0, left - 1); done(decision); showCounts();
+      } catch (err) { yes.disabled = no.disabled = false; msg.replaceChildren(note('msg-err', err.message)); }
+    };
+    yes.addEventListener('click', () => decide('accept'));
+    no.addEventListener('click', () => decide('erase'));
+    // a picture that cannot be opened cannot be checked: only the cross is left
+    img.addEventListener('error', () => { yes.disabled = true; t.classList.add('lp-broken'); msg.replaceChildren(h('span', { class: 'muted' }, 'This picture cannot be opened. Erase it.')); });
+    return t;
+  };
+
+  const card = (f) => h('div', { class: 'card lp-card' },
+    h('div', { class: 'row spread' }, h('div', null, h('b', null, f.name), h('div', { class: 'muted' }, `${f.city}, ${f.province} · `, h('a', { href: `/firms/${f.slug}/lawyers`, target: '_blank', rel: 'noopener' }, 'lawyers page')))),
+    h('div', { class: 'lp-grid' }, f.lawyers.map((p) => tile(f, p))));
+
+  const showCounts = () => {
+    status.textContent = `${left} photo${left === 1 ? '' : 's'} still to check. Accepted so far ${counts.accepted}, erased ${counts.erased}.`;
+  };
+
+  async function next() {
+    if (busy) return;
+    busy = true; more.replaceChildren(); status.textContent = 'Loading...';
+    try {
+      const q = await api('GET', '/api/admin/lawyer-photo-queue?limit=5&after=' + encodeURIComponent(cursor));
+      q.firms.forEach((f) => list.append(card(f)));
+      cursor = q.next; left = q.left; firmsLeft = q.firmsLeft; counts.accepted = q.accepted; counts.erased = q.erased;
+      if (q.firms.length) { showCounts(); status.textContent += ` (${firmsLeft} firm${firmsLeft === 1 ? '' : 's'})`; }
+      else status.textContent = q.left ? 'That was the last page. Photos you left undecided come back when you open this tab again.' : 'Every picture has been checked.';
+      if (q.firms.length) more.append(h('button', { type: 'button', class: 'primary', onclick: next }, 'Next 5 firms'));
+    } catch (err) { status.replaceChildren(note('msg-err', err.message)); }
+    busy = false;
+  }
+  await next();
+  return h('div', null, h('h1', null, 'Lawyer photos'),
+    h('div', { class: 'card' }, h('p', { class: 'muted' }, 'Each picture was read from the lawyer\'s own firm website and is not shown anywhere until you accept it. Press ✓ when it is clearly that lawyer, a proper headshot and fine to show. LawDB keeps its own copy of an accepted picture, so it cannot change or disappear later. Press ✕ for anything else (a logo, a group photo, the wrong person, a stock picture): it is erased and does not come back. Undo is there if you slip. Firms with the strongest lawyer profiles come first.'), status),
+    list, more);
 }
 
 // ---------------------------------------------------------------- logos
@@ -1177,7 +1257,7 @@ async function viewActivity() {
 }
 
 // ---------------------------------------------------------------- router
-const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, outreach: viewOutreach, firms: viewFirms, logos: viewLogos, news: viewNews, traffic: viewTraffic, projects: viewProjects, journal: viewJournal, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
+const VIEWS = { overview: viewOverview, approvals: viewApprovals, leads: viewLeads, outreach: viewOutreach, firms: viewFirms, logos: viewLogos, lawyerphotos: viewLawyerPhotos, news: viewNews, traffic: viewTraffic, projects: viewProjects, journal: viewJournal, search: viewSearch, reviews: viewReviews, payments: viewPayments, people: viewPeople, activity: viewActivity };
 
 let me; // the signed-in admin, for re-rendering after an action
 // "#firms/edit/<username>", "#firms/new" and "#firms/import" are pages inside the Firms section; every other address is a section on its own.

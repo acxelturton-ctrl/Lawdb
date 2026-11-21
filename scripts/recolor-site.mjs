@@ -19,9 +19,9 @@ const OVERRIDES = {
   // the map's own colours: the green land under the tiles, the map text grey and the three golds of the pins (map-style.js is skipped altogether). These stay as they are.
   '#dcefd4': '#dcefd4', '#3c4043': '#3c4043', '#b8892f': '#b8892f', '#d9b35a': '#d9b35a', '#f2d98f': '#f2d98f',
   '#1f2328': '#2a2a2a', '#15181c': '#2a2a2a', '#8d9197': '#8c8c8c', '#636870': '#5f5f5f', '#30353b': '#3a3a3a', '#3f444b': '#3a3a3a',
-  '#e8a91f': '#c9a050', '#e0a93a': '#c9a050', '#b45309': '#8a6a1f', '#e3dfd5': '#ece6d3', '#f8f6f1': '#fffdf8', '#fdfcf9': '#ffffff',
+  '#e8a91f': '#c9a050', '#e0a93a': '#c9a050', '#b45309': '#c9a050', '#8a6a1f': '#c9a050', '#e3dfd5': '#ece6d3', '#f8f6f1': '#fffdf8', '#fdfcf9': '#ffffff',
   '#fff3d4': '#f4ecd8', '#f6dc9a': '#e6d4a4', '#f0ede5': '#f7f1e0', '#eef0f2': '#f7f1e0', '#c7cfda': '#ece6d3', '#e0342f': '#c9a050',
-  '#b91c1c': '#8a6a1f', '#1f6f6b': '#3a3a3a', '#e8f2e2': '#f7f1e0', '#f3a9a5': '#e6d4a4',
+  '#b91c1c': '#c9a050', '#1f6f6b': '#3a3a3a', '#e8f2e2': '#f7f1e0', '#f3a9a5': '#e6d4a4',
   // the monogram colours firms had for their avatar: all the same charcoal now
   '#2f4858': '#3a3a3a', '#1c2a3a': '#3a3a3a', '#2e4a43': '#3a3a3a', '#3f4a5a': '#3a3a3a', '#4a3b52': '#3a3a3a', '#3d5a6c': '#3a3a3a', '#5a4632': '#3a3a3a',
   '#4a5d5f': '#3a3a3a', '#4a3a1e': '#3a3a3a', '#3a3a1c': '#3a3a3a', '#3a2a1c': '#3a3a3a', '#2a3a2c': '#3a3a3a', '#3a1c2a': '#3a3a3a', '#2a1c3a': '#3a3a3a', '#1c3a3a': '#3a3a3a',

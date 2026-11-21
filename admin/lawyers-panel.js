@@ -80,10 +80,10 @@ export function lawyersPanel({ base, mode, featured }) {
       if (!f) return say('msg-err', 'Choose a picture first.');
       if (f.size > MAX_PHOTO) return say('msg-err', 'That picture is over 3 MB. Please choose a smaller one.');
       say('msg-ok', 'Uploading…');
-      photoCall('POST', `${url}/${l.slug}/photo`, f, 'Saved. The picture appears on your Lawyers page within about a minute.');
+      photoCall('POST', `${url}/${l.slug}/picture`, f, 'Saved. The picture appears on your Lawyers page within about a minute.');
     });
-    const use = p.state === 'found' && h('button', { class: 'primary', type: 'button', disabled: photoLocked, onclick: () => { say('msg-ok', 'Copying the picture…'); photoCall('POST', `${url}/${l.slug}/photo?from=found`, null, 'Saved. The picture appears on your Lawyers page within about a minute.'); } }, photoLocked ? [lockIcon(), ' Use this picture'] : 'Use this picture');
-    const drop = p.state !== 'none' && h('button', { type: 'button', onclick: () => photoCall('DELETE', `${url}/${l.slug}/photo`, null, p.state === 'confirmed' ? 'Picture removed.' : 'Done. We will not use that picture.') }, p.state === 'confirmed' ? 'Remove picture' : 'Not this one');
+    const use = p.state === 'found' && h('button', { class: 'primary', type: 'button', disabled: photoLocked, onclick: () => { say('msg-ok', 'Copying the picture…'); photoCall('POST', `${url}/${l.slug}/picture?from=found`, null, 'Saved. The picture appears on your Lawyers page within about a minute.'); } }, photoLocked ? [lockIcon(), ' Use this picture'] : 'Use this picture');
+    const drop = p.state !== 'none' && h('button', { type: 'button', onclick: () => photoCall('DELETE', `${url}/${l.slug}/picture`, null, p.state === 'confirmed' ? 'Picture removed.' : 'Done. We will not use that picture.') }, p.state === 'confirmed' ? 'Remove picture' : 'Not this one');
     return h('div', { class: 'ed-field lwp-photo' },
       h('label', null, 'Picture', photoLocked && h('span', { class: 'ed-pill' }, lockIcon(), 'Featured')),
       h('div', { class: 'lwp-photo-row' }, avatar(l, true), h('div', null,

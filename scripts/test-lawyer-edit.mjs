@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
 import { getLawyers, saveLawyer, addLawyer, removeLawyer, setLawyersOff, setLawyerPhoto, removeLawyerPhoto, cleanLawyerInput } from '../src/lib/lawyer-edit.js';
-import { cleanLawyers, lawyersOf, lawyerHasPage } from '../src/lib/lawyers.js';
+import { cleanLawyers, lawyersOf, lawyerHasPage, photoCandidates, sourcePhoto, photoStateOf } from '../src/lib/lawyers.js';
 import { renderFirmPage } from '../src/render/firm-page.js';
 import { serveImage } from '../src/routes/images.js';
 import { getFirm as publicFirm } from '../src/routes/public.js';
@@ -215,11 +215,71 @@ await setLawyerPhoto(env, { id: 1, email: 'admin@lawdb.ca' }, 'firm-a', 'bo-chan
 ok(rec('firm-a').lawyers.find((l) => l.slug === 'bo-chan').photoConfirmed === true, 'an admin can add a picture to any firm');
 ok(audits('firm-x').filter((a) => a === 'firm.lawyer.photo').length >= 3 && audits('firm-x').includes('firm.lawyer.photo.remove'), 'every picture change is in the audit log');
 
+// ================================================================ together with the admin's Lawyer photos tab (src/lib/lawyer-photos.js)
+// The admin accepts (a copy at lawyer/<id>, shown at /img/lawyer/<id>) or erases the pictures found on a firm's website; the decisions are kept in `lawyerPhotos`.
+const HOST = (c) => `/img/lawyer/${c.repeat(24)}`;
+const decisions = { 'ann-lee': { status: 'ok', photo: HOST('b'), from: FOUND, at: '2026-11-20' }, 'bo-chan': { status: 'no', from: 'https://cdn.firm.example/bo.jpg', at: '2026-11-20' } };
+files.set(`lawyer/${'b'.repeat(24)}`, 'accepted copy');
+const withFound = (extra) => ({ slug: 'adm-firm', name: 'Adm Firm', city: 'Calgary', province: 'AB', website: 'https://firm.example', featured: true, lawyerPhotos: decisions, ...extra,
+  lawyers: [{ name: 'Ann Lee', slug: 'ann-lee', title: 'Partner', callYear: 2005, photo: FOUND, photoConfirmed: false }, { name: 'Bo Chan', slug: 'bo-chan', title: 'Associate', callYear: 2015, photo: 'https://cdn.firm.example/bo.jpg', photoConfirmed: false },
+    { name: 'Cy Diaz', slug: 'cy-diaz', title: 'Associate', photo: 'https://cdn.firm.example/cy.jpg', photoConfirmed: false }] });
+put('adm-firm', withFound(), 1);
+v = await getLawyers(env, 'adm-firm');
+const ph = (slug) => v.lawyers.find((l) => l.slug === slug).photo;
+eq(ph('ann-lee'), { state: 'confirmed', url: HOST('b') }, 'a picture the admin accepted is shown as confirmed in the firm\'s editor');
+eq(ph('bo-chan'), { state: 'none' }, 'one the admin erased is not offered');
+eq(ph('cy-diaz'), { state: 'found', url: 'https://cdn.firm.example/cy.jpg' }, 'one nobody has decided on is "found"');
+ok(lawyersOf(rec('adm-firm')).find((l) => l.slug === 'ann-lee').photo === HOST('b') && !lawyersOf(rec('adm-firm')).find((l) => l.slug === 'bo-chan').photo && !lawyersOf(rec('adm-firm')).find((l) => l.slug === 'cy-diaz').photo, 'the page shows the accepted picture only');
+eq(photoCandidates(rec('adm-firm')).map((c) => c.slug), ['cy-diaz'], "the admin's queue holds only the picture nobody has decided on");
+eq(sourcePhoto(rec('adm-firm'), 'cy-diaz'), 'https://cdn.firm.example/cy.jpg', 'the admin can look at the picture found on the website');
+
+// saving an edit never loses the found address or the admin's decisions, and writes only the keys it owns
+db.prepare("UPDATE firms SET data = json_set(data, '$.bookingUrl', 'https://book.example/x') WHERE slug = 'adm-firm'").run();
+await saveLawyer(env, actor, 'adm-firm', 'ann-lee', { title: 'Senior Partner' }, { admin: false });
+let r = rec('adm-firm');
+ok(r.lawyerPhotos['ann-lee'].status === 'ok' && r.lawyerPhotos['bo-chan'].status === 'no' && r.bookingUrl === 'https://book.example/x' && r.name === 'Adm Firm', 'an edit keeps the admin\'s decisions and every other part of the record');
+ok(r.lawyers.find((l) => l.slug === 'cy-diaz').photo === 'https://cdn.firm.example/cy.jpg' && r.lawyers.find((l) => l.slug === 'ann-lee').photo === FOUND && lawyersOf(r).find((l) => l.slug === 'ann-lee').photo === HOST('b'), 'and the found picture addresses (an edit used to drop them)');
+eq(photoCandidates(r).map((c) => c.slug), ['cy-diaz'], 'a lawyer the firm edited is still judged the same way in the queue');
+
+// the firm's own picture beats the admin's erase, and replaces one the admin accepted
+ok(await refused(() => setLawyerPhoto(env, actor, 'adm-firm', 'bo-chan', { fromFound: true }, { admin: false })), '"use this picture" is not offered for one the admin erased');
+await setLawyerPhoto(env, actor, 'adm-firm', 'bo-chan', { request: upload(jpeg(300, 300)) }, { admin: false });
+r = rec('adm-firm');
+const boOwn = lawyersOf(r).find((l) => l.slug === 'bo-chan').photo;
+ok(/^\/img\/[0-9a-f]{24}$/.test(boOwn) && !boOwn.startsWith('/img/lawyer/') && r.lawyerPhotos['bo-chan'].status === 'no', "the firm's own upload is shown even though the admin erased the found picture");
+eq(photoCandidates(r).map((c) => c.slug), ['cy-diaz'], "a lawyer with a picture of their own is not in the admin's queue");
+await setLawyerPhoto(env, actor, 'adm-firm', 'ann-lee', { request: upload(jpeg(300, 300)) }, { admin: false });
+r = rec('adm-firm');
+ok(lawyersOf(r).find((l) => l.slug === 'ann-lee').photo !== HOST('b') && !(r.lawyerPhotos && r.lawyerPhotos['ann-lee']) && !files.has(`lawyer/${'b'.repeat(24)}`), "the firm's own picture replaces one the admin accepted: the copy and the decision are removed");
+ok(r.lawyerPhotos['bo-chan'].status === 'no', "the admin's other decisions are kept");
+v = await removeLawyerPhoto(env, actor, 'adm-firm', 'ann-lee');
+eq(ph('ann-lee') && v.lawyers.find((l) => l.slug === 'ann-lee').photo, { state: 'found', url: FOUND }, "removing the firm's own picture brings the found one back as undecided");
+
+// a picture the admin accepted can be taken off by the firm: it is erased the way the admin's cross erases it
+put('adm2', withFound({ slug: 'adm2', lawyerPhotos: { 'ann-lee': { status: 'ok', photo: HOST('c'), from: FOUND, at: '2026-11-20' } } }), 1);
+files.set(`lawyer/${'c'.repeat(24)}`, 'accepted copy');
+v = await removeLawyerPhoto(env, actor, 'adm2', 'ann-lee');
+r = rec('adm2');
+ok(r.lawyerPhotos['ann-lee'].status === 'no' && !files.has(`lawyer/${'c'.repeat(24)}`) && v.lawyers.find((l) => l.slug === 'ann-lee').photo.state === 'none' && !lawyersOf(r).find((l) => l.slug === 'ann-lee').photo, 'removing an accepted picture erases it and deletes the copy');
+// and removing a lawyer takes the admin's copy and decision with them
+put('adm3', withFound({ slug: 'adm3', lawyerPhotos: { 'ann-lee': { status: 'ok', photo: HOST('d'), from: FOUND, at: '2026-11-20' }, 'cy-diaz': { status: 'no', from: 'x', at: '2026-11-20' } } }), 1);
+files.set(`lawyer/${'d'.repeat(24)}`, 'accepted copy');
+await removeLawyer(env, actor, 'adm3', 'ann-lee');
+r = rec('adm3');
+ok(!files.has(`lawyer/${'d'.repeat(24)}`) && !('ann-lee' in r.lawyerPhotos) && r.lawyerPhotos['cy-diaz'].status === 'no', 'removing a lawyer deletes the accepted copy and that decision, and keeps the others');
+// the one rule for what is shown
+eq(photoStateOf({ photo: '/img/' + 'e'.repeat(24), photoConfirmed: true }, { status: 'no' }), { state: 'confirmed', url: '/img/' + 'e'.repeat(24), by: 'firm' }, "the firm's own picture comes first");
+eq(photoStateOf({ photo: FOUND, photoConfirmed: false }, { status: 'ok', photo: HOST('f') }).by, 'admin', 'then the admin\'s accepted copy');
+eq(photoStateOf({ photo: FOUND, photoConfirmed: false }, { status: 'no' }), { state: 'none' }, 'an erased picture is not shown or offered');
+eq(photoStateOf({ photo: FOUND, photoConfirmed: false }, null), { state: 'found', url: FOUND }, 'an undecided one is only "found"');
+eq(photoStateOf({ photo: 'http://x/y.jpg', photoConfirmed: false }, null), { state: 'none' }, 'and only over https');
+ok(!JSON.stringify(lawyersOf(rec('adm-firm'))).includes('cdn.firm.example'), 'no address on the firm\'s own website ever reaches a page');
+
 // ================================================================ what the public can see
-put('pub-firm', firmRecord({ slug: 'pub-firm', lawyersLocked: true, lawyersOff: false }));
+put('pub-firm', firmRecord({ slug: 'pub-firm', lawyersLocked: true, lawyersOff: false, lawyerPhotos: { 'ann-lee': { status: 'no', from: FOUND, at: '2026-11-21' } } }));
 const api = await publicFirm({ params: { slug: 'pub-firm' }, env });
 const body = await api.json();
-ok(!('lawyers' in body) && !('lawyersLocked' in body) && !('lawyersOff' in body) && body.name === 'Firm X', 'the public firm API never returns the stored lawyers list (unconfirmed pictures, hidden lawyers)');
+ok(!('lawyers' in body) && !('lawyersLocked' in body) && !('lawyersOff' in body) && !('lawyerPhotos' in body) && body.name === 'Firm X', 'the public firm API never returns the stored lawyers list (unconfirmed pictures, hidden lawyers)');
 ok(!JSON.stringify(lawyersOf(rec('pub-firm'))).includes(FOUND), 'an unconfirmed picture never reaches a page');
 const hiddenFirm = firmRecord({ lawyers: [{ ...stored[0], hidden: true }, stored[1], stored[2]] });
 ok(!JSON.stringify(lawyersOf(hiddenFirm)).includes('Ann Lee'), 'a hidden lawyer never reaches a page');
@@ -235,7 +295,7 @@ eq(cleanLawyers(twice.map((l) => ({ ...l, photoConfirmed: true }))), twice, 'cle
 // ================================================================ the wiring
 const worker = readFileSync('src/worker.js', 'utf8');
 for (const who of ['admin', 'account']) {
-  for (const [m, p] of [['GET', ''], ['POST', ''], ['PATCH', ''], ['PATCH', '/:lawyer'], ['DELETE', '/:lawyer'], ['POST', '/:lawyer/photo'], ['DELETE', '/:lawyer/photo']]) {
+  for (const [m, p] of [['GET', ''], ['POST', ''], ['PATCH', ''], ['PATCH', '/:lawyer'], ['DELETE', '/:lawyer'], ['POST', '/:lawyer/picture'], ['DELETE', '/:lawyer/picture']]) {
     ok(worker.includes(`route('${m}', '/api/${who}/firms/:slug/lawyers${p}',`), `${who}: ${m} lawyers${p} is registered`);
   }
 }

@@ -1,6 +1,6 @@
 // The home page's daily top-rated firms: who can be picked, that the day's pick is fixed for the day and different tomorrow, that it is a spread, and
 // that the page keeps its saved cards when the database cannot answer.   node scripts/test-home-daily.mjs
-import { pickDaily, lookScore, dailyCards, withDailyFirms, SHOWN, TOP, PER_CITY, PER_KIND, PER_PROVINCE } from '../src/routes/home-firms.js';
+import { pickDaily, lookScore, dailyCards, withDailyFirms, eligibleFirms, SHOWN, TOP, PER_CITY, PER_KIND, PER_PROVINCE } from '../src/routes/home-firms.js';
 import { HOME_POOL } from '../src/render/home-pool.generated.js';
 
 let bad = 0;
@@ -34,8 +34,10 @@ ok(lookScore({ rating: 4.9, count: 400 }, 60) > lookScore({ rating: 4.9, count: 
 // the page: cards injected between the markers, from a fake database
 const SAVED = '<!--more-firms--><article class="lc saved"></article><!--/more-firms-->';
 const page = `<html><body>${'<article class="lc hand"></article>'}${SAVED}</body></html>`;
+// a really good lawyer profile: 3+ lawyers, most with a title, at least two with a fact of their own (strongLawyerProfile in src/lib/lawyers.js)
+const GOOD = [{ name: 'Ann Lee', title: 'Partner', callYear: 2005 }, { name: 'Bob Ray', title: 'Associate', callYear: 2011 }, { name: 'Cy Dunn', title: 'Associate' }];
 const about = Array.from({ length: 60 }, (_, i) => `word${i}`).join(' ');
-const row = (slug, extra = {}, rowExtra = {}) => ({ slug, about, hours: null, data: JSON.stringify({ slug, name: slug.toUpperCase(), city: `City ${slug.length}`, province: 'ON', type: 'logo', src: 'images/x.png', heroImage: 'images/y.jpg', phone: '+16135550100', tags: ['Family Law'], rating: 4.9, count: 120, ...extra }), ...rowExtra });
+const row = (slug, extra = {}, rowExtra = {}) => ({ slug, about, hours: null, data: JSON.stringify({ slug, name: slug.toUpperCase(), city: `City ${slug.length}`, province: 'ON', type: 'logo', src: 'images/x.png', heroImage: 'images/y.jpg', phone: '+16135550100', tags: ['Family Law'], rating: 4.9, count: 120, lawyers: GOOD, ...extra }), ...rowExtra });
 const poolRows = HOME_POOL.slice(0, 60).map((s, i) => row(s, { city: `City ${i % 15}`, province: ['ON', 'QC', 'BC', 'AB', 'MB'][i % 5], tags: [KINDS[i % 6]] }));
 let queries = 0;
 const env = (rows) => ({ DB: { prepare: () => ({ all: async () => { queries++; return { results: rows }; } }) } });
@@ -55,6 +57,12 @@ const fallback = await withDailyFirms(page, dead);
 const tooFew = await withDailyFirms(page, env(poolRows.slice(0, 2)));
 console.error = origError;
 ok(fallback === page && tooFew === page, 'if the database fails, or has too few firms, the page keeps the saved cards');
+// only firms with a really good lawyer profile are shown: no Lawyers tab, two lawyers, a bare list of names, untitled names, or lawyers switched off all keep a firm off the page
+const bare = ['Dee Fox', 'Eve Gray', 'Flo Hunt'].map((name) => ({ name, title: 'Associate' }));
+const untitled = [{ name: 'Gus Ivy', callYear: 2001 }, { name: 'Hal Jay', callYear: 2002 }, { name: 'Ian Kay', callYear: 2003 }];
+const lawWeak = [row(HOME_POOL[0], { lawyers: undefined }), row(HOME_POOL[1], { lawyers: GOOD.slice(0, 2) }), row(HOME_POOL[2], { lawyers: bare }), row(HOME_POOL[3], { lawyers: untitled }), row(HOME_POOL[4], { lawyersOff: true }), row(HOME_POOL[5], { lawyers: [...GOOD, { name: 'Jo Lam', title: 'Associate' }] }), row(HOME_POOL[6])];
+const el = await eligibleFirms(env(lawWeak));
+ok(JSON.stringify(el.map((f) => f.slug).sort()) === JSON.stringify([HOME_POOL[5], HOME_POOL[6]].sort()), 'a firm with no Lawyers tab, only two lawyers, a bare list of names, lawyers with no title, or its lawyers switched off is not eligible for the home page; a firm with a really good lawyer profile is');
 ok(HOME_POOL.length >= 60 && HOME_POOL.length === new Set(HOME_POOL).size, `the pool has enough firms and no repeats (${HOME_POOL.length})`);
 
 if (bad) { console.log(`\n${bad} FAILED`); process.exit(1); }

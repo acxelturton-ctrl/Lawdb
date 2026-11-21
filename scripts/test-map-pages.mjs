@@ -62,7 +62,7 @@ const ms = readFileSync('map-style.js', 'utf8');
 ok(/window\.LawdbMapStyle\s*=/.test(ms) && ms.includes("tiles.openfreemap.org/styles/") && ms.includes("land: '#dcefd4'") && ms.includes("water: '#7fc4ee'"), 'map-style.js recolours the OpenFreeMap style: mint land, blue water');
 ok(js.includes('LawdbMapStyle.load(') && js.includes("map-style.js?v=") && js.includes("styleObj || 'https://tiles.openfreemap.org/styles/bright'"), 'lawdb-map.js uses the green style, loads map-style.js itself on a page that did not, and falls back to the plain style');
 ok(/map-style\.js\?v=\d+" defer>/.test(readFileSync('find-lawyers.html', 'utf8')), 'the Find page loads map-style.js ahead of lawdb-map.js');
-ok(/'gm-pin': \['#b8892f'/.test(js) && /'gm-pin-gold': \['#d9b35a'/.test(js) && /'gm-pin-sel': \['#8a6a1f'/.test(js), 'the pins are gold');
+ok(/'gm-pin': \['#b8892f'/.test(js) && /'gm-pin-gold': \['#d9b35a'/.test(js) && /'gm-pin-sel': \['#c9a050'/.test(js), 'the pins are gold');
 const fp = readFileSync('src/render/firm-page.js', 'utf8');
 ok(fp.includes('LawdbMapStyle.load(') && fp.includes('src="/map-style.js"') && !fp.includes('styles/liberty') && fp.includes("Marker({color:'#c9a050'})"), 'the map on a firm profile uses the green style and a gold pin');
 

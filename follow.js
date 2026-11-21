@@ -5,14 +5,14 @@
   // Follow is plain text in the site's link colour, like on other social platforms (no box). Save keeps its pill.
   var css = '.lw-sbtn{font:600 13px Inter,system-ui,sans-serif;border:1.5px solid #2a2a2a;background:#fff;color:#2a2a2a;border-radius:999px;padding:6px 14px;cursor:pointer;line-height:1.2;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px}' +
     '.lw-sbtn:hover{background:#f4ecd8;border-color:#c9a050}.lw-sbtn[disabled]{opacity:.6;cursor:wait}' +
-    '.lw-fbtn{font:700 14px Inter,system-ui,sans-serif;border:0;background:none;color:#8a6a1f;padding:2px 0;margin:0;cursor:pointer;line-height:1.2;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;text-decoration:none}' +
+    '.lw-fbtn{font:700 14px Inter,system-ui,sans-serif;border:0;background:none;color:#c9a050;padding:2px 0;margin:0;cursor:pointer;line-height:1.2;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;text-decoration:none}' +
     '.lw-fbtn:hover{text-decoration:underline;text-underline-offset:3px}.lw-fbtn[disabled]{opacity:.6;cursor:wait}' +
-    '.lw-fbtn[aria-pressed="true"]{color:#5f5f5f;font-weight:600}@media(hover:hover){.lw-fbtn[aria-pressed="true"]:hover{color:#8a6a1f}.lw-fbtn[aria-pressed="true"]:hover .lw-a{display:none}.lw-fbtn[aria-pressed="true"]:hover .lw-b{display:inline}}' +
+    '.lw-fbtn[aria-pressed="true"]{color:#5f5f5f;font-weight:600}@media(hover:hover){.lw-fbtn[aria-pressed="true"]:hover{color:#c9a050}.lw-fbtn[aria-pressed="true"]:hover .lw-a{display:none}.lw-fbtn[aria-pressed="true"]:hover .lw-b{display:inline}}' +
     '.lw-fbtn .lw-b{display:none}' +
     '.lw-sbtn[aria-pressed="true"]{background:#2a2a2a;color:#fff}' +
     '.lc .lw-fbtn{position:static;margin-left:10px;font-size:13px}' +
     '.frow .lw-fbtn{position:absolute;top:12px;right:14px;z-index:2}.fcard-actions .lw-fbtn,.ra-actions .lw-fbtn{font-size:13px}' +
-    '.lw-claim{margin:10px 0 0;font:600 13.5px Inter,system-ui,sans-serif}.lw-claim a{color:#8a6a1f;text-decoration:underline;text-underline-offset:2px}.lw-claim a:hover{color:#2a2a2a}.lw-claimed{color:#3a3a3a}' +
+    '.lw-claim{margin:10px 0 0;font:600 13.5px Inter,system-ui,sans-serif}.lw-claim a{color:#c9a050;text-decoration:underline;text-underline-offset:2px}.lw-claim a:hover{color:#2a2a2a}.lw-claimed{color:#3a3a3a}' +
     '.lw-fcount{margin:0;font:600 13.5px Inter,system-ui,sans-serif;color:#5f5f5f}' +
     '.lw-fline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px}.lw-fline .lw-fcount:empty{display:none}.lw-fline .lw-fcount:not(:empty)::after{content:"\\00b7";margin-left:10px;color:#8c8c8c}' +
     '.li-actions{flex-wrap:wrap}';
@@ -188,7 +188,7 @@
 
   // ---- member ratings: <div data-rate="<firm slug>"> becomes the rating box
   var rcss = '.lw-rate{max-width:640px;margin:18px auto;padding:16px 18px;background:#fff;border:1px solid #ece6d3;border-radius:12px;font:15px/1.5 Inter,system-ui,sans-serif;color:#2a2a2a}' +
-    '.lw-rate h2{font:700 17px "Source Serif 4",Georgia,serif;margin:0 0 6px}.lw-rate .lw-avg{font-size:26px;font-weight:700;color:#8a6a1f}.lw-rate .lw-sub{color:#5f5f5f;font-size:14px}' +
+    '.lw-rate h2{font:700 17px "Source Serif 4",Georgia,serif;margin:0 0 6px}.lw-rate .lw-avg{font-size:26px;font-weight:700;color:#c9a050}.lw-rate .lw-sub{color:#5f5f5f;font-size:14px}' +
     '.lw-rate .lw-row2{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:6px 0}.lw-rate button{font:600 14px Inter,system-ui,sans-serif;border:1px solid #2a2a2a;background:transparent;color:#2a2a2a;border-radius:8px;padding:9px 16px;cursor:pointer}' +
     '.lw-rate button.go{background:#2a2a2a;color:#fff}.lw-rate button[disabled]{opacity:.6}' +
     '.lw-rate .lw-note{font-size:12.5px;color:#8c8c8c}' +
@@ -205,7 +205,7 @@
     '.lw-dlg{background:#fff;width:100%;max-width:520px;max-height:92vh;overflow:auto;display:flex;flex-direction:column;border-radius:16px 16px 0 0;box-shadow:0 -10px 32px rgba(42,42,42,.25)}' +
     '@media (min-width:600px){.lwr-ov{align-items:center;padding:24px}.lw-dlg{border-radius:16px;max-height:88vh;box-shadow:0 20px 50px rgba(42,42,42,.3)}}' +
     '.lw-dh{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:#2a2a2a;color:#fff;padding:18px 12px 16px 20px;border-bottom:3px solid #c9a050}' +
-    '.lw-kick{font:700 11px/1.2 Inter,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8a6a1f;margin:0 0 6px}' +
+    '.lw-kick{font:700 11px/1.2 Inter,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#c9a050;margin:0 0 6px}' +
     '.lw-dt{font:700 20px/1.25 "Source Serif 4",Georgia,serif;color:#fff;margin:0;text-wrap:balance}' +
     '.lwr-x{flex:none;width:44px;height:44px;margin:-6px -4px 0 0;border:0;border-radius:50%;background:transparent;color:#fff;font:400 30px/1 Inter,system-ui,sans-serif;cursor:pointer}.lwr-x:hover{background:rgba(255,255,255,.12)}' +
     '.lw-db{padding:20px}.lw-q{font:700 17px/1.3 Inter,system-ui,sans-serif;margin:0 0 6px}' +

@@ -7,7 +7,9 @@
 // Who can be in it (all of these):
 //   - live, not Featured (Featured firms are shown in their own way), a Google rating of 4.8 or more from 50 or more reviews;
 //   - in HOME_POOL: a cover photo and its own logo that really exist in the site's files, and a practice area (scripts/build-home-firms.mjs --pool);
-//   - a real description (40 words or more, the same bar as the Google sitemap) and a phone number for the Call button.
+//   - a real description (40 words or more, the same bar as the Google sitemap) and a phone number for the Call button;
+//   - a really good lawyer profile: the firm's Lawyers tab lists three or more lawyers, most with a title and at least two with facts of their own
+//     (strongLawyerProfile in src/lib/lawyers.js). A firm with no Lawyers tab, or only a bare list of names, is not shown on the home page.
 // "Best-looking": the eligible profiles are ranked by rating weighted by number of reviews, plus how complete the profile is (profile strength:
 // hours, tagline, social profiles, languages and so on). The day's pick is drawn at random from the top 120, with at most 2 firms per city,
 // 3 per kind of practice and 4 per province, so the strip is a spread, not twelve Toronto injury firms.
@@ -15,6 +17,7 @@ import { HOME_POOL } from '../render/home-pool.generated.js';
 import { homeFirmCard } from '../render/home-cards.js';
 import { profileStrength } from '../lib/profile-strength.js';
 import { isIndexable } from '../lib/indexing.js';
+import { strongLawyerProfile } from '../lib/lawyers.js';
 import { torontoDay } from '../lib/stats.js';
 
 export const SHOWN = 12, TOP = 120, PER_CITY = 2, PER_KIND = 3, PER_PROVINCE = 4;
@@ -56,7 +59,7 @@ export async function eligibleFirms(env) {
   for (const r of results) {
     if (!POOL.has(r.slug) || !isIndexable(r.about)) continue;
     let f; try { f = JSON.parse(r.data); } catch { continue; }
-    if (f.featured || f.type !== 'logo' || !f.src || !f.heroImage || !f.phone || !(f.tags || []).length) continue;
+    if (f.featured || f.type !== 'logo' || !f.src || !f.heroImage || !f.phone || !(f.tags || []).length || !strongLawyerProfile(f)) continue;
     const strength = profileStrength(f, { about: r.about, hours: r.hours }).score;
     out.push({ ...f, look: lookScore(f, strength) });
   }

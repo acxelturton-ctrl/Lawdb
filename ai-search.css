@@ -1,6 +1,6 @@
 /* LawDB AI: the chat card (in the floating panel), the round button and the panel. Ivory and gold, charcoal buttons; palette colours only (scripts/palette.mjs). */
 .aic{ display:none; }
-.aic.aic-on{ display:flex; flex-direction:column; position:relative; width:100%; background:#fffdf8; border:1px solid #e6d4a4; border-radius:24px; box-shadow:0 30px 60px -34px rgba(138,106,31,.65); overflow:hidden; text-align:left; color:#2a2a2a; padding:0 !important; }
+.aic.aic-on{ display:flex; flex-direction:column; position:relative; width:100%; background:#fffdf8; border:1px solid #e6d4a4; border-radius:24px; box-shadow:0 30px 60px -34px rgba(201,160,80,0.65); overflow:hidden; text-align:left; color:#2a2a2a; padding:0 !important; }
 .aic-head{ display:flex; align-items:center; gap:12px; padding:16px 18px; background:#f4ecd8; border-bottom:1px solid #e6d4a4; flex:none; }
 .aic-badge{ display:grid; place-items:center; width:38px; height:38px; border-radius:12px; background:#2a2a2a; flex:none; }
 .aic-badge svg{ width:20px; height:20px; fill:#e2bd6a; }
@@ -36,7 +36,7 @@
 .aic-firm b{ display:block; font:700 15px/1.25 Inter,sans-serif; }
 .aic-firm b span{ margin-left:6px; font:700 10px Inter,sans-serif; letter-spacing:.08em; text-transform:uppercase; background:#e2bd6a; border-radius:999px; padding:2px 7px; vertical-align:2px; }
 .aic-firm small{ display:block; margin-top:2px; color:#5f5f5f; font:500 12.5px Inter,sans-serif; }
-.aic-firm .aic-why{ margin-top:8px; color:#8a6a1f; font-weight:600; }
+.aic-firm .aic-why{ margin-top:8px; color:#c9a050; font-weight:600; }
 .aic-firm p{ margin:6px 0 0; color:#5f5f5f; font:400 13px/1.5 Inter,sans-serif; }
 .aic-btns{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
 .aic-btns a{ display:inline-flex; align-items:center; justify-content:center; height:36px; padding:0 14px; border-radius:10px; font:700 13px Inter,sans-serif; text-decoration:none; }

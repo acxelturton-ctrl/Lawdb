@@ -16,6 +16,10 @@
 import { checkOwnerText } from './content-rules.js';
 import { LANGUAGES } from './details.js';
 
+// A picture the admin has accepted is kept on LawDB itself (R2, served at /img/lawyer/<id>), never as a link to the firm's own site, so it cannot change or
+// break later. The admin's decisions are kept in the firm's record as `lawyerPhotos` ({ <lawyer slug>: { status: 'ok', photo } or { status: 'no' } }) rather
+// than in the list of lawyers, so loading the list again (scripts/apply-firm-lawyers.mjs) never undoes them.
+export const HOSTED_PHOTO = /^\/img\/lawyer\/[0-9a-f]{24}$/;
 export const MIN_FIRM_LAWYERS = 2;
 export const MAX_LAWYERS = 120;
 
@@ -115,8 +119,10 @@ export function lawyerSlug(name) {
 }
 
 // list: what is stored. Returns the lawyers that are fit to show, in the order given, each with a unique slug.
+// decisions: the firm's `lawyerPhotos` (the admin's accept / erase decisions, src/lib/lawyer-photos.js). A picture is shown only when the firm itself added it, or the
+// admin accepted it (a copy kept on LawDB), or, for older records, photoConfirmed is true; a picture the admin erased is never shown (see photoStateOf).
 // { stored: true } is for the editor and the updates: it also keeps the picture address with its confirmed flag (public pages never see an unconfirmed picture).
-export function cleanLawyers(list, thisYear = new Date().getFullYear(), { stored = false } = {}) {
+export function cleanLawyers(list, thisYear = new Date().getFullYear(), decisions = null, { stored = false } = {}) {
   if (!Array.isArray(list)) return [];
   const seen = new Set();
   const out = [];
@@ -153,6 +159,7 @@ export function cleanLawyers(list, thisYear = new Date().getFullYear(), { stored
     // a "title" that is a sentence means a testimonial or a news line was read: the person stays only when something else on record backs them up
     if (junk && !(yearOk || edu.length || langs.length || li)) continue;
     seen.add(slug);
+    const shown = photoStateOf({ photo, photoConfirmed: l.photoConfirmed === true }, decisions && decisions[slug]);
     out.push({
       name, slug,
       ...(title && plain(title) ? { title } : {}),
@@ -161,8 +168,7 @@ export function cleanLawyers(list, thisYear = new Date().getFullYear(), { stored
       ...(langs.length ? { languages: langs } : {}),
       ...(li ? { linkedin: li } : {}),
       ...(site ? { site } : {}),
-      ...(photo && (l.photoConfirmed === true || stored) ? { photo } : {}),
-      ...(stored && photo ? { photoConfirmed: l.photoConfirmed === true } : {}),
+      ...(stored ? (photo ? { photo, photoConfirmed: l.photoConfirmed === true } : {}) : (shown.state === 'confirmed' ? { photo: shown.url } : {})),
       ...(stored && found && photo !== found ? { photoFound: found } : {}),
       ...(mine ? { confirmed: true } : {}),
       ...(l.hidden === true ? { hidden: true } : {}),
@@ -171,17 +177,67 @@ export function cleanLawyers(list, thisYear = new Date().getFullYear(), { stored
   return out;
 }
 
+// A picture the firm added itself (an upload, or "use this picture" for the one found on its own website) is kept on LawDB under /img/<id> with photoConfirmed.
+export const OWN_PHOTO = /^\/img\/[0-9a-f]{24}$/;
+
+// What is shown for a lawyer, and what the editor says about it. l: { photo, photoConfirmed } as stored; d: the admin's decision for this lawyer (firm.lawyerPhotos[slug]).
+//   confirmed  shown: the firm's own picture first (the firm's own act beats the admin's erase), then one the admin accepted, then the old confirmed flag;
+//   found      a picture found on the firm's website that nobody has decided on yet (never shown on a page: the firm or the admin has to say yes);
+//   none       nothing (also when the admin erased the one that was found).
+export function photoStateOf(l, d) {
+  const photo = l && typeof l.photo === 'string' ? l.photo : '';
+  if (photo && l.photoConfirmed === true && OWN_PHOTO.test(photo)) return { state: 'confirmed', url: photo, by: 'firm' };
+  if (d && d.status === 'ok' && typeof d.photo === 'string' && HOSTED_PHOTO.test(d.photo)) return { state: 'confirmed', url: d.photo, by: 'admin' };
+  if (d && d.status === 'no') return { state: 'none' };
+  if (photo && l.photoConfirmed === true) return { state: 'confirmed', url: photo, by: 'record' };
+  return /^https:\/\//.test(photo) ? { state: 'found', url: photo } : { state: 'none' };
+}
+
 // The lawyers a firm's pages may show: none when the firm has switched them off or has fewer than MIN_FIRM_LAWYERS.
 export function lawyersOf(firm) {
   if (!firm || firm.lawyersOff) return [];
-  const l = cleanLawyers(firm.lawyers).filter((x) => !x.hidden);
+  const l = cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos).filter((x) => !x.hidden);
   return l.length >= MIN_FIRM_LAWYERS ? l : [];
+}
+
+// The address found on the firm's own website for a lawyer (stored form), '' when there is none. A firm's own picture, once added, keeps the found address aside.
+const foundOf = (l) => (l.photoConfirmed ? l.photoFound || '' : /^https:\/\//.test(l.photo || '') ? l.photo : '');
+const storedOf = (firm) => cleanLawyers(Array.isArray(firm && firm.lawyers) ? firm.lawyers : [], undefined, null, { stored: true });
+
+// For the admin's Lawyer photos tab: the lawyers of a firm (one whose lawyers its pages show) that have a picture on the firm's own site and no decision yet.
+// A lawyer the firm hid, or whose own picture the firm added, is not in the queue.
+export function photoCandidates(firm) {
+  if (!firm || firm.lawyersOff) return [];
+  const all = storedOf(firm).filter((l) => !l.hidden);
+  if (all.length < MIN_FIRM_LAWYERS) return [];
+  const decided = firm.lawyerPhotos && typeof firm.lawyerPhotos === 'object' ? firm.lawyerPhotos : {};
+  return all.filter((l) => foundOf(l) && !decided[l.slug] && !(l.photoConfirmed && OWN_PHOTO.test(l.photo || '')))
+    .map((l) => ({ slug: l.slug, name: l.name, ...(l.title ? { title: l.title } : {}), photo: foundOf(l) }));
+}
+
+// The address of a lawyer's picture on the firm's own site, as stored (for the admin to look at before deciding). '' when there is none or the lawyer is not listed.
+export function sourcePhoto(firm, lawyerSlugValue) {
+  const l = storedOf(firm).find((x) => x.slug === lawyerSlugValue);
+  return l ? foundOf(l) : '';
 }
 
 // A lawyer has a page of their own only with a clear title and at least two more facts (year called, school, language, LinkedIn).
 export const MIN_PAGE_FACTS = 2;
 export function lawyerHasPage(l) {
   return !!(l && l.title && [l.callYear, l.education, l.languages, l.linkedin].filter(Boolean).length >= MIN_PAGE_FACTS);
+}
+
+// A "really good" lawyer profile, for putting a firm on the home page: the Lawyers tab lists three or more lawyers, at least two thirds of them with a clear
+// title, and at least two of them with a fact of their own (year called, school, language or LinkedIn), so a visitor who opens the tab finds a real team page and
+// not a bare list of names. A firm with no Lawyers tab at all (fewer than two lawyers, or lawyersOff) never counts.
+export const STRONG_MIN_LAWYERS = 3;
+export const STRONG_MIN_WITH_FACTS = 2;
+export function strongLawyerProfile(firm) {
+  const l = lawyersOf(firm);
+  if (l.length < STRONG_MIN_LAWYERS) return false;
+  const titled = l.filter((x) => x.title).length;
+  const withFacts = l.filter((x) => [x.callYear, x.education, x.languages, x.linkedin].some(Boolean)).length;
+  return titled * 3 >= l.length * 2 && withFacts >= STRONG_MIN_WITH_FACTS;
 }
 
 export function lawyerFacts(l, province) {

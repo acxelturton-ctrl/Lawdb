@@ -1,0 +1,97 @@
+/* LawDB AI: the chat card (in the floating panel), the round button and the panel. Ivory and gold, charcoal buttons; palette colours only (scripts/palette.mjs). */
+.aic{ display:none; }
+.aic.aic-on{ display:flex; flex-direction:column; position:relative; width:100%; background:#fffdf8; border:1px solid #e6d4a4; border-radius:24px; box-shadow:0 30px 60px -34px rgba(138,106,31,.65); overflow:hidden; text-align:left; color:#2a2a2a; padding:0 !important; }
+.aic-head{ display:flex; align-items:center; gap:12px; padding:16px 18px; background:#f4ecd8; border-bottom:1px solid #e6d4a4; flex:none; }
+.aic-badge{ display:grid; place-items:center; width:38px; height:38px; border-radius:12px; background:#2a2a2a; flex:none; }
+.aic-badge svg{ width:20px; height:20px; fill:#e2bd6a; }
+.aic-head b{ display:block; font:700 17px 'Source Serif 4',Georgia,serif; }
+.aic-head small{ display:block; margin-top:2px; font:500 13px Inter,sans-serif; color:#5f5f5f; }
+.aic-x{ display:none; margin-left:auto; flex:none; width:36px; height:36px; border:0; border-radius:50%; background:rgba(42,42,42,.08); color:#2a2a2a; font:400 24px/1 Inter,sans-serif; cursor:pointer; }
+.aic-x:hover{ background:rgba(42,42,42,.16); }
+.aic-float .aic-x{ display:block; }
+.aic-log{ padding:16px 16px 6px; display:flex; flex-direction:column; gap:10px; max-height:340px; min-height:150px; overflow-y:auto; scroll-behavior:smooth; overscroll-behavior:contain; flex:1 1 auto; }
+@media (prefers-reduced-motion:reduce){ .aic-log{ scroll-behavior:auto; } }
+.aic-msg{ max-width:88%; padding:11px 14px; border-radius:16px; font:500 14.5px/1.5 Inter,sans-serif; animation:aicIn .35s ease both; }
+@keyframes aicIn{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+.aic-msg.still,.aic-firm.still{ animation:none; }
+@media (prefers-reduced-motion:reduce){ .aic-msg,.aic-firm{ animation:none; } }
+.aic-bot{ align-self:flex-start; background:#fff; border:1px solid #ece6d3; border-top-left-radius:6px; }
+.aic-me{ align-self:flex-end; background:linear-gradient(180deg,#e2bd6a,#c9a050); color:#2a2a2a; border-top-right-radius:6px; font-weight:600; }
+.aic-typing{ display:inline-flex; gap:5px; padding:14px 16px; }
+.aic-typing i{ width:7px; height:7px; border-radius:50%; background:#c9a050; animation:aicDot 1s infinite ease-in-out; }
+.aic-typing i:nth-child(2){ animation-delay:.15s; } .aic-typing i:nth-child(3){ animation-delay:.3s; }
+@keyframes aicDot{ 0%,80%,100%{ opacity:.3; transform:scale(.8); } 40%{ opacity:1; transform:scale(1); } }
+.aic-safety{ align-self:stretch; background:#f4ecd8; border:1px solid #c9a050; border-radius:14px; padding:12px 14px; font:500 13.5px/1.5 Inter,sans-serif; color:#3a3a3a; }
+.aic-chips{ display:flex; flex-wrap:wrap; gap:8px; align-self:flex-start; max-width:100%; }
+.aic-chip{ border:1px solid #c9a050; background:#fff; color:#2a2a2a; border-radius:999px; padding:8px 13px; font:600 13.5px Inter,sans-serif; cursor:pointer; text-decoration:none; transition:background .15s,border-color .15s,transform .15s; }
+.aic-chip:hover{ background:#f4ecd8; border-color:#c9a050; transform:translateY(-1px); }
+.aic-chip.on{ background:#2a2a2a; border-color:#2a2a2a; color:#e2bd6a; }
+.aic-chip.loc{ background:#2a2a2a; color:#fff; border-color:#2a2a2a; }
+.aic-chips.used .aic-chip{ opacity:.45; pointer-events:none; }
+.aic-firms{ display:grid; gap:10px; align-self:stretch; }
+.aic-firm{ background:#fff; border:1px solid #ece6d3; border-radius:16px; padding:12px; animation:aicIn .4s ease both; }
+.aic-firm-top{ display:flex; gap:12px; align-items:flex-start; }
+.aic-logo{ flex:none; width:44px; height:44px; border-radius:12px; border:1px solid #ece6d3; background:#fff; display:grid; place-items:center; overflow:hidden; font:700 14px 'Source Serif 4',Georgia,serif; color:#3a3a3a; }
+.aic-logo img{ width:100%; height:100%; object-fit:contain; padding:4px; box-sizing:border-box; }
+.aic-firm b{ display:block; font:700 15px/1.25 Inter,sans-serif; }
+.aic-firm b span{ margin-left:6px; font:700 10px Inter,sans-serif; letter-spacing:.08em; text-transform:uppercase; background:#e2bd6a; border-radius:999px; padding:2px 7px; vertical-align:2px; }
+.aic-firm small{ display:block; margin-top:2px; color:#5f5f5f; font:500 12.5px Inter,sans-serif; }
+.aic-firm .aic-why{ margin-top:8px; color:#8a6a1f; font-weight:600; }
+.aic-firm p{ margin:6px 0 0; color:#5f5f5f; font:400 13px/1.5 Inter,sans-serif; }
+.aic-btns{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.aic-btns a{ display:inline-flex; align-items:center; justify-content:center; height:36px; padding:0 14px; border-radius:10px; font:700 13px Inter,sans-serif; text-decoration:none; }
+.aic-btns .go{ background:#2a2a2a; color:#fff; } .aic-btns .go:hover{ background:#3a3a3a; }
+.aic-btns .call{ border:1.5px solid #c9a050; color:#2a2a2a; background:#fffdf8; }
+.aic-btns .ask{ background:linear-gradient(180deg,#e2bd6a,#c9a050); color:#2a2a2a; }
+.aic-form{ display:flex; align-items:flex-end; gap:8px; padding:10px 12px; border-top:1px solid #ece6d3; background:#fffdf8; flex:none; }
+.aic-form textarea{ flex:1; resize:none; border:1.5px solid #e6d4a4; border-radius:14px; padding:12px 14px; font:500 16px/1.4 Inter,sans-serif; color:#2a2a2a; background:#fff; max-height:110px; outline:0; }
+.aic-form textarea:focus{ border-color:#c9a050; box-shadow:0 0 0 4px rgba(201,160,80,.2); }
+.aic-form button{ flex:none; width:46px; height:46px; border:0; border-radius:14px; background:#2a2a2a; color:#e2bd6a; cursor:pointer; display:grid; place-items:center; transition:background .15s,transform .15s; }
+.aic-form button:hover{ background:#3a3a3a; transform:translateY(-1px); }
+.aic-form button:disabled{ opacity:.5; cursor:default; transform:none; }
+.aic-form button svg{ width:20px; height:20px; }
+.aic-note{ margin:0; padding:0 16px 14px; font:400 11.5px/1.5 Inter,sans-serif; color:#5f5f5f; background:#fffdf8; flex:none; }
+.aic-sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+/* the round AI icon, bottom right of every public page (the label is only for screen readers and the hover tip) */
+.aic-launch{ position:fixed; right:18px; bottom:calc(18px + env(safe-area-inset-bottom,0px)); z-index:460; display:grid; place-items:center; width:60px; height:60px; padding:0; border:0; border-radius:50%; background:#2a2a2a; color:#fff; cursor:pointer; box-shadow:0 16px 34px -12px rgba(42,42,42,.7),0 0 0 3px rgba(226,189,106,.55); transition:transform .18s,opacity .2s,box-shadow .2s; }
+.aic-launch:hover{ transform:translateY(-2px); box-shadow:0 20px 38px -12px rgba(42,42,42,.75),0 0 0 3px #e2bd6a; }
+.aic-launch svg{ width:28px; height:28px; fill:#e2bd6a; }
+.aic-launch span{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.aic-launch i{ position:absolute; top:-4px; right:-4px; min-width:24px; height:20px; padding:0 6px; box-sizing:border-box; display:grid; place-items:center; border-radius:999px; background:linear-gradient(180deg,#e2bd6a,#c9a050); color:#2a2a2a; font:800 11px/1 Inter,sans-serif; letter-spacing:.04em; font-style:normal; box-shadow:0 0 0 2px #fffdf8; }
+.aic-launch.hide{ opacity:0; pointer-events:none; transform:translateY(10px) scale(.9); }
+.aic-launch::after{ content:""; position:absolute; inset:-3px; border-radius:inherit; box-shadow:0 0 0 0 rgba(226,189,106,.65); animation:aicPulse 2.6s ease-out 1.5s 3; pointer-events:none; }
+@keyframes aicPulse{ 0%{ box-shadow:0 0 0 0 rgba(226,189,106,.65); } 100%{ box-shadow:0 0 0 18px rgba(226,189,106,0); } }
+@media (prefers-reduced-motion:reduce){ .aic-launch::after{ animation:none; } .aic-launch{ transition:none; } }
+@media (max-width:640px){ .aic-launch{ width:56px; height:56px; } .aic-launch svg{ width:26px; height:26px; } }
+/* keep clear of the other things that live at the bottom of a phone screen */
+body.aic-ready .to-top{ bottom:calc(92px + env(safe-area-inset-bottom,0px)); }
+.aic-nudge{ position:fixed; right:18px; bottom:calc(86px + env(safe-area-inset-bottom,0px)); z-index:459; display:flex; align-items:center; gap:8px; max-width:240px; background:#fff; border:1px solid #e6d4a4; border-radius:16px 16px 6px 16px; padding:11px 8px 11px 14px; font:600 14px/1.35 Inter,sans-serif; color:#2a2a2a; box-shadow:0 18px 36px -18px rgba(42,42,42,.55); cursor:pointer; animation:aicIn .4s ease both; }
+.aic-nudge button{ flex:none; width:24px; height:24px; border:0; border-radius:50%; background:rgba(42,42,42,.08); color:#2a2a2a; font:400 16px/1 Inter,sans-serif; cursor:pointer; }
+
+/* the panel the chat opens in */
+.aic-panel{ display:none; position:fixed; z-index:1250; right:24px; bottom:24px; width:min(410px,calc(100vw - 32px)); height:min(660px,calc(100dvh - 48px)); border-radius:24px; box-shadow:0 40px 80px -30px rgba(42,42,42,.65); }
+.aic-panel.open{ display:flex; animation:aicIn .28s ease both; }
+.aic-panel .aic.aic-float{ height:100%; max-width:none; margin:0; border-radius:24px; }
+.aic-panel .aic-log{ max-height:none; flex:1 1 auto; }
+@media (max-width:640px){
+  .aic-panel{ inset:0; width:auto; height:100dvh; border-radius:0; right:0; bottom:0; }
+  .aic-panel .aic.aic-float{ border-radius:0; border:0; }
+  html.aic-lock{ overflow:hidden; }
+}
+html.aic-lock .to-top{ opacity:0 !important; pointer-events:none !important; }
+
+/* language button, perk labels on the firm cards */
+.aic-lang{ flex:none; margin-left:auto; border:1px solid rgba(42,42,42,.25); background:rgba(255,255,255,.6); color:#2a2a2a; border-radius:999px; padding:6px 11px; font:700 12px Inter,sans-serif; letter-spacing:.06em; cursor:pointer; }
+.aic-lang:hover{ background:#fff; border-color:#2a2a2a; }
+.aic-float .aic-x{ margin-left:8px; }
+.aic-pills{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.aic-pills span{ font:600 11.5px Inter,sans-serif; background:#f4ecd8; border:1px solid #e6d4a4; color:#3a3a3a; border-radius:999px; padding:3px 9px; }
+.aic-pills span.v{ background:#2a2a2a; border-color:#2a2a2a; color:#e2bd6a; }
+
+/* a signed-in visitor on a phone has the member tab bar along the bottom: stay clear of it */
+@media (max-width:899px){
+  body.lw-has-tabs .aic-launch{ bottom:calc(76px + env(safe-area-inset-bottom,0px)); }
+  body.lw-has-tabs .aic-nudge{ bottom:calc(144px + env(safe-area-inset-bottom,0px)); }
+  body.lw-has-tabs.aic-ready .to-top{ bottom:calc(150px + env(safe-area-inset-bottom,0px)); }
+}

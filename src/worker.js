@@ -29,6 +29,7 @@ import * as invite from './routes/invite.js';
 import * as stats from './routes/stats.js';
 import * as projects from './routes/projects.js';
 import * as outreach from './routes/outreach.js';
+import * as ai from './routes/ai.js';
 
 const route = (method, pattern, handler) => ({
   method,
@@ -63,6 +64,7 @@ const ROUTES = [
   route('GET', '/api/news', homeNews.newsNearApi),
   route('POST', '/api/leads', pub.createLead),
   route('POST', '/api/a', stats.collect),
+  route('POST', '/api/ai/match', ai.match),
 
   route('POST', '/api/stripe/webhook', stripe.webhook),
 

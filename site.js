@@ -147,3 +147,33 @@
     try{ if(new URL(href, location.href).hostname.replace(/^www\./,'') !== location.hostname.replace(/^www\./,'')) return ev('website'); }catch(err){}
   }, true);
 })();
+
+// LawDB AI help bot: the round button at the bottom right of every public page, and its item in the menus. The chat itself (ai-search.js, ai-search.css) is
+// loaded on every public page. A click on the menu item before the chat has loaded opens it as soon as it has.
+(function(){
+  if (/^\/(admin|account)(\/|$)/.test(location.pathname)) return;
+  var SPARK = 'M12 2l2.2 6.3L20.5 10l-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-1.7zM19 15l.9 2.4 2.4.9-2.4.9L19 21.6l-.9-2.4-2.4-.9 2.4-.9z';
+  var nav = document.querySelector('.desktop-nav');
+  if (nav && !nav.querySelector('[data-open-ai]')) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'nav-ai'; b.setAttribute('data-open-ai', '');
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + SPARK + '"/></svg><span>LawDB AI</span>';
+    var sep = nav.querySelector('.nav-sep'); // a top bar with the sign-in button inside the menu: the item goes before the divider
+    if (sep) nav.insertBefore(b, sep); else nav.appendChild(b);
+  }
+  var drawer = document.getElementById('menuDrawer');
+  if (drawer && !drawer.querySelector('[data-open-ai]')) {
+    var a = document.createElement('a'); a.href = '#'; a.setAttribute('data-open-ai', ''); a.textContent = 'LawDB AI';
+    var news = drawer.querySelector('a[href="/news"]');
+    if (news) news.insertAdjacentElement('afterend', a); else { var first = drawer.querySelector('a'); if (first) first.insertAdjacentElement('afterend', a); }
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest && e.target.closest('[data-open-ai]'); if (!t) return;
+    e.preventDefault();
+    if (window.__lawdbAI) return; // the chat has loaded and handles it
+    window.__aiOpenPending = true;
+    var d = document.getElementById('menuDrawer'), o = document.getElementById('menuOverlay'); if (d) d.classList.remove('open'); if (o) o.classList.remove('open');
+  });
+  if (window.__lawdbAI || document.querySelector('script[src*="ai-search.js"]')) return;
+  var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/ai-search.css?v=1'; document.head.appendChild(l);
+  var sc = document.createElement('script'); sc.src = '/ai-search.js?v=1'; sc.defer = true; document.head.appendChild(sc);
+})();

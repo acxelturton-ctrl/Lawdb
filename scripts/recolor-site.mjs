@@ -11,11 +11,13 @@ import { PALETTE_HEX, mapLiteral, parseColor } from './palette.mjs';
 
 const MODE = process.argv.includes('--check') ? 'check' : process.argv.includes('--table') ? 'table' : 'write';
 const SKIP_DIRS = new Set(['node_modules', '.wrangler', '.claude', '.git', 'migrations', 'data']);
-const SKIP_PREFIX = ['images/logos/', 'images/bio/', 'images/hero/', 'images/blog/', 'scripts/palette.mjs', 'scripts/recolor-site.mjs', 'scripts/test-palette.mjs', 'package-lock.json'];
+const SKIP_PREFIX = ['images/logos/', 'images/bio/', 'images/hero/', 'images/blog/', 'map-style.js', 'scripts/palette.mjs', 'scripts/recolor-site.mjs', 'scripts/test-palette.mjs', 'scripts/test-map-pages.mjs', 'package-lock.json'];
 const EXT = new Set(['.html', '.css', '.js', '.mjs', '.svg']);
 
 // what a few colours stand for on this site (the rest follow the rules in palette.mjs)
 const OVERRIDES = {
+  // the map's own colours: the green land under the tiles, the map text grey and the three golds of the pins (map-style.js is skipped altogether). These stay as they are.
+  '#dcefd4': '#dcefd4', '#3c4043': '#3c4043', '#b8892f': '#b8892f', '#d9b35a': '#d9b35a', '#f2d98f': '#f2d98f',
   '#1f2328': '#2a2a2a', '#15181c': '#2a2a2a', '#8d9197': '#8c8c8c', '#636870': '#5f5f5f', '#30353b': '#3a3a3a', '#3f444b': '#3a3a3a',
   '#e8a91f': '#c9a050', '#e0a93a': '#c9a050', '#b45309': '#8a6a1f', '#e3dfd5': '#ece6d3', '#f8f6f1': '#fffdf8', '#fdfcf9': '#ffffff',
   '#fff3d4': '#f4ecd8', '#f6dc9a': '#e6d4a4', '#f0ede5': '#f7f1e0', '#eef0f2': '#f7f1e0', '#c7cfda': '#ece6d3', '#e0342f': '#c9a050',

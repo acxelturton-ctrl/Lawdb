@@ -306,19 +306,21 @@ function postal(f) {
   return { '@type': 'PostalAddress', streetAddress: street, addressLocality: f.city, addressRegion: f.province, ...(m && m[3].toUpperCase() === f.province ? { postalCode: m[4].toUpperCase().replace(/^(\w{3})-?(\w{3})$/, '$1 $2') } : {}), addressCountry: 'CA' };
 }
 
-// The Location card on a profile, right under the contact card ("Contact <firm>" / Send message): the map (MapLibre, the same map as the Find page) with a "Maps" chip that
-// opens the same place on Google Maps, and under it the address with a Directions link. The map shows the office pin only: no shaded service-area circle
+// The Location card on a profile, right under the contact card ("Contact <firm>" / Send message): the map (MapLibre, drawn in the same green, Google-style look as the Find page
+// map: map-style.js) and under it the address with a Directions link. The map shows the office pin only: no shaded service-area circle
 // (the owner does not want one anywhere on the site). The site has no Google Maps key, so the map is drawn here. A firm with no usable coordinates still gets the address row.
 function firmMapHtml(f) {
   const lat = Number(f.lat), lng = Number(f.lng);
   const script = `(function(){var lng=${lng},lat=${lat};` +
     "window.addEventListener('load',function(){var el=document.getElementById('firmMap');if(!el||!window.maplibregl)return;" +
-    "var map=new maplibregl.Map({container:el,style:'https://tiles.openfreemap.org/styles/liberty',center:[lng,lat],zoom:14,dragRotate:false,touchPitch:false});" +
+    "var st=window.LawdbMapStyle?window.LawdbMapStyle.load('bright'):Promise.resolve('https://tiles.openfreemap.org/styles/bright');" +
+    "st.then(function(style){var map=new maplibregl.Map({container:el,style:style,center:[lng,lat],zoom:14,dragRotate:false,touchPitch:false});" +
     "map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');" +
     "map.on('load',function(){" +
-    "new maplibregl.Marker({color:'#c9a050'}).setLngLat([lng,lat]).addTo(map);});});})();";
+    "new maplibregl.Marker({color:'#c9a050'}).setLngLat([lng,lat]).addTo(map);});});});})();";
   return '<div class="pf-map">\n      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.css">\n' +
-    '      <style>.firm-map{overflow:hidden;background:#f7f1e0;max-width:100%}</style>\n' +
+    '      <style>.firm-map{overflow:hidden;background:#dcefd4;max-width:100%}</style>\n' +
+    '      <script src="/map-style.js" defer></script>\n' +
     `      <div id="firmMap" class="firm-map" role="img" aria-label="Map of ${esc(f.name)} and the area around its office"></div>\n` +
     '      <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.js" defer></script>\n' +
     `      <script>${script}</script>\n    </div>`;

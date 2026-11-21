@@ -5,7 +5,8 @@ import { lawyersOf, lawyerHasPage, lawyerFacts, lawyerLead } from '../lib/lawyer
 import { cleanComments } from '../lib/comments.js';
 import { AVAILABILITY } from '../lib/profile-strength.js';
 import * as C from './firm-chunks.generated.js';
-import { renderFirmArticles } from './blog-cards.js';
+import { renderFirmArticles, renderArticlesList } from './blog-cards.js';
+import { articlesTabOn } from '../lib/articles.js';
 import { profilesBox, hasLinkedIn } from './profiles.js';
 import { CITY_HUBS } from './city-hubs.generated.js';
 import { PRACTICE } from '../lib/practice.js';
@@ -391,10 +392,20 @@ function lawyerAvatar(l, big) {
 }
 const joinAnd = (a) => a.join(', ').replace(/, ([^,]*)$/, ' and $1');
 
-function tabsHtml(f, lw, tab) {
-  if (!lw.length) return '';
-  const cur = (k) => (tab === k || (k === 'lawyers' && tab === 'lawyer') ? ' aria-current="page"' : '');
-  return `<nav class="pf-tabs" aria-label="${esc(f.name)} sections"><a href="/firms/${esc(f.slug)}"${tab === 'overview' ? ' aria-current="page"' : ''}>Overview</a><a href="/firms/${esc(f.slug)}/lawyers"${cur('lawyers')}>Lawyers <span class="n">${lw.length}</span></a></nav>`;
+// The pages of a firm's profile: the Overview first, then each page the firm has (Lawyers, Articles; a Jobs page will be one more entry here). The bar shows only
+// when there is more than one. Each tab is a plain link to its own page.
+function profileTabs(f, lw, articles) {
+  const base = `/firms/${f.slug}`;
+  return [
+    { k: 'overview', label: 'Overview', href: base },
+    ...(lw.length ? [{ k: 'lawyers', label: 'Lawyers', n: lw.length, href: `${base}/lawyers` }] : []),
+    ...(articlesTabOn(f, articles) ? [{ k: 'articles', label: 'Articles', n: articles.length, href: `${base}/articles` }] : []),
+  ];
+}
+function tabsHtml(f, tabs, tab) {
+  if (tabs.length < 2) return '';
+  const here = tab === 'lawyer' ? 'lawyers' : tab; // a lawyer's own page is under the Lawyers tab
+  return `<nav class="pf-tabs" aria-label="${esc(f.name)} sections">${tabs.map((t) => `<a href="${esc(t.href)}"${t.k === here ? ' aria-current="page"' : ''}>${esc(t.label)}${t.n ? ` <span class="n">${t.n}</span>` : ''}</a>`).join('')}</nav>`;
 }
 
 // On the Overview: the lawyers by name, linking to the Lawyers page and to each lawyer's own page.
@@ -422,6 +433,10 @@ function lawyersTabHtml(f, lw, prov) {
   return `\n    <h1 class="pf-h1">Lawyers at ${esc(f.name)}</h1>\n    <p class="pf-lede">${lw.length} lawyers at ${esc(f.name)} in ${esc(f.city)}, ${esc(prov)}${areas.length ? `, a firm that practises ${esc(joinAnd(areas.map((t) => t.toLowerCase())))}` : ''}. Each entry shows the lawyer's title and, where the firm publishes it, the year they were called to the bar, their languages and their education.</p>\n    <ul class="lw-grid" style="list-style:none;padding:0">${cards}</ul>\n    <p class="pf-note">${lawyerNote(lw)}</p>`;
 }
 
+function articlesPageHtml(f, articles, prov) {
+  return `\n    <h1 class="pf-h1">Articles by ${esc(f.name)}</h1>\n    <p class="pf-lede">${articles.length} recent articles by ${esc(f.name)}, a firm in ${esc(f.city)}, ${esc(prov)}. Each shows the headline and a short preview the firm published; the full article is on ${esc(f.name)}'s own website.</p>\n    ${renderArticlesList({ firmName: f.name, articles })}\n    <p class="pf-note">The articles belong to ${esc(f.name)}. LawDB shows the headline and a short preview and links to the firm's own page. This is general information, not legal advice.</p>`;
+}
+
 function lawyerPageHtml(f, lw, l, prov) {
   const facts = lawyerFacts(l, prov).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
   const others = lw.filter((x) => x.slug !== l.slug).slice(0, 6).map((x) => `<li>${lawyerHasPage(x) ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(x.slug)}">${esc(x.name)}</a>` : `<span>${esc(x.name)}</span>`}</li>`).join('');
@@ -429,17 +444,18 @@ function lawyerPageHtml(f, lw, l, prov) {
   return `\n    <p class="lp-back"><a href="/firms/${esc(f.slug)}/lawyers">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="/firms/${esc(f.slug)}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>\n    <p class="pf-lede">${esc(lawyerLead(l, f, prov))}</p>\n    <dl class="lp-facts">${facts}</dl>\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">All ${lw.length} lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">${lawyerNote([l])}</p>`;
 }
 
-export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null, view = null }) {
+export function renderFirmPage({ firm: f, hours, images = [], posts = [], articles = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null, view = null }) {
   const prov = PROVINCES[f.province] || f.province;
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
   const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-default.jpg`;
   // Which page of the profile: the Overview, the Lawyers page, or one lawyer's page. null when that page has nothing to show (the route answers 404, never an empty page).
   const lw = lawyersOf(f);
-  const tab = view && view.tab === 'lawyers' ? 'lawyers' : view && view.tab === 'lawyer' ? 'lawyer' : 'overview';
+  const tabs = profileTabs(f, lw, articles);
+  const tab = view && view.tab === 'lawyers' ? 'lawyers' : view && view.tab === 'lawyer' ? 'lawyer' : view && view.tab === 'articles' ? 'articles' : 'overview';
   const lawyer = tab === 'lawyer' ? lw.find((x) => x.slug === view.lawyer) : null;
-  if ((tab === 'lawyers' && !lw.length) || (tab === 'lawyer' && !(lawyer && lawyerHasPage(lawyer)))) return null;
+  if ((tab === 'lawyers' && !lw.length) || (tab === 'lawyer' && !(lawyer && lawyerHasPage(lawyer))) || (tab === 'articles' && !articlesTabOn(f, articles))) return null;
   const base = `${origin}/firms/${f.slug}`;
-  const url = tab === 'overview' ? base : tab === 'lawyers' ? `${base}/lawyers` : `${base}/lawyers/${lawyer.slug}`;
+  const url = tab === 'overview' ? base : tab === 'lawyers' ? `${base}/lawyers` : tab === 'articles' ? `${base}/articles` : `${base}/lawyers/${lawyer.slug}`;
   const about = typeof f.about === 'string' ? f.about.trim() : '';
   // The search result shows about 155 characters: as many names as fit, then "and N more".
   const lawyersDesc = () => {
@@ -456,16 +472,24 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     const tries = [`${lawyerLead(lawyer, f, prov)} See the profile on LawDB.`, lawyerLead(lawyer, f, prov), `${lawyer.name}${lawyer.title ? `, ${lawyer.title}` : ''} at ${f.name} in ${f.city}, ${prov}.`, `${lawyer.name} at ${f.name} in ${f.city}, ${prov}.`];
     return tries.find((d) => d.length <= 160) || tries[3].slice(0, 160);
   };
-  const desc = tab === 'overview' ? metaFromAbout(about) || description(f) : tab === 'lawyers' ? lawyersDesc() : lawyerDesc();
+  // as many headlines as fit in a search result, then fewer
+  const articlesDesc = () => {
+    const where = `${f.name} in ${f.city}, ${PROVINCES[f.province] || f.province}`;
+    const cut = (t, n) => (t.length > n ? t.slice(0, n - 1).trimEnd() + '\u2026' : t);
+    const heads = articles.slice(0, 2).map((a) => cut(a.title, 55));
+    const tries = [`${articles.length} recent articles by ${where}: ${heads.join('; ')}. Previews on LawDB.`, `${articles.length} recent articles by ${where}: ${heads[0]}. Previews on LawDB.`, `Recent articles by ${where}, with previews, on LawDB.`];
+    return tries.find((d) => d.length <= 160) || tries[2].slice(0, 160);
+  };
+  const desc = tab === 'overview' ? metaFromAbout(about) || description(f) : tab === 'lawyers' ? lawyersDesc() : tab === 'articles' ? articlesDesc() : lawyerDesc();
   const rated = num(f.rating) > 0 && num(f.count) > 0;
-  const title = tab === 'overview' ? `${esc(f.name)} | ${esc(f.city)}, ${esc(f.province)} Lawyers | LawDB` : tab === 'lawyers' ? `${esc(f.name)} \u2013 Lawyers in ${esc(f.city)} | LawDB` : `${esc(lawyer.name)}${lawyer.title ? ` \u2013 ${esc(lawyer.title)}` : ''} at ${esc(f.name)} | LawDB`;
+  const title = tab === 'overview' ? `${esc(f.name)} | ${esc(f.city)}, ${esc(f.province)} Lawyers | LawDB` : tab === 'lawyers' ? `${esc(f.name)} \u2013 Lawyers in ${esc(f.city)} | LawDB` : tab === 'articles' ? `${esc(f.name)} \u2013 Articles from ${esc(f.city)} | LawDB` : `${esc(lawyer.name)}${lawyer.title ? ` \u2013 ${esc(lawyer.title)}` : ''} at ${esc(f.name)} | LawDB`;
   const website = /^https?:\/\/[^\s"'<>]+$/i.test(f.website || '') ? f.website : '';
   const dir = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(f.address || `${f.name} ${f.city}`).replace(/%20/g, '+')}`;
 
   const glance = cleanDetails(f.details);
   // The same trail as the visible breadcrumb (Canada, province, city when it has a page, the firm), so search engines can show it under the result.
   const ps = PROV_SLUG[f.province], cs = citySlug(f.city);
-  const trail = [['LawDB', `${origin}/`], ['Canada', `${origin}/find-lawyers`], ...(ps ? [[prov, `${origin}/${ps}/`]] : []), ...(ps && CITY_HUBS.has(`${ps}/${cs}`) ? [[f.city, `${origin}/${ps}/${cs}/`]] : []), [f.name, base], ...(tab !== 'overview' ? [['Lawyers', `${base}/lawyers`]] : []), ...(tab === 'lawyer' ? [[lawyer.name, url]] : [])];
+  const trail = [['LawDB', `${origin}/`], ['Canada', `${origin}/find-lawyers`], ...(ps ? [[prov, `${origin}/${ps}/`]] : []), ...(ps && CITY_HUBS.has(`${ps}/${cs}`) ? [[f.city, `${origin}/${ps}/${cs}/`]] : []), [f.name, base], ...(tab === 'lawyers' || tab === 'lawyer' ? [['Lawyers', `${base}/lawyers`]] : tab === 'articles' ? [['Articles', `${base}/articles`]] : []), ...(tab === 'lawyer' ? [[lawyer.name, url]] : [])];
   const crumbLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: trail.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })) };
   // No aggregateRating here on purpose: the rating on the page is Google's, collected on Google, and Google's structured data rules say ratings that are
   // marked up must come from the site itself (a business's own reviews of itself are not eligible either). The visible Google rating stays, named as Google's.
@@ -484,6 +508,12 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     ...(glance ? { ...(glance.founded ? { foundingDate: String(glance.founded) } : {}), ...(glance.languages ? { knowsLanguage: glance.languages } : {}), ...(glance.serving ? { areaServed: glance.serving } : {}) } : {}),
   };
 
+  // The Articles page is a list of the firm's articles (their LawDB story pages)
+  const collectionLd = tab === 'articles' ? {
+    '@context': 'https://schema.org', '@type': 'CollectionPage', name: `Articles by ${f.name}`, url,
+    about: { '@type': 'LegalService', name: f.name, url: base },
+    mainEntity: { '@type': 'ItemList', itemListElement: articles.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: `${origin}${a.storyHref}`, name: a.title })) },
+  } : null;
   const personLd = tab === 'lawyer' ? {
     '@context': 'https://schema.org', '@type': 'Person', name: lawyer.name, ...(lawyer.title ? { jobTitle: lawyer.title } : {}), url,
     worksFor: { '@type': 'LegalService', name: f.name, url: base },
@@ -535,7 +565,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
   const toks = { NAME: esc(f.name), SLUG: esc(f.slug), LAT: esc(f.lat), LNG: esc(f.lng) };
   const locHtml = locationHtml(f, { dir, withMap: !!(num(f.lat) && num(f.lng) && !f.approxCoords) });
   // The firm's own articles come after the profile, as on MSPdatabase.
-  const articlesHtml = renderFirmArticles({ firmName: f.name, posts });
+  const articlesHtml = renderFirmArticles({ firmName: f.name, posts, allHref: articlesTabOn(f, articles) ? `/firms/${f.slug}/articles` : '', total: articles.length });
   // The lead script is JavaScript, so the name goes in as a JS-safe string, not HTML.
   const jsName = String(f.name).replace(/[\\'"<>&\n\r]/g, ' ');
   const leadScript = fill(C.LEAD_SCRIPT, { SLUG: String(f.slug).replace(/[^a-z0-9-]/g, ''), NAME: jsName });
@@ -554,10 +584,10 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby
     `<meta property="og:image" content="${ogImage}">${customCover ? '' : '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'}`,
     `<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
     `<meta name="twitter:description" content="${esc(desc)}">\n<meta name="twitter:image" content="${ogImage}">`,
-    ...[tab === 'lawyer' ? personLd : ld, crumbLd].map((o) => `<script type="application/ld+json">\n${jsonForHtml(o)}\n</script>`),
-    C.STYLE + (tab === 'overview' ? PHOTO_CSS + GLANCE_CSS + OFFICES_CSS : '') + (lw.length ? TABS_CSS : '') + (tab === 'overview' && commentsHtml(f) ? COMMENTS_CSS : '') + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (tab === 'overview' && f.block && f.block.image ? BLOCK_CSS : '') + (tab === 'overview' && practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
+    ...[tab === 'lawyer' ? personLd : ld, ...(collectionLd ? [collectionLd] : []), crumbLd].map((o) => `<script type="application/ld+json">\n${jsonForHtml(o)}\n</script>`),
+    C.STYLE + (tab === 'overview' ? PHOTO_CSS + GLANCE_CSS + OFFICES_CSS : '') + (tabs.length > 1 ? TABS_CSS : '') + (tab === 'overview' && commentsHtml(f) ? COMMENTS_CSS : '') + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (tab === 'overview' && f.block && f.block.image ? BLOCK_CSS : '') + (tab === 'overview' && practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
-    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov, tab === 'overview' ? [] : tab === 'lawyers' ? [['Lawyers', null]] : [['Lawyers', `/firms/${f.slug}/lawyers`], [lawyer.name, null]]) + card + tabsHtml(f, lw, tab) + (tab === 'lawyers' ? lawyersTabHtml(f, lw, prov) : tab === 'lawyer' ? lawyerPageHtml(f, lw, lawyer, prov) : aboutHtml + practiceHtml(f, cards) + lawyersTeaser(f, lw) + commentsHtml(f) + overviewRest),
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov, tab === 'overview' ? [] : tab === 'lawyers' ? [['Lawyers', null]] : tab === 'articles' ? [['Articles', null]] : [['Lawyers', `/firms/${f.slug}/lawyers`], [lawyer.name, null]]) + card + tabsHtml(f, tabs, tab) + (tab === 'lawyers' ? lawyersTabHtml(f, lw, prov) : tab === 'articles' ? articlesPageHtml(f, articles, prov) : tab === 'lawyer' ? lawyerPageHtml(f, lw, lawyer, prov) : aboutHtml + practiceHtml(f, cards) + lawyersTeaser(f, lw) + commentsHtml(f) + overviewRest),
     tab === 'overview' && articlesHtml ? '\n    ' + articlesHtml : '',
     carousel(f, nearby),
     tab === 'overview' ? '\n\n    ' + leadScript : '',

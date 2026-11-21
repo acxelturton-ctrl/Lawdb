@@ -5,7 +5,7 @@ import { lawyersOf, lawyerHasPage, lawyerFacts, lawyerLead } from '../lib/lawyer
 import { cleanComments } from '../lib/comments.js';
 import { AVAILABILITY } from '../lib/profile-strength.js';
 import * as C from './firm-chunks.generated.js';
-import { renderFirmArticles, renderArticlesList } from './blog-cards.js';
+import { renderArticlesList } from './blog-cards.js';
 import { articlesTabOn } from '../lib/articles.js';
 import { profilesBox, hasLinkedIn } from './profiles.js';
 import { CITY_HUBS } from './city-hubs.generated.js';
@@ -399,7 +399,7 @@ function profileTabs(f, lw, articles) {
   return [
     { k: 'overview', label: 'Overview', href: base },
     ...(lw.length ? [{ k: 'lawyers', label: 'Lawyers', n: lw.length, href: `${base}/lawyers` }] : []),
-    ...(articlesTabOn(f, articles) ? [{ k: 'articles', label: 'Articles', n: articles.length, href: `${base}/articles` }] : []),
+    ...(articlesTabOn(articles) ? [{ k: 'articles', label: 'Articles', n: articles.length, href: `${base}/articles` }] : []),
   ];
 }
 function tabsHtml(f, tabs, tab) {
@@ -444,7 +444,7 @@ function lawyerPageHtml(f, lw, l, prov) {
   return `\n    <p class="lp-back"><a href="/firms/${esc(f.slug)}/lawyers">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="/firms/${esc(f.slug)}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>\n    <p class="pf-lede">${esc(lawyerLead(l, f, prov))}</p>\n    <dl class="lp-facts">${facts}</dl>\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">All ${lw.length} lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">${lawyerNote([l])}</p>`;
 }
 
-export function renderFirmPage({ firm: f, hours, images = [], posts = [], articles = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null, view = null }) {
+export function renderFirmPage({ firm: f, hours, images = [], articles = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null, view = null }) {
   const prov = PROVINCES[f.province] || f.province;
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
   const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-default.jpg`;
@@ -453,7 +453,7 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], articl
   const tabs = profileTabs(f, lw, articles);
   const tab = view && view.tab === 'lawyers' ? 'lawyers' : view && view.tab === 'lawyer' ? 'lawyer' : view && view.tab === 'articles' ? 'articles' : 'overview';
   const lawyer = tab === 'lawyer' ? lw.find((x) => x.slug === view.lawyer) : null;
-  if ((tab === 'lawyers' && !lw.length) || (tab === 'lawyer' && !(lawyer && lawyerHasPage(lawyer))) || (tab === 'articles' && !articlesTabOn(f, articles))) return null;
+  if ((tab === 'lawyers' && !lw.length) || (tab === 'lawyer' && !(lawyer && lawyerHasPage(lawyer))) || (tab === 'articles' && !articlesTabOn(articles))) return null;
   const base = `${origin}/firms/${f.slug}`;
   const url = tab === 'overview' ? base : tab === 'lawyers' ? `${base}/lawyers` : tab === 'articles' ? `${base}/articles` : `${base}/lawyers/${lawyer.slug}`;
   const about = typeof f.about === 'string' ? f.about.trim() : '';
@@ -565,8 +565,6 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], articl
 
   const toks = { NAME: esc(f.name), SLUG: esc(f.slug), LAT: esc(f.lat), LNG: esc(f.lng) };
   const locHtml = locationHtml(f, { dir, withMap: !!(num(f.lat) && num(f.lng) && !f.approxCoords) });
-  // The firm's own articles come after the profile, as on MSPdatabase.
-  const articlesHtml = renderFirmArticles({ firmName: f.name, posts, allHref: articlesTabOn(f, articles) ? `/firms/${f.slug}/articles` : '', total: articles.length });
   // The lead script is JavaScript, so the name goes in as a JS-safe string, not HTML.
   const jsName = String(f.name).replace(/[\\'"<>&\n\r]/g, ' ');
   const leadScript = fill(C.LEAD_SCRIPT, { SLUG: String(f.slug).replace(/[^a-z0-9-]/g, ''), NAME: jsName });
@@ -589,7 +587,6 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], articl
     C.STYLE + (tab === 'overview' ? PHOTO_CSS + GLANCE_CSS + OFFICES_CSS : '') + (tabs.length > 1 ? TABS_CSS : '') + (tab === 'overview' && commentsHtml(f) ? COMMENTS_CSS : '') + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (tab === 'overview' && f.block && f.block.image ? BLOCK_CSS : '') + (tab === 'overview' && practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
     '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov, tab === 'overview' ? [] : tab === 'lawyers' ? [['Lawyers', null]] : tab === 'articles' ? [['Articles', null]] : [['Lawyers', `/firms/${f.slug}/lawyers`], [lawyer.name, null]]) + card + tabsHtml(f, tabs, tab) + (tab === 'lawyers' ? lawyersTabHtml(f, lw, prov) : tab === 'articles' ? articlesPageHtml(f, articles, prov) : tab === 'lawyer' ? lawyerPageHtml(f, lw, lawyer, prov) : aboutHtml + practiceHtml(f, cards) + lawyersTeaser(f, lw) + commentsHtml(f) + overviewRest),
-    tab === 'overview' && articlesHtml ? '\n    ' + articlesHtml : '',
     carousel(f, nearby),
     tab === 'overview' ? '\n\n    ' + leadScript : '',
     tab === 'overview' ? '\n    ' + CONTACT_JS : '',

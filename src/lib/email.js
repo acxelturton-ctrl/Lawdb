@@ -167,7 +167,7 @@ const FEATURED_GETS = [
   'A page for every office: each office gets its own page, in its own city and on the map, and the one plan covers them all',
   'An analytics dashboard: page views, visitors, which buttons were clicked, where visitors came from, their devices and regions, with trends and a spreadsheet export',
   'An enquiries dashboard with filters, private notes, one-tap reply and a spreadsheet export',
-  'A Featured badge on your stories in LawDB News, a LawDB page search engines can find for each article, an Articles tab on your profile once you have three, and higher placement in the home page news strip',
+  'A Featured badge on your stories in LawDB News, a LawDB page search engines can find for each article, an Articles page on your profile that search engines can find too (once you have three articles), and higher placement in the home page news strip',
 ];
 
 // To the admins when a firm asks to be verified.

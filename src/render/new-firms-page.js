@@ -4,29 +4,29 @@ import * as C from './firm-chunks.generated.js';
 import { esc, PROVINCES } from './firm-page.js';
 
 const CSS = `<style>
-.nf-band{max-width:1120px;margin:0 auto;padding:clamp(28px,5vw,56px) clamp(16px,4vw,40px) 10px;box-sizing:border-box;color:#142434}
+.nf-band{max-width:1120px;margin:0 auto;padding:clamp(28px,5vw,56px) clamp(16px,4vw,40px) 10px;box-sizing:border-box;color:#2a2a2a}
 .nf-eyebrow{margin:0 0 10px;font:700 12px/1 'Inter',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#c9a050}
-.nf-band h1{font-family:'Source Serif 4',serif;font-size:clamp(32px,6vw,52px);line-height:1.1;margin:0 0 12px;color:#142434}
-.nf-intro{font-size:16px;line-height:1.6;color:#586170;max-width:44em;margin:0}
+.nf-band h1{font-family:'Source Serif 4',serif;font-size:clamp(32px,6vw,52px);line-height:1.1;margin:0 0 12px;color:#2a2a2a}
+.nf-intro{font-size:16px;line-height:1.6;color:#5f5f5f;max-width:44em;margin:0}
 .nf-main{max-width:1120px;margin:0 auto;padding:clamp(18px,3vw,30px) clamp(16px,4vw,40px) 40px;box-sizing:border-box}
-.nf-count{font-size:13px;color:#586170;margin:0 0 18px}
+.nf-count{font-size:13px;color:#5f5f5f;margin:0 0 18px}
 .nf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px}
-.nf-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid #e3dfd3;border-radius:18px;overflow:hidden;text-decoration:none;color:#142434;box-shadow:0 2px 6px #e3dfd3;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
-.nf-card:hover{transform:translateY(-3px);border-color:#c9a050;box-shadow:0 14px 30px rgba(20,36,52,.12)}
-.nf-cover{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#edeae1}
+.nf-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid #ece6d3;border-radius:18px;overflow:hidden;text-decoration:none;color:#2a2a2a;box-shadow:0 2px 6px #ece6d3;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.nf-card:hover{transform:translateY(-3px);border-color:#c9a050;box-shadow:0 14px 30px rgba(42,42,42,.12)}
+.nf-cover{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#f7f1e0}
 .nf-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.nf-feat{position:absolute;top:12px;right:12px;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;background:#c9a050;color:#142434;border-radius:999px;padding:6px 10px}
+.nf-feat{position:absolute;top:12px;right:12px;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;background:#c9a050;color:#2a2a2a;border-radius:999px;padding:6px 10px}
 .nf-body{display:flex;flex:1;flex-direction:column;gap:6px;padding:0 20px 18px}
-.nf-logo{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:76px;height:76px;margin:-38px 0 8px;padding:10px;background:#fff;border:1px solid #e3dfd3;border-radius:18px;box-shadow:0 4px 12px #e3dfd3}
+.nf-logo{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:76px;height:76px;margin:-38px 0 8px;padding:10px;background:#fff;border:1px solid #ece6d3;border-radius:18px;box-shadow:0 4px 12px #ece6d3}
 .nf-logo img{display:block;max-width:100%;max-height:100%;object-fit:contain}
-.nf-name{font-family:'Source Serif 4',serif;font-size:20px;line-height:1.25;font-weight:700;color:#142434}
-.nf-place{font-size:13.5px;color:#586170}
+.nf-name{font-family:'Source Serif 4',serif;font-size:20px;line-height:1.25;font-weight:700;color:#2a2a2a}
+.nf-place{font-size:13.5px;color:#5f5f5f}
 .nf-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-.nf-tags i{font-style:normal;font-size:12px;color:#142434;background:#f4ecd8;border-radius:999px;padding:3px 9px}
-.nf-go{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:14px;font:700 14px/1 'Inter',sans-serif;color:#142434;border-top:1px solid #edeae1}
+.nf-tags i{font-style:normal;font-size:12px;color:#2a2a2a;background:#f4ecd8;border-radius:999px;padding:3px 9px}
+.nf-go{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:14px;font:700 14px/1 'Inter',sans-serif;color:#2a2a2a;border-top:1px solid #f7f1e0}
 .nf-go svg{flex:none;color:#c9a050;transition:transform .2s ease}
 .nf-card:hover .nf-go svg{transform:translateX(3px)}
-.nf-empty{font-size:15px;color:#586170}
+.nf-empty{font-size:15px;color:#5f5f5f}
 </style>`;
 
 const POS = /^(?:center|\d{1,3}%)(?: (?:center|top|bottom|\d{1,3}%))?$/;

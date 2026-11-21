@@ -12,14 +12,14 @@ const LOCK = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none"
 const CSS = '<style>.li-book-row{margin:10px 0 0;max-width:470px}' +
   '.li-book-row .li-btn{width:100%;flex:none;gap:8px;cursor:pointer;font-family:inherit}' +
   '.li-book-row .ic{width:19px;height:19px;flex:none}' +
-  '.li-book{background:#f4ecd8;border:1.5px solid #c9a050;color:#2b3a4c}' +
+  '.li-book{background:#f4ecd8;border:1.5px solid #c9a050;color:#3a3a3a}' +
   '.li-book .ic{color:#e2bd6a}' +
-  '.li-book-off .ic{color:#8a919b}' +
-  '.li-book:hover{background:#e6d4a4;color:#2b3a4c}' +
-  '.li-book-off{background:#edeae1;border:1.5px dashed #e3dfd3;color:#8a919b}' +
-  '.li-book-off:hover{background:#edeae1;color:#586170;transform:none;box-shadow:none;filter:none}' +
-  '.li-book-tag{margin-left:2px;padding:1px 8px;border-radius:999px;background:#f4ecd8;border:1px solid #c9a050;color:#2b3a4c;font:700 11px/1.5 Inter,system-ui,sans-serif;font-style:normal;letter-spacing:.02em}' +
-  '.lw-book-note{margin:8px 0 0;max-width:470px;font:500 13.5px/1.5 Inter,system-ui,sans-serif;color:#586170}' +
+  '.li-book-off .ic{color:#8c8c8c}' +
+  '.li-book:hover{background:#e6d4a4;color:#3a3a3a}' +
+  '.li-book-off{background:#f7f1e0;border:1.5px dashed #ece6d3;color:#8c8c8c}' +
+  '.li-book-off:hover{background:#f7f1e0;color:#5f5f5f;transform:none;box-shadow:none;filter:none}' +
+  '.li-book-tag{margin-left:2px;padding:1px 8px;border-radius:999px;background:#f4ecd8;border:1px solid #c9a050;color:#3a3a3a;font:700 11px/1.5 Inter,system-ui,sans-serif;font-style:normal;letter-spacing:.02em}' +
+  '.lw-book-note{margin:8px 0 0;max-width:470px;font:500 13.5px/1.5 Inter,system-ui,sans-serif;color:#5f5f5f}' +
   '</style>';
 
 // The button row for one firm. `url` is whatever is stored; it only counts when the firm is `featured` and the link is valid.

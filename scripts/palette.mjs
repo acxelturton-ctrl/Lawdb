@@ -1,23 +1,24 @@
-// The site's colours: navy, gold and cream (plus white and two greys), taken from the home page design. Every colour in the site's CSS, inline
+// The site's colours: charcoal, gold and ivory (plus white and three greys), the same palette as lawdb.ai ("Palette A"). Every colour in the site's CSS, inline
 // styles, SVG attributes and scripts has to be one of these (scripts/test-palette.mjs fails otherwise); scripts/recolor-site.mjs maps any other
 // colour to the nearest of them, by hue family and lightness, so it is safe to run again after pasting in something from elsewhere.
-//   gold on a light page is the logo's lighter gold (goldLight): text, links and fills alike. It is low contrast on cream and white (about 1.6:1 and 1.8:1),
-//   which is the owner's choice; scripts/test-palette.mjs reports it rather than failing. Text on a gold button is navy.
+//   gold text on a light page is the deep gold (goldDeep); the logo's lighter gold (goldLight) is for numbers and fills, and for gold on a dark panel.
+//   Text on a gold button is charcoal (white on this gold is only 2.4:1).
 export const PALETTE = {
-  ink: '#142434',       // text and headings (navy)
-  ink2: '#2b3a4c',      // a lighter navy: avatars, lines on dark panels, dark chips
-  panel: '#1b242d',     // dark panels: footer, menu drawer, the Kind of lawyer + City bar
+  ink: '#2a2a2a',       // text and headings (charcoal)
+  ink2: '#3a3a3a',      // a lighter charcoal: avatars, lines on dark panels, dark chips
+  panel: '#2a2a2a',     // dark panels: footer, menu drawer, the Kind of lawyer + City bar (the same charcoal as the text)
   gold: '#c9a050',      // buttons, fills, icons, borders
-  goldLight: '#e2bd6a', // the logo's lighter gold: text, links and numbers, and gold on a dark panel
+  goldLight: '#e2bd6a', // the logo's lighter gold: numbers and fills, and gold on a dark panel
+  goldDeep: '#8a6a1f',  // gold text and links on a light page (5:1 on ivory)
   goldEdge: '#e6d4a4',  // a gold-tinted border
   goldTint: '#f4ecd8',  // a gold-tinted background (hover, chips, notes)
-  cream: '#f5f3ec',     // the page
-  cream2: '#edeae1',    // a band on the page
-  line: '#e3dfd3',      // borders and dividers
+  cream: '#fffdf8',     // the page (ivory)
+  cream2: '#f7f1e0',    // a band on the page
+  line: '#ece6d3',      // borders and dividers
   white: '#ffffff',
-  slate: '#586170',     // secondary text
-  slate2: '#8a919b',    // placeholders and disabled text on a light page
-  slate3: '#b4bac4',    // muted text on a dark panel (9.9:1 on the panel)
+  slate: '#5f5f5f',     // secondary text
+  slate2: '#8c8c8c',    // placeholders and disabled text on a light page
+  slate3: '#bdbdbd',    // muted text on a dark panel (7.6:1 on the panel)
 };
 export const PALETTE_HEX = new Set(Object.values(PALETTE));
 
@@ -66,7 +67,7 @@ export function nearest(rgb, { semantic = false } = {}) {
   if (l >= 0.7) return warm && s >= 0.6 ? P.goldLight : P.line;
   if (l >= 0.55) return (warm || red) && s >= 0.45 ? P.gold : P.slate2;
   if (l >= 0.45) return warm || red ? P.gold : neutral ? P.slate2 : P.slate;
-  if (l >= 0.3) return warm || red ? P.goldLight : P.slate;
+  if (l >= 0.3) return warm || red ? P.goldDeep : P.slate;
   if (l >= 0.165) return neutral ? (l >= 0.17 ? P.ink2 : P.ink) : P.ink2;
   if (l >= 0.12) return neutral ? P.ink : P.ink2;
   return neutral ? P.panel : P.ink;

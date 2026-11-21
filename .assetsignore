@@ -13,3 +13,5 @@ src
 scripts
 migrations
 db
+data/firm-lawyers.json
+data/lawyers-candidates.json

@@ -34,6 +34,22 @@ T('Steve and Dave are great. Highly recommended lawyer group.', '(junk)');
 T('Our TDS construction lawyer really steps in to help guide us.', '(junk)');
 T('Congratulations to our newly appointed lawyer', '(junk)');
 T('Chief of Snacks', '');
+T('Lawyer Spotlight', '');
+T('Future Lawyer Canada', '');
+T('Customized will drafted by a lawyer', '');
+T('Jagsharan Mahal, an esteemed lawyer at', '');
+T('Director of HR', '');
+T('Founder & CEO', '');
+T('Senior Immigration Lawyer, Compliance Officer', 'Senior Immigration Lawyer');
+T('Associate, In Loving Memory', '(dropped)');
+T('Partner (Not in active practice)', '(dropped)');
+T('Lawyer (No longer practices in Ontario)', '(dropped)');
+T('Associate, currently on leave', '(dropped)');
+T('Former Partner', '(dropped)');
+T('Avocate \u00e0 la retraite', '(dropped)');
+T('Avocate s\u00c3\u00a9nior', 'Avocate s\u00e9nior');
+T('Real Estate Attorney\u200b', 'Real Estate Attorney');
+
 
 const base = { name: 'Jane Q. Doe', title: 'Partner', callYear: 2005, languages: ['English', 'French'], linkedin: 'https://www.linkedin.com/in/jane-doe-123/?trk=x', site: 'https://firm.example/jane', photo: 'https://firm.example/jane.jpg' };
 const one = (over) => cleanLawyers([{ ...base, ...over }])[0];
@@ -45,6 +61,8 @@ ok(cleanLawyers([base, { ...base }, { ...base, name: 'Jane  Q.  Doe' }]).length 
 ok(!one({ linkedin: 'https://evil.example/in/x' }).linkedin && !one({ linkedin: 'javascript:alert(1)' }).linkedin && !one({ site: 'http://firm.example/x' }).site, 'a LinkedIn address must be linkedin.com/in or /pub, and the lawyer\'s page https');
 ok(!('callYear' in one({ callYear: 1899 })) && !('callYear' in one({ callYear: 2999 })) && !('title' in one({ title: 'Best Lawyer in Canada' })), 'an impossible year and a title with an advertising claim are left out');
 ok(cleanLawyers([{ ...base, title: 'Retired Partner' }]).length === 0, 'a retired lawyer is not listed');
+ok(one({ name: 'Erin Levitsky', title: 'Erin Levitsky / Associate' }).title === 'Associate' && one({ name: 'Elizabeth Long', title: 'Elizabeth Long \\ Partner' }).title === 'Partner', 'a title that repeats the lawyer\'s own name keeps only the role');
+ok(one({ education: ['LL.B, University of Windsor 1985 \u200b B'] }).education[0] === 'LL.B, University of Windsor 1985', 'invisible characters and a stray letter at the end of a school are removed');
 ok(cleanLawyers([{ name: 'Andrea Mannell', title: 'Congratulations to our newly appointed lawyer' }]).length === 0 && cleanLawyers([{ ...base, name: 'Andrea Mannell', title: 'Congratulations to our newly appointed lawyer' }]).length === 1, 'a sentence as a title means a news line was read: the person stays only with other facts on record');
 ok(cleanLawyers(Array.from({ length: 300 }, (_, i) => ({ ...base, name: `Person ${String.fromCharCode(65 + (i % 26))}${String.fromCharCode(97 + Math.floor(i / 26))}son` }))).length <= 120, 'no more than 120 lawyers per firm');
 ok(lawyerSlug('Renée O’Brien-Smith') === 'renee-o-brien-smith', 'slugs are plain lower case');

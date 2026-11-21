@@ -5,7 +5,7 @@
 // description and canonical for every page, valid breadcrumb and person markup, and every address in the sitemap.
 import { readFileSync, readdirSync } from 'node:fs';
 import { renderFirmPage } from '../src/render/firm-page.js';
-import { cleanLawyers, cleanTitle, normalizeEducation, lawyersOf, lawyerHasPage, lawyerSlug, MIN_FIRM_LAWYERS } from '../src/lib/lawyers.js';
+import { cleanLawyers, cleanTitle, normalizeEducation, lawyersOf, lawyerHasPage, lawyerSlug, strongLawyerProfile, MIN_FIRM_LAWYERS } from '../src/lib/lawyers.js';
 import { firmSitemap } from '../src/routes/firm-sitemap.js';
 import { firmPage } from '../src/routes/firm-page.js';
 
@@ -199,6 +199,20 @@ const env = { ASSETS: { fetch: async () => new Response('', { status: 404 }) }, 
 const slash = await firmPage({ request: new Request('https://lawdb.ca/firms/a-firm/lawyers/'), env });
 const slash2 = await firmPage({ request: new Request('https://lawdb.ca/firms/a-firm/lawyers/ann-lee/?x=1'), env });
 ok(slash.status === 301 && slash.headers.get('location') === '/firms/a-firm/lawyers' && slash2.status === 301 && slash2.headers.get('location') === '/firms/a-firm/lawyers/ann-lee?x=1', 'a trailing slash on the new pages goes to the one address (301)');
+
+// ---- a really good lawyer profile (the bar for the home page) ----
+{
+  const person = (name, extra = {}) => ({ name, title: 'Associate', ...extra });
+  const four = [person('Ann Lee', { callYear: 2005 }), person('Bob Ray', { callYear: 2011 }), person('Cy Dunn'), person('Di Fox')];
+  ok(strongLawyerProfile({ lawyers: four }), 'a firm with 4 titled lawyers, two of them with a year called, has a really good lawyer profile');
+  ok(!strongLawyerProfile({ lawyers: four.slice(0, 2) }) && !strongLawyerProfile({}) && !strongLawyerProfile(null), 'two lawyers, none and no firm are not a really good profile');
+  ok(!strongLawyerProfile({ lawyers: four, lawyersOff: true }), 'a firm that has switched its lawyers off is not');
+  ok(!strongLawyerProfile({ lawyers: four.map((l) => ({ name: l.name, title: l.title })) }), 'a bare list of titled names, with no fact on any lawyer, is not');
+  ok(!strongLawyerProfile({ lawyers: four.map((l) => ({ name: l.name, callYear: l.callYear || 2000 })) }), 'lawyers with facts but no titles are not');
+  ok(strongLawyerProfile({ lawyers: [...four.slice(0, 2), person('Cy Dunn'), { name: 'Ed Gale', callYear: 2000 }] }), 'one untitled lawyer in four still passes (two thirds are titled)');
+  ok(!strongLawyerProfile({ lawyers: [four[0], four[1], { name: 'Cy Dunn' }, { name: 'Di Fox' }] }), 'two untitled lawyers in four does not (under two thirds are titled)');
+  ok(!strongLawyerProfile({ lawyers: [person('Ann Lee', { callYear: 2005 }), person('Bob Ray', { callYear: 2011 })] }), 'two lawyers is not enough, even when both have facts');
+}
 
 console.log(bad ? `\n${bad} check(s) failed` : '\nall lawyer checks passed');
 process.exit(bad ? 1 : 0);

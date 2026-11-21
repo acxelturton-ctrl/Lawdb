@@ -1,4 +1,5 @@
-// The firm cards on the home page: the best-rated firms that have a cover photo and their own logo, listed in data/home-firms.json
+// The firm cards on the home page: the best-rated firms that have a cover photo, their own logo and a really good lawyer profile (a Lawyers tab listing three
+// or more lawyers, most with a title and at least two with facts of their own: strongLawyerProfile in src/lib/lawyers.js), listed in data/home-firms.json
 // ({ "firms": [slug, ...] }, in the order they are shown). The cards go between <!--more-firms--> and <!--/more-firms--> in the page.
 //   node scripts/build-home-firms.mjs                     writes the cards into index.html
 //   node scripts/build-home-firms.mjs --file=concept-a.html    the same, for another page (a concept preview)
@@ -6,11 +7,13 @@
 //   node scripts/build-home-firms.mjs --pool              writes src/render/home-pool.generated.js: every firm that qualifies (images checked), the pool the
 //                                                         Worker draws each day's cards from (src/routes/home-firms.js). Run it after adding firms or pictures.
 //   node scripts/build-home-firms.mjs --suggest           prints the best spread of firms that qualify (nothing is written): a Google rating of
-//                                                         4.8 or more from at least 50 reviews, a cover photo, its own logo, a practice area; ranked
-//                                                         by rating weighted by number of reviews; at most 2 per city, 3 per practice area and 4 per province
+//                                                         4.8 or more from at least 50 reviews, a cover photo, its own logo, a practice area and a really good
+//                                                         lawyer profile; ranked by rating weighted by number of reviews; at most 2 per city, 3 per practice area
+//                                                         and 4 per province, and when too few firms are left to keep those limits the best of the rest fill up
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { PROVINCES } from '../src/render/firm-page.js';
 import { homeFirmCard } from '../src/render/home-cards.js';
+import { strongLawyerProfile } from '../src/lib/lawyers.js';
 
 const CHECK = process.argv.includes('--check');
 const SUGGEST = process.argv.includes('--suggest');
@@ -22,6 +25,9 @@ const firms = new Map();
 for (const f of JSON.parse(readFileSync('firms_data.json', 'utf8'))) firms.set(f.slug, f);
 for (const file of readdirSync('data').filter((x) => /^firms-batch-\d+\.json$/.test(x)).sort()) for (const f of JSON.parse(readFileSync(`data/${file}`, 'utf8'))) firms.set(f.slug, f);
 
+// the lawyers each firm's Lawyers tab shows come from data/firm-lawyers.json (scripts/apply-firm-lawyers.mjs puts them in the database)
+const lawyersBySlug = existsSync('data/firm-lawyers.json') ? JSON.parse(readFileSync('data/firm-lawyers.json', 'utf8')) : {};
+const goodLawyers = (f) => !!f && strongLawyerProfile({ lawyers: lawyersBySlug[f.slug] });
 const qualifies = (f) => !!f && !f.featured && f.type === 'logo' && !!f.src && existsSync(f.src) && !!f.heroImage && existsSync(f.heroImage)
   && f.rating >= MIN_RATING && f.count >= MIN_REVIEWS && (f.tags || []).length > 0;
 const score = (f) => (f.count * f.rating + 50 * 4.5) / (f.count + 50);
@@ -38,7 +44,7 @@ if (POOL) { writeFileSync(POOL_FILE, poolModule); console.log(`${POOL_FILE}: ${p
 if (CHECK && (!existsSync(POOL_FILE) || readFileSync(POOL_FILE, 'utf8') !== poolModule)) { console.error(`${POOL_FILE} is out of date: run node scripts/build-home-firms.mjs --pool`); process.exit(1); }
 
 if (SUGGEST) {
-  const pool = [...firms.values()].filter(qualifies).sort((a, b) => score(b) - score(a) || b.count - a.count);
+  const pool = [...firms.values()].filter((f) => qualifies(f) && goodLawyers(f)).sort((a, b) => score(b) - score(a) || b.count - a.count);
   const city = {}, kind = {}, prov = {}, out = [];
   for (const f of pool) {
     const c = `${f.city}|${f.province}`, k = (f.tags || [])[0] || '', p = f.province;
@@ -46,6 +52,7 @@ if (SUGGEST) {
     city[c] = (city[c] || 0) + 1; kind[k] = (kind[k] || 0) + 1; prov[p] = (prov[p] || 0) + 1; out.push(f);
     if (out.length >= SHOWN) break;
   }
+  for (const f of pool) { if (out.length >= SHOWN) break; if (!out.includes(f)) out.push(f); } // too few firms to keep every limit: the best of the rest fill up
   console.log(`${pool.length} firms qualify; the best spread of ${SHOWN}:`);
   for (const f of out) console.log(`  "${f.slug}",  // ${f.rating} from ${f.count}, ${f.city} ${f.province}, ${(f.tags || []).slice(0, 2).join(' / ')}`);
   process.exit(0);
@@ -56,6 +63,7 @@ const seen = new Set();
 for (const slug of list) {
   const f = firms.get(slug);
   if (!qualifies(f)) throw new Error(`${slug}: does not qualify (needs a rating of ${MIN_RATING}+ from ${MIN_REVIEWS}+ reviews, a cover photo, its own logo, a practice area, not Featured)`);
+  if (!goodLawyers(f)) throw new Error(`${slug}: does not have a really good lawyer profile (its Lawyers tab needs 3+ lawyers, most with a title and 2+ with facts of their own)`);
   if (seen.has(slug)) throw new Error(`${slug}: listed twice`);
   seen.add(slug);
 }

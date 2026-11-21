@@ -148,6 +148,19 @@ export function lawyerHasPage(l) {
   return !!(l && l.title && [l.callYear, l.education, l.languages, l.linkedin].filter(Boolean).length >= MIN_PAGE_FACTS);
 }
 
+// A "really good" lawyer profile, for putting a firm on the home page: the Lawyers tab lists three or more lawyers, at least two thirds of them with a clear
+// title, and at least two of them with a fact of their own (year called, school, language or LinkedIn), so a visitor who opens the tab finds a real team page and
+// not a bare list of names. A firm with no Lawyers tab at all (fewer than two lawyers, or lawyersOff) never counts.
+export const STRONG_MIN_LAWYERS = 3;
+export const STRONG_MIN_WITH_FACTS = 2;
+export function strongLawyerProfile(firm) {
+  const l = lawyersOf(firm);
+  if (l.length < STRONG_MIN_LAWYERS) return false;
+  const titled = l.filter((x) => x.title).length;
+  const withFacts = l.filter((x) => [x.callYear, x.education, x.languages, x.linkedin].some(Boolean)).length;
+  return titled * 3 >= l.length * 2 && withFacts >= STRONG_MIN_WITH_FACTS;
+}
+
 export function lawyerFacts(l, province) {
   const out = [];
   if (l.title) out.push(['Title', l.title]);

@@ -1,5 +1,5 @@
 /* LawDB animation blocks. Everything is scoped under .lwa so it cannot touch other page styles. */
-.lwa{--c:#2a2a2a;--c2:#3a3a3a;--g:#c9a050;--gd:#8a6a1f;--cr:#fffdf8;--ln:#ece6d3;--sf:#5f5f5f;--dk:#2a2a2a;--dkln:#3a3a3a;--mu:#8c8c8c;
+.lwa{--c:#2a2a2a;--c2:#3a3a3a;--g:#c9a050;--gd:#c9a050;--cr:#fffdf8;--ln:#ece6d3;--sf:#5f5f5f;--dk:#2a2a2a;--dkln:#3a3a3a;--mu:#8c8c8c;
  font-family:'Inter',system-ui,sans-serif;color:var(--c);display:grid;gap:14px;max-width:820px;margin-inline:auto;text-align:left}
 .lwa *{box-sizing:border-box}
 .lwa-stage{position:relative;width:100%;aspect-ratio:16/11;border-radius:14px;overflow:hidden;border:1px solid var(--ln);container-type:inline-size;background:var(--cr)}

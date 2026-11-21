@@ -1,8 +1,8 @@
 // The palette (scripts/palette.mjs) has to stay readable: the pairs the site actually uses must meet WCAG contrast (4.5:1 for text), and no colour may
-// be listed twice. Gold text on a light page is the logo's lighter gold, which is under 4.5:1 on cream and white; that is the owner's choice, so
+// be listed twice. Gold text on a light page is the gold (there is no brown), which is under 4.5:1 on cream and white; that is the owner's choice, so
 // those pairs are printed as NOTE lines with their ratio instead of failing. That every colour in the site IS one of these is checked by
 // scripts/recolor-site.mjs --check.
-import { PALETTE } from './palette.mjs';
+import { PALETTE, parseColor, hsl } from './palette.mjs';
 
 let bad = 0;
 const ok = (c, label) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${label}`); if (!c) bad++; };
@@ -16,17 +16,22 @@ const P = PALETTE;
 const hexes = Object.values(P);
 // the dark panel is deliberately the same charcoal as the text (as on lawdb.ai); every other colour is listed once
 const { panel, ...others } = P;
-ok(new Set(Object.values(others)).size === Object.keys(others).length && panel === P.ink && hexes.length === 15, `${hexes.length} palette entries, 14 different colours`);
+ok(new Set(Object.values(others)).size === Object.keys(others).length && panel === P.ink && hexes.length === 14, `${hexes.length} palette entries, 13 different colours`);
 for (const [fg, bg, why] of [
   ['ink', 'cream', 'text on the page'], ['ink', 'white', 'text on a card'], ['slate', 'cream', 'secondary text on the page'], ['slate', 'white', 'secondary text on a card'],
   ['ink', 'gold', 'text on a gold button'], ['white', 'ink', 'white on charcoal'], ['white', 'panel', 'white on a dark panel'], ['white', 'ink2', 'white on a monogram'],
   ['goldLight', 'panel', 'gold on a dark panel'], ['slate3', 'panel', 'muted text on a dark panel'], ['slate3', 'ink', 'muted text on charcoal'],
-  ['ink', 'goldLight', 'charcoal numbers on a gold map cluster'], ['goldDeep', 'cream', 'gold text on the page'], ['goldDeep', 'white', 'gold text on a card'],
+  ['ink', 'goldLight', 'charcoal numbers on a gold map cluster'],
 ]) ok(ratio(P[fg], P[bg]) >= 4.5, `${why}: ${fg} on ${bg} is ${ratio(P[fg], P[bg]).toFixed(1)}:1 (4.5 needed)`);
 for (const [fg, bg, why] of [
-  ['goldLight', 'cream', 'gold text on the page'], ['goldLight', 'white', 'gold text on a card'], ['goldLight', 'goldTint', 'gold text on a gold tint'], ['goldLight', 'cream2', 'gold numbers on the band'],
-  ['goldDeep', 'goldTint', 'deep gold chip text on a gold tint'], ['goldDeep', 'cream2', 'deep gold text on a band'],
+  ['gold', 'cream', 'gold text on the page'], ['gold', 'white', 'gold text on a card'], ['gold', 'goldTint', 'gold text on a gold tint'], ['gold', 'cream2', 'gold text on a band'],
+  ['goldLight', 'cream', 'light gold text on the page'], ['goldLight', 'white', 'light gold text on a card'], ['goldLight', 'goldTint', 'light gold text on a gold tint'], ['goldLight', 'cream2', 'gold numbers on the band'],
 ]) console.log(`NOTE  ${why}: ${fg} on ${bg} is ${ratio(P[fg], P[bg]).toFixed(1)}:1 (accepted: the logo's gold, see scripts/palette.mjs)`);
+// the owner never wants to see brown on the site again: no warm colour in the palette may be darker than the gold
+for (const [name, hex] of Object.entries(P)) {
+  const { h, s, l } = hsl(parseColor(hex));
+  if (h >= 15 && h < 65 && s >= 0.3) ok(l >= 0.5, `${name} ${hex} is not a brown (a gold, lightness ${(l * 100).toFixed(0)}%, at least 50%)`);
+}
 // white on the gold fill is the one thing that must never be used
 ok(ratio(P.white, P.gold) < 3, `white on gold is only ${ratio(P.white, P.gold).toFixed(1)}:1, so buttons use charcoal text (scripts/recolor-site.mjs fixes any white-on-gold)`);
 

@@ -563,7 +563,7 @@
     map.addSource('firms-feat', { type: 'geojson', data: empty });
     map.addSource('firm-sel', { type: 'geojson', data: empty });
     map.addSource('me', { type: 'geojson', data: empty });
-    var IM = { 'gm-pin': ['#b8892f', '#ffffff', 1, false], 'gm-pin-gold': ['#d9b35a', '#ffffff', 1.12, true], 'gm-pin-sel': ['#8a6a1f', '#ffffff', 1.35, false, '#f2d98f'], 'gm-pin-sel-gold': ['#c9a050', '#8a6a1f', 1.5, true] };
+    var IM = { 'gm-pin': ['#b8892f', '#ffffff', 1, false], 'gm-pin-gold': ['#d9b35a', '#ffffff', 1.12, true], 'gm-pin-sel': ['#c9a050', '#ffffff', 1.35, false, '#f2d98f'], 'gm-pin-sel-gold': ['#c9a050', '#c9a050', 1.5, true] };
     Object.keys(IM).forEach(function(k){ if(!map.hasImage(k)) map.addImage(k, pinImage(IM[k][0], IM[k][1], IM[k][2], IM[k][3], IM[k][4]), { pixelRatio: 2 }); });
     var font = pickFonts(), tf = font.bold || font.any;
     var size = ['interpolate', ['linear'], ['zoom'], 8, 0.55, 13, 0.8];

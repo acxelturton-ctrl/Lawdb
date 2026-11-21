@@ -1,15 +1,15 @@
 // The site's colours: charcoal, gold and ivory (plus white and three greys), the same palette as lawdb.ai ("Palette A"). Every colour in the site's CSS, inline
 // styles, SVG attributes and scripts has to be one of these (scripts/test-palette.mjs fails otherwise); scripts/recolor-site.mjs maps any other
 // colour to the nearest of them, by hue family and lightness, so it is safe to run again after pasting in something from elsewhere.
-//   gold text on a light page is the deep gold (goldDeep); the logo's lighter gold (goldLight) is for numbers and fills, and for gold on a dark panel.
-//   Text on a gold button is charcoal (white on this gold is only 2.4:1).
+//   There is no brown on this site: gold text, links, buttons and lines on a light page are all the gold (#c9a050), never a darker, browner gold. The owner does not
+//   want to see brown again, so scripts/test-palette.mjs fails if a warm colour darker than the gold is ever added here. goldLight is for numbers and fills, and
+//   for gold on a dark panel. Text on a gold button is charcoal (white on this gold is only 2.4:1).
 export const PALETTE = {
   ink: '#2a2a2a',       // text and headings (charcoal)
   ink2: '#3a3a3a',      // a lighter charcoal: avatars, lines on dark panels, dark chips
   panel: '#2a2a2a',     // dark panels: footer, menu drawer, the Kind of lawyer + City bar (the same charcoal as the text)
-  gold: '#c9a050',      // buttons, fills, icons, borders
+  gold: '#c9a050',      // buttons, fills, icons, borders, and gold text and links on a light page
   goldLight: '#e2bd6a', // the logo's lighter gold: numbers and fills, and gold on a dark panel
-  goldDeep: '#8a6a1f',  // gold text and links on a light page (5:1 on ivory)
   goldEdge: '#e6d4a4',  // a gold-tinted border
   goldTint: '#f4ecd8',  // a gold-tinted background (hover, chips, notes)
   cream: '#fffdf8',     // the page (ivory)
@@ -67,7 +67,7 @@ export function nearest(rgb, { semantic = false } = {}) {
   if (l >= 0.7) return warm && s >= 0.6 ? P.goldLight : P.line;
   if (l >= 0.55) return (warm || red) && s >= 0.45 ? P.gold : P.slate2;
   if (l >= 0.45) return warm || red ? P.gold : neutral ? P.slate2 : P.slate;
-  if (l >= 0.3) return warm || red ? P.goldDeep : P.slate;
+  if (l >= 0.3) return warm || red ? P.gold : P.slate;   // a brown or dark gold becomes the gold: there is no brown here
   if (l >= 0.165) return neutral ? (l >= 0.17 ? P.ink2 : P.ink) : P.ink2;
   if (l >= 0.12) return neutral ? P.ink : P.ink2;
   return neutral ? P.panel : P.ink;

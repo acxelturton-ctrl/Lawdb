@@ -17,7 +17,7 @@ import { cleanSlug } from './firm-slug.js';
 // Where every table that has a firm_slug column goes in a merge. scripts/test-firm-merge.mjs reads the migrations and fails if a table with such a
 // column is in neither list, so a table added later cannot be forgotten.
 export const MERGE_MOVED = ['firm_members', 'firm_feeds', 'firm_posts', 'firm_subscriptions', 'follows', 'firm_ratings', 'firm_invites', 'firm_stats_daily', 'leads', 'outreach'];
-export const MERGE_DROPPED = ['firm_images', 'firm_trials', 'firm_verifications'];
+export const MERGE_DROPPED = ['firm_images', 'firm_trials', 'firm_verifications', 'lawyer_photos'];
 
 export async function mergeFirms(env, admin, fromSlug, rawInto) {
   const into = cleanSlug(rawInto);
@@ -30,10 +30,12 @@ export async function mergeFirms(env, admin, fromSlug, rawInto) {
   if (!keep) throw new HttpError(404, `There is no listing at /firms/${into}. Enter the address of the listing to keep.`);
 
   if (await env.DB.prepare('SELECT 1 FROM firm_locations WHERE main_slug = ?').bind(fromSlug).first()) throw new HttpError(409, 'This listing has office pages of its own. Unlink them first, then merge.');
-  const [subs, pics] = await Promise.all([
+  const [subs, firmPics, lawyerPics] = await Promise.all([
     env.DB.prepare("SELECT COUNT(*) AS n FROM firm_subscriptions WHERE firm_slug = ? AND status IN ('active', 'past_due')").bind(fromSlug).first(),
     env.DB.prepare('SELECT COUNT(*) AS n FROM firm_images WHERE firm_slug = ?').bind(fromSlug).first(),
+    env.DB.prepare('SELECT COUNT(*) AS n FROM lawyer_photos WHERE firm_slug = ?').bind(fromSlug).first(),
   ]);
+  const pics = { n: (firmPics?.n || 0) + (lawyerPics?.n || 0) };
   if (subs.n) throw new HttpError(409, 'This listing has a paid Featured subscription. Move or cancel the payment first, then merge.');
   if (pics.n) throw new HttpError(409, `This listing has ${pics.n} picture${pics.n === 1 ? '' : 's'}. Delete them from its editor first, then merge (so no file is left behind).`);
 

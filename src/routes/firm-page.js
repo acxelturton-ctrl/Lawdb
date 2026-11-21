@@ -10,7 +10,7 @@ import { siblingsOf } from '../lib/locations.js';
 import { firmStats } from '../lib/firm-stats.js';
 import { bookingRow } from '../render/booking.js';
 
-const CACHE_GENERATION = 5; // 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
+const CACHE_GENERATION = 6; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);

@@ -28,7 +28,7 @@ ok(MERGE_MOVED.every((t) => new RegExp(`(?:UPDATE(?: OR IGNORE)? ${t} SET firm_s
 ok(MERGE_DROPPED.every((t) => !batchText.includes(t)) && /DELETE FROM firms WHERE slug = \?/.test(batchText), 'the dropped tables are cleared by deleting the duplicate (their foreign keys cascade)');
 
 // a recording stand-in for the database
-function fakeEnv({ firms = {}, subs = 0, pics = 0, owners = [] } = {}) {
+function fakeEnv({ firms = {}, subs = 0, pics = 0, lawyerPics = 0, owners = [] } = {}) {
   const log = [];
   const stmt = (sql, args = []) => ({
     bind: (...a) => stmt(sql, a),
@@ -36,6 +36,7 @@ function fakeEnv({ firms = {}, subs = 0, pics = 0, owners = [] } = {}) {
       if (/FROM firms WHERE slug/.test(sql)) return firms[args[0]] || null;
       if (/FROM firm_subscriptions/.test(sql)) return { n: subs };
       if (/FROM firm_images/.test(sql)) return { n: pics };
+      if (/FROM lawyer_photos/.test(sql)) return { n: lawyerPics };
       return null;
     },
     all: async () => ({ results: owners.map((email) => ({ email })) }),
@@ -51,6 +52,7 @@ ok(await fail(fakeEnv({ firms }), 'nope', 'keep') === 404 && await fail(fakeEnv(
 ok(await fail(fakeEnv({ firms }), 'dup', 'Bad Address!') === 422, 'the address to keep must be a valid address');
 ok(await fail(fakeEnv({ firms, subs: 1 }), 'dup', 'keep') === 409, 'a listing with a paid Featured subscription is not merged away');
 ok(await fail(fakeEnv({ firms, pics: 2 }), 'dup', 'keep') === 409, 'a listing with pictures is not merged away (their files would be left behind)');
+ok(await fail(fakeEnv({ firms, lawyerPics: 1 }), 'dup', 'keep') === 409, 'a listing with a picture of one of its lawyers is not merged away either (the file would be left behind)');
 const env = fakeEnv({ firms, owners: ['jeffrey@example.com'] });
 const done = await mergeFirms(env, { id: 1 }, 'dup', 'keep');
 ok(env.log.length > 8 && env.log[0].sql.includes('defer_foreign_keys') && env.log.every((s) => !/UPDATE (leads|firm_members)/.test(s.sql) || s.args.includes('keep')), 'a refused merge changes nothing, and an allowed one runs as one batch with foreign keys checked at the end');

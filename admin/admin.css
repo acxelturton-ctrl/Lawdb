@@ -238,3 +238,27 @@ select { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid
 .lp-accepted{border-color:#c9a050;background:#fffdf8}.lp-erased{opacity:.55}.lp-broken .lp-img{opacity:.35}
 .lp-state{font-weight:700}
 .lp-btns[hidden]{display:none}
+/* Lawyers on the Edit Profile page (admin/lawyers-panel.js) */
+.lwp h2 { margin: 0 0 4px; font-size: 18px; }
+.lwp-list { list-style: none; margin: 12px 0; padding: 0; border-top: 1px solid var(--line); }
+.lwp-row { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.lwp-row.is-hidden .lwp-info b, .lwp-row.is-hidden .lwp-av { opacity: .55; }
+.lwp-main { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.lwp-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 220px; font-size: 14px; }
+.lwp-info b { font-size: 15.5px; }
+.lwp-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 2px; }
+.lwp-own { font-size: 12.5px; }
+.lwp-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.lwp-actions button { padding: 6px 10px; font-size: 13px; }
+.lwp-av { flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: var(--gold); display: inline-flex; align-items: center; justify-content: center; font: 700 15px Georgia, serif; overflow: hidden; }
+.lwp-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lwp-av-lg { width: 72px; height: 72px; font-size: 22px; }
+.lwp-form { margin: 12px 0 4px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
+.lwp-form input[type=text], .lwp-form input[type=number] { width: 100%; }
+.lwp-form .ed-field > input + input { margin-top: 6px; }
+.lwp-langs { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 4px 12px; }
+.lwp-langs .check { display: flex; align-items: center; gap: 6px; margin: 0; font-weight: 400; }
+.lwp-photo { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.lwp-photo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.lwp-out { margin-top: 8px; }
+@media (max-width: 520px) { .lwp-form .ed-row { grid-template-columns: 1fr; } .lwp-actions { width: 100%; } }

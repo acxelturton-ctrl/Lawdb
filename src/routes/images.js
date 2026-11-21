@@ -18,8 +18,10 @@ export async function serveImage({ request, env, ctx }) {
     const hit = await caches.default.match(key);
     if (hit) return hit;
   }
+  // /img/lawyer/<id> has no row (see above). /img/<id> is a firm picture (firm_images) or a picture of one of the firm's lawyers that the firm added itself
+  // (lawyer_photos): both are served only while the firm is live
   const row = lawyerPic ? { content_type: '' } : await env.DB.prepare(
-    "SELECT i.content_type FROM firm_images i JOIN firms f ON f.slug = i.firm_slug WHERE i.id = ? AND f.status = 'live'"
+    "SELECT i.content_type FROM firm_images i JOIN firms f ON f.slug = i.firm_slug WHERE i.id = ?1 AND f.status = 'live' UNION ALL SELECT p.content_type FROM lawyer_photos p JOIN firms f ON f.slug = p.firm_slug WHERE p.id = ?1 AND f.status = 'live'"
   ).bind(id).first();
   if (!row) return text404();
   const obj = await env.IMAGES.get(`${lawyerPic ? 'lawyer' : 'img'}/${id}`);

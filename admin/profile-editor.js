@@ -9,6 +9,7 @@
 // SECURITY: every value is put in with text nodes or element properties, never innerHTML.
 
 import { verificationPanel } from './verification-panel.js';
+import { lawyersPanel } from './lawyers-panel.js';
 import { h, api, when, note, hoursEditor, categoryChecks, splitTags, picturesPanel, feedPanel, planPanel, startFreeMonth, PROVINCES } from './ui.js';
 
 // The languages an owner can pick, and the availability choices. Kept in step with src/lib/details.js (LANGUAGES) and src/lib/profile-strength.js
@@ -212,6 +213,12 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
   const imagesBar = isNew ? null : h('details', { class: 'ed-collapse', ontoggle: (e) => {
     if (e.target.open && !pics) { pics = picturesPanel(`${base}/images`, { locked }); e.target.querySelector('.inner').replaceChildren(pics); }
   } }, h('summary', null, 'Profile Images'), h('div', { class: 'inner' }, h('p', { class: 'muted' }, 'Loading…')));
+
+  // ---- Lawyers (a collapsible bar, loaded when it is opened): confirm, correct, hide, add or remove lawyers, and their pictures
+  let lawyers = null;
+  const lawyersBar = isNew ? null : h('details', { class: 'ed-collapse', ontoggle: (e) => {
+    if (e.target.open && !lawyers) { lawyers = lawyersPanel({ base, mode: mode === 'admin' ? 'admin' : 'owner', featured: !!firm.featured }); e.target.querySelector('.inner').replaceChildren(lawyers); }
+  } }, h('summary', null, 'Lawyers'), h('div', { class: 'inner' }, h('p', { class: 'muted' }, 'Loading\u2026')));
 
   // ---- Offices and locations (owner): a page for every office, one Featured plan. Adding one is a Featured benefit.
   function locationsPanel() {
@@ -465,7 +472,7 @@ export function profileEditor({ mode, data, base, onSaved, onCreated, flash }) {
 
   const verifyPanel = isNew ? null : verificationPanel({ mode: mode === 'admin' ? 'admin' : 'owner', base });
 
-  form.append(...[head, strengthStrip, verifyPanel, flash ? note('msg-ok', flash) : null, unlockBanner, imagesBar, mode === 'owner' && !isNew ? locationsPanel() : null, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
+  form.append(...[head, strengthStrip, verifyPanel, flash ? note('msg-ok', flash) : null, unlockBanner, imagesBar, lawyersBar, mode === 'owner' && !isNew ? locationsPanel() : null, grid, out, h('p', { class: 'muted ed-foot' }, 'Your rating and review count come from Google and update on their own.'), bar].filter(Boolean));
   // The plan (and what Featured adds) is one tap away at the top, not a page-long card in front of the form.
   const plan = mode === 'owner' && h('details', { class: 'ed-collapse ed-plan' }, h('summary', null, 'Your plan: ', h('b', null, firm.featured ? 'Featured' : 'Basic (free)'), !firm.featured && h('span', { class: 'ed-plan-cta' }, 'See what Featured adds')), h('div', { class: 'inner' }, planPanel(`${base}/plan`)));
   planEl = plan || null;

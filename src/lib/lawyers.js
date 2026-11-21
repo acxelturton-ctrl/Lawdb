@@ -3,6 +3,10 @@
 // (scripts/check-lawyer-photos.py, scripts/prepare-firm-lawyers.py) and put in the database by db/lawyers-updates.sql (scripts/apply-firm-lawyers.mjs); a firm's owner
 // will be able to confirm, correct or hide them from the dashboard (`lawyersOff` hides all of them).
 //
+// A firm can confirm, correct, hide, add or remove lawyers, and add pictures, from its profile editor (src/lib/lawyer-edit.js). What the firm itself states
+// (confirmed: true) is shown as the firm wrote it, under the same plain-text rules, and keeps the page address it already had; a lawyer the firm hides
+// (hidden: true) is on no page. The firm's changes are kept: once it edits the list, the bulk update no longer touches it (lawyersLocked).
+//
 // Only facts are kept: name, title, the year called to the bar, schools, languages, a LinkedIn address and the address of the lawyer's page on the firm's own site.
 // No biography text is copied. A picture is kept as an address and shown only once it is confirmed (photoConfirmed), because it is the firm's or the lawyer's picture.
 // cleanLawyers keeps only what is well formed and plain, so nothing odd can reach a page, whatever is in the data.
@@ -94,39 +98,68 @@ export function normalizeEducation(e) {
   return `${DEGREES[i][0]}, ${m[5].replace(/^l[\u2019']\s?/, '')}`;
 }
 
+// A LinkedIn profile address (a person's /in/ or /pub/ page), without the tracking part; '' when it is not one.
+export function cleanLinkedIn(v) {
+  const u = typeof v === 'string' ? v.trim().split('?')[0].split('#')[0] : '';
+  return /^https:\/\/(?:[a-z]{2,3}\.)?linkedin\.com\/(?:in|pub)\/[A-Za-z0-9%_\-\/.]+$/.test(u) ? u : '';
+}
+// What the firm types is its own statement: letters and plain punctuation only (a title with a figure is a rate or a blurb), and nothing the advertising rules forbid.
+export const OWNER_TITLE = /^[\p{L}][\p{L}'\u2019&,()\/.\- ]{0,69}$/u;
+export const OWNER_EDUCATION = /^[\p{L}][\p{L}0-9'\u2019&,.()\- ]{1,119}$/u;
+const stored_photo = (v) => (typeof v === 'string' && /^https:\/\/[^\s"'<>]+$/.test(v) ? v : typeof v === 'string' && /^\/?img\/[0-9a-f]{24}$/.test(v) ? '/' + v.replace(/^\//, '') : '');
+
+// A person's name as it may appear: letters, initials and the usual marks (degrees after it are removed); '' when it is not one.
+export function cleanName(raw) {
+  const n = tidyName(raw).slice(0, 70);
+  return NAME.test(n) && !/[<>@\d]/.test(n) && !/\b\p{Lu}{3,}\b/u.test(n) ? n : '';
+}
+
 export function lawyerSlug(name) {
   return String(name).normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
 // list: what is stored. Returns the lawyers that are fit to show, in the order given, each with a unique slug.
-// decisions: the firm's `lawyerPhotos`. A picture is shown only when the admin accepted it (a copy kept on LawDB) or, for older records, photoConfirmed is true;
-// a picture the admin erased is never shown.
-export function cleanLawyers(list, thisYear = new Date().getFullYear(), decisions = null) {
+// decisions: the firm's `lawyerPhotos` (the admin's accept / erase decisions, src/lib/lawyer-photos.js). A picture is shown only when the firm itself added it, or the
+// admin accepted it (a copy kept on LawDB), or, for older records, photoConfirmed is true; a picture the admin erased is never shown (see photoStateOf).
+// { stored: true } is for the editor and the updates: it also keeps the picture address with its confirmed flag (public pages never see an unconfirmed picture).
+export function cleanLawyers(list, thisYear = new Date().getFullYear(), decisions = null, { stored = false } = {}) {
   if (!Array.isArray(list)) return [];
   const seen = new Set();
   const out = [];
   for (const l of list.slice(0, MAX_LAWYERS)) {
     if (!l || typeof l !== 'object') continue;
-    const name = tidyName(l.name).slice(0, 70);
-    if (!NAME.test(name) || /[<>@\d]/.test(name) || /\b\p{Lu}{3,}\b/u.test(name)) continue;
-    const slug = lawyerSlug(name);
+    const name = cleanName(l.name);
+    if (!name) continue;
+    const mine = l.confirmed === true; // the firm's own statement
+    const own = mine && typeof l.slug === 'string' && /^[a-z0-9](?:[a-z0-9-]{0,78}[a-z0-9])?$/.test(l.slug) ? l.slug : '';
+    const slug = own || lawyerSlug(name);
     if (!slug || seen.has(slug)) continue;
-    // a title that repeats the person's own name ("Erin Levitsky / Associate") keeps only the role
-    let rawTitle = String(l.title ?? '');
-    for (const n of [one(l.name, 90), name]) if (n) rawTitle = rawTitle.replace(new RegExp(n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s+'), 'i'), '');
-    const t = cleanTitle(rawTitle.replace(/^[\s\\/|:,\-–—]+|[\s\\/|:,\-–—]+$/g, ''));
-    if (t.drop) continue;
-    const title = t.title || '';
+    let title = '', junk = false;
+    if (mine) {
+      const t = one(l.title, 70);
+      title = OWNER_TITLE.test(t) && plain(t) ? t : '';
+    } else {
+      // a title that repeats the person's own name ("Erin Levitsky / Associate") keeps only the role
+      let rawTitle = String(l.title ?? '');
+      for (const n of [one(l.name, 90), name]) if (n) rawTitle = rawTitle.replace(new RegExp(n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s+'), 'i'), '');
+      const t = cleanTitle(rawTitle.replace(/^[\s\\/|:,\-\u2013\u2014]+|[\s\\/|:,\-\u2013\u2014]+$/g, ''));
+      if (t.drop) continue;
+      title = t.title || '';
+      junk = !!t.junk;
+    }
     const year = Number(l.callYear);
     const yearOk = Number.isInteger(year) && year >= 1950 && year <= thisYear;
-    const edu = (Array.isArray(l.education) ? l.education : []).map(normalizeEducation).filter((e, i, all) => e && all.indexOf(e) === i && plain(e)).slice(0, 3);
-    const langs = (Array.isArray(l.languages) ? l.languages : []).filter((x) => LANGUAGES.includes(x)).slice(0, 5);
-    const li = typeof l.linkedin === 'string' && /^https:\/\/(?:[a-z]{2,3}\.)?linkedin\.com\/(?:in|pub)\/[A-Za-z0-9%_\-\/.]+$/.test(l.linkedin.split('?')[0]) ? l.linkedin.split('?')[0] : '';
+    const rawEdu = Array.isArray(l.education) ? l.education : [];
+    const edu = (mine ? rawEdu.map((e) => one(e, 120)).filter((e) => OWNER_EDUCATION.test(e)) : rawEdu.map(normalizeEducation)).filter((e, i, all) => e && all.indexOf(e) === i && plain(e)).slice(0, 3);
+    const langs = (Array.isArray(l.languages) ? l.languages : []).filter((x, i, all) => LANGUAGES.includes(x) && all.indexOf(x) === i).slice(0, mine ? 8 : 5);
+    const li = cleanLinkedIn(l.linkedin);
     const site = typeof l.site === 'string' && /^https:\/\/[^\s"'<>]+$/.test(l.site) ? l.site : '';
-    const photo = typeof l.photo === 'string' && /^https:\/\/[^\s"'<>]+$/.test(l.photo) ? l.photo : '';
+    const photo = stored_photo(l.photo);
+    const found = typeof l.photoFound === 'string' && /^https:\/\/[^\s"'<>]+$/.test(l.photoFound) ? l.photoFound : '';
     // a "title" that is a sentence means a testimonial or a news line was read: the person stays only when something else on record backs them up
-    if (t.junk && !(yearOk || edu.length || langs.length || li)) continue;
+    if (junk && !(yearOk || edu.length || langs.length || li)) continue;
     seen.add(slug);
+    const shown = photoStateOf({ photo, photoConfirmed: l.photoConfirmed === true }, decisions && decisions[slug]);
     out.push({
       name, slug,
       ...(title && plain(title) ? { title } : {}),
@@ -135,39 +168,57 @@ export function cleanLawyers(list, thisYear = new Date().getFullYear(), decision
       ...(langs.length ? { languages: langs } : {}),
       ...(li ? { linkedin: li } : {}),
       ...(site ? { site } : {}),
-      ...(shownPhoto(photo, l, decisions && decisions[slug]) ? { photo: shownPhoto(photo, l, decisions && decisions[slug]) } : {}),
+      ...(stored ? (photo ? { photo, photoConfirmed: l.photoConfirmed === true } : {}) : (shown.state === 'confirmed' ? { photo: shown.url } : {})),
+      ...(stored && found && photo !== found ? { photoFound: found } : {}),
+      ...(mine ? { confirmed: true } : {}),
+      ...(l.hidden === true ? { hidden: true } : {}),
     });
   }
   return out;
 }
 
-function shownPhoto(photo, l, d) {
-  if (d && d.status === 'no') return '';
-  if (d && d.status === 'ok' && typeof d.photo === 'string' && HOSTED_PHOTO.test(d.photo)) return d.photo;
-  return photo && l.photoConfirmed === true ? photo : '';
+// A picture the firm added itself (an upload, or "use this picture" for the one found on its own website) is kept on LawDB under /img/<id> with photoConfirmed.
+export const OWN_PHOTO = /^\/img\/[0-9a-f]{24}$/;
+
+// What is shown for a lawyer, and what the editor says about it. l: { photo, photoConfirmed } as stored; d: the admin's decision for this lawyer (firm.lawyerPhotos[slug]).
+//   confirmed  shown: the firm's own picture first (the firm's own act beats the admin's erase), then one the admin accepted, then the old confirmed flag;
+//   found      a picture found on the firm's website that nobody has decided on yet (never shown on a page: the firm or the admin has to say yes);
+//   none       nothing (also when the admin erased the one that was found).
+export function photoStateOf(l, d) {
+  const photo = l && typeof l.photo === 'string' ? l.photo : '';
+  if (photo && l.photoConfirmed === true && OWN_PHOTO.test(photo)) return { state: 'confirmed', url: photo, by: 'firm' };
+  if (d && d.status === 'ok' && typeof d.photo === 'string' && HOSTED_PHOTO.test(d.photo)) return { state: 'confirmed', url: d.photo, by: 'admin' };
+  if (d && d.status === 'no') return { state: 'none' };
+  if (photo && l.photoConfirmed === true) return { state: 'confirmed', url: photo, by: 'record' };
+  return /^https:\/\//.test(photo) ? { state: 'found', url: photo } : { state: 'none' };
 }
 
 // The lawyers a firm's pages may show: none when the firm has switched them off or has fewer than MIN_FIRM_LAWYERS.
 export function lawyersOf(firm) {
   if (!firm || firm.lawyersOff) return [];
-  const l = cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos);
+  const l = cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos).filter((x) => !x.hidden);
   return l.length >= MIN_FIRM_LAWYERS ? l : [];
 }
 
+// The address found on the firm's own website for a lawyer (stored form), '' when there is none. A firm's own picture, once added, keeps the found address aside.
+const foundOf = (l) => (l.photoConfirmed ? l.photoFound || '' : /^https:\/\//.test(l.photo || '') ? l.photo : '');
+const storedOf = (firm) => cleanLawyers(Array.isArray(firm && firm.lawyers) ? firm.lawyers : [], undefined, null, { stored: true });
+
 // For the admin's Lawyer photos tab: the lawyers of a firm (one whose lawyers its pages show) that have a picture on the firm's own site and no decision yet.
+// A lawyer the firm hid, or whose own picture the firm added, is not in the queue.
 export function photoCandidates(firm) {
   if (!firm || firm.lawyersOff) return [];
-  const all = cleanLawyers((Array.isArray(firm.lawyers) ? firm.lawyers : []).map((l) => ({ ...l, photoConfirmed: true })));
+  const all = storedOf(firm).filter((l) => !l.hidden);
   if (all.length < MIN_FIRM_LAWYERS) return [];
   const decided = firm.lawyerPhotos && typeof firm.lawyerPhotos === 'object' ? firm.lawyerPhotos : {};
-  return all.filter((l) => l.photo && !decided[l.slug]).map((l) => ({ slug: l.slug, name: l.name, ...(l.title ? { title: l.title } : {}), photo: l.photo }));
+  return all.filter((l) => foundOf(l) && !decided[l.slug] && !(l.photoConfirmed && OWN_PHOTO.test(l.photo || '')))
+    .map((l) => ({ slug: l.slug, name: l.name, ...(l.title ? { title: l.title } : {}), photo: foundOf(l) }));
 }
 
 // The address of a lawyer's picture on the firm's own site, as stored (for the admin to look at before deciding). '' when there is none or the lawyer is not listed.
 export function sourcePhoto(firm, lawyerSlugValue) {
-  const all = cleanLawyers((Array.isArray(firm && firm.lawyers) ? firm.lawyers : []).map((l) => ({ ...l, photoConfirmed: true })));
-  const l = all.find((x) => x.slug === lawyerSlugValue);
-  return l && l.photo ? l.photo : '';
+  const l = storedOf(firm).find((x) => x.slug === lawyerSlugValue);
+  return l ? foundOf(l) : '';
 }
 
 // A lawyer has a page of their own only with a clear title and at least two more facts (year called, school, language, LinkedIn).

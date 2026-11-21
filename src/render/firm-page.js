@@ -404,6 +404,14 @@ function lawyersTeaser(f, lw) {
   return `\n    <section class="pf-lawyers" aria-label="Lawyers at ${esc(f.name)}"><h2>Lawyers at ${esc(f.name)}</h2><ul>${shown}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">${lw.length > 8 ? `See all ${lw.length} lawyers` : 'See the lawyers page'} &rarr;</a></section>`;
 }
 
+// What the page says about where the facts come from: the firm confirmed them, or they were read from its own website. Neither is checked with the law society.
+function lawyerNote(list) {
+  const tell = 'Something to correct or remove? <a href="/contact">Tell us</a>.';
+  if (list.length && list.every((x) => x.confirmed)) return `Confirmed by the firm and not checked with the law society. ${tell}`;
+  if (list.some((x) => x.confirmed)) return `Some details were confirmed by the firm; the rest are taken from its own website. None is checked with the law society. ${tell}`;
+  return `Taken from the firm's own website and not checked with the law society. ${tell}`;
+}
+
 function lawyersTabHtml(f, lw, prov) {
   const cards = lw.map((l) => {
     const has = lawyerHasPage(l);
@@ -411,14 +419,14 @@ function lawyersTabHtml(f, lw, prov) {
     return `<li class="lw-person">${lawyerAvatar(l)}<div><b>${has ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">${esc(l.name)}</a>` : esc(l.name)}</b>${l.title ? `<span class="t">${esc(l.title)}</span>` : ''}${facts ? `<span class="f">${esc(facts)}</span>` : ''}${has ? `<a class="go" href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">View profile &rarr;</a>` : ''}</div></li>`;
   }).join('');
   const areas = (f.tags || []).filter(Boolean).slice(0, 4);
-  return `\n    <h1 class="pf-h1">Lawyers at ${esc(f.name)}</h1>\n    <p class="pf-lede">${lw.length} lawyers at ${esc(f.name)} in ${esc(f.city)}, ${esc(prov)}${areas.length ? `, a firm that practises ${esc(joinAnd(areas.map((t) => t.toLowerCase())))}` : ''}. Each entry shows the lawyer's title and, where the firm publishes it, the year they were called to the bar, their languages and their education.</p>\n    <ul class="lw-grid" style="list-style:none;padding:0">${cards}</ul>\n    <p class="pf-note">Taken from the firm's own website and not checked with the law society. Something to correct or remove? <a href="/contact">Tell us</a>.</p>`;
+  return `\n    <h1 class="pf-h1">Lawyers at ${esc(f.name)}</h1>\n    <p class="pf-lede">${lw.length} lawyers at ${esc(f.name)} in ${esc(f.city)}, ${esc(prov)}${areas.length ? `, a firm that practises ${esc(joinAnd(areas.map((t) => t.toLowerCase())))}` : ''}. Each entry shows the lawyer's title and, where the firm publishes it, the year they were called to the bar, their languages and their education.</p>\n    <ul class="lw-grid" style="list-style:none;padding:0">${cards}</ul>\n    <p class="pf-note">${lawyerNote(lw)}</p>`;
 }
 
 function lawyerPageHtml(f, lw, l, prov) {
   const facts = lawyerFacts(l, prov).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
   const others = lw.filter((x) => x.slug !== l.slug).slice(0, 6).map((x) => `<li>${lawyerHasPage(x) ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(x.slug)}">${esc(x.name)}</a>` : `<span>${esc(x.name)}</span>`}</li>`).join('');
   const links = (l.linkedin ? `<a class="pf-btn" href="${esc(l.linkedin)}" target="_blank" rel="noopener nofollow">LinkedIn</a>` : '') + (l.site ? `<a class="pf-btn" href="${esc(l.site)}" target="_blank" rel="noopener nofollow">On the firm's website</a>` : '') + `<a class="pf-btn" href="/firms/${esc(f.slug)}#contact">Message ${esc(f.name)}</a>`;
-  return `\n    <p class="lp-back"><a href="/firms/${esc(f.slug)}/lawyers">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="/firms/${esc(f.slug)}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>\n    <p class="pf-lede">${esc(lawyerLead(l, f, prov))}</p>\n    <dl class="lp-facts">${facts}</dl>\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">All ${lw.length} lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">Taken from the firm's own website and not checked with the law society. Something to correct or remove? <a href="/contact">Tell us</a>.</p>`;
+  return `\n    <p class="lp-back"><a href="/firms/${esc(f.slug)}/lawyers">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="/firms/${esc(f.slug)}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>\n    <p class="pf-lede">${esc(lawyerLead(l, f, prov))}</p>\n    <dl class="lp-facts">${facts}</dl>\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">All ${lw.length} lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">${lawyerNote([l])}</p>`;
 }
 
 export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null, view = null }) {

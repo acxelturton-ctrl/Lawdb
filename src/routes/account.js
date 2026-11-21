@@ -19,6 +19,7 @@ import { startTrial } from '../lib/trial.js';
 import { MAX_LOCATIONS, mainOf, locationsOf, syncLocationFeatured } from '../lib/locations.js';
 import { addImage, removeImage, listImages, imageInfo } from '../lib/images.js';
 import { providerPicture } from '../lib/oauth.js';
+import { getLawyers, saveLawyer, addLawyer, removeLawyer, setLawyersOff, setLawyerPhoto, removeLawyerPhoto } from '../lib/lawyer-edit.js';
 
 const reply = (body, status = 200) => json(body, status, NO_STORE);
 
@@ -307,6 +308,42 @@ export async function imagesRemove({ request, env, params }) {
   return reply({ ok: true });
 }
 
+
+// ---------------------------------------------------------------- lawyers (own firm): confirm, correct, hide, add, remove, pictures
+async function ownerOf(env, request, slug) {
+  const user = await requireUser(env, request);
+  await requireOwner(env, user, slug);
+  return user;
+}
+export async function lawyersGet({ request, env, params }) {
+  await ownerOf(env, request, params.slug);
+  return reply(await getLawyers(env, params.slug));
+}
+export async function lawyersAdd({ request, env, params }) {
+  const user = await ownerOf(env, request, params.slug);
+  return reply(await addLawyer(env, user, params.slug, await readJson(request, 20000), { admin: false }), 201);
+}
+export async function lawyersSwitch({ request, env, params }) {
+  const user = await ownerOf(env, request, params.slug);
+  const body = await readJson(request, 2000);
+  return reply(await setLawyersOff(env, user, params.slug, body.lawyersOff));
+}
+export async function lawyerSave({ request, env, params }) {
+  const user = await ownerOf(env, request, params.slug);
+  return reply(await saveLawyer(env, user, params.slug, params.lawyer, await readJson(request, 20000), { admin: false }));
+}
+export async function lawyerRemove({ request, env, params }) {
+  const user = await ownerOf(env, request, params.slug);
+  return reply(await removeLawyer(env, user, params.slug, params.lawyer));
+}
+export async function lawyerPhotoSet({ request, env, params, url }) {
+  const user = await ownerOf(env, request, params.slug);
+  return reply(await setLawyerPhoto(env, user, params.slug, params.lawyer, { request, fromFound: url.searchParams.get('from') === 'found' }, { admin: false }));
+}
+export async function lawyerPhotoRemove({ request, env, params }) {
+  const user = await ownerOf(env, request, params.slug);
+  return reply(await removeLawyerPhoto(env, user, params.slug, params.lawyer));
+}
 
 // ---------------------------------------------------------------- plan and billing (own firm)
 export async function planGet({ request, env, params }) {

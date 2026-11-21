@@ -4,6 +4,7 @@ import { runBackup } from '../lib/backup.js';
 import { getFeedInfo, updateFeedSettings, checkFeedNow } from '../lib/feeds.js';
 import { listPayments, assignPayment, dismissPayment } from '../lib/stripe.js';
 import { addImage, removeImage, listImages } from '../lib/images.js';
+import { getLawyers, saveLawyer, addLawyer, removeLawyer, setLawyersOff, setLawyerPhoto, removeLawyerPhoto } from '../lib/lawyer-edit.js';
 import { audit } from '../lib/audit.js';
 import { searchSummary, runSearchConsole, inspectUrl, gscKey } from '../lib/gsc.js';
 import { profileStrength } from '../lib/profile-strength.js';
@@ -417,6 +418,37 @@ export async function feedRefresh({ request, env, params, exec }) {
 export async function imagesList({ request, env, params }) {
   await requireAdmin(env, request);
   return reply({ images: await listImages(env, params.slug) });
+}
+
+// A firm's lawyers (confirm, correct, hide, add, remove, pictures): the admin can do for any firm what its owner does, without the Featured limit on pictures.
+export async function lawyersGet({ request, env, params }) {
+  await requireAdmin(env, request);
+  return reply(await getLawyers(env, params.slug));
+}
+export async function lawyersAdd({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  return reply(await addLawyer(env, admin, params.slug, await readJson(request, 20000), { admin: true }), 201);
+}
+export async function lawyersSwitch({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 2000);
+  return reply(await setLawyersOff(env, admin, params.slug, body.lawyersOff));
+}
+export async function lawyerSave({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  return reply(await saveLawyer(env, admin, params.slug, params.lawyer, await readJson(request, 20000), { admin: true }));
+}
+export async function lawyerRemove({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  return reply(await removeLawyer(env, admin, params.slug, params.lawyer));
+}
+export async function lawyerPhotoSet({ request, env, params, url }) {
+  const admin = await requireAdmin(env, request);
+  return reply(await setLawyerPhoto(env, admin, params.slug, params.lawyer, { request, fromFound: url.searchParams.get('from') === 'found' }, { admin: true }));
+}
+export async function lawyerPhotoRemove({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  return reply(await removeLawyerPhoto(env, admin, params.slug, params.lawyer));
 }
 
 export async function imagesAdd({ request, env, params }) {

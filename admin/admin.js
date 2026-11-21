@@ -453,10 +453,59 @@ async function viewLawyerPhotos() {
     } catch (err) { status.replaceChildren(note('msg-err', err.message)); }
     busy = false;
   }
+  // ---- Accept all remaining: one firm at a time (two at once), each picture checked again on the server; what is not plainly a headshot stays here for a look
+  const bulk = h('div', { class: 'card lp-bulk' });
+  let stopping = false;
+  function bulkIdle(info) {
+    const go = h('button', { type: 'button', class: 'primary' }, 'Accept all remaining');
+    go.addEventListener('click', acceptAll);
+    bulk.replaceChildren(h('b', null, 'Accept all remaining'),
+      h('p', { class: 'muted' }, 'Accepts every picture still waiting, firm by firm, strongest profiles first. LawDB checks each one again (a real picture, at least 120 pixels, a portrait or square shape, not the same picture for several lawyers of a firm) and keeps its own copy. Anything that does not pass stays in the list below for you to look at. You can stop at any time, and every accepted picture can still be undone here.'),
+      info ? h('p', null, info) : null, h('div', { class: 'row' }, go));
+  }
+  async function acceptAll() {
+    let todo;
+    try { todo = await api('GET', '/api/admin/lawyer-photo-firms'); } catch (err) { bulk.append(note('msg-err', err.message)); return; }
+    if (!todo.pictures) { bulkIdle('Nothing is waiting: every picture has been checked.'); return; }
+    if (!confirm(`Accept ${todo.pictures} picture${todo.pictures === 1 ? '' : 's'} from ${todo.firms.length} firm${todo.firms.length === 1 ? '' : 's'}? They will be copied onto LawDB and shown on the lawyers' pages. Pictures that are not plainly a headshot are left for you.`)) return;
+    stopping = false;
+    const bar = h('progress', { max: todo.firms.length, value: 0, 'aria-label': 'Firms done' });
+    const line = h('p', null);
+    const stop = h('button', { type: 'button' }, 'Stop');
+    stop.addEventListener('click', () => { stopping = true; stop.disabled = true; line.textContent = 'Stopping after the firms in progress...'; });
+    bulk.replaceChildren(h('b', null, 'Accepting...'), bar, line, h('div', { class: 'row' }, stop));
+    let firmsDone = 0, accepted = 0, errors = 0, i = 0;
+    const left = [];
+    const show = () => { bar.value = firmsDone; line.textContent = `${firmsDone} of ${todo.firms.length} firms · ${accepted} accepted · ${left.length} left for you to look at${errors ? ` · ${errors} firm${errors === 1 ? '' : 's'} with a problem` : ''}`; };
+    const post = (slug, skip) => api('POST', `/api/admin/firms/${encodeURIComponent(slug)}/lawyer-photos/accept-all`, { skip });
+    const worker = async () => {
+      while (!stopping && i < todo.firms.length) {
+        const f = todo.firms[i++];
+        const skip = [];
+        try {
+          for (let guard = 0; guard < 20 && !stopping; guard++) {
+            let r;
+            try { r = await post(f.slug, skip); } catch (err) { if (err.status === 401 || err.status === 403) throw err; r = await post(f.slug, skip); } // one more try for a hiccup
+            accepted += r.accepted;
+            for (const x of r.failed) { skip.push(x.lawyer); left.push({ firm: f.name, name: x.name, why: x.why }); }
+            show();
+            if (!r.more) break;
+          }
+        } catch (err) { errors++; left.push({ firm: f.name, name: '(the whole firm)', why: err.message }); if (err.status === 401 || err.status === 403) stopping = true; }
+        firmsDone++; show();
+      }
+    };
+    await Promise.all([worker(), worker()]);
+    const summary = `${stopping ? 'Stopped. ' : 'Done. '}${accepted} accepted. ${left.length} left for you to look at${errors ? `, and ${errors} firm${errors === 1 ? '' : 's'} could not be processed (run it again)` : ''}.`;
+    bulkIdle(summary);
+    if (left.length) bulk.append(h('details', null, h('summary', null, `Why ${left.length} were left`), h('ul', null, left.slice(0, 300).map((x) => h('li', null, `${x.name}, ${x.firm}: ${x.why}`)))));
+    list.replaceChildren(); cursor = ''; next(); // the list below and its counts start again from what is still waiting
+  }
+  bulkIdle();
   await next();
   return h('div', null, h('h1', null, 'Lawyer photos'),
     h('div', { class: 'card' }, h('p', { class: 'muted' }, 'Each picture was read from the lawyer\'s own firm website and is not shown anywhere until you accept it. Press ✓ when it is clearly that lawyer, a proper headshot and fine to show. LawDB keeps its own copy of an accepted picture, so it cannot change or disappear later. Press ✕ for anything else (a logo, a group photo, the wrong person, a stock picture): it is erased and does not come back. Undo is there if you slip. Firms with the strongest lawyer profiles come first.'), status),
-    list, more);
+    bulk, list, more);
 }
 
 // ---------------------------------------------------------------- logos

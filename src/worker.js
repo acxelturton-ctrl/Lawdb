@@ -82,6 +82,8 @@ const ROUTES = [
   route('GET', '/api/admin/firms/:slug/logo-candidates', admin.logoCandidates),
   route('POST', '/api/admin/firms/:slug/logo-from-url', admin.logoAccept),
   route('GET', '/api/admin/lawyer-photo-queue', admin.lawyerPhotoQueue),
+  route('GET', '/api/admin/lawyer-photo-firms', admin.lawyerPhotoFirms),
+  route('POST', '/api/admin/firms/:slug/lawyer-photos/accept-all', admin.lawyerPhotoAcceptFirm),
   route('GET', '/api/admin/firms/:slug/lawyers/:lawyer/photo', admin.lawyerPhotoPreview),
   route('POST', '/api/admin/firms/:slug/lawyers/:lawyer/photo', admin.lawyerPhotoDecide),
   route('GET', '/api/admin/leads', admin.listLeads),

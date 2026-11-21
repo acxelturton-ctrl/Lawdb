@@ -18,7 +18,7 @@ import { applyFirmEdit, prepareNewFirm, insertFirm, CASE_TYPES, FIRM_STATUSES } 
 import { placeFor } from '../lib/geocode.js';
 import { signinCheck } from '../lib/oauth.js';
 import { findLogos, fetchPicture } from '../lib/logo-finder.js';
-import { photoQueue, previewPhoto, decidePhoto } from '../lib/lawyer-photos.js';
+import { photoQueue, previewPhoto, decidePhoto, photoFirms, acceptFirm } from '../lib/lawyer-photos.js';
 import { firmAnalytics, RANGES } from '../lib/firm-analytics.js';
 import { startTrial, endTrial, getTrial, trialFunnel, trialAdminChanged } from '../lib/trial.js';
 
@@ -596,6 +596,18 @@ export async function logoAccept({ request, env, params }) {
 export async function lawyerPhotoQueue({ request, env, url }) {
   await requireAdmin(env, request);
   return reply(await photoQueue(env, (url.searchParams.get('after') || '').slice(0, 200), clampInt(url.searchParams.get('limit'), 5, 1, 10)));
+}
+
+// "Accept all remaining": the firms that still have pictures to decide, then one firm at a time (see acceptFirm in src/lib/lawyer-photos.js).
+export async function lawyerPhotoFirms({ request, env }) {
+  await requireAdmin(env, request);
+  return reply(await photoFirms(env));
+}
+
+export async function lawyerPhotoAcceptFirm({ request, env, params }) {
+  const admin = await requireAdmin(env, request);
+  const body = await readJson(request, 6000).catch(() => ({}));
+  return reply(await acceptFirm(env, admin, params.slug, { skip: body.skip, limit: body.limit }));
 }
 
 export async function lawyerPhotoPreview({ request, env, params }) {

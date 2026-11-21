@@ -57,5 +57,14 @@ ok(noHero.length === 0 && odd.length === 0, `every city and province page has on
 ok(js.includes("styles/bright") && !js.includes("styles/liberty") && !/var P = \{/.test(js) && js.includes("/^poi|^airport|aeroway/.test(l.id)"), "the basemap is the bright style with its points of interest hidden, and the page no longer repaints it");
 ok(/'circle-color': '#e2bd6a'/.test(js) && /'circle-stroke-color': '#ffffff'/.test(js) && /'firm-cluster-count'[^\n]*'text-color': '#2a2a2a'/.test(js), 'clusters are the logo gold with navy numbers (8.8:1) and a white ring');
 
+// the green, Google-style look (the same as lawdb.ai): map-style.js recolours the bright style; the Find page, the city and province pages and a firm's profile all use it, with gold pins
+const ms = readFileSync('map-style.js', 'utf8');
+ok(/window\.LawdbMapStyle\s*=/.test(ms) && ms.includes("tiles.openfreemap.org/styles/") && ms.includes("land: '#dcefd4'") && ms.includes("water: '#7fc4ee'"), 'map-style.js recolours the OpenFreeMap style: mint land, blue water');
+ok(js.includes('LawdbMapStyle.load(') && js.includes("map-style.js?v=") && js.includes("styleObj || 'https://tiles.openfreemap.org/styles/bright'"), 'lawdb-map.js uses the green style, loads map-style.js itself on a page that did not, and falls back to the plain style');
+ok(/map-style\.js\?v=\d+" defer>/.test(readFileSync('find-lawyers.html', 'utf8')), 'the Find page loads map-style.js ahead of lawdb-map.js');
+ok(/'gm-pin': \['#b8892f'/.test(js) && /'gm-pin-gold': \['#d9b35a'/.test(js) && /'gm-pin-sel': \['#8a6a1f'/.test(js), 'the pins are gold');
+const fp = readFileSync('src/render/firm-page.js', 'utf8');
+ok(fp.includes('LawdbMapStyle.load(') && fp.includes('src="/map-style.js"') && !fp.includes('styles/liberty') && fp.includes("Marker({color:'#c9a050'})"), 'the map on a firm profile uses the green style and a gold pin');
+
 if (bad) { console.error(`${bad} check(s) failed`); process.exit(1); }
 console.log('All checks passed');

@@ -20,6 +20,15 @@
     var x = Math.sin(dLa/2) * Math.sin(dLa/2) + Math.cos(a*t) * Math.cos(c*t) * Math.sin(dLo/2) * Math.sin(dLo/2);
     return 2 * R * Math.asin(Math.sqrt(x));
   }
+  // map-style.js: loaded once, from the same folder as this script; the map still draws (plain style) if it cannot be loaded
+  var styleLoad = null;
+  function styleScript(){
+    if(window.LawdbMapStyle) return Promise.resolve();
+    if(!styleLoad) styleLoad = new Promise(function(res){
+      var s = document.createElement('script'); s.src = ROOT + 'map-style.js?v=1'; s.onload = s.onerror = function(){ res(); }; document.head.appendChild(s);
+    });
+    return styleLoad;
+  }
   function fmtKm(d){ return (d < 10 ? d.toFixed(1) : Math.round(d)) + ' km'; }
 
   var LAWYERS = {
@@ -529,7 +538,7 @@
     return FONTS;
   }
   function textField(feat){
-    var F2 = pickFonts(), nm = { 'font-scale': 1, 'text-color': feat ? '#3a3a3a' : '#2a2a2a' }, sb = { 'font-scale': 0.88, 'text-color': '#5f5f5f' };
+    var F2 = pickFonts(), nm = { 'font-scale': 1, 'text-color': feat ? '#3c4043' : '#2a2a2a' }, sb = { 'font-scale': 0.88, 'text-color': '#5f5f5f' };
     if(F2.bold) nm['text-font'] = ['literal', F2.bold];
     if(F2.reg) sb['text-font'] = ['literal', F2.reg];
     return ['format', ['get', 'name'], nm, '\n', {}, ['get', 'sub'], sb];
@@ -541,7 +550,7 @@
     };
     var font = F2.reg || F2.any; if(font) lay['text-font'] = font;
     var def = { id: id, type: 'symbol', source: source, layout: lay,
-      paint: { 'text-color': '#2a2a2a', 'text-halo-color': 'rgba(255,253,248,0.95)', 'text-halo-width': 1.8,
+      paint: { 'text-color': '#2a2a2a', 'text-halo-color': 'rgba(255,255,255,0.95)', 'text-halo-width': 1.8,
         'text-opacity': feat ? 1 : ['interpolate', ['linear'], ['zoom'], 10.5, 0, 11.5, 1] } };
     if(filter) def.filter = filter;
     try { map.addLayer(def); } catch(e){}
@@ -554,7 +563,7 @@
     map.addSource('firms-feat', { type: 'geojson', data: empty });
     map.addSource('firm-sel', { type: 'geojson', data: empty });
     map.addSource('me', { type: 'geojson', data: empty });
-    var IM = { 'gm-pin': ['#3a3a3a', '#ffffff', 1, false], 'gm-pin-gold': ['#c9a050', '#ffffff', 1.12, true], 'gm-pin-sel': ['#2a2a2a', '#ffffff', 1.35, false, '#c9a050'], 'gm-pin-sel-gold': ['#c9a050', '#2a2a2a', 1.5, true] };
+    var IM = { 'gm-pin': ['#b8892f', '#ffffff', 1, false], 'gm-pin-gold': ['#d9b35a', '#ffffff', 1.12, true], 'gm-pin-sel': ['#8a6a1f', '#ffffff', 1.35, false, '#f2d98f'], 'gm-pin-sel-gold': ['#c9a050', '#8a6a1f', 1.5, true] };
     Object.keys(IM).forEach(function(k){ if(!map.hasImage(k)) map.addImage(k, pinImage(IM[k][0], IM[k][1], IM[k][2], IM[k][3], IM[k][4]), { pixelRatio: 2 }); });
     var font = pickFonts(), tf = font.bold || font.any;
     var size = ['interpolate', ['linear'], ['zoom'], 8, 0.55, 13, 0.8];
@@ -612,12 +621,14 @@
   /* ------------------------------------------------------------ map creation */
   ensureMap = function(){
     if(mapReady) return mapReady;
-    mapReady = new Promise(function(resolve, reject){
+    // the green, Google-style look comes from map-style.js (the Find page loads it; a city page loads it here the first time the map is asked for)
+    var styleP = styleScript().then(function(){ return window.LawdbMapStyle ? window.LawdbMapStyle.load('bright') : null; });
+    mapReady = styleP.then(function(styleObj){ return new Promise(function(resolve, reject){
       var settled = false;
       var timer = setTimeout(function(){ if(!settled){ settled = true; reject(new Error('Map load timed out')); } }, 12000);
       try {
         map = new maplibregl.Map({
-          container: 'map', style: 'https://tiles.openfreemap.org/styles/bright', center: [-82.5, 44.5], zoom: 5.4,
+          container: 'map', style: styleObj || 'https://tiles.openfreemap.org/styles/bright', center: [-82.5, 44.5], zoom: 5.4,
           attributionControl: false, dragRotate: false, touchPitch: false, pitchWithRotate: false, maxZoom: 18.5
         });
         map.touchZoomRotate.disableRotation();
@@ -633,7 +644,7 @@
           if(msg && /AJAXError|cloned|style/i.test(msg) && !settled){ settled = true; clearTimeout(timer); reject(e.error); }
         });
       } catch(err){ if(!settled){ settled = true; clearTimeout(timer); reject(err); } }
-    }).catch(function(err){ console.error('Map failed to initialize:', err); showMapError(); throw err; });
+    }); }).catch(function(err){ console.error('Map failed to initialize:', err); showMapError(); throw err; });
     return mapReady;
   };
 

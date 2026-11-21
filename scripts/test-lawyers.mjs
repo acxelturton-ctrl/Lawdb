@@ -5,7 +5,7 @@
 // description and canonical for every page, valid breadcrumb and person markup, and every address in the sitemap.
 import { readFileSync, readdirSync } from 'node:fs';
 import { renderFirmPage } from '../src/render/firm-page.js';
-import { cleanLawyers, cleanTitle, lawyersOf, lawyerHasPage, lawyerSlug, MIN_FIRM_LAWYERS } from '../src/lib/lawyers.js';
+import { cleanLawyers, cleanTitle, normalizeEducation, lawyersOf, lawyerHasPage, lawyerSlug, MIN_FIRM_LAWYERS } from '../src/lib/lawyers.js';
 import { firmSitemap } from '../src/routes/firm-sitemap.js';
 import { firmPage } from '../src/routes/firm-page.js';
 
@@ -51,6 +51,23 @@ T('Avocate s\u00c3\u00a9nior', 'Avocate s\u00e9nior');
 T('Real Estate Attorney\u200b', 'Real Estate Attorney');
 
 
+// education: only a string that reads whole as "<law degree>, <school>" is shown, in one plain form
+const E = (raw, want) => { const got = normalizeEducation(raw); ok(got === want, `education ${JSON.stringify(raw)} -> ${JSON.stringify(want)}${got === want ? '' : ' (got ' + JSON.stringify(got) + ')'}`); };
+E('LL.B., University of Alberta', 'LL.B., University of Alberta');
+E('Juris Doctor from the University of Calgary', 'J.D., University of Calgary');
+E('J.D. from Osgoode Hall Law School', 'J.D., Osgoode Hall Law School');
+E('Bachelor of Laws, 1981 University of Windsor', 'LL.B., University of Windsor');
+E('LL.B (with distinction), University of Alberta', 'LL.B., University of Alberta');
+E('J.D., University of Calgary (2021) Master of Science', 'J.D., University of Calgary');
+E('Juris Doctor de l\u2019Universit\u00e9 de Montr\u00e9al', 'J.D., Universit\u00e9 de Montr\u00e9al');
+E('LL.M, 2020 University of Southampton LL', 'LL.M., University of Southampton');
+E('J.D., University of Toronto Publications Co-Author', '');
+E('J.D., University of St', '');
+E('B.A., Mount Royal University (2018) Professional Memberships Law Society of Al', '');
+E('JD, University of Ottawa (2014) Sadaf Raja received her Juris Do', '');
+E('B.A., University of Calgary', '');
+E('Juris Doctor Degree from the University of Calgary and an Honours Bachelors of Arts in So', '');
+
 const base = { name: 'Jane Q. Doe', title: 'Partner', callYear: 2005, languages: ['English', 'French'], linkedin: 'https://www.linkedin.com/in/jane-doe-123/?trk=x', site: 'https://firm.example/jane', photo: 'https://firm.example/jane.jpg' };
 const one = (over) => cleanLawyers([{ ...base, ...over }])[0];
 ok(one({}).slug === 'jane-q-doe' && one({}).linkedin === 'https://www.linkedin.com/in/jane-doe-123/', 'a good entry keeps its facts; the LinkedIn address loses its tracking part');
@@ -62,7 +79,7 @@ ok(!one({ linkedin: 'https://evil.example/in/x' }).linkedin && !one({ linkedin: 
 ok(!('callYear' in one({ callYear: 1899 })) && !('callYear' in one({ callYear: 2999 })) && !('title' in one({ title: 'Best Lawyer in Canada' })), 'an impossible year and a title with an advertising claim are left out');
 ok(cleanLawyers([{ ...base, title: 'Retired Partner' }]).length === 0, 'a retired lawyer is not listed');
 ok(one({ name: 'Erin Levitsky', title: 'Erin Levitsky / Associate' }).title === 'Associate' && one({ name: 'Elizabeth Long', title: 'Elizabeth Long \\ Partner' }).title === 'Partner', 'a title that repeats the lawyer\'s own name keeps only the role');
-ok(one({ education: ['LL.B, University of Windsor 1985 \u200b B'] }).education[0] === 'LL.B, University of Windsor 1985', 'invisible characters and a stray letter at the end of a school are removed');
+ok(one({ education: ['LL.B, University of Windsor 1985 \u200b B'] }).education[0] === 'LL.B., University of Windsor' && !('education' in one({ education: ['B.A., University of Calgary', 'J.D., University of St'] })), 'invisible characters and a stray letter are removed; a school that is cut off or has no law degree is not shown');
 ok(cleanLawyers([{ name: 'Andrea Mannell', title: 'Congratulations to our newly appointed lawyer' }]).length === 0 && cleanLawyers([{ ...base, name: 'Andrea Mannell', title: 'Congratulations to our newly appointed lawyer' }]).length === 1, 'a sentence as a title means a news line was read: the person stays only with other facts on record');
 ok(cleanLawyers(Array.from({ length: 300 }, (_, i) => ({ ...base, name: `Person ${String.fromCharCode(65 + (i % 26))}${String.fromCharCode(97 + Math.floor(i / 26))}son` }))).length <= 120, 'no more than 120 lawyers per firm');
 ok(lawyerSlug('Renée O’Brien-Smith') === 'renee-o-brien-smith', 'slugs are plain lower case');

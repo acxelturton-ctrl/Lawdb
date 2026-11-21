@@ -68,6 +68,28 @@ export function cleanTitle(raw) {
   return { title: ROLE.test(t) ? t.replace(/\s+(?:at|@)\s+.*$/i, '') : '' };
 }
 
+// Education: the reader took a fixed number of characters from the page, so many stored strings end in the middle of a word or run into the next paragraph
+// ("...University of Southampton LL", "...(2014) Sadaf Raja received her Juris Do"). Only a string that reads whole as "<law degree> <school>" is kept, and it is
+// shown in one plain form ("J.D., University of Calgary"); the year, a second degree after the school and anything else are left out. Anything that does not read
+// whole is dropped, never guessed at.
+const CAP = "[\\p{Lu}][\\p{L}'\u2019.\\-]*";
+const STOP = '(?!(?:LL(?:\\.?[BM]\\.?)?|J(?:\\.?D\\.?)?|BA|MA|BSc|BComm|MBA|CPA|CMA|CFA|PMP|[A-Z][a-z]?)(?![\\p{L}.])|Bachelors?\\b|Masters?\\b|Doctor|Degree|Hon[ou]|Diploma|Certificate|In-Depth|Professional|Affiliations|Associations?|Memberships?|Admissions?|Admitted|Called|Bar\\b|Publications?|Co-Author|Awards?|Languages?|Practice|Areas?|Experience|Biography|Contact|Book|Community|Volunteer|Education|Courses?|Teaching|Presentations?)';
+const NEXT = `(?: ${STOP}(?:(?:of|and|de|du|des) )?${CAP})`;
+const SCHOOL = `(?:University of ${STOP}${CAP}${NEXT}{0,3}|Universit[\u00e9e] (?:de |du |d[\u2019'] ?)?${STOP}${CAP}${NEXT}{0,2}|${CAP}(?: ${STOP}${CAP}){0,3} (?:University|College|Law School|School of Law|Faculty of Law))`;
+const DEGREES = [['LL.B.', 'LL\\.?\\s?B\\.?|Bachelor of Laws?'], ['LL.M.', 'LL\\.?\\s?M\\.?|Master of Laws'], ['J.D.', 'J\\.?\\s?D\\.?|Juris Doctor(?:ate)?'], ['B.C.L.', 'B\\.?C\\.?L\\.?']];
+const OTHER_DEGREE = 'LL(?:\\.?[BM]\\.?)?|J(?:D|\\.D\\.?)?|B|M|Bachelors?|Masters?|Certificate|Diploma|In-Depth|BA|MA|BSc|BComm|MBA|B\\.A|M\\.A|B\\.Sc|B\\.Comm';
+const EDUCATION = new RegExp(
+  `^(?:${DEGREES.map(([, r]) => `(${r})`).join('|')})(?:\\s*\\((?:LL\\.?B\\.?|J\\.?D\\.?)\\))?(?:\\s*\\([^)]{1,30}\\))?(?:\\s*\\(?\\d{4}\\)?)?` +
+  `(?:\\s*[,.:;\\-\u2013]\\s*|\\s+)(?:(?:Bachelor of Laws?|Juris Doctor|Honou?rs|Hons\\.?|Degree|program(?:me)?)(?:\\s*[\u2013-]\\s*\\d{4})?\\s*[,.:;\\-\u2013]?\\s*)?` +
+  `(?:(?:in )?\\d{4}\\s*,?\\s*)?(?:(?:from|at|de|of|in)\\s+)?(?:the\\s+)?(?:l[\u2019']\\s?)?(${SCHOOL})` +
+  `(?:\\s*[\u2013-]?\\s*\\(?\\d{4}\\)?)?(?:\\s*\\([A-Z]{2,6}\\))?(?:\\s+in \\d{4})?(?:\\s+(?:${OTHER_DEGREE})\\b.*)?\\.?$`, 'u');
+export function normalizeEducation(e) {
+  const m = EDUCATION.exec(one(e, 160));
+  if (!m) return '';
+  const i = [1, 2, 3, 4].findIndex((k) => m[k] !== undefined);
+  return `${DEGREES[i][0]}, ${m[5].replace(/^l[\u2019']\s?/, '')}`;
+}
+
 export function lawyerSlug(name) {
   return String(name).normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
@@ -91,7 +113,7 @@ export function cleanLawyers(list, thisYear = new Date().getFullYear()) {
     const title = t.title || '';
     const year = Number(l.callYear);
     const yearOk = Number.isInteger(year) && year >= 1950 && year <= thisYear;
-    const edu = (Array.isArray(l.education) ? l.education : []).map((e) => one(e, 120).replace(/\s+[A-Z]$/, '')).filter((e) => e && plain(e)).slice(0, 3);
+    const edu = (Array.isArray(l.education) ? l.education : []).map(normalizeEducation).filter((e, i, all) => e && all.indexOf(e) === i && plain(e)).slice(0, 3);
     const langs = (Array.isArray(l.languages) ? l.languages : []).filter((x) => LANGUAGES.includes(x)).slice(0, 5);
     const li = typeof l.linkedin === 'string' && /^https:\/\/(?:[a-z]{2,3}\.)?linkedin\.com\/(?:in|pub)\/[A-Za-z0-9%_\-\/.]+$/.test(l.linkedin.split('?')[0]) ? l.linkedin.split('?')[0] : '';
     const site = typeof l.site === 'string' && /^https:\/\/[^\s"'<>]+$/.test(l.site) ? l.site : '';

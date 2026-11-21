@@ -3,7 +3,7 @@
 // Profiles without a real description yet (see src/lib/indexing.js) are left out and carry a noindex tag.
 import { isIndexable } from '../lib/indexing.js';
 import { lawyersOf, lawyerHasPage } from '../lib/lawyers.js';
-import { articleTabSlugs } from '../lib/articles.js';
+import { indexableArticleSlugs } from '../lib/articles.js';
 
 // One sitemap file may hold 50,000 addresses; we stop well short of that. If the table ever reaches the limit the file says so in a header and the log,
 // and the answer is a sitemap index (see docs/ARCHITECTURE.md, "Search engines").
@@ -18,8 +18,8 @@ export async function firmSitemap({ request, env }) {
     const truncated = results.length >= FIRM_SITEMAP_LIMIT;
     if (truncated) console.error(`firm sitemap reached its limit of ${FIRM_SITEMAP_LIMIT} firms: some firms are missing from it; split it into a sitemap index`);
     const listed = results.filter((r) => isIndexable(r.about));
-    // The Articles page of a Featured firm with enough articles (src/lib/articles.js)
-    const withArticles = await articleTabSlugs(env).catch((err) => { console.error('article tabs for the sitemap failed', err); return new Set(); });
+    // The Articles page of a Featured firm with enough articles (src/lib/articles.js): only Featured firms' article pages are offered to search engines
+    const withArticles = await indexableArticleSlugs(env).catch((err) => { console.error('article tabs for the sitemap failed', err); return new Set(); });
     const day = (d) => { const t = d ? new Date(String(d).replace(' ', 'T') + 'Z') : null; return t && !Number.isNaN(t.getTime()) ? t.toISOString().slice(0, 10) : ''; };
     // The Lawyers page of a firm that has two or more lawyers to show, and a page for each lawyer who has enough to say (src/lib/lawyers.js).
     const urls = [];

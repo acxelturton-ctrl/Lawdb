@@ -131,7 +131,7 @@ function feedCardHtml(p, { head, here, pic, host, hero, length = 0 }) {
 
 export const safePostUrl = (u) => /^https:\/\//.test(u) || /^http:\/\/127\.0\.0\.1/.test(u);
 
-// The firm's own articles, listed under the profile's map the way MSPdatabase does it: each article is a row with the headline and a
+// The firm's own articles, listed on its Articles page the way MSPdatabase does it: each article is a row with the headline and a
 // short preview on the left, and its picture on the right, with how long ago it was written. Text is escaped; only https pictures and
 // links are used, as on the other cards.
 const ARTICLES_CSS = `<style>
@@ -145,8 +145,6 @@ const ARTICLES_CSS = `<style>
 .fa-meta{display:flex;align-items:center;gap:5px;font:500 12.5px/1.3 'Inter',system-ui,sans-serif;color:#8c8c8c}
 .fa-pic{flex:none;width:clamp(96px,34%,150px);aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#f7f1e0}
 .fa-pic img{width:100%;height:100%;object-fit:cover;display:block}
-.fa-note{margin:14px 0 0;font-size:12px;color:#8c8c8c;line-height:1.5}
-.fa-all{margin:8px 0 0}.fa-all a{font:700 14px 'Inter',system-ui,sans-serif;color:#c9a050;text-decoration:none}.fa-all a:hover{text-decoration:underline}
 .fa-page{margin-top:6px}.fa-page .fa-row:first-child{border-top:0}
 </style>`;
 
@@ -160,16 +158,6 @@ function articleRowHtml(p) {
   return `<article class="fa-row"><a class="fa-main" href="${esc(href)}"${target}><h3>${esc(p.title)}</h3>` +
     (p.excerpt ? `<p>${esc(teaser(p.excerpt, 170))}</p>` : '') +
     `<span class="fa-meta">${when ? `<time datetime="${esc(when.iso)}">${esc(when.label)}</time> · ` : ''}${GLOBE}</span></a>${pic}</article>`;
-}
-
-// allHref: the firm's Articles page, when it has one (a Featured firm with enough articles): the Overview then ends its list with a link to it.
-export function renderFirmArticles({ firmName, posts, allHref = '', total = 0 }) {
-  const shown = (posts || []).slice(0, 5).filter((p) => safePostUrl(p.url));
-  if (!shown.length) return '';
-  return `${ARTICLES_CSS}<section class="fa" aria-label="Recent articles by ${esc(firmName)}"><h2>Recent articles by ${esc(firmName)}</h2>` +
-    shown.map(articleRowHtml).join('') +
-    (allHref ? `<p class="fa-all"><a href="${esc(allHref)}">See all ${Number(total) > shown.length ? Number(total) + ' ' : ''}articles by ${esc(firmName)} &rarr;</a></p>` : '') +
-    `<p class="fa-note">Headlines and short excerpts come from the firm's public blog. The articles belong to ${esc(firmName)}; the full text is on their website.</p></section>`;
 }
 
 // The firm's Articles page: every article the tab shows, each linking to its LawDB story page (which links on to the firm's own article).

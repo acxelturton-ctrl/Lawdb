@@ -7,7 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { renderFirmPage } from '../src/render/firm-page.js';
 import { renderStoryPage } from '../src/render/story-page.js';
-import { cardHtml, renderFirmArticles } from '../src/render/blog-cards.js';
+import { cardHtml, renderArticlesList } from '../src/render/blog-cards.js';
 import { firmSitemap, FIRM_SITEMAP_LIMIT } from '../src/routes/firm-sitemap.js';
 import { storySitemap, STORY_SITEMAP_LIMIT } from '../src/routes/story-page.js';
 
@@ -27,7 +27,7 @@ ok(anchors(paid, 'zubic.example').length > 0 && anchors(paid, 'zubic.example').e
 const post = { id: 7, title: 'A story title that is long enough', url: 'https://zubic.example/blog/story', publishedAt: '2026-01-02 10:00:00', excerpt: 'x '.repeat(60), image: null };
 const card = cardHtml(post, { byline: 'Zubic Law' });
 ok(anchors(card, 'zubic.example').length > 0 && anchors(card, 'zubic.example').every((a) => !followedPlain(a)), 'a blog card\'s links to the firm\'s own article are nofollow');
-ok(anchors(renderFirmArticles({ firmName: 'Zubic Law', posts: [post] }), 'zubic.example').every((a) => !followedPlain(a)), 'the articles row on a page links out with nofollow too');
+ok(anchors(renderArticlesList({ firmName: 'Zubic Law', articles: [post] }), 'zubic.example').every((a) => !followedPlain(a)), 'the Articles page links out with nofollow too');
 const story = (f) => renderStoryPage({ post: { ...post, excerpt: 'Short.' }, firm: { slug: 'zubic-law', name: 'Zubic Law', city: 'Niagara Falls', province: 'ON', ...f }, more: [], nearby: [] });
 ok(anchors(story({}), 'zubic.example').every((a) => /\bnofollow\b/.test(relOf(a))) && anchors(story({ featured: true }), 'zubic.example').every((a) => /\bsponsored\b/.test(relOf(a))), 'the story page links to the full article with nofollow (sponsored for a Featured firm)');
 const mapJs = readFileSync('lawdb-map.js', 'utf8');

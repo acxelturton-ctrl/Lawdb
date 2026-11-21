@@ -1,7 +1,6 @@
 // /firms/<slug>: every live firm's page is drawn from the database (src/render/firm-page.js), the same way for every firm, whenever it was listed. Each success
 // is cached at the edge for PUBLIC_CACHE_TTL seconds (default 60), so the database is read about once a minute per page, not once per visitor.
 // If the database cannot answer, the saved copy of the page in the site files is served instead (an emergency copy, never a second kind of page).
-import { storyPath } from '../lib/stories.js';
 import { renderFirmPage } from '../render/firm-page.js';
 import { isIndexable } from '../lib/indexing.js';
 import { getVerification, publicView } from '../lib/verification.js';
@@ -9,9 +8,9 @@ import { redirectTarget } from '../lib/firm-slug.js';
 import { siblingsOf } from '../lib/locations.js';
 import { firmStats } from '../lib/firm-stats.js';
 import { bookingRow } from '../render/booking.js';
-import { listArticles } from '../lib/articles.js';
+import { listArticles, articlesIndexable } from '../lib/articles.js';
 
-const CACHE_GENERATION = 7; // 7: the Articles page and a tab bar that can hold more pages; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
+const CACHE_GENERATION = 8; // 8: every firm's articles on the Articles page, none at the bottom of the Overview; 7: the Articles page and a tab bar that can hold more pages; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -34,22 +33,6 @@ async function nearbyFirms(env, f) {
     take((await env.DB.prepare(`SELECT ${cols} FROM firms WHERE status = 'live' AND region = ? AND slug != ? ${order} LIMIT 10`).bind(f.region, f.slug).all()).results);
   }
   return out;
-}
-
-// The firm's latest blog posts (for the cards), only when its feed is switched on.
-async function feedPosts(env, slug) {
-  try {
-    const { results } = await env.DB.prepare(
-      `SELECT p.id, p.title, p.url, p.published_at AS publishedAt, p.excerpt, p.image_url AS image, (f.page_only = 1 AND m.featured = 0) AS pageOnly
-       FROM firm_posts p JOIN firm_feeds f ON f.firm_slug = p.firm_slug JOIN firms m ON m.slug = p.firm_slug
-       WHERE p.firm_slug = ? AND f.enabled = 1 ORDER BY p.published_at DESC, p.id DESC LIMIT 3`
-    ).bind(slug).all();
-    // Page-only cards go straight to the firm's own article; there is no LawDB story page for them.
-    return results.map((r) => (r.pageOnly ? { id: null, title: r.title, url: r.url, publishedAt: r.publishedAt, excerpt: r.excerpt, image: r.image } : { ...r, storyHref: storyPath(slug, r.id, r.title) }));
-  } catch (err) {
-    console.error('blog cards lookup failed', slug, err);
-    return []; // the page always works without the cards
-  }
 }
 
 // What the Worker adds to the drawn page: the claim line under the button row, the Book a call button in its slot, the member-ratings box under the map, and the small
@@ -111,9 +94,9 @@ export async function firmPage({ request, env, ctx }) {
     const hours = row.hours ? JSON.parse(row.hours) : null;
     const photos = (await env.DB.prepare("SELECT id, alt FROM firm_images WHERE firm_slug = ? AND kind = 'photo' ORDER BY created_at, id").bind(m[1]).all()).results;
     const verified = publicView(await getVerification(env, m[1])); // only a firm the admin has checked; never the name or number the firm gave us
-    // the Articles tab exists only for a Featured firm with enough articles (src/lib/articles.js), so nobody else is asked
-    const articles = row.featured ? await listArticles(env, m[1]) : [];
-    html = renderFirmPage({ firm, hours, images: photos, posts: await feedPosts(env, m[1]), articles, nearby: await nearbyFirms(env, firm), locations: await siblingsOf(env, m[1]), stats: await firmStats(env, firm), verified, view, origin: env.SITE_ORIGIN || url.origin });
+    // every firm's articles are on the Articles page, never on the Overview; the tab shows when there are enough (src/lib/articles.js). The page always works without them.
+    const articles = await listArticles(env, m[1]).catch((err) => { console.error('articles lookup failed', m[1], err); return []; });
+    html = renderFirmPage({ firm, hours, images: photos, articles, nearby: await nearbyFirms(env, firm), locations: await siblingsOf(env, m[1]), stats: await firmStats(env, firm), verified, view, origin: env.SITE_ORIGIN || url.origin });
     // A Lawyers page for a firm with no lawyers to show, or a page for a lawyer who has none, does not exist: 404, never an empty page.
     if (html === null) return env.ASSETS.fetch(request);
   } catch (err) {
@@ -121,7 +104,8 @@ export async function firmPage({ request, env, ctx }) {
     return env.ASSETS.fetch(request);
   }
   // No real description yet: keep the page out of Google (it stays reachable and its links still count) until there is one.
-  const held = !isIndexable(row.about);
+  // A Basic firm's Articles page is for visitors only: its story pages are not offered to search engines, so neither is a page of excerpts that leads to them.
+  const held = !isIndexable(row.about) || (view?.tab === 'articles' && !articlesIndexable(row));
   if (held) html = html.replace('</head>', '<meta name="robots" content="noindex,follow">\n</head>');
   const managed = await managedBy(env, m[1]);
   const res = withFollow(new Response(html, {

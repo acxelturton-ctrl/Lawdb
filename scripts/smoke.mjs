@@ -735,6 +735,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const rss = () => `<?xml version="1.0"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>${origin}/</link>
 <item><title>Charged With Impaired Driving: What Happens Next</title><link>${origin}/blog/impaired</link><guid>g1</guid><pubDate>${days(1)}</pubDate><description><![CDATA[<p>${longText}</p><p>The post Charged With Impaired Driving appeared first on Some Firm.</p>]]></description><media:content url="${origin}/img/a.jpg" medium="image" xmlns:media="http://search.yahoo.com/mrss/"/></item>
 <item><title>Tom &amp; Jerry's Guide</title><link>${origin}/blog/guide</link><guid>g2</guid><pubDate>${days(2)}</pubDate><description><![CDATA[Short and sweet summary.<img src="${origin}/img/b.jpg" width="600" height="300">]]></description></item>
+<item><title>Planning Ahead: Your Estate Checklist</title><link>${origin}/blog/estate</link><guid>g8</guid><pubDate>${days(6)}</pubDate><description><![CDATA[A short checklist for families.<img src="${origin}/img/c.jpg" width="600" height="300">]]></description></item>
 <item><title>Elsewhere</title><link>https://evil.example/steal</link><guid>g3</guid><pubDate>${days(3)}</pubDate><description>Off-site link.</description></item>
 <item><title><![CDATA[<script>alert(1)</script>Scripted headline]]></title><link>${origin}/blog/script</link><guid>g4</guid><pubDate>${days(4)}</pubDate><description><![CDATA[Hello <img src="javascript:alert(1)" onerror=alert(1)> <img src="data:image/png;base64,AAAA"> world]]></description></item>
 <item><title>Bad link</title><link>javascript:alert(1)</link><guid>g5</guid><pubDate>${days(5)}</pubDate><description>x</description></item>
@@ -767,7 +768,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 
   // the reader itself (unit): safe, short, text only, own-site links only
   const parsed = parseFeed(rss(), { feedUrl: origin + '/feed.xml', siteUrl: origin, allowLocal: true });
-  ok(parsed.length === 5 && !parsed.some((x) => /evil|javascript/.test(x.url)), 'the reader keeps only posts that link to the firm\'s own site');
+  ok(parsed.length === 6 && !parsed.some((x) => /evil|javascript/.test(x.url)), 'the reader keeps only posts that link to the firm\'s own site');
   ok(parsed[0].title.startsWith('Charged With Impaired Driving') && parsed.every((x, i) => !i || (parsed[i - 1].publishedAt || '') >= (x.publishedAt || '')), 'posts come newest first');
   ok(parsed.every((x) => x.excerpt.length <= 600 && !/[<>]/.test(x.title + x.excerpt)), 'excerpts are short plain text');
   ok(!/appeared first on/.test(parsed[0].excerpt) && parsed[0].excerpt.endsWith('...'), 'WordPress boilerplate is removed and long text is cut');
@@ -802,13 +803,18 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   cookie = adminJar;
   const featSlug = 'daniel-brown-law-llp';
   const setFeed = await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: origin + '/feed.xml' });
-  ok(setFeed.status === 200 && setFeed.data.feed.status === 'ok' && setFeed.data.posts.length === 5, 'the admin sets a firm\'s feed and it is read at once');
-  const featPage = (await getRaw('/firms/' + featSlug)).text;
-  const cardCount = (featPage.match(/<article class="fa-row">/g) || []).length;
-  ok(cardCount >= 3 && featPage.indexOf('class="fa"') > featPage.indexOf('class="article"') && featPage.indexOf('class="fa"') > featPage.indexOf('class="pf-loc"') && featPage.indexOf('class="fa"') < featPage.indexOf('class="lw-car"') && featPage.indexOf('class="fa"') < featPage.indexOf('<footer'), 'the firm\'s articles sit under its description and map, above the "Browse other lawyers" row');
-  ok(featPage.includes('Charged With Impaired Driving') && featPage.includes('Tom &amp; Jerry&#x27;s Guide') && !featPage.includes('evil.example') && !featPage.includes('<script>alert') && !featPage.includes('onerror=alert'), 'card text is escaped and off-site links never appear');
-  const storyHref = (/href="(\/news\/daniel-brown-law-llp\/charged-with-impaired-driving-what-happens-next-\d+)"/.exec(featPage) || [])[1];
-  ok(!!storyHref && !featPage.includes(`href="${origin}/blog/impaired"`), 'each article opens the story\'s own LawDB page');
+  ok(setFeed.status === 200 && setFeed.data.feed.status === 'ok' && setFeed.data.posts.length === 6, 'the admin sets a firm\'s feed and it is read at once');
+  // every firm's articles are on an Articles page of their own, never at the bottom of the Overview
+  const featPage = (await getRaw('/firms/' + featSlug)).text; // the Overview
+  const artRes = await getRaw(`/firms/${featSlug}/articles`);
+  const artPage = artRes.text;
+  const cardCount = (artPage.match(/<article class="fa-row">/g) || []).length;
+  ok(!featPage.includes('class="fa"') && !featPage.includes('class="fa-row"') && !featPage.includes('Charged With Impaired Driving'), 'the Overview has no articles at the bottom: they are on their own page');
+  ok(artRes.status === 200 && cardCount === 3 && /href="\/firms\/daniel-brown-law-llp\/articles" aria-current="page">Articles <span class="n">3<\/span>/.test(artPage) && /<a href="\/firms\/daniel-brown-law-llp">Overview<\/a>/.test(artPage) && /href="\/firms\/daniel-brown-law-llp\/articles">Articles <span class="n">3<\/span>/.test(featPage), 'the firm\'s articles are on an Articles page of their own, with an Articles tab next to Overview');
+  ok(!artRes.headers.get('x-robots-tag') && /<link rel="canonical" href="https:\/\/lawdb.ca\/firms\/daniel-brown-law-llp\/articles">/.test(artPage), 'a Featured firm\'s Articles page is offered to search engines, with its own canonical');
+  ok(artPage.includes('Charged With Impaired Driving') && artPage.includes('Tom &amp; Jerry&#x27;s Guide') && !artPage.includes('evil.example') && !artPage.includes('<script>alert') && !artPage.includes('onerror=alert'), 'card text is escaped and off-site links never appear');
+  const storyHref = (/href="(\/news\/daniel-brown-law-llp\/charged-with-impaired-driving-what-happens-next-\d+)"/.exec(artPage) || [])[1];
+  ok(!!storyHref && !artPage.includes(`href="${origin}/blog/impaired"`), 'each article opens the story\'s own LawDB page');
   const story = await getRaw(storyHref || '/news/none/x-1');
   ok(story.status === 200 && story.text.includes('<h1>Charged With Impaired Driving: What Happens Next</h1>') && story.text.includes(`href="${origin}/blog/impaired"`) && story.text.includes('Read the full article on 127.0.0.1') && story.text.includes(`rel="canonical" href="https://lawdb.ca${storyHref}"`) && story.text.includes('"@type":"BreadcrumbList"') && story.text.includes('href="/firms/daniel-brown-law-llp"') && !story.text.includes('<script>alert') && !story.text.includes('onerror=alert'), 'the story page shows the headline, the firm, the preview, a link to the full article, and a canonical address');
   ok(story.text.includes('This is a short preview') && !story.text.includes(longText.repeat(2)), 'the page carries only the short preview, never the full article');
@@ -822,18 +828,18 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const smap = await getRaw('/sitemap-news.xml');
   ok(smap.status === 200 && /xml/.test(smap.headers.get('content-type')) && smap.text.includes(`<loc>https://lawdb.ca${storyHref}</loc>`) && (smap.text.match(/<loc>/g) || []).length >= 5 && !smap.text.includes('evil.example'), 'the story sitemap lists every story page');
   ok(/Sitemap: https:\/\/lawdb.ca\/sitemap-news.xml/.test(readFileSync(new URL('../robots.txt', import.meta.url), 'utf8')), 'robots.txt announces the story sitemap');
-  ok(featPage.includes(`<img src="${origin}/img/a.jpg"`) && featPage.includes('class="fa-pic"') && /referrerpolicy="no-referrer"/.test(featPage) && /loading="lazy"/.test(featPage) && !featPage.includes('javascript:alert') && !featPage.includes('data:image'), 'articles show the picture (lazy, no referrer) and never an unsafe address');
-  ok(!(await getRaw('/firms/torkin-manes-llp')).text.includes('class="fa-row"'), 'other firms are not affected');
-  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: false })).status === 200 && !(await getRaw('/firms/' + featSlug)).text.includes('class="fa-row"'), 'switching a firm\'s articles off removes them');
+  ok(artPage.includes(`<img src="${origin}/img/a.jpg"`) && artPage.includes('class="fa-pic"') && /referrerpolicy="no-referrer"/.test(artPage) && /loading="lazy"/.test(artPage) && !artPage.includes('javascript:alert') && !artPage.includes('data:image'), 'articles show the picture (lazy, no referrer) and never an unsafe address');
+  ok(!(await getRaw('/firms/torkin-manes-llp')).text.includes('class="fa-row"') && (await getRaw('/firms/torkin-manes-llp/articles')).status === 404, 'other firms are not affected: a firm with no articles has no Articles page');
+  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: false })).status === 200 && (await getRaw('/firms/' + featSlug + '/articles')).status === 404 && !/>Articles <span class="n">/.test((await getRaw('/firms/' + featSlug)).text), 'switching a firm\'s articles off removes them, the page and the tab');
   ok((await getRaw(storyHref)).status === 404 && !(await getRaw('/sitemap-news.xml')).text.includes(storyHref), 'a switched-off firm\'s story pages disappear too');
-  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: true })).status === 200 && (await getRaw('/firms/' + featSlug)).text.includes('class="fa-row"'), 'and back on');
+  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: true })).status === 200 && (await getRaw('/firms/' + featSlug + '/articles')).text.includes('class="fa-row"'), 'and back on');
 
   // bad feeds
   feedBroken = true; // the same feed starts failing, as a real site sometimes does
   const brokenFeed = await call('POST', `/api/admin/firms/${featSlug}/feed/refresh`);
   feedBroken = false;
-  ok(brokenFeed.data.result.status === 'error' && brokenFeed.data.feed.status === 'error' && brokenFeed.data.posts.length === 5, 'a broken feed is reported and the earlier posts are kept');
-  ok((await getRaw('/firms/' + featSlug)).text.includes('class="fa-row"'), 'the page keeps showing the earlier articles');
+  ok(brokenFeed.data.result.status === 'error' && brokenFeed.data.feed.status === 'error' && brokenFeed.data.posts.length === 6, 'a broken feed is reported and the earlier posts are kept');
+  ok((await getRaw('/firms/' + featSlug + '/articles')).text.includes('class="fa-row"'), 'the Articles page keeps showing the earlier articles');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: origin + '/html' })).data.feed.status === 'error', 'a page that is not a feed is reported');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: 'https://10.0.0.1/feed' })).status === 422 && (await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: 'http://example.com/feed' })).status === 422, 'unsafe addresses are refused when saving');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { colour: 'red' })).status === 422, 'unknown settings are refused');
@@ -857,9 +863,15 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   as(o2.jar);
   ok((await call('GET', '/api/account/firms/achkar-law/feed')).status === 403 && (await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 403, 'another owner cannot touch this firm\'s cards');
   as(o1.jar);
-  ok((await getRaw('/firms/achkar-law')).text.includes('class="fa"'), 'database-built pages show the cards too');
+  const achArt = await getRaw('/firms/achkar-law/articles');
+  ok(achArt.status === 200 && achArt.text.includes('class="fa-row"') && !(await getRaw('/firms/achkar-law')).text.includes('class="fa-row"'), 'every firm\'s articles are on its Articles page (a Basic firm\'s too), not on its Overview');
+  ok(achArt.headers.get('x-robots-tag') === 'noindex, follow' && /<meta name="robots" content="noindex,follow">/.test(achArt.text), 'a Basic firm\'s Articles page is for visitors only: noindex, follow (its story pages are not offered to search engines either)');
+  {
+    const sm = (await getRaw('/sitemap-firms.xml')).text;
+    ok(sm.includes('<loc>https://lawdb.ca/firms/daniel-brown-law-llp/articles</loc>') && !sm.includes('/firms/achkar-law/articles'), 'the firm sitemap lists a Featured firm\'s Articles page and not a Basic firm\'s');
+  }
   ok((await call('GET', '/api/account/firms/achkar-law/feed')).data.posts.length >= 2, 'the owner sees their feed status');
-  ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 200 && !(await getRaw('/firms/achkar-law')).text.includes('class="fa"'), 'an owner switches their cards off');
+  ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 200 && (await getRaw('/firms/achkar-law/articles')).status === 404, 'an owner switches their cards off');
   ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: true })).status === 200, 'and on again');
   ok((await call('POST', '/api/account/firms/achkar-law/feed/refresh')).status === 429, 'an owner cannot re-check within minutes of the last check');
   as(adminJar);
@@ -876,14 +888,14 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   cookie = '';
   const news = await getRaw('/news');
   ok(news.status === 200 && news.headers.get('x-lawdb-source') === 'database' && /<h1><span class="u">LawDB News<\/span><\/h1>/.test(news.text), 'LawDB News is built from the database');
-  const nCards = (news.text.match(/<article class="lw-bc[ "]/g) || []).length;
-  ok(nCards === 4 && news.text.includes('Daniel Brown Law LLP') && news.text.includes('Achkar Law'), 'it shows cards from every firm that has its blog switched on, only articles with their own picture, at most three per firm so one busy blog never fills the page');
-  const noPic = news.text.split(/<article class="lw-bc[ "]/).slice(1).filter((c) => !c.includes('class="lw-bc-img"')).length;
-  ok(noPic === 0 && (news.text.match(/class="lw-bc-img"/g) || []).length === 4, 'every card has its article picture: posts without one are left out of LawDB News');
+  const nCards = (news.text.match(/<article[^>]* class="lw-bc[ "]/g) || []).length;
+  ok(nCards === 6 && news.text.includes('Daniel Brown Law LLP') && news.text.includes('Achkar Law'), 'it shows cards from every firm that has its blog switched on, only articles with their own picture, at most three per firm so one busy blog never fills the page');
+  const noPic = news.text.split(/<article[^>]* class="lw-bc[ "]/).slice(1).filter((c) => !c.includes('class="lw-bc-img"')).length;
+  ok(noPic === 0 && (news.text.match(/class="lw-bc-img"/g) || []).length === 6, 'every card has its article picture: posts without one are left out of LawDB News');
   ok(news.text.includes('class="lw-bc-grid lw-feed"') && news.text.includes('class="lw-bc-head"') && news.text.includes('/images/logos/daniel-brown-law-llp.jpg') && /class="lw-av">[A-Z]</.test(news.text), 'the News page is laid out as a feed with a post header: the firm logo, or its initial');
-  ok(!/class="lw-bc lw-hero"/.test(news.text) && /<article class="lw-bc"><div class="lw-bc-head">/.test(news.text), 'every story is the same card: a post header, then the picture beside the story (no lead card)');
+  ok(!/class="lw-bc lw-hero"/.test(news.text) && /<article[^>]* class="lw-bc"><div class="lw-bc-head">/.test(news.text), 'every story is the same card: a post header, then the picture beside the story (no lead card)');
   ok(/<header class="news-band"><p class="news-eyebrow">News &amp; insights<\/p>/.test(news.text) && /Real stories\. Practical advice\. <em>All in one place\.<\/em>/.test(news.text) && !news.text.includes('news-drift') && !news.text.includes('news-seal'), 'the masthead is a plain cream header: eyebrow, headline and the line "Real stories. Practical advice. All in one place."');
-  ok(/<header class="news-band">/.test(news.text) && news.text.includes('class="news-steps"') && (news.text.match(/class="news-step"/g) || []).length === 3 && news.text.includes('The firms writing here') && /<b>2<\/b><span>FIRMS WRITING/.test(news.text) && /<b>4<\/b><span>RECENT ARTICLES/.test(news.text), 'the page opens with a masthead, how it works, who is writing, and real counts (firms and articles)');
+  ok(/<header class="news-band">/.test(news.text) && news.text.includes('class="news-steps"') && (news.text.match(/class="news-step"/g) || []).length === 3 && news.text.includes('Firms writing now') && /<b>2<\/b><span>FIRMS WRITING/.test(news.text) && /<b>6<\/b><span>RECENT ARTICLES/.test(news.text), 'the page opens with a masthead, how it works, who is writing, and real counts (firms and articles)');
   ok(!news.text.includes('Back to results'), 'the News page header has no stray "Back to results" link');
   ok(/Daniel Brown Law LLP<\/a><span class="lw-ft">Featured<\/span>/.test(news.text) && !/Achkar Law<\/a><span class="lw-ft">/.test(news.text), 'only Featured firms carry the Featured badge');
   ok(news.text.includes('data-story') && news.text.includes('<dialog id="story-dlg"') && news.text.includes('partial=1') && /href="\/news\/daniel-brown-law-llp\/[a-z0-9-]+-\d+"/.test(news.text) && !news.text.includes(`href="${origin}/blog/impaired"`) && !news.text.includes('evil.example') && !news.text.includes('<script>alert') && !news.text.includes('onerror=alert'), 'cards open the story over the page (its own address, Back closes it), and nothing unsafe gets in');
@@ -904,7 +916,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(!dailyA.includes('/firms/blottman') && !dailyA.includes('/firms/barbarian-law') && dailyA.includes('class="lc-rate"') && dailyA.includes('class="lc-call"'), 'no Featured firm is in the rotation, and the cards carry the rating and the Call button');
   const home = await getRaw('/');
   ok(/<section class="hn" id="homeNews"(?! hidden)/.test(home.text) && /<div class="lw-bc-grid lw-feed hn-track" id="homeNewsGrid"[^>]*>\s*<article class="lw-bc/.test(home.text), 'the home page shows a short news row under the search bar (the section is un-hidden once there are articles)');
-  ok(/<a class="hn-seeall" href="\/news">See all LawDB News/.test(home.text) && !home.text.includes('homeNewsMore') && (home.text.match(/<article class="lw-bc[ "]/g) || []).length <= 6, 'the row is short and ends with a link to the full LawDB News page (no long feed on the home page)');
+  ok(/<a class="hn-seeall" href="\/news">See all LawDB News/.test(home.text) && !home.text.includes('homeNewsMore') && (home.text.match(/<article[^>]* class="lw-bc[ "]/g) || []).length <= 6, 'the row is short and ends with a link to the full LawDB News page (no long feed on the home page)');
   ok(home.text.indexOf('id="homeNews"') > home.text.indexOf('id="heroForm"') && home.text.indexOf('id="homeNews"') > home.text.indexOf('id="cities"'), 'it sits below the search bar, after the city strip');
   ok(!home.text.includes('Find a lawyer with real reviews') && !home.text.includes('lawdb-banner'), 'the old banner is gone');
   const slice = JSON.parse((await getRaw('/api/home-news?offset=0')).text);
@@ -914,10 +926,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const emp = JSON.parse((await getRaw('/api/home-news?offset=0&type=employment')).text);
   ok(none.html === '' && none.next === null && emp.html.includes('Achkar Law') && !emp.html.includes('Daniel Brown Law LLP') && JSON.parse((await getRaw('/api/home-news?offset=0&type=__proto__')).text).total === slice.total, 'the practice-area filter keeps only that area (empty when there is none), and an unknown area is ignored');
   const only = await getRaw('/news?firm=achkar-law');
-  ok((only.text.match(/<article class="lw-bc[ "]/g) || []).length === 2 &&!only.text.includes('Daniel Brown Law LLP</a><span'), 'a firm filter shows only that firm\'s cards');
+  ok((only.text.match(/<article[^>]* class="lw-bc[ "]/g) || []).length === 3 &&!only.text.includes('Daniel Brown Law LLP</a><span'), 'a firm filter shows only that firm\'s cards');
   as(adminJar);
   const nAdmin = await call('GET', '/api/admin/news');
-  ok(nAdmin.status === 200 && nAdmin.data.featuredOnly === false && nAdmin.data.firms.some((f) => f.slug === featSlug && f.featured && f.enabled && f.status === 'ok' && f.posts === 5), 'the admin sees which firms are on the page, and their status');
+  ok(nAdmin.status === 200 && nAdmin.data.featuredOnly === false && nAdmin.data.firms.some((f) => f.slug === featSlug && f.featured && f.enabled && f.status === 'ok' && f.posts === 6), 'the admin sees which firms are on the page, and their status');
   ok((await call('PATCH', '/api/admin/news', { featuredOnly: true })).status === 200, 'the admin limits the page to Featured members');
   cookie = '';
   const fOnly = (await getRaw('/news')).text;
@@ -940,8 +952,8 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   cookie = '';
   const poNews = (await getRaw('/news')).text;
   ok(!poNews.includes('>Achkar Law<') && poNews.includes('Daniel Brown Law LLP'), 'a page-only firm is not on LawDB News');
-  const poPage = (await getRaw('/firms/achkar-law')).text;
-  ok(poPage.includes('class="fa"') && !poPage.includes('data-story') && !poPage.includes('data-save=') && poPage.includes(`href="${origin}/blog/`), 'its own page still shows the cards, linking straight to the firm\'s articles');
+  const poPage = (await getRaw('/firms/achkar-law/articles')).text;
+  ok(poPage.includes('class="fa-row"') && !poPage.includes('data-story') && !poPage.includes('data-save=') && poPage.includes(`href="${origin}/blog/`), 'its Articles page still shows the cards, linking straight to the firm\'s articles');
   ok(!!achHref && (await getRaw(achHref)).status === 404 && !(await getRaw('/sitemap-news.xml')).text.includes('/news/achkar-law/'), 'a page-only firm has no LawDB story pages and none in the story sitemap');
   as(adminJar);
   ok((await call('GET', '/api/admin/news')).data.firms.every((f) => f.slug !== 'achkar-law'), 'page-only firms are not listed among the News firms');

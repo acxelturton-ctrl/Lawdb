@@ -27,7 +27,7 @@ export const FREE = {
     ['Listed by case type and city', 'Your firm has its own page in the directory'],
     ['Every enquiry emailed to you', 'Straight to your inbox'],
     ['Your numbers for the last 30 days', 'Page views, visitors, clicks and enquiries as totals, with a weekly email'],
-    ['Your latest blog posts on your page', 'Shown as cards that link to your own site'],
+    ['Your blog posts on an Articles tab', 'Once you have three, all on a page of their own that links to your own site'],
     ['Your articles on LawDB News', 'Shown as cards'],
     ['Followers and member ratings', 'You see how many, never who'],
   ],
@@ -44,7 +44,7 @@ export const FEATURED = {
       ['Gold tick and Featured badge', 'On your profile and wherever your firm appears'],
       ['First among nearby firms', 'On other firms\' profiles and story pages'],
       ['Featured badge and story pages on LawDB News', 'Story pages that search engines can find, with higher placement'],
-      ['An Articles tab on your profile', 'All your articles on one page of their own, once you have three'],
+      ['Your Articles page offered to search engines', 'Every firm\'s articles have a tab of their own. Yours is open to search engines, once you have three'],
     ]],
     ['Your page, your way', [
       ['Your logo, cover picture and photos', 'Make the page look like your firm'],

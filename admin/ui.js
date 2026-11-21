@@ -196,7 +196,7 @@ export function feedPanel(base) {
     check.addEventListener('click', () => act(() => call('POST', base + '/refresh'), (d) => (d.result && d.result.status === 'error' ? 'Checked, but there was a problem.' : 'Checked.')));
     root.replaceChildren(h('div', null,
       h('h2', null, 'Blog cards'),
-      h('p', { class: 'muted' }, 'Shows the firm\'s latest blog posts on its page as small cards: a headline, a short excerpt, and a link to read the full article on the firm\'s own website. Only the headline and a short excerpt from the public feed are used.'),
+      h('p', { class: 'muted' }, 'Shows the firm\'s latest blog posts on an Articles page of their own (a tab next to Overview, once there are three): a headline, a short excerpt, and a link to read the full article on the firm\'s own website. Only the headline and a short excerpt from the public feed are used.'),
       h('label', { class: 'check', for: 'feed-on' }, enabled, 'Show blog cards on the firm\'s page'),
       note('muted', statusLine(feed, posts)),
       posts.length > 0 && h('ul', { class: 'feed-posts' }, posts.slice(0, 3).map((p) => h('li', null, p.title))),
@@ -223,7 +223,7 @@ export const FEATURED_PERKS = [
   ['A page for every office.', 'A firm with offices in several cities gets a page for each, in its own city and on the map. One Featured plan covers every page.'],
   ['An analytics dashboard.', 'Page views, visitors, every button clicked, where visitors came from, their devices and regions, with trends and a spreadsheet export.'],
   ['An enquiries dashboard.', 'Read, filter, add private notes, reply with one tap and export your enquiries to a spreadsheet.'],
-  ['Articles that work harder.', 'A Featured badge on each story on LawDB News, a LawDB page for every article that search engines can find, an Articles tab on your profile once you have three, and higher placement in the home page news strip.'],
+  ['Articles that work harder.', 'A Featured badge on each story on LawDB News, a LawDB page for every article that search engines can find, an Articles page on your profile that search engines can find too (once you have three articles), and higher placement in the home page news strip.'],
 ];
 
 // One click, no card: starts the owner's free month of Featured (POST .../trial), then reloads so every screen shows the new plan.

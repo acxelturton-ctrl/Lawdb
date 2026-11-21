@@ -177,3 +177,11 @@
   var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/ai-search.css?v=1'; document.head.appendChild(l);
   var sc = document.createElement('script'); sc.src = '/ai-search.js?v=1'; sc.defer = true; document.head.appendChild(sc);
 })();
+
+// Location: on a visitor's first page a small card asks whether we may use where they are to show the closest lawyers first; if the browser already allows it the
+// position is refreshed quietly. It all stays in the browser (locate.js, tested by scripts/test-locate.mjs); the search box (suggest.js) and the Find page use it.
+(function(){
+  if (/^\/(admin|account)(\/|$)/.test(location.pathname) || window.top !== window.self) return;
+  if (window.LawdbLocation || document.querySelector('script[src*="locate.js"]')) return;
+  var sc = document.createElement('script'); sc.src = '/locate.js?v=1'; sc.defer = true; document.head.appendChild(sc);
+})();

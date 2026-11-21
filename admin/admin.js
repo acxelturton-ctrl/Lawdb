@@ -729,6 +729,7 @@ async function viewTraffic() {
       box('First page of a visit', 'The pages people land on.', simple(d.entries)),
       box('Country and province', 'From Cloudflare\'s coarse location, new visits only.', simple(d.geo)),
       box('Phone or computer', 'By the width of the screen.', simple(d.devices)),
+      box('Location, when asked', 'What visitors answered when the page asked to use their location: yes (shared), no (refused), later (Not now), auto (the browser already allowed it), fail (could not be found). Only the answer is counted, never where anyone is.', simple((d.location || []).map((r) => ({ ...r, label: ({ yes: 'yes, shared it', no: 'no, refused', later: 'later (Not now)', auto: 'auto, already allowed', fail: 'could not be found' })[r.label] || r.label })), 'Nobody has been asked yet.')),
       d.utm.length ? box('Campaign links (utm_source)', null, simple(d.utm)) : null),
     h('h2', null, 'What they view and do'),
     h('div', { class: 'two' },

@@ -55,6 +55,25 @@
       });
       return pending;
     }
+    /* ---------- where the visitor is: kept in this tab by locate.js (or by "Lawyers near me"), never sent anywhere ---------- */
+    function here(){
+      try{ var k=JSON.parse(sessionStorage.getItem('lawdb.near')||'null'); if(k&&typeof k.lat==='number'&&typeof k.lng==='number'&&Date.now()-k.t<1800000) return k; }catch(e){}
+      return null;
+    }
+    function kmBetween(a,b,c,d){ var r=Math.PI/180,x=(c-a)*r,y=(d-b)*r,h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)*Math.sin(y/2); return 6371*2*Math.asin(Math.min(1,Math.sqrt(h))); }
+    var centers=null;
+    function cityCenters(){
+      if(centers||!firms) return centers;
+      var m={}; firms.forEach(function(f){ if(typeof f.lat!=='number'||typeof f.lng!=='number') return; var k=f.city+'|'+f.province,c=m[k]||(m[k]={c:f.city,p:f.province,lat:0,lng:0,n:0}); c.lat+=f.lat; c.lng+=f.lng; c.n++; });
+      centers=Object.keys(m).map(function(k){ var c=m[k]; return {c:c.c,p:c.p,lat:c.lat/c.n,lng:c.lng/c.n}; });
+      return centers;
+    }
+    // the city (one we list) closest to the visitor, when one is within 120 km
+    function nearestCity(){
+      var h=here(); if(!h||!firms) return null;
+      var best=null,bd=1e9; cityCenters().forEach(function(c){ var d=kmBetween(h.lat,h.lng,c.lat,c.lng); if(d<bd){ bd=d; best=c; } });
+      return best&&bd<=120?{c:best.c,p:best.p,km:bd}:null;
+    }
     function cityObj(name,prov){ for(var i=0;i<cities.length;i++){ if(cities[i].c===name&&cities[i].p===prov) return cities[i]; } return null; }
     /* towns without a firm of their own: places.json is fetched the first time someone types a place we do not list */
     var placesP=null, placesOK=false;
@@ -104,6 +123,12 @@
     function rowNear(kase){
       return '<div class="ls-i" role="option" data-k="near" data-case="'+(kase||'')+'"><span class="ls-ico">'+ICON.near+'</span><span class="ls-t"><b>Lawyers near me</b><small>Use my location</small></span></div>';
     }
+    // once the visitor has shared where they are: "Family lawyers near you", the city they are in, one tap, no second prompt
+    function nearRow(kase){
+      if(!here()) return rowNear(kase);
+      var nc=nearestCity(), what=kase?BYID[kase].plural:'Lawyers';
+      return '<div class="ls-i ls-here" role="option" data-k="near" data-case="'+(kase||'')+'"><span class="ls-ico">'+ICON.near+'</span><span class="ls-t"><b>'+esc(what)+' near you</b><small>'+(nc?esc(nc.c)+', '+esc(nc.p)+' &middot; closest firms first':'Closest firms to where you are')+'</small></span></div>';
+    }
     function logo(f){
       var ini=esc(f.initials||String(f.name).slice(0,2).toUpperCase());
       var u=f.logoUrl||(f.type==='logo'&&f.src?root+f.src:'');
@@ -125,8 +150,12 @@
       var cityCount=function(c,id){ return cnt(function(f){ return inCity(f,c)&&(!id||hasCase(f,id)); }); };
       if(!p.q){
         html+=head('Try');
-        if(opt.near!==false) html+=rowNear(null);
-        if(opt.popular!==false) POPULAR.forEach(function(x){ var c=cityObj(x[1],x[2]); if(!c) return; html+=rowCombo('search',BYID[x[0]].plural+' in '+c.c+', '+c.p,'Popular search',BYID[x[0]].say+' in '+c.c,cityCount(c,x[0])); });
+        if(opt.near!==false) html+=nearRow(null);
+        var nc0=nearestCity();
+        if(nc0&&opt.popular!==false){
+          var mine=CASES.map(function(c){ return {c:c,n:cityCount(cityObj(nc0.c,nc0.p)||{c:nc0.c,p:nc0.p},c.id)}; }).filter(function(x){ return x.n>0; }).sort(function(a,b){ return b.n-a.n; }).slice(0,3);
+          mine.forEach(function(x){ html+=rowCombo('search',x.c.plural+' in '+nc0.c+', '+nc0.p,'Popular where you are',x.c.say+' in '+nc0.c,x.n); });
+        } else if(opt.popular!==false) POPULAR.forEach(function(x){ var c=cityObj(x[1],x[2]); if(!c) return; html+=rowCombo('search',BYID[x[0]].plural+' in '+c.c+', '+c.p,'Popular search',BYID[x[0]].say+' in '+c.c,cityCount(c,x[0])); });
         html+=head('Or pick a practice area')+'<div class="ls-pills">'+CASES.slice(0,8).map(function(c){ return '<div class="ls-i ls-pill" role="option" data-k="fill" data-q="'+esc(c.say+' in ')+'">'+esc(c.label)+'</div>'; }).join('')+'</div>';
         return html;
       }
@@ -135,7 +164,7 @@
         var note='';
         if(!list.length){ list=firms.filter(function(f){ return inCity(f,p.city); }); note=' &middot; none listed for '+esc(BYID[p.kase].label)+', showing all'; }
         list.sort(rank);
-        if(p.near) html+=rowNear(p.kase);
+        if(p.near) html+=nearRow(p.kase);
         if(list.length){
           html+=head(esc(BYID[p.kase].label)+' in '+esc(p.city.c)+' &middot; '+plural(list.length)+(note||', Featured first'));
           html+=list.slice(0,opt.max||5).map(function(f){ return rowFirm(f,p.kase); }).join('');
@@ -153,7 +182,9 @@
       if(p.kase){
         var frag=p.rest, cc=cities.map(function(c){ return {c:c,n:cityCount(c,p.kase)}; }).filter(function(x){ return x.n>0&&(!frag||x.c.n.indexOf(frag)===0||x.c.n.indexOf(' '+frag)!==-1); }).sort(function(a,b){ return b.n-a.n; }).slice(0,6);
         html+=head(esc(BYID[p.kase].label)+' &middot; where are you?');
-        if(!frag&&opt.near!==false) html+=rowNear(p.kase);
+        if(!frag&&opt.near!==false) html+=nearRow(p.kase);
+        var mc=!frag&&nearestCity();
+        if(mc&&cityCount(cityObj(mc.c,mc.p)||{c:mc.c,p:mc.p},p.kase)>0){ cc=cc.filter(function(x){ return !(x.c.c===mc.c&&x.c.p===mc.p); }); html+=rowCombo('pin',mc.c+', '+mc.p,BYID[p.kase].plural+' in '+mc.c+' (where you are)',BYID[p.kase].say+' in '+mc.c,cityCount(cityObj(mc.c,mc.p)||{c:mc.c,p:mc.p},p.kase)); }
         html+=cc.map(function(x){ return rowCombo('pin',x.c.c+', '+x.c.p,BYID[p.kase].plural+' in '+x.c.c,BYID[p.kase].say+' in '+x.c.c,x.n); }).join('');
         if(frag&&frag.length>=3) Object.keys(PROV_WORDS).forEach(function(w){ if(w.length>3&&w.indexOf(frag)===0){ var pv=PROV_WORDS[w]; html+=rowCombo('pin',PROV_NAME[pv],BYID[p.kase].plural+' in all of '+PROV_NAME[pv],BYID[p.kase].say+' in '+PROV_NAME[pv],provCount(pv,p.kase)); } });
         var pr=placeRows(frag,p.kase);
@@ -222,6 +253,7 @@
     }
     function fill(q){ input.value=q; input.focus(); input.dispatchEvent(new Event('input',{bubbles:true})); }
     function locateMe(){
+      var k=here(); if(k) return Promise.resolve({lat:k.lat,lng:k.lng});
       return new Promise(function(res,rej){
         if(!navigator.geolocation) return rej();
         navigator.geolocation.getCurrentPosition(function(pos){ res({lat:pos.coords.latitude,lng:pos.coords.longitude}); },function(){ rej(); },{timeout:9000,maximumAge:600000});
@@ -230,11 +262,11 @@
     /* "Lawyers near me": the lawyers closest to where the person is, whatever town that is. The spot stays in this browser tab (sessionStorage), never in the address. */
     function near(row){
       var kase=row.getAttribute('data-case')||null, sm=row.querySelector('small');
-      sm.textContent='Finding where you are\u2026';
+      if(!here()) sm.textContent='Finding where you are\u2026';
       locateMe().then(function(pos){
         close();
         if(opt.onNear){ opt.onNear(pos,kase); return; }
-        try{ sessionStorage.setItem('lawdb.near',JSON.stringify({lat:Math.round(pos.lat*1000)/1000,lng:Math.round(pos.lng*1000)/1000,t:Date.now()})); }catch(e){}
+        if(!here()){ try{ sessionStorage.setItem('lawdb.near',JSON.stringify({lat:Math.round(pos.lat*1000)/1000,lng:Math.round(pos.lng*1000)/1000,t:Date.now()})); }catch(e){} }
         window.location.href=root+'find-lawyers?near=me'+(kase?'&case='+encodeURIComponent(kase):'');
       }).catch(function(){ sm.textContent='Location is off. No problem, type your town instead.'; });
     }
@@ -275,6 +307,20 @@
       clearBtn.addEventListener('mousedown',function(e){ e.preventDefault(); });
       clearBtn.addEventListener('click',function(){ input.value=''; input.focus(); input.dispatchEvent(new Event('input',{bubbles:true})); });
     }
+    /* e.g. "family lawyer in Calgary": the example in the box is the visitor's own city once they have shared where they are */
+    function localPlaceholder(){
+      if(opt.placeholder===false||!here()) return;
+      load().then(function(){
+        var nc=nearestCity(); if(!nc) return;
+        if(input.getAttribute('data-ls-ph')===null) input.setAttribute('data-ls-ph',input.getAttribute('placeholder')||'');
+        if(!/^e\.g\./i.test(input.getAttribute('data-ls-ph'))) return;
+        var c={c:nc.c,p:nc.p}, best=CASES.map(function(k){ return {k:k,n:cnt(function(f){ return inCity(f,c)&&hasCase(f,k.id); })}; }).sort(function(a,b){ return b.n-a.n; })[0];
+        if(best&&best.n>0) input.setAttribute('placeholder','e.g. '+best.k.say+' in '+nc.c);
+        if(box.classList.contains('open')&&!input.value.trim()) render();
+      }).catch(function(){});
+    }
+    window.addEventListener('lawdb:location',localPlaceholder);
+    localPlaceholder();
     sync();
     opt.api={ load:load, close:close, render:render, setVal:fill };
     return opt.api;

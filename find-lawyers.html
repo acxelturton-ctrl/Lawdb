@@ -363,7 +363,7 @@
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="lawdb-search.css?v=1">
 <script src="lawdb-places.js?v=1"></script>
-<script src="suggest.js?v=5"></script>
+<script src="suggest.js?v=6"></script>
 <style>
 </style>
 </head>
@@ -817,6 +817,14 @@ function startNear(spot, caseId){
   showResults(true);
 }
 // ?near=me (the browser's location, kept in this tab by the home page search) or ?near=Keswick, ON (a town)
+// Where the visitor is, if they have shared it: kept in this browser tab for 30 minutes (locate.js and the search box's "Lawyers near me"), never sent anywhere.
+function keptSpot(){
+  try {
+    const k = JSON.parse(sessionStorage.getItem('lawdb.near') || 'null');
+    if(k && typeof k.lat === 'number' && typeof k.lng === 'number' && Date.now() - k.t < 30 * 60 * 1000) return k;
+  } catch(e){}
+  return null;
+}
 function startNearFromUrl(what, caseId){
   // Counted like a typed search: the case type and either "near me" or the town that was picked (a place name, kept only when it is plain letters).
   (window.lwq = window.lwq || []).push(what === 'me' ? { t:'search', c:caseId || '', near:true } : { t:'search', c:caseId || '', w:what, nt:1 });
@@ -870,6 +878,9 @@ function runSearch(){
   const guess = placeGuess(raw, p);
   if(guess.length >= 3){ fyErr.style.display = 'none'; lookUpPlace(guess, p.caseId, raw); return; }
   if(p.caseId){
+    // The visitor has shared where they are (the card on their first page, or "Lawyers near me"): a practice area alone is enough, the closest firms come first.
+    const here = keptSpot();
+    if(here){ fyErr.style.display = 'none'; startNear({ lat: here.lat, lng: here.lng, label: 'you', me: true }, p.caseId); return; }
     const btns = POPULAR_CITIES.slice(0,6).map(c =>
       `<button type="button" data-q="${caseSay(p.caseId)} in ${cityLabel(c)}">${c.name}</button>`).join('');
     showSearchHelp(`Got it: <strong>${caseLabel(p.caseId)}</strong>. Now add a city, for example <strong>${caseSay(p.caseId)} in Toronto</strong>.<br>${btns}`);

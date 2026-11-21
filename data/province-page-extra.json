@@ -1,0 +1,291 @@
+{
+ "_about": "Province-specific text for the Alberta and Manitoba practice pages (what to know about the law in that province, how the process usually runs, the cost answer and links to related LawDB blog guides). Taken from the pages as they were before scripts/build-province-pages.mjs took them over; edit here, then run node scripts/build-province-pages.mjs. No fees, deadlines or outcomes are promised: it is general information.",
+ "pages": {
+  "alberta/business-lawyers": {
+   "intro": [
+    "Business lawyers help with incorporation, shareholder and partnership agreements, commercial contracts, financing, and buying or selling a business. Larger firms also act on mergers and acquisitions.",
+    "A company can be incorporated provincially or federally, and which route is better depends on where you operate and your plans."
+   ],
+   "process": [
+    "You explain the goal and the key people involved.",
+    "The lawyer proposes a structure and gives you a fee estimate.",
+    "Documents are drafted, negotiated and revised.",
+    "You sign and the lawyer files any required registrations.",
+    "The firm stores the corporate records or hands them to you."
+   ],
+   "cost": "Incorporation is commonly a flat fee. Deals and negotiations are usually hourly or capped, so ask for an estimate with the main assumptions. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": [
+    {
+     "href": "/blog/mediation-and-arbitration-alberta-business-disputes",
+     "text": "Mediation or Arbitration? Resolving a Business Dispute in Alberta Without a Trial"
+    },
+    {
+     "href": "/blog/commercial-lease-basics-alberta-tenants-landlords",
+     "text": "Commercial Leases in Alberta: The Clauses That Matter Most for Tenants and Landlords"
+    },
+    {
+     "href": "/blog/buying-a-home-in-alberta-what-your-lawyer-does",
+     "text": "Buying a Home in Alberta: What Your Real Estate Lawyer Does Between Offer and Keys"
+    },
+    {
+     "href": "/blog/buying-farmland-alberta-foreign-ownership-surface-rights",
+     "text": "Buying or Transferring Farmland in Alberta: Ownership Limits, Surface Leases and Succession"
+    }
+   ]
+  },
+  "alberta/employment-lawyers": {
+   "intro": [
+    "Employment lawyers advise employees and employers on termination and severance, employment contracts, workplace rights and disputes.",
+    "Alberta's Limitations Act sets a basic two-year limitation period for most claims, with exceptions. Speak to a lawyer early so that a deadline does not run out.",
+    "Employment rights in Alberta come from the Employment Standards Code and from your contract and the common law, so your entitlement may be more than the statutory minimum."
+   ],
+   "process": [
+    "You share your documents and the lawyer reviews them.",
+    "They advise on your entitlements and the strength of your position.",
+    "A response or counter-offer is prepared.",
+    "The lawyer negotiates with your employer or their lawyer.",
+    "If needed, a claim is filed."
+   ],
+   "cost": "Some employment lawyers offer a free or low-cost first review of a severance offer, and some work for a percentage of any improvement. Ask before you commit. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": [
+    {
+     "href": "/blog/losing-your-job-in-alberta-notice-and-severance",
+     "text": "Losing Your Job in Alberta: Notice, Severance and What to Check Before You Sign"
+    },
+    {
+     "href": "/blog/alberta-workplace-health-and-safety-employer-duties",
+     "text": "Alberta’s Workplace Health and Safety Rules: What Employers Have to Do"
+    }
+   ]
+  },
+  "alberta/family-lawyers": {
+   "intro": [
+    "Family lawyers advise on separation and divorce, parenting arrangements, child and spousal support, and the division of property. Many also prepare separation agreements and marriage contracts.",
+    "Alberta's Limitations Act sets a basic two-year limitation period for most claims, with exceptions. Speak to a lawyer early so that a deadline does not run out.",
+    "Divorce is governed by the federal Divorce Act, while property division and some other matters are decided under provincial law, so both matter in most separations."
+   ],
+   "process": [
+    "You explain your situation and your goals.",
+    "The lawyer advises on rights and options and sets out a plan.",
+    "Financial and other information is exchanged.",
+    "Settlement is explored through negotiation or mediation.",
+    "If needed, the matter proceeds to court for a decision."
+   ],
+   "cost": "Family lawyers usually require an upfront retainer and bill hourly. Ask how fees change if the case settles early, and whether limited-scope help is offered. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": [
+    {
+     "href": "/blog/family-property-act-alberta-farm-and-family-assets",
+     "text": "Dividing Property After Separation in Alberta: How the Family Property Act Treats Farms, Businesses and Gifts"
+    }
+   ]
+  },
+  "alberta/litigation-lawyers": {
+   "intro": [
+    "Litigation lawyers act in civil disputes: contract and commercial claims, shareholder and partnership disputes, debt recovery and other cases that may end up in court or settled before trial.",
+    "Alberta's Limitations Act sets a basic two-year limitation period for most claims, with exceptions. Speak to a lawyer early so that a deadline does not run out.",
+    "Civil disputes in Alberta are heard in the Provincial Court and the Court of King's Bench of Alberta."
+   ],
+   "process": [
+    "The lawyer reviews your documents and explains your options.",
+    "A demand letter or statement of claim (or defence) is prepared.",
+    "Both sides exchange documents and information.",
+    "Mediation or settlement talks often take place.",
+    "If the case does not settle, it proceeds to trial and a decision."
+   ],
+   "cost": "Litigation is most often billed hourly. Ask for a budget by stage, and what happens to fees if the case settles early. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": [
+    {
+     "href": "/blog/freezing-assets-alberta-mareva-injunction",
+     "text": "Freezing Assets in an Alberta Lawsuit: What a Mareva Injunction Is and When Courts Grant One"
+    },
+    {
+     "href": "/blog/mediation-and-arbitration-alberta-business-disputes",
+     "text": "Mediation or Arbitration? Resolving a Business Dispute in Alberta Without a Trial"
+    },
+    {
+     "href": "/blog/ccaa-or-bia-restructuring-alberta-explained",
+     "text": "Restructuring in Alberta: CCAA or a BIA Proposal, and Why Calgary Courts See So Many Energy Cases"
+    },
+    {
+     "href": "/blog/alberta-civil-lawsuit-process-court-of-kings-bench",
+     "text": "How a Commercial Lawsuit Moves Through the Court of King’s Bench of Alberta"
+    }
+   ]
+  },
+  "alberta/real-estate-lawyers": {
+   "intro": [
+    "A real estate lawyer reviews the agreement of purchase and sale, searches title, prepares closing documents and handles the transfer of funds on closing day. They also act on sales, refinancing, new-build and pre-construction purchases, and condo or commercial property matters.",
+    "Buying property in Alberta involves no land transfer tax, though land titles registration fees apply. A lawyer can estimate the closing costs you should budget for."
+   ],
+   "process": [
+    "Send the lawyer the signed agreement and any conditions.",
+    "They review the contract and advise you before conditions are removed.",
+    "The lawyer searches title and prepares or reviews the mortgage and closing documents.",
+    "You sign and send closing funds ahead of the closing date.",
+    "On closing day the lawyer completes the transfer and registers the deed."
+   ],
+   "cost": "Real estate work is usually quoted as a flat fee plus disbursements, which are third-party costs such as title searches and registration fees. Ask for the total in writing. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": [
+    {
+     "href": "/blog/commercial-lease-basics-alberta-tenants-landlords",
+     "text": "Commercial Leases in Alberta: The Clauses That Matter Most for Tenants and Landlords"
+    },
+    {
+     "href": "/blog/buying-a-home-in-alberta-what-your-lawyer-does",
+     "text": "Buying a Home in Alberta: What Your Real Estate Lawyer Does Between Offer and Keys"
+    },
+    {
+     "href": "/blog/buying-farmland-alberta-foreign-ownership-surface-rights",
+     "text": "Buying or Transferring Farmland in Alberta: Ownership Limits, Surface Leases and Succession"
+    },
+    {
+     "href": "/blog/condominium-disputes-alberta-bylaws-special-assessments",
+     "text": "Condominium Disputes in Alberta: Bylaws, Special Assessments and What Owners Can Do"
+    }
+   ]
+  },
+  "alberta/wills-estate-lawyers": {
+   "intro": [
+    "Wills and estates lawyers prepare wills and powers of attorney, help families administer an estate after a death, and advise on estate disputes. Many firms in this area also handle real estate, so the two often appear together.",
+    "In Alberta, planning for incapacity usually means an enduring power of attorney and a personal directive. Ask your lawyer which documents fit your situation."
+   ],
+   "process": [
+    "You describe your family, assets and wishes in a first meeting.",
+    "The lawyer drafts the documents and reviews them with you.",
+    "You sign with the required witnesses, usually at the lawyer's office.",
+    "The originals are stored safely and you are told where they are.",
+    "For an estate, the lawyer prepares the court application, notifies beneficiaries and distributes the estate."
+   ],
+   "cost": "Simple wills and powers of attorney are often quoted as a flat fee. Estate administration is more variable, so ask whether the quote is flat, hourly or a percentage. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": [
+    {
+     "href": "/blog/wills-enduring-power-of-attorney-personal-directive-alberta",
+     "text": "Wills, Powers of Attorney and Personal Directives in Alberta: The Documents You Actually Need"
+    }
+   ]
+  },
+  "manitoba/business-lawyers": {
+   "intro": [
+    "Business lawyers help with incorporation, shareholder and partnership agreements, commercial contracts, financing, and buying or selling a business. Larger firms also act on mergers and acquisitions.",
+    "A company can be incorporated provincially or federally, and which route is better depends on where you operate and your plans."
+   ],
+   "process": [
+    "You explain the goal and the key people involved.",
+    "The lawyer proposes a structure and gives you a fee estimate.",
+    "Documents are drafted, negotiated and revised.",
+    "You sign and the lawyer files any required registrations.",
+    "The firm stores the corporate records or hands them to you."
+   ],
+   "cost": "Incorporation is commonly a flat fee. Deals and negotiations are usually hourly or capped, so ask for an estimate with the main assumptions. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": []
+  },
+  "manitoba/criminal-defence-lawyers": {
+   "intro": [
+    "Criminal defence lawyers represent people charged with offences, from impaired driving and assault to fraud and drug charges, at every stage from the first police contact to trial or appeal.",
+    "If cost is a concern, you may qualify for help from Legal Aid Manitoba. A defence lawyer can also advise you whether it makes sense to apply."
+   ],
+   "process": [
+    "The lawyer gets the charges and the disclosure from the Crown.",
+    "They advise you on bail, evidence and options.",
+    "Pre-trial discussions with the Crown may lead to a resolution.",
+    "If there is no resolution, the case goes to trial.",
+    "After a verdict there may be sentencing or an appeal."
+   ],
+   "cost": "Criminal defence is often quoted as a flat fee per stage, or a retainer billed hourly. If cost is a concern, ask whether you may qualify for legal aid. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": []
+  },
+  "manitoba/employment-lawyers": {
+   "intro": [
+    "Employment lawyers advise employees and employers on termination and severance, employment contracts, workplace rights and disputes.",
+    "Manitoba's Limitation of Actions Act sets a basic two-year limitation period for most claims, with exceptions. Speak to a lawyer early so that a deadline does not run out.",
+    "Employment rights in Manitoba come from the Employment Standards Code and from your contract and the common law, so your entitlement may be more than the statutory minimum."
+   ],
+   "process": [
+    "You share your documents and the lawyer reviews them.",
+    "They advise on your entitlements and the strength of your position.",
+    "A response or counter-offer is prepared.",
+    "The lawyer negotiates with your employer or their lawyer.",
+    "If needed, a claim is filed."
+   ],
+   "cost": "Some employment lawyers offer a free or low-cost first review of a severance offer, and some work for a percentage of any improvement. Ask before you commit. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": []
+  },
+  "manitoba/family-lawyers": {
+   "intro": [
+    "Family lawyers advise on separation and divorce, parenting arrangements, child and spousal support, and the division of property. Many also prepare separation agreements and marriage contracts.",
+    "Manitoba's Limitation of Actions Act sets a basic two-year limitation period for most claims, with exceptions. Speak to a lawyer early so that a deadline does not run out.",
+    "Divorce is governed by the federal Divorce Act, while property division and some other matters are decided under provincial law, so both matter in most separations."
+   ],
+   "process": [
+    "You explain your situation and your goals.",
+    "The lawyer advises on rights and options and sets out a plan.",
+    "Financial and other information is exchanged.",
+    "Settlement is explored through negotiation or mediation.",
+    "If needed, the matter proceeds to court for a decision."
+   ],
+   "cost": "Family lawyers usually require an upfront retainer and bill hourly. Ask how fees change if the case settles early, and whether limited-scope help is offered. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": []
+  },
+  "manitoba/immigration-lawyers": {
+   "intro": [
+    "Immigration lawyers help with work and study permits, permanent residence, family sponsorship, citizenship and appeals of refused applications.",
+    "Immigration applications are decided by the federal government, and you can only be represented for a fee by a lawyer, a licensed immigration consultant or, in Quebec, a notary."
+   ],
+   "process": [
+    "You share your situation and goals.",
+    "The lawyer assesses the best route and sets out a timeline.",
+    "Documents are collected and the application is prepared.",
+    "The application is submitted and you receive updates.",
+    "If there is a refusal, they advise on next steps."
+   ],
+   "cost": "Immigration work is typically quoted as a flat fee per application. Confirm what is included and who pays government fees. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": []
+  },
+  "manitoba/litigation-lawyers": {
+   "intro": [
+    "Litigation lawyers act in civil disputes: contract and commercial claims, shareholder and partnership disputes, debt recovery and other cases that may end up in court or settled before trial.",
+    "Manitoba's Limitation of Actions Act sets a basic two-year limitation period for most claims, with exceptions. Speak to a lawyer early so that a deadline does not run out.",
+    "Civil disputes in Manitoba are heard in the Provincial Court and the Court of King's Bench of Manitoba."
+   ],
+   "process": [
+    "The lawyer reviews your documents and explains your options.",
+    "A demand letter or statement of claim (or defence) is prepared.",
+    "Both sides exchange documents and information.",
+    "Mediation or settlement talks often take place.",
+    "If the case does not settle, it proceeds to trial and a decision."
+   ],
+   "cost": "Litigation is most often billed hourly. Ask for a budget by stage, and what happens to fees if the case settles early. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": []
+  },
+  "manitoba/real-estate-lawyers": {
+   "intro": [
+    "A real estate lawyer reviews the agreement of purchase and sale, searches title, prepares closing documents and handles the transfer of funds on closing day. They also act on sales, refinancing, new-build and pre-construction purchases, and condo or commercial property matters.",
+    "Buying property in Manitoba involves a land transfer tax. A lawyer can estimate the closing costs you should budget for."
+   ],
+   "process": [
+    "Send the lawyer the signed agreement and any conditions.",
+    "They review the contract and advise you before conditions are removed.",
+    "The lawyer searches title and prepares or reviews the mortgage and closing documents.",
+    "You sign and send closing funds ahead of the closing date.",
+    "On closing day the lawyer completes the transfer and registers the deed."
+   ],
+   "cost": "Real estate work is usually quoted as a flat fee plus disbursements, which are third-party costs such as title searches and registration fees. Ask for the total in writing. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": []
+  },
+  "manitoba/wills-estate-lawyers": {
+   "intro": [
+    "Wills and estates lawyers prepare wills and powers of attorney, help families administer an estate after a death, and advise on estate disputes. Many firms in this area also handle real estate, so the two often appear together.",
+    "In Manitoba, planning for incapacity usually means an enduring power of attorney and a health care directive. Ask your lawyer which documents fit your situation."
+   ],
+   "process": [
+    "You describe your family, assets and wishes in a first meeting.",
+    "The lawyer drafts the documents and reviews them with you.",
+    "You sign with the required witnesses, usually at the lawyer's office.",
+    "The originals are stored safely and you are told where they are.",
+    "For an estate, the lawyer prepares the court application, notifies beneficiaries and distributes the estate."
+   ],
+   "cost": "Simple wills and powers of attorney are often quoted as a flat fee. Estate administration is more variable, so ask whether the quote is flat, hourly or a percentage. Ask about disbursements (third-party costs), taxes, and what happens if your matter changes in scope. Many firms offer a first consultation, but confirm whether it is free.",
+   "guides": []
+  }
+ }
+}

@@ -54,25 +54,32 @@ async function renderLogin() {
   const social = OFFERED.filter((k) => providers[k]).map((k) => h('a', { class: 'provider', href: `/api/auth/${k}/start` }, icon(k), k === 'google' ? 'Continue with Google' : 'Continue with LinkedIn'));
   // Members sign in with Google or LinkedIn only. The email box is the fallback when neither is set up, so nobody is ever locked out (admins use the email link on /admin/).
   const join = new URLSearchParams(location.search).get('join') === '1';
-  const chip = ([label, href]) => h('a', { class: 'auth-chip', href }, label);
-  const band = (cls, title, text, items) => h('section', { class: `auth-band ${cls}` }, h('div', { class: 'auth-band-in' },
-    h('div', { class: 'auth-band-text' }, h('h2', null, title), h('p', null, text)),
-    h('div', { class: 'auth-chips' }, ...items.map(chip))));
-  const AREAS = [['Business', '/business-lawyers'], ['Criminal defence', '/criminal-defence-lawyers'], ['Employment', '/employment-lawyers'], ['Family', '/family-lawyers'], ['Immigration', '/immigration-lawyers'], ['Litigation', '/litigation-lawyers'], ['Personal injury', '/personal-injury-lawyers'], ['Real estate', '/real-estate-lawyers'], ['Traffic tickets', '/traffic-ticket-lawyers'], ['Wills and estates', '/wills-estate-lawyers']];
-  const PROVINCES = [['Ontario', '/ontario/'], ['Quebec', '/quebec/'], ['British Columbia', '/british-columbia/'], ['Alberta', '/alberta/'], ['Manitoba', '/manitoba/']];
-  // Two firm cards and a map pin, drawn for LawDB (shown as an image so it needs no extra files).
-  const ART = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 440"><circle cx="260" cy="225" r="205" fill="#f4ecd8"/><rect x="110" y="95" width="250" height="150" rx="14" fill="#fff" stroke="#ece6d3"/><circle cx="148" cy="136" r="18" fill="#2a2a2a"/><rect x="178" y="124" width="120" height="11" rx="5" fill="#2a2a2a"/><rect x="178" y="144" width="80" height="8" rx="4" fill="#c9a050"/><rect x="132" y="176" width="206" height="8" rx="4" fill="#ece6d3"/><rect x="132" y="194" width="170" height="8" rx="4" fill="#ece6d3"/><rect x="132" y="214" width="84" height="20" rx="10" fill="#c9a050"/><rect x="200" y="215" width="260" height="150" rx="14" fill="#fff" stroke="#ece6d3"/><circle cx="238" cy="256" r="18" fill="#c9a050"/><rect x="268" y="244" width="130" height="11" rx="5" fill="#2a2a2a"/><rect x="268" y="264" width="90" height="8" rx="4" fill="#c9a050"/><rect x="222" y="296" width="216" height="8" rx="4" fill="#ece6d3"/><rect x="222" y="314" width="150" height="8" rx="4" fill="#ece6d3"/><rect x="222" y="334" width="84" height="20" rx="10" fill="#2a2a2a"/><circle cx="108" cy="318" r="34" fill="#2a2a2a"/><polygon points="86,340 130,340 108,384" fill="#2a2a2a"/><circle cx="108" cy="318" r="13" fill="#fffdf8"/><g fill="#c9a050"><circle cx="410" cy="120" r="6"/><circle cx="430" cy="140" r="4"/><circle cx="395" cy="150" r="3"/></g></svg>';
+  // Small drawings, shown as images so they need no extra files.
+  const svgImg = (svg, size) => h('img', { src: 'data:image/svg+xml;utf8,' + encodeURIComponent(svg), alt: '', width: size, height: size });
+  const stroke = (color, d, w) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const TICK = stroke('#e2bd6a', '<circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/>', 2.2);
+  const CHECKS = ['No password to remember or lose', 'The same sign-in creates your account, and it is free', 'We never post anything on your behalf'];
+  const PERKS = [
+    ['Follow firms', 'See new stories from the firms you care about in your own feed.', '<path d="M12 21s-7-4.4-9.2-9A5.2 5.2 0 0 1 12 6.5 5.2 5.2 0 0 1 21.2 12C19 16.6 12 21 12 21z"/>'],
+    ['Save stories', 'Keep the articles you want to read again in one list.', '<path d="M6 3h12v18l-6-4.5L6 21z"/>'],
+    ['Rate firms', 'Members rate the firms they have worked with. Comments are reviewed first.', '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'],
+    ['Run your listing', 'Claim or add your firm and edit it yourself, any time.', '<path d="M4 20h4L18.5 9.5l-4-4L4 16z"/><path d="M13 7l4 4"/>'],
+  ];
   document.body.classList.add('lw-auth');
   mount(h('div', { class: 'auth-wrap' },
-    h('section', { class: 'auth-hero' },
+    h('section', { class: 'auth-hero' }, h('div', { class: 'auth-hero-in' },
       h('div', { class: 'auth-hero-copy' },
-        h('h1', null, join ? 'Create your free LawDB account' : 'Welcome to Canada’s legal directory'),
-        h('div', { class: 'auth-btns' }, ...social, social.length ? null : form, msg),
-        h('p', { class: 'auth-terms' }, 'By continuing, you agree to LawDB’s ', h('a', { href: '/terms' }, 'Terms'), ' and ', h('a', { href: '/privacy-policy' }, 'Privacy Policy'), '. There is no password to remember.'),
-        h('p', { class: 'auth-new' }, join ? 'Already a member? ' : 'New to LawDB? ', h('a', { href: join ? '/account/' : '/account/?join=1' }, join ? 'Sign in' : 'Join now'))),
-      h('div', { class: 'auth-hero-art' }, h('img', { src: 'data:image/svg+xml;utf8,' + encodeURIComponent(ART), alt: 'Two law firm profile cards and a map pin', width: 520, height: 440 }))),
-    band('areas', 'Explore by kind of case', 'Real, reviewed law firms near you, sorted by the kind of case you have.', AREAS),
-    band('provinces', 'Find a firm in your province', 'Five provinces are live now, with more coming soon.', PROVINCES)));
+        h('p', { class: 'auth-eyebrow' }, 'For clients and law firms'),
+        h('h1', null, 'Find the right law firm, or put yours on the map'),
+        h('p', { class: 'auth-lede' }, 'One free account to follow firms, save stories and rate the firms you have worked with, or to claim and run your own listing.'),
+        h('ul', { class: 'auth-checks' }, ...CHECKS.map((t) => h('li', null, svgImg(TICK, 22), t)))),
+      h('div', { class: 'auth-card' },
+        h('h2', null, join ? 'Create your free LawDB account' : 'Create an account or sign in'),
+        h('p', { class: 'auth-terms' }, 'By continuing, you agree to LawDB’s ', h('a', { href: '/terms' }, 'Terms'), ' and ', h('a', { href: '/privacy-policy' }, 'Privacy Policy'), '.'),
+        h('div', { class: 'auth-btns' }, ...social, social.length ? null : form, msg)))),
+    h('section', { class: 'auth-perks' },
+      h('h2', null, 'What you can do with a free account'),
+      h('div', { class: 'auth-perk-grid' }, ...PERKS.map(([t, d, path]) => h('div', { class: 'auth-perk' }, svgImg(stroke('#2a2a2a', path, 1.8), 28), h('h3', null, t), h('p', null, d)))))));
 }
 
 // ---------------------------------------------------------------- shell

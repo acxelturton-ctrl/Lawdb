@@ -15,7 +15,7 @@ Nothing is written to the repository: <out-dir>/<slug>.json per firm, <out-dir>/
 Tiers:  solid = a name that really is a person's name, evidence that the person is a lawyer (a lawyer title, or the bio says called to the bar / LL.B. / J.D.),
         on the firm's own site, with their own profile page that has a real bio or with a usable picture;  other = everything else found (kept, not trusted).
 """
-import csv, glob, json, os, re, sys, threading, time
+import csv, glob, json, os, re, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urljoin, urlparse, urldefrag
 from urllib.robotparser import RobotFileParser
@@ -25,7 +25,7 @@ from bs4 import BeautifulSoup
 
 UA = 'LawDB-ProfileReader/1.0 (+https://lawdb.ca; info@lawdb.ca)'
 TIMEOUT = 10
-PAUSE = 0.3
+PAUSE = 0.8 if '--browser=1' in sys.argv else 0.3
 MAX_BYTES = 700_000
 SITE_CAP = 42  # requests per site
 
@@ -38,6 +38,8 @@ LIMIT = int(opt.get('limit', 0)) or None
 PROVINCE = opt.get('province')
 ONLY = set(open(opt['slugs']).read().split()) if opt.get('slugs') else None
 WORKERS = int(opt.get('workers', 16))
+BROWSER = opt.get('browser') == '1'  # draw pages in a real browser (scripts/lib/render-helper.mjs), for sites that build their team page with scripts
+ONLY_UNSOLVED = opt.get('unsolved')  # a folder of an earlier run: only the firms that run found no solid lawyer for
 os.makedirs(OUT, exist_ok=True)
 SESSION = requests.Session()
 SESSION.headers.update({'user-agent': UA, 'accept': 'text/html,application/xhtml+xml'})
@@ -125,9 +127,46 @@ def norm(n):
 
 
 # ---------------------------------------------------------------- polite fetching
+class BrowserPool:
+    """One browser worker process (scripts/lib/render-helper.mjs) shared by all threads."""
+    def __init__(self):
+        self.proc = subprocess.Popen(['node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib', 'render-helper.mjs')], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, bufsize=1)
+        self.lock, self.waiting, self.n = threading.Lock(), {}, 0
+        threading.Thread(target=self.reader, daemon=True).start()
+
+    def reader(self):
+        for line in self.proc.stdout:
+            try:
+                d = json.loads(line)
+            except Exception:
+                continue
+            w = self.waiting.get(d.get('id'))
+            if w:
+                w['resp'] = d
+                w['evt'].set()
+
+    def get(self, url):
+        with self.lock:
+            self.n += 1
+            i, w = self.n, {'evt': threading.Event()}
+            self.waiting[i] = w
+            self.proc.stdin.write(json.dumps({'id': i, 'url': url}) + '\n')
+            self.proc.stdin.flush()
+        if not w['evt'].wait(100):
+            raise RuntimeError('browser timeout')
+        d = w['resp']
+        self.waiting.pop(i, None)
+        if not d.get('ok'):
+            raise RuntimeError(d.get('error', 'browser error'))
+        return d['html'], d['url']
+
+
+POOL = BrowserPool() if BROWSER else None
+
+
 class Site:
     def __init__(self, origin):
-        self.origin, self.last, self.count, self.robots = origin, 0.0, 0, None
+        self.origin, self.last, self.count, self.robots, self.cap = origin, 0.0, 0, None, SITE_CAP
 
     def allowed(self, url):
         if self.robots is None:
@@ -148,12 +187,14 @@ class Site:
         self.last = time.time()
 
     def get(self, url, kind='text/html'):
-        if self.count >= SITE_CAP:
+        if self.count >= self.cap:
             raise RuntimeError('request cap')
         if not self.allowed(url):
             raise PermissionError('robots')
         self.count += 1
         self.wait()
+        if POOL and not url.split('?')[0].endswith('.xml'):
+            return POOL.get(url)
         r = SESSION.get(url, timeout=TIMEOUT, allow_redirects=True, stream=True)
         try:
             if r.status_code != 200:
@@ -207,6 +248,11 @@ def in_chrome(el):
 
 def img_candidates(el, base, name=None):
     out = []
+    for bg in el.find_all(style=re.compile(r'background(?:-image)?\s*:[^;]*url\(', re.I)):
+        m = re.search(r'url\(\s*["\']?([^"\')]+)', bg.get('style') or '')
+        u = absurl(base, m.group(1)) if m else None
+        if u and not JUNK_IMG.search(u.split('?')[0]):
+            out.append((1, u))
     for im in el.find_all('img'):
         src = im.get('data-src') or im.get('data-lazy-src') or im.get('data-original') or im.get('src')
         ss = im.get('srcset') or im.get('data-srcset')
@@ -366,8 +412,12 @@ STAFF_SECTION = re.compile(r'staff|support|paralegals?|administration|clerks?|as
 
 
 def section_of(box):
-    h = box.find_previous(['h1', 'h2', 'h3'])
-    t = clean(h.get_text(' ', strip=True)) if h else ''
+    t = ''
+    for h in box.find_all_previous(['h1', 'h2', 'h3'], limit=8):  # the section heading, not another person's name above this card
+        tx = clean(h.get_text(' ', strip=True))
+        if tx and not parse_name(tx):
+            t = tx
+            break
     if STAFF_SECTION.search(t) and not re.search(r'lawyers?|attorneys?|avocat', t, re.I):
         return 'staff'
     if LAWYER_SECTION.search(t):
@@ -447,7 +497,7 @@ def read_profile(html, url, name):
     for p in ld:
         if norm(p['name']) == norm(name) and p['role']:
             role = p['role']
-    return {'bio_words': len(text.split()), 'bar_evidence': bool(BAR_EVIDENCE.search(text)), 'call_year': year, 'education': edu, 'languages': langs[:6], 'photo_url': photo, 'photo_score': pscore,
+    return {'bio_cities': sorted({c for c in CITIES if ' ' + c + ' ' in words_of(text[:6000])}), 'bio_words': len(text.split()), 'bar_evidence': bool(BAR_EVIDENCE.search(text)), 'call_year': year, 'education': edu, 'languages': langs[:6], 'photo_url': photo, 'photo_score': pscore,
             'socials': soc, 'links': other, 'vcard': vcard, 'has_email': email, 'role': role, 'text_head': text[:1500], 'lawyer_word': bool(re.search(r'\b(lawyer|attorney|barrister|avocat|solicitor)\b', text[:2500], re.I))}
 
 
@@ -479,17 +529,111 @@ def team_urls(site, home_html, home_url):
     return order[:7]
 
 
+LAW_CTX = re.compile(r'\b(lawyer|attorney|barrister|solicitor|avocat|avocate|partner|associate|counsel|litigator)\b|called to the|admitted to the|\bLL\.?B\b|\bJ\.?D\b|juris doctor|barreau', re.I)
+CLIENT_VOICE = re.compile(r'\b(my lawyer|our lawyer|thank|thanks|recommend|helped me|helped us|highly|review|testimonial|reviewed|stars?|rating|great experience|best lawyer|worked with)\b', re.I)
+FIRM_ROLE = re.compile(r'\b(barrister|solicitor|lawyer|attorney|avocat|avocate|counsel)\b', re.I)
+
+
+def lawyer_evidence(p):
+    """Why this person is taken to be a lawyer: a lawyer title, Me, degrees or the bar in the name or card, a bio that says so, or the firm's own words about them."""
+    role = p.get('role') or ''
+    lawyer_role = bool(role and LAWYER_ROLE.search(role) and not NOT_LAWYER.search(role))
+    if role and NOT_LAWYER.search(role) and not re.search(r'\b(lawyer|attorney|barrister|avocat|solicitor)\b', role, re.I):
+        return False
+    if p.get('section') == 'staff' and not lawyer_role:
+        return False
+    return bool(lawyer_role or (p.get('section') == 'lawyers' and not role) or p.get('cred') or p.get('honorific') or p.get('card_bar') or (p.get('bar_evidence') and p.get('lawyer_word')) or p.get('ctx_ev') or p.get('solo'))
+
+
+def context_for(name, texts):
+    """A sentence on the firm's own pages that names the person and says what they are (not a client's review)."""
+    parts = [t for t in name.replace('.', ' ').split() if len(t) > 1]
+    if len(parts) < 2:
+        return None
+    pat = re.compile(re.escape(parts[0]) + r'(?:\s+\w\.?)?(?:\s+[\w\-\']+)?\s+' + re.escape(parts[-1]), re.I)
+    for t in texts:
+        for m in pat.finditer(t):
+            seg = t[max(0, m.start() - 140): m.end() + 200]
+            if LAW_CTX.search(seg) and not CLIENT_VOICE.search(seg):
+                return clean(seg)[:220]
+    return None
+
+
+def name_from_firm(firm):
+    """'Anton M. Katz Barrister & Solicitor' -> 'Anton M. Katz'; None when the firm is not named after one person."""
+    t = PREFIX.sub('', clean(re.sub(r'\([^)]*\)', ' ', firm)))
+    toks = []
+    for w in re.split(r'[\s,]+', t):
+        lw = w.lower().strip('.,&')
+        if not w or lw in STOP or lw in ('pc', 'p.c', 'llp', 'professional', 'corporation', 'inc', 'ltd', 'law', 'office'):
+            break
+        toks.append(w)
+    return parse_name(' '.join(toks)) if len(toks) >= 2 else None
+
+
+def photo_for(name, pages):
+    best = None
+    for url, html, soup, text in pages:
+        for sc, u in img_candidates(soup, url, name):
+            toks = [norm(t) for t in name.split() if len(t) > 2]
+            if toks and any(t in norm(u.rsplit('/', 1)[-1]) for t in toks) or sc >= 3:
+                if not best or sc > best[0]:
+                    best = (sc, u)
+    return best
+
+
+def person_from_pages(name, role, pages, via, firm_role_ok=False):
+    """A person the firm's own pages talk about without a card: a solo lawyer named in the firm's name, or a name from the firm's earlier details."""
+    texts = [t for _, _, _, t in pages]
+    ctx = context_for(name, texts)
+    if not (ctx or firm_role_ok or (role and LAWYER_ROLE.search(role) and not NOT_LAWYER.search(role))):
+        return None
+    toks = [norm(t) for t in name.split() if len(t) > 2]
+    best = None
+    for url, html, soup, text in pages:
+        n = sum(norm(text).count(t) for t in toks[-1:]) if toks else 0
+        if n and (not best or n > best[0]):
+            best = (n, url, html)
+    if not best:
+        return None
+    url, html = best[1], best[2]
+    prof = read_profile(html, url, name)
+    ph = photo_for(name, pages)
+    return {'name': name, 'role': role or prof['role'], 'section': '', 'card_text': '', 'cred': False, 'honorific': False, 'card_bar': False, 'profile_url': url, 'found_on': url, 'via': via,
+            'photo_url': ph[1] if ph else prof['photo_url'], 'photo_score': (ph[0] if ph else prof['photo_score']), 'socials': prof['socials'], 'links': prof['links'], 'has_email': prof['has_email'], 'vcard': prof['vcard'],
+            'bio_words': prof['bio_words'], 'bar_evidence': prof['bar_evidence'], 'call_year': prof['call_year'], 'education': prof['education'], 'languages': prof['languages'], 'text_head': prof['text_head'],
+            'lawyer_word': prof['lawyer_word'], 'ctx_ev': bool(ctx), 'context': ctx, 'solo': via == 'firm-name'}
+
+
+def home_variants(url):
+    u = urlparse(url.replace('http://', 'https://'))
+    host = u.netloc
+    alt = host[4:] if host.startswith('www.') else 'www.' + host
+    yield u.geturl()
+    yield u._replace(netloc=alt).geturl()
+
+
 def do_firm(f):
     rec = {'slug': f['slug'], 'name': f['name'], 'city': f['city'], 'province': f['province'], 'site': f['website'], 'ok': False, 'people': [], 'pages': []}
     try:
-        origin = '{0.scheme}://{0.netloc}'.format(urlparse(f['website'].replace('http://', 'https://')))
-        site = Site(origin)
-        home_html, home_url = site.get(f['website'].replace('http://', 'https://'))
+        site, home_html, home_url, last_err = None, None, None, None
+        for variant in home_variants(f['website']):
+            site = Site('{0.scheme}://{0.netloc}'.format(urlparse(variant)))
+            try:
+                home_html, home_url = site.get(variant)
+                break
+            except PermissionError:
+                raise
+            except Exception as e:
+                last_err = e
+        if home_html is None:
+            raise last_err or RuntimeError('unreadable')
         rec['ok'] = True
         site.origin = '{0.scheme}://{0.netloc}'.format(urlparse(home_url))
         people = {}
+        pages = []  # (url, html, soup without scripts, plain text without menus)
         for page in [home_url] + team_urls(site, home_html, home_url):
-            if site.count >= SITE_CAP - 8:
+            if site.count >= site.cap - 8:
                 break
             try:
                 html, url = (home_html, home_url) if page == home_url else site.get(page)
@@ -510,11 +654,22 @@ def do_firm(f):
                 c['found_on'], c['via'] = url, 'cards'
                 people[norm(name)] = c
                 found += 1
+            tsoup = BeautifulSoup(html, 'lxml')
+            strip_noise(tsoup)
+            for t in tsoup.find_all(['nav', 'footer', 'header', 'aside']):
+                t.decompose()
+            pages.append((url, html, soup, clean(tsoup.get_text(' ', strip=True))[:60000]))
             rec['pages'].append({'url': url, 'found': found})
-        # a lawyer's own page
+        texts = [t for _, _, _, t in pages]
+        # a firm with a long list of lawyers (several offices) gets more requests, so every person's own page can tell which office they are in
+        n_ev = sum(1 for p in people.values() if lawyer_evidence(p) or p.get('profile_url'))
+        big = n_ev > 30
+        if big:
+            site.cap = 190
+        profile_cap = 110 if big else 22
         cap = 0
         for key, p in list(people.items()):
-            if not p.get('profile_url') or cap >= 22 or site.count >= SITE_CAP:
+            if not p.get('profile_url') or cap >= profile_cap or site.count >= site.cap:
                 continue
             if p['role'] and NOT_LAWYER.search(p['role']) and not LAWYER_ROLE.search(p['role']):
                 continue
@@ -540,6 +695,33 @@ def do_firm(f):
             p['links'] += [o for o in prof['links'] if o['url'] not in known]
             p['vcard'] = p.get('vcard') or prof['vcard']
             p['has_email'] = p['has_email'] or prof['has_email']
+        # what the firm's own pages say about a person whose card has no title (never a client's review: the person needs a picture or a page of their own)
+        for p in people.values():
+            if not lawyer_evidence(p) and (p.get('photo_url') or p.get('profile_url')):
+                ctx = context_for(p['name'], texts)
+                if ctx:
+                    p['ctx_ev'], p['context'] = True, ctx
+        # people the firm's earlier details name, and a solo lawyer whose name is the firm's name
+        for h in f.get('hints') or []:
+            nm = parse_name(h.get('name') or '')
+            if nm and norm(nm) not in people:
+                pp = person_from_pages(nm, clean(h.get('title') or ''), pages, 'details')
+                if pp:
+                    people[norm(nm)] = pp
+        if not any(lawyer_evidence(p) for p in people.values()):
+            nm = name_from_firm(f['name'])
+            if nm and norm(nm) not in people:
+                pp = person_from_pages(nm, '', pages, 'firm-name', firm_role_ok=bool(FIRM_ROLE.search(f['name'])))
+                if pp:
+                    people[norm(nm)] = pp
+        solo_name = name_from_firm(f['name'])
+        if solo_name and norm(solo_name) in people:
+            old = people[norm(solo_name)]
+            pp = person_from_pages(old['name'], old.get('role') or '', pages, 'firm-name', firm_role_ok=bool(FIRM_ROLE.search(f['name'])))
+            if pp:
+                if not pp.get('photo_url') and old.get('photo_url'):
+                    pp['photo_url'], pp['photo_score'] = old['photo_url'], old.get('photo_score')
+                people[norm(solo_name)] = pp
         home_links = {u.rstrip('/').lower() for u, _, _ in links_in(BeautifulSoup(home_html, 'lxml'), home_url)}
         keys = list(people)
         for k in keys:
@@ -577,8 +759,10 @@ def words_of(s):
 
 
 def tier(p, firm_name, firm_city, n_people, multi=False):
+    """solid: a lawyer at this office, with their own page or a picture. firm: the same, at a firm with several offices where the page does not say which one.
+    listed: named as a lawyer on the firm's own page but with no page of their own and no picture (a thin entry). other: everything else found, kept but not trusted."""
     nm = norm(p['name'])
-    if nm in norm(firm_name) or norm(firm_name) in nm:
+    if (nm in norm(firm_name) or norm(firm_name) in nm) and not p.get('solo'):
         return 'other', 'is the firm name'
     role = p.get('role') or ''
     lawyer_role = bool(role and LAWYER_ROLE.search(role) and not NOT_LAWYER.search(role))
@@ -588,24 +772,22 @@ def tier(p, firm_name, firm_city, n_people, multi=False):
         return 'other', 'the text is marketing, not a title'
     if p.get('section') == 'staff' and not lawyer_role:
         return 'other', 'listed with the staff'
-    lawyer = lawyer_role or (p.get('section') == 'lawyers' and not role) or p.get('cred') or p.get('honorific') or p.get('card_bar') or (p.get('bar_evidence') and p.get('lawyer_word'))
-    if not lawyer:
+    if not lawyer_evidence(p):
         return 'other', 'no lawyer evidence'
-    # a firm with several offices lists everyone on one page: keep the people who are shown at this firm's office
     here = words_of(firm_city)
     card = words_of(p.get('card_text'))
-    bio = words_of((p.get('text_head') or '')[:1200])
+    bio = words_of((p.get('text_head') or '')[:1200]) + ' ' + ' '.join(' ' + c + ' ' for c in (p.get('bio_cities') or []))
     other_city = [c for c in CITIES if c != here.strip() and ' ' + c + ' ' in card]
     if other_city and here not in card:
         return 'other', 'another office: ' + other_city[0]
-    if (n_people > 35 or multi) and here not in card and here not in bio:
-        return 'other', 'multi-office firm, office not shown'
     has_page = bool(p.get('profile_url') and (p.get('bio_words') or 0) >= 60)
     has_photo = bool(p.get('photo_url') and (p.get('photo_score') or 0) >= 2)
     if not (has_page or has_photo):
-        return 'other', 'no own page and no photo'
-    if not ((lawyer_role and has_photo) or p.get('name_in_url') or p.get('name_in_photo') or (has_page and p.get('bar_evidence'))):
+        return 'listed', 'a lawyer on the firm\'s own page, but no page of their own and no picture'
+    if not ((lawyer_role and has_photo) or (p.get('ctx_ev') and has_photo) or p.get('name_in_url') or p.get('name_in_photo') or (has_page and p.get('bar_evidence')) or p.get('solo')):
         return 'other', 'nothing ties the page or picture to the name'
+    if (n_people > 35 or multi) and here not in card and here not in bio:
+        return 'firm', 'multi-office firm, office not shown'
     return 'solid', 'ok'
 
 
@@ -622,6 +804,21 @@ def main():
             CITIES.add(c)
     CITIES.update({'toronto', 'montreal', 'quebec', 'vancouver', 'calgary', 'edmonton', 'ottawa', 'winnipeg', 'halifax', 'saskatoon', 'regina', 'victoria', 'kelowna', 'hamilton', 'london', 'kitchener', 'waterloo', 'laval', 'gatineau', 'sherbrooke'})
     todo = [f for f in firms if f.get('website') and f['slug'] not in seen and not seen.add(f['slug'])]
+    try:
+        details = json.load(open('data/firm-details.json'))  # people an earlier pass named from the firm's own pages
+    except Exception:
+        details = {}
+    for f in todo:
+        f['hints'] = (details.get(f['slug']) or {}).get('lawyers') or []
+    if ONLY_UNSOLVED:
+        solved = set()
+        for fn in glob.glob(os.path.join(ONLY_UNSOLVED, '*.json')):
+            if os.path.basename(fn) in ('people.json', 'summary.json'):
+                continue
+            r = json.load(open(fn))
+            if any(p.get('tier') in ('solid', 'firm', 'listed') for p in r['people']):
+                solved.add(r['slug'])
+        todo = [f for f in todo if f['slug'] not in solved]
     if PROVINCE:
         todo = [f for f in todo if f.get('province') == PROVINCE]
     if ONLY:
@@ -659,14 +856,17 @@ def main():
             p['firm_slug'], p['firm_name'], p['city'], p['province'] = r['slug'], r['name'], r['city'], r['province']
             people.append(p)
         s = [p for p in r['people'] if p.get('tier') == 'solid']
-        rows.append([r['slug'], r['ok'], len(r['people']), len(s), sum(1 for p in s if p.get('photo_url')), sum(1 for p in s if p['socials'].get('linkedin')), r.get('error', '')])
+        fw = [p for p in r['people'] if p.get('tier') == 'firm']
+        rows.append([r['slug'], r['ok'], len(r['people']), len(s) + len(fw), sum(1 for p in s if p.get('photo_url')), sum(1 for p in s if p['socials'].get('linkedin')), r.get('error', '')])
     with open(os.path.join(OUT, 'summary.csv'), 'w', newline='') as fh:
         w = csv.writer(fh)
-        w.writerow(['slug', 'site_read', 'people_found', 'solid_lawyers', 'solid_with_photo', 'solid_with_linkedin', 'error'])
+        w.writerow(['slug', 'site_read', 'people_found', 'solid_or_firmwide', 'solid_with_photo', 'solid_with_linkedin', 'error'])
         w.writerows(rows)
     json.dump(people, open(os.path.join(OUT, 'people.json'), 'w'), ensure_ascii=False)
     solid = [p for p in people if p.get('tier') == 'solid']
-    print('firms read', sum(1 for r in rows if r[1]), 'of', len(rows), '| firms with a solid lawyer', sum(1 for r in rows if r[3]), '| people found', len(people), '| solid lawyers', len(solid),
+    firmwide = [p for p in people if p.get('tier') == 'firm']
+    listed = [p for p in people if p.get('tier') == 'listed']
+    print('firms read', sum(1 for r in rows if r[1]), 'of', len(rows), '| firms with a solid lawyer', sum(1 for r in rows if r[3]), '| people found', len(people), '| solid lawyers', len(solid), '| firm-wide (office not shown)', len(firmwide), '| listed only (no page, no picture)', len(listed),
           '| with photo', sum(1 for p in solid if p.get('photo_url')), '| with LinkedIn', sum(1 for p in solid if p['socials'].get('linkedin')), '| with any social', sum(1 for p in solid if p['socials']))
 
 

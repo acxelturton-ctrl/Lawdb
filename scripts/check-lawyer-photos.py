@@ -3,7 +3,7 @@
 
   python3 -I scripts/check-lawyer-photos.py <out-dir> [--cascade=<haarcascade_frontalface_default.xml>] [--workers=16] [--retry=1]
 
-For every person marked solid: downloads the picture (public https, at most 3 MB, one request, identified), and records width, height and whether it is
+For every person who is solid, firm-wide or listed and has a picture address: downloads the picture (public https, at most 3 MB, one request, identified), and records width, height and whether it is
   - big enough (shorter side 120 px or more) and not a banner or a tall strip (width / height between 0.5 and 1.6),
   - not a picture the firm shows for many people (a logo or a placeholder: the same address on 3 or more people),
   - one face: with OpenCV's frontal face finder (optional: needs opencv-python-headless and the cascade file); one clear face is a headshot, none or several is not.
@@ -104,7 +104,7 @@ def check(url, shared):
 
 def main():
     people = json.load(open(os.path.join(OUT, 'people.json')))
-    solid = [p for p in people if p.get('tier') == 'solid' and p.get('photo_url')]
+    solid = [p for p in people if p.get('tier') in ('solid', 'firm', 'listed') and p.get('photo_url')]
     if opt.get('retry'):  # only the pictures the face finder failed on
         solid = [p for p in solid if (p.get('photo_check') or {}).get('reason', '').startswith('face finder failed')]
     shared = Counter((p['firm_slug'], p['photo_url']) for p in solid)

@@ -371,7 +371,8 @@ function likeAside(nearby) {
 }
 
 // The Message button opens the contact form it scrolls to.
-const CONTACT_JS = "<script>(function(){var b=document.querySelector('[data-open-contact]'),s=document.querySelector('.lead-slim');if(b&&s)b.addEventListener('click',function(){s.classList.add('open');});})();</script>";
+// A visitor who arrives from LawDB AI's "Request consultation" button has a short, neutral note about the need put in the message box (the form opens).
+const CONTACT_JS = "<script>(function(){var b=document.querySelector('[data-open-contact]'),s=document.querySelector('.lead-slim');if(b&&s)b.addEventListener('click',function(){s.classList.add('open');});var q=new URLSearchParams(location.search),a=(q.get('ask')||'').slice(0,240),m=document.querySelector('.lead-slim textarea[name=message]');if(a&&m&&s){if(!m.value)m.value=(q.get('lang')==='fr'?'Bonjour, j\\u2019ai trouv\\u00e9 votre cabinet gr\\u00e2ce \\u00e0 LawDB AI. (J\\u2019\\u00e9cris en fran\\u00e7ais.) ':'Hello, I found your firm through LawDB AI. ')+a;s.classList.add('open');}})();</script>";
 
 export function renderFirmPage({ firm: f, hours, images = [], posts = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null }) {
   const prov = PROVINCES[f.province] || f.province;

@@ -11,7 +11,7 @@ export const CASE_IDS = new Set(['injury', 'traffic', 'criminal', 'family', 'rea
 export const FIRM_ACTIONS = ['call', 'message', 'email', 'website', 'directions', 'reviews', 'book', 'book-locked', 'follow', 'rate', 'blog',
   'social-facebook', 'social-instagram', 'social-linkedin', 'social-x', 'social-youtube'];
 export const EVENTS = new Set([...FIRM_ACTIONS, 'claim', 'cta-featured', 'cta-list']);
-export const RETENTION_DAYS = { counts: 400, searchText: 90 };
+export const RETENTION_DAYS = { counts: 400, searchText: 90, aiThrottle: 2 };
 
 // "Today" for the owner is a Toronto day, so a day's numbers match the day they lived through.
 export const torontoDay = (date = new Date()) => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
@@ -128,12 +128,13 @@ export async function record(env, day, incs) {
 }
 
 export async function prune(env) {
-  const [a, b, c] = await env.DB.batch([
+  const [a, b, c, d] = await env.DB.batch([
     env.DB.prepare(`DELETE FROM stats_daily WHERE day < date('now', '-${RETENTION_DAYS.counts} days')`),
     env.DB.prepare(`DELETE FROM stats_daily WHERE kind IN ('town', 'noparse') AND day < date('now', '-${RETENTION_DAYS.searchText} days')`),
+    env.DB.prepare(`DELETE FROM stats_daily WHERE kind = 'ai-visitor' AND day < date('now', '-${RETENTION_DAYS.aiThrottle} days')`), // LawDB AI's per-visitor hourly throttle (a scrambled code, no address): two days
     env.DB.prepare(`DELETE FROM firm_stats_daily WHERE day < date('now', '-${RETENTION_DAYS.counts} days')`), // each firm's own counters, same 400 days
   ]);
-  return (a.meta?.changes ?? 0) + (b.meta?.changes ?? 0) + (c.meta?.changes ?? 0);
+  return (a.meta?.changes ?? 0) + (b.meta?.changes ?? 0) + (c.meta?.changes ?? 0) + (d.meta?.changes ?? 0);
 }
 
 // ---- the owner's report

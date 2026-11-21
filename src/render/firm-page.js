@@ -476,8 +476,9 @@ export function renderFirmPage({ firm: f, hours, images = [], posts = [], articl
   const articlesDesc = () => {
     const where = `${f.name} in ${f.city}, ${PROVINCES[f.province] || f.province}`;
     const cut = (t, n) => (t.length > n ? t.slice(0, n - 1).trimEnd() + '\u2026' : t);
+    const stop = (t) => (/[.!?\u2026]$/.test(t) ? t : t + '.'); // a headline that ends in ? or ! needs no full stop after it
     const heads = articles.slice(0, 2).map((a) => cut(a.title, 55));
-    const tries = [`${articles.length} recent articles by ${where}: ${heads.join('; ')}. Previews on LawDB.`, `${articles.length} recent articles by ${where}: ${heads[0]}. Previews on LawDB.`, `Recent articles by ${where}, with previews, on LawDB.`];
+    const tries = [`${articles.length} recent articles by ${where}: ${heads.map((h, i) => (i < heads.length - 1 ? h.replace(/[.!?]$/, '') : h)).join('; ')}`, `${articles.length} recent articles by ${where}: ${heads[0]}`, `Recent articles by ${where}`].map((d) => `${stop(d)} Previews on LawDB.`);
     return tries.find((d) => d.length <= 160) || tries[2].slice(0, 160);
   };
   const desc = tab === 'overview' ? metaFromAbout(about) || description(f) : tab === 'lawyers' ? lawyersDesc() : tab === 'articles' ? articlesDesc() : lawyerDesc();

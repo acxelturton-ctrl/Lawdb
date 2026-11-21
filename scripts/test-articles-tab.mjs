@@ -92,6 +92,11 @@ ok(P.canon === `https://lawdb.ca/firms/${slug}/articles` && O.canon === `https:/
 ok(P.title === `${base.name} – Articles from ${base.city} | LawDB` && P.title !== O.title && P.desc !== O.desc, `its own title: "${P.title}", and its own description`);
 ok(P.h1.length === 1 && P.h1[0] === `Articles by ${base.name}`, 'one h1: "Articles by <firm>"');
 ok(P.desc.length >= 60 && P.desc.length <= 160 && /6 recent articles/.test(P.desc), `the description fits a search result (${P.desc.length} characters)`);
+{
+  const q = shownArticles([post(1, { title: 'Who can witness a will in Ontario?' }), post(2, { title: 'Closing day!' }), post(3)], slug);
+  const d = parts(render(featured, { tab: 'articles' }, q)).desc;
+  ok(!/[?!.]\.\s/.test(d) && !/[?!]\./.test(d) && /Previews on LawDB\.$/.test(d) && d.length <= 160, `no doubled punctuation after a headline that ends in ? or ! ("${d}")`);
+}
 ok(P.ld.every(Boolean) && P.ld.some((j) => j['@type'] === 'LegalService') && P.ld.some((j) => j['@type'] === 'BreadcrumbList'), 'the markup is valid JSON, with the firm and the breadcrumbs');
 const col = P.ld.find((j) => j['@type'] === 'CollectionPage');
 ok(col && col.mainEntity['@type'] === 'ItemList' && col.mainEntity.itemListElement.length === 6 && col.mainEntity.itemListElement.every((e, i) => e.position === i + 1 && /^https:\/\/lawdb\.ca\/news\/[a-z0-9-]+\/[a-z0-9-]+-\d+$/.test(e.url) && e.name), 'a CollectionPage lists every article by the full address of its story page');

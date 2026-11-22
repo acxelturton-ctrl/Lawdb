@@ -4,7 +4,7 @@
 //
 // The outlines are Natural Earth's 1:50m provinces and territories (public domain, naturalearthdata.com), kept in data/canada-provinces.json. To rebuild that file
 // from a download of ne_50m_admin_1_states_provinces.geojson:  node scripts/build-ca-map.mjs --import path/to/ne_50m_admin_1_states_provinces.geojson
-// To refit the projection (only if the frame changes): fitWidth(W - 20, frame) on the points from -134 to -52 degrees and 41.5 to 60 north, then move the top edge to y = 10.
+// To refit the projection (only if the frame changes): fitExtent([[10, 10], [W - 10, 5000]], the provinces), then move it up so the bottom of the country is at y = H - 12.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { geoPath } from 'd3-geo';
 import { projection, W, H } from '../src/lib/map-projection.js';

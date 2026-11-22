@@ -1,7 +1,7 @@
 // The map of Canada on the home page (images/ca-map.svg, src/lib/map-projection.js, src/routes/map.js, scripts/build-ca-map.mjs, home-map.js, home-map.css):
 //   node --no-warnings scripts/test-home-map.mjs
 // The drawing is what the builder makes, a logo lands on its city, only our own logo files are used, the quotas and round-robin hold, the page has the map in place of
-// the old "Why LawDB" band, and the script that lays the logos out never stacks one on another.
+// the old "Why LawDB" band, and the script that lays the logos out puts the logos of a city in a ring around it, as on lawdb.ai.
 import { readFileSync, existsSync } from 'node:fs';
 import vm from 'node:vm';
 import { DatabaseSync } from 'node:sqlite';
@@ -45,7 +45,7 @@ const row = (n, province, city, extra = {}) => ({ slug: `f${n}`, city, province,
   rows.push(row(90, 'ON', 'Hamilton', { lat: 43.25, lng: -79.87, type: 'mono', src: '' }), row(91, 'ON', 'Hamilton', { lat: 43.25, lng: -79.87, src: 'https://other.example/x.png' }), row(92, 'ON', 'Guelph', { lat: null, lng: null }), row(93, 'ON', 'London', { lat: 'x', lng: 'y' }), row(94, 'ON', 'Nowhere', { lat: -80, lng: 10 }));
   const logos = pickLogos(rows);
   const on = logos.filter((l) => l[0].startsWith('ON|')), mb = logos.filter((l) => l[0].startsWith('MB|'));
-  ok(on.length === 44 && mb.length === 10, 'at most 44 logos in Ontario and 10 in Manitoba, however many firms there are');
+  ok(on.length === 40 && mb.length === 8, 'at most 40 logos in Ontario and 8 in Manitoba, however many firms there are');
   ok(!logos.some((l) => /Hamilton|Guelph|London|Nowhere/.test(l[0])), 'a firm with no logo of ours, no position or a position off the drawing is left out');
   ok(on.slice(0, 4).map((l) => l[0]).join() === 'ON|Ottawa,ON|Toronto,ON|Ottawa,ON|Toronto', 'one city at a time, round-robin, so every city is on the map before any has a second');
   ok(logos.every((l) => l.length === 4 && typeof l[1] === 'number' && typeof l[2] === 'number' && l[3].startsWith('/images/logos/')), 'each entry is [city, x, y, logo]');
@@ -75,7 +75,7 @@ ok(/<p class="hm-foot"><a href="#cities">Browse firms by city<\/a>/.test(index) 
 ok(index.indexOf('class="h5-stats"') < index.indexOf('class="hm"') && index.indexOf('class="hm"') < index.indexOf('class="top-c"'), 'it sits where the old band was: after the numbers, before the top-rated lawyers');
 ok(index.includes('href="home-map.css?v=1"') && index.includes('src="home-map.js?v=1" defer') && existsSync('home-map.css') && existsSync('home-map.js'), 'its stylesheet and script are linked and exist');
 const css = readFileSync('home-map.css', 'utf8');
-ok(/aspect-ratio:1000\/443/.test(css) && /prefers-reduced-motion/.test(css) && /pointer-events:none/.test(css), 'the map is drawn at the drawing\'s own proportions, is still for people who ask for less motion, and cannot be clicked');
+ok(new RegExp(`aspect-ratio:${W}/${H}`).test(css) && /--pin:clamp\(18px,2\.3vw,30px\)/.test(css) && /min-width:780px/.test(css) && /--pin:22px/.test(css) && /prefers-reduced-motion/.test(css) && /pointer-events:none/.test(css), 'the map is drawn at the drawing\'s own proportions, is still for people who ask for less motion, and cannot be clicked');
 ok(/run_worker_first[\s\S]*"\/api\/\*"/.test(readFileSync('wrangler.jsonc', 'utf8')) && /route\('GET', '\/api\/map', mapPoints\)/.test(readFileSync('src/worker.js', 'utf8')), 'the Worker answers /api/map');
 
 // ---- the script that lays the logos out (home-map.js, run against a small stand-in for the page)
@@ -100,14 +100,11 @@ async function lay(logos, sizes, { rootWidth = 1000, pin = 32, fail = false, scr
   sizes['/images/logos/wide.png'] = [400, 60]; sizes['/images/logos/tiny.png'] = [10, 10]; delete sizes['/images/logos/gone.png'];
   const pins = await lay(logos, sizes);
   const pos = pins.map((p) => [parseFloat(p.style.left) / 100 * W, parseFloat(p.style.top) / 100 * H]);
-  ok(pins.length === 42, `42 of 45 are placed: a wordmark too wide to read, a picture too small to see and a logo that does not load are left out (${pins.length})`);
-  let near = 0; const D = 32 / 1000 * W * 0.96;
-  for (let i = 0; i < pos.length; i++) for (let j = i + 1; j < pos.length; j++) if (Math.hypot(pos[i][0] - pos[j][0], pos[i][1] - pos[j][1]) < D - 0.5) near++;
-  ok(near === 0, 'no logo sits on another one, even with 40 firms in one city');
-  ok(pos.every((p) => p[0] >= 15 && p[0] <= W - 15 && p[1] >= 15 && p[1] <= H - 15), 'every logo is inside the drawing, even one whose city is at the very corner');
-  const near2 = (c) => pos.filter((q) => Math.hypot(q[0] - c[0], q[1] - c[1]) < 1).length;
-  const darkAt = pos[pins.findIndex((p) => p.style.background === '#2a2a2a')];
-  ok(near2([700, 330]) === 1 && Math.hypot(darkAt[0] - 800, darkAt[1] - 300) < 70 && pos.every((q) => [[700, 330], [800, 300], [1, 1]].some((c) => Math.hypot(q[0] - c[0], q[1] - c[1]) < 160)), 'the first logo of a city sits on the city itself (or as near as there is room) and the rest gather around it');
+  ok(pins.length === 43, `43 of 45 are placed: a picture too small to see and a logo that does not load are left out, a wide wordmark is not (${pins.length})`);
+  const from = (c) => pos.map((q) => Math.hypot(q[0] - c[0], q[1] - c[1]));
+  ok(from([700, 330]).filter((x) => x < 0.5).length === 1 && from([700, 330]).filter((x) => x <= 10 * Math.sqrt(39) + 0.5).length === 40 && from([700, 330]).filter((x) => x > 10 * Math.sqrt(39) + 0.5).every((x) => x > 80), 'the first logo of a city sits on the city itself and the others make a ring (a sunflower spiral, 10 * the square root of its number) around it, as on lawdb.ai');
+  ok(from([800, 300]).filter((x) => x < 0.5).length === 1 && pos.every((q) => [[700, 330], [800, 300], [1, 1]].some((c) => Math.hypot(q[0] - c[0], q[1] - c[1]) <= 10 * Math.sqrt(40) + 0.5)), 'every logo is within its own city\'s ring');
+  ok(pins.every((p) => /^\d+(\.\d+)?$/.test(p.style.zIndex) && /^\d+ms$/.test(p.style.animationDelay)), 'they come in one after another, a few at a time');
   const dark = pins.find((p) => p.style.background === '#2a2a2a');
   ok(dark && /\bfull\b/.test(dark.className), 'a logo drawn on its own colour fills its circle with that colour');
   ok(pins.every((p) => /\bhm-pin\b/.test(p.className) && /^\d+(\.\d+)?%$/.test(p.style.left) && p.children.length === 1 && p.children[0].alt === ''), 'each pin is a circle with a picture that has no alt text (the map is only a picture)');
@@ -117,6 +114,11 @@ async function lay(logos, sizes, { rootWidth = 1000, pin = 32, fail = false, scr
   const strip = { scrollLeft: 0, scrollWidth: 780, clientWidth: 390 };
   await lay(logos.slice(0, 40), sizes, { rootWidth: 780, pin: 22, scroller: strip });
   ok(strip.scrollLeft > 0 && Math.abs(strip.scrollLeft + 195 - 700 / 1000 * 780) < 1, 'on a phone the strip starts scrolled so the firms (here around x = 700 of 1000) are in the middle of the screen, not British Columbia at the left edge');
+  const busy = [...Array.from({ length: 5 }, (_, i) => ['BC|Van', 100 + i, 400, `/images/logos/l${i}.png`]), ...Array.from({ length: 12 }, (_, i) => ['ON|Tor', 650 + i * 10, 500, `/images/logos/m${i}.png`]), ...Array.from({ length: 3 }, (_, i) => ['AB|Cal', 300 + i, 400, `/images/logos/n${i}.png`])];
+  const strip2 = { scrollLeft: 0, scrollWidth: 780, clientWidth: 390 };
+  await lay(busy, Object.fromEntries(busy.map((l) => [l[3], [100, 100]])), { rootWidth: 780, pin: 22, scroller: strip2 });
+  const seen = [strip2.scrollLeft / 780 * 1000, (strip2.scrollLeft + 390) / 780 * 1000];
+  ok(seen[0] <= 650 && seen[1] >= 760 && seen[0] > 104 && seen[0] >= 0, 'it starts where the screen shows the most logos (all 12 around x = 650 to 760 and the 3 at 300), not at the left edge and not at the average of all of them');
   const wide = { scrollLeft: 0, scrollWidth: 1000, clientWidth: 1000 }, moved = { scrollLeft: 120, scrollWidth: 780, clientWidth: 390 };
   await lay(logos.slice(0, 5), sizes, { scroller: wide }); await lay(logos.slice(0, 5), sizes, { rootWidth: 780, pin: 22, scroller: moved });
   ok(wide.scrollLeft === 0 && moved.scrollLeft === 120, 'a screen the map fits on is left alone, and so is a visitor who has already scrolled');

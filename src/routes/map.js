@@ -1,12 +1,11 @@
 // GET /api/map: a small, spread-out set of firm logos for the decorative map on the home page (home-map.js): [cityKey, x, y, logo, background?].
 // x and y are already projected onto the drawing in images/ca-map.svg (src/lib/map-projection.js), so the page needs no map library.
 // The map is only a picture, so it shows a fixed number of logos per province (more in Ontario than Manitoba), taken one city at a time round-robin so every
-// city in a province is represented before any city gets a second; inside a city the Featured firms come first, then the best rated. More logos are sent than
-// the page shows (CANDIDATES): the page leaves out a logo that is too wide to read in a small circle and fills the place from the next one.
+// city in a province is represented before any city gets a second; inside a city the Featured firms come first, then the best rated.
 import { projection, W, H } from '../lib/map-projection.js';
 import { cached } from '../lib/http.js';
 
-const QUOTA = { ON: 44, BC: 24, AB: 20, QC: 22, MB: 10 }, QUOTA_OTHER = 8; // logos per province, with the spares
+const QUOTA = { ON: 40, BC: 20, AB: 16, QC: 16, MB: 8 }, QUOTA_OTHER = 6; // logos per province: about 100 in all, as on lawdb.ai
 
 // Only a picture that is our own is used: one of the logo files in the site, or a logo the firm uploaded. Never an address on somebody else's site.
 export const logoOf = (src) => (typeof src === 'string' && /^images\/logos\/[A-Za-z0-9._-]{1,120}\.(?:png|jpe?g|webp|gif|svg)$/i.test(src) ? `/${src}`

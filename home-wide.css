@@ -43,26 +43,13 @@
   body.pg-home .h5-stats span { margin-top: 12px; font-size: 13px; }
 
   /* every band: full width, content in one wide column */
-  body.pg-home section.why-b, body.pg-home section.top-c, body.pg-home section.h4-cases, body.pg-home section.citystrip,
+  body.pg-home section.top-c, body.pg-home section.h4-cases, body.pg-home section.citystrip,
   body.pg-home section.hn, body.pg-home section.how, body.pg-home section.join-c, body.pg-home section.hz-firms {
     max-width: none !important; margin: 0; padding-left: var(--hw-pad); padding-right: var(--hw-pad);
   }
   body.pg-home .fh h2 { font-size: clamp(34px, 2.6vw, 44px); }
   body.pg-home .fh a { font-size: 17px; }
 
-  /* why LawDB: the heading on the left, four points on the right */
-  body.pg-home section.why-b { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: 1fr auto auto auto 1fr; column-gap: 88px; padding-top: 96px; padding-bottom: 96px; }
-  body.pg-home .why-b > .eyebrow { grid-column: 1; grid-row: 2; }
-  body.pg-home .why-b > h2 { grid-column: 1; grid-row: 3; }
-  body.pg-home .why-b > .why-lede { grid-column: 1; grid-row: 4; }
-  body.pg-home .why-b > .why-b-grid { grid-column: 2; grid-row: 1 / span 5; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 44px 56px; align-self: center; }
-  body.pg-home .why-b h2 { margin-bottom: 18px; font-size: clamp(38px, 3vw, 52px); }
-  body.pg-home .why-b .why-lede { font-size: 19px; max-width: 28em; }
-  body.pg-home .why-b-item { padding-top: 26px; border-top: 1px solid rgba(226,189,106,0.35); }
-  body.pg-home .why-b-ic { width: 54px; height: 54px; }
-  body.pg-home .why-b-ic svg { width: 26px; height: 26px; }
-  body.pg-home .why-b-item b { margin: 16px 0 8px; font-size: 24px; }
-  body.pg-home .why-b-item p { font-size: 17px; line-height: 1.55; }
 
   /* top-rated lawyers: a grid of cards, four across (five on wide screens), two rows */
   body.pg-home section.top-c { padding-top: 88px; padding-bottom: 72px; }
@@ -198,5 +185,4 @@
   body.pg-home .cd-grid { gap: 32px 24px; }
   body.pg-home .cd-col li a { font-size: 16px; }
   body.pg-home .h4-wrap { grid-template-columns: minmax(0, 1fr) 320px; }
-  body.pg-home .why-b > .why-b-grid { gap: 36px 36px; }
 }

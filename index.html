@@ -447,6 +447,7 @@
   @media (min-width:1100px){ .hdr-signin{ height:46px; font-size:15px; padding:0 24px; } }
   @media (max-width:400px){ .site-header .mark .wordmark .tagline{ display:none; } .hdr-signin{ padding:0 14px; } }
 </style>
+<link rel="stylesheet" href="home-map.css?v=1">
 <link rel="stylesheet" href="home-wide.css?v=1">
 </head>
 <body class="pg-home">
@@ -589,8 +590,6 @@ section.hn{max-width:1440px;margin:0 auto;padding:44px 20px 12px}
 .fh a:hover{ text-decoration:underline; }
 .eyebrow{ margin:0 0 10px; font:600 12px/1.6 Inter,sans-serif; letter-spacing:.18em; text-transform:uppercase; color:#c9a050; }
 /* shared: the lede under a heading, and how it works (three numbered steps) */
-.why-lede{ margin:0 0 20px; max-width:640px; font-size:16px; line-height:1.6; color:#5f5f5f; }
-.why-b .why-lede{ color:#bdbdbd; }
 section.how{ padding:44px 20px; background:#fffdf8; }
 .how h2{ margin:0 0 4px; font:700 clamp(26px,5vw,32px)/1.15 'Source Serif 4',serif; color:#2a2a2a; text-wrap:balance; }
 .how-steps{ display:grid; grid-template-columns:minmax(0,1fr); gap:14px; margin-top:22px; }
@@ -626,14 +625,6 @@ section.hz-firms{ background:#2a2a2a; color:#ffffff; padding:44px 20px; }
 .join-sheet-x{ flex:none; width:36px; height:36px; border:0; background:none; color:#5f5f5f; font-size:26px; line-height:1; cursor:pointer; }
 
 /* concept B: a navy "why" band, a swipe row of top firms, the case types and cities as tiles, the news after them */
-.why-b{ background:#2a2a2a; color:#ffffff; padding:40px 20px; }
-.why-b h2{ margin:0 0 20px; font:700 clamp(26px,5vw,32px)/1.15 'Source Serif 4',serif; color:#ffffff; text-wrap:balance; }
-.why-b .eyebrow{ color:#e2bd6a; }
-.why-b-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px 18px; }
-@media (min-width:900px){ .why-b-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
-.why-b-item b{ display:block; margin:10px 0 4px; font:700 18px/1.25 'Source Serif 4',serif; color:#ffffff; }
-.why-b-item p{ margin:0; font-size:14px; line-height:1.5; color:#bdbdbd; }
-.why-b-ic{ display:grid; place-items:center; width:40px; height:40px; border-radius:50%; background:#c9a050; color:#2a2a2a; }
 section.top-c{ padding:40px 0 8px; background:#fffdf8; }
 section.top-c .fh{ padding:0 20px; }
 .top-track{ display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding:8px 20px 22px; scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-padding-inline:20px; }
@@ -646,15 +637,11 @@ section.top-c .fh{ padding:0 20px; }
 @media (min-width:700px){ .cs-chips{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 .cs-chips .cc{ justify-content:space-between; }
 </style>
-<section class="why-b" aria-labelledby="whyBH">
-  <p class="eyebrow">Why LawDB</p>
-  <h2 id="whyBH">Find your lawyer, faster.</h2>
-  <p class="why-lede">Real, reviewed law firms near you, with the ratings and practice areas to choose the right one.</p>
-  <div class="why-b-grid">
-    <div class="why-b-item"><span class="why-b-ic" aria-hidden="true"><svg width="18" height="18"><use href="#i-scales"/></svg></span><b>Real Google reviews</b><p>Pulled straight from each firm's public profile.</p></div>
-    <div class="why-b-item"><span class="why-b-ic" aria-hidden="true"><svg width="18" height="18"><use href="#i-pin"/></svg></span><b>Matched to your case</b><p>Search by the kind of case and the city you are in.</p></div>
-    <div class="why-b-item"><span class="why-b-ic" aria-hidden="true"><svg width="18" height="18"><use href="#i-doc"/></svg></span><b>Know what to ask</b><p>Plain-language guides for each practice area.</p></div>
-    <div class="why-b-item"><span class="why-b-ic" aria-hidden="true"><svg width="18" height="18"><use href="#i-shield"/></svg></span><b>Free to search</b><p>No account needed to look around.</p></div>
+<section class="hm" id="camap" aria-labelledby="hmTitle">
+  <div class="hm-in">
+    <div class="hm-head"><span class="hm-eyebrow">Directory coverage</span><h2 id="hmTitle">Law firms across Canada</h2><p id="hmSub">Browse law firms by province and city.</p></div>
+    <div class="hm-scroll" id="hmScroll"><div class="hm-map" id="hmMap"><img class="hm-bg" src="/images/ca-map.svg" alt="Map of Canada showing where LawDB lists law firms" width="1000" height="443" loading="lazy" decoding="async"></div></div>
+    <p class="hm-foot"><a href="#cities">Browse firms by city</a></p>
   </div>
 </section>
 <section class="top-c" id="firms" aria-labelledby="topH">
@@ -793,5 +780,6 @@ section.citystrip{ padding:28px 20px 36px !important; }
 <script src="site.js" defer></script>
 <script src="lwa.js?v=2" defer></script>
 <script src="/follow.js" defer></script>
+<script src="home-map.js?v=1" defer></script>
 </body>
 </html>

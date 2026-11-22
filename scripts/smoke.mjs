@@ -905,7 +905,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   // the home page's map of Canada: a ring of firm logos over images/ca-map.svg, where the "Why LawDB" band used to be
   {
     const home = (await getRaw('/')).text;
-    ok(/<section class="hm" id="camap"/.test(home) && home.includes('src="/images/ca-map.svg"') && home.includes('<a href="#cities">Browse firms by city</a>') && home.includes('class="hm-badge"') && home.includes('Find your lawyer, faster.') && !home.includes('class="why-b"'), 'the home page has the map of Canada, with the LawDB badge and line, where the Why LawDB band was');
+    ok(/<section class="hm" id="camap"/.test(home) && home.includes('src="/images/ca-map.svg"') && !home.includes('Browse firms by city') && home.includes('class="hm-badge"') && home.includes('Find your lawyer, faster.') && !home.includes('class="why-b"'), 'the home page has the map of Canada, with the LawDB badge and line, where the Why LawDB band was');
     const mp = await call('GET', '/api/map');
     ok(mp.status === 200 && mp.data.w === 1000 && mp.data.h === 620 && mp.data.logos.length >= 20 && mp.data.logos.length <= 140 && mp.data.logos.every((l) => l.length >= 4 && l[1] > 0 && l[1] < 1000 && l[2] > 0 && l[2] < 620 && /^\/(images\/logos\/[A-Za-z0-9._-]+|img\/[0-9a-f]{24})$/.test(l[3])), 'GET /api/map returns firm logos of our own, already projected onto the drawing');
     const mps = await call('GET', '/api/map?small=1');

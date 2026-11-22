@@ -560,7 +560,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
 
   // Verified by LawDB: a Basic owner asks (free), the admin checks, the public page shows it without the name or number
   const vNone = await call('GET', '/api/account/firms/achkar-law/verification');
-  ok(vNone.status === 200 && vNone.data.status === 'none' && vNone.data.societies.length === 5 && vNone.data.lawSociety.code === 'ON' && vNone.data.requiresFeatured === false, 'an owner sees that the firm is not verified yet, with the law societies and their own province as the default');
+  ok(vNone.status === 200 && vNone.data.status === 'none' && vNone.data.societies.length === 10 && vNone.data.lawSociety.code === 'ON' && vNone.data.requiresFeatured === false, 'an owner sees that the firm is not verified yet, with the law societies and their own province as the default');
   ok((await call('POST', '/api/account/firms/achkar-law/verification', { lawSociety: 'XX', registrant: 'Marie Achkar' })).status === 422 && (await call('POST', '/api/account/firms/achkar-law/verification', { registrant: '<b>Marie</b>' })).status === 422
     && (await call('POST', '/api/account/firms/achkar-law/verification', { registrant: 'Marie Achkar', registrationRef: 'a;b' })).status === 422 && (await call('POST', '/api/account/firms/achkar-law/verification', {})).status === 422, 'an unknown law society, a marked-up name, an odd number and an empty request are refused');
   const vAsk = await call('POST', '/api/account/firms/achkar-law/verification', { registrant: 'Marie Achkar', registrationRef: 'P12345' });

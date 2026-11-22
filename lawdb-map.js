@@ -69,7 +69,7 @@
 
   /* ------------------------------------------------------------ hours */
   var hours = null, hoursP = null;
-  var TZ = { ON: 'America/Toronto', QC: 'America/Toronto', BC: 'America/Vancouver', AB: 'America/Edmonton', MB: 'America/Winnipeg' };
+  var TZ = { ON: 'America/Toronto', QC: 'America/Toronto', BC: 'America/Vancouver', AB: 'America/Edmonton', MB: 'America/Winnipeg', SK: 'America/Regina', NS: 'America/Halifax', NB: 'America/Moncton', NL: 'America/St_Johns', PE: 'America/Halifax' };
   var DAYN = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   function loadHours(){
     if(hoursP) return hoursP;
@@ -698,7 +698,7 @@
     immigration: ['immigration', 'visa', 'citizenship', 'refugee', 'sponsorship', 'work permit'],
     litigation: ['litigation', 'lawsuit', 'sue', 'civil', 'dispute']
   };
-  var PROVS = { 'ontario': 'ON', 'quebec': 'QC', 'british columbia': 'BC', 'alberta': 'AB', 'manitoba': 'MB', 'bc': 'BC', 'qc': 'QC', 'alta': 'AB' };
+  var PROVS = { 'ontario': 'ON', 'quebec': 'QC', 'british columbia': 'BC', 'alberta': 'AB', 'manitoba': 'MB', 'saskatchewan': 'SK', 'nova scotia': 'NS', 'new brunswick': 'NB', 'newfoundland and labrador': 'NL', 'newfoundland': 'NL', 'prince edward island': 'PE', 'bc': 'BC', 'qc': 'QC', 'alta': 'AB' };
   var STOP = /\b(lawyers?|attorneys?|law firms?|firms?|a|an|the|in|for|near|me|nearby|my|need|find|i|looking|to|get)\b/g;
   function norm(x){ return String(x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
   function hasW(n, w){ return (' ' + n + ' ').indexOf(' ' + w + ' ') >= 0; }

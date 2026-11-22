@@ -234,7 +234,7 @@ async function viewFirms() {
   const filters = h('div', { class: 'filters' }, search,
     sel('status', 'Status', [['', 'Any status'], ['live', 'Live'], ['hidden', 'Hidden'], ['pending', 'Awaiting approval']]),
     sel('plan', 'Plan', [['', 'Any plan'], ['featured', 'Featured'], ['basic', 'Basic']]),
-    sel('province', 'Province', [['', 'Any province'], ...Object.entries(PROVINCES).filter(([c]) => ['AB', 'BC', 'MB', 'ON', 'QC'].includes(c))]),
+    sel('province', 'Province', [['', 'Any province'], ...Object.entries(PROVINCES).filter(([c]) => ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'ON', 'PE', 'QC', 'SK'].includes(c))]),
     sel('sort', 'Sort by', [['name', 'Sort: name'], ['city', 'Sort: city'], ['updated', 'Sort: recently updated'], ['rating', 'Sort: rating'], ['id', 'Sort: newest ID']]));
   let timer;
   search.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => { state.q = search.value.trim(); state.page = 0; load(); }, 250); });

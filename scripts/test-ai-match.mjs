@@ -115,7 +115,7 @@ eq(r.firms.map((f) => f.slug), ['f-calgary']);
 r = await answer(env, { messages: [], context: { caseType: 'injury' }, pick: { lat: 43.7, lng: -79.5 } });          // "use my location"
 eq(r.ctx.city, 'Toronto');
 r = await answer(env, { messages: [], context: { caseType: 'injury' }, pick: { lat: 64, lng: -139 } });             // far from any listed city
-eq(r.firms, []); ok(/Ontario, Quebec, British Columbia, Alberta and Manitoba/.test(r.reply));
+eq(r.firms, []); ok(/the ten provinces for now, not the territories/.test(r.reply));
 
 r = await answer(env, { messages: [], context: { caseType: 'injury', city: 'Montreal', province: 'QC' }, pick: { language: 'French' } });
 eq(r.firms.map((f) => f.slug), ['d-montreal']); ok(r.ask.chips[0].active === true && r.ask.chips[0].label === 'French-speaking', 'the French filter shows as on');

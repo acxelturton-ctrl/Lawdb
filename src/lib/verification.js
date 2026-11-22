@@ -16,6 +16,11 @@ export const LAW_SOCIETIES = {
   BC: { name: 'Law Society of British Columbia', directory: 'https://www.lawsociety.bc.ca/lsbc/apps/lkup/directory/mbr-search.cfm' },
   AB: { name: 'Law Society of Alberta', directory: 'https://www.lawsociety.ab.ca/public/findalawyer/' },
   MB: { name: 'Law Society of Manitoba', directory: 'https://lawsociety.mb.ca/for-the-public/finding-a-lawyer/lawyer-lookup/' },
+  SK: { name: 'Law Society of Saskatchewan', directory: 'https://www.lawsociety.sk.ca/for-the-public/finding-legal-assistance-saskatchewan/' },
+  NS: { name: 'Nova Scotia Barristers’ Society', directory: 'https://nsbs.org/for-the-public/how-we-help-the-public/finding-a-lawyer/' },
+  NB: { name: 'Law Society of New Brunswick', directory: 'https://lawsociety-barreau.nb.ca/en/public/links/' },
+  NL: { name: 'Law Society of Newfoundland and Labrador', directory: 'https://lsnl.ca/public/' },
+  PE: { name: 'Law Society of Prince Edward Island', directory: 'https://www.lawsocietypei.ca/find-a-lawyer' },
 };
 
 // Verification is free for every firm. Set this to true to make it a Featured benefit instead (a Basic owner could then no longer ask for it;

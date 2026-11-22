@@ -11,7 +11,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { geoPath, geoStream } from 'd3-geo';
 import { projection, W, H } from '../src/lib/map-projection.js';
 
-export const LIVE = new Set(['ON', 'QC', 'BC', 'AB', 'MB']);
+export const LIVE = new Set(['ON', 'QC', 'BC', 'AB', 'MB', 'SK', 'NS', 'NB', 'NL', 'PE']);
 const SOURCE = new URL('../data/canada-provinces.json', import.meta.url);
 const TARGET = new URL('../images/ca-map.svg', import.meta.url);
 const LAND = new URL('../src/lib/map-land.generated.js', import.meta.url);

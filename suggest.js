@@ -20,8 +20,8 @@
     {id:'litigation',label:'Civil Litigation',plural:'Civil litigation lawyers',say:'civil litigation lawyer',words:['civil litigation','litigation','lawsuit','sue','suing','civil','dispute','small claims']}
   ];
   var BYID={}; CASES.forEach(function(c){ BYID[c.id]=c; });
-  var PROV_NAME={ON:'Ontario',QC:'Quebec',BC:'British Columbia',AB:'Alberta',MB:'Manitoba'};
-  var PROV_WORDS={'ontario':'ON','british columbia':'BC','bc':'BC','alberta':'AB','manitoba':'MB','quebec province':'QC'};
+  var PROV_NAME={ON:'Ontario',QC:'Quebec',BC:'British Columbia',AB:'Alberta',MB:'Manitoba',SK:'Saskatchewan',NS:'Nova Scotia',NB:'New Brunswick',NL:'Newfoundland and Labrador',PE:'Prince Edward Island'};
+  var PROV_WORDS={'ontario':'ON','british columbia':'BC','bc':'BC','alberta':'AB','manitoba':'MB','saskatchewan':'SK','nova scotia':'NS','new brunswick':'NB','newfoundland and labrador':'NL','newfoundland':'NL','prince edward island':'PE','pei':'PE','quebec province':'QC'};
   var CITY_ALIASES={'sudbury':'Greater Sudbury|ON','quebec':'Quebec City|QC'};
   var FILLER={};'lawyer lawyers attorney attorneys a an the i need needs find finding looking look for to hire firm firms near me in of my get want help with and at around within on qc ab mb'.split(' ').forEach(function(w){ FILLER[w]=1; });
   var POPULAR=[['family','Ottawa','ON'],['immigration','Vancouver','BC'],['realestate','Toronto','ON'],['business','Calgary','AB']];

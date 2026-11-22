@@ -95,3 +95,13 @@ html.aic-lock .to-top{ opacity:0 !important; pointer-events:none !important; }
   body.lw-has-tabs .aic-nudge{ bottom:calc(144px + env(safe-area-inset-bottom,0px)); }
   body.lw-has-tabs.aic-ready .to-top{ bottom:calc(150px + env(safe-area-inset-bottom,0px)); }
 }
+
+/* a firm's page on a phone has the Call / Request a consultation bar along the bottom (and the member tab bar under it when signed in): stay clear of both */
+@media (max-width:719px){
+  body.pg-firm .aic-launch{ bottom:calc(86px + env(safe-area-inset-bottom,0px)); }
+  body.pg-firm .aic-nudge{ bottom:calc(152px + env(safe-area-inset-bottom,0px)); }
+  body.pg-firm.aic-ready .to-top{ bottom:calc(156px + env(safe-area-inset-bottom,0px)); }
+  body.pg-firm.lw-has-tabs .aic-launch{ bottom:calc(156px + env(safe-area-inset-bottom,0px)); }
+  body.pg-firm.lw-has-tabs .aic-nudge{ bottom:calc(222px + env(safe-area-inset-bottom,0px)); }
+  body.pg-firm.lw-has-tabs.aic-ready .to-top{ bottom:calc(226px + env(safe-area-inset-bottom,0px)); }
+}

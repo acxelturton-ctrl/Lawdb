@@ -113,7 +113,7 @@ ok(articlesHrefs(pg).length === 6 && articlesHrefs(pg).every((h) => /^\/news\/[a
 function articlesHrefs(h) { return [...h.matchAll(/<a class="fa-main" href="([^"]+)"/g)].map((m) => m[1]); }
 ok(!pg.includes('<b>you</b>') && !pg.includes('&lt;b&gt;') && pg.includes('Why you need &quot;a will&quot; &amp; a plan'), 'markup in a headline is removed and the rest is shown as text');
 ok(!/(?:href|src)="\.\.\//.test(pg), 'no relative "../" links on the nested page');
-ok(pg.includes(`href="/firms/${slug}#contact"`) && !pg.includes('data-open-contact'), 'the Message button goes to the firm\'s contact form on the Overview');
+ok(pg.includes(`href="/firms/${slug}#contact"`) && !pg.includes('data-open-contact'), 'the Request a consultation buttons (card and phone bar) go to the firm\'s contact form on the Overview');
 ok(/<p class="li-name">/.test(pg) && !/<h1[^>]*class="li-name"/.test(pg), 'the firm card does not add a second h1');
 
 // pages that must not exist, and tabs that must not show

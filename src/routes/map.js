@@ -9,8 +9,8 @@ import { projection, W, H } from '../lib/map-projection.js';
 import { inland } from '../lib/map-land.js';
 import { cached } from '../lib/http.js';
 
-const QUOTA = { ON: 40, BC: 20, AB: 16, QC: 16, MB: 8 }, QUOTA_OTHER = 6;              // logos per province: about 100 in all, as on lawdb.ai
-const QUOTA_SMALL = { ON: 22, BC: 11, AB: 9, QC: 9, MB: 5 }, QUOTA_SMALL_OTHER = 3;     // for a phone: about 55
+const QUOTA = { ON: 40, BC: 20, AB: 16, QC: 16, MB: 8, SK: 10, NS: 8, NB: 8, NL: 4, PE: 3 }, QUOTA_OTHER = 6; // logos per province: about 130 in all (the provinces added last have fewer firms with a logo)
+const QUOTA_SMALL = { ON: 22, BC: 11, AB: 9, QC: 9, MB: 5, SK: 6, NS: 5, NB: 5, NL: 3, PE: 2 }, QUOTA_SMALL_OTHER = 3; // for a phone: about 75
 // A logo's size in the drawing's units: on a computer a logo is 18 to 30 pixels on a map 1000 to 1180 wide; on a phone 20 pixels on a map 390 wide.
 const SIZE = { radius: 13, ring: 10 }, SIZE_SMALL = { radius: 26, ring: 18 };          // radius of a logo; the ring grows by this much * the square root of the logo's number
 const TRIES = 800; // how far along the spiral to look for a place on land

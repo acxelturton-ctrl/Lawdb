@@ -6,8 +6,8 @@
 import CASE from '../../data/case-types.json' with { type: 'json' };
 
 export const MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
-export const PROVINCES = { ON: 'Ontario', QC: 'Quebec', BC: 'British Columbia', AB: 'Alberta', MB: 'Manitoba' };
-const IN_PROV_FR = { ON: 'en Ontario', QC: 'au Québec', BC: 'en Colombie-Britannique', AB: 'en Alberta', MB: 'au Manitoba' };
+export const PROVINCES = { ON: 'Ontario', QC: 'Quebec', BC: 'British Columbia', AB: 'Alberta', MB: 'Manitoba', SK: 'Saskatchewan', NS: 'Nova Scotia', NB: 'New Brunswick', NL: 'Newfoundland and Labrador', PE: 'Prince Edward Island' };
+const IN_PROV_FR = { ON: 'en Ontario', QC: 'au Québec', BC: 'en Colombie-Britannique', AB: 'en Alberta', MB: 'au Manitoba', SK: 'en Saskatchewan', NS: 'en Nouvelle-Écosse', NB: 'au Nouveau-Brunswick', NL: 'à Terre-Neuve-et-Labrador', PE: 'à l’Île-du-Prince-Édouard' };
 export const CASE_IDS = Object.keys(CASE.types);
 
 // Closings and will drafting are notarial work in Quebec, so on lawdb.ca these two case types are the disputes a Quebec lawyer handles.
@@ -80,7 +80,7 @@ export function languageFromText(text) {
 
 // ---------- places ----------
 // The province or the cities written here are spelled the way people type them, with or without accents.
-const PROV_NAMES = [['british columbia', 'BC'], ['colombie britannique', 'BC'], ['ontario', 'ON'], ['quebec', 'QC'], ['alberta', 'AB'], ['manitoba', 'MB'], ['b c', 'BC'], ['bc', 'BC'], ['qc', 'QC']];
+const PROV_NAMES = [['newfoundland and labrador', 'NL'], ['terre neuve et labrador', 'NL'], ['newfoundland', 'NL'], ['terre neuve', 'NL'], ['prince edward island', 'PE'], ['ile du prince edouard', 'PE'], ['pei', 'PE'], ['new brunswick', 'NB'], ['nouveau brunswick', 'NB'], ['nova scotia', 'NS'], ['nouvelle ecosse', 'NS'], ['saskatchewan', 'SK'], ['british columbia', 'BC'], ['colombie britannique', 'BC'], ['ontario', 'ON'], ['quebec', 'QC'], ['alberta', 'AB'], ['manitoba', 'MB'], ['b c', 'BC'], ['bc', 'BC'], ['qc', 'QC']];
 let CITY_CACHE = { at: 0, rows: [] };
 
 // Every city that has a live firm, with its firm count and centre. One small query, kept for ten minutes in memory.
@@ -151,14 +151,14 @@ export const isEmergency = (text) => EMERGENCY.test(plain(text));
 // ---------- every sentence the visitor sees ----------
 const article = (noun, lang) => (lang === 'fr' ? 'un ' : /^[aeiou]/i.test(noun) ? 'an ' : 'a ') + noun;
 const deP = (place) => (/^[AEIOUYÉÈÊHÎ]/i.test(place) ? `d’${place}` : `de ${place}`); // "de Montréal", "d’Ottawa"
-const OF_PROV_FR = { ON: 'de l’Ontario', QC: 'du Québec', BC: 'de la Colombie-Britannique', AB: 'de l’Alberta', MB: 'du Manitoba' };
+const OF_PROV_FR = { ON: 'de l’Ontario', QC: 'du Québec', BC: 'de la Colombie-Britannique', AB: 'de l’Alberta', MB: 'du Manitoba', SK: 'de la Saskatchewan', NS: 'de la Nouvelle-Écosse', NB: 'du Nouveau-Brunswick', NL: 'de Terre-Neuve-et-Labrador', PE: 'de l’Île-du-Prince-Édouard' };
 const T = {
   en: {
     greeting: 'Hi! Tell me what’s going on in your own words, and where you are. I’ll find law firms that handle it.',
     suggest: ['I was rear-ended in Toronto', 'I need a divorce lawyer in Montreal', 'I was fired without notice in Calgary', 'Charged with impaired driving in Vancouver'],
     askType: (typed) => (typed ? 'Thanks for telling me. Which of these is closest to what you need help with?' : 'Which kind of legal help are you looking for?'),
     askCity: (noun, prov) => `Got it, that sounds like a case for ${article(noun, 'en')}. ${prov ? `Which city in ${PROVINCES[prov]}?` : 'Which city are you in?'} I will look for firms close to you.`,
-    far: 'I could not find a LawDB city near that location yet. We list Ontario, Quebec, British Columbia, Alberta and Manitoba for now. Pick a city below.',
+    far: 'I could not find a LawDB city near that location yet. We list the ten provinces for now, not the territories. Pick a city below.',
     none: (noun, w) => `I could not find ${article(noun, 'en')} listed in ${w.place || PROVINCES[w.prov]} yet. Try another city nearby, or a different kind of case.`,
     inCity: (noun, w, n) => `This looks like a case for ${article(noun, 'en')} in ${w.place}. Here are ${n} firms that handle it.`,
     anywhere: (noun, w, n) => `This looks like a case for ${article(noun, 'en')}. Here are ${n} firms across ${PROVINCES[w.prov]}.`,
@@ -172,7 +172,7 @@ const T = {
     suggest: ['J’ai eu un accident de voiture à Montréal', 'Je cherche un avocat en divorce à Québec', 'J’ai été congédié sans préavis à Ottawa', 'Accusé de conduite avec facultés affaiblies à Laval'],
     askType: (typed) => (typed ? 'Merci de me l’avoir dit. Laquelle de ces options se rapproche le plus de votre besoin?' : 'Quel type d’aide juridique cherchez-vous?'),
     askCity: (noun, prov) => `Compris, cela ressemble à un dossier pour ${article(noun, 'fr')}. ${prov ? `Dans quelle ville ${OF_PROV_FR[prov]}?` : 'Dans quelle ville êtes-vous?'} Je chercherai des cabinets près de chez vous.`,
-    far: 'Je n’ai pas encore trouvé de ville LawDB près de cet endroit. Pour l’instant, nous listons l’Ontario, le Québec, la Colombie-Britannique, l’Alberta et le Manitoba. Choisissez une ville ci-dessous.',
+    far: 'Je n’ai pas encore trouvé de ville LawDB près de cet endroit. Pour l’instant, nous listons les dix provinces, mais pas les territoires. Choisissez une ville ci-dessous.',
     none: (noun, w) => `Je n’ai pas encore trouvé ${article(noun, 'fr')} ${w.place ? `à ${w.place}` : IN_PROV_FR[w.prov]}. Essayez une autre ville à proximité ou un autre type de dossier.`,
     inCity: (noun, w, n) => `Cela ressemble à un dossier pour ${article(noun, 'fr')} à ${w.place}. Voici ${n} cabinets qui s’en occupent.`,
     anywhere: (noun, w, n) => `Cela ressemble à un dossier pour ${article(noun, 'fr')}. Voici ${n} cabinets ${IN_PROV_FR[w.prov]}.`,

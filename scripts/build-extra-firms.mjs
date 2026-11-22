@@ -24,7 +24,7 @@ for (const file of files) {
     if (!/^[a-z0-9-]{3,90}$/.test(f.slug)) bad('slug');
     if (seen.has(f.slug)) bad('duplicate slug');
     seen.add(f.slug);
-    if (!f.name || !f.city || !['ON', 'QC', 'BC', 'AB', 'MB'].includes(f.province)) bad('name, city or province');
+    if (!f.name || !f.city || !['ON', 'QC', 'BC', 'AB', 'MB', 'SK', 'NS', 'NB', 'NL', 'PE'].includes(f.province)) bad('name, city or province');
     if (!(f.lat >= 41 && f.lat <= 84 && f.lng >= -142 && f.lng <= -52)) bad('coordinates');
     if (!(f.rating >= 0 && f.rating <= 5) || !Number.isInteger(f.count)) bad('rating or count');
     if (!/^\+1\d{10}$/.test(f.phone)) bad('phone');

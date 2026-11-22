@@ -9,7 +9,7 @@
    Place names come from GeoNames (CC BY 4.0); see scripts/build-places.mjs. */
 (function(root){
   'use strict';
-  var PROV = { 'ontario': 'ON', 'on': 'ON', 'quebec': 'QC', 'qc': 'QC', 'british columbia': 'BC', 'bc': 'BC', 'alberta': 'AB', 'ab': 'AB', 'manitoba': 'MB', 'mb': 'MB' };
+  var PROV = { 'ontario': 'ON', 'on': 'ON', 'quebec': 'QC', 'qc': 'QC', 'british columbia': 'BC', 'bc': 'BC', 'alberta': 'AB', 'ab': 'AB', 'manitoba': 'MB', 'mb': 'MB', 'saskatchewan': 'SK', 'sk': 'SK', 'nova scotia': 'NS', 'ns': 'NS', 'new brunswick': 'NB', 'nb': 'NB', 'newfoundland and labrador': 'NL', 'newfoundland': 'NL', 'nl': 'NL', 'prince edward island': 'PE', 'pei': 'PE', 'pe': 'PE' };
   var list = null, byName = null, pending = null;
 
   function norm(s){

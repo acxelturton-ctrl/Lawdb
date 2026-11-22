@@ -4,6 +4,7 @@
 // src/routes/   public.js (no login), auth.js (sign in/out), account.js (firm owners), admin.js (admins only)
 
 import * as homeNews from './routes/home-news.js';
+import { mapPoints } from './routes/map.js';
 import { json, HttpError, assertSameOrigin } from './lib/http.js';
 import * as pub from './routes/public.js';
 import * as auth from './routes/auth.js';
@@ -60,6 +61,7 @@ const ROUTES = [
   route('GET', '/api/totals', pub.totals),
   route('GET', '/api/firms/:slug', pub.getFirm),
   route('GET', '/api/blog', pub.listBlog),
+  route('GET', '/api/map', mapPoints),
   route('GET', '/api/home-news', homeNews.homeNewsApi),
   route('GET', '/api/news', homeNews.newsNearApi),
   route('POST', '/api/leads', pub.createLead),

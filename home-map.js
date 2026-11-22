@@ -1,6 +1,6 @@
 /* Decorative map of Canada on the home page: firm logos laid over images/ca-map.svg. It is only a picture (nothing to click or hover).
    Data: GET /api/map (?small=1 on a phone) -> {w, h, logos: [[cityKey, x, y, logoUrl, background?], ...]}: where each logo goes on the drawing, worked out on the
-   server (the logos of a city in a ring around it, all on land and inside the firm's own province). The logos are the site's own files.
+   server (the logos scattered evenly over each province, all on land and inside the firm's own province, clear of the badge). The logos are the site's own files.
    Nothing is fetched until the map is about to scroll into view. A logo that fails to load is simply left out. */
 (function () {
   'use strict';

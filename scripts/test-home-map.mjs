@@ -1,6 +1,6 @@
 // The map of Canada on the home page (images/ca-map.svg, src/lib/map-projection.js, src/routes/map.js, scripts/build-ca-map.mjs, home-map.js, home-map.css):
 //   node --no-warnings scripts/test-home-map.mjs
-// The drawing is what the builder makes, a logo lands on its city, only our own logo files are used, the quotas and round-robin hold, the page has the map in place of
+// The drawing is what the builder makes, a logo lands inside its own province, only our own logo files are used, the quotas and round-robin hold, the page has the map in place of
 // the old "Why LawDB" band, every logo is on land inside its own province (never in the water), the whole map fits a phone, and the script puts each logo where the
 // server says.
 import { readFileSync, existsSync } from 'node:fs';
@@ -54,30 +54,38 @@ const TOR = { lat: 43.65, lng: -79.38 }, OTT = { lat: 45.42, lng: -75.7 }, WPG =
 {
   const rows = [];
   for (let i = 0; i < 80; i++) rows.push(row(i, 'ON', i % 2 ? 'Toronto' : 'Ottawa', i % 2 ? TOR : OTT));
-  for (let i = 80; i < 90; i++) rows.push(row(i, 'MB', 'Winnipeg', WPG));
+  for (let i = 100; i < 120; i++) rows.push(row(i, 'MB', 'Winnipeg', WPG));
   rows.push(row(90, 'ON', 'Hamilton', { lat: 43.25, lng: -79.87, type: 'mono', src: '' }), row(91, 'ON', 'Hamilton', { lat: 43.25, lng: -79.87, src: 'https://other.example/x.png' }), row(92, 'ON', 'Guelph', { lat: null, lng: null }), row(93, 'ON', 'London', { lat: 'x', lng: 'y' }), row(94, 'ON', 'Nowhere', { lat: -80, lng: 10 }));
   const logos = pickLogos(rows);
   const on = logos.filter((l) => l[0].startsWith('ON|')), mb = logos.filter((l) => l[0].startsWith('MB|'));
-  ok(on.length === 40 && mb.length === 8, 'at most 40 logos in Ontario and 8 in Manitoba, however many firms there are');
+  ok(on.length === 42 && mb.length === 14, 'at most 42 logos in Ontario and 14 in Manitoba, however many firms there are');
   ok(!logos.some((l) => /Hamilton|Guelph|London|Nowhere/.test(l[0])), 'a firm with no logo of ours, no position or a position off the drawing is left out');
   ok(on.slice(0, 4).map((l) => l[0]).join() === 'ON|Ottawa,ON|Toronto,ON|Ottawa,ON|Toronto', 'one city at a time, round-robin, so every city is on the map before any has a second');
   ok(logos.every((l) => l.length === 4 && typeof l[1] === 'number' && typeof l[2] === 'number' && l[3].startsWith('/images/logos/')), 'each entry is [city, x, y, logo]');
   ok(logos.every((l) => inland(l[1], l[2], l[0].split('|')[0], 13)), 'every logo is wholly on land, inside its own province: none in the water, none across the border');
   const tor = on.filter((l) => l[0] === 'ON|Toronto');
-  ok(new Set(tor.map((l) => `${l[1]},${l[2]}`)).size === tor.length, 'the logos of a city never share a place');
+  ok(new Set(logos.map((l) => `${l[1]},${l[2]}`)).size === logos.length, 'no two logos share a place');
+  // scattered, not stacked: the 21 Toronto logos spread over Ontario instead of making a ring round Toronto
   const origin = projection()([TOR.lng, TOR.lat]);
-  ok(tor.every((l) => Math.hypot(l[1] - origin[0], l[2] - origin[1]) < 120), 'and stay together in a ring around their city');
+  const far = on.filter((l) => Math.hypot(l[1] - origin[0], l[2] - origin[1]) > 150).length;
+  ok(far >= 10, `the logos of a city are scattered over its province, not kept in a ring around the city (${far} of ${on.length} Ontario logos are more than 150 units from Toronto)`);
+  const gaps = on.map((a, i) => Math.min(...on.map((b, j) => (i === j ? Infinity : Math.hypot(a[1] - b[1], a[2] - b[2])))));
+  ok(Math.min(...gaps) >= 20, `and they are spread evenly: the two closest Ontario logos are ${Math.min(...gaps).toFixed(0)} units apart (a logo is 26 across)`);
+  const [bx0, by0, bx1, by1] = [190, 55, 575, 135];
+  ok(logos.every((l) => !(l[1] + 13 > bx0 && l[1] - 13 < bx1 && l[2] + 13 > by0 && l[2] - 13 < by1)), 'none is under the badge');
+  ok(JSON.stringify(pickLogos(rows)) === JSON.stringify(logos), 'the same firms always give the same picture (a seeded generator, no Math.random)');
+  ok(!/Math\.random/.test(readFileSync('src/routes/map.js', 'utf8')), 'src/routes/map.js never calls Math.random');
   const vanLogos = pickLogos(Array.from({ length: 12 }, (_, i) => row(i, 'BC', 'Vancouver', VAN)));
-  ok(vanLogos.length === 12 && vanLogos.every((l) => provinceAt(l[1], l[2]) === 'BC' && inland(l[1], l[2], 'BC', 13)), 'a city on the coast gets its ring on the land side: 12 logos for Vancouver, all in BC and none in the sea');
+  ok(vanLogos.length === 12 && vanLogos.every((l) => provinceAt(l[1], l[2]) === 'BC' && inland(l[1], l[2], 'BC', 13)), 'a city on the coast keeps its logos on the land side: 12 logos for Vancouver, all in BC and none in the sea');
   const small = pickLogos(rows, { small: true });
-  ok(small.filter((l) => l[0].startsWith('ON|')).length === 22 && small.filter((l) => l[0].startsWith('MB|')).length === 5 && small.length < logos.length, 'for a phone: fewer logos (22 in Ontario, 5 in Manitoba)');
+  ok(small.filter((l) => l[0].startsWith('ON|')).length === 12 && small.filter((l) => l[0].startsWith('MB|')).length === 5 && small.length < logos.length, 'for a phone: fewer logos (12 in Ontario, 5 in Manitoba)');
   ok(small.every((l) => inland(l[1], l[2], l[0].split('|')[0], 26)), 'and each one has the room a bigger logo on a small map needs: its whole circle is on land too');
   const bg = pickLogos([row(1, 'ON', 'Toronto', { logoBg: '#2a2a2a' }), row(2, 'ON', 'Ottawa', { ...OTT, logoBg: 'red' })]);
   ok(bg.find((l) => l[3].endsWith('f1.png'))[4] === '#2a2a2a' && bg.find((l) => l[3].endsWith('f2.png')).length === 4, 'a logo drawn on its own colour carries that colour; a bad colour is dropped');
   const ns = pickLogos([row(1, 'NS', 'Halifax', { lat: 44.65, lng: -63.57 })]);
   ok(ns.length === 1 && provinceAt(ns[0][1], ns[0][2]) === 'NS' && pickLogos([]).length === 0, 'a province with no quota of its own still gets a few, on its own land; no firms, no logos');
-  const tiny = pickLogos([row(1, 'PE', 'Charlottetown', { lat: 46.24, lng: -63.13 }), row(2, 'PE', 'Charlottetown', { lat: 46.24, lng: -63.13 })], { small: true });
-  ok(tiny.length === 2 && tiny.every((l) => Number.isFinite(l[1]) && Number.isFinite(l[2])), 'a province too small for the room a logo needs still gets its logos (placed as close as can be)');
+  const tiny = pickLogos([row(1, 'NB', 'Moncton', { lat: 46.09, lng: -64.78 }), row(2, 'NB', 'Moncton', { lat: 46.09, lng: -64.78 }), row(3, 'NB', 'Moncton', { lat: 46.09, lng: -64.78 })], { small: true });
+  ok(tiny.length === 2 && tiny.every((l) => Number.isFinite(l[1]) && Number.isFinite(l[2]) && provinceAt(l[1], l[2]) === 'NB'), 'a province too small for the room a logo needs (New Brunswick on a phone: 2 logos) still gets them, placed on its own land as close as can be');
 }
 
 // ---- the route, on a real database

@@ -9,6 +9,7 @@ import { isDeepStrictEqual } from 'node:util';
 import { emailMatch } from '../src/routes/admin.js';
 import { checkOwnerText } from '../src/lib/content-rules.js';
 import { postalOf } from '../src/lib/geocode.js';
+import { provinceAt } from '../src/lib/map-land.js';
 import { parseFeed, parseWpPosts, fillWpMedia, plain as feedPlain, checkFeedUrl, cleanImageUrl, wpPostsUrlWithImages } from '../src/lib/feeds.js';
 import http from 'node:http';
 import { createHmac } from 'node:crypto';
@@ -904,9 +905,11 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   // the home page's map of Canada: a ring of firm logos over images/ca-map.svg, where the "Why LawDB" band used to be
   {
     const home = (await getRaw('/')).text;
-    ok(/<section class="hm" id="camap"/.test(home) && home.includes('src="/images/ca-map.svg"') && home.includes('<a href="#cities">Browse firms by city</a>') && !home.includes('class="why-b"'), 'the home page has the map of Canada where the Why LawDB band was');
+    ok(/<section class="hm" id="camap"/.test(home) && home.includes('src="/images/ca-map.svg"') && home.includes('<a href="#cities">Browse firms by city</a>') && home.includes('class="hm-badge"') && home.includes('Find your lawyer, faster.') && !home.includes('class="why-b"'), 'the home page has the map of Canada, with the LawDB badge and line, where the Why LawDB band was');
     const mp = await call('GET', '/api/map');
     ok(mp.status === 200 && mp.data.w === 1000 && mp.data.h === 620 && mp.data.logos.length >= 20 && mp.data.logos.length <= 140 && mp.data.logos.every((l) => l.length >= 4 && l[1] > 0 && l[1] < 1000 && l[2] > 0 && l[2] < 620 && /^\/(images\/logos\/[A-Za-z0-9._-]+|img\/[0-9a-f]{24})$/.test(l[3])), 'GET /api/map returns firm logos of our own, already projected onto the drawing');
+    const mps = await call('GET', '/api/map?small=1');
+    ok(mp.data.logos.every((l) => provinceAt(l[1], l[2]) === l[0].split('|')[0]) && mps.status === 200 && mps.data.logos.length >= 10 && mps.data.logos.length < mp.data.logos.length && mps.data.logos.every((l) => provinceAt(l[1], l[2]) === l[0].split('|')[0]), 'every logo sits on land inside its own province (none in the water); a phone (?small=1) gets a smaller set');
     ok(new Set(mp.data.logos.map((l) => l[0].split('|')[0])).size >= 3 && /max-age=3600/.test((await getRaw('/api/map')).headers.get('cache-control') || ''), 'from several provinces, cached for an hour');
     const [css, js, img] = [await getRaw('/home-map.css?v=1'), await getRaw('/home-map.js?v=1'), await getRaw('/images/ca-map.svg')];
     ok(css.status === 200 && /css/.test(css.headers.get('content-type')) && js.status === 200 && /javascript/.test(js.headers.get('content-type')) && img.status === 200 && /svg/.test(img.headers.get('content-type')) && (await getRaw('/data/canada-provinces.json')).status === 404, 'the map\'s files are served, and the outlines it is drawn from are not');

@@ -1,11 +1,12 @@
-/* Decorative map of Canada on the home page: a ring of firm logos over the map (home-map.js). Purely a picture: no hover, no clicks. */
-.hm{ background:radial-gradient(120% 90% at 50% 0%, #fffdf8 0%, #f7f1e0 70%, #f4ecd8 100%); padding:48px 20px 40px; border-top:1px solid #ece6d3; border-bottom:1px solid #ece6d3; }
+/* Decorative map of Canada on the home page: a ring of firm logos over the map (home-map.js). Purely a picture: no hover, no clicks. The whole map fits the screen
+   (on a phone it is the screen's width, with fewer, smaller logos): nothing to swipe. */
+.hm{ overflow:hidden; background:radial-gradient(120% 90% at 50% 0%, #fffdf8 0%, #f7f1e0 70%, #f4ecd8 100%); padding:48px 20px 40px; border-top:1px solid #ece6d3; border-bottom:1px solid #ece6d3; }
 .hm-in{ max-width:1180px; margin:0 auto; }
 .hm-head{ text-align:center; margin:0 auto 22px; max-width:760px; }
 .hm-eyebrow{ display:inline-block; font:600 12px/1 Inter,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#c9a050; margin:0 0 12px; padding:7px 12px; border:1px solid #e6d4a4; border-radius:99px; background:rgba(255,255,255,.7); }
 .hm-head h2{ font-family:'Source Serif 4',Georgia,serif; font-size:clamp(28px,4.2vw,42px); line-height:1.12; margin:0 0 10px; color:#2a2a2a; letter-spacing:-.01em; }
 .hm-head p{ margin:0; color:#5f5f5f; font-size:16.5px; line-height:1.5; }
-.hm-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; padding:30px 0 84px; margin:-6px 0 -28px; }
+.hm-scroll{ padding:24px 0 30px; margin:-6px 0 -8px; }
 .hm-map{ position:relative; width:100%; aspect-ratio:1000/620; --pin:clamp(18px,2.3vw,30px); }
 .hm-bg{ position:absolute; inset:0; width:100%; height:100%; display:block; user-select:none; pointer-events:none; filter:drop-shadow(0 14px 22px rgba(201,160,80,.2)); }
 .hm-pin{ position:absolute; width:var(--pin); height:var(--pin); margin:calc(var(--pin) / -2) 0 0 calc(var(--pin) / -2); border-radius:50%; background:#fff; border:0; padding:calc(var(--pin) * .1); box-sizing:border-box; overflow:hidden; display:flex; align-items:center; justify-content:center; pointer-events:none; box-shadow:0 0 0 1.5px #fff, 0 0 0 2.5px #c9a050, 0 3px 7px rgba(42,42,42,.26); animation:hm-in .45s cubic-bezier(.2,.8,.3,1.2) both; }
@@ -15,5 +16,11 @@
 .hm-foot{ text-align:center; margin:0; }
 .hm-foot a{ display:inline-block; background:#2a2a2a; color:#fff; font:600 14px Inter,sans-serif; padding:12px 22px; border-radius:99px; text-decoration:none; transition:background .15s; }
 .hm-foot a:hover{ background:#c9a050; color:#2a2a2a; }
-@media(max-width:760px){ .hm{ padding:38px 0 32px; } .hm-head{ padding:0 20px; } .hm-map{ min-width:780px; --pin:22px; } }
+@media(max-width:760px){ .hm{ padding:38px 0 32px; } .hm-head{ padding:0 20px; } .hm-map{ --pin:20px; } }
 @media(prefers-reduced-motion:reduce){ .hm-pin{ animation:none; } }
+/* the badge in the empty north of the map: the LawDB mark and a line */
+.hm-badge{ position:absolute; left:20%; top:10%; z-index:50; display:flex; align-items:center; gap:12px; max-width:36%; box-sizing:border-box; padding:12px 20px 12px 14px; background:#fff; border:1px solid #ece6d3; border-radius:16px; box-shadow:0 10px 26px rgba(42,42,42,.14); pointer-events:none; }
+.hm-badge img{ flex:none; width:42px; height:auto; display:block; }
+.hm-badge b{ display:block; font:700 clamp(15px,1.7vw,21px)/1.2 'Source Serif 4',Georgia,serif; color:#2a2a2a; letter-spacing:-.005em; }
+.hm-badge small{ display:block; margin-top:4px; font:500 12.5px/1.3 Inter,sans-serif; color:#5f5f5f; }
+@media(max-width:760px){ .hm-badge{ left:3.5%; top:5%; gap:8px; max-width:66%; padding:7px 12px 7px 9px; border-radius:12px; box-shadow:0 6px 16px rgba(42,42,42,.14); } .hm-badge img{ width:26px; } .hm-badge b{ font-size:13px; } .hm-badge small{ margin-top:2px; font-size:10.5px; } }

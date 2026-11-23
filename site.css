@@ -489,3 +489,31 @@ body.pg-msp .lw-rate,body.pg-msp .lw-prof{ max-width:none; margin:0 0 20px; }
   body.lw-has-tabs .pf-sticky{ bottom:calc(70px + env(safe-area-inset-bottom,0px)); padding-bottom:10px; z-index:1050; }
   body.pg-msp .wrap.pf-wrap{ padding-bottom:96px; }
 }
+
+/* "Why people consider ...": reasons that are facts the page holds, and the compare table of a firm's lawyers */
+body.pg-msp .pf-why{ background:#fff; border:1px solid #ece6d3; border-radius:22px; padding:22px 22px 18px; margin:0 0 18px; box-shadow:0 18px 40px -34px rgba(42,42,42,.5); }
+body.pg-msp .pf-why h2{ font:700 21px/1.2 'Source Serif 4',Georgia,serif; color:#2a2a2a; margin:0 0 14px; }
+body.pg-msp .pf-why ul{ list-style:none; margin:0; padding:0; display:grid; gap:11px; }
+body.pg-msp .pf-why li{ position:relative; padding-left:30px; font:500 15.5px/1.5 'Inter',system-ui,sans-serif; color:#3a3a3a; }
+body.pg-msp .pf-why li::before{ content:""; position:absolute; left:2px; top:3px; width:18px; height:18px; border-radius:50%; background:#f4ecd8; border:1px solid #e6d4a4; }
+body.pg-msp .pf-why li::after{ content:""; position:absolute; left:8px; top:7px; width:4px; height:8px; border:solid #c9a050; border-width:0 2px 2px 0; transform:rotate(45deg); }
+body.pg-msp .pf-why-note{ margin:14px 0 0; font:500 12.5px/1.45 'Inter',system-ui,sans-serif; color:#8c8c8c; }
+body.pg-msp .lw-compare{ width:100%; border-collapse:separate; border-spacing:0; background:#fff; border:1px solid #ece6d3; border-radius:18px; overflow:hidden; margin:0 0 18px; }
+body.pg-msp .lw-compare caption{ caption-side:top; text-align:left; padding:0 2px 10px; font:700 17px/1.3 'Source Serif 4',Georgia,serif; color:#2a2a2a; }
+body.pg-msp .lw-compare th,body.pg-msp .lw-compare td{ text-align:left; padding:13px 14px; vertical-align:top; font:500 14.5px/1.4 'Inter',system-ui,sans-serif; color:#3a3a3a; border-top:1px solid #ece6d3; }
+body.pg-msp .lw-compare thead th{ border-top:0; background:#f7f1e0; font:700 11.5px/1.2 'Inter',system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:#8c8c8c; }
+body.pg-msp .lw-compare tbody th{ font-weight:700; color:#2a2a2a; }
+body.pg-msp .lw-compare a{ color:#2a2a2a; text-decoration:underline; text-underline-offset:3px; }
+@media (max-width:640px){
+  body.pg-msp .lw-compare{ display:block; border:0; background:none; }
+  body.pg-msp .lw-compare caption{ display:block; }
+  body.pg-msp .lw-compare thead{ display:none; }
+  body.pg-msp .lw-compare tbody,body.pg-msp .lw-compare tr{ display:block; }
+  body.pg-msp .lw-compare tr{ background:#fff; border:1px solid #ece6d3; border-radius:16px; margin:0 0 10px; padding:6px 0; }
+  body.pg-msp .lw-compare th,body.pg-msp .lw-compare td{ display:flex; gap:12px; justify-content:space-between; border-top:0; padding:7px 14px; }
+  body.pg-msp .lw-compare td::before{ content:attr(data-label); flex:none; font:700 11px/1.5 'Inter',system-ui,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#8c8c8c; }
+  body.pg-msp .lw-compare tbody th::before{ content:none; }
+  body.pg-msp .lw-compare td{ text-align:right; }
+  body.pg-msp .lw-compare td.na{ display:none; }
+}
+

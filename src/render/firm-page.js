@@ -2,6 +2,7 @@
 // (see scripts/extract-firm-template.mjs), so a rendered page looks like the originals.
 import { cleanDetails } from '../lib/details.js';
 import { lawyersOf, lawyerHasPage, lawyerFacts, lawyerLead } from '../lib/lawyers.js';
+import { whyFirm, whyLawyer, compareLawyers } from '../lib/why-consider.js';
 import { cleanComments } from '../lib/comments.js';
 import { AVAILABILITY } from '../lib/profile-strength.js';
 import * as C from './firm-chunks.generated.js';
@@ -430,6 +431,22 @@ function lawyerNote(list) {
   return `Taken from the firm's own website and not checked with the law society. ${tell}`;
 }
 
+// "Why people consider ...": reasons that are facts the page holds (see src/lib/why-consider.js), never an opinion.
+function whyHtml(title, reasons, note) {
+  if (!reasons.length) return '';
+  return `\n    <section class="pf-why" aria-label="${esc(title)}"><h2>${esc(title)}</h2><ul>${reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul><p class="pf-why-note">${esc(note)}</p></section>`;
+}
+const WHY_NOTE = 'These points are the facts on this page, not a recommendation or a ranking. Check any lawyer with their law society before you hire.';
+
+// The lawyers of a firm side by side, so they can be compared at a glance; on a phone each lawyer becomes a small card.
+function compareHtml(f, lw) {
+  const c = compareLawyers(lw);
+  if (!c) return '';
+  const head = `<tr><th scope="col">Lawyer</th>${c.columns.map((col) => `<th scope="col">${esc(col.label)}</th>`).join('')}</tr>`;
+  const rows = c.rows.map(({ lawyer: l, cells }) => `<tr><th scope="row" data-label="Lawyer">${lawyerHasPage(l) ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">${esc(l.name)}</a>` : esc(l.name)}</th>${cells.map((v, i) => `<td data-label="${esc(c.columns[i].label)}"${v ? '' : ' class="na"'}>${v ? esc(v) : '&ndash;'}</td>`).join('')}</tr>`).join('');
+  return `\n    <table class="lw-compare"><caption>Compare the lawyers at ${esc(f.name)}</caption><thead>${head}</thead><tbody>${rows}</tbody></table>`;
+}
+
 function lawyersTabHtml(f, lw, prov) {
   const cards = lw.map((l) => {
     const has = lawyerHasPage(l);
@@ -437,7 +454,7 @@ function lawyersTabHtml(f, lw, prov) {
     return `<li class="lw-person">${lawyerAvatar(l)}<div><b>${has ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">${esc(l.name)}</a>` : esc(l.name)}</b>${l.title ? `<span class="t">${esc(l.title)}</span>` : ''}${facts ? `<span class="f">${esc(facts)}</span>` : ''}${has ? `<a class="go" href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">View profile &rarr;</a>` : ''}</div></li>`;
   }).join('');
   const areas = (f.tags || []).filter(Boolean).slice(0, 4);
-  return `\n    <h1 class="pf-h1">Lawyers at ${esc(f.name)}</h1>\n    <p class="pf-lede">${lw.length} lawyers at ${esc(f.name)} in ${esc(f.city)}, ${esc(prov)}${areas.length ? `, a firm that practises ${esc(joinAnd(areas.map((t) => t.toLowerCase())))}` : ''}. Each entry shows the lawyer's title and, where the firm publishes it, the year they were called to the bar, their languages and their education.</p>\n    <ul class="lw-grid" style="list-style:none;padding:0">${cards}</ul>\n    <p class="pf-note">${lawyerNote(lw)}</p>`;
+  return `\n    <h1 class="pf-h1">Lawyers at ${esc(f.name)}</h1>\n    <p class="pf-lede">${lw.length} lawyers at ${esc(f.name)} in ${esc(f.city)}, ${esc(prov)}${areas.length ? `, a firm that practises ${esc(joinAnd(areas.map((t) => t.toLowerCase())))}` : ''}. Each entry shows the lawyer's title and, where the firm publishes it, the year they were called to the bar, their languages and their education.</p>\n    ${compareHtml(f, lw)}\n    <ul class="lw-grid" style="list-style:none;padding:0">${cards}</ul>\n    <p class="pf-note">${lawyerNote(lw)}</p>`;
 }
 
 function articlesPageHtml(f, articles, prov) {
@@ -447,8 +464,8 @@ function articlesPageHtml(f, articles, prov) {
 function lawyerPageHtml(f, lw, l, prov) {
   const facts = lawyerFacts(l, prov).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
   const others = lw.filter((x) => x.slug !== l.slug).slice(0, 6).map((x) => `<li>${lawyerHasPage(x) ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(x.slug)}">${esc(x.name)}</a>` : `<span>${esc(x.name)}</span>`}</li>`).join('');
-  const links = (l.linkedin ? `<a class="pf-btn" href="${esc(l.linkedin)}" target="_blank" rel="noopener nofollow">LinkedIn</a>` : '') + (l.site ? `<a class="pf-btn" href="${esc(l.site)}" target="_blank" rel="noopener nofollow">On the firm's website</a>` : '') + `<a class="pf-btn" href="/firms/${esc(f.slug)}#contact">Message ${esc(f.name)}</a>`;
-  return `\n    <p class="lp-back"><a href="/firms/${esc(f.slug)}/lawyers">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="/firms/${esc(f.slug)}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>\n    <p class="pf-lede">${esc(lawyerLead(l, f, prov))}</p>\n    <dl class="lp-facts">${facts}</dl>\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">All ${lw.length} lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">${lawyerNote([l])}</p>`;
+  const links = (l.linkedin ? `<a class="pf-btn" href="${esc(l.linkedin)}" target="_blank" rel="noopener nofollow">LinkedIn</a>` : '') + (l.site ? `<a class="pf-btn" href="${esc(l.site)}" target="_blank" rel="noopener nofollow">On the firm's website</a>` : '') + `<a class="pf-btn pf-primary" href="/firms/${esc(f.slug)}#contact">Request a consultation</a>`;
+  return `\n    <p class="lp-back"><a href="/firms/${esc(f.slug)}/lawyers">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="/firms/${esc(f.slug)}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>\n    <p class="pf-lede">${esc(lawyerLead(l, f, prov))}</p>${whyHtml(`Why people consider ${l.name}`, whyLawyer(l, f, prov, { team: lw.length }), WHY_NOTE)}\n    <dl class="lp-facts">${facts}</dl>\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">All ${lw.length} lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">${lawyerNote([l])}</p>`;
 }
 
 export function renderFirmPage({ firm: f, hours, images = [], articles = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null, view = null }) {
@@ -593,7 +610,7 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
     ...[tab === 'lawyer' ? personLd : ld, ...(collectionLd ? [collectionLd] : []), crumbLd].map((o) => `<script type="application/ld+json">\n${jsonForHtml(o)}\n</script>`),
     C.STYLE + (tab === 'overview' ? PHOTO_CSS + GLANCE_CSS + OFFICES_CSS : '') + (tabs.length > 1 ? TABS_CSS : '') + (tab === 'overview' && commentsHtml(f) ? COMMENTS_CSS : '') + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (tab === 'overview' && f.block && f.block.image ? BLOCK_CSS : '') + (tab === 'overview' && practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
-    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov, tab === 'overview' ? [] : tab === 'lawyers' ? [['Lawyers', null]] : tab === 'articles' ? [['Articles', null]] : [['Lawyers', `/firms/${f.slug}/lawyers`], [lawyer.name, null]]) + card + tabsHtml(f, tabs, tab) + (tab === 'lawyers' ? lawyersTabHtml(f, lw, prov) : tab === 'articles' ? articlesPageHtml(f, articles, prov) : tab === 'lawyer' ? lawyerPageHtml(f, lw, lawyer, prov) : aboutHtml + practiceHtml(f, cards) + lawyersTeaser(f, lw) + commentsHtml(f) + overviewRest),
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov, tab === 'overview' ? [] : tab === 'lawyers' ? [['Lawyers', null]] : tab === 'articles' ? [['Articles', null]] : [['Lawyers', `/firms/${f.slug}/lawyers`], [lawyer.name, null]]) + card + tabsHtml(f, tabs, tab) + (tab === 'lawyers' ? lawyersTabHtml(f, lw, prov) : tab === 'articles' ? articlesPageHtml(f, articles, prov) : tab === 'lawyer' ? lawyerPageHtml(f, lw, lawyer, prov) : aboutHtml + practiceHtml(f, cards) + whyHtml(`Why people consider ${f.name}`, whyFirm(f, lw, prov), WHY_NOTE) + lawyersTeaser(f, lw) + commentsHtml(f) + overviewRest),
     carousel(f, nearby),
     tab === 'overview' ? '\n\n    ' + leadScript : '',
     tab === 'overview' ? '\n    ' + CONTACT_JS : '',

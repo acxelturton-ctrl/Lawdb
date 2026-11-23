@@ -1,6 +1,6 @@
-// Adds each firm's checked research paragraph (data/firm-research.json, see research-verify.mjs) to its description in data/firm-copy.json.
+// Adds each firm's checked research paragraph (data/firm-research.json, see research-verify.mjs) to its description in data/firm-copy-base.json.
 //   node scripts/research-apply.mjs [--min=200] [--dry]
-// then:  node scripts/apply-firm-copy.mjs   (puts the text on the saved pages, the batch records and db/about-updates.sql)
+// then:  node scripts/build-firm-descriptions.mjs  (lays each description out in three parts), then node scripts/apply-firm-copy.mjs   (puts the text on the saved pages, the batch records and db/about-updates.sql)
 // - the paragraph goes after the firm's existing description; for a firm that only has the plain template text (the "built from public business
 //   information" wording), the template's first sentence stays first, the paragraph follows it, and the rating / office sentences come last;
 // - sentences that only repeat what the description already says are left out, and a paragraph under --min characters (default 200) is not added;
@@ -15,7 +15,7 @@ const MIN = Number((process.argv.find((a) => a.startsWith('--min=')) || '').spli
 const DRY = process.argv.includes('--dry');
 const RESEARCH = 'data/firm-research.json';
 const research = JSON.parse(readFileSync(RESEARCH, 'utf8'));
-const copy = JSON.parse(readFileSync('data/firm-copy.json', 'utf8'));
+const copy = JSON.parse(readFileSync('data/firm-copy-base.json', 'utf8'));
 
 const batchAbout = new Map();
 for (const file of readdirSync('data').filter((f) => /^firms-batch-\d+\.json$/.test(f))) for (const f of JSON.parse(readFileSync(`data/${file}`, 'utf8'))) batchAbout.set(f.slug, f.about);
@@ -64,7 +64,7 @@ for (const [slug, r] of Object.entries(research)) {
   if (samples.length < 4 && Math.random() < 0.05) samples.push(`${r.name} (${r.city}, ${r.province}):\n${addition}`);
 }
 if (!DRY) {
-  writeFileSync('data/firm-copy.json', JSON.stringify(Object.fromEntries(Object.entries(copy).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))), null, 1) + '\n');
+  writeFileSync('data/firm-copy-base.json', JSON.stringify(Object.fromEntries(Object.entries(copy).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))), null, 1) + '\n');
   writeFileSync(RESEARCH, JSON.stringify(research, null, 1) + '\n');
 }
 console.log(`${DRY ? '(dry run) ' : ''}added a paragraph to ${applied} descriptions (${awardsUsed} mention an independent award or ranking); ${short} had under ${MIN} characters of checked new text or failed a rule; ${none} had no description to add to; ${conflicting} sentence(s) left out because they gave a different founding year from the description`);

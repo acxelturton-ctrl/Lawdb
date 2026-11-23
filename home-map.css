@@ -1,4 +1,4 @@
-/* Decorative map of Canada on the home page: a ring of firm logos over the map (home-map.js). Purely a picture: no hover, no clicks. The whole map fits the screen
+/* Decorative map of Canada on the home page: firm logos scattered over the map (home-map.js). Purely a picture: no hover, no clicks. The whole map fits the screen
    (on a phone it is the screen's width, with fewer, smaller logos): nothing to swipe. */
 .hm{ overflow:hidden; background:radial-gradient(120% 90% at 50% 0%, #fffdf8 0%, #f7f1e0 70%, #f4ecd8 100%); border-top:1px solid #ece6d3; border-bottom:1px solid #ece6d3; }
 /* the page's own rules pad every band under the hero (index.html: .hero5 ~ section), so this one has to be more specific to stay tight */

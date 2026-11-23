@@ -16,6 +16,7 @@ import { execFileSync } from 'node:child_process';
 import { aboutFromPage } from './lib/about.mjs';
 import { metaFromAbout } from '../src/render/firm-page.js';
 import { checkOwnerText } from '../src/lib/content-rules.js';
+import { withoutPublicationNames } from './lib/research.mjs';
 
 const CHECK = process.argv.includes('--check');
 const copy = JSON.parse(readFileSync('data/firm-copy.json', 'utf8'));
@@ -31,7 +32,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 const q = (v) => (v === null || v === undefined ? 'NULL' : `'${String(v).replace(/'/g, "''")}'`);
 
 for (const [slug, text] of Object.entries(copy)) {
-  checkOwnerText('about', text);
+  checkOwnerText('about', withoutPublicationNames(text)); // the real titles of independent ranking guides ("Best Lawyers") are not claims
   if (!metaFromAbout(text)) throw new Error(`${slug}: the first sentence must be 50 to 160 characters`);
 }
 

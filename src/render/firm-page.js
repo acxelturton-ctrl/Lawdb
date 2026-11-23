@@ -373,10 +373,17 @@ function likeAside(nearby) {
   return rows ? `\n   <aside class="pf-aside" aria-label="Firms you may like"><section class="pf-like"><h2>Firms you may like</h2>${rows}</section></aside>` : '';
 }
 
-// The Message button opens the contact form it scrolls to.
+// The Request a consultation buttons (the one in the header card and the one in the bar at the bottom of a phone) open the contact form they scroll to.
 // A visitor who arrives from LawDB AI's "Request consultation" button has a short, neutral note about the need put in the message box (the form opens).
-const CONTACT_JS = "<script>(function(){var b=document.querySelector('[data-open-contact]'),s=document.querySelector('.lead-slim');if(b&&s)b.addEventListener('click',function(){s.classList.add('open');});var q=new URLSearchParams(location.search),a=(q.get('ask')||'').slice(0,240),m=document.querySelector('.lead-slim textarea[name=message]');if(a&&m&&s){if(!m.value)m.value=(q.get('lang')==='fr'?'Bonjour, j\\u2019ai trouv\\u00e9 votre cabinet gr\\u00e2ce \\u00e0 LawDB AI. (J\\u2019\\u00e9cris en fran\\u00e7ais.) ':'Hello, I found your firm through LawDB AI. ')+a;s.classList.add('open');}})();</script>";
+const CONTACT_JS = "<script>(function(){var bs=document.querySelectorAll('[data-open-contact]'),s=document.querySelector('.lead-slim');if(s)for(var i=0;i<bs.length;i++)bs[i].addEventListener('click',function(){s.classList.add('open');});var q=new URLSearchParams(location.search),a=(q.get('ask')||'').slice(0,240),m=document.querySelector('.lead-slim textarea[name=message]');if(a&&m&&s){if(!m.value)m.value=(q.get('lang')==='fr'?'Bonjour, j\\u2019ai trouv\\u00e9 votre cabinet gr\\u00e2ce \\u00e0 LawDB AI. (J\\u2019\\u00e9cris en fran\\u00e7ais.) ':'Hello, I found your firm through LawDB AI. ')+a;s.classList.add('open');}})();</script>";
 
+
+// On a phone a bar stays at the bottom with Call and Request a consultation, as on lawdb.ai. Another tab of the firm sends the button to the contact form on the Overview.
+function stickyBar(f, tab) {
+  const call = f.phone ? `<a class="sk-call" href="tel:${esc(f.phone)}" aria-label="Call ${esc(f.name)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call</a>` : '';
+  const ask = tab === 'overview' ? '<a class="sk-msg" href="#contact" data-open-contact>Request a consultation</a>' : `<a class="sk-msg" href="/firms/${esc(f.slug)}#contact">Request a consultation</a>`;
+  return `<div class="pf-sticky">${call}${ask}</div>\n  `;
+}
 // ---- the tabs of a firm's profile: Overview (the firm's own address) and Lawyers (/lawyers), and a page for each lawyer with enough to say (/lawyers/<lawyer>) ----
 const TABS_CSS = '<style>.pf-tabs{display:flex;gap:4px;margin:0 0 20px;border-bottom:1px solid #ece6d3;overflow-x:auto;scrollbar-width:none}.pf-tabs::-webkit-scrollbar{display:none}.pf-tabs a{flex:none;display:inline-flex;align-items:center;gap:7px;padding:12px 16px;font:600 15px Inter,sans-serif;color:#5f5f5f;text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap}.pf-tabs a:hover{color:#2a2a2a}.pf-tabs a[aria-current="page"]{color:#2a2a2a;border-bottom-color:#c9a050}.pf-tabs .n{font:700 12px Inter,sans-serif;background:#f4ecd8;color:#c9a050;border-radius:999px;padding:2px 8px}' +
   '.pf-h1{margin:0 0 8px;font:700 clamp(24px,3vw,32px)/1.15 "Source Serif 4",Georgia,serif;color:#2a2a2a}.pf-lede{margin:0 0 18px;color:#5f5f5f;font-size:15.5px;line-height:1.55}.pf-note{margin:6px 0 24px;font-size:13.5px;line-height:1.5;color:#5f5f5f}.pf-note a{color:#c9a050;font-weight:600}' +
@@ -522,14 +529,14 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
     ...(lawyer.languages ? { knowsLanguage: lawyer.languages } : {}), ...(lawyer.photo ? { image: lawyer.photo.startsWith('/') ? origin + lawyer.photo : lawyer.photo } : {}),
   } : null;
 
-  // Buttons, as on MSPdatabase: Follow (filled), Message, Book a call (the Worker puts it in the slot), and the phone number. The website is in the icon row and
-  // Directions is on the location card.
+  // Buttons, as on lawdb.ai: Request a consultation (the main one, opens the contact form), the phone number, Book a call (the Worker puts it in the slot) and Follow.
+  // The website is in the icon row and Directions is on the location card.
   const actions =
     '<div class="li-actions pf-actions">' +
-    `<button class="lw-fbtn pf-btn pf-follow" type="button" data-follow="${esc(f.slug)}">+ Follow</button>` +
-    `<a class="pf-btn" href="${tab === 'overview' ? '#contact' : `/firms/${esc(f.slug)}#contact`}"${tab === 'overview' ? ' data-open-contact' : ''}>${IC.msg}<span>Message</span></a>` +
-    '<span class="pf-slot" data-slot="book"></span>' +
+    `<a class="pf-btn pf-primary" href="${tab === 'overview' ? '#contact' : `/firms/${esc(f.slug)}#contact`}"${tab === 'overview' ? ' data-open-contact' : ''}>${IC.msg}<span>Request a consultation</span></a>` +
     (f.phone ? `<a class="pf-btn" href="tel:${esc(f.phone)}">${C.ICONS.phone}<span>${esc(showPhone(f.phone))}</span></a>` : '') +
+    '<span class="pf-slot" data-slot="book"></span>' +
+    `<button class="lw-fbtn pf-btn pf-follow" type="button" data-follow="${esc(f.slug)}">+ Follow</button>` +
     '</div>';
 
   const planLine = f.featured
@@ -590,7 +597,7 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
     carousel(f, nearby),
     tab === 'overview' ? '\n\n    ' + leadScript : '',
     tab === 'overview' ? '\n    ' + CONTACT_JS : '',
-    '\n   </div>' + likeAside(nearby) + '\n  </div>\n  ' + C.FOOTER,
+    '\n   </div>' + likeAside(nearby) + '\n  </div>\n  ' + stickyBar(f, tab) + C.FOOTER,
   ].join('\n');
   // The saved page parts use addresses like ../site.css, written for /firms/<slug>; one level deeper they would point at the wrong folder, so they become absolute.
   return tab === 'overview' ? out : out.replace(/(href|src)="\.\.\//g, '$1="/');

@@ -339,6 +339,30 @@ a.seo-chip:hover{ background:#f4ecd8; border-color:#c9a050; }
 .seo-table td{ padding:11px 12px; border-top:1px solid var(--line,#ece6d3); vertical-align:top; color:#3a3a3a; }
 .seo-table td a{ font-weight:700; color:var(--ink,#2a2a2a); text-decoration:none; }
 .seo-table td a:hover{ color:#c9a050; text-decoration:underline; }
+.mt-lede,.mt-note{ font-size:14px; line-height:1.55; color:#5f5f5f; max-width:860px; margin:0 0 12px; }
+.mt-note{ margin:12px 0 18px; }
+.mt-wrap{ background:#fff; border:1px solid var(--line,#ece6d3); border-radius:8px; overflow:hidden; }
+.mt-table{ width:100%; border-collapse:collapse; font-size:13.5px; }
+.mt-table thead th{ text-align:left; padding:10px 12px; font-size:12px; letter-spacing:.03em; text-transform:uppercase; color:#5f5f5f; }
+.mt-table tbody{ border-top:1px solid var(--line,#ece6d3); }
+.mt-table tbody tr + tr td{ border-top:1px dashed var(--line,#ece6d3); }
+.mt-table th.mt-matter{ width:26%; text-align:left; vertical-align:top; padding:11px 12px; font:700 14px/1.35 'Inter',system-ui,sans-serif; color:#2a2a2a; background:#f7f1e0; }
+.mt-table th.mt-matter span{ display:block; margin-top:3px; font-weight:500; font-size:12px; color:#8c8c8c; }
+.mt-table td{ padding:10px 12px; vertical-align:top; color:#3a3a3a; line-height:1.45; }
+.mt-table td.mt-firm{ width:30%; }
+.mt-table td a{ font-weight:700; color:var(--ink,#2a2a2a); text-decoration:none; }
+.mt-table td a:hover{ color:#c9a050; text-decoration:underline; }
+.mt-table td a.mt-tel{ display:block; margin-top:2px; font-weight:500; color:#5f5f5f; }
+.mt-table td.mt-facts em{ display:block; margin-top:3px; font-style:normal; font-size:12.5px; color:#8c8c8c; }
+@media (max-width:640px){
+  .mt-table thead{ display:none; }
+  .mt-table,.mt-table tbody,.mt-table tr,.mt-table td,.mt-table th.mt-matter{ display:block; width:auto; }
+  .mt-table th.mt-matter{ padding:12px 14px 8px; }
+  .mt-table tbody tr + tr td{ border-top:0; }
+  .mt-table td.mt-firm{ padding:10px 14px 0; width:auto; }
+  .mt-table td.mt-facts{ padding:2px 14px 10px; border-bottom:1px dashed var(--line,#ece6d3); }
+  .mt-table tbody tr:last-child td.mt-facts{ border-bottom:0; }
+}
 .wrap h2.seo-h{ font-family:'Source Serif 4',serif; font-size:23px; margin:30px 0 10px; }
 .seo-ul,.seo-ol{ margin:0 0 14px; padding-left:22px; font-size:15px; line-height:1.75; color:#3a3a3a; max-width:860px; }
 .seo-ul li,.seo-ol li{ margin-bottom:4px; }

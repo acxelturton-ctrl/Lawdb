@@ -1,6 +1,8 @@
 // The firm-dependent parts of a city practice page, rebuilt from the firm data. Used by refresh-practice-pages.mjs (existing pages) and
 // build-city-practice-pages.mjs (new ones). Pure functions: they take page text and return page text.
+import { readFileSync } from 'node:fs';
 import { loadSiteFirms, rated } from './lib/site-firms.mjs';
+import { matterRows, matterFacts, PER_ROW } from './lib/matters.mjs';
 
 // Every firm the site lists: the repository's own plus the ones that listed themselves (data/owner-firms.json).
 export const loadFirms = loadSiteFirms;
@@ -48,6 +50,39 @@ function snapshot(f) {
 
 const row = (f) => `<tr><td><a href="/firms/${f.slug}">${esc(f.name)}</a>${f.featured ? ' <span class="seo-feat">Featured</span>' : ''}</td><td>${rated(f) ? f.rating.toFixed(1) : '&ndash;'}</td><td>${rated(f) ? fmt(f.count) : '&ndash;'}</td><td>${esc(f.address)}</td><td>${esc(phone(f.phone))}</td></tr>`;
 
+// "By the kind of matter": rows of the kinds of matter the firms' profiles mention, each with up to PER_ROW of those firms and the facts the profile holds (scripts/lib/matters.mjs).
+const REGULATOR = { ON: 'Law Society of Ontario', AB: 'Law Society of Alberta', BC: 'Law Society of British Columbia', MB: 'Law Society of Manitoba', QC: 'Barreau du Qu\u00e9bec' };
+let matterData = null;
+const matterCtx = () => matterData || (matterData = {
+  copy: JSON.parse(readFileSync('data/firm-copy.json', 'utf8')),
+  details: JSON.parse(readFileSync('data/firm-details.json', 'utf8')),
+  stored: JSON.parse(readFileSync('data/firm-lawyers.json', 'utf8')),
+});
+const andList = (a) => a.join(', ').replace(/, ([^,]*)$/, ' and $1');
+const MATTERS_BLOCK = /<!--matters-->[\s\S]*?<!--\/matters-->\s*/;
+
+export function matterBlock(key, list, { city, code, sent }) {
+  const ctx = matterCtx();
+  const rows = matterRows(key, list, ctx);
+  if (!rows.length) return '';
+  const body = rows.map((r) => {
+    const n = r.firms.length;
+    return `<tbody>${r.firms.map(({ firm: f, also }, i) => {
+      const digits = String(f.phone || '').replace(/\D/g, '').slice(-10);
+      const tel = /^[2-9]\d{2}[2-9]\d{6}$/.test(digits) ? ` <a class="mt-tel" href="tel:+1${digits}">${phone(f.phone)}</a>` : '';
+      const head = i === 0 ? `<th scope="rowgroup" rowspan="${n}" class="mt-matter">${esc(r.label)}<span>${n === r.total ? `${r.total} ${plural(r.total, 'firm', 'firms')}` : `${n} of ${r.total} firms`}</span></th>` : '';
+      return `<tr>${head}<td class="mt-firm"><a href="/firms/${f.slug}">${esc(f.name)}</a>${f.featured ? ' <span class="seo-feat">Featured</span>' : ''}${tel}</td><td class="mt-facts">${esc(matterFacts(f, ctx).join(' \u00b7 '))}${also.length ? `<em>Its profile also mentions ${esc(andList(also))}.</em>` : ''}</td></tr>`;
+    }).join('')}</tbody>`;
+  }).join('');
+  return `<!--matters-->
+  <h2 class="seo-h">Find a ${esc(sent)} lawyer in ${esc(city)} by the kind of matter</h2>
+  <p class="mt-lede">Each row is a kind of matter and up to ${PER_ROW} of the firms above whose LawDB profile mentions it, in the same order as the table of firms. The last column is facts from the profile. It is not a recommendation or a ranking.</p>
+  <div class="mt-wrap"><table class="mt-table"><thead><tr><th scope="col">If your matter involves</th><th scope="col">Firm and phone</th><th scope="col">What its profile shows</th></tr></thead>${body}</table></div>
+  <p class="mt-note">A firm is in a row because its profile text mentions that kind of matter; a firm that is not in a row may still take such cases, so ask. This is not a claim that any lawyer is a specialist. Check any lawyer with the ${REGULATOR[code] || 'law society'} before you hire.</p>
+  <!--/matters-->
+  `;
+}
+
 export function refreshHtml(old, ctx, firms, pageExists) {
   const { city, provName, code, dir, type, file = '(page)' } = ctx;
   const [key, label, slug, sent] = type;
@@ -57,7 +92,7 @@ export function refreshHtml(old, ctx, firms, pageExists) {
   const s = stats(list);
   const best = [...list].sort((a, b) => b.rating - a.rating || b.count - a.count)[0];
   const phrase = firmsPhrase(sent);
-  let html = old;
+  let html = old.replace(MATTERS_BLOCK, '');
   const sub = (re, to, what) => { if (!re.test(html)) throw new Error(`${file}: ${what} not found`); html = html.replace(re, to); };
 
   // title, share title, structured-data name: "| 7 Firms |"
@@ -78,6 +113,8 @@ export function refreshHtml(old, ctx, firms, pageExists) {
 
   sub(/<div class="seo-stats">[\s\S]*?<\/div><\/div>/, () => `<div class="seo-stats"><div><b>${s.n}</b><span>firms listed</span></div><div><b>${s.avg}</b><span>average rating</span></div><div><b>${fmt(s.reviews)}</b><span>Google reviews</span></div><div><b>${s.high}</b><span>rated 4.5+</span></div></div>`, 'stats');
   sub(/<tbody>[\s\S]*?<\/tbody>/, () => `<tbody>${list.map(row).join('')}</tbody>`, 'table');
+  const matters = matterBlock(key, list, { city, code, sent });
+  if (matters) sub(/(<div class="seo-tablewrap">[\s\S]*?<\/table><\/div>)\s*/, (m, t) => `${t}\n  ${matters}`, 'table wrapper');
   sub(/(<h2 class="seo-h">Firm snapshots<\/h2>\s*<div class="seo-text">)[\s\S]*?(<\/div>)/, (_, a, b) => a + list.slice(0, 8).map(snapshot).join('') + b, 'snapshots');
 
   // the answer that quotes counts (in the page and in its structured data)

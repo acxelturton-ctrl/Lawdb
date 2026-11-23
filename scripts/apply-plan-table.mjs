@@ -26,7 +26,7 @@ export const FREE = {
     ['Say who you serve and whether you are taking clients', 'Languages, the year you started practising, new-client status and virtual consultations'],
     ['Get verified by LawDB', 'We check your law society registration and show a Verified badge, with what we checked and a link to the directory'],
     ['Listed by case type and city', 'Your firm has its own page in the directory'],
-    ['Your lawyers listed', 'Every lawyer you list shows their name, role and years in practice, and can claim their profile'],
+    ['Your lawyers listed', 'Every lawyer you list shows their name, role and years in practice, and can claim their listing'],
     ['Every enquiry emailed to you', 'Straight to your inbox'],
     ['Your numbers for the last 30 days', 'Page views, visitors, clicks and enquiries as totals, with a weekly email'],
     ['Your blog posts on an Articles tab', 'Once you have three, all on a page of their own that links to your own site'],

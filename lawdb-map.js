@@ -320,10 +320,10 @@
     var lp = [];
     view.forEach(function(f, i){
       (f.featured ? ft : b).push(pt(f, props(f, i)));
-      // each Featured lawyer of a Featured firm gets a pin of their own, a few metres from the firm's, all round it
+      // each Featured lawyer of a Featured firm gets a pin of their own, standing in a row to the LEFT of the firm's pin (its name is on the right), four to a row, at the same spot: the
+      // offset is in screen pixels, so it is the same at every zoom, and the firm's pin, which is drawn above them, is never covered
       if(f.featured && f.fl) f.fl.forEach(function(l, k){
-        var a = (k + 1) * (2 * Math.PI / (f.fl.length + 1)), dLat = 0.00022 * Math.sin(a), dLng = 0.00022 * Math.cos(a) / Math.max(0.3, Math.cos(f.lat * Math.PI / 180));
-        lp.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [f.lng + dLng, f.lat + dLat] }, properties: { idx: i, name: l.n } });
+        lp.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [f.lng, f.lat] }, properties: { idx: i, name: l.n, off: [-(45 + 36 * (k % 4)), -34 * Math.floor(k / 4)] } });
       });
     });
     try { map.getSource('firms').setData(fc(b)); map.getSource('firms-feat').setData(fc(ft)); map.getSource('lawyers').setData(fc(lp)); } catch(e){}
@@ -596,19 +596,22 @@
       layout: { 'icon-image': 'gm-pin', 'icon-size': size, 'icon-anchor': 'bottom', 'icon-allow-overlap': true, 'symbol-sort-key': ['get', 'prio'] } });
     labelLayer('firm-label', 'firms', false, notCluster);
 
+    // a Featured lawyer's own pin: dark with a gold dot, like the lawyer's initials badge; from street level, where a firm's lawyers can be told apart. It sits above the Basic
+    // firms' pins and under the Featured firm's: the LawDB pin is in front of every other pin, label and dot on the map
+    map.addLayer({ id: 'lawyer-pin', type: 'symbol', source: 'lawyers', minzoom: 13,
+      layout: { 'icon-image': 'gm-pin-lawyer', 'icon-size': 0.72, 'icon-offset': ['array', 'number', 2, ['get', 'off']], 'icon-anchor': 'bottom', 'icon-allow-overlap': true } });
+
     map.addLayer({ id: 'firm-feat-pin', type: 'symbol', source: 'firms-feat',
       layout: { 'icon-image': 'gm-pin-gold', 'icon-size': ['interpolate', ['linear'], ['zoom'], 8, 0.62, 13, 0.9], 'icon-anchor': 'bottom', 'icon-allow-overlap': true } });
     labelLayer('firm-feat-label', 'firms-feat', true, null);
 
-    // a Featured lawyer's own pin: dark with a gold dot, like the lawyer's initials badge; from street level, where a firm's lawyers can be told apart
-    map.addLayer({ id: 'lawyer-pin', type: 'symbol', source: 'lawyers', minzoom: 13,
-      layout: { 'icon-image': 'gm-pin-lawyer', 'icon-size': ['interpolate', ['linear'], ['zoom'], 13, 0.6, 16, 0.85], 'icon-anchor': 'bottom', 'icon-allow-overlap': true } });
-
     map.addLayer({ id: 'firm-pin-sel', type: 'symbol', source: 'firm-sel',
       layout: { 'icon-image': ['case', ['==', ['get', 'featured'], 1], 'gm-pin-sel-gold', 'gm-pin-sel'], 'icon-size': 0.82, 'icon-anchor': 'bottom', 'icon-allow-overlap': true } });
 
-    map.addLayer({ id: 'me-halo', type: 'circle', source: 'me', paint: { 'circle-radius': 20, 'circle-color': '#e2bd6a', 'circle-opacity': 0.2 } });
-    map.addLayer({ id: 'me-dot', type: 'circle', source: 'me', paint: { 'circle-radius': 7.5, 'circle-color': '#e2bd6a', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2.5 } });
+
+    // the person's own dot is under every pin (a pin is never hidden behind it)
+    map.addLayer({ id: 'me-halo', type: 'circle', source: 'me', paint: { 'circle-radius': 20, 'circle-color': '#e2bd6a', 'circle-opacity': 0.2 } }, 'firm-pin');
+    map.addLayer({ id: 'me-dot', type: 'circle', source: 'me', paint: { 'circle-radius': 7.5, 'circle-color': '#e2bd6a', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2.5 } }, 'firm-pin');
 
     var tapLayers = ['firm-pin', 'firm-label', 'firm-feat-pin', 'firm-feat-label', 'lawyer-pin', 'firm-pin-sel'];
     function pick(e){

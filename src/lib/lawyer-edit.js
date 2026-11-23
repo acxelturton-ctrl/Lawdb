@@ -105,7 +105,7 @@ export function cleanLawyerInput(body, { admin = false, website = '' } = {}) {
     if (k in body) {
       if (typeof body[k] !== 'boolean') throw new HttpError(422, `${k} must be true or false`);
       // a Featured lawyer listing is paid for (billing, or an admin by hand): a firm cannot switch it on for itself
-      if (k === 'featured' && !admin) throw new HttpError(403, 'A Featured lawyer listing is switched on when it is paid for. Claim the profile to set it up.');
+      if (k === 'featured' && !admin) throw new HttpError(403, 'A Featured lawyer listing is switched on when it is paid for. Claim the listing to set it up.');
       out[k] = body[k];
     }
   }

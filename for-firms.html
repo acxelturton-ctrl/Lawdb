@@ -143,6 +143,10 @@
   .lw-claim input{ display:block; width:100%; box-sizing:border-box; margin-top:5px; padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:var(--cream); font:500 15px 'Inter',sans-serif; color:var(--ink); }
   .lw-claim button{ background:var(--ink); color:#fff; border:0; border-radius:10px; padding:12px 22px; font:700 15px 'Inter',sans-serif; cursor:pointer; }
   .lw-claim .lc-msg{ min-height:1.4em; margin:12px 0 0; font-size:14px; color:var(--ink-soft); }
+  .lw-claim .lc-msg.err{ color:var(--ink); font-weight:600; }
+  .lc-done{ padding:20px 22px; border:1px solid #e6d4a4; border-radius:12px; background:#f7f1e0; }
+  .lc-done h3{ font-family:'Source Serif 4',serif; font-size:19px; margin:0 0 8px; }
+  .lc-done p{ margin:0 0 8px; font-size:14.5px; line-height:1.55; color:#3a3a3a; }
   @media (max-width:680px){ .lw-plans, .lw-claim .lc-row{ grid-template-columns:1fr; } }
 
   .howitworks{ background:var(--card); border:1px solid var(--line); border-radius:8px;
@@ -289,7 +293,7 @@
       <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span><b>Analytics dashboard</b>See page views, visitors, every button clicked and where visitors come from, with a weekly email.</span></li>
       <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 10h16M9 10v9"/></svg></span><span><b>Enquiries dashboard</b>Read, filter, add notes, reply and export every enquiry, and send them to a second email address.</span></li>
       <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.6 6-11a6 6 0 1 0-12 0c0 5.4 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/></svg></span><span><b>Gold pin and badge</b>Stand out on the map, in the search box and on your profile.</span></li>
-      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></svg></span><span><b>Lawyers: claim your profile</b>At a Featured firm, add your own Featured listing for $99 a month: a page of your own, your direct number and a pin on the map.</span></li>
+      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></svg></span><span><b>Lawyers: claim your listing</b>At a Featured firm, add your own Featured listing for $99 a month: a page of your own, your direct number and a pin on the map.</span></li>
     </ul>
     <a class="mp-cta" href="/list-your-firm?plan=featured">Get Featured</a>
     <p class="mp-note">Your first 30 days are free, with no card needed. After that Featured is $199 a month for a firm, and $99 a month for each lawyer who adds a listing. Cancel any time.</p>
@@ -318,7 +322,7 @@
     <div class="hx-head">
       <p class="hx-eyebrow">For law firms and lawyers</p>
       <h1 id="hxh">Grow Leads to Your Law Firm</h1>
-      <p class="hx-sub">Stand out on LawDB with premium placement, a custom profile, and analytics that show you what your page does. Your first 30 days of Featured are free, no card needed. Lawyers at a Featured firm can <a href="#lawyers">claim their profile and add a Featured listing of their own</a>.</p>
+      <p class="hx-sub">Stand out on LawDB with premium placement, a custom profile, and analytics that show you what your page does. Your first 30 days of Featured are free, no card needed. Lawyers can <a href="#lawyers">claim their free listing</a>, and add a Featured lawyer listing once their firm is Featured.</p>
       <div class="promo-links">
         <a class="promo-go" href="/list-your-firm?plan=featured">Get Featured: first month free</a>
         <a href="/list-your-firm">List your firm (free)</a>
@@ -456,7 +460,7 @@
       <tr><th scope="row" class="pc-lab">Say who you serve and whether you are taking clients<small>Languages, the year you started practising, new-client status and virtual consultations</small></th><td class="pc-b"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td><td class="pc-f"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td></tr>
       <tr><th scope="row" class="pc-lab">Get verified by LawDB<small>We check your law society registration and show a Verified badge, with what we checked and a link to the directory</small></th><td class="pc-b"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td><td class="pc-f"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td></tr>
       <tr><th scope="row" class="pc-lab">Listed by case type and city<small>Your firm has its own page in the directory</small></th><td class="pc-b"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td><td class="pc-f"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td></tr>
-      <tr><th scope="row" class="pc-lab">Your lawyers listed<small>Every lawyer you list shows their name, role and years in practice, and can claim their profile</small></th><td class="pc-b"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td><td class="pc-f"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td></tr>
+      <tr><th scope="row" class="pc-lab">Your lawyers listed<small>Every lawyer you list shows their name, role and years in practice, and can claim their listing</small></th><td class="pc-b"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td><td class="pc-f"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td></tr>
       <tr><th scope="row" class="pc-lab">Every enquiry emailed to you<small>Straight to your inbox</small></th><td class="pc-b"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td><td class="pc-f"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td></tr>
       <tr><th scope="row" class="pc-lab">Your numbers for the last 30 days<small>Page views, visitors, clicks and enquiries as totals, with a weekly email</small></th><td class="pc-b"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td><td class="pc-f"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td></tr>
       <tr><th scope="row" class="pc-lab">Your blog posts on an Articles tab<small>Once you have three, all on a page of their own that links to your own site</small></th><td class="pc-b"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td><td class="pc-f"><span class="pc-mark ok"><svg class="pc-i" aria-hidden="true"><use href="#pc-check"/></svg></span><span class="sr">Included</span></td></tr>
@@ -500,22 +504,22 @@
   </div>
 
   <div class="fx-sec" id="lawyers">
-    <h2>For lawyers: claim your profile</h2>
+    <h2>For lawyers: claim your listing</h2>
     <p class="lede">Every lawyer a firm lists on LawDB has a free listing with their name, role and years in practice. Claim yours to keep it right, and add a Featured lawyer listing once your firm is Featured.</p>
     <div class="lw-plans">
       <div class="lw-plan"><span class="lw-tag">Free</span><h3>Basic lawyer listing</h3><p class="lw-price">$0</p>
-        <ul><li>Your name, role and years in practice on your firm's Lawyers page</li><li>Claim your profile, so we know it is you and keep it right</li></ul></div>
+        <ul><li>Your name, role and years in practice on your firm's Lawyers page</li><li>Claim your listing, so we know it is you and keep it right</li></ul></div>
       <div class="lw-plan lw-feat"><span class="lw-tag">At a Featured firm</span><h3>Featured lawyer</h3><p class="lw-price">$99<small> / month</small></p>
         <ul><li>A profile page of your own that search engines can find</li><li>Your education and the languages you work in</li><li>The awards and achievements you list</li><li>Your direct phone number, with a Call button</li><li>Your picture</li><li>Your own pin on the LawDB map</li></ul></div>
     </div>
-    <p class="plans-note">A Featured lawyer listing is available to lawyers at a Featured firm ($199 a month). If your firm is not Featured yet, claim your profile now and ask your firm to get Featured. You pay for your own listing; the firm does not pay for you. We check every claim against your law society's listing. LawDB does not rank, recommend or certify lawyers.</p>
+    <p class="plans-note">A Featured lawyer listing is available to lawyers at a Featured firm ($199 a month). If your firm is not Featured yet, claim your listing now and ask your firm to get Featured. You pay for your own listing; the firm does not pay for you. We check every claim against your law society's listing. LawDB does not rank, recommend or certify lawyers.</p>
     <form class="lw-claim" data-lawyer-claim novalidate>
-      <h3>Claim your lawyer profile</h3>
+      <h3>Claim your lawyer listing</h3>
       <div class="lc-row"><label>Your name<input name="name" type="text" autocomplete="name" maxlength="90" required></label><label>Your firm<input name="firmName" type="text" autocomplete="organization" maxlength="120" required></label></div>
       <div class="lc-row"><label>Your email<input name="email" type="email" autocomplete="email" maxlength="254" required></label><label>Phone (optional)<input name="phone" type="tel" autocomplete="tel" maxlength="30"></label></div>
       <div class="lc-row"><label>Anything we should know (optional)<input name="message" type="text" maxlength="500"></label><span></span></div>
       <input name="botcheck" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0">
-      <button type="submit">Claim my profile</button><p class="lc-msg" role="status" aria-live="polite"></p>
+      <button type="submit">Claim my listing</button><p class="lc-msg" role="status" aria-live="polite"></p>
       <noscript><p>Turn on JavaScript to send the request, or email info@lawdb.ca.</p></noscript>
     </form>
     <script src="/lawyer-claim.js" defer></script>

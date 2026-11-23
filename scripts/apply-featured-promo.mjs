@@ -19,7 +19,7 @@ export const PROMO = [
   ITEM('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>', 'Analytics dashboard', 'See page views, visitors, every button clicked and where visitors come from, with a weekly email.'),
   ITEM('<path d="M4 5h16v14H4z"/><path d="M4 10h16M9 10v9"/>', 'Enquiries dashboard', 'Read, filter, add notes, reply and export every enquiry, and send them to a second email address.'),
   ITEM('<path d="M12 21s6-5.6 6-11a6 6 0 1 0-12 0c0 5.4 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/>', 'Gold pin and badge', 'Stand out on the map, in the search box and on your profile.'),
-  ITEM('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/>', 'Lawyers: claim your profile', 'At a Featured firm, add your own Featured listing for $' + LAWYER_PRICE + ' a month: a page of your own, your direct number and a pin on the map.'),
+  ITEM('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/>', 'Lawyers: claim your listing', 'At a Featured firm, add your own Featured listing for $' + LAWYER_PRICE + ' a month: a page of your own, your direct number and a pin on the map.'),
   '    </ul>',
   '    <a class="mp-cta" href="/list-your-firm?plan=featured">Get Featured</a>',
   '    <p class="mp-note">Your first 30 days are free, with no card needed. After that Featured is $' + FIRM_PRICE + ' a month for a firm, and $' + LAWYER_PRICE + ' a month for each lawyer who adds a listing. Cancel any time.</p>',

@@ -303,4 +303,32 @@ ok(/lawyersPanel/.test(readFileSync('admin/profile-editor.js', 'utf8')) && /mode
 ok(SLUG_TABLES.includes('lawyer_photos') && MERGE_DROPPED.includes('lawyer_photos') && /lawyer_photos: 'SELECT/.test(readFileSync('src/lib/backup.js', 'utf8')), 'a renamed or merged firm and the nightly backup know about lawyer pictures');
 ok(/lawyersPanel|lawyers-panel/.test(readFileSync('admin/profile-editor.js', 'utf8')) && !/\.innerHTML|innerHTML\s*=|insertAdjacentHTML|outerHTML/.test(readFileSync('admin/lawyers-panel.js', 'utf8')), 'the panel never uses innerHTML');
 
+// ================================================================ awards and a direct phone number (Featured benefits)
+put('paid-basic', firmRecord({ slug: 'paid-basic', featured: false }), 0);
+ok(await refused(() => saveLawyer(env, actor, 'paid-basic', 'bo-chan', { achievements: ['Lexpert Rising Star, 2023'] }, { admin: false }), 403), 'a Basic firm cannot list awards (a Featured benefit)');
+ok(await refused(() => saveLawyer(env, actor, 'paid-basic', 'bo-chan', { phone: '(403) 555-0100' }, { admin: false }), 403), "and cannot add a lawyer's direct phone number");
+ok(!rec('paid-basic').lawyers.some((l) => l.achievements || l.phone), 'and nothing is stored');
+await saveLawyer(env, actor, 'paid-basic', 'bo-chan', { achievements: [], phone: '' }, { admin: false });
+ok(true, 'clearing them is always allowed');
+await saveLawyer(env, actor, 'paid-basic', 'bo-chan', { achievements: ['Lexpert Rising Star, 2023'], phone: '(403) 555-0100' }, { admin: true });
+ok(rec('paid-basic').lawyers.find((l) => l.slug === 'bo-chan').phone === '+14035550100', 'an admin is never limited, and the number is stored as +1 and ten digits');
+put('paid-feat', firmRecord({ slug: 'paid-feat', featured: true }), 1);
+v = await saveLawyer(env, actor, 'paid-feat', 'bo-chan', { achievements: ['Lexpert Rising Star, 2023', 'Chair, Family Law Section, 2021', 'Lexpert Rising Star, 2023'], phone: '403-555-0100' }, { admin: false });
+const paid = rec('paid-feat').lawyers.find((l) => l.slug === 'bo-chan');
+eq(paid.achievements, ['Lexpert Rising Star, 2023', 'Chair, Family Law Section, 2021'], 'a Featured firm lists awards (a repeat is dropped)');
+ok(paid.phone === '+14035550100' && v.lawyers.find((l) => l.slug === 'bo-chan').phone === '+14035550100' && v.lawyers.find((l) => l.slug === 'bo-chan').achievements.length === 2, 'and a direct number; the editor gets both back');
+const paidPage = (r, view) => renderFirmPage({ firm: { ...r, about: 'x '.repeat(60) }, view });
+const featPage = paidPage(rec('paid-feat'), { tab: 'lawyer', lawyer: 'bo-chan' });
+ok(featPage.includes('<h3>Awards and achievements</h3>') && featPage.includes('Lexpert Rising Star, 2023') && featPage.includes('href="tel:+14035550100">Call (403) 555-0100</a>'), "the lawyer's page lists the awards and has a Call button");
+ok(paidPage(rec('paid-feat'), { tab: 'lawyers' }).includes('class="call" href="tel:+14035550100"'), "and the lawyer's card on the Lawyers page has the number too");
+const lapsed = { ...rec('paid-feat'), featured: false };
+const lapsedPage = paidPage(lapsed, { tab: 'lawyer', lawyer: 'bo-chan' });
+ok(!lapsedPage.includes('Awards and achievements') && !lapsedPage.includes('tel:+14035550100') && !paidPage(lapsed, { tab: 'lawyers' }).includes('tel:+14035550100'), 'when the firm is no longer Featured the pages stop showing them (they stay on record)');
+ok(rec('paid-feat').lawyers.find((l) => l.slug === 'bo-chan').phone === '+14035550100', 'and they are still on record for when it comes back');
+for (const bad of ['555', '(035) 171-7773', '123-456-7890', 'call me', '+44 20 7946 0958']) ok(await refused(() => saveLawyer(env, actor, 'paid-feat', 'bo-chan', { phone: bad }, { admin: false })), `"${bad}" is not accepted as a phone number`);
+ok(await refused(() => saveLawyer(env, actor, 'paid-feat', 'bo-chan', { achievements: ['See https://example.com for awards'] }, { admin: false })), 'an award with a link is refused');
+ok(await refused(() => saveLawyer(env, actor, 'paid-feat', 'bo-chan', { achievements: ['The best criminal lawyer in Calgary'] }, { admin: false })), 'an award that is a claim the law societies restrict is refused');
+ok(await refused(() => saveLawyer(env, actor, 'paid-feat', 'bo-chan', { achievements: ['a', 'b', 'c', 'd', 'e', 'f'].map((x) => `Award ${x} 2020`) }, { admin: false })), 'at most five lines');
+ok(cleanLawyers([{ name: 'Di Poe', slug: 'di-poe', title: 'Associate', achievements: ['Lexpert Rising Star, 2023'], phone: '+14035550100' }]).every((l) => !l.achievements && !l.phone), 'awards and a phone number that were not stated by the firm itself are never shown');
+
 console.log(`lawyer editing: ${n} checks passed`);

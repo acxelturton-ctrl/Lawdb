@@ -18,12 +18,14 @@ import { checkOwnerText } from './content-rules.js';
 import { cleanLanguages, LANGUAGES } from './details.js';
 import { FEATURED_LOCK } from './firm-edit.js';
 import { imageInfo, IMAGE_RULES, imageCacheKey } from './images.js';
-import { cleanLawyers, photoStateOf, HOSTED_PHOTO, cleanName, cleanLinkedIn, lawyerSlug, lawyerHasPage, OWNER_TITLE, OWNER_EDUCATION, MAX_LAWYERS, MIN_FIRM_LAWYERS, MIN_PAGE_FACTS } from './lawyers.js';
+import { cleanLawyers, photoStateOf, HOSTED_PHOTO, cleanName, cleanLinkedIn, cleanPhone, lawyerSlug, lawyerHasPage, OWNER_TITLE, OWNER_EDUCATION, OWNER_ACHIEVEMENT, MAX_ACHIEVEMENTS, MAX_LAWYERS, MIN_FIRM_LAWYERS, MIN_PAGE_FACTS } from './lawyers.js';
 
 export const LAWYER_PHOTOS_FEATURED = true;
 export const LAWYER_PHOTO_RULES = { minSide: 120, minRatio: 0.5, maxRatio: 1.6, maxBytes: IMAGE_RULES.maxBytes, perUserPerHour: 20, fetchMs: 8000 };
 const MIME = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
-const FACTS = ['name', 'title', 'callYear', 'education', 'languages', 'linkedin', 'site'];
+const FACTS = ['name', 'title', 'callYear', 'education', 'languages', 'linkedin', 'site', 'achievements', 'phone'];
+// Two facts only a Featured firm may add (an admin is never limited): the awards and achievements listed for a lawyer, and the lawyer's direct phone number. Clearing them is always allowed.
+export const LAWYER_PAID_FACTS = { achievements: 'Listing awards and achievements', phone: "Adding a lawyer's direct phone number" };
 const FIELDS = [...FACTS, 'hidden', 'confirmed'];
 
 // ---------------------------------------------------------------- what a firm may send
@@ -67,6 +69,20 @@ export function cleanLawyerInput(body, { admin = false, website = '' } = {}) {
     out.education = out.education.filter((e, i, all) => all.indexOf(e) === i);
   }
   if ('languages' in body) out.languages = cleanLanguages(body.languages);
+  if ('achievements' in body) {
+    if (!Array.isArray(body.achievements) || body.achievements.length > MAX_ACHIEVEMENTS) throw new HttpError(422, `Awards and achievements: up to ${MAX_ACHIEVEMENTS} lines`);
+    out.achievements = body.achievements.map((a) => text(a, 'Awards and achievements', 140)).filter(Boolean).map((a) => {
+      if (!OWNER_ACHIEVEMENT.test(a)) throw new HttpError(422, 'Awards and achievements: letters, numbers and ordinary punctuation only, for example "Lexpert Rising Star, 2023" (no links).');
+      if (!admin) checkOwnerText('Awards and achievements', a);
+      return a;
+    }).filter((a, i, all) => all.indexOf(a) === i);
+  }
+  if ('phone' in body) {
+    const raw = text(body.phone, 'Phone', 30);
+    const ph = raw ? cleanPhone(raw) : '';
+    if (raw && !ph) throw new HttpError(422, 'Phone: a Canadian or US number with its area code, for example (403) 555-0100.');
+    out.phone = ph;
+  }
   if ('linkedin' in body) {
     const raw = text(body.linkedin, 'LinkedIn', 300);
     const li = raw ? cleanLinkedIn(raw) : '';
@@ -89,6 +105,12 @@ export function cleanLawyerInput(body, { admin = false, website = '' } = {}) {
     if (k in body) { if (typeof body[k] !== 'boolean') throw new HttpError(422, `${k} must be true or false`); out[k] = body[k]; }
   }
   return out;
+}
+
+// Awards and a direct phone number are Featured benefits: a firm that is not Featured may clear them but not set them.
+function requireFeatured(input, firm, admin) {
+  if (admin || firm.featured) return;
+  for (const [k, what] of Object.entries(LAWYER_PAID_FACTS)) if (input[k] && input[k].length) throw new HttpError(403, `${what} ${FEATURED_LOCK}`);
 }
 
 // ---------------------------------------------------------------- reading and writing the list
@@ -126,7 +148,7 @@ export function lawyersView(firm) {
     lawyers: list.map((l) => {
       const p = photoStateOf(l, decided[l.slug]);
       return {
-        slug: l.slug, name: l.name, title: l.title || '', callYear: l.callYear || null, education: l.education || [], languages: l.languages || [], linkedin: l.linkedin || '', site: l.site || '',
+        slug: l.slug, name: l.name, title: l.title || '', callYear: l.callYear || null, education: l.education || [], languages: l.languages || [], linkedin: l.linkedin || '', site: l.site || '', achievements: l.achievements || [], phone: l.phone || '',
         hidden: !!l.hidden, confirmed: !!l.confirmed,
         hasPage: pageExists && !l.hidden && lawyerHasPage(l),
         photo: p.state === 'none' ? { state: 'none' } : { state: p.state, url: p.url },
@@ -167,6 +189,7 @@ export async function saveLawyer(env, actor, slug, lawyerSlugParam, body, { admi
   const i = list.findIndex((l) => l.slug === lawyerSlugParam);
   if (i < 0) throw new HttpError(404, 'Lawyer not found');
   const input = cleanLawyerInput(body, { admin, website: firm.website });
+  requireFeatured(input, firm, admin);
   if ('confirmed' in input && !input.confirmed && !admin) delete input.confirmed; // only an admin takes a confirmation back
   const next = { ...list[i] };
   const changes = apply(next, input);
@@ -190,6 +213,7 @@ export async function addLawyer(env, actor, slug, body, { admin }) {
   const list = listOf(firm);
   if (list.length >= MAX_LAWYERS) throw new HttpError(409, `A firm can list up to ${MAX_LAWYERS} lawyers.`);
   const input = cleanLawyerInput(body, { admin, website: firm.website });
+  requireFeatured(input, firm, admin);
   const base = lawyerSlug(input.name) || 'lawyer';
   let s = base;
   for (let n = 2; list.some((l) => l.slug === s); n++) s = `${base}-${n}`;

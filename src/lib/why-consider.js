@@ -1,64 +1,31 @@
-// "Why people consider ..." for a firm and for a lawyer: a short list of reasons, each one a fact the page already holds (the role, the year called to the bar, the languages, what
-// the firm focuses on, its Google rating and number of reviews, where it works, how many lawyers it lists). It is deliberately not an opinion: a directory may not call a
-// lawyer the best, a specialist or the right choice (law societies restrict those claims, see content-rules.js), so nothing here is a judgement and nothing compares one
-// lawyer with another. A list is only shown when it has enough to say (MIN_REASONS).
-import { cleanDetails } from './details.js';
+// "Things to consider" on a lawyer's page, and the compare table on a firm's Lawyers page.
+//
+// Both are made only of what the firm or the lawyer has told us about the lawyer, and each fact appears once: the page already says who the lawyer is and where they
+// work (the title and the firm are in the heading), the firm's rating and the size of the team are on the firm's own page, so none of that is repeated here. What is left
+// is the lawyer's own background: how long they have been in practice (from the year they were called to the bar), where they studied, the languages they work in, and
+// the awards and achievements a Featured firm has listed for them. A fact we do not have is left out; with nothing to say there is no section, rather than a thin one.
+//
+// It is deliberately not an opinion: a directory may not call a lawyer the best, a specialist or the right choice (law societies restrict those claims, see
+// content-rules.js), so nothing here is a judgement and nothing compares one lawyer with another.
+import { inPractice } from './lawyers.js';
 
-export const MIN_REASONS = 3;
 const joinAnd = (a) => a.join(', ').replace(/, ([^,]*)$/, ' and $1');
-const lower = (s) => String(s).toLowerCase();
-const num = (v) => Number(v) || 0;
 
-// What the firm focuses on, from its practice-area tags (a general practice says so).
-function focus(f) {
-  const tags = (f.tags || []).filter(Boolean);
-  if (!tags.length) return '';
-  if (tags.length === 1 && /^general practice$/i.test(tags[0])) return 'The firm has a general practice.';
-  return `The firm focuses on ${joinAnd(tags.filter((t) => !/^general practice$/i.test(t)).slice(0, 3).map(lower))}.`;
-}
-const rated = (f) => (num(f.rating) > 0 && num(f.count) > 0 ? `${num(f.rating).toFixed(1)} out of 5 from ${num(f.count)} Google reviews` : '');
-
-// Reasons to consider one lawyer. `team` is how many lawyers the firm lists on LawDB.
-export function whyLawyer(l, f, prov, { team = 0, thisYear = new Date().getFullYear() } = {}) {
-  const out = [];
-  if (l.title) out.push(`${l.title} at ${f.name}, in ${f.city}, ${prov}.`);
-  if (l.callYear) {
-    const years = thisYear - Number(l.callYear);
-    out.push(`Called to the bar in ${l.callYear}${years >= 2 ? `, ${years} years ago` : ''}.`);
-  }
-  if (l.education && l.education.length) out.push(`Education: ${l.education.slice(0, 3).join('; ')}.`);
-  if (l.languages && l.languages.length) out.push(`Works in ${joinAnd(l.languages)}.`);
-  const fx = focus(f);
-  if (fx) out.push(fx);
-  if (team >= 3) out.push(`One of ${team} lawyers listed at ${f.name}.`);
-  const r = rated(f);
-  if (r) out.push(`${f.name} is rated ${r}.`);
-  return out.length >= MIN_REASONS ? out.slice(0, 7) : [];
-}
-
-// Reasons to consider a firm. It needs at least one fact beyond the ones the top of the page already shows (the rating and the place), so a firm whose page has nothing
-// more to add gets no list rather than the same facts twice.
-export function whyFirm(f, lw, prov) {
-  const d = cleanDetails(f.details) || {};
-  const extra = [];
-  const out = [];
-  const fx = focus(f);
-  if (fx) out.push(fx);
-  if (d.founded) { out.push(`Founded in ${d.founded}.`); extra.push(1); }
-  if (lw && lw.length >= 2) { out.push(`${lw.length} lawyers are listed on LawDB, including ${joinAnd(lw.slice(0, 3).map((x) => x.name))}.`); extra.push(1); }
-  if (d.languages && d.languages.length) { out.push(`Works in ${joinAnd(d.languages)}.`); extra.push(1); }
-  if (d.serving && d.serving.length) { out.push(`Serves ${joinAnd(d.serving.slice(0, 4))}.`); extra.push(1); }
-  const r = rated(f);
-  if (r) out.push(`Rated ${r}.`);
-  out.push(`Based in ${f.city}, ${prov}.`);
-  return extra.length && out.length >= MIN_REASONS ? out.slice(0, 7) : [];
+// The lawyer's background as { facts, achievements }: two lists of plain lines, either of which may be empty.
+export function considerLawyer(l, { thisYear = new Date().getFullYear() } = {}) {
+  const facts = [];
+  const p = inPractice(l.callYear, thisYear);
+  if (p) facts.push(p.years >= 2 ? `${p.years} years in practice, since ${p.since}.` : `In practice since ${p.since}.`);
+  if (l.education && l.education.length) facts.push(`Education: ${l.education.slice(0, 3).join('; ')}.`);
+  if (l.languages && l.languages.length) facts.push(`Works in ${joinAnd(l.languages)}.`);
+  return { facts, achievements: (l.achievements || []).slice() };
 }
 
 // The compare table of a firm's lawyers: only the columns at least one lawyer has something in, and nothing at all unless two or more lawyers have a fact beyond their name.
-export function compareLawyers(lw) {
+export function compareLawyers(lw, { thisYear = new Date().getFullYear() } = {}) {
   const cols = [
     ['role', 'Role', (l) => l.title || ''],
-    ['called', 'Called to the bar', (l) => (l.callYear ? String(l.callYear) : '')],
+    ['practice', 'In practice', (l) => { const p = inPractice(l.callYear, thisYear); return p ? p.text.replace(/^s/, 'S') : ''; }],
     ['languages', 'Languages', (l) => (l.languages ? joinAnd(l.languages) : '')],
     ['education', 'Education', (l) => (l.education ? l.education.slice(0, 2).join('; ') : '')],
   ];

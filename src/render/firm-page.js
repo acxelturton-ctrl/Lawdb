@@ -1,8 +1,8 @@
 // Renders a firm profile page from a database record: the one page every firm has. Built from the same chunks as the saved copies of the pages
 // (see scripts/extract-firm-template.mjs), so a rendered page looks like the originals.
 import { cleanDetails } from '../lib/details.js';
-import { lawyersOf, lawyerHasPage, lawyerFacts, lawyerLead } from '../lib/lawyers.js';
-import { whyFirm, whyLawyer, compareLawyers } from '../lib/why-consider.js';
+import { lawyersOf, lawyerHasPage, lawyerLead, inPractice } from '../lib/lawyers.js';
+import { considerLawyer } from '../lib/why-consider.js';
 import { cleanComments } from '../lib/comments.js';
 import { AVAILABILITY } from '../lib/profile-strength.js';
 import * as C from './firm-chunks.generated.js';
@@ -389,7 +389,7 @@ function stickyBar(f, tab) {
 const TABS_CSS = '<style>.pf-tabs{display:flex;gap:4px;margin:0 0 20px;border-bottom:1px solid #ece6d3;overflow-x:auto;scrollbar-width:none}.pf-tabs::-webkit-scrollbar{display:none}.pf-tabs a{flex:none;display:inline-flex;align-items:center;gap:7px;padding:12px 16px;font:600 15px Inter,sans-serif;color:#5f5f5f;text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap}.pf-tabs a:hover{color:#2a2a2a}.pf-tabs a[aria-current="page"]{color:#2a2a2a;border-bottom-color:#c9a050}.pf-tabs .n{font:700 12px Inter,sans-serif;background:#f4ecd8;color:#c9a050;border-radius:999px;padding:2px 8px}' +
   '.pf-h1{margin:0 0 8px;font:700 clamp(24px,3vw,32px)/1.15 "Source Serif 4",Georgia,serif;color:#2a2a2a}.pf-lede{margin:0 0 18px;color:#5f5f5f;font-size:15.5px;line-height:1.55}.pf-note{margin:6px 0 24px;font-size:13.5px;line-height:1.5;color:#5f5f5f}.pf-note a{color:#c9a050;font-weight:600}' +
   '.lw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:0 0 18px}.lw-person{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid #ece6d3;border-radius:14px;padding:14px}.lw-av{flex:none;width:64px;height:64px;border-radius:50%;background:#2a2a2a;color:#e2bd6a;display:grid;place-items:center;font:700 20px "Source Serif 4",Georgia,serif;overflow:hidden}.lw-av img{width:100%;height:100%;object-fit:cover;display:block}.lw-av-lg{width:96px;height:96px;font-size:30px}' +
-  '.lw-person b{display:block;font:700 16px/1.25 Inter,sans-serif;color:#2a2a2a}.lw-person b a{color:inherit;text-decoration:none}.lw-person b a:hover{text-decoration:underline;text-decoration-color:#c9a050;text-underline-offset:3px}.lw-person span.t{display:block;margin-top:3px;font:500 13.5px/1.4 Inter,sans-serif;color:#5f5f5f}.lw-person span.f{display:block;margin-top:5px;font:500 12.5px/1.4 Inter,sans-serif;color:#5f5f5f}.lw-person .go{display:inline-block;margin-top:8px;font:700 13px Inter,sans-serif;color:#c9a050;text-decoration:none}' +
+  '.lw-person b{display:block;font:700 16px/1.25 Inter,sans-serif;color:#2a2a2a}.lw-person b a{color:inherit;text-decoration:none}.lw-person b a:hover{text-decoration:underline;text-decoration-color:#c9a050;text-underline-offset:3px}.lw-person span.t{display:block;margin-top:3px;font:500 13.5px/1.4 Inter,sans-serif;color:#5f5f5f}.lw-person span.f{display:block;margin-top:5px;font:500 12.5px/1.4 Inter,sans-serif;color:#5f5f5f}.lw-person a.call{display:block;margin-top:6px;font:700 13.5px Inter,sans-serif;color:#2a2a2a;text-decoration:none}.lw-person a.call:hover{color:#c9a050}.lw-person .go{display:inline-block;margin-top:8px;font:700 13px Inter,sans-serif;color:#c9a050;text-decoration:none}' +
   '.pf-lawyers{margin:22px 0}.pf-lawyers h2{font-size:18px;margin:0 0 10px}.pf-lawyers ul{margin:0 0 10px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}.pf-lawyers li a,.pf-lawyers li span{display:inline-block;padding:7px 12px;border:1px solid #ece6d3;border-radius:999px;background:#fff;font:600 14px Inter,sans-serif;color:#2a2a2a;text-decoration:none}.pf-lawyers li a:hover{border-color:#c9a050}.pf-lawyers .all{font:700 14px Inter,sans-serif;color:#c9a050;text-decoration:none}' +
   '.lp-head{display:flex;gap:18px;align-items:center;margin:0 0 16px}.lp-head .pf-h1{margin:0}.lp-head .t{margin:4px 0 0;color:#5f5f5f;font:500 15.5px/1.4 Inter,sans-serif}.lp-facts{margin:18px 0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;font-size:15px;line-height:1.5}.lp-facts dt{font-weight:700;color:#5f5f5f}.lp-facts dd{margin:0}.lp-links{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}.lp-back{margin:0 0 18px}.lp-back a{font:700 14px Inter,sans-serif;color:#c9a050;text-decoration:none}@media(max-width:520px){.lp-facts{grid-template-columns:1fr;gap:2px}.lp-facts dd{margin-bottom:8px}.lp-head{flex-direction:column;align-items:flex-start}}</style>';
 
@@ -431,30 +431,24 @@ function lawyerNote(list) {
   return `Taken from the firm's own website and not checked with the law society. ${tell}`;
 }
 
-// "Why people consider ...": reasons that are facts the page holds (see src/lib/why-consider.js), never an opinion.
-function whyHtml(title, reasons, note) {
-  if (!reasons.length) return '';
-  return `\n    <section class="pf-why" aria-label="${esc(title)}"><h2>${esc(title)}</h2><ul>${reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul><p class="pf-why-note">${esc(note)}</p></section>`;
+// "Things to consider" on a lawyer's page (src/lib/why-consider.js): the lawyer's background, each fact once and only when we have it; no section when there is nothing to say.
+function considerHtml(l) {
+  const { facts, achievements } = considerLawyer(l);
+  if (!facts.length && !achievements.length) return '';
+  const title = `Things to consider about ${l.name}`;
+  return `\n    <section class="pf-why" aria-label="${esc(title)}"><h2>${esc(title)}</h2>${facts.length ? `<ul>${facts.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}${achievements.length ? `<h3>Awards and achievements</h3><ul>${achievements.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</section>`;
 }
-const WHY_NOTE = 'These points are the facts on this page, not a recommendation or a ranking. Check any lawyer with their law society before you hire.';
-
-// The lawyers of a firm side by side, so they can be compared at a glance; on a phone each lawyer becomes a small card.
-function compareHtml(f, lw) {
-  const c = compareLawyers(lw);
-  if (!c) return '';
-  const head = `<tr><th scope="col">Lawyer</th>${c.columns.map((col) => `<th scope="col">${esc(col.label)}</th>`).join('')}</tr>`;
-  const rows = c.rows.map(({ lawyer: l, cells }) => `<tr><th scope="row" data-label="Lawyer">${lawyerHasPage(l) ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">${esc(l.name)}</a>` : esc(l.name)}</th>${cells.map((v, i) => `<td data-label="${esc(c.columns[i].label)}"${v ? '' : ' class="na"'}>${v ? esc(v) : '&ndash;'}</td>`).join('')}</tr>`).join('');
-  return `\n    <table class="lw-compare"><caption>Compare the lawyers at ${esc(f.name)}</caption><thead>${head}</thead><tbody>${rows}</tbody></table>`;
-}
+const callLink = (l, cls) => (l.phone ? `<a class="${cls}" href="tel:${esc(l.phone)}">Call ${esc(showPhone(l.phone))}</a>` : '');
 
 function lawyersTabHtml(f, lw, prov) {
   const cards = lw.map((l) => {
     const has = lawyerHasPage(l);
-    const facts = [l.callYear ? `Called ${l.callYear}` : '', l.languages ? joinAnd(l.languages) : ''].filter(Boolean).join(' · ');
-    return `<li class="lw-person">${lawyerAvatar(l)}<div><b>${has ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">${esc(l.name)}</a>` : esc(l.name)}</b>${l.title ? `<span class="t">${esc(l.title)}</span>` : ''}${facts ? `<span class="f">${esc(facts)}</span>` : ''}${has ? `<a class="go" href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">View profile &rarr;</a>` : ''}</div></li>`;
+    const p = inPractice(l.callYear);
+    const facts = [p ? (p.years >= 2 ? `${p.years} years in practice` : `In practice ${p.text}`) : '', l.languages ? joinAnd(l.languages) : ''].filter(Boolean).join(' \u00b7 ');
+    return `<li class="lw-person">${lawyerAvatar(l)}<div><b>${has ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">${esc(l.name)}</a>` : esc(l.name)}</b>${l.title ? `<span class="t">${esc(l.title)}</span>` : ''}${facts ? `<span class="f">${esc(facts)}</span>` : ''}${callLink(l, 'call')}${has ? `<a class="go" href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">View profile &rarr;</a>` : ''}</div></li>`;
   }).join('');
-  const areas = (f.tags || []).filter(Boolean).slice(0, 4);
-  return `\n    <h1 class="pf-h1">Lawyers at ${esc(f.name)}</h1>\n    <p class="pf-lede">${lw.length} lawyers at ${esc(f.name)} in ${esc(f.city)}, ${esc(prov)}${areas.length ? `, a firm that practises ${esc(joinAnd(areas.map((t) => t.toLowerCase())))}` : ''}. Each entry shows the lawyer's title and, where the firm publishes it, the year they were called to the bar, their languages and their education.</p>\n    ${compareHtml(f, lw)}\n    <ul class="lw-grid" style="list-style:none;padding:0">${cards}</ul>\n    <p class="pf-note">${lawyerNote(lw)}</p>`;
+  // no lead sentence: the heading, the tab's count and the firm's own page already say who the lawyers are and what the firm does
+  return `\n    <h1 class="pf-h1">Lawyers at ${esc(f.name)}</h1>\n    <ul class="lw-grid" style="list-style:none;padding:0">${cards}</ul>\n    <p class="pf-note">${lawyerNote(lw)}</p>`;
 }
 
 function articlesPageHtml(f, articles, prov) {
@@ -462,10 +456,10 @@ function articlesPageHtml(f, articles, prov) {
 }
 
 function lawyerPageHtml(f, lw, l, prov) {
-  const facts = lawyerFacts(l, prov).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
   const others = lw.filter((x) => x.slug !== l.slug).slice(0, 6).map((x) => `<li>${lawyerHasPage(x) ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(x.slug)}">${esc(x.name)}</a>` : `<span>${esc(x.name)}</span>`}</li>`).join('');
-  const links = (l.linkedin ? `<a class="pf-btn" href="${esc(l.linkedin)}" target="_blank" rel="noopener nofollow">LinkedIn</a>` : '') + (l.site ? `<a class="pf-btn" href="${esc(l.site)}" target="_blank" rel="noopener nofollow">On the firm's website</a>` : '') + `<a class="pf-btn pf-primary" href="/firms/${esc(f.slug)}#contact">Request a consultation</a>`;
-  return `\n    <p class="lp-back"><a href="/firms/${esc(f.slug)}/lawyers">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="/firms/${esc(f.slug)}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>\n    <p class="pf-lede">${esc(lawyerLead(l, f, prov))}</p>${whyHtml(`Why people consider ${l.name}`, whyLawyer(l, f, prov, { team: lw.length }), WHY_NOTE)}\n    <dl class="lp-facts">${facts}</dl>\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">All ${lw.length} lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">${lawyerNote([l])}</p>`;
+  const links = callLink(l, 'pf-btn') + (l.linkedin ? `<a class="pf-btn" href="${esc(l.linkedin)}" target="_blank" rel="noopener nofollow">LinkedIn</a>` : '') + (l.site ? `<a class="pf-btn" href="${esc(l.site)}" target="_blank" rel="noopener nofollow">On the firm's website</a>` : '') + `<a class="pf-btn pf-primary" href="/firms/${esc(f.slug)}#contact">Request a consultation</a>`;
+  // The heading already says who the lawyer is and where they work, so the page does not say it again: what follows is only what is not already on the page.
+  return `\n    <p class="lp-back"><a href="/firms/${esc(f.slug)}/lawyers">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="/firms/${esc(f.slug)}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>${considerHtml(l)}\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">See all lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">${lawyerNote([l])}</p>`;
 }
 
 export function renderFirmPage({ firm: f, hours, images = [], articles = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null, view = null }) {
@@ -610,7 +604,7 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
     ...[tab === 'lawyer' ? personLd : ld, ...(collectionLd ? [collectionLd] : []), crumbLd].map((o) => `<script type="application/ld+json">\n${jsonForHtml(o)}\n</script>`),
     C.STYLE + (tab === 'overview' ? PHOTO_CSS + GLANCE_CSS + OFFICES_CSS : '') + (tabs.length > 1 ? TABS_CSS : '') + (tab === 'overview' && commentsHtml(f) ? COMMENTS_CSS : '') + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (tab === 'overview' && f.block && f.block.image ? BLOCK_CSS : '') + (tab === 'overview' && practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
-    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov, tab === 'overview' ? [] : tab === 'lawyers' ? [['Lawyers', null]] : tab === 'articles' ? [['Articles', null]] : [['Lawyers', `/firms/${f.slug}/lawyers`], [lawyer.name, null]]) + card + tabsHtml(f, tabs, tab) + (tab === 'lawyers' ? lawyersTabHtml(f, lw, prov) : tab === 'articles' ? articlesPageHtml(f, articles, prov) : tab === 'lawyer' ? lawyerPageHtml(f, lw, lawyer, prov) : aboutHtml + practiceHtml(f, cards) + whyHtml(`Why people consider ${f.name}`, whyFirm(f, lw, prov), WHY_NOTE) + lawyersTeaser(f, lw) + commentsHtml(f) + overviewRest),
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov, tab === 'overview' ? [] : tab === 'lawyers' ? [['Lawyers', null]] : tab === 'articles' ? [['Articles', null]] : [['Lawyers', `/firms/${f.slug}/lawyers`], [lawyer.name, null]]) + card + tabsHtml(f, tabs, tab) + (tab === 'lawyers' ? lawyersTabHtml(f, lw, prov) : tab === 'articles' ? articlesPageHtml(f, articles, prov) : tab === 'lawyer' ? lawyerPageHtml(f, lw, lawyer, prov) : aboutHtml + practiceHtml(f, cards) + lawyersTeaser(f, lw) + commentsHtml(f) + overviewRest),
     carousel(f, nearby),
     tab === 'overview' ? '\n\n    ' + leadScript : '',
     tab === 'overview' ? '\n    ' + CONTACT_JS : '',

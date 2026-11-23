@@ -6,6 +6,7 @@
 // edits show up everywhere within the cache window. If the database fails for any reason, the static
 // file is served unchanged, so these pages can never go down because of the database.
 import { withHomeNews } from './home-news.js';
+import { lawyersOf, lawyerHasPage } from '../lib/lawyers.js';
 import { withDailyFirms } from './home-firms.js';
 
 const cacheSeconds = (env) => {
@@ -19,7 +20,10 @@ const cacheSeconds = (env) => {
 export const DROPPED_FIELDS = ['mapsUrl', 'blurb', 'dirUrl', 'heroImage', 'bioImage', 'details', 'bookingUrl', 'social', 'comments', 'commentsOff', 'lawyers', 'lawyersOff', 'lawyersLocked', 'lawyerPhotos'];
 const slimRow = (json) => {
   const o = JSON.parse(json);
+  // The Featured lawyers of a Featured firm (each has a page of their own) travel as `fl`, a name and a page address each: the map gives each one a pin of their own.
+  const fl = o.featured && Array.isArray(o.lawyers) && o.lawyers.some((l) => l && l.featured === true) ? lawyersOf(o).filter(lawyerHasPage).slice(0, 12).map((l) => ({ n: l.name, s: l.slug })) : [];
   for (const k of DROPPED_FIELDS) delete o[k];
+  if (fl.length) o.fl = fl;
   return JSON.stringify(o);
 };
 

@@ -26,7 +26,7 @@ const MIME = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
 const FACTS = ['name', 'title', 'callYear', 'education', 'languages', 'linkedin', 'site', 'achievements', 'phone'];
 // Two facts only a Featured firm may add (an admin is never limited): the awards and achievements listed for a lawyer, and the lawyer's direct phone number. Clearing them is always allowed.
 export const LAWYER_PAID_FACTS = { achievements: 'Listing awards and achievements', phone: "Adding a lawyer's direct phone number" };
-const FIELDS = [...FACTS, 'hidden', 'confirmed'];
+const FIELDS = [...FACTS, 'hidden', 'confirmed', 'featured'];
 
 // ---------------------------------------------------------------- what a firm may send
 const text = (v, label, max) => {
@@ -101,8 +101,13 @@ export function cleanLawyerInput(body, { admin = false, website = '' } = {}) {
     }
     out.site = raw;
   }
-  for (const k of ['hidden', 'confirmed']) {
-    if (k in body) { if (typeof body[k] !== 'boolean') throw new HttpError(422, `${k} must be true or false`); out[k] = body[k]; }
+  for (const k of ['hidden', 'confirmed', 'featured']) {
+    if (k in body) {
+      if (typeof body[k] !== 'boolean') throw new HttpError(422, `${k} must be true or false`);
+      // a Featured lawyer listing is paid for (billing, or an admin by hand): a firm cannot switch it on for itself
+      if (k === 'featured' && !admin) throw new HttpError(403, 'A Featured lawyer listing is switched on when it is paid for. Claim the profile to set it up.');
+      out[k] = body[k];
+    }
   }
   return out;
 }
@@ -149,12 +154,13 @@ export function lawyersView(firm) {
       const p = photoStateOf(l, decided[l.slug]);
       return {
         slug: l.slug, name: l.name, title: l.title || '', callYear: l.callYear || null, education: l.education || [], languages: l.languages || [], linkedin: l.linkedin || '', site: l.site || '', achievements: l.achievements || [], phone: l.phone || '',
-        hidden: !!l.hidden, confirmed: !!l.confirmed,
-        hasPage: pageExists && !l.hidden && lawyerHasPage(l),
+        hidden: !!l.hidden, confirmed: !!l.confirmed, featured: !!l.featured,
+        hasPage: pageExists && !l.hidden && lawyerHasPage({ ...l, featured: !!(firm.featured && l.featured) }),
         photo: p.state === 'none' ? { state: 'none' } : { state: p.state, url: p.url },
       };
     }),
     lawyersOff: !!firm.lawyersOff,
+    firmFeatured: !!firm.featured,
     locked: !!firm.lawyersLocked,
     shown: shown.length,
     pageExists,
@@ -174,7 +180,7 @@ function apply(next, input) {
     const before = next[k];
     if (JSON.stringify(before ?? null) === JSON.stringify(empty ? null : v)) continue;
     changes[k] = { from: before ?? null, to: empty ? null : v };
-    if (k === 'hidden' || k === 'confirmed') { if (v) next[k] = true; else delete next[k]; } else if (empty) delete next[k]; else next[k] = v;
+    if (k === 'hidden' || k === 'confirmed' || k === 'featured') { if (v) next[k] = true; else delete next[k]; } else if (empty) delete next[k]; else next[k] = v;
   }
   return changes;
 }

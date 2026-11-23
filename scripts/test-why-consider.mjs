@@ -31,7 +31,7 @@ for (const f of (await import('node:fs')).readdirSync('data').filter((x) => /^fi
 const EVAL = /\b(?:best|top|leading|premier|elite|expert|experts|expertise|specialist|specialists|specialize[sd]?|specializing|award[- ]winning|trusted|proven|aggressive|renowned|prestigious|exceptional|outstanding|skilled|experienced|highly|finest|foremost|recommended|reputable|successful|winning|great|excellent)\b/i;
 let sections = 0, lines = 0, flagged = [], thin = [];
 for (const f0 of all) {
-  const f = { ...f0, lawyers: stored[f0.slug] };
+  const f = { ...f0, featured: true, lawyers: (stored[f0.slug] || []).map((l) => ({ ...l, featured: true })) }; // as if every lawyer were Featured: every page that could exist
   for (const l of lawyersOf(f).filter(lawyerHasPage)) {
     const r = considerLawyer(l);
     const n = r.facts.length + r.achievements.length;
@@ -55,7 +55,7 @@ const PILOT = 'mincher-koeman-law-chambers-calgary';
 const pilot = all.find((x) => x.slug === PILOT);
 const copy = JSON.parse(readFileSync('data/firm-copy.json', 'utf8'));
 const details = JSON.parse(readFileSync('data/firm-details.json', 'utf8'));
-const firm = (extra = {}) => ({ ...pilot, about: copy[PILOT], lawyers: stored[PILOT], details: details[PILOT] || pilot.details, ...extra });
+const firm = (extra = {}) => ({ ...pilot, featured: true, about: copy[PILOT], lawyers: stored[PILOT].map((l) => ({ ...l, featured: true })), details: details[PILOT] || pilot.details, ...extra });
 const render = (view = null, extra = {}) => renderFirmPage({ firm: firm(extra), hours: null, images: [], posts: [], nearby: [], locations: [], origin: 'https://lawdb.ca', view });
 const lw = lawyersOf(firm());
 const withPage = lw.find((l) => lawyerHasPage(l) && considerLawyer(l).facts.length >= 2);
@@ -67,11 +67,18 @@ ok(!/class="pf-lede"/.test(body) && (body.match(new RegExp(`${withPage.title.rep
 ok(!/lawyers? listed|One of \d+ lawyers|Google reviews|out of 5/.test(body), 'no team size and no firm rating on the lawyer page');
 ok(!/class="pf-why"/.test(tab) && !/class="pf-why"/.test(overview) && !/lw-compare/.test(tab), 'the Lawyers page and the Overview have no "things to consider" list and no second table of the same facts');
 ok(/years in practice|In practice since/.test(tab) && /class="lw-person"/.test(tab), 'the Lawyers page cards say years in practice');
-const paid = [{ name: 'Ana Lee', slug: 'ana-lee', title: 'Senior Partner', callYear: 2008, languages: ['English'], confirmed: true, achievements: ['Lexpert Rising Star, 2023'], phone: '+14035550100' }, { name: 'Bo Chan', slug: 'bo-chan', title: 'Associate', callYear: 2015, languages: ['French'] }];
-const paidPage = (featured, view) => renderFirmPage({ firm: { ...pilot, about: copy[PILOT], lawyers: paid, featured }, view });
-const featured = paidPage(true, { tab: 'lawyer', lawyer: 'ana-lee' }), basic = paidPage(false, { tab: 'lawyer', lawyer: 'ana-lee' });
-ok(featured.includes('<h3>Awards and achievements</h3>') && featured.includes('Lexpert Rising Star, 2023') && featured.includes('Call (403) 555-0100'), 'a Featured firm\'s lawyer page lists the awards and has a Call button');
-ok(!basic.includes('Awards and achievements') && !basic.includes('Call (403)') && basic.includes('18 years in practice, since 2008.'), 'a firm that is not Featured shows neither, but the lawyer\'s own facts stay');
+const paid = [{ name: 'Ana Lee', slug: 'ana-lee', title: 'Senior Partner', callYear: 2008, languages: ['English'], confirmed: true, featured: true, achievements: ['Lexpert Rising Star, 2023'], phone: '+14035550100' }, { name: 'Bo Chan', slug: 'bo-chan', title: 'Associate', callYear: 2015, languages: ['French'] }];
+const paidPage = (featured, view, lawyers = paid) => renderFirmPage({ firm: { ...pilot, about: copy[PILOT], lawyers, featured }, view });
+const featured = paidPage(true, { tab: 'lawyer', lawyer: 'ana-lee' });
+ok(featured.includes('<h3>Awards and achievements</h3>') && featured.includes('Lexpert Rising Star, 2023') && featured.includes('Call (403) 555-0100') && featured.includes('18 years in practice, since 2008.'), 'a Featured lawyer at a Featured firm has a page with the awards and a Call button');
+ok(paidPage(false, { tab: 'lawyer', lawyer: 'ana-lee' }) === null && paidPage(true, { tab: 'lawyer', lawyer: 'bo-chan' }) === null, 'a lawyer at a firm that is not Featured, or one who has not paid, has no page of their own');
+const basicTab = paidPage(true, { tab: 'lawyers' });
+const cards = basicTab.slice(basicTab.indexOf('<ul class="lw-grid"'), basicTab.indexOf('</ul>', basicTab.indexOf('<ul class="lw-grid"')));
+const boCard = cards.split('<li class="lw-person">').find((c) => c.includes('Bo Chan'));
+ok(boCard.includes('Associate') && boCard.includes('11 years in practice') && !/French|View profile|<a /.test(boCard.replace(/<b>[^<]*<\/b>/, '')), 'a lawyer who has not paid is a card with name, role and years in practice, and no link, language or phone');
+ok(/id="claim-lawyer"/.test(basicTab) && /Claim my profile/.test(basicTab) && /data-lawyer-claim/.test(basicTab) && /<option value="ana-lee">Ana Lee<\/option>/.test(basicTab) && basicTab.includes('$99 a month'), 'the Lawyers page invites a lawyer to claim their profile and says what a Featured lawyer listing costs');
+ok(paidPage(false, { tab: 'lawyers' }).includes('$199 a month') && paidPage(false, { tab: 'lawyers' }).includes('available once your firm is Featured'), 'a firm that is not Featured is told its lawyers can go Featured once it is');
+ok(!/class="pf-why"/.test(paidPage(true, { tab: 'lawyer', lawyer: 'ana-lee' }).replace(/<section class="pf-why"[\s\S]*?<\/section>/, '')), 'one "things to consider" section per lawyer page');
 
 console.log(bad ? `\n${bad} check(s) failed` : '\nall checks passed');
 process.exit(bad ? 1 : 0);

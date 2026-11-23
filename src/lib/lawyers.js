@@ -12,8 +12,8 @@
 // phone number. No biography text is copied. A picture is kept as an address and shown only once it is confirmed (photoConfirmed), because it is the firm's or the lawyer's picture.
 // cleanLawyers keeps only what is well formed and plain, so nothing odd can reach a page, whatever is in the data.
 //
-// A page is only made when it has something to say (no thin pages): a firm needs two or more lawyers for a Lawyers page, and a lawyer needs a clear title and at
-// least two more facts (year called, school, language, LinkedIn) for a page of their own. The others still appear on the firm's Lawyers page.
+// A page is only made when it has something to say (no thin pages): a firm needs two or more lawyers for a Lawyers page (every lawyer shows name, role and years in
+// practice there), and a page of their own is a Featured lawyer's, with a clear title and at least one fact to show. See lawyersOf for what each plan shows.
 import { checkOwnerText } from './content-rules.js';
 import { LANGUAGES } from './details.js';
 
@@ -194,6 +194,7 @@ export function cleanLawyers(list, thisYear = new Date().getFullYear(), decision
       ...(stored ? (photo ? { photo, photoConfirmed: l.photoConfirmed === true } : {}) : (shown.state === 'confirmed' ? { photo: shown.url } : {})),
       ...(stored && found && photo !== found ? { photoFound: found } : {}),
       ...(mine ? { confirmed: true } : {}),
+      ...(l.featured === true ? { featured: true } : {}),
       ...(l.hidden === true ? { hidden: true } : {}),
     });
   }
@@ -217,10 +218,14 @@ export function photoStateOf(l, d) {
 }
 
 // The lawyers a firm's pages may show: none when the firm has switched them off or has fewer than MIN_FIRM_LAWYERS.
+// What a visitor sees of a lawyer depends on the plan. Every lawyer a firm lists shows the same: name, role and years in practice. A Featured lawyer (`featured: true` on the
+// lawyer, which only billing or an admin sets) at a Featured firm also gets a page of their own and shows everything we hold: education, languages, LinkedIn, the page on the
+// firm's site, a picture, awards and achievements, and a direct phone number. The facts stay on record for a lawyer who is not (or no longer) Featured and come back with
+// the plan, so what a firm entered is never lost.
+const basicOf = ({ name, slug, title, callYear, confirmed }) => ({ name, slug, ...(title ? { title } : {}), ...(callYear ? { callYear } : {}), ...(confirmed ? { confirmed } : {}) });
 export function lawyersOf(firm) {
   if (!firm || firm.lawyersOff) return [];
-  // awards and a direct phone number are Featured benefits: a firm that is not (or no longer) Featured keeps them on record, but its pages do not show them
-  const l = cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos).filter((x) => !x.hidden).map(({ achievements, phone, ...rest }) => (firm.featured ? { ...rest, ...(achievements ? { achievements } : {}), ...(phone ? { phone } : {}) } : rest));
+  const l = cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos).filter((x) => !x.hidden).map((x) => (firm.featured && x.featured ? x : basicOf(x)));
   return l.length >= MIN_FIRM_LAWYERS ? l : [];
 }
 
@@ -246,9 +251,10 @@ export function sourcePhoto(firm, lawyerSlugValue) {
 }
 
 // A lawyer has a page of their own only with a clear title and at least two more facts (year called, school, language, LinkedIn).
-export const MIN_PAGE_FACTS = 2;
+export const MIN_PAGE_FACTS = 1;
+// A page of their own is a Featured lawyer's: it needs a clear title and at least one fact to show (no thin pages), and only a lawyer that lawyersOf returned as Featured has `featured`.
 export function lawyerHasPage(l) {
-  return !!(l && l.title && [l.callYear, l.education, l.languages, l.linkedin, l.achievements].filter(Boolean).length >= MIN_PAGE_FACTS);
+  return !!(l && l.featured && l.title && [l.callYear, l.education, l.languages, l.linkedin, l.achievements, l.phone].filter(Boolean).length >= MIN_PAGE_FACTS);
 }
 
 // A "really good" lawyer profile, for putting a firm on the home page: the Lawyers tab lists three or more lawyers, at least two thirds of them with a clear
@@ -257,7 +263,8 @@ export function lawyerHasPage(l) {
 export const STRONG_MIN_LAWYERS = 3;
 export const STRONG_MIN_WITH_FACTS = 2;
 export function strongLawyerProfile(firm) {
-  const l = lawyersOf(firm);
+  // judged on the facts we hold for the lawyers (what a Featured lawyer listing can show), not on what a Basic listing shows: this is about how complete the data is, whatever the plan
+  const l = !firm || firm.lawyersOff ? [] : cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos).filter((x) => !x.hidden);
   if (l.length < STRONG_MIN_LAWYERS) return false;
   const titled = l.filter((x) => x.title).length;
   const withFacts = l.filter((x) => [x.callYear, x.education, x.languages, x.linkedin, x.achievements].some(Boolean)).length;

@@ -11,6 +11,7 @@
 // Every plan cell is an icon only (a tick or a lock), so nothing in the two plan columns can fall out of line; the wording lives in the
 // left-hand column, a title and one line under it.
 import { readFileSync, writeFileSync } from 'node:fs';
+import { FIRM_PRICE, LAWYER_PRICE } from '../src/lib/plans.js';
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -25,6 +26,7 @@ export const FREE = {
     ['Say who you serve and whether you are taking clients', 'Languages, the year you started practising, new-client status and virtual consultations'],
     ['Get verified by LawDB', 'We check your law society registration and show a Verified badge, with what we checked and a link to the directory'],
     ['Listed by case type and city', 'Your firm has its own page in the directory'],
+    ['Your lawyers listed', 'Every lawyer you list shows their name, role and years in practice, and can claim their profile'],
     ['Every enquiry emailed to you', 'Straight to your inbox'],
     ['Your numbers for the last 30 days', 'Page views, visitors, clicks and enquiries as totals, with a weekly email'],
     ['Your blog posts on an Articles tab', 'Once you have three, all on a page of their own that links to your own site'],
@@ -49,6 +51,9 @@ export const FEATURED = {
     ['Your page, your way', [
       ['Your logo, cover picture and photos', 'Make the page look like your firm'],
       ['Book a call button with your own booking link', 'Clients book you straight from your page'],
+    ]],
+    ['Your lawyers', [
+      ['Your lawyers can add their own Featured listing', 'A page of their own, a direct phone number, awards and their own pin on the map, $' + LAWYER_PRICE + ' a month each, paid by the lawyer. It needs a Featured firm'],
     ]],
     ['More than one office', [
       ['A page for every office', 'Each office gets its own page, in its own city and on the map. One plan covers every page'],
@@ -76,7 +81,7 @@ export function table({ basicHref, basicLabel, basicShort, featHref, featLabel, 
   const head = `<thead><tr>
         <th class="pc-lab pc-corner" scope="col">What you get</th>
         <th class="pc-h pc-b" scope="col"><span class="pc-name">Basic</span><span class="pc-price">Free</span><span class="pc-sub">Always free</span>${basicBtn}</th>
-        <th class="pc-h pc-f" id="planFeatured" scope="col"><span class="pc-tag">First 30 days free</span><span class="pc-name">Featured</span><span class="pc-price">$89<small> / month</small></span><span class="pc-sub">No card to start. Cancel any time.</span>${featBtn}</th>
+        <th class="pc-h pc-f" id="planFeatured" scope="col"><span class="pc-tag">First 30 days free</span><span class="pc-name">Featured firm</span><span class="pc-price">$${FIRM_PRICE}<small> / month</small></span><span class="pc-sub">No card to start. Cancel any time.</span>${featBtn}</th>
       </tr></thead>`;
 
   const free = `<tr class="pc-band pc-band-free"><th colspan="3" scope="colgroup"><b>${esc(FREE.title)}</b><span>${esc(FREE.note)}</span></th></tr>

@@ -256,6 +256,10 @@ html body.gm-on .gm-head p{ font-size:15.5px !important; line-height:1.55; color
 .gm-sel .gm-i-thumb{ width:72px; height:72px; border-radius:16px; font-size:26px; }
 .gm-sel .gm-i-name{ font-size:20px; }
 .gm-sel .gm-i-addr{ white-space:normal; }
+.gm-sel-lawyers{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:0 16px 12px; }
+.gm-sel-lawyers b{ font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--gm-sub); margin-right:2px; }
+.gm-sel-lawyers a{ font-size:13px; font-weight:600; color:#2a2a2a; border:1px solid var(--gm-line); border-radius:14px; padding:4px 10px; text-decoration:none; background:#ffffff; }
+.gm-sel-lawyers a:hover{ border-color:#c9a050; }
 .gm-sel-tags{ display:flex; flex-wrap:wrap; gap:6px; padding:0 16px 14px; }
 .gm-sel-tags span{ font-size:12.5px; font-weight:500; color:var(--gm-sub); border:1px solid var(--gm-line); border-radius:14px; padding:4px 10px; text-decoration:none; background:#ffffff; }
 

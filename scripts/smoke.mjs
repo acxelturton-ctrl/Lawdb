@@ -1142,7 +1142,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   as(o1.jar);
   const plan0 = (await call('GET', '/api/account/firms/achkar-law/plan')).data;
   const upUrl = new URL(plan0.upgradeUrl);
-  ok(plan0.featured === false && plan0.price === '$89 / month' && upUrl.origin === 'https://buy.stripe.com' && upUrl.searchParams.get('client_reference_id') === 'achkar-law' && upUrl.searchParams.get('prefilled_email') === ownerEmail1 && plan0.portalUrl === null, 'a Basic firm\'s owner gets an upgrade link with the firm and email attached');
+  ok(plan0.featured === false && plan0.price === '$199 / month' && upUrl.origin === 'https://buy.stripe.com' && upUrl.searchParams.get('client_reference_id') === 'achkar-law' && upUrl.searchParams.get('prefilled_email') === ownerEmail1 && plan0.portalUrl === null, 'a Basic firm\'s owner gets an upgrade link with the firm and email attached');
   as(o2.jar);
   ok((await call('GET', '/api/account/firms/achkar-law/plan')).status === 403, 'another owner cannot see this plan');
   cookie = '';

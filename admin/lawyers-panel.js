@@ -106,15 +106,17 @@ export function lawyersPanel({ base, mode, featured }) {
       l.confirmed && h('span', { class: 'badge featured' }, 'Confirmed'),
       !l.confirmed && !l.hidden && h('span', { class: 'badge new' }, 'From your website'),
       l.hidden && h('span', { class: 'badge' }, 'Hidden'),
+      l.featured && h('span', { class: 'badge featured' }, l.hasPage ? 'Featured lawyer' : 'Featured lawyer (needs a Featured firm)'),
       l.hasPage && h('a', { class: 'lwp-own', href: `/firms/${slug}/lawyers/${l.slug}`, target: '_blank', rel: 'noopener' }, 'Own page ↗'),
     ];
-    const meta = [l.title, l.callYear ? `Called ${l.callYear}` : '', l.languages.join(', ')].filter(Boolean).join(' · ');
+    const meta = [l.title, l.callYear ? `Called ${l.callYear}` : '', l.languages.join(', ')].filter(Boolean).join(' · '); // the editor says what was entered; pages say years in practice
     const act = (label, fn, cls) => h('button', { type: 'button', class: cls || null, onclick: fn }, label);
     return h('li', { class: 'lwp-row' + (l.hidden ? ' is-hidden' : '') },
       h('div', { class: 'lwp-main' }, avatar(l), h('div', { class: 'lwp-info' }, h('b', null, l.name), meta && h('span', { class: 'muted' }, meta), h('span', { class: 'lwp-badges' }, status)),
         h('div', { class: 'lwp-actions' },
           !l.confirmed && !l.hidden && act('Looks right', () => call('PATCH', `${url}/${l.slug}`, { confirmed: true }, `${l.name} is confirmed.`), 'primary'),
           act(open === l.slug ? 'Close' : 'Edit', () => { open = open === l.slug ? null : l.slug; draw(); }),
+          mode === 'admin' && act(l.featured ? 'End Featured listing' : 'Make Featured lawyer', () => call('PATCH', `${url}/${l.slug}`, { featured: !l.featured }, l.featured ? `${l.name}'s Featured lawyer listing is off.` : `${l.name} is a Featured lawyer.`)),
           act(l.hidden ? 'Show' : 'Hide', () => call('PATCH', `${url}/${l.slug}`, { hidden: !l.hidden }, l.hidden ? `${l.name} is shown again.` : `${l.name} is hidden from your profile.`)),
           act('Remove', () => { if (confirm(`Remove ${l.name} from your profile?`)) call('DELETE', `${url}/${l.slug}`, null, `${l.name} was removed.`); }))),
       open === l.slug && form(l));
@@ -136,7 +138,8 @@ export function lawyersPanel({ base, mode, featured }) {
       s.lawyers.length ? h('ul', { class: 'lwp-list' }, s.lawyers.map(row)) : null,
       h('div', { class: 'row' }, add),
       open === 'new' && form(null),
-      h('p', { class: 'muted ed-strength-note' }, `A lawyer gets a page of their own when they have a title and at least ${s.limits.minFacts} of: year called, education, languages, LinkedIn. None of this is checked with the law society.`),
+      h('p', { class: 'muted ed-strength-note' }, 'On your profile every lawyer shows their name, role and years in practice. A page of their own, education, languages, a picture, awards, a direct phone number and a pin on the map belong to a Featured lawyer listing, which a lawyer at a Featured firm can add. What you enter here is kept for when they do. None of this is checked with the law society.'),
+      !s.firmFeatured && mode === 'owner' && h('p', { class: 'ed-lock' }, lockIcon(), 'Your firm is not Featured yet. Featured lawyer listings are available once it is.'),
       out].filter(Boolean));
   }
 

@@ -160,10 +160,15 @@
         (f.website ? '<a class="gm-act" href="' + esc(f.website) + '" target="_blank" rel="' + (f.featured ? 'noopener sponsored' : 'noopener nofollow') + '">' + IC.web + 'Website</a>' : '') +
       '</div></article>';
   }
+  /* the firm's Featured lawyers (f.fl, from /firms_data.json): each has a pin of their own and a page of their own */
+  function lawyersHtml(f){
+    if(!f.fl || !f.fl.length) return '';
+    return '<div class="gm-sel-lawyers"><b>Featured lawyers</b>' + f.fl.map(function(l){ return '<a href="' + esc(ROOT + 'firms/' + f.slug + '/lawyers/' + l.s) + '">' + esc(l.n) + '</a>'; }).join('') + '</div>';
+  }
   function detailHtml(f){
     var tags = (f.caseTypes || []).slice(0, 6).map(function(c){ return '<span>' + esc(areaName(c, f.province)) + '</span>'; }).join('');
     return '<div class="gm-sel-bar"><button class="gm-sel-back" type="button" data-back>' + IC.back + 'All results</button></div>' +
-      itemHtml(f, true) + (tags ? '<div class="gm-sel-tags">' + tags + '</div>' : '');
+      itemHtml(f, true) + lawyersHtml(f) + (tags ? '<div class="gm-sel-tags">' + tags + '</div>' : '');
   }
 
   /* ------------------------------------------------------------ filtering */
@@ -312,8 +317,16 @@
     if(!mapOK) return;
     mapDataList = view.slice();
     var b = [], ft = [];
-    view.forEach(function(f, i){ (f.featured ? ft : b).push(pt(f, props(f, i))); });
-    try { map.getSource('firms').setData(fc(b)); map.getSource('firms-feat').setData(fc(ft)); } catch(e){}
+    var lp = [];
+    view.forEach(function(f, i){
+      (f.featured ? ft : b).push(pt(f, props(f, i)));
+      // each Featured lawyer of a Featured firm gets a pin of their own, a few metres from the firm's, all round it
+      if(f.featured && f.fl) f.fl.forEach(function(l, k){
+        var a = (k + 1) * (2 * Math.PI / (f.fl.length + 1)), dLat = 0.00022 * Math.sin(a), dLng = 0.00022 * Math.cos(a) / Math.max(0.3, Math.cos(f.lat * Math.PI / 180));
+        lp.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [f.lng + dLng, f.lat + dLat] }, properties: { idx: i, name: l.n } });
+      });
+    });
+    try { map.getSource('firms').setData(fc(b)); map.getSource('firms-feat').setData(fc(ft)); map.getSource('lawyers').setData(fc(lp)); } catch(e){}
     setSelSource();
     if(refit) fitView();
   }
@@ -499,6 +512,7 @@
   };
 
   /* ------------------------------------------------------------ pins */
+  var LAWYER_PIN = '#2a2a2a'; // the Featured lawyer's pin (the colour is only here)
   function pinImage(fill, stroke, scale, gold, dot){
     var W = Math.round(34 * scale), H = Math.round(46 * scale);
     var c = document.createElement('canvas'); c.width = W * 2; c.height = H * 2;
@@ -561,9 +575,10 @@
     var empty = fc([]);
     map.addSource('firms', { type: 'geojson', data: empty, cluster: true, clusterRadius: 46, clusterMaxZoom: 10 });
     map.addSource('firms-feat', { type: 'geojson', data: empty });
+    map.addSource('lawyers', { type: 'geojson', data: empty });
     map.addSource('firm-sel', { type: 'geojson', data: empty });
     map.addSource('me', { type: 'geojson', data: empty });
-    var IM = { 'gm-pin': ['#b8892f', '#ffffff', 1, false], 'gm-pin-gold': ['#d9b35a', '#ffffff', 1.12, true], 'gm-pin-sel': ['#c9a050', '#ffffff', 1.35, false, '#f2d98f'], 'gm-pin-sel-gold': ['#c9a050', '#c9a050', 1.5, true] };
+    var IM = { 'gm-pin': ['#b8892f', '#ffffff', 1, false], 'gm-pin-gold': ['#d9b35a', '#ffffff', 1.12, true], 'gm-pin-sel': ['#c9a050', '#ffffff', 1.35, false, '#f2d98f'], 'gm-pin-sel-gold': ['#c9a050', '#c9a050', 1.5, true], 'gm-pin-lawyer': [LAWYER_PIN, '#ffffff', 0.9, false, '#e2bd6a'] };
     Object.keys(IM).forEach(function(k){ if(!map.hasImage(k)) map.addImage(k, pinImage(IM[k][0], IM[k][1], IM[k][2], IM[k][3], IM[k][4]), { pixelRatio: 2 }); });
     var font = pickFonts(), tf = font.bold || font.any;
     var size = ['interpolate', ['linear'], ['zoom'], 8, 0.55, 13, 0.8];
@@ -585,18 +600,22 @@
       layout: { 'icon-image': 'gm-pin-gold', 'icon-size': ['interpolate', ['linear'], ['zoom'], 8, 0.62, 13, 0.9], 'icon-anchor': 'bottom', 'icon-allow-overlap': true } });
     labelLayer('firm-feat-label', 'firms-feat', true, null);
 
+    // a Featured lawyer's own pin: dark with a gold dot, like the lawyer's initials badge; from street level, where a firm's lawyers can be told apart
+    map.addLayer({ id: 'lawyer-pin', type: 'symbol', source: 'lawyers', minzoom: 13,
+      layout: { 'icon-image': 'gm-pin-lawyer', 'icon-size': ['interpolate', ['linear'], ['zoom'], 13, 0.6, 16, 0.85], 'icon-anchor': 'bottom', 'icon-allow-overlap': true } });
+
     map.addLayer({ id: 'firm-pin-sel', type: 'symbol', source: 'firm-sel',
       layout: { 'icon-image': ['case', ['==', ['get', 'featured'], 1], 'gm-pin-sel-gold', 'gm-pin-sel'], 'icon-size': 0.82, 'icon-anchor': 'bottom', 'icon-allow-overlap': true } });
 
     map.addLayer({ id: 'me-halo', type: 'circle', source: 'me', paint: { 'circle-radius': 20, 'circle-color': '#e2bd6a', 'circle-opacity': 0.2 } });
     map.addLayer({ id: 'me-dot', type: 'circle', source: 'me', paint: { 'circle-radius': 7.5, 'circle-color': '#e2bd6a', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2.5 } });
 
-    var tapLayers = ['firm-pin', 'firm-label', 'firm-feat-pin', 'firm-feat-label', 'firm-pin-sel'];
+    var tapLayers = ['firm-pin', 'firm-label', 'firm-feat-pin', 'firm-feat-label', 'lawyer-pin', 'firm-pin-sel'];
     function pick(e){
       var f = e.features && e.features[0]; if(!f) return;
       var rec = mapDataList[f.properties.idx]; if(rec) select(rec, true);
     }
-    ['firm-pin', 'firm-label', 'firm-feat-pin', 'firm-feat-label'].forEach(function(id){
+    ['firm-pin', 'firm-label', 'firm-feat-pin', 'firm-feat-label', 'lawyer-pin'].forEach(function(id){
       map.on('click', id, pick);
       map.on('mouseenter', id, function(){ map.getCanvas().style.cursor = 'pointer'; });
       map.on('mouseleave', id, function(){ map.getCanvas().style.cursor = ''; });

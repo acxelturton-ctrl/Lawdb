@@ -9,8 +9,9 @@ import { siblingsOf } from '../lib/locations.js';
 import { firmStats } from '../lib/firm-stats.js';
 import { bookingRow } from '../render/booking.js';
 import { listArticles, articlesIndexable } from '../lib/articles.js';
+import { lawyersOf } from '../lib/lawyers.js';
 
-const CACHE_GENERATION = 8; // 8: every firm's articles on the Articles page, none at the bottom of the Overview; 7: the Articles page and a tab bar that can hold more pages; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
+const CACHE_GENERATION = 9; // 9: Basic lawyers show name, role and years in practice only, a page of their own is a Featured lawyer's; 8: 8: every firm's articles on the Articles page, none at the bottom of the Overview; 7: the Articles page and a tab bar that can hold more pages; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -97,8 +98,12 @@ export async function firmPage({ request, env, ctx }) {
     // every firm's articles are on the Articles page, never on the Overview; the tab shows when there are enough (src/lib/articles.js). The page always works without them.
     const articles = await listArticles(env, m[1]).catch((err) => { console.error('articles lookup failed', m[1], err); return []; });
     html = renderFirmPage({ firm, hours, images: photos, articles, nearby: await nearbyFirms(env, firm), locations: await siblingsOf(env, m[1]), stats: await firmStats(env, firm), verified, view, origin: env.SITE_ORIGIN || url.origin });
-    // A Lawyers page for a firm with no lawyers to show, or a page for a lawyer who has none, does not exist: 404, never an empty page.
-    if (html === null) return env.ASSETS.fetch(request);
+    // A Lawyers page for a firm with no lawyers to show does not exist: 404, never an empty page. A lawyer who is listed but has no page of their own (only a Featured lawyer has one)
+    // goes to the Lawyers page, so an address that was shared or indexed before still lands somewhere useful; a short cache so a lawyer who goes Featured gets the page soon.
+    if (html === null) {
+      if (view && view.tab === 'lawyer' && lawyersOf(firm).some((l) => l.slug === view.lawyer)) return new Response(null, { status: 302, headers: { location: `/firms/${m[1]}/lawyers`, 'cache-control': 'public, max-age=300' } });
+      return env.ASSETS.fetch(request);
+    }
   } catch (err) {
     console.error('profile render failed, serving the saved copy', m[1], err);
     return env.ASSETS.fetch(request);

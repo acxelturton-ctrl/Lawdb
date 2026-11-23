@@ -86,7 +86,15 @@ ok(lawyerSlug('Renée O’Brien-Smith') === 'renee-o-brien-smith', 'slugs are pl
 
 const two = [{ name: 'Ann Lee', title: 'Partner' }, { name: 'Bo Chan', title: 'Associate', callYear: 2015, languages: ['French'] }];
 ok(lawyersOf({ lawyers: two }).length === 2 && lawyersOf({ lawyers: [two[0]] }).length === 0 && lawyersOf({ lawyers: two, lawyersOff: true }).length === 0 && lawyersOf({}).length === 0 && MIN_FIRM_LAWYERS === 2, 'a firm needs two lawyers to show any; lawyersOff hides them all');
-ok(!lawyerHasPage(cleanLawyers(two)[0]) && lawyerHasPage(cleanLawyers(two)[1]) && !lawyerHasPage({ name: 'X Y', callYear: 2000, languages: ['French'] }) && !lawyerHasPage({ name: 'X Y', title: 'Partner', callYear: 2000 }), 'a lawyer has a page only with a title and two more facts');
+const rich = { name: 'Ann Lee', title: 'Partner', callYear: 2001, education: ['LL.B., University of Alberta'], languages: ['French'], linkedin: 'https://www.linkedin.com/in/ann-lee', site: 'https://firm.example/ann', photo: 'https://firm.example/ann.jpg', photoConfirmed: true };
+const basicOnly = lawyersOf({ lawyers: [rich, { ...rich, name: 'Bo Chan' }] });
+ok(basicOnly.length === 2 && basicOnly.every((l) => Object.keys(l).sort().join() === 'callYear,name,slug,title') && basicOnly.every((l) => !lawyerHasPage(l)), 'a Basic lawyer shows name, role and years in practice only, and has no page of their own');
+ok(lawyersOf({ featured: true, lawyers: [rich, { ...rich, name: 'Bo Chan' }] }).every((l) => !l.featured && !l.education && !l.photo && !lawyerHasPage(l)), 'a Featured firm does not make its lawyers Featured: each lawyer pays for their own');
+ok(lawyersOf({ lawyers: [{ ...rich, featured: true }, { ...rich, name: 'Bo Chan' }] }).every((l) => !l.featured && !l.education), 'a Featured lawyer at a firm that is not Featured is shown as Basic (the lawyer plan needs the firm plan)');
+const both = lawyersOf({ featured: true, lawyers: [{ ...rich, featured: true }, { ...rich, name: 'Bo Chan' }] });
+ok(both[0].featured === true && both[0].education.length === 1 && both[0].languages[0] === 'French' && both[0].linkedin && both[0].photo && !both[1].education && lawyerHasPage(both[0]) && !lawyerHasPage(both[1]), 'a Featured lawyer at a Featured firm shows everything and has a page; the colleague who has not paid does not');
+ok(!lawyerHasPage({ name: 'X Y', title: 'Partner', featured: true }) && !lawyerHasPage({ name: 'X Y', callYear: 2000, featured: true }) && lawyerHasPage({ name: 'X Y', title: 'Partner', callYear: 2000, featured: true }), 'a Featured lawyer\'s page needs a title and at least one fact (no thin pages)');
+ok(cleanLawyers([{ name: 'Ann Lee', title: 'Partner', featured: true }])[0].featured === true && !('featured' in cleanLawyers([{ name: 'Ann Lee', title: 'Partner', featured: 'yes' }])[0]), 'only a real true keeps the Featured flag on a lawyer');
 
 // ---- the stored data ----
 const stored = JSON.parse(readFileSync('data/firm-lawyers.json', 'utf8'));
@@ -102,7 +110,10 @@ for (const f of readdirSync('data').filter((x) => /^firms-batch-\d+\.json$/.test
 const copy = JSON.parse(readFileSync('data/firm-copy.json', 'utf8'));
 const PILOT = 'mincher-koeman-law-chambers-calgary';
 const pilot = all.find((x) => x.slug === PILOT);
-const withLawyers = { ...pilot, about: copy[PILOT], lawyers: stored[PILOT] };
+const hasFact = (l) => !!(l.callYear || (l.education && l.education.length) || (l.languages && l.languages.length) || l.linkedin);
+// the pilot as a Featured firm in which the first lawyers with something to show have paid for a Featured lawyer listing
+let nFeat = 0;
+const withLawyers = { ...pilot, featured: true, about: copy[PILOT], lawyers: stored[PILOT].map((l) => (nFeat < 4 && hasFact(l) && l.title && ++nFeat ? { ...l, featured: true } : l)) };
 const render = (firm, view = null) => renderFirmPage({ firm, hours: null, images: [], posts: [], nearby: all.filter((x) => x.city === pilot.city && x.slug !== firm.slug).slice(0, 3), locations: [], origin: 'https://lawdb.ca', view });
 const parts = (html) => ({
   title: (html.match(/<title>([^<]*)<\/title>/) || [])[1] || '',
@@ -137,7 +148,7 @@ ok(views.overview.includes(`href="/firms/${PILOT}/lawyers"`) && views.lawyer.inc
 ok(lw.every((l) => views.lawyers.includes(l.name)) && lw.filter(lawyerHasPage).every((l) => views.lawyers.includes(`href="/firms/${PILOT}/lawyers/${l.slug}"`)) && lw.filter((l) => !lawyerHasPage(l)).every((l) => !views.lawyers.includes(`/lawyers/${l.slug}"`)), 'the Lawyers page lists everyone and links only the lawyers who have a page');
 ok(!/(?:href|src)="\.\.\//.test(views.lawyers) && !/(?:href|src)="\.\.\//.test(views.lawyer), 'no relative "../" links on the nested pages');
 ok(!/<img[^>]+class="[^"]*lw-av[^"]*"[^>]*src=/.test(views.lawyers) && !views.lawyers.includes('firm.example') && !/<img[^>]*(?:photo|headshot)/i.test(views.lawyer), 'no lawyer picture on any page until pictures are confirmed');
-const confirmed = render({ ...withLawyers, lawyers: stored[PILOT].map((l) => ({ ...l, photoConfirmed: true })) }, { tab: 'lawyers' });
+const confirmed = render({ ...withLawyers, lawyers: withLawyers.lawyers.map((l) => ({ ...l, photoConfirmed: true })) }, { tab: 'lawyers' });
 ok(/<img[^>]+src="https:\/\//.test(confirmed.slice(confirmed.indexOf('lw-grid'))), 'a confirmed picture is shown');
 ok(!/\$\s?\d[\d,.]*\s*(\/|per)\s*h/i.test(views.lawyers + views.lawyer), 'no billing rate on a lawyer page');
 const initials = render({ ...withLawyers, lawyers: [{ name: 'Martin Y. St-Onge', title: 'Partner' }, { name: 'Anthony A. Vecchio', title: 'Partner' }, { name: 'Ann Lee', title: 'Associate' }] }, { tab: 'lawyers' });
@@ -160,7 +171,7 @@ ok(render({ ...pilot, about: copy[PILOT] }, { tab: 'lawyers' }) === null && !tab
   for (const slug of Object.keys(stored)) {
     const firm = all.find((x) => x.slug === slug);
     if (!firm) { flaws.push(`${slug}: not a firm`); continue; }
-    const f = { ...firm, about: copy[slug] || firm.about || '', lawyers: stored[slug] };
+    const f = { ...firm, featured: true, about: copy[slug] || firm.about || '', lawyers: stored[slug].map((l) => ({ ...l, featured: true })) }; // every page a firm could have, were all its lawyers Featured
     const list = lawyersOf(f);
     if (!list.length) continue;
     const todo = [{ tab: 'lawyers' }, ...list.filter(lawyerHasPage).map((l) => ({ tab: 'lawyer', lawyer: l.slug }))];
@@ -184,13 +195,14 @@ ok(render({ ...pilot, about: copy[PILOT] }, { tab: 'lawyers' }) === null && !tab
 }
 
 // ---- the sitemap ----
-const row = (slug, lawyers, extra = {}) => ({ slug, updatedAt: '2026-05-01 10:00:00', about: copy[PILOT], lawyers: lawyers ? JSON.stringify(lawyers) : null, lawyersOff: null, ...extra });
-const rows = [row('a-firm', stored[PILOT]), row('b-firm', [stored[PILOT][0]]), row('c-firm', null), row('d-firm', stored[PILOT], { lawyersOff: 1 }), row('e-firm', stored[PILOT], { about: 'Short.' })];
+const row = (slug, lawyers, extra = {}) => ({ slug, updatedAt: '2026-05-01 10:00:00', about: copy[PILOT], lawyers: lawyers ? JSON.stringify(lawyers) : null, lawyersOff: null, featured: 1, ...extra });
+const rows = [row('a-firm', withLawyers.lawyers), row('b-firm', [stored[PILOT][0]]), row('c-firm', null), row('d-firm', stored[PILOT], { lawyersOff: 1 }), row('e-firm', stored[PILOT], { about: 'Short.' }), row('f-firm', withLawyers.lawyers, { featured: 0 })];
 const res = await firmSitemap({ request: new Request('https://lawdb.ca/sitemap-firms.xml'), env: { SITE_ORIGIN: 'https://lawdb.ca', DB: { prepare: () => ({ all: async () => ({ results: rows }) }) } } });
 const xml = await res.text();
 const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 ok(locs.includes('https://lawdb.ca/firms/a-firm') && locs.includes('https://lawdb.ca/firms/a-firm/lawyers'), 'the sitemap lists a firm and its Lawyers page');
 ok(lw.filter(lawyerHasPage).every((l) => locs.includes(`https://lawdb.ca/firms/a-firm/lawyers/${l.slug}`)) && locs.filter((u) => u.startsWith('https://lawdb.ca/firms/a-firm/lawyers/')).length === lw.filter(lawyerHasPage).length, 'and a page for each lawyer who has one, no more');
+ok(!locs.some((u) => /f-firm\/lawyers\//.test(u)) && locs.includes('https://lawdb.ca/firms/f-firm/lawyers'), 'a firm that is not Featured has its Lawyers page in the sitemap but no page for a lawyer (none has one)');
 ok(!locs.some((u) => /b-firm\/|c-firm\/|d-firm\/|e-firm/.test(u)) && locs.includes('https://lawdb.ca/firms/b-firm') && locs.includes('https://lawdb.ca/firms/d-firm'), 'no Lawyers page in the sitemap for a firm with one lawyer, none, switched off, or held back');
 ok(new Set(locs).size === locs.length, 'no address twice');
 

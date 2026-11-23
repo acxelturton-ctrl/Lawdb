@@ -75,7 +75,7 @@ put('firm-x', firmRecord());
 let v = await getLawyers(env, 'firm-x');
 eq(v.lawyers.map((l) => l.slug), ['ann-lee', 'bo-chan', 'cy-diaz'], 'the editor lists every lawyer');
 eq(v.lawyers[0].photo, { state: 'found', url: FOUND }, 'a picture found on the website is offered, not shown');
-ok(v.pageExists && v.shown === 3 && v.lawyers[0].hasPage === false && v.lawyers[1].hasPage === true && v.limits.max === 120 && v.languages.includes('English') && !v.locked, 'the view says whether the Lawyers page exists and which lawyer has a page');
+ok(v.pageExists && v.shown === 3 && v.lawyers.every((l) => l.hasPage === false && l.featured === false) && v.firmFeatured === false && v.limits.max === 120 && v.languages.includes('English') && !v.locked, 'the view says whether the Lawyers page exists; no lawyer has a page of their own until their Featured listing is on');
 
 v = await saveLawyer(env, actor, 'firm-x', 'bo-chan', { confirmed: true }, { admin: false });
 ok(v.lawyers[1].confirmed && rec('firm-x').lawyersLocked === true && audits('firm-x').includes('firm.lawyer'), '"Looks right" confirms, locks the list against the bulk update and is recorded in the audit log');
@@ -86,9 +86,21 @@ ok(JSON.stringify(rec('firm-x')) === before, 'confirming again changes nothing')
 
 v = await saveLawyer(env, actor, 'firm-x', 'cy-diaz', { name: 'Cyrus Diaz', title: 'Senior Associate', callYear: 2010, education: ['J.D., University of Calgary'], languages: ['English', 'Spanish'], linkedin: 'https://www.linkedin.com/in/cy-diaz/', site: 'https://firm.example/team/cy' }, { admin: false });
 const cy = v.lawyers.find((l) => l.slug === 'cy-diaz');
-ok(cy && cy.name === 'Cyrus Diaz' && cy.confirmed && cy.title === 'Senior Associate' && cy.education[0] === 'J.D., University of Calgary' && cy.hasPage, 'a correction keeps the lawyer\'s address, confirms them and gives them a page');
+ok(cy && cy.name === 'Cyrus Diaz' && cy.confirmed && cy.title === 'Senior Associate' && cy.education[0] === 'J.D., University of Calgary' && !cy.hasPage, 'a correction keeps the lawyer\'s address and confirms them; a page comes with a Featured lawyer listing, not with the details');
 const pub = lawyersOf(rec('firm-x')).find((l) => l.slug === 'cy-diaz');
-ok(pub && pub.name === 'Cyrus Diaz' && pub.education[0] === 'J.D., University of Calgary' && pub.languages.includes('Spanish') && lawyerHasPage(pub), 'the public page shows the firm\'s words under the same address');
+ok(pub && pub.name === 'Cyrus Diaz' && pub.title === 'Senior Associate' && pub.callYear === 2010 && !pub.education && !pub.languages && !pub.linkedin && !lawyerHasPage(pub), 'the public Lawyers page shows a corrected name, role and years in practice and nothing more for a lawyer without a Featured listing');
+// the lawyer plan: only an admin (or billing) switches it on, and it needs the firm plan
+put('plan-firm', firmRecord({ slug: 'plan-firm' }));
+await saveLawyer(env, actor, 'plan-firm', 'cy-diaz', { name: 'Cyrus Diaz', title: 'Senior Associate', callYear: 2010, education: ['J.D., University of Calgary'], languages: ['English', 'Spanish'] }, { admin: false });
+ok(await refused(() => saveLawyer(env, actor, 'plan-firm', 'cy-diaz', { featured: true }, { admin: false }), 403), 'a firm cannot switch a Featured lawyer listing on for itself (it is paid for)');
+v = await saveLawyer(env, actor, 'plan-firm', 'cy-diaz', { featured: true }, { admin: true });
+ok(v.lawyers.find((l) => l.slug === 'cy-diaz').featured === true && v.lawyers.find((l) => l.slug === 'cy-diaz').hasPage === false && !lawyerHasPage(lawyersOf(rec('plan-firm')).find((l) => l.slug === 'cy-diaz')), 'an admin can; while the firm is not Featured the lawyer still has no page (the lawyer plan needs the firm plan)');
+put('plan-firm', { ...rec('plan-firm'), featured: true }, 1);
+v = await getLawyers(env, 'plan-firm');
+const pub2 = lawyersOf(rec('plan-firm')).find((l) => l.slug === 'cy-diaz');
+ok(v.firmFeatured && v.lawyers.find((l) => l.slug === 'cy-diaz').hasPage && pub2.education[0] === 'J.D., University of Calgary' && pub2.languages.includes('Spanish') && lawyerHasPage(pub2) && !lawyerHasPage(lawyersOf(rec('plan-firm')).find((l) => l.slug === 'bo-chan')), 'with the firm Featured too the lawyer shows everything and has a page; a colleague who has not paid does not');
+v = await saveLawyer(env, actor, 'plan-firm', 'cy-diaz', { featured: false }, { admin: true });
+ok(!v.lawyers.find((l) => l.slug === 'cy-diaz').featured && !lawyerHasPage(lawyersOf(rec('plan-firm')).find((l) => l.slug === 'cy-diaz')) && rec('plan-firm').lawyers.find((l) => l.slug === 'cy-diaz').education.length === 1, 'when the listing ends the page goes and the details stay on record');
 ok(await refused(() => saveLawyer(env, actor, 'firm-x', 'nobody', { title: 'Partner' }, { admin: false }), 404) && await refused(() => saveLawyer(env, actor, 'nofirm', 'ann-lee', { title: 'Partner' }, { admin: false }), 404), 'an unknown lawyer or firm is a 404');
 ok(await refused(() => saveLawyer(env, actor, 'firm-x', 'ann-lee', { photo: 'https://evil.example/x.jpg' }, { admin: false })) && await refused(() => saveLawyer(env, actor, 'firm-x', 'ann-lee', { slug: 'other' }, { admin: false })) && await refused(() => saveLawyer(env, actor, 'firm-x', 'ann-lee', {}, { admin: false })), 'a picture address, a new page address or nothing at all cannot be sent');
 ok(await refused(() => saveLawyer(env, actor, 'firm-x', 'ann-lee', { title: 'Associate, $325/hr' }, { admin: false })), 'a bad value is refused and nothing is saved');
@@ -116,7 +128,8 @@ ok(v.pageExists && v.shown === 3, 'showing a lawyer again brings the page back')
 
 // the public page says who stands behind the facts
 const page = (view) => renderFirmPage({ firm: { ...rec('firm-x'), about: 'x '.repeat(60) }, view });
-ok(page({ tab: 'lawyers' }).includes('Some details were confirmed by the firm') && page({ tab: 'lawyer', lawyer: 'cy-diaz' }).includes('Confirmed by the firm and not checked with the law society'), 'the page says what the firm confirmed, and that none of it is checked with the law society');
+const cyPage = renderFirmPage({ firm: { ...rec('plan-firm'), featured: true, lawyers: rec('plan-firm').lawyers.map((l) => (l.slug === 'cy-diaz' ? { ...l, featured: true } : l)), about: 'x '.repeat(60) }, view: { tab: 'lawyer', lawyer: 'cy-diaz' } });
+ok(page({ tab: 'lawyers' }).includes('Some details were confirmed by the firm') && cyPage.includes('Confirmed by the firm and not checked with the law society'), 'the page says what the firm confirmed, and that none of it is checked with the law society');
 
 // ================================================================ add, remove, switch off
 v = await addLawyer(env, actor, 'firm-x', { name: 'Dee Evans', title: 'Counsel', languages: ['English'] }, { admin: false });
@@ -157,7 +170,9 @@ v = await setLawyerPhoto(env, actor, 'firm-x', 'bo-chan', { request: upload(jpeg
 const bo = rec('firm-x').lawyers.find((l) => l.slug === 'bo-chan');
 const boId = /^\/?img\/([0-9a-f]{24})$/.exec(bo.photo)?.[1];
 ok(boId && bo.photoConfirmed === true && files.has(`img/${boId}`) && db.prepare('SELECT * FROM lawyer_photos WHERE id = ?').get(boId).lawyer_slug === 'bo-chan', 'an uploaded picture is stored, tied to the lawyer and confirmed by the firm');
-ok(v.lawyers.find((l) => l.slug === 'bo-chan').photo.state === 'confirmed' && lawyersOf(rec('firm-x')).find((l) => l.slug === 'bo-chan').photo === `/img/${boId}`, 'the public page gets the picture under /img/<id>');
+ok(v.lawyers.find((l) => l.slug === 'bo-chan').photo.state === 'confirmed' && !lawyersOf(rec('firm-x')).find((l) => l.slug === 'bo-chan').photo, 'a picture is kept on record but not shown while the lawyer has no Featured listing');
+await saveLawyer(env, actor, 'firm-x', 'bo-chan', { featured: true }, { admin: true });
+ok(lawyersOf(rec('firm-x')).find((l) => l.slug === 'bo-chan').photo === `/img/${boId}`, 'once the lawyer is Featured the public page gets the picture under /img/<id>');
 const html = renderFirmPage({ firm: { ...rec('firm-x'), about: 'x '.repeat(60) }, view: { tab: 'lawyers' } });
 ok(html.includes(`src="/img/${boId}"`), 'the Lawyers page shows it');
 ok(renderFirmPage({ firm: { ...rec('firm-x'), about: 'x '.repeat(60) }, view: { tab: 'lawyer', lawyer: 'bo-chan' } }).includes(`"image": "https://lawdb.ca/img/${boId}"`) || renderFirmPage({ firm: { ...rec('firm-x'), about: 'x '.repeat(60) }, view: { tab: 'lawyer', lawyer: 'bo-chan' } }).includes(`"image":"https://lawdb.ca/img/${boId}"`), 'and the lawyer\'s markup has the picture with its full address');
@@ -221,8 +236,8 @@ const HOST = (c) => `/img/lawyer/${c.repeat(24)}`;
 const decisions = { 'ann-lee': { status: 'ok', photo: HOST('b'), from: FOUND, at: '2026-11-20' }, 'bo-chan': { status: 'no', from: 'https://cdn.firm.example/bo.jpg', at: '2026-11-20' } };
 files.set(`lawyer/${'b'.repeat(24)}`, 'accepted copy');
 const withFound = (extra) => ({ slug: 'adm-firm', name: 'Adm Firm', city: 'Calgary', province: 'AB', website: 'https://firm.example', featured: true, lawyerPhotos: decisions, ...extra,
-  lawyers: [{ name: 'Ann Lee', slug: 'ann-lee', title: 'Partner', callYear: 2005, photo: FOUND, photoConfirmed: false }, { name: 'Bo Chan', slug: 'bo-chan', title: 'Associate', callYear: 2015, photo: 'https://cdn.firm.example/bo.jpg', photoConfirmed: false },
-    { name: 'Cy Diaz', slug: 'cy-diaz', title: 'Associate', photo: 'https://cdn.firm.example/cy.jpg', photoConfirmed: false }] });
+  lawyers: [{ name: 'Ann Lee', slug: 'ann-lee', title: 'Partner', featured: true, callYear: 2005, photo: FOUND, photoConfirmed: false }, { name: 'Bo Chan', slug: 'bo-chan', title: 'Associate', featured: true, callYear: 2015, photo: 'https://cdn.firm.example/bo.jpg', photoConfirmed: false },
+    { name: 'Cy Diaz', slug: 'cy-diaz', title: 'Associate', featured: true, photo: 'https://cdn.firm.example/cy.jpg', photoConfirmed: false }] });
 put('adm-firm', withFound(), 1);
 v = await getLawyers(env, 'adm-firm');
 const ph = (slug) => v.lawyers.find((l) => l.slug === slug).photo;
@@ -318,12 +333,14 @@ const paid = rec('paid-feat').lawyers.find((l) => l.slug === 'bo-chan');
 eq(paid.achievements, ['Lexpert Rising Star, 2023', 'Chair, Family Law Section, 2021'], 'a Featured firm lists awards (a repeat is dropped)');
 ok(paid.phone === '+14035550100' && v.lawyers.find((l) => l.slug === 'bo-chan').phone === '+14035550100' && v.lawyers.find((l) => l.slug === 'bo-chan').achievements.length === 2, 'and a direct number; the editor gets both back');
 const paidPage = (r, view) => renderFirmPage({ firm: { ...r, about: 'x '.repeat(60) }, view });
+await saveLawyer(env, actor, 'paid-feat', 'bo-chan', { featured: true }, { admin: true }); // the lawyer's own Featured listing (paid for; set by billing or an admin)
 const featPage = paidPage(rec('paid-feat'), { tab: 'lawyer', lawyer: 'bo-chan' });
 ok(featPage.includes('<h3>Awards and achievements</h3>') && featPage.includes('Lexpert Rising Star, 2023') && featPage.includes('href="tel:+14035550100">Call (403) 555-0100</a>'), "the lawyer's page lists the awards and has a Call button");
 ok(paidPage(rec('paid-feat'), { tab: 'lawyers' }).includes('class="call" href="tel:+14035550100"'), "and the lawyer's card on the Lawyers page has the number too");
 const lapsed = { ...rec('paid-feat'), featured: false };
-const lapsedPage = paidPage(lapsed, { tab: 'lawyer', lawyer: 'bo-chan' });
-ok(!lapsedPage.includes('Awards and achievements') && !lapsedPage.includes('tel:+14035550100') && !paidPage(lapsed, { tab: 'lawyers' }).includes('tel:+14035550100'), 'when the firm is no longer Featured the pages stop showing them (they stay on record)');
+ok(paidPage(lapsed, { tab: 'lawyer', lawyer: 'bo-chan' }) === null && !paidPage(lapsed, { tab: 'lawyers' }).includes('tel:+14035550100') && !paidPage(lapsed, { tab: 'lawyers' }).includes('/lawyers/bo-chan'), 'when the firm is no longer Featured the lawyer page and the paid facts go (they stay on record)');
+const lawyerLapsed = { ...rec('paid-feat'), lawyers: rec('paid-feat').lawyers.map((l) => (l.slug === 'bo-chan' ? { ...l, featured: false } : l)) };
+ok(paidPage(lawyerLapsed, { tab: 'lawyer', lawyer: 'bo-chan' }) === null && !paidPage(lawyerLapsed, { tab: 'lawyers' }).includes('tel:+14035550100'), 'and the same when the lawyer\'s own listing ends');
 ok(rec('paid-feat').lawyers.find((l) => l.slug === 'bo-chan').phone === '+14035550100', 'and they are still on record for when it comes back');
 for (const bad of ['555', '(035) 171-7773', '123-456-7890', 'call me', '+44 20 7946 0958']) ok(await refused(() => saveLawyer(env, actor, 'paid-feat', 'bo-chan', { phone: bad }, { admin: false })), `"${bad}" is not accepted as a phone number`);
 ok(await refused(() => saveLawyer(env, actor, 'paid-feat', 'bo-chan', { achievements: ['See https://example.com for awards'] }, { admin: false })), 'an award with a link is refused');

@@ -180,7 +180,7 @@ const withLawyers = { ...featured, lawyers: lawyersData[slug] };
 const route = readFileSync('src/routes/firm-page.js', 'utf8');
 ok(/\(lawyers\|articles\)/.test(route) && /await listArticles\(env, m\[1\]\)/.test(route) && !/row\.featured \? await listArticles/.test(route) && !/feedPosts/.test(route), 'the route knows the address and asks for every firm\'s articles (no separate list for the Overview)');
 ok(/view\?\.tab === 'articles' && !articlesIndexable\(row\)/.test(route), 'a Basic firm\'s Articles page gets the noindex tag and header');
-ok(/CACHE_GENERATION = 8/.test(route), 'pages drawn with articles on the Overview are not served from the cache');
+ok(/CACHE_GENERATION = (?:[89]|\d\d)\b/.test(route), 'pages drawn with articles on the Overview are not served from the cache');
 {
   const perks = [readFileSync('src/lib/email.js', 'utf8'), readFileSync('admin/ui.js', 'utf8')];
   ok(perks.every((t) => !/an Articles tab on your profile/.test(t) && /Articles page on your profile that search engines can find/.test(t)), 'the Featured perks the owner and the emails list no longer sell the tab (every firm has it): they say a Featured firm\'s Articles page is one search engines can find');

@@ -107,13 +107,13 @@ ok(weekStart(new Date('2026-11-02T13:00:00Z')).toISOString() === '2026-11-02T13:
   const o = 'https://lawdb.ca';
   const started = trialStartedEmail(o, { firmName: 'A Law', slug: 'a-law', endsAt: '2026-12-03 15:00:00' });
   ok(/free month/.test(started.subject) && /No card was needed/.test(started.text) && /#stats\/a-law/.test(started.html) && /analytics/i.test(started.text), 'the "free month started" email says no card and links to the analytics');
-  const ending = trialEndingEmail(o, { firmName: 'A Law', slug: 'a-law', endsAt: '2026-12-03 15:00:00', daysLeft: 5, price: '$89 / month', numbers: { views: 120, clicks: 1, enquiries: 0 } });
+  const ending = trialEndingEmail(o, { firmName: 'A Law', slug: 'a-law', endsAt: '2026-12-03 15:00:00', daysLeft: 5, price: '$199 / month', numbers: { views: 120, clicks: 1, enquiries: 0 } });
   ok(/ends in 5 days/.test(ending.subject) && /120 page views, 1 button click and 0 enquiries/.test(ending.text) && /Nothing is charged/.test(ending.text), 'the "ending soon" email shows the firm its own numbers and says nothing is charged');
-  const ended = trialEndedEmail(o, { firmName: 'A Law', slug: 'a-law', price: '$89 / month', numbers: { views: 300, clicks: 20, enquiries: 4 } });
+  const ended = trialEndedEmail(o, { firmName: 'A Law', slug: 'a-law', price: '$199 / month', numbers: { views: 300, clicks: 20, enquiries: 4 } });
   ok(/300 page views, 20 button clicks and 4 enquiries/.test(ended.text) && /back to Basic/.test(ended.text), 'the "ended" email recaps the month and says the listing is back to Basic');
-  const wk = weeklyReportEmail(o, { firmName: 'A Law', slug: 'a-law', featured: false, price: '$89 / month', trialDaysLeft: null, n: { views: 50, previousViews: 40, visitors: 30, clicks: 6, enquiries: 1 }, top: { label: 'Called', n: 4 } });
+  const wk = weeklyReportEmail(o, { firmName: 'A Law', slug: 'a-law', featured: false, price: '$199 / month', trialDaysLeft: null, n: { views: 50, previousViews: 40, visitors: 30, clicks: 6, enquiries: 1 }, top: { label: 'Called', n: 4 } });
   ok(/50 views/.test(wk.subject) && /up 25%/.test(wk.text) && /most often: called/.test(wk.text) && /turn this email off/.test(wk.text) && /free month/.test(wk.text), 'the weekly email shows the week, the trend and the favourite button, offers the free month to Basic firms, and says how to turn it off');
-  const wkTrial = weeklyReportEmail(o, { firmName: 'A Law', slug: 'a-law', featured: true, price: '$89 / month', trialDaysLeft: 3, n: { views: 5, previousViews: 0, visitors: 3, clicks: 0, enquiries: 0 }, top: null });
+  const wkTrial = weeklyReportEmail(o, { firmName: 'A Law', slug: 'a-law', featured: true, price: '$199 / month', trialDaysLeft: 3, n: { views: 5, previousViews: 0, visitors: 3, clicks: 0, enquiries: 0 }, top: null });
   ok(/3 days left/.test(wkTrial.text) && !/up|down/.test(wkTrial.text.split('\n')[2] || ''), 'a firm in its free month is told how many days are left');
 }
 

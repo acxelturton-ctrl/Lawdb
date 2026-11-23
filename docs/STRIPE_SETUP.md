@@ -1,4 +1,4 @@
-# Connecting Stripe to LawDB (Featured, $89/month)
+# Connecting Stripe to LawDB (Featured firm $199/month, Featured lawyer $99/month)
 
 LawDB never holds a Stripe API key. Stripe sends signed messages ("webhooks") to the site, and the site checks the signature with one
 secret. That secret goes straight into Cloudflare, never into chat or the repository.
@@ -32,10 +32,22 @@ Cloudflare -> Variables and Secrets -> **Add** -> Type **Text** (it is not secre
 
 Owners with a subscription then see a **Manage billing** button.
 
+## The two plans and their links
+
+The prices are set once, in `src/lib/plans.js` (`FIRM_PRICE`, `LAWYER_PRICE`); the pitch pages and the menu box are rewritten from them
+(`node scripts/apply-plan-table.mjs`, `node scripts/apply-featured-promo.mjs`, then `node scripts/extract-firm-template.mjs`), and
+`scripts/test-plans.mjs` fails if any page states a different price.
+
+- **Featured firm, $199 / month**: a recurring Stripe payment link in `STRIPE_PAYMENT_LINK` (wrangler.jsonc). The dashboard's Upgrade button opens it with
+  `client_reference_id=<firm slug>`. Until the old $89 link in that variable is replaced by a $199 one, the pages say $199 but a checkout charges $89.
+- **Featured lawyer, $99 / month**: a recurring Stripe payment link for `STRIPE_LAWYER_PAYMENT_LINK`. Nothing reads it yet: today a lawyer claims their profile
+  (the form sends the admin an email), the admin checks them against the law society, and a Featured lawyer listing is switched on by hand in the admin's
+  Lawyers panel ("Make Featured lawyer"). Billing that switches it on by itself, from a lawyer's own dashboard, is the next step; it takes the same webhook.
+
 ## 4. Test with no money moving
 
 1. Stripe -> Product catalog -> Coupons -> create a coupon: 100% off, **Duration: once**, **limit to 1 redemption**, with a promotion code such as `LAWDBTEST`.
-2. Stripe -> Payment links -> the $89 / month link (it must be a **recurring** price: a one-time price is ignored by design) -> Edit -> tick **Allow promotion codes**.
+2. Stripe -> Payment links -> the $199 / month firm link (it must be a **recurring** price: a one-time price is ignored by design) -> Edit -> tick **Allow promotion codes**.
 3. Make a test firm owner (a second email of yours), claim a firm, approve it in the admin Approvals tab.
 4. As that owner open the dashboard -> Edit my profile -> **Upgrade to Featured**, pay with the same email and the code `LAWDBTEST`.
 5. Within seconds the firm shows **Featured** in the dashboard and in the admin Overview ("Featured subscriptions").

@@ -7,12 +7,13 @@
 // (confirmed: true) is shown as the firm wrote it, under the same plain-text rules, and keeps the page address it already had; a lawyer the firm hides
 // (hidden: true) is on no page. The firm's changes are kept: once it edits the list, the bulk update no longer touches it (lawyersLocked).
 //
-// Only facts are kept: name, title, the year called to the bar, schools, languages, a LinkedIn address and the address of the lawyer's page on the firm's own site.
-// No biography text is copied. A picture is kept as an address and shown only once it is confirmed (photoConfirmed), because it is the firm's or the lawyer's picture.
+// Only facts are kept: name, title, the year called to the bar (shown as years in practice), schools, languages, a LinkedIn address and the address of the lawyer's page on
+// the firm's own site. Two more facts only a firm can give, and only a Featured firm may: the awards and achievements it lists for the lawyer and the lawyer's direct
+// phone number. No biography text is copied. A picture is kept as an address and shown only once it is confirmed (photoConfirmed), because it is the firm's or the lawyer's picture.
 // cleanLawyers keeps only what is well formed and plain, so nothing odd can reach a page, whatever is in the data.
 //
-// A page is only made when it has something to say (no thin pages): a firm needs two or more lawyers for a Lawyers page, and a lawyer needs a clear title and at
-// least two more facts (year called, school, language, LinkedIn) for a page of their own. The others still appear on the firm's Lawyers page.
+// A page is only made when it has something to say (no thin pages): a firm needs two or more lawyers for a Lawyers page (every lawyer shows name, role and years in
+// practice there), and a page of their own is a Featured lawyer's, with a clear title and at least one fact to show. See lawyersOf for what each plan shows.
 import { checkOwnerText } from './content-rules.js';
 import { LANGUAGES } from './details.js';
 
@@ -106,6 +107,23 @@ export function cleanLinkedIn(v) {
 // What the firm types is its own statement: letters and plain punctuation only (a title with a figure is a rate or a blurb), and nothing the advertising rules forbid.
 export const OWNER_TITLE = /^[\p{L}][\p{L}'\u2019&,()\/.\- ]{0,69}$/u;
 export const OWNER_EDUCATION = /^[\p{L}][\p{L}0-9'\u2019&,.()\- ]{1,119}$/u;
+// An award or achievement as a firm may list it: a short plain line (letters, figures such as a year, ordinary punctuation, no links) that also passes the advertising rules.
+export const OWNER_ACHIEVEMENT = /^[\p{L}\p{N}][\p{L}\p{N}'\u2019&,.()\-\u2013:\/ ]{2,139}$/u;
+export const MAX_ACHIEVEMENTS = 5;
+// A direct line: a North American number (+1 and ten digits, the area code and the exchange starting 2 to 9); '' when it is not one.
+export function cleanPhone(v) {
+  const d = String(v ?? '').replace(/\D/g, '');
+  const ten = d.length === 11 && d[0] === '1' ? d.slice(1) : d;
+  return /^[2-9]\d{2}[2-9]\d{6}$/.test(ten) ? `+1${ten}` : '';
+}
+
+// How long a lawyer has been in practice, from the year they were called to the bar: "18 years" (and since when), or just "since 2025" for the first year or two.
+export function inPractice(callYear, thisYear = new Date().getFullYear()) {
+  const y = Number(callYear);
+  if (!Number.isInteger(y) || y < 1950 || y > thisYear) return null;
+  const years = thisYear - y;
+  return { years, since: y, text: years >= 2 ? `${years} years` : `since ${y}` };
+}
 const stored_photo = (v) => (typeof v === 'string' && /^https:\/\/[^\s"'<>]+$/.test(v) ? v : typeof v === 'string' && /^\/?img\/[0-9a-f]{24}$/.test(v) ? '/' + v.replace(/^\//, '') : '');
 
 // A person's name as it may appear: letters, initials and the usual marks (degrees after it are removed); '' when it is not one.
@@ -153,11 +171,14 @@ export function cleanLawyers(list, thisYear = new Date().getFullYear(), decision
     const edu = (mine ? rawEdu.map((e) => one(e, 120)).filter((e) => OWNER_EDUCATION.test(e)) : rawEdu.map(normalizeEducation)).filter((e, i, all) => e && all.indexOf(e) === i && plain(e)).slice(0, 3);
     const langs = (Array.isArray(l.languages) ? l.languages : []).filter((x, i, all) => LANGUAGES.includes(x) && all.indexOf(x) === i).slice(0, mine ? 8 : 5);
     const li = cleanLinkedIn(l.linkedin);
+    // what only the firm can say about a lawyer: awards and achievements, and a direct phone number (never taken from a website)
+    const awards = mine ? (Array.isArray(l.achievements) ? l.achievements : []).map((a) => one(a, 140)).filter((a, i, all) => OWNER_ACHIEVEMENT.test(a) && plain(a) && all.indexOf(a) === i).slice(0, MAX_ACHIEVEMENTS) : [];
+    const phone = mine ? cleanPhone(l.phone) : '';
     const site = typeof l.site === 'string' && /^https:\/\/[^\s"'<>]+$/.test(l.site) ? l.site : '';
     const photo = stored_photo(l.photo);
     const found = typeof l.photoFound === 'string' && /^https:\/\/[^\s"'<>]+$/.test(l.photoFound) ? l.photoFound : '';
     // a "title" that is a sentence means a testimonial or a news line was read: the person stays only when something else on record backs them up
-    if (junk && !(yearOk || edu.length || langs.length || li)) continue;
+    if (junk && !(yearOk || edu.length || langs.length || li || awards.length)) continue;
     seen.add(slug);
     const shown = photoStateOf({ photo, photoConfirmed: l.photoConfirmed === true }, decisions && decisions[slug]);
     out.push({
@@ -167,10 +188,13 @@ export function cleanLawyers(list, thisYear = new Date().getFullYear(), decision
       ...(edu.length ? { education: edu } : {}),
       ...(langs.length ? { languages: langs } : {}),
       ...(li ? { linkedin: li } : {}),
+      ...(awards.length ? { achievements: awards } : {}),
+      ...(phone ? { phone } : {}),
       ...(site ? { site } : {}),
       ...(stored ? (photo ? { photo, photoConfirmed: l.photoConfirmed === true } : {}) : (shown.state === 'confirmed' ? { photo: shown.url } : {})),
       ...(stored && found && photo !== found ? { photoFound: found } : {}),
       ...(mine ? { confirmed: true } : {}),
+      ...(l.featured === true ? { featured: true } : {}),
       ...(l.hidden === true ? { hidden: true } : {}),
     });
   }
@@ -194,9 +218,14 @@ export function photoStateOf(l, d) {
 }
 
 // The lawyers a firm's pages may show: none when the firm has switched them off or has fewer than MIN_FIRM_LAWYERS.
+// What a visitor sees of a lawyer depends on the plan. Every lawyer a firm lists shows the same: name, role and years in practice. A Featured lawyer (`featured: true` on the
+// lawyer, which only billing or an admin sets) at a Featured firm also gets a page of their own and shows everything we hold: education, languages, LinkedIn, the page on the
+// firm's site, a picture, awards and achievements, and a direct phone number. The facts stay on record for a lawyer who is not (or no longer) Featured and come back with
+// the plan, so what a firm entered is never lost.
+const basicOf = ({ name, slug, title, callYear, confirmed }) => ({ name, slug, ...(title ? { title } : {}), ...(callYear ? { callYear } : {}), ...(confirmed ? { confirmed } : {}) });
 export function lawyersOf(firm) {
   if (!firm || firm.lawyersOff) return [];
-  const l = cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos).filter((x) => !x.hidden);
+  const l = cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos).filter((x) => !x.hidden).map((x) => (firm.featured && x.featured ? x : basicOf(x)));
   return l.length >= MIN_FIRM_LAWYERS ? l : [];
 }
 
@@ -222,9 +251,10 @@ export function sourcePhoto(firm, lawyerSlugValue) {
 }
 
 // A lawyer has a page of their own only with a clear title and at least two more facts (year called, school, language, LinkedIn).
-export const MIN_PAGE_FACTS = 2;
+export const MIN_PAGE_FACTS = 1;
+// A page of their own is a Featured lawyer's: it needs a clear title and at least one fact to show (no thin pages), and only a lawyer that lawyersOf returned as Featured has `featured`.
 export function lawyerHasPage(l) {
-  return !!(l && l.title && [l.callYear, l.education, l.languages, l.linkedin].filter(Boolean).length >= MIN_PAGE_FACTS);
+  return !!(l && l.featured && l.title && [l.callYear, l.education, l.languages, l.linkedin, l.achievements, l.phone].filter(Boolean).length >= MIN_PAGE_FACTS);
 }
 
 // A "really good" lawyer profile, for putting a firm on the home page: the Lawyers tab lists three or more lawyers, at least two thirds of them with a clear
@@ -233,27 +263,20 @@ export function lawyerHasPage(l) {
 export const STRONG_MIN_LAWYERS = 3;
 export const STRONG_MIN_WITH_FACTS = 2;
 export function strongLawyerProfile(firm) {
-  const l = lawyersOf(firm);
+  // judged on the facts we hold for the lawyers (what a Featured lawyer listing can show), not on what a Basic listing shows: this is about how complete the data is, whatever the plan
+  const l = !firm || firm.lawyersOff ? [] : cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos).filter((x) => !x.hidden);
   if (l.length < STRONG_MIN_LAWYERS) return false;
   const titled = l.filter((x) => x.title).length;
-  const withFacts = l.filter((x) => [x.callYear, x.education, x.languages, x.linkedin].some(Boolean)).length;
+  const withFacts = l.filter((x) => [x.callYear, x.education, x.languages, x.linkedin, x.achievements].some(Boolean)).length;
   return titled * 3 >= l.length * 2 && withFacts >= STRONG_MIN_WITH_FACTS;
 }
 
-export function lawyerFacts(l, province) {
-  const out = [];
-  if (l.title) out.push(['Title', l.title]);
-  if (l.callYear) out.push(['Called to the bar', String(l.callYear)]);
-  if (l.education) out.push(['Education', l.education.join('; ')]);
-  if (l.languages) out.push(['Languages', l.languages.join(', ')]);
-  return out;
-}
 
 // One plain sentence per lawyer, made from the facts only.
 export function lawyerLead(l, f, prov) {
   const role = l.title ? `${/^[AEIOU]/i.test(l.title) ? 'an' : 'a'} ${l.title}` : 'a lawyer';
   let s = `${l.name} is ${role} at ${f.name} in ${f.city}, ${prov}.`;
-  if (l.callYear) s += ` Called to the bar in ${l.callYear}.`;
+  { const p = inPractice(l.callYear); if (p) s += p.years >= 2 ? ` ${p.years} years in practice.` : ` In practice ${p.text}.`; }
   if (l.languages) s += ` Speaks ${l.languages.join(', ').replace(/, ([^,]*)$/, ' and $1')}.`;
   return s;
 }

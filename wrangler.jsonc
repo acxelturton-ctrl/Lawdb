@@ -35,7 +35,9 @@
     "SITE_ORIGIN": "https://lawdb.ca",
     "MAIL_FROM_EMAIL": "info@lawdb.ca",
     "MAIL_FROM_NAME": "LawDB",
-    // The Featured plan (CAD $89/month). Owners reach it from their dashboard with their firm and email attached.
+    // The Featured FIRM plan (CAD $199/month, src/lib/plans.js). Owners reach it from their dashboard with their firm and email attached.
+    // NOTE: this link is still the old $89 recurring price. Replace it with a $199 recurring payment link (docs/STRIPE_SETUP.md) before the pages say $199 to anyone.
+    // The Featured LAWYER plan ($99/month) will have its own link in STRIPE_LAWYER_PAYMENT_LINK once it exists.
     "STRIPE_PAYMENT_LINK": "https://buy.stripe.com/dRmeVf2X79Wbg8Z1drfbq03"
   },
   // Nightly at 07:17 UTC: housekeeping (retention rules) and a backup of every table into the KV store below.

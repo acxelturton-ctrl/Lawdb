@@ -1,5 +1,5 @@
 import { json, cached, clampInt, HttpError, isEmail } from '../lib/http.js';
-import { mailInBackground, leadEmail, reportEmail } from '../lib/email.js';
+import { mailInBackground, leadEmail, reportEmail, lawyerClaimEmail } from '../lib/email.js';
 import { sha256Hex } from '../lib/crypto.js';
 import { adminEmails } from '../lib/auth.js';
 import { PRACTICE } from '../lib/practice.js';
@@ -107,6 +107,14 @@ export async function createLead({ request, env, url, exec }) {
   if (form === 'report-listing') {
     const to = [...adminEmails(env)];
     if (to.length) mailInBackground(env, exec, { to, ...reportEmail(env.SITE_ORIGIN || url.origin, { slug: extra.reportedFirm, reason: extra.reason, name, email, message }) });
+    return json({ ok: true }, 201);
+  }
+
+  // A lawyer claiming their profile goes to the admin only (to be checked against the law society), never to the firm. The firm and lawyer they name are plain text in the request.
+  if (form === 'lawyer-claim') {
+    const named = extra.claimFirm ? await env.DB.prepare("SELECT slug, name, featured FROM firms WHERE slug = ? AND status = 'live'").bind(extra.claimFirm).first() : null;
+    const to = [...adminEmails(env)];
+    if (to.length) mailInBackground(env, exec, { to, ...lawyerClaimEmail(env.SITE_ORIGIN || url.origin, { firm: named ? named.slug : '', firmName: named ? named.name : extra.claimFirmName || '', firmFeatured: !!(named && named.featured), lawyer: extra.claimLawyer, name, email, phone, message }) });
     return json({ ok: true }, 201);
   }
 

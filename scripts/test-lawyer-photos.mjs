@@ -23,8 +23,9 @@ const person = (name, extra = {}) => ({ name, title: 'Associate', photo: `https:
   ok(shown({ 'ann-lee': { status: 'ok', photo: '/img/lawyer/not-an-id' } })['ann-lee'] === null && shown({ 'ann-lee': { status: 'ok', photo: '/img/' + id } })['ann-lee'] === null, 'only /img/lawyer/<24 hex> is accepted as a copy');
   ok(shown({ 'bob-ray': { status: 'no' } })['bob-ray'] === null, 'an erased picture never shows, even when an older record had it confirmed');
   ok(HOSTED_PHOTO.test(`/img/lawyer/${id}`) && !HOSTED_PHOTO.test(`/img/lawyer/${id}/x`) && !HOSTED_PHOTO.test(`//evil.example/img/lawyer/${id}`), 'the address pattern is exact');
-  const firm = { lawyers: list, lawyerPhotos: { 'cy-dunn': { status: 'ok', photo: `/img/lawyer/${id}` } } };
-  ok(lawyersOf(firm).find((l) => l.slug === 'cy-dunn').photo === `/img/lawyer/${id}`, 'lawyersOf passes the firm\'s decisions on');
+  // a picture is shown for a Featured lawyer at a Featured firm (the others show name, role and years in practice only)
+  const firm = { featured: true, lawyers: list.map((l) => ({ ...l, featured: true })), lawyerPhotos: { 'cy-dunn': { status: 'ok', photo: `/img/lawyer/${id}` } } };
+  ok(lawyersOf(firm).find((l) => l.slug === 'cy-dunn').photo === `/img/lawyer/${id}` && !lawyersOf({ ...firm, featured: false }).find((l) => l.slug === 'cy-dunn').photo, 'lawyersOf passes the firm\'s decisions on, for a Featured lawyer only');
 }
 
 // ---- who still needs a decision ----
@@ -105,7 +106,7 @@ addFirm('a-closed-firm', { lawyers: [person('Kim Roe'), person('Lou Sand')] }, '
   const key = `lawyer/${d.photo.split('/').pop()}`;
   ok(store.has(key) && store.get(key).httpMetadata.contentType === 'image/png' && store.get(key).bytes.length === 48, 'the copy is in storage with its real picture type');
   ok(d.from === 'https://firm.example/ann.jpg', 'the record remembers where it came from');
-  ok(lawyersOf(firms.get('strong-firm').data).find((l) => l.slug === 'ann-lee').photo === d.photo, 'the lawyer\'s page shows the copy');
+  ok(lawyersOf({ ...firms.get('strong-firm').data, featured: true, lawyers: firms.get('strong-firm').data.lawyers.map((l) => ({ ...l, featured: true })) }).find((l) => l.slug === 'ann-lee').photo === d.photo, 'the lawyer\'s page shows the copy');
   ok(!photoCandidates(firms.get('strong-firm').data).some((l) => l.slug === 'ann-lee'), 'and the lawyer leaves the queue');
   ok(audits.includes('lawyer_photo.accept'), 'it is in the activity log');
 

@@ -5,11 +5,12 @@
 // - When the subscription ends the firm goes back to Basic, unless it was already Featured before it paid (set by hand).
 
 import { audit } from './audit.js';
+import { FIRM_PRICE_LABEL } from './plans.js';
 import { adminEmails } from './auth.js';
 import { syncLocationFeatured, mainOf } from './locations.js';
 import { mailInBackground, featuredOnEmail, featuredOffEmail, paymentReviewEmail, paymentFailedEmail } from './email.js';
 
-export const FEATURED_PRICE_LABEL = '$89 / month';
+export const FEATURED_PRICE_LABEL = FIRM_PRICE_LABEL; // the firm plan (src/lib/plans.js)
 const TRIAL_DAYS = 30; // the free month (trial.js has the rules; the number is repeated here only to tell the dashboard)
 const enc = new TextEncoder();
 const toHex = (buf) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');

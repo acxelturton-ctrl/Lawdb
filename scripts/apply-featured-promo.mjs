@@ -6,11 +6,12 @@
 // The button must stay "Get Featured" (the menu checks in smoke.mjs and the link checker look for it).
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { FIRM_PRICE, LAWYER_PRICE } from '../src/lib/plans.js';
 
 const ITEM = (icon, title, text) => `      <li><span class="mp-ic"><svg viewBox="0 0 24 24" aria-hidden="true">${icon}</svg></span><span><b>${title}</b>${text}</span></li>`;
 export const PROMO = [
   '<div class="menu-promo">',
-  '    <p class="mp-eyebrow">For law firms</p>',
+  '    <p class="mp-eyebrow">For law firms and lawyers</p>',
   '    <p class="mp-head">Grow leads to your law firm</p>',
   '    <ul class="mp-list">',
   ITEM('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>', 'Ranked above Basic firms', 'First in search for your city and case type, with a Featured Partner card on top.'),
@@ -18,9 +19,10 @@ export const PROMO = [
   ITEM('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>', 'Analytics dashboard', 'See page views, visitors, every button clicked and where visitors come from, with a weekly email.'),
   ITEM('<path d="M4 5h16v14H4z"/><path d="M4 10h16M9 10v9"/>', 'Enquiries dashboard', 'Read, filter, add notes, reply and export every enquiry, and send them to a second email address.'),
   ITEM('<path d="M12 21s6-5.6 6-11a6 6 0 1 0-12 0c0 5.4 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/>', 'Gold pin and badge', 'Stand out on the map, in the search box and on your profile.'),
+  ITEM('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/>', 'Lawyers: claim your listing', 'At a Featured firm, add your own Featured listing for $' + LAWYER_PRICE + ' a month: a page of your own, your direct number and a pin on the map.'),
   '    </ul>',
   '    <a class="mp-cta" href="/list-your-firm?plan=featured">Get Featured</a>',
-  '    <p class="mp-note">Your first 30 days are free, with no card needed. After that Featured is $89 a month, and you can cancel any time.</p>',
+  '    <p class="mp-note">Your first 30 days are free, with no card needed. After that Featured is $' + FIRM_PRICE + ' a month for a firm, and $' + LAWYER_PRICE + ' a month for each lawyer who adds a listing. Cancel any time.</p>',
   '    <a class="mp-alt" href="/list-your-firm">List your firm free</a>',
   '  </div>',
 ].join('\n');

@@ -79,7 +79,7 @@ serve('Ann', 'Bea', 'Cal', 'Dee');
   ok(r.accepted === 4 && r.failed.length === 0 && r.more === 0 && r.left === 0, 'all four pictures were accepted in one call');
   ok(Object.keys(photos).length === 4 && Object.values(photos).every((d) => d.status === 'ok' && HOSTED_PHOTO.test(d.photo) && d.bulk === true && /^https:\/\/firm\.example\//.test(d.from)), 'each is recorded as a copy kept on LawDB, marked bulk, with where it came from');
   ok(Object.values(photos).every((d) => store.has(`lawyer/${d.photo.split('/').pop()}`) && store.get(`lawyer/${d.photo.split('/').pop()}`).httpMetadata.contentType === 'image/png') && store.size === 4, 'the copies are in storage with their real picture type');
-  ok(lawyersOf(firms.get('strong-firm').data).every((l) => l.photo && HOSTED_PHOTO.test(l.photo)), 'every lawyer\'s page now shows the copy');
+  ok(lawyersOf({ ...firms.get('strong-firm').data, featured: true, lawyers: firms.get('strong-firm').data.lawyers.map((l) => ({ ...l, featured: true })) }).every((l) => l.photo && HOSTED_PHOTO.test(l.photo)), 'every lawyer\'s page now shows the copy');
   ok(photoCandidates(firms.get('strong-firm').data).length === 0, 'and they are out of the queue');
   ok(fetched.length - before === 4, 'each picture was fetched once');
   ok(audits.length === 1 && audits[0].action === 'lawyer_photo.accept_all' && audits[0].detail.accepted === 4 && audits[0].detail.lawyers.length === 4, 'the activity log has one entry for the firm, with the lawyers');

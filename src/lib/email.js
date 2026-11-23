@@ -147,6 +147,21 @@ export function reportEmail(origin, { slug, reason, name, email, message }) {
   };
 }
 
+// A lawyer asked to claim their listing on a firm's Lawyers page (form "lawyer-claim"). It goes to the admin, never to the firm: the admin checks the person against the law
+// society's listing, and a Featured lawyer listing needs a Featured firm.
+export function lawyerClaimEmail(origin, { firm, firmName, firmFeatured, lawyer, name, email, phone, message }) {
+  const link = `${origin}/admin/#leads`;
+  const lines = [
+    ['Firm', firm ? `${firmName || firm} (${origin}/firms/${firm}/lawyers)${firmFeatured ? ', Featured' : ', not Featured yet'}` : '(a firm that is not listed yet)'],
+    ['Lawyer', lawyer || '(not on the list)'], ['From', `${name} <${email}>`], ['Phone', phone], ['Message', message],
+  ].filter(([, v]) => v);
+  return {
+    subject: `Lawyer listing claim: ${name}${firmName ? ' at ' + firmName : ''}`,
+    text: `A lawyer asked to claim their listing.\n\n${lines.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\n${firmFeatured || !firm ? '' : 'The firm is not Featured yet; a Featured lawyer listing needs a Featured firm first.\n\n'}Check them against their law society, then reply to set up their profile: ${link}`,
+    html: `<p>A lawyer asked to claim their listing.</p><table cellpadding="4">${lines.map(([k, v]) => `<tr><td style="color:#5f5f5f;vertical-align:top">${esc(k)}</td><td>${esc(v).replace(/\n/g, '<br>')}</td></tr>`).join('')}</table>${firmFeatured || !firm ? '' : '<p>The firm is not Featured yet; a Featured lawyer listing needs a Featured firm first.</p>'}${button(link, 'Open the admin')}`,
+  };
+}
+
 // A member's rating comment is waiting for the admin to approve it (comments are checked before they appear).
 export function commentEmail(origin, { slug, firmName, stars, comment }) {
   const link = `${origin}/admin/#reviews`;
@@ -221,7 +236,7 @@ export function trialStartedEmail(origin, { firmName, slug, endsAt }) {
   };
 }
 
-// numbers: { views, clicks, enquiries } during the trial so far; price: "$89 / month"
+// numbers: { views, clicks, enquiries } during the trial so far; price: "$199 / month" (src/lib/plans.js)
 export function trialEndingEmail(origin, { firmName, slug, endsAt, daysLeft, price, numbers }) {
   const link = `${origin}/account/#edit/${slug}`;
   const line = `So far: ${times(numbers.views, 'page view', 'page views')}, ${times(numbers.clicks, 'button click', 'button clicks')} and ${times(numbers.enquiries, 'enquiry', 'enquiries')}.`;

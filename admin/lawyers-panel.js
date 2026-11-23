@@ -11,6 +11,7 @@ export function lawyersPanel({ base, mode, featured }) {
   const url = `${base}/lawyers`;
   const slug = base.split('/').pop();
   const photoLocked = mode === 'owner' && !featured; // adding a picture is a Featured benefit (an admin is never limited)
+  const paidLocked = photoLocked; // so are the awards and the direct phone number
   const root = h('div', { class: 'card lwp' }, h('p', { class: 'muted' }, 'Loading…'));
   const out = h('div', { class: 'lwp-out' });
   let state = null;
@@ -37,7 +38,7 @@ export function lawyersPanel({ base, mode, featured }) {
   // ---- one lawyer: the facts in a form
   function form(l) {
     const isNew = !l;
-    const v = l || { name: '', title: '', callYear: null, education: [], languages: [], linkedin: '', site: '', photo: { state: 'none' } };
+    const v = l || { name: '', title: '', callYear: null, education: [], languages: [], linkedin: '', site: '', achievements: [], phone: '', photo: { state: 'none' } };
     const name = h('input', { type: 'text', maxlength: 90, value: v.name, placeholder: 'Pat Q. Smith', autocomplete: 'off', 'aria-label': 'Name' });
     const title = h('input', { type: 'text', maxlength: 70, value: v.title, placeholder: 'Partner', autocomplete: 'off', 'aria-label': 'Title' });
     const year = h('input', { type: 'number', min: 1950, max: new Date().getFullYear(), value: v.callYear ?? '', placeholder: '2012', 'aria-label': 'Year called to the bar' });
@@ -46,11 +47,14 @@ export function lawyersPanel({ base, mode, featured }) {
     const langs = h('div', { class: 'lwp-langs' }, state.languages.map((lang) => h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: picked.has(lang), onchange: (e) => { if (e.target.checked) picked.add(lang); else picked.delete(lang); } }), lang)));
     const li = h('input', { type: 'text', inputmode: 'url', maxlength: 300, value: v.linkedin, placeholder: 'https://www.linkedin.com/in/pat-smith', autocomplete: 'off', 'aria-label': 'LinkedIn profile' });
     const site = h('input', { type: 'text', inputmode: 'url', maxlength: 300, value: v.site, placeholder: 'https://yourfirm.ca/team/pat-smith', autocomplete: 'off', 'aria-label': 'Page on your website' });
+    const awards = [0, 1, 2].map((i) => h('input', { type: 'text', maxlength: 140, value: (v.achievements || [])[i] || '', placeholder: i ? '' : 'Lexpert Rising Star, 2023', autocomplete: 'off', disabled: paidLocked, 'aria-label': `Award or achievement ${i + 1}` }));
+    const phone = h('input', { type: 'tel', maxlength: 30, value: v.phone || '', placeholder: '(403) 555-0100', autocomplete: 'off', disabled: paidLocked, 'aria-label': 'Direct phone number' });
     const err = h('div', { role: 'alert' });
     const f = (label, el, hint) => h('div', { class: 'ed-field' }, h('label', null, label), el, hint && h('p', { class: 'ed-hint' }, hint));
     const save = h('button', { class: 'primary', type: 'button' }, isNew ? 'Add lawyer' : 'Save');
     save.addEventListener('click', async () => {
       const body = { name: name.value, title: title.value, callYear: year.value === '' ? null : Number(year.value), education: edu.map((e) => e.value).filter((e) => e.trim()), languages: [...picked], linkedin: li.value, site: site.value };
+      if (!paidLocked) { body.achievements = awards.map((a) => a.value).filter((a) => a.trim()); body.phone = phone.value; }
       if (!isNew) body.confirmed = true; // saving the form is the firm saying these details are right, even when nothing was changed
       save.disabled = true;
       try {
@@ -61,10 +65,12 @@ export function lawyersPanel({ base, mode, featured }) {
     const cancel = h('button', { type: 'button', onclick: () => { open = null; draw(); } }, 'Cancel');
     return h('div', { class: 'lwp-form' },
       h('div', { class: 'ed-row' }, f('Name', name, "As the law society lists them."), f('Title', title, 'For example Partner, Associate or Senior Counsel.')),
-      h('div', { class: 'ed-row' }, f('Year called to the bar', year), f('LinkedIn', li, "The lawyer's own profile (optional).")),
+      h('div', { class: 'ed-row' }, f('Year called to the bar', year, 'Shown on the page as years in practice.'), f('LinkedIn', li, "The lawyer's own profile (optional).")),
       f('Page on your website', site, `The lawyer's page on your own website (optional).`),
       h('div', { class: 'ed-field' }, h('label', null, 'Education'), ...edu, h('p', { class: 'ed-hint' }, 'One line each, for example J.D., University of Calgary.')),
       h('div', { class: 'ed-field' }, h('label', null, 'Languages'), langs),
+      h('div', { class: 'ed-field' }, h('label', null, 'Awards and achievements', paidLocked && h('span', { class: 'ed-pill' }, lockIcon(), 'Featured')), ...awards, paidLocked ? h('p', { class: 'ed-lock' }, lockIcon(), 'Listing awards and achievements is a Featured benefit. Upgrade to Featured from your dashboard.') : h('p', { class: 'ed-hint' }, 'One line each, up to three, for example Lexpert Rising Star, 2023. Facts only: no ratings, rankings or claims.')),
+      h('div', { class: 'ed-field' }, h('label', null, 'Direct phone number', paidLocked && h('span', { class: 'ed-pill' }, lockIcon(), 'Featured')), phone, paidLocked ? h('p', { class: 'ed-lock' }, lockIcon(), "Adding a lawyer's direct number is a Featured benefit. Upgrade to Featured from your dashboard.") : h('p', { class: 'ed-hint' }, "Shown on the lawyer's card and page as a Call button.")),
       err,
       !isNew && photoBlock(l),
       h('div', { class: 'row' }, save, cancel, isNew ? null : h('span', { class: 'muted' }, 'Saving also confirms these details.')));
@@ -100,15 +106,17 @@ export function lawyersPanel({ base, mode, featured }) {
       l.confirmed && h('span', { class: 'badge featured' }, 'Confirmed'),
       !l.confirmed && !l.hidden && h('span', { class: 'badge new' }, 'From your website'),
       l.hidden && h('span', { class: 'badge' }, 'Hidden'),
+      l.featured && h('span', { class: 'badge featured' }, l.hasPage ? 'Featured lawyer' : 'Featured lawyer (needs a Featured firm)'),
       l.hasPage && h('a', { class: 'lwp-own', href: `/firms/${slug}/lawyers/${l.slug}`, target: '_blank', rel: 'noopener' }, 'Own page ↗'),
     ];
-    const meta = [l.title, l.callYear ? `Called ${l.callYear}` : '', l.languages.join(', ')].filter(Boolean).join(' · ');
+    const meta = [l.title, l.callYear ? `Called ${l.callYear}` : '', l.languages.join(', ')].filter(Boolean).join(' · '); // the editor says what was entered; pages say years in practice
     const act = (label, fn, cls) => h('button', { type: 'button', class: cls || null, onclick: fn }, label);
     return h('li', { class: 'lwp-row' + (l.hidden ? ' is-hidden' : '') },
       h('div', { class: 'lwp-main' }, avatar(l), h('div', { class: 'lwp-info' }, h('b', null, l.name), meta && h('span', { class: 'muted' }, meta), h('span', { class: 'lwp-badges' }, status)),
         h('div', { class: 'lwp-actions' },
           !l.confirmed && !l.hidden && act('Looks right', () => call('PATCH', `${url}/${l.slug}`, { confirmed: true }, `${l.name} is confirmed.`), 'primary'),
           act(open === l.slug ? 'Close' : 'Edit', () => { open = open === l.slug ? null : l.slug; draw(); }),
+          mode === 'admin' && act(l.featured ? 'End Featured listing' : 'Make Featured lawyer', () => call('PATCH', `${url}/${l.slug}`, { featured: !l.featured }, l.featured ? `${l.name}'s Featured lawyer listing is off.` : `${l.name} is a Featured lawyer.`)),
           act(l.hidden ? 'Show' : 'Hide', () => call('PATCH', `${url}/${l.slug}`, { hidden: !l.hidden }, l.hidden ? `${l.name} is shown again.` : `${l.name} is hidden from your profile.`)),
           act('Remove', () => { if (confirm(`Remove ${l.name} from your profile?`)) call('DELETE', `${url}/${l.slug}`, null, `${l.name} was removed.`); }))),
       open === l.slug && form(l));
@@ -130,7 +138,8 @@ export function lawyersPanel({ base, mode, featured }) {
       s.lawyers.length ? h('ul', { class: 'lwp-list' }, s.lawyers.map(row)) : null,
       h('div', { class: 'row' }, add),
       open === 'new' && form(null),
-      h('p', { class: 'muted ed-strength-note' }, `A lawyer gets a page of their own when they have a title and at least ${s.limits.minFacts} of: year called, education, languages, LinkedIn. None of this is checked with the law society.`),
+      h('p', { class: 'muted ed-strength-note' }, 'On your profile every lawyer shows their name, role and years in practice. A page of their own, education, languages, a picture, awards, a direct phone number and a pin on the map belong to a Featured lawyer listing, which a lawyer at a Featured firm can add. What you enter here is kept for when they do. None of this is checked with the law society.'),
+      !s.firmFeatured && mode === 'owner' && h('p', { class: 'ed-lock' }, lockIcon(), 'Your firm is not Featured yet. Featured lawyer listings are available once it is.'),
       out].filter(Boolean));
   }
 

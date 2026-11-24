@@ -23,6 +23,15 @@ const a = (w) => (/^[aeiou]/i.test(w) ? 'an' : 'a');
 export const plainAddress = (s) => String(s).replace(/#\s?(\w+)/g, 'Suite $1');
 // a firm whose name the content rules read as a claim ("Top Law Firm") is written as "the firm", as the researched text does
 const nameOk = (n) => { try { checkOwnerText('about', `${n} is a law firm.`); return true; } catch { return false; } };
+// The old generated paragraph ("Clients rate the firm ... The office is at ..., and you can call ... to ask about your matter. This listing is built from public business
+// information; ...") is never part of a description: the rating, the office and the phone number are on the page already, and the claim line is the page's own link.
+export function withoutTemplateText(text) {
+  return String(text || '').split(/\n{2,}/).map((para) => para
+    .replace(/Clients rate the firm [\d.]+ out of 5 from [\d,]+ public Google reviews\.\s*/g, '')
+    .replace(/The office is at [^\n]*? to ask about your matter\.\s*/g, '')
+    .replace(/This listing is built from public business information; the firm can claim it on LawDB to add its own description, logo and hours\.\s*/g, '')
+    .trim()).filter(Boolean).join('\n\n');
+}
 const hash = (s) => [...String(s)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 
 // "personal injury and criminal defence law firm", "family law firm"
@@ -51,16 +60,15 @@ const IF = {
 // Part 3: what to do next, in three wordings so the same sentence is not on every page
 export function callToAction(f) {
   const key = (f.caseTypes || []).find((k) => IF[k]) || 'none';
-  const ph = phoneText(f.phone), name = nameOk(plainName(f.name)) ? plainName(f.name) : 'the firm', city = f.city;
+  const name = nameOk(plainName(f.name)) ? plainName(f.name) : 'the firm', city = f.city;
   const v = hash(f.slug) % 3;
   const guide = [
     `${IF[key]}, ${name} offers legal guidance in ${city} to help you understand your options and decide on next steps.`,
     `${IF[key]}, you can contact ${name} in ${city} to talk through your situation and what to do next.`,
     `${IF[key]}, ${name} can explain your options and the next steps.`,
   ][v];
-  const reach = ph
-    ? [`Call ${ph} or request a consultation on this page.`, `You can reach the firm at ${ph}, or send a consultation request from this page.`, `To get in touch, call ${ph} or use the Request a consultation button on this page.`][v]
-    : ['Request a consultation on this page to ask about your matter.', 'You can send a consultation request from this page.', 'To get in touch, use the Request a consultation button on this page.'][v];
+  // the phone number is on the page already (the Call button and the card above), so the last part points at the consultation request instead
+  const reach = ['Request a consultation on this page.', 'You can send a consultation request from this page.', 'To get in touch, use the Request a consultation button on this page.'][v];
   return `${guide} ${reach}`;
 }
 
@@ -76,23 +84,27 @@ function mattersIn(f, text) {
 const NAMED = /\b(?:lawyers?|partners?|counsel|associates?|founder|founded by|led by|headed by|joined by|alongside|principal)\b[^.]{0,50}\b[A-Z][a-z]+ [A-Z][a-z'’-]+/;
 const ADDRESS = /\b(?:suite|office is|offices? (?:is|are) (?:at|in)|located|avenue|street|\bave\b|\bst\b|floor)\b/i;
 
+// The opening sentence of a firm with no written text: "<Firm> is a <City> <practice> law firm", 50 to 160 characters because it is also the search description
+export function leadSentence({ firm: f, details = {}, provName }) {
+  const city = f.city, prov = provName || f.province, phrase = practicePhrase(f), d = details || {};
+  const n = plainName(f.name), est = d.founded ? ` established in ${d.founded}` : '';
+  const forms = nameOk(n)
+    ? [`${n} is ${a(city)} ${city} ${phrase}${est}.`, `${n} is ${a(city)} ${city}, ${prov} ${phrase}${est}.`, `${n} is ${a(phrase)} ${phrase} based in ${city}, ${prov}${est}.`, `${n} is ${a(phrase)} ${phrase} with its office in ${city}, ${prov}${est}.`]
+    : [`This ${city} ${phrase}${est} serves clients in ${city}, ${prov}.`, `This ${phrase}${est} is based in ${city}, ${prov}, and serves clients in ${city} and the area around it.`];
+  return forms.find((s) => s.length >= 50 && s.length <= 160) || forms[forms.length - 1];
+}
+
 export function buildDescription({ firm: f, base = '', details = {}, provName }) {
   const city = f.city, prov = provName || f.province;
   const d = details || {};
+  base = withoutTemplateText(base);
   const sentences = splitSentences(base);
   const tags = [...new Set((f.tags || []).filter(Boolean).map(lower))];
   const phrase = practicePhrase(f);
 
   // ---- part 1
   let first = sentences[0] || '';
-  if (!first) {
-    const n = plainName(f.name), est = d.founded ? ` established in ${d.founded}` : '';
-    // the first sentence is the search description: 50 to 160 characters, so a short name gets a longer form
-    const forms = nameOk(n)
-      ? [`${n} is ${a(city)} ${city} ${phrase}${est}.`, `${n} is ${a(city)} ${city}, ${prov} ${phrase}${est}.`, `${n} is ${a(phrase)} ${phrase} based in ${city}, ${prov}${est}.`, `${n} is ${a(phrase)} ${phrase} with its office in ${city}, ${prov}${est}.`]
-      : [`This ${city} ${phrase}${est} serves clients in ${city}, ${prov}.`, `This ${phrase}${est} is based in ${city}, ${prov}, and serves clients in ${city} and the area around it.`];
-    first = forms.find((s) => s.length >= 50 && s.length <= 160) || forms[forms.length - 1];
-  }
+  if (!first) first = leadSentence({ firm: f, details: d, provName: prov });
   const rest = sentences.slice(1);
   const hits = (s) => { let n = 0; for (const k of (f.caseTypes || []).filter((x) => MATTERS[x])) for (const [, re] of MATTERS[k]) if (mentions([s], re)) n++; return n; };
   const mIndex = rest.findIndex((s) => hits(s) >= 2 && !NAMED.test(s) && !ADDRESS.test(s) && s.length <= 360);
@@ -113,7 +125,6 @@ export function buildDescription({ firm: f, base = '', details = {}, provName })
   const extra = [];
   if (!sentences.length) {
     if (d.languages && d.languages.length) extra.push(`The firm works in ${joinAnd(d.languages)}.`);
-    if (f.address) extra.push(`The office is at ${plainAddress(f.address)}.`);
   }
   const p2sentences = [...facts, ...extra];
   const paras = [p1];

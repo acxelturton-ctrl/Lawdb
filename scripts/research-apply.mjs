@@ -9,7 +9,9 @@ import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { aboutFromPage } from './lib/about.mjs';
 import { lintText, normText, splitSentences, withoutPublicationNames } from './lib/research.mjs';
 import { checkOwnerText } from '../src/lib/content-rules.js';
-import { metaFromAbout } from '../src/render/firm-page.js';
+import { metaFromAbout, PROVINCES } from '../src/render/firm-page.js';
+import { loadRepoFirms } from './lib/site-firms.mjs';
+import { leadSentence } from './lib/description.mjs';
 
 const MIN = Number((process.argv.find((a) => a.startsWith('--min=')) || '').split('=')[1]) || 200;
 const DRY = process.argv.includes('--dry');
@@ -19,7 +21,9 @@ const copy = JSON.parse(readFileSync('data/firm-copy-base.json', 'utf8'));
 
 const batchAbout = new Map();
 for (const file of readdirSync('data').filter((f) => /^firms-batch-\d+\.json$/.test(f))) for (const f of JSON.parse(readFileSync(`data/${file}`, 'utf8'))) batchAbout.set(f.slug, f.about);
-const TEMPLATE = /This listing is built from public business information/;
+const TEMPLATE = /This listing is built from public business information/; // the old generated paragraph: it is no longer kept (scripts/lib/description.mjs withoutTemplateText)
+const firmsBySlug = new Map(loadRepoFirms().map((f) => [f.slug, f]));
+const details = JSON.parse(readFileSync('data/firm-details.json', 'utf8'));
 
 const words = (s) => normText(s).split(' ').filter((w) => w.length >= 4);
 function repeats(sentence, base) {
@@ -41,7 +45,8 @@ const byProvince = {}, samples = [];
 for (const [slug, r] of Object.entries(research)) {
   if (!r.verdict && !r.siteAwards) continue;
   // the text without any paragraph this script added earlier
-  let existing = copy[slug] ?? batchAbout.get(slug) ?? aboutFromPage(slug) ?? '';
+  let existing = copy[slug] ?? '';
+  if (!existing && firmsBySlug.has(slug)) { const f = firmsBySlug.get(slug); existing = leadSentence({ firm: f, details: details[slug] || f.details, provName: PROVINCES[f.province] }); } // a firm with no written text starts from its opening sentence
   if (r.applied) existing = existing.replace(`\n\n${r.applied}`, '').replace(r.applied, '').replace(/\n{3,}/g, '\n\n').trim();
   if (!existing) { none++; continue; }
   const fresh = splitSentences(r.verdict?.final || '').filter((s) => !repeats(s, existing) && !(conflicts(s, existing) && ++conflicting));

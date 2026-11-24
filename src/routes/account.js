@@ -19,6 +19,7 @@ import { startTrial } from '../lib/trial.js';
 import { MAX_LOCATIONS, mainOf, locationsOf, syncLocationFeatured } from '../lib/locations.js';
 import { addImage, removeImage, listImages, imageInfo } from '../lib/images.js';
 import { providerPicture } from '../lib/oauth.js';
+import { lawyerCheckoutUrl } from '../lib/lawyer-billing.js';
 import { getLawyers, saveLawyer, addLawyer, removeLawyer, setLawyersOff, setLawyerPhoto, removeLawyerPhoto } from '../lib/lawyer-edit.js';
 
 const reply = (body, status = 200) => json(body, status, NO_STORE);
@@ -316,8 +317,11 @@ async function ownerOf(env, request, slug) {
   return user;
 }
 export async function lawyersGet({ request, env, params }) {
-  await ownerOf(env, request, params.slug);
-  return reply(await getLawyers(env, params.slug));
+  const user = await ownerOf(env, request, params.slug);
+  const view = await getLawyers(env, params.slug);
+  // A Featured firm's owner gets a checkout link for each lawyer that is not Featured yet (STRIPE_LAWYER_PAYMENT_LINK; null until it is set).
+  const lawyers = (view.lawyers || []).map((l) => ({ ...l, payUrl: view.firmFeatured && !l.featured && !l.hidden ? lawyerCheckoutUrl(env, params.slug, l.slug, user.email) : null }));
+  return reply({ ...view, lawyers });
 }
 export async function lawyersAdd({ request, env, params }) {
   const user = await ownerOf(env, request, params.slug);

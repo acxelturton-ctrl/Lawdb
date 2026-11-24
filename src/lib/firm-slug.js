@@ -12,7 +12,7 @@ const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 // Every table that stores a firm's slug in a column called firm_slug. scripts/test-firm-slug.mjs reads the migrations and fails if a table with such a
 // column is missing here, so a table added later cannot be forgotten.
 export const SLUG_TABLES = ['firm_members', 'firm_images', 'firm_feeds', 'firm_posts', 'firm_subscriptions', 'follows', 'firm_ratings', 'firm_invites',
-  'firm_stats_daily', 'firm_trials', 'firm_verifications', 'leads', 'outreach', 'lawyer_photos'];
+  'firm_stats_daily', 'firm_trials', 'firm_verifications', 'leads', 'outreach', 'lawyer_photos', 'lawyer_subscriptions'];
 
 export function cleanSlug(v) {
   const s = typeof v === 'string' ? v.trim().toLowerCase() : '';

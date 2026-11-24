@@ -8,6 +8,7 @@ import { audit } from './audit.js';
 import { FIRM_PRICE_LABEL } from './plans.js';
 import { adminEmails } from './auth.js';
 import { syncLocationFeatured, mainOf } from './locations.js';
+import { isLawyerRef, onLawyerCheckout, onLawyerSubscription } from './lawyer-billing.js';
 import { mailInBackground, featuredOnEmail, featuredOffEmail, paymentReviewEmail, paymentFailedEmail } from './email.js';
 
 export const FEATURED_PRICE_LABEL = FIRM_PRICE_LABEL; // the firm plan (src/lib/plans.js)
@@ -157,11 +158,14 @@ export async function handleStripeEvent(env, event, exec, origin) {
   const obj = event.data?.object;
   if (!obj) return;
   switch (event.type) {
-    case 'checkout.session.completed': return onCheckoutCompleted(env, obj, exec, origin);
+    case 'checkout.session.completed': return isLawyerRef(obj.client_reference_id) ? onLawyerCheckout(env, obj, exec, origin) : onCheckoutCompleted(env, obj, exec, origin);
     case 'customer.subscription.created':
     case 'customer.subscription.updated':
-    case 'customer.subscription.deleted':
-      return onSubscription(env, event.type === 'customer.subscription.deleted' ? { ...obj, status: 'canceled' } : obj, exec, origin);
+    case 'customer.subscription.deleted': {
+      const sub = event.type === 'customer.subscription.deleted' ? { ...obj, status: 'canceled' } : obj;
+      if (await onLawyerSubscription(env, sub)) return; // a Featured lawyer subscription, not a firm plan
+      return onSubscription(env, sub, exec, origin);
+    }
     default: return; // everything else is none of our business
   }
 }

@@ -17,7 +17,7 @@ import { cleanSlug } from './firm-slug.js';
 // Where every table that has a firm_slug column goes in a merge. scripts/test-firm-merge.mjs reads the migrations and fails if a table with such a
 // column is in neither list, so a table added later cannot be forgotten.
 export const MERGE_MOVED = ['firm_members', 'firm_feeds', 'firm_posts', 'firm_subscriptions', 'follows', 'firm_ratings', 'firm_invites', 'firm_stats_daily', 'leads', 'outreach'];
-export const MERGE_DROPPED = ['firm_images', 'firm_trials', 'firm_verifications', 'lawyer_photos'];
+export const MERGE_DROPPED = ['firm_images', 'firm_trials', 'firm_verifications', 'lawyer_photos', 'lawyer_subscriptions'];
 
 export async function mergeFirms(env, admin, fromSlug, rawInto) {
   const into = cleanSlug(rawInto);

@@ -40,9 +40,12 @@ The prices are set once, in `src/lib/plans.js` (`FIRM_PRICE`, `LAWYER_PRICE`); t
 
 - **Featured firm, $199 / month**: a recurring Stripe payment link in `STRIPE_PAYMENT_LINK` (wrangler.jsonc). The dashboard's Upgrade button opens it with
   `client_reference_id=<firm slug>`. Until the old $89 link in that variable is replaced by a $199 one, the pages say $199 but a checkout charges $89.
-- **Featured lawyer, $99 / month**: a recurring Stripe payment link for `STRIPE_LAWYER_PAYMENT_LINK`. Nothing reads it yet: today a lawyer claims their profile
-  (the form sends the admin an email), the admin checks them against the law society, and a Featured lawyer listing is switched on by hand in the admin's
-  Lawyers panel ("Make Featured lawyer"). Billing that switches it on by itself, from a lawyer's own dashboard, is the next step; it takes the same webhook.
+- **Featured lawyer, $99 / month**: a recurring Stripe payment link in `STRIPE_LAWYER_PAYMENT_LINK` (a secret or text variable in Cloudflare; same webhook, same
+  `STRIPE_WEBHOOK_SECRET`). A Featured firm's owner gets `payUrl` for each lawyer that is not Featured yet (`GET /api/account/firms/:slug/lawyers`), which opens the
+  link with `client_reference_id=lawyer:<firm slug>:<lawyer slug>` (`src/lib/lawyer-billing.js`). A payment from an approved owner of that firm switches the lawyer's
+  `featured` on; any other payer, or a lawyer that cannot be found, waits as `needs_review` in `lawyer_subscriptions` and the admin is emailed (the admin's
+  "Make Featured lawyer" button still works by hand). Cancelling switches it off, unless an admin had made the lawyer Featured before the payment. It shows only while
+  the firm itself is Featured. Not built yet: a Pay button in the owner's lawyers screen (the API returns `payUrl`; the screen does not use it), and an admin list of parked lawyer payments.
 
 ## 4. Test with no money moving
 

@@ -170,7 +170,7 @@ v = await setLawyerPhoto(env, actor, 'firm-x', 'bo-chan', { request: upload(jpeg
 const bo = rec('firm-x').lawyers.find((l) => l.slug === 'bo-chan');
 const boId = /^\/?img\/([0-9a-f]{24})$/.exec(bo.photo)?.[1];
 ok(boId && bo.photoConfirmed === true && files.has(`img/${boId}`) && db.prepare('SELECT * FROM lawyer_photos WHERE id = ?').get(boId).lawyer_slug === 'bo-chan', 'an uploaded picture is stored, tied to the lawyer and confirmed by the firm');
-ok(v.lawyers.find((l) => l.slug === 'bo-chan').photo.state === 'confirmed' && !lawyersOf(rec('firm-x')).find((l) => l.slug === 'bo-chan').photo, 'a picture is kept on record but not shown while the lawyer has no Featured listing');
+ok(v.lawyers.find((l) => l.slug === 'bo-chan').photo.state === 'confirmed' && lawyersOf(rec('firm-x')).find((l) => l.slug === 'bo-chan').photo === `/img/${boId}` && !lawyersOf(rec('firm-x')).find((l) => l.slug === 'bo-chan').languages, 'a confirmed picture shows for a lawyer without a Featured listing (their languages and education still need one)');
 await saveLawyer(env, actor, 'firm-x', 'bo-chan', { featured: true }, { admin: true });
 ok(lawyersOf(rec('firm-x')).find((l) => l.slug === 'bo-chan').photo === `/img/${boId}`, 'once the lawyer is Featured the public page gets the picture under /img/<id>');
 const html = renderFirmPage({ firm: { ...rec('firm-x'), about: 'x '.repeat(60) }, view: { tab: 'lawyers' } });

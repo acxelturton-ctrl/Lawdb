@@ -85,5 +85,11 @@ const claimJs = readFileSync('lawyer-claim.js', 'utf8');
 ok(claimJs.includes('is not Featured yet') && claimJs.includes('Tell your firm') && claimJs.includes('Which lawyer are you?') && claimJs.includes('Claim your free listing') && !/innerHTML/.test(claimJs), 'the script writes the form, and what the firm\'s state means for the lawyer, as plain text');
 ok(!/class="pf-why"/.test(paidPage(true, { tab: 'lawyer', lawyer: 'ana-lee' }).replace(/<section class="pf-why"[\s\S]*?<\/section>/, '')), 'one "things to consider" section per lawyer page');
 
+// pictures: a confirmed picture shows on a Basic listing, a picture only found on a website does not
+const hosted = '/img/lawyer/' + 'a'.repeat(24);
+const picFirm = { ...pilot, about: copy[PILOT], featured: false, lawyers: [{ name: 'Ana Lee', slug: 'ana-lee', title: 'Partner', callYear: 2008, photo: 'https://firm.example/ana.jpg' }, { name: 'Bo Chan', slug: 'bo-chan', title: 'Associate', photo: 'https://firm.example/bo.jpg' }], lawyerPhotos: { 'ana-lee': { status: 'ok', photo: hosted } } };
+const picTab = renderFirmPage({ firm: picFirm, view: { tab: 'lawyers' } });
+ok(picTab.includes(`src="${hosted}"`) && !picTab.includes('firm.example/bo.jpg') && !picTab.includes('firm.example/ana.jpg'), 'on a Basic firm\'s Lawyers page a lawyer whose picture the admin accepted shows it, and a lawyer with only a picture found on a website does not');
+
 console.log(bad ? `\n${bad} check(s) failed` : '\nall checks passed');
 process.exit(bad ? 1 : 0);

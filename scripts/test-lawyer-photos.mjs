@@ -25,7 +25,7 @@ const person = (name, extra = {}) => ({ name, title: 'Associate', photo: `https:
   ok(HOSTED_PHOTO.test(`/img/lawyer/${id}`) && !HOSTED_PHOTO.test(`/img/lawyer/${id}/x`) && !HOSTED_PHOTO.test(`//evil.example/img/lawyer/${id}`), 'the address pattern is exact');
   // a picture is shown for a Featured lawyer at a Featured firm (the others show name, role and years in practice only)
   const firm = { featured: true, lawyers: list.map((l) => ({ ...l, featured: true })), lawyerPhotos: { 'cy-dunn': { status: 'ok', photo: `/img/lawyer/${id}` } } };
-  ok(lawyersOf(firm).find((l) => l.slug === 'cy-dunn').photo === `/img/lawyer/${id}` && !lawyersOf({ ...firm, featured: false }).find((l) => l.slug === 'cy-dunn').photo, 'lawyersOf passes the firm\'s decisions on, for a Featured lawyer only');
+  ok(lawyersOf(firm).find((l) => l.slug === 'cy-dunn').photo === `/img/lawyer/${id}` && lawyersOf({ ...firm, featured: false, lawyers: list }).find((l) => l.slug === 'cy-dunn').photo === `/img/lawyer/${id}`, 'lawyersOf passes the firm\'s decisions on, for every lawyer: a picture the admin accepted shows on a Basic listing too');
 }
 
 // ---- who still needs a decision ----

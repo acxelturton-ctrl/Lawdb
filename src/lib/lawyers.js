@@ -218,11 +218,12 @@ export function photoStateOf(l, d) {
 }
 
 // The lawyers a firm's pages may show: none when the firm has switched them off or has fewer than MIN_FIRM_LAWYERS.
-// What a visitor sees of a lawyer depends on the plan. Every lawyer a firm lists shows the same: name, role and years in practice. A Featured lawyer (`featured: true` on the
-// lawyer, which only billing or an admin sets) at a Featured firm also gets a page of their own and shows everything we hold: education, languages, LinkedIn, the page on the
-// firm's site, a picture, awards and achievements, and a direct phone number. The facts stay on record for a lawyer who is not (or no longer) Featured and come back with
-// the plan, so what a firm entered is never lost.
-const basicOf = ({ name, slug, title, callYear, confirmed }) => ({ name, slug, ...(title ? { title } : {}), ...(callYear ? { callYear } : {}), ...(confirmed ? { confirmed } : {}) });
+// What a visitor sees of a lawyer depends on the plan. Every lawyer a firm lists shows the same: name, role, years in practice and their picture (only a picture that has been
+// confirmed: one the firm added, or one the admin accepted in the Lawyer photos tab; a picture found on a website and not yet decided on is never shown). A Featured lawyer
+// (`featured: true` on the lawyer, which only billing or an admin sets) at a Featured firm also gets a page of their own and shows everything we hold: education, languages,
+// LinkedIn, the page on the firm's site, awards and achievements, and a direct phone number. The facts stay on record for a lawyer who is not (or no longer) Featured and come
+// back with the plan, so what a firm entered is never lost.
+const basicOf = ({ name, slug, title, callYear, confirmed, photo }) => ({ name, slug, ...(title ? { title } : {}), ...(callYear ? { callYear } : {}), ...(confirmed ? { confirmed } : {}), ...(photo ? { photo } : {}) });
 export function lawyersOf(firm) {
   if (!firm || firm.lawyersOff) return [];
   const l = cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos).filter((x) => !x.hidden).map((x) => (firm.featured && x.featured ? x : basicOf(x)));

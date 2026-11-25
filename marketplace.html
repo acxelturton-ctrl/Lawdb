@@ -4,27 +4,27 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="./images/favicon-192.png"><link rel="icon" href="./favicon.ico" sizes="any"><link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LawDB Marketplace: Unlock Legal Inquiries | LawDB.ca</title>
-<meta name="description" content="Coming soon: verified law firms preview legal inquiries in their practice area and province, and unlock the ones they want. Free to join. Join the waitlist.">
+<title>Lead Marketplace for Law Firms | LawDB.ca</title>
+<meta name="description" content="Lead Marketplace for law firms: verified firms will preview and unlock legal inquiries. Nothing is available right now; inquiries are coming soon.">
 <link rel="canonical" href="https://lawdb.ca/marketplace">
-<meta property="og:title" content="LawDB Marketplace: Unlock Legal Inquiries | LawDB.ca">
-<meta property="og:description" content="Coming soon: verified law firms preview legal inquiries in their practice area and province, and unlock the ones they want. Free to join. Join the waitlist.">
+<meta property="og:title" content="Lead Marketplace for Law Firms | LawDB.ca">
+<meta property="og:description" content="Lead Marketplace for law firms: verified firms will preview and unlock legal inquiries. Nothing is available right now; inquiries are coming soon.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lawdb.ca/marketplace">
 <meta property="og:site_name" content="LawDB.ca">
 <meta property="og:locale" content="en_CA">
 <meta property="og:image" content="https://lawdb.ca/images/og-default.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="LawDB Marketplace: Unlock Legal Inquiries | LawDB.ca">
-<meta name="twitter:description" content="Coming soon: verified law firms preview legal inquiries in their practice area and province, and unlock the ones they want. Free to join. Join the waitlist.">
+<meta name="twitter:title" content="Lead Marketplace for Law Firms | LawDB.ca">
+<meta name="twitter:description" content="Lead Marketplace for law firms: verified firms will preview and unlock legal inquiries. Nothing is available right now; inquiries are coming soon.">
 <meta name="twitter:image" content="https://lawdb.ca/images/og-default.jpg">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
  "@type": "WebPage",
- "name": "LawDB Marketplace: Unlock Legal Inquiries | LawDB.ca",
+ "name": "Lead Marketplace for Law Firms | LawDB.ca",
  "url": "https://lawdb.ca/marketplace",
- "description": "Coming soon: verified law firms preview legal inquiries in their practice area and province, and unlock the ones they want. Free to join. Join the waitlist.",
+ "description": "Lead Marketplace for law firms: verified firms will preview and unlock legal inquiries. Nothing is available right now; inquiries are coming soon.",
  "isPartOf": {
   "@type": "WebSite",
   "name": "LawDB.ca",
@@ -39,23 +39,31 @@
  "mainEntity": [
   {
    "@type": "Question",
-   "name": "Who can use LawDB Marketplace?",
+   "name": "Are there any inquiries to unlock right now?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Law firms that LawDB has verified. At launch, verification is manual: we check your law society registration. Anyone at a law firm can join the waitlist now."
+    "text": "No. Nothing is available right now. Inquiries will come soon, and we have not set a date."
    }
   },
   {
    "@type": "Question",
-   "name": "Does it cost anything to join?",
+   "name": "Who will be able to use the Lead Marketplace?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "No. Joining and browsing are free for every firm, with or without a Featured listing. You pay only when you unlock an inquiry, with prepaid credits."
+    "text": "Law firms that LawDB has verified. At launch, verification is manual: we check your law society registration."
    }
   },
   {
    "@type": "Question",
-   "name": "What does a firm see before it unlocks an inquiry?",
+   "name": "Will it cost anything to join?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Joining and browsing will be free for every firm, with or without a Featured listing. You pay only when you unlock an inquiry, with prepaid credits."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What will a firm see before it unlocks an inquiry?",
    "acceptedAnswer": {
     "@type": "Answer",
     "text": "The practice area, the city and province, how urgent it is, how long ago it came in, and a one-line summary that does not identify the person. Name, email and phone stay hidden until you unlock it."
@@ -83,14 +91,6 @@
    "acceptedAnswer": {
     "@type": "Answer",
     "text": "No. LawDB is an independent directory, not a law firm, and does not recommend any firm. The price of an inquiry is a flat advertising fee set by LawDB. It does not depend on whether the person hires you, and LawDB takes no share of any fee. Each firm remains responsible for following its own law society's rules on advertising and soliciting."
-   }
-  },
-  {
-   "@type": "Question",
-   "name": "When does it open?",
-   "acceptedAnswer": {
-    "@type": "Answer",
-    "text": "We are building it now and have not set a date. Waitlist members get one email when it opens."
    }
   }
  ]
@@ -213,28 +213,18 @@
   .mk-blur{ filter:blur(5px); user-select:none; -webkit-user-select:none; color:#2a2a2a; }
   .mk-unlock{ width:100%; min-height:48px; border:0; border-radius:12px; background:#e6d4a4; color:#8c8c8c; font:700 15.5px/1 'Inter',system-ui,sans-serif; cursor:default; }
   .mk-card-note{ margin:12px 0 0 !important; font-size:13px !important; color:var(--ink-soft) !important; }
-  .mk-form{ background:#fff; border:1px solid #ece6d3; border-radius:16px; padding:6px 22px 24px; margin-top:6px; }
-  .mk-form label{ display:block; font-weight:700; font-size:14.5px; margin:18px 0 7px; color:#2a2a2a; }
-  .mk-form input[type=text], .mk-form input[type=email]{ width:100%; box-sizing:border-box; font:inherit; font-size:16px; padding:12px 14px; border:1px solid #ece6d3; border-radius:8px; background:#fff; }
-  .mk-form input[type=text]:focus, .mk-form input[type=email]:focus{ outline:2px solid #c9a050; border-color:#c9a050; }
-  .mk-opt{ font-weight:500; color:var(--ink-soft); font-size:13px; }
-  .mk-set{ border:0; margin:18px 0 0; padding:0; min-width:0; }
-  .mk-set legend{ font-weight:700; font-size:14.5px; padding:0; margin-bottom:6px; color:#2a2a2a; }
-  .mk-form label.mk-pick{ display:inline-flex; align-items:center; gap:8px; margin:6px 14px 4px 0; font-weight:500; font-size:14.5px; }
-  .mk-form label.mk-consent{ display:flex; align-items:flex-start; gap:10px; margin:24px 0 0; padding:14px 16px; background:#f4ecd8; border:1px solid #e6d4a4; border-radius:10px; font-weight:500; font-size:14.5px; line-height:1.55; }
-  .mk-consent input{ margin-top:3px; flex:none; width:18px; height:18px; accent-color:#c9a050; }
-  .mk-pick input{ width:17px; height:17px; accent-color:#c9a050; }
-  .mk-hp{ position:absolute; left:-9999px; width:1px; height:1px; opacity:0; }
-  .mk-err{ margin:14px 0 0 !important; padding:10px 14px; border-radius:8px; background:#f7f1e0; border:1px solid #c9a050; color:#2a2a2a !important; font-size:14.5px !important; }
-  .mk-form .mk-btn{ margin-top:18px; }
   .mk .mk-fine, .mk-fine{ font-size:13px !important; color:var(--ink-soft) !important; line-height:1.6 !important; margin:12px 0 0 !important; }
-  .mk-ok{ margin-top:6px; padding:20px 22px; border:1px solid #c9a050; border-left-width:4px; border-radius:12px; background:#f4ecd8; font-size:15.5px; line-height:1.65; }
-  .mk-ok:focus{ outline:2px solid #c9a050; }
   .mk-faq details{ background:#fff; border:1px solid #ece6d3; border-radius:12px; padding:0 18px; margin-bottom:10px; }
   .mk-faq summary{ cursor:pointer; font-weight:700; font-size:15.5px; padding:15px 0; color:#2a2a2a; }
   .mk-faq details[open] summary{ border-bottom:1px solid #ece6d3; margin-bottom:12px; }
   .mk-faq p{ margin:0 0 14px; font-size:15px; }
   .mk-more{ margin-top:30px !important; }
+
+  .mk-board{ margin:26px 0 6px; padding:22px 24px; max-width:620px; background:#f4ecd8; border:1px solid #e6d4a4; border-left:4px solid #c9a050; border-radius:14px; }
+  .mk .mk-board-t{ margin:0 0 4px; font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#5f5f5f; }
+  .mk .mk-board-n{ margin:0 0 8px; font-family:'Source Serif 4',serif; font-size:24px; font-weight:700; line-height:1.25; color:#2a2a2a; }
+  .mk .mk-board-p{ margin:0; font-size:15.5px; }
+  .mk-link{ font-size:15px; }
 </style>
 <link rel="stylesheet" href="desktop.css">
 <link rel="stylesheet" href="site.css">
@@ -291,12 +281,17 @@
 
 
 <div class="wrap3 mk">
-  <p class="mk-eyebrow">LawDB Marketplace &middot; Coming soon</p>
-  <h1 class="pp mk-h1">Unlock legal inquiries from people who need a lawyer</h1>
-  <p class="mk-lede">LawDB Marketplace is where verified law firms preview new legal inquiries in their practice areas and provinces, and unlock the ones they want. Each inquiry goes to one firm. It is free to join, and you pay only when you unlock.</p>
-  <p class="mk-cta-row"><a class="mk-btn" href="#waitlist">Join the waitlist</a><span class="mk-cta-note">We are building it now. Joining costs nothing.</span></p>
+  <p class="mk-eyebrow">For law firms &middot; Opening soon</p>
+  <h1 class="pp mk-h1">LawDB Lead Marketplace</h1>
+  <p class="mk-lede">Verified law firms will preview legal inquiries here, and unlock the ones they want. Each inquiry goes to one firm. It is free to browse, and you pay only when you unlock.</p>
 
-  <h2>How it works</h2>
+  <div class="mk-board" role="status">
+    <p class="mk-board-t">Available inquiries</p>
+    <p class="mk-board-n">Nothing available right now</p>
+    <p class="mk-board-p">Inquiries will come soon. Leads are on the way, and verified firms will see them in their LawDB account as soon as there are any.</p>
+  </div>
+
+  <h2>How it will work</h2>
   <ol class="mk-steps">
     <li><span class="mk-n" aria-hidden="true">1</span><div><h3>Inquiries come in</h3><p>People tell LawDB what kind of lawyer they need and where. We check each request before it is listed.</p></div></li>
     <li><span class="mk-n" aria-hidden="true">2</span><div><h3>Preview and unlock</h3><p>You see the practice area, the city, how urgent it is and a short summary. The person's name and contact details stay hidden until you unlock the inquiry with prepaid credits.</p></div></li>
@@ -311,7 +306,7 @@
     <li><h3>Verified firms only</h3><p>Firms are checked against their law society registration before they can unlock anything. Inquiries are never shown on the public site.</p></li>
   </ul>
 
-  <h2>What a firm sees before unlocking</h2>
+  <h2>What a firm will see before unlocking</h2>
   <p class="mk-p">A preview shows enough to decide, and nothing that identifies the person. This is a sample, not a real inquiry.</p>
   <figure class="mk-card" aria-label="Example inquiry card, not a real inquiry">
     <p class="mk-flag">Example lead, not a real inquiry</p>
@@ -326,62 +321,22 @@
     <p class="mk-card-note">Contact details stay hidden until a verified firm unlocks the inquiry. The first firm to unlock it receives it.</p>
   </figure>
 
-  <h2 id="waitlist">Join the waitlist</h2>
-  <p class="mk-p">Tell us about your firm and we will email you once, when LawDB Marketplace opens. Nothing is charged, and joining does not need a Featured listing.</p>
-  <form class="mk-form" id="mpForm" novalidate>
-    <input type="checkbox" name="botcheck" class="mk-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <label for="mpName">Your name</label>
-    <input id="mpName" name="name" type="text" required autocomplete="name">
-    <label for="mpEmail">Work email</label>
-    <input id="mpEmail" name="email" type="email" required autocomplete="email">
-    <label for="mpFirm">Firm name</label>
-    <input id="mpFirm" name="firmName" type="text" required autocomplete="organization">
-    <label for="mpSociety">Law society and licence number, or a link to your listing <span class="mk-opt">(optional; it helps us verify you sooner)</span></label>
-    <input id="mpSociety" name="lawSociety" type="text" autocomplete="off">
-    <fieldset class="mk-set"><legend>Practice areas <span class="mk-opt">(optional)</span></legend>
-      <label class="mk-pick"><input type="checkbox" name="practiceAreas" value="injury"> Personal injury</label>
-      <label class="mk-pick"><input type="checkbox" name="practiceAreas" value="family"> Family law and divorce</label>
-      <label class="mk-pick"><input type="checkbox" name="practiceAreas" value="criminal"> Criminal defence</label>
-      <label class="mk-pick"><input type="checkbox" name="practiceAreas" value="immigration"> Immigration</label>
-      <label class="mk-pick"><input type="checkbox" name="practiceAreas" value="wills"> Wills and estates</label>
-      <label class="mk-pick"><input type="checkbox" name="practiceAreas" value="realestate"> Real estate</label>
-      <label class="mk-pick"><input type="checkbox" name="practiceAreas" value="employment"> Employment law</label>
-      <label class="mk-pick"><input type="checkbox" name="practiceAreas" value="business"> Business and corporate</label>
-      <label class="mk-pick"><input type="checkbox" name="practiceAreas" value="litigation"> Civil litigation</label>
-      <label class="mk-pick"><input type="checkbox" name="practiceAreas" value="traffic"> Traffic tickets</label>
-    </fieldset>
-    <fieldset class="mk-set"><legend>Provinces you are licensed in <span class="mk-opt">(optional)</span></legend>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="ON"> Ontario</label>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="QC"> Quebec</label>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="BC"> British Columbia</label>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="AB"> Alberta</label>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="MB"> Manitoba</label>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="SK"> Saskatchewan</label>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="NS"> Nova Scotia</label>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="NB"> New Brunswick</label>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="NL"> Newfoundland and Labrador</label>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="PE"> Prince Edward Island</label>
-      <label class="mk-pick"><input type="checkbox" name="provinces" value="territories"> Territories</label>
-    </fieldset>
-    <label class="mk-consent"><input id="mpConsent" type="checkbox" name="consent" value="yes" required><span id="mpConsentText">Email me about LawDB Marketplace, including when it opens. I can withdraw this at any time by replying to any of these emails.</span></label>
-    <p class="mk-err" id="mpErr" role="alert" hidden></p>
-    <button class="mk-btn" type="submit" id="mpBtn">Join the waitlist</button>
-    <p class="mk-fine">We use these details only to run the waitlist and to check your firm. See our <a href="/privacy-policy">Privacy Policy</a>.</p>
-  </form>
-  <div class="mk-ok" id="mpOk" tabindex="-1" hidden><strong>You are on the list.</strong> We have emailed you a confirmation, and we will email you once when LawDB Marketplace opens.</div>
+  <h2>In the meantime</h2>
+  <p class="mk-p">Only verified firms will be able to unlock inquiries, so the most useful thing to do now is make sure your firm is listed and your profile is complete.</p>
+  <p class="mk-cta-row"><a class="mk-btn" href="/list-your-firm">List or claim your firm</a><a class="mk-link" href="/for-firms">See what Featured adds</a></p>
 
   <h2>Questions</h2>
   <div class="mk-faq">
-    <details><summary>Who can use LawDB Marketplace?</summary><p>Law firms that LawDB has verified. At launch, verification is manual: we check your law society registration. Anyone at a law firm can join the waitlist now.</p></details>
-    <details><summary>Does it cost anything to join?</summary><p>No. Joining and browsing are free for every firm, with or without a Featured listing. You pay only when you unlock an inquiry, with prepaid credits.</p></details>
-    <details><summary>What does a firm see before it unlocks an inquiry?</summary><p>The practice area, the city and province, how urgent it is, how long ago it came in, and a one-line summary that does not identify the person. Name, email and phone stay hidden until you unlock it.</p></details>
+    <details><summary>Are there any inquiries to unlock right now?</summary><p>No. Nothing is available right now. Inquiries will come soon, and we have not set a date.</p></details>
+    <details><summary>Who will be able to use the Lead Marketplace?</summary><p>Law firms that LawDB has verified. At launch, verification is manual: we check your law society registration.</p></details>
+    <details><summary>Will it cost anything to join?</summary><p>No. Joining and browsing will be free for every firm, with or without a Featured listing. You pay only when you unlock an inquiry, with prepaid credits.</p></details>
+    <details><summary>What will a firm see before it unlocks an inquiry?</summary><p>The practice area, the city and province, how urgent it is, how long ago it came in, and a one-line summary that does not identify the person. Name, email and phone stay hidden until you unlock it.</p></details>
     <details><summary>Can two firms get the same inquiry?</summary><p>No. The first firm to unlock an inquiry receives it, and it then disappears for every other firm.</p></details>
     <details><summary>What if an inquiry turns out to be junk?</summary><p>You will be able to report an inquiry within 48 hours of unlocking it. If it is clearly junk, such as a disconnected number or spam, the credits go back to your balance after we review the report. A refund never depends on whether the person hires you.</p></details>
     <details><summary>Is this a referral service?</summary><p>No. LawDB is an independent directory, not a law firm, and does not recommend any firm. The price of an inquiry is a flat advertising fee set by LawDB. It does not depend on whether the person hires you, and LawDB takes no share of any fee. Each firm remains responsible for following its own law society's rules on advertising and soliciting.</p></details>
-    <details><summary>When does it open?</summary><p>We are building it now and have not set a date. Waitlist members get one email when it opens.</p></details>
   </div>
 
-  <p class="mk-fine mk-more">Already a Featured firm, or thinking about it? Marketplace is separate from Featured and does not need it. See <a href="/for-firms">what Featured adds</a>.</p>
+  <p class="mk-fine mk-more">The Lead Marketplace is separate from Featured and does not need it.</p>
 </div>
 
 <footer class="site-footer">
@@ -408,7 +363,7 @@
         <li><a href="/for-firms">For Law Firms</a></li>
         <li><a href="/list-your-firm">List Your Firm (Free)</a></li>
         <li><a href="/list-your-firm?plan=featured">Get Featured</a></li>
-        <li><a href="/marketplace">LawDB Marketplace</a></li>
+        <li><a href="/marketplace">Lead Marketplace</a></li>
         <li><a href="/account/">Manage Your Listing</a></li>
         <li><a href="/grow-your-practice">Grow Your Practice</a></li>
       </ul>
@@ -424,6 +379,5 @@
 </footer>
 
 <script src="site.js" defer></script>
-<script src="marketplace.js" defer></script>
 </body>
 </html>

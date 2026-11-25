@@ -6,22 +6,12 @@ advertising rules before the Marketplace opens.
 
 ## What is live (Phase 0)
 
-- `/marketplace`: a "coming soon" page for law firms. It shows one clearly labelled example card ("Example lead, not a real inquiry") and no consumer data.
-- A waitlist form on that page. It stores, in the `leads` table with `form = 'marketplace-waitlist'`: name, work email, firm name, an optional law society
-  reference, ticked practice areas and provinces, and a **consent record** (time, form version, the exact wording of that version, a short browser string).
-  The wording is written by the server from `src/lib/consent.js`; a browser cannot change it. The IP address is kept only as the one-way hash every form
-  already keeps for 7 days. The box must be ticked (not ticked in advance).
-- One confirmation email to the person (transactional: they are on the list, nothing is charged, reply to be removed) and one note to the admin.
-- Retention: like every row in `leads`, the personal fields are removed automatically after 12 months (`src/lib/backup.js`). The Privacy Policy says so.
-- The Privacy Policy lists the waitlist (what is collected, why, how long). The Terms say the Marketplace is not open and that joining is not a contract.
+- `/marketplace`: a "coming soon" page for law firms called the **Lead Marketplace**. It says nothing is available right now and that inquiries will come soon. It shows one clearly labelled example card ("Example lead, not a real inquiry") and no consumer data.
+- **It collects nothing.** There is no waitlist, no form and no script of its own. (The owner decided against a waitlist; an earlier version had one and it was removed before release.) So the Privacy Policy and the Terms are unchanged by Phase 0.
 
 ## What is deliberately NOT done yet
 
-- **The firm-page enquiry form keeps its current wording**: "By submitting, you agree LawDB may contact you about your inquiry and will share these details
-  with {firm} so they can respond." That is exactly what happens today. The brief asked for wording about sharing with "a law firm that pays to receive it"
-  on that form, but until Phase 1 builds that sharing, saying it would tell people something that is not true yet. In Phase 1 it becomes a **separate,
-  optional, unticked checkbox** ("marketplace-inquiry" in `src/lib/consent.js`), so a person who only wants to contact the firm they are looking at is
-  never opted in to anything wider.
+- **The firm-page enquiry form keeps its current wording**: "By submitting, you agree LawDB may contact you about your inquiry and will share these details with {firm} so they can respond." That is exactly what happens today. The brief asked for wording about sharing with "a law firm that pays to receive it" on that form, but until Phase 1 builds that sharing, saying it would tell people something that is not true yet. In Phase 1 it becomes a **separate, optional, unticked checkbox**, so a person who only wants to contact the firm they are looking at is never opted in to anything wider.
 - No lead is shown, stored for sale or sent to any firm. There is no price, no credit and no unlock yet.
 
 ## Rules the build follows (from the brief)
@@ -33,7 +23,7 @@ advertising rules before the Marketplace opens.
 
 ## Draft wording for Phase 1 (not published)
 
-**Consent shown with the general "find me a lawyer" form** (`marketplace-inquiry`, version `mp-inquiry-2026-11-v1`):
+**Consent shown with the general "find me a lawyer" form** (to be stored per inquiry with a version id, the exact wording, the time and a short browser string; never an IP address):
 "I agree that LawDB may share my inquiry and contact details with one law firm that pays to receive it. Only one firm will receive it. LawDB may also
 contact me about my inquiry."
 
@@ -57,8 +47,7 @@ contact the person only about their inquiry (CASL).
    Alberta (referral fees, fee-splitting, and "pay to be recommended" rules differ), and whether the words "advertising fee" are the right description.
 2. Whether giving **Featured firms a head start** on new inquiries (Phase 2) changes that analysis.
 3. The consent wording above, and whether a **separate optional checkbox** on firm-page forms is enough for a firm-specific enquiry to be shared more widely.
-4. **CASL**: the waitlist is express consent to email about the Marketplace. Later launch and alert emails need the sender's name and mailing address and a
-   working unsubscribe in the message itself (the confirmation only says "reply to be removed").
+4. **CASL**: alert emails to firms (Phase 2) need express consent, the sender's name and mailing address, and a working unsubscribe in the message itself.
 5. **PIPEDA and Quebec Law 25**: meaningful consent, sensitive information, retention, access and deletion requests, and the privacy-officer contact.
 6. **Prepaid credits**: whether they are "gift card / prepaid" under any consumer rules, how unused credits are treated when an account closes, and tax
    (GST/HST/QST) on a credit sale and on an unlock.

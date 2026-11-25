@@ -4,6 +4,7 @@
 // - A payment we cannot match (different email, no firm named) is parked for the admin; nobody becomes Featured by guesswork.
 // - When the subscription ends the firm goes back to Basic, unless it was already Featured before it paid (set by hand).
 
+import { creditTopUp } from './marketplace.js';
 import { audit } from './audit.js';
 import { FIRM_PRICE_LABEL } from './plans.js';
 import { adminEmails } from './auth.js';
@@ -153,11 +154,22 @@ async function onSubscription(env, sub, exec, origin) {
   }
 }
 
+// Lead Marketplace credits: a one-time payment made through a top-up payment link opened with client_reference_id "mp:<firm slug>". Credits are dollars; one ledger row per
+// Stripe session, so a repeated webhook adds nothing.
+async function onMarketplaceTopUp(env, session) {
+  const slug = String(session.client_reference_id).slice(3);
+  if (session.payment_status !== 'paid') return audit(env, null, 'stripe.ignored', 'event', session.id, { reason: 'top-up not paid yet' });
+  const r = await creditTopUp(env, { slug, amountCents: session.amount_total, sessionId: session.id });
+  if (!r.ok) await audit(env, null, 'stripe.ignored', 'event', session.id, { reason: `top-up: ${r.reason}`, slug });
+}
+
 export async function handleStripeEvent(env, event, exec, origin) {
   const obj = event.data?.object;
   if (!obj) return;
   switch (event.type) {
-    case 'checkout.session.completed': return onCheckoutCompleted(env, obj, exec, origin);
+    case 'checkout.session.completed':
+      if (obj.mode === 'payment' && String(obj.client_reference_id || '').startsWith('mp:')) return onMarketplaceTopUp(env, obj);
+      return onCheckoutCompleted(env, obj, exec, origin);
     case 'customer.subscription.created':
     case 'customer.subscription.updated':
     case 'customer.subscription.deleted':

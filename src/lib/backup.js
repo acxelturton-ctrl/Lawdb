@@ -36,6 +36,11 @@ const TABLES = {
   projects: 'SELECT * FROM projects ORDER BY id', // the owner's Future projects list
   journal: 'SELECT * FROM journal ORDER BY day', // the daily journal with the owner's notes
   outreach: 'SELECT * FROM outreach ORDER BY id', // the owner's Outreach desk (who was contacted, where it stands, when to follow up)
+  marketplace_config: 'SELECT * FROM marketplace_config ORDER BY key', // Lead Marketplace: the admin's settings
+  marketplace_firms: 'SELECT * FROM marketplace_firms ORDER BY firm_slug', // each firm's credit balance and what it wants to see
+  marketplace_leads: 'SELECT * FROM marketplace_leads ORDER BY id', // the inquiries, with the consent record of each
+  marketplace_ledger: 'SELECT * FROM marketplace_ledger ORDER BY id', // every top-up, unlock, refund and grant: money, so it is backed up
+  marketplace_reports: 'SELECT * FROM marketplace_reports ORDER BY id',
 };
 const PAGE = 2000;
 
@@ -72,7 +77,7 @@ export async function runBackup(env, actor) {
 
 export async function housekeeping(env) {
   const run = (sql) => env.DB.prepare(sql).run();
-  const [sessions, tokens, ips1, ips2, leads, logs, , statsPruned] = await Promise.all([
+  const [sessions, tokens, ips1, ips2, leads, logs, , statsPruned, mpIps, mpDetails] = await Promise.all([
     run("DELETE FROM sessions WHERE expires_at < datetime('now')"),
     run("DELETE FROM login_tokens WHERE expires_at < datetime('now', '-1 day')"),
     run(`UPDATE login_tokens SET ip_hash = NULL WHERE ip_hash IS NOT NULL AND created_at < datetime('now', '-${RETENTION.ipHashDays} days')`),
@@ -83,9 +88,13 @@ export async function housekeeping(env) {
     run(`DELETE FROM audit_log WHERE at < datetime('now', '-${RETENTION.auditMonths} months')`),
     run("DELETE FROM stripe_events WHERE received_at < datetime('now', '-90 days')"),
     pruneStats(env), // traffic counts: 400 days, and the unmatched search words 90 days (see the privacy policy)
+    // Lead Marketplace: the abuse-prevention hash goes after 7 days like every other (the consent record keeps its own hash, as the privacy policy says), and the person's
+    // details after 12 months (an inquiry nobody unlocked has lost them already, when it expired).
+    run(`UPDATE marketplace_leads SET ip_hash = NULL WHERE ip_hash IS NOT NULL AND created_at < datetime('now', '-${RETENTION.ipHashDays} days')`),
+    run(`UPDATE marketplace_leads SET details = NULL WHERE details IS NOT NULL AND created_at < datetime('now', '-${RETENTION.leadMonths} months')`),
   ]);
   const n = (r) => r.meta?.changes ?? 0;
-  const detail = { sessions: n(sessions), tokens: n(tokens), ipHashes: n(ips1) + n(ips2), leadsAnonymised: n(leads), auditDeleted: n(logs), statsDeleted: statsPruned };
+  const detail = { sessions: n(sessions), tokens: n(tokens), ipHashes: n(ips1) + n(ips2) + n(mpIps), leadsAnonymised: n(leads) + n(mpDetails), auditDeleted: n(logs), statsDeleted: statsPruned };
   await audit(env, null, 'housekeeping.ok', 'system', 'nightly', detail);
   return detail;
 }

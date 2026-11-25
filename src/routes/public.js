@@ -3,6 +3,8 @@ import { mailInBackground, leadEmail, reportEmail, lawyerClaimEmail } from '../l
 import { sha256Hex } from '../lib/crypto.js';
 import { adminEmails } from '../lib/auth.js';
 import { PRACTICE } from '../lib/practice.js';
+import { isOpen, createInquiry, guessArea } from '../lib/marketplace.js';
+import { announce } from './marketplace.js';
 
 export async function listFirms({ url, env }) {
   const p = url.searchParams;
@@ -97,11 +99,23 @@ export async function createLead({ request, env, url, exec }) {
 
   // A form on a firm's own profile page names that firm: route the enquiry to it.
   const firmSlug = str(input.firm, 100);
-  const firm = firmSlug ? await env.DB.prepare("SELECT slug, name, featured, enquiry_email FROM firms WHERE slug = ? AND status = 'live'").bind(firmSlug).first() : null;
+  const firm = firmSlug ? await env.DB.prepare("SELECT slug, name, featured, enquiry_email, city, province, data FROM firms WHERE slug = ? AND status = 'live'").bind(firmSlug).first() : null;
 
-  await env.DB.prepare('INSERT INTO leads (form,name,email,phone,message,payload,page,firm_slug,ip_hash) VALUES (?,?,?,?,?,?,?,?,?)')
+  const saved = await env.DB.prepare('INSERT INTO leads (form,name,email,phone,message,payload,page,firm_slug,ip_hash) VALUES (?,?,?,?,?,?,?,?,?)')
     .bind(form, name, email, phone || null, message || null, JSON.stringify(extra), page || null, firm ? firm.slug : null, ipHash)
     .run();
+
+  // The optional box on a firm's form ("also share my inquiry with one law firm that pays to receive it"), shown only while the Lead Marketplace is open. The enquiry
+  // above goes to the firm either way; this adds the inquiry to the marketplace for ONE other firm, never the one it was sent to. It can never block the enquiry itself.
+  if (firm && input.shareWider === 'yes') {
+    try {
+      if (await isOpen(env)) {
+        const lead = await createInquiry(env, { name, email, phone, description: message, practiceArea: guessArea(message, JSON.parse(firm.data).caseTypes || []), province: firm.province, city: firm.city, urgency: 'unspecified' },
+          { source: 'firm-page', sourceLeadId: saved.meta.last_row_id, sourceFirm: firm.slug, userAgent: request.headers.get('user-agent') || '', ipHash });
+        announce(env, exec, env.SITE_ORIGIN || url.origin, lead, { name, email, practiceArea: guessArea(message, JSON.parse(firm.data).caseTypes || []), province: firm.province });
+      }
+    } catch (err) { console.error('marketplace inquiry from a firm form failed', err); }
+  }
 
   // A report about a listing goes to the admin, never to the firm it is about.
   if (form === 'report-listing') {

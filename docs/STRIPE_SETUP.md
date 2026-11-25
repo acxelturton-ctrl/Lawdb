@@ -70,3 +70,16 @@ Firms made Featured by hand in the admin are never touched by a cancellation.
 - Stripe -> Developers -> Webhooks -> the endpoint shows every delivery and its response. `400` = wrong signing secret; `503` = the secret is not set in Cloudflare.
 - The admin **Activity** tab shows each `stripe.checkout`, `stripe.subscription` and `firm.featured` entry.
 - Events are applied once; resending one from Stripe is safe.
+
+## Lead Marketplace credit top-ups (optional, only when the marketplace is open)
+
+Firms buy credits (one credit is one Canadian dollar) with one-time Stripe payments. No Stripe API key is needed: you create **payment links**, the dashboard opens each with the firm's address attached, and the same signed webhook above credits the firm.
+
+1. In Stripe, create a one-time **Payment Link** for each amount you want to offer (for example $50, $100, $250, $500), in CAD. Under "After payment" nothing special is needed.
+2. In Cloudflare, Workers, lawdb, Settings, Variables, add a variable `STRIPE_TOPUP_LINKS` with the links as JSON, amount in dollars first:
+   `{"50":"https://buy.stripe.com/xxxx","100":"https://buy.stripe.com/yyyy","250":"https://buy.stripe.com/zzzz"}`
+3. In the webhook you already made, `checkout.session.completed` is the only event used (it is already selected for Featured). A payment is credited once, whatever number of times Stripe sends it.
+
+The dashboard adds `client_reference_id=mp:<firm address>` and the owner's email to each link, and credits `amount paid / 100` whole credits to that firm; the admin sees it in Lead Marketplace, Ledger. With no variable the dashboard says credits are added by LawDB, and you can add credits by hand (Lead Marketplace, Firms and credits).
+
+Alert emails: to send them through Resend instead of Brevo, add the `RESEND_API_KEY` secret (and `ALERTS_FROM`, for example `LawDB <alerts@lawdb.ca>`), after verifying the sending domain at Resend (SPF, DKIM, DMARC). Without it they go through Brevo.

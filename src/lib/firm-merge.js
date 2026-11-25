@@ -16,7 +16,8 @@ import { cleanSlug } from './firm-slug.js';
 
 // Where every table that has a firm_slug column goes in a merge. scripts/test-firm-merge.mjs reads the migrations and fails if a table with such a
 // column is in neither list, so a table added later cannot be forgotten.
-export const MERGE_MOVED = ['firm_members', 'firm_feeds', 'firm_posts', 'firm_subscriptions', 'follows', 'firm_ratings', 'firm_invites', 'firm_stats_daily', 'leads', 'outreach'];
+export const MERGE_MOVED = ['firm_members', 'firm_feeds', 'firm_posts', 'firm_subscriptions', 'follows', 'firm_ratings', 'firm_invites', 'firm_stats_daily', 'leads', 'outreach',
+  'marketplace_firms', 'marketplace_leads', 'marketplace_ledger', 'marketplace_reports', 'marketplace_alerts'];
 export const MERGE_DROPPED = ['firm_images', 'firm_trials', 'firm_verifications', 'lawyer_photos'];
 
 export async function mergeFirms(env, admin, fromSlug, rawInto) {
@@ -61,6 +62,14 @@ export async function mergeFirms(env, admin, fromSlug, rawInto) {
     // Counters add up day by day. Past payments keep their history on the kept listing.
     db.prepare('INSERT INTO firm_stats_daily (firm_slug, day, metric, k, n) SELECT ?, day, metric, k, n FROM firm_stats_daily WHERE firm_slug = ? ON CONFLICT (firm_slug, day, metric, k) DO UPDATE SET n = n + excluded.n').bind(into, fromSlug),
     db.prepare('UPDATE firm_subscriptions SET firm_slug = ? WHERE firm_slug = ?').bind(into, fromSlug),
+    // Lead Marketplace: the balance adds to the kept listing's, and the ledger, inquiries, reports and alerts move with it, so the balance is still the sum of the ledger.
+    db.prepare('INSERT INTO marketplace_firms (firm_slug, balance) SELECT ?, balance FROM marketplace_firms WHERE firm_slug = ? ON CONFLICT (firm_slug) DO UPDATE SET balance = balance + excluded.balance').bind(into, fromSlug),
+    db.prepare('DELETE FROM marketplace_firms WHERE firm_slug = ?').bind(fromSlug),
+    db.prepare('UPDATE marketplace_ledger SET firm_slug = ? WHERE firm_slug = ?').bind(into, fromSlug),
+    db.prepare('UPDATE marketplace_leads SET firm_slug = ? WHERE firm_slug = ?').bind(into, fromSlug),
+    db.prepare('UPDATE marketplace_leads SET source_firm = ? WHERE source_firm = ?').bind(into, fromSlug),
+    db.prepare('UPDATE marketplace_reports SET firm_slug = ? WHERE firm_slug = ?').bind(into, fromSlug),
+    db.prepare('UPDATE OR IGNORE marketplace_alerts SET firm_slug = ? WHERE firm_slug = ?').bind(into, fromSlug),
     // The duplicate goes (its leftover rows go with it), and its address, and any older address that pointed at it, now lead to the kept listing.
     db.prepare('DELETE FROM firms WHERE slug = ?').bind(fromSlug),
     db.prepare('DELETE FROM firm_redirects WHERE old_slug = ?').bind(into),

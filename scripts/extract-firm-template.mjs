@@ -61,7 +61,7 @@ chunks.MAP_EMBED = tokenize(block(REF, '<div class="map-embed">'), refFirm);
   const hook = "fetch('https://api.web3forms.com/submit'";
   must(s.indexOf(hook) >= 0 ? 1 : -1, 'web3forms hook');
   s = s.replace(hook,
-    "try{ fetch('/api/leads', { method: 'POST', headers: {'Content-Type':'application/json'}, keepalive: true, body: JSON.stringify({ form: 'firm-profile', name: form.name.value, email: form.email.value, phone: form.phone.value, message: form.message.value, firm: '{{SLUG}}', firmName: '{{NAME}}', botcheck: form.botcheck.checked ? '1' : '', page: location.pathname }) }).catch(function(){}); }catch(_){}\n        " + hook);
+    "try{ fetch('/api/leads', { method: 'POST', headers: {'Content-Type':'application/json'}, keepalive: true, body: JSON.stringify({ form: 'firm-profile', name: form.name.value, email: form.email.value, phone: form.phone.value, message: form.message.value, shareWider: form.shareWider && form.shareWider.checked ? 'yes' : '', firm: '{{SLUG}}', firmName: '{{NAME}}', botcheck: form.botcheck.checked ? '1' : '', page: location.pathname }) }).catch(function(){}); }catch(_){}\n        " + hook);
   chunks.LEAD_SCRIPT = s;
 }
 {

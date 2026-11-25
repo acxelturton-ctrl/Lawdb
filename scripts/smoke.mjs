@@ -1027,7 +1027,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(isDeepStrictEqual(labels(navOf(h)), navWant) && isDeepStrictEqual(labels(drawerOf(h)), drawerWant) && topBar, `${f}: the menu has three items and Sign in; the hamburger menu ends its links with Contact Us and one Sign in button, once${home ? '; the home page top bar has one Sign in button' : ''}`);
     ok(/<a class="menu-cta" href="\/account\/">Sign in<\/a>/.test(drawerOf(h)) && !/book-a-call/.test(drawerOf(h)) && (drawerOf(h).match(/>Sign in</g) || []).length === 1, `${f}: the drawer's gold button is Sign in (to the account page), and Sign in is there once`);
     const firmsCol = (h.match(/<h4>For Law Firms<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
-    ok(isDeepStrictEqual(labels(firmsCol), ['For Law Firms', 'List Your Firm (Free)', 'Get Featured', 'Manage Your Listing', 'Grow Your Practice']), `${f}: the footer's firms column has no repeats`);
+    ok(isDeepStrictEqual(labels(firmsCol), ['For Law Firms', 'List Your Firm (Free)', 'Get Featured', 'LawDB Marketplace', 'Manage Your Listing', 'Grow Your Practice']), `${f}: the footer's firms column has no repeats (the LawDB Marketplace link included)`);
     const clientsCol = (h.match(/<h4>For Clients<\/h4>\s*<ul>(.*?)<\/ul>/s) || [])[1] || '';
     ok(isDeepStrictEqual(labels(clientsCol), ['Find Your Lawyer', 'Browse by Case Type', 'LawDB News', 'Blog', 'How LawDB Works', 'Request a Consultation']), `${f}: the footer's clients column is complete`);
     ok(['https://x.com/lawdbca', 'https://www.facebook.com/profile.php?id=61595212632512', 'https://www.linkedin.com/in/lawdb'].every((u) => h.includes(`<a href="${u}" target="_blank" rel="noopener me"`)), `${f}: the footer links LawDB's own X, Facebook and LinkedIn pages`);
@@ -1440,6 +1440,25 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('GET', '/api/admin/stats')).data.openReports >= 1, 'the overview counts open reports');
   as(o1.jar);
   ok(!(await call('GET', '/api/account/firms/achkar-law/leads')).data?.leads?.some((l) => l.email === `reporter-${run}@example.com`), 'a report is never shown to the firm it is about');
+
+  // LawDB Marketplace waitlist (marketplace.html): the consent box must be ticked, the stored wording is the server's own, one address is one place on the list, and both emails go out
+  cookie = '';
+  const wlEmail = `waitlist-${run}@example.com`;
+  const wlIp = { 'cf-connecting-ip': freshIp() };
+  const wlBody = { form: 'marketplace-waitlist', name: 'Wait List', email: wlEmail, firmName: 'Waitlist LLP', lawSociety: 'LSO 12345X', practiceAreas: 'family,injury,notarealarea', provinces: 'ON,XX', consentText: 'I wrote this wording myself' };
+  ok((await call('POST', '/api/leads', { ...wlBody }, wlIp)).status === 422, 'the waitlist refuses a sign-up with the consent box left empty');
+  ok((await call('POST', '/api/leads', { ...wlBody, consent: 'yes', firmName: '' }, wlIp)).status === 422, 'the waitlist needs a firm name');
+  ok((await call('POST', '/api/leads', { ...wlBody, consent: 'yes' }, wlIp)).status === 201, 'a firm joins the waitlist');
+  ok((await call('POST', '/api/leads', { ...wlBody, consent: 'yes' }, wlIp)).status === 201, 'joining a second time is accepted without a second place on the list');
+  as(adminJar);
+  const wlLeads = (await call('GET', '/api/admin/leads?limit=200')).data.leads.filter((l) => l.form === 'marketplace-waitlist' && l.email === wlEmail);
+  ok(wlLeads.length === 1, 'the same address is on the waitlist once');
+  ok(wlLeads[0]?.payload.consentVersion === 'mp-waitlist-2026-11-v1' && wlLeads[0].payload.consentText.startsWith('Email me about LawDB Marketplace') && !!wlLeads[0].payload.consentAt && wlLeads[0].payload.practiceAreas === 'family,injury' && wlLeads[0].payload.provinces === 'ON' && wlLeads[0].payload.firmName === 'Waitlist LLP', 'the consent record and the cleaned choices are stored, and the wording is the server\'s, not the browser\'s');
+  const wlAudit = (await call('GET', '/api/admin/audit?limit=300')).data.entries;
+  ok(wlAudit.filter((e) => e.action === 'mail.dev' && e.entity_id === wlEmail && e.detail?.subject === 'You are on the LawDB Marketplace waitlist').length === 1, 'the firm gets exactly one confirmation email');
+  ok(wlAudit.some((e) => e.action === 'mail.dev' && /^Marketplace waitlist: Waitlist LLP/.test(e.detail?.subject || '')), 'the admin is told about the sign-up');
+  const mkPage = await getRaw('/marketplace');
+  ok(mkPage.status === 200 && mkPage.text.includes('Example lead, not a real inquiry') && mkPage.text.includes('rel="canonical" href="https://lawdb.ca/marketplace"') && (await getRaw('/sitemap.xml')).text.includes('https://lawdb.ca/marketplace</loc>'), 'the Marketplace page is served, says its example is not real, and is in the sitemap');
 
   // enquiry flood limit per requester address (the 16th within an hour is refused)
   cookie = '';

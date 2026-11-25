@@ -11,7 +11,7 @@ import { bookingRow } from '../render/booking.js';
 import { listArticles, articlesIndexable } from '../lib/articles.js';
 import { lawyersOf } from '../lib/lawyers.js';
 
-const CACHE_GENERATION = 10; // 10: the greyed-out Book a call button is a plain tan button (no padlock, no Featured tag); 9: Basic lawyers show name, role and years in practice only, a page of their own is a Featured lawyer's; 8: 8: every firm's articles on the Articles page, none at the bottom of the Overview; 7: the Articles page and a tab bar that can hold more pages; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
+const CACHE_GENERATION = 11; // 11: the footer has a LawDB Marketplace link; 10: the greyed-out Book a call button is a plain tan button (no padlock, no Featured tag); 9: Basic lawyers show name, role and years in practice only, a page of their own is a Featured lawyer's; 8: 8: every firm's articles on the Articles page, none at the bottom of the Overview; 7: the Articles page and a tab bar that can hold more pages; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);

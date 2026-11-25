@@ -1,8 +1,13 @@
 import { json, cached, clampInt, HttpError, isEmail } from '../lib/http.js';
-import { mailInBackground, leadEmail, reportEmail, lawyerClaimEmail } from '../lib/email.js';
+import { mailInBackground, leadEmail, reportEmail, lawyerClaimEmail, marketplaceWaitlistEmail, marketplaceWaitlistAdminEmail } from '../lib/email.js';
+import { consentRecord } from '../lib/consent.js';
 import { sha256Hex } from '../lib/crypto.js';
 import { adminEmails } from '../lib/auth.js';
 import { PRACTICE } from '../lib/practice.js';
+
+// Where a firm on the LawDB Marketplace waitlist can say it practises (the keys the site already uses for practice areas and provinces).
+export const WAITLIST_PROVINCES = ['ON', 'QC', 'BC', 'AB', 'MB', 'SK', 'NS', 'NB', 'NL', 'PE', 'territories'];
+const keepOnly = (v, allowed) => [...new Set(String(v || '').split(',').map((x) => x.trim()).filter((x) => allowed.includes(x)))].join(',');
 
 export async function listFirms({ url, env }) {
   const p = url.searchParams;
@@ -99,6 +104,23 @@ export async function createLead({ request, env, url, exec }) {
   const firmSlug = str(input.firm, 100);
   const firm = firmSlug ? await env.DB.prepare("SELECT slug, name, featured, enquiry_email FROM firms WHERE slug = ? AND status = 'live'").bind(firmSlug).first() : null;
 
+  // A law firm asking to be emailed when LawDB Marketplace opens. The firm's own name goes in `firmName` (the field `firm` would route the request to a listing).
+  // Consent is the point of this form: it must be ticked, and what is stored is the wording of the version shown (never text sent by the browser).
+  const waitlist = form === 'marketplace-waitlist';
+  if (waitlist) {
+    if (input.consent !== 'yes') throw new HttpError(422, 'Please tick the box to agree to be emailed about LawDB Marketplace');
+    if (!str(input.firmName, 200)) throw new HttpError(422, 'Your firm\'s name is required');
+    const c = consentRecord('marketplace-waitlist', { userAgent: request.headers.get('user-agent') || '' });
+    Object.assign(extra, {
+      firmName: str(input.firmName, 200), lawSociety: str(input.lawSociety, 300),
+      practiceAreas: keepOnly(input.practiceAreas, Object.keys(PRACTICE)), provinces: keepOnly(input.provinces, WAITLIST_PROVINCES),
+      consent: 'yes', consentVersion: c.version, consentText: c.text, consentAt: c.at, consentUserAgent: c.userAgent,
+    });
+    // the same address twice is one place on the list (and one confirmation), not two
+    const already = await env.DB.prepare("SELECT 1 FROM leads WHERE form = 'marketplace-waitlist' AND lower(email) = lower(?) LIMIT 1").bind(email).first();
+    if (already) return json({ ok: true }, 201);
+  }
+
   await env.DB.prepare('INSERT INTO leads (form,name,email,phone,message,payload,page,firm_slug,ip_hash) VALUES (?,?,?,?,?,?,?,?,?)')
     .bind(form, name, email, phone || null, message || null, JSON.stringify(extra), page || null, firm ? firm.slug : null, ipHash)
     .run();
@@ -107,6 +129,14 @@ export async function createLead({ request, env, url, exec }) {
   if (form === 'report-listing') {
     const to = [...adminEmails(env)];
     if (to.length) mailInBackground(env, exec, { to, ...reportEmail(env.SITE_ORIGIN || url.origin, { slug: extra.reportedFirm, reason: extra.reason, name, email, message }) });
+    return json({ ok: true }, 201);
+  }
+
+  if (waitlist) {
+    const origin = env.SITE_ORIGIN || url.origin;
+    mailInBackground(env, exec, { to: email, ...marketplaceWaitlistEmail(origin, { name, firmName: extra.firmName }) });
+    const to = [...adminEmails(env)];
+    if (to.length) mailInBackground(env, exec, { to, ...marketplaceWaitlistAdminEmail(origin, { name, email, phone, ...extra }) });
     return json({ ok: true }, 201);
   }
 

@@ -162,6 +162,30 @@ export function lawyerClaimEmail(origin, { firm, firmName, firmFeatured, lawyer,
   };
 }
 
+// A law firm joined the LawDB Marketplace waitlist: the confirmation the person gets, and the note the admin gets. The marketplace is not open yet, so the
+// confirmation says only what is true now: they are on the list, nothing is charged, and one email will tell them when it opens.
+export function marketplaceWaitlistEmail(origin, { name, firmName }) {
+  const hi = name ? `Hi ${name.split(/\s+/)[0]},` : 'Hi,';
+  const page = `${origin}/marketplace`;
+  return {
+    subject: 'You are on the LawDB Marketplace waitlist',
+    text: `${hi}\n\n${firmName ? firmName + ' is' : 'You are'} on the waitlist for LawDB Marketplace. We will email you once when it opens. Nothing is charged for joining.\n\nWhat it will be: verified law firms preview legal inquiries in their practice areas and provinces, and unlock the ones they want. Each inquiry goes to one firm. Details: ${page}\n\nBefore a firm can unlock an inquiry, LawDB checks its law society registration.\n\nYou asked to be emailed about LawDB Marketplace. To be taken off the list, just reply to this email.\n\nThe LawDB team\nLawDB.ca`,
+    html: `<p>${esc(hi)}</p><p>${esc(firmName ? firmName + ' is' : 'You are')} on the waitlist for <b>LawDB Marketplace</b>. We will email you once when it opens. Nothing is charged for joining.</p>` +
+      `<div style="border-left:4px solid #c9a050;background:#f4ecd8;padding:12px 16px;margin:16px 0"><b>What it will be</b><br>Verified law firms preview legal inquiries in their practice areas and provinces, and unlock the ones they want. Each inquiry goes to one firm.</div>` +
+      `${button(page, 'See how it will work')}<p>Before a firm can unlock an inquiry, LawDB checks its law society registration.</p>` +
+      small('You asked to be emailed about LawDB Marketplace. To be taken off the list, just reply to this email.'),
+  };
+}
+
+export function marketplaceWaitlistAdminEmail(origin, { name, email, phone, firmName, lawSociety, practiceAreas, provinces, consentVersion }) {
+  const lines = [['Firm', firmName], ['From', `${name} <${email}>`], ['Phone', phone], ['Law society / licence', lawSociety], ['Practice areas', practiceAreas || '(none picked)'], ['Provinces', provinces || '(none picked)'], ['Consent', consentVersion]].filter(([, v]) => v);
+  return {
+    subject: `Marketplace waitlist: ${firmName || name}`,
+    text: `A firm joined the LawDB Marketplace waitlist.\n\n${lines.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\nAll sign-ups: ${origin}/admin/#leads`,
+    html: `<p>A firm joined the LawDB Marketplace waitlist.</p><table cellpadding="4">${lines.map(([k, v]) => `<tr><td style="color:#5f5f5f;vertical-align:top">${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table>${button(`${origin}/admin/#leads`, 'Open the sign-ups')}`,
+  };
+}
+
 // A member's rating comment is waiting for the admin to approve it (comments are checked before they appear).
 export function commentEmail(origin, { slug, firmName, stars, comment }) {
   const link = `${origin}/admin/#reviews`;

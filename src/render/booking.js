@@ -1,6 +1,6 @@
 // The "Book a call" button on a firm's page, under the Call / Website / Directions buttons. Booking is a Featured benefit: a Featured firm that has given an
 // online booking link gets an active, light-gold button that opens it; every other firm gets the same button greyed out, as on lawdb.ai (a plain tan button with
-// muted text: no padlock and no "Featured" tag), and tapping it explains how the firm can unlock it. (A link a firm has saved stays saved: it goes live again the moment the firm is Featured.)
+// muted text and a soft shine: no padlock and no "Featured" tag), and tapping it explains how the firm can unlock it. (A link a firm has saved stays saved: it goes live again the moment the firm is Featured.)
 // Like the Profiles box, the snippet carries its own style so it looks the same on database pages and on the hand-built pages the Worker adds it to.
 import { cleanBookingUrl } from '../lib/booking.js';
 
@@ -14,8 +14,11 @@ const CSS = '<style>.li-book-row{margin:10px 0 0;max-width:470px}' +
   '.li-book{background:#f4ecd8;border:1.5px solid #c9a050;color:#3a3a3a}' +
   '.li-book .ic{color:#c9a050}' +
   '.li-book:hover{background:#e6d4a4;color:#3a3a3a}' +
-  '.li-book-off{background:#e6d4a4;border:1.5px solid #e6d4a4;color:#8c8c8c}' +
-  '.li-book-off:hover{background:#e6d4a4;color:#8c8c8c;transform:none;box-shadow:none;filter:none}' +
+  '.li-book-off{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 58%),#e6d4a4;border:1.5px solid #e6d4a4;color:#8c8c8c;box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 1px 3px rgba(201,160,80,.28)}' +
+  '.li-book-off:hover{background:linear-gradient(180deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 58%),#e6d4a4;color:#8c8c8c;transform:none;filter:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 1px 3px rgba(201,160,80,.28)}' +
+  '.li-book-off::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;pointer-events:none;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.7),rgba(255,255,255,0));transform:skewX(-18deg);animation:lw-book-shine 5s ease-in-out infinite}' +
+  '@keyframes lw-book-shine{0%,62%{left:-60%}100%{left:130%}}' +
+  '@media (prefers-reduced-motion:reduce){.li-book-off::after{animation:none;display:none}}' +
   '.lw-book-note{margin:8px 0 0;max-width:470px;font:500 13.5px/1.5 Inter,system-ui,sans-serif;color:#5f5f5f}' +
   '</style>';
 

@@ -23,7 +23,7 @@ const on = bookingRow({ url: 'https://calendly.com/torys/30min', name: 'Torys LL
 ok(/<a class="li-btn li-book" href="https:\/\/calendly\.com\/torys\/30min" target="_blank" rel="noopener nofollow"/.test(markup(on)) && markup(on).includes('<span>Book a call</span>') && !markup(on).includes('li-book-off'), 'a Featured firm with a link gets an active button that opens it in a new tab');
 // Booking is a Featured benefit: a saved link does nothing until the firm is Featured
 const saved = markup(bookingRow({ url: 'https://calendly.com/torys/30min', name: 'Torys LLP' }));
-ok(saved.includes('class="li-btn li-book li-book-off"') && !saved.includes('calendly.com') && saved.includes('<em class="li-book-tag">Featured</em>') && saved.includes('Online booking is a Featured feature'), 'a firm that is not Featured has the button locked, with a Featured tag, even if it has a link saved (and the link is not in the page)');
+ok(saved.includes('class="li-btn li-book li-book-off"') && !saved.includes('calendly.com') && !saved.includes('li-book-tag') && !saved.includes('<svg') && saved.includes('<span>Book a call</span>') && saved.includes('Online booking is a Featured feature'), 'a firm that is not Featured has the button greyed out, as on lawdb.ai (plain text: no padlock and no Featured tag), even if it has a link saved (and the link is not in the page)');
 const savedManaged = markup(bookingRow({ url: 'https://calendly.com/torys/30min', name: 'Torys LLP', managed: true }));
 ok(savedManaged.includes('can unlock it from the dashboard') && !savedManaged.includes('Claim this listing') && saved.includes('Claim this listing'), 'the note tells a visitor how to unlock it, and a managed firm to use its dashboard');
 const offFeatured = markup(bookingRow({ url: '', name: 'Torys LLP', featured: true }));
@@ -37,7 +37,7 @@ const nasty = markup(bookingRow({ url: '', name: '<img src=x onerror=alert(1)> "
 ok(!/<script|<img/.test(nasty) && nasty.includes('&lt;img') && nasty.includes('&quot;Q&quot; &amp; Co'), 'the firm name and address are escaped in both states');
 const nameOn = bookingRow({ url: 'https://calendly.com/x', name: 'O"Brien <b>', featured: true });
 ok(nameOn.includes('title="Opens O&quot;Brien &lt;b&gt;&#x27;s own booking page"') || nameOn.includes('O&quot;Brien &lt;b&gt;'), 'the name is escaped in the button tooltip too');
-ok(/li-book\{background:#f4ecd8;border:1\.5px solid #c9a050/.test(on) && /li-book-off\{background:#f7f1e0/.test(on), 'the active button is light gold (not solid gold) and the locked one is light grey');
+ok(/li-book\{background:#f4ecd8;border:1\.5px solid #c9a050/.test(on) && /li-book-off\{background:#e6d4a4;border:1\.5px solid #e6d4a4;color:#8c8c8c/.test(on), 'the active button is light gold (not solid gold) and the greyed-out one is plain tan with muted text, as on lawdb.ai');
 
 // ---- the owner and admin forms
 ok(FIRM_FIELDS.bookingUrl('') === '' && FIRM_FIELDS.bookingUrl('  ') === '' && FIRM_FIELDS.bookingUrl('https://calendly.com/a/b?month=2020-01') === 'https://calendly.com/a/b', 'the edit form takes a blank (button off) or a clean https link');

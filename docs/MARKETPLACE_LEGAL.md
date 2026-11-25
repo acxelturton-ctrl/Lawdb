@@ -1,18 +1,22 @@
 # LawDB Marketplace: legal and privacy notes (DRAFT, for a lawyer to review before launch)
 
-LawDB is not a law firm and this file is not legal advice. It says what the code does, what it deliberately does not do yet, and the wording that is drafted
-for Phase 1. **Nothing in the "Draft wording" section is on the live site.** Acxel plans a short consult with a lawyer who knows Canadian law society
-advertising rules before the Marketplace opens.
+LawDB is not a law firm and this file is not legal advice. It says what the code does, what is live, how the build differs from the brief, and what a lawyer
+should review. Acxel plans a short consult with a lawyer who knows Canadian law society advertising rules before the Lead Marketplace is opened.
 
-## What is live (Phase 0)
+## What is built, and what is live
 
-- `/marketplace`: a "coming soon" page for law firms called the **Lead Marketplace**. It says nothing is available right now and that inquiries will come soon. It shows one clearly labelled example card ("Example lead, not a real inquiry") and no consumer data.
-- **It collects nothing.** There is no waitlist, no form and no script of its own. (The owner decided against a waitlist; an earlier version had one and it was removed before release.) So the Privacy Policy and the Terms are unchanged by Phase 0.
+- **Built and tested:** the whole marketplace (see docs/ARCHITECTURE.md, "Lead Marketplace"). It is **closed until the admin opens it** (Admin, Lead Marketplace, Open), so none of the consent wording below is shown to anyone, and no request is taken, until then. Today the public sees only `/marketplace`, which says nothing is available yet and collects nothing.
+- **The consent wording** ("I agree that LawDB may share my inquiry and contact details with one law firm that pays to receive it. Only one firm will receive it. LawDB may also contact me about my inquiry.") is on the "tell us what you need" request and on an **optional, unticked box on each firm's contact form**. It appears only when the marketplace is open, so it never describes sharing that is not happening. A firm's own sentence ("will share these details with {firm} so they can respond") is unchanged, because that enquiry still goes to that firm whether or not the box is ticked. An enquiry sent through a firm's form with the box ticked is also offered to **one other** firm, never the one it was sent to.
+- **The Privacy Policy, Terms and Refund Policy already describe it** (they were updated in the same release), worded for when it is open ("if you use the request, or tick the box..."). Check them with your lawyer before you open it.
+- **Stored per inquiry:** the consent record (form, version, exact wording, time, a short browser string, the hashed network address, never the address itself). Retention: details deleted when an unlocked-by-nobody inquiry expires (7 days) or is rejected, and 12 months after an unlock; the consent record and the ledger are kept.
 
-## What is deliberately NOT done yet
+## Where the build differs from the brief, and why
 
-- **The firm-page enquiry form keeps its current wording**: "By submitting, you agree LawDB may contact you about your inquiry and will share these details with {firm} so they can respond." That is exactly what happens today. The brief asked for wording about sharing with "a law firm that pays to receive it" on that form, but until Phase 1 builds that sharing, saying it would tell people something that is not true yet. In Phase 1 it becomes a **separate, optional, unticked checkbox**, so a person who only wants to contact the firm they are looking at is never opted in to anything wider.
-- No lead is shown, stored for sale or sent to any firm. There is no price, no credit and no unlock yet.
+- The brief asked for Resend or Postmark. Brevo sends everything else on the site, so alerts use **Resend if `RESEND_API_KEY` is set, else Brevo**; Resend needs an account and a verified sending domain, which only you can set up.
+- The brief's `leads` table name is taken by firm enquiries, so the tables are `marketplace_*`.
+- The brief suggested "1 to 2 free credits" for new firms; a credit is a dollar, so the welcome grant is a setting (`welcomeCredits`, default 0).
+- The brief's waitlist was dropped at your request: nothing is collected while it is closed.
+- The "tell us what you need" page is `noindex` and not in the sitemap until you decide you want it found.
 
 ## Rules the build follows (from the brief)
 
@@ -21,35 +25,19 @@ advertising rules before the Marketplace opens.
 - Wording: "inquiry", "unlock", "advertising". Not "referral", "commission" or "client for sale". `scripts/test-marketplace.mjs` fails if the page uses them.
 - Previews never identify a person and sit behind a firm login; only verified firms can unlock.
 
-## Draft wording for Phase 1 (not published)
+## Where the wording is
 
-**Consent shown with the general "find me a lawyer" form** (to be stored per inquiry with a version id, the exact wording, the time and a short browser string; never an IP address):
-"I agree that LawDB may share my inquiry and contact details with one law firm that pays to receive it. Only one firm will receive it. LawDB may also
-contact me about my inquiry."
-
-**Privacy Policy, new paragraphs to add when the Marketplace opens:**
-- What we collect: "If you ask LawDB to find you a lawyer: your name, email, phone number (if given), the description you write, the kind of help, your city
-  and province, how urgent it is, and a record of your consent."
-- How we use it: "We check each request, write a one-line summary that does not name you, and show that summary (without your name, email or phone) to law
-  firms that LawDB has verified. One firm may pay to unlock your details; only that firm receives them."
-- Who we share it with: "The one law firm that unlocks your inquiry. We do not sell your information to anyone else, and we do not share it with firms that
-  have not unlocked it."
-- Retention: a period to be decided with the lawyer (the 12 months used for other requests is the starting point).
-- Sensitive information: say plainly that people should not put more sensitive detail than needed in the description (PIPEDA: meaningful consent).
-
-**Terms, a Marketplace section for firms:** verified firms only; one buyer per inquiry; flat fee, prepaid credits, no refund tied to the outcome; the junk-
-inquiry rule and its 48-hour window; the firm stays responsible for its own law society's rules on advertising and soliciting; no resale of an inquiry;
-contact the person only about their inquiry (CASL).
+Privacy Policy ("Lead Marketplace requests", "Lead Marketplace (law firms)", who it is shared with, retention), Terms ("Lead Marketplace", for people and for firms) and Refund Policy ("Lead Marketplace credits"), all dated November 25, 2026; the consent wording is `CONSENT` in `src/lib/marketplace.js`. Change the wording only by changing its version id there, so a stored agreement can always be matched to the words that were shown.
 
 ## Items for a lawyer to review before launch
 
 1. Whether a **flat per-inquiry fee** from a firm to a non-lawyer directory is acceptable under each province's rules, in particular Ontario, Quebec, BC and
    Alberta (referral fees, fee-splitting, and "pay to be recommended" rules differ), and whether the words "advertising fee" are the right description.
-2. Whether giving **Featured firms a head start** on new inquiries (Phase 2) changes that analysis.
+2. Whether giving **Featured firms a head start** on new inquiries changes that analysis.
 3. The consent wording above, and whether a **separate optional checkbox** on firm-page forms is enough for a firm-specific enquiry to be shared more widely.
-4. **CASL**: alert emails to firms (Phase 2) need express consent, the sender's name and mailing address, and a working unsubscribe in the message itself.
+4. **CASL**: alert emails to firms need express consent, the sender's name and mailing address, and a working unsubscribe in the message itself.
 5. **PIPEDA and Quebec Law 25**: meaningful consent, sensitive information, retention, access and deletion requests, and the privacy-officer contact.
 6. **Prepaid credits**: whether they are "gift card / prepaid" under any consumer rules, how unused credits are treated when an account closes, and tax
    (GST/HST/QST) on a credit sale and on an unlock.
 7. **Verification**: what LawDB may say about a firm it has "verified" and what it should not imply.
-8. **Email domain**: the site sends through Brevo from info@lawdb.ca. Confirm SPF, DKIM and DMARC for lawdb.ca in the DNS before alert emails (Phase 2).
+8. **Email domain**: the site sends through Brevo from info@lawdb.ca. Confirm SPF, DKIM and DMARC for lawdb.ca in the DNS before alert volume grows.

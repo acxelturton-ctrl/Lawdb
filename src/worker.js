@@ -31,6 +31,14 @@ import * as stats from './routes/stats.js';
 import * as projects from './routes/projects.js';
 import * as outreach from './routes/outreach.js';
 import * as ai from './routes/ai.js';
+import * as market from './routes/marketplace.js';
+import { expireLeads } from './lib/marketplace.js';
+import { processAlerts } from './lib/marketplace-alerts.js';
+
+// Every five minutes: expire old inquiries and send the next wave of alerts. Never throws (a failure is logged and the next run tries again).
+async function marketplaceTick(env) {
+  try { await expireLeads(env); await processAlerts(env); } catch (err) { console.error('marketplace run failed', err); }
+}
 
 const route = (method, pattern, handler) => ({
   method,
@@ -65,6 +73,8 @@ const ROUTES = [
   route('GET', '/api/home-news', homeNews.homeNewsApi),
   route('GET', '/api/news', homeNews.newsNearApi),
   route('POST', '/api/leads', pub.createLead),
+  route('GET', '/api/marketplace/status', market.status),
+  route('POST', '/api/marketplace/inquiries', market.submitInquiry),
   route('POST', '/api/a', stats.collect),
   route('POST', '/api/ai/match', ai.match),
 
@@ -111,6 +121,15 @@ const ROUTES = [
   route('GET', '/api/admin/firms/:slug/invites', invite.list),
   route('GET', '/api/admin/members', admin.listMembers),
   route('PATCH', '/api/admin/members/:id', admin.decideMember),
+  route('GET', '/api/admin/marketplace', market.adminOverview),
+  route('PUT', '/api/admin/marketplace/config', market.adminConfig),
+  route('GET', '/api/admin/marketplace/leads', market.adminLeads),
+  route('POST', '/api/admin/marketplace/leads/:id/decision', market.adminLeadDecision),
+  route('GET', '/api/admin/marketplace/reports', market.adminReports),
+  route('POST', '/api/admin/marketplace/reports/:id/decision', market.adminReportDecision),
+  route('GET', '/api/admin/marketplace/firms', market.adminFirms),
+  route('POST', '/api/admin/marketplace/firms/:slug/credits', market.adminGrant),
+  route('GET', '/api/admin/marketplace/ledger', market.adminLedger),
   route('GET', '/api/admin/audit', admin.listAudit),
   route('POST', '/api/admin/audit/:id/revert', admin.revertEdit),
   route('GET', '/api/admin/payments', admin.paymentsList),
@@ -180,6 +199,13 @@ const ROUTES = [
   route('DELETE', '/api/account/firms/:slug/lawyers/:lawyer', account.lawyerRemove),
   route('POST', '/api/account/firms/:slug/lawyers/:lawyer/picture', account.lawyerPhotoSet),
   route('DELETE', '/api/account/firms/:slug/lawyers/:lawyer/picture', account.lawyerPhotoRemove),
+  route('GET', '/api/account/firms/:slug/marketplace', market.firmGet),
+  route('PATCH', '/api/account/firms/:slug/marketplace', market.firmPrefs),
+  route('GET', '/api/account/firms/:slug/marketplace/board', market.firmBoard),
+  route('POST', '/api/account/firms/:slug/marketplace/leads/:id/unlock', market.firmUnlock),
+  route('GET', '/api/account/firms/:slug/marketplace/unlocked', market.firmUnlocked),
+  route('POST', '/api/account/firms/:slug/marketplace/unlocked/:id/report', market.firmReport),
+  route('GET', '/api/account/firms/:slug/marketplace/ledger', market.firmLedger),
   route('PATCH', '/api/account/leads/:id', account.updateLead),
   route('PATCH', '/api/account/profile', account.updateProfile),
   route('GET', '/api/cities', account.cities),
@@ -220,7 +246,7 @@ export default {
   // They are separate runs so each stays within the platform's limit on outgoing requests.
   async scheduled(event, env, ctx) {
     ctx.waitUntil(event.cron === '37 7 * * *' ? searchNightly(env).catch((err) => console.error('search console run failed', err))
-      : event.cron === '*/5 * * * *' ? feedBatch(env).catch((err) => console.error('blog finder run failed', err))
+      : event.cron === '*/5 * * * *' ? Promise.all([feedBatch(env).catch((err) => console.error('blog finder run failed', err)), marketplaceTick(env)])
       : event.cron === '7 * * * *' ? hourly(env).catch((err) => console.error('hourly run failed', err))
       : nightly(env));
   },

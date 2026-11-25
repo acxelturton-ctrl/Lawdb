@@ -4,11 +4,13 @@
 import { h, api, when, note, hoursEditor, categoryChecks, splitTags, field, picturesPanel, feedPanel, planPanel, lockIcon, PROVINCES } from '/admin/ui.js';
 import { analyticsView, analyticsPreview } from '/admin/firm-analytics.js';
 import { profileEditor } from '/admin/profile-editor.js';
+import { viewMarket } from '/account/marketplace.js';
 
 const app = document.getElementById('app');
 const mount = (...nodes) => app.replaceChildren(...nodes);
 let user = null;
 let memberships = [];
+let marketOpen = false; // the Lead Marketplace tab shows only while the admin has opened it
 
 // ---------------------------------------------------------------- sign in / create account
 const ICONS = {
@@ -96,6 +98,7 @@ function shell(active, content, { wide = false } = {}) {
     ['firms', mine.length > 1 ? 'My firms' : mine.length ? 'My firm' : 'Your firm'],
     ['stats', 'Analytics', !unlocked],
     ['leads', 'Enquiries', !unlocked],
+    ...(marketOpen && mine.length ? [['market', 'Lead Marketplace']] : []),
   ];
   const more = [['profile', 'My profile'], ['find', mine.length ? 'Add or claim a firm' : 'Find or add my firm'], ['feed', 'Feed'], ['network', 'My network'], ['saved', 'Saved']];
   const moreActive = more.some(([id]) => id === active);
@@ -295,6 +298,19 @@ function viewStats(slug) {
 }
 
 // ---------------------------------------------------------------- enquiries
+// The Lead Marketplace tab: one firm at a time (a person who manages several picks one).
+async function viewMarketTab(slug) {
+  const mine = approved();
+  if (!mine.length) return note('muted', 'Add or claim a firm first.');
+  if (!slug) {
+    if (mine.length === 1) { location.replace(`#market/${mine[0].slug}`); return h('p', { class: 'muted' }, 'Loading…'); }
+    return h('div', null, h('h1', null, 'Lead Marketplace'), mine.map((m) => h('a', { class: 'firm-row', href: `#market/${m.slug}` }, h('span', null, m.name, h('small', null, where(m))))));
+  }
+  const m = mine.find((x) => x.slug === slug);
+  if (!m) return note('msg-err', 'You do not manage that firm.');
+  return viewMarket(slug, m.name);
+}
+
 async function viewLeads(slug) {
   const mine = approved();
   if (!mine.length) {
@@ -707,7 +723,7 @@ async function render() {
   document.body.classList.toggle('lw-focus', !!(user && !user.onboarded));
   if (user && !user.onboarded) return renderWizard();
   const [name, arg] = location.hash.slice(1).split('/');
-  const tab = ['feed', 'network', 'saved', 'profile', 'find', 'leads', 'stats'].includes(name) ? name : name === 'following' ? 'network' : 'firms';
+  const tab = ['feed', 'network', 'saved', 'profile', 'find', 'leads', 'stats', 'market'].includes(name) ? name : name === 'following' ? 'network' : 'firms';
   mount(shell(tab, h('p', { class: 'muted' }, 'Loading…')));
   try {
     let view;
@@ -718,6 +734,7 @@ async function render() {
     else if (tab === 'profile') view = await viewProfile();
     else if (name === 'edit' && arg) { view = await viewEdit(arg); if (seq !== renderSeq) return; return mount(shell('firms', view, { wide: true })); }
     else if (name === 'leads') view = await viewLeads(arg);
+    else if (name === 'market') view = await viewMarketTab(arg);
     else if (name === 'stats') view = viewStats(arg);
     else { await loadMe(); view = viewFirms(); }
     if (seq !== renderSeq) return;
@@ -735,6 +752,7 @@ async function boot() {
     try { localStorage.setItem('lawdb_in', who.user ? '1' : '0'); } catch (e) {}
     if (!who.user) return await renderLogin();
     await loadMe();
+    try { marketOpen = !!(await api('GET', '/api/marketplace/status')).open; } catch (e) { marketOpen = false; }
   } catch (err) { return mount(h('div', { class: 'wrap' }, note('msg-err', err.message))); }
   await finishPending();
   window.removeEventListener('hashchange', render);

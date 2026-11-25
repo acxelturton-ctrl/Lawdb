@@ -1,5 +1,6 @@
 // The Lead Marketplace "coming soon" page (marketplace.html):  node --no-warnings scripts/test-marketplace.mjs
-// It says nothing is available yet and that inquiries are coming; it has no form and collects nothing (the owner does not want a waitlist);
+// It says nothing is available yet and that inquiries are coming; it has no form and collects nothing (the owner does not want a waitlist; the working marketplace
+// behind it is opened by the admin);
 // it shows no consumer data; its words follow the rules in docs/MARKETPLACE_LEGAL.md; and the rest of the site links to it.
 import { readFileSync } from 'node:fs';
 import { LEAD_SLIM } from '../src/render/firm-chunks.generated.js';
@@ -32,7 +33,6 @@ ok(/Nothing available right now/.test(main) && /Inquiries will come soon/.test(m
 ok(!/waitlist|wait list|join the|sign up|subscribe|notify me/i.test(mainText), 'there is no waitlist and no sign-up wording');
 ok(!/<form\b|<input\b|<textarea\b|<select\b/i.test(main) && (main.match(/<button\b/g) || []).length === 1 && /<button class="mk-unlock" type="button" disabled>/.test(main), 'the page has no form: its only button is the switched-off Unlock button of the sample');
 ok(JSON.stringify([...html.matchAll(/<script src="([^"]+)"/g)].map((m) => m[1])) === '["site.js"]' && !/\/api\//.test(main), 'the only script is the site\'s own, and the page sends nothing anywhere');
-ok(!/marketplace/i.test(readFileSync('src/routes/public.js', 'utf8')) && !/marketplace/i.test(readFileSync('src/lib/email.js', 'utf8')), 'nothing on the server collects anything for it yet');
 ok(/Example lead, not a real inquiry/.test(main) && /aria-label="Example inquiry card, not a real inquiry"/.test(main), 'the sample card is labelled "Example lead, not a real inquiry"');
 ok(!/@(?!example\.com)[a-z0-9-]+\.[a-z]{2,}/i.test(main) && !/\(\d{3}\) \d{3}-\d{4}/.test(main.replace(/\(555\) 010-0100/g, '')), 'no real-looking consumer data: the only email is @example.com and the only phone is a 555 example');
 ok(/class="mk-hide" aria-hidden="true"/.test(main) && /\.mk-blur\{[^}]*filter:blur/.test(html), 'the contact details in the sample are blurred and hidden from screen readers');
@@ -45,8 +45,8 @@ ok(/flat advertising fee set by LawDB\. It does not depend on whether the person
 ok(!/\b(best|top-rated|guarantee[sd]?|#1|leading)\b/i.test(mainText), 'no restricted advertising claims on the page');
 ok(!/\$\s?\d/.test(mainText) && !/\b\d+\s*(leads|inquiries) (a|per) (week|month|day)\b/i.test(mainText), 'no prices and no volume claims before they are real');
 
-// ---- the rest of the site is untouched: an enquiry still goes only to the firm it is sent to
-ok(LEAD_SLIM.includes('will share these details with {{NAME}} so they can respond') && !LEAD_SLIM.includes('pays to receive'), 'the firm-page enquiry form still says what really happens today (shared with the one firm named)');
+// ---- the page itself is inert: the working parts (request page, firm tab, admin) are tested in test-lead-marketplace.mjs and scripts/smoke.mjs
+ok(LEAD_SLIM.includes('will share these details with {{NAME}} so they can respond'), 'a firm\'s own form still says the enquiry goes to that firm (the optional box for the marketplace is separate and hidden until it opens)');
 
 console.log(bad ? `\n${bad} check(s) failed` : '\nmarketplace checks passed');
 process.exit(bad ? 1 : 0);

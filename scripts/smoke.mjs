@@ -1446,6 +1446,198 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(mkPage.status === 200 && mkPage.text.includes('Nothing available right now') && mkPage.text.includes('Inquiries will come soon') && mkPage.text.includes('Example lead, not a real inquiry'), 'the Lead Marketplace page is served: nothing available right now, inquiries coming soon, and its example is labelled as not real');
   ok(!/<form\b|<input\b/.test(mkPage.text) && mkPage.text.includes('rel="canonical" href="https://lawdb.ca/marketplace"') && (await getRaw('/sitemap.xml')).text.includes('https://lawdb.ca/marketplace</loc>'), 'it has no form, and it is in the sitemap');
 
+  // ============================================================ Lead Marketplace (dark until the admin opens it)
+  {
+    cookie = '';
+    const MA = 'torkin-manes-llp', MB = 'daniel-brown-law-llp'; // A is Featured (a head start), B is Basic
+    const A = `/api/account/firms/${MA}/marketplace`, B = `/api/account/firms/${MB}/marketplace`;
+    const mkIp = () => ({ 'cf-connecting-ip': freshIp() });
+    const person = { name: 'Zed Quokka', email: `mk-person-${run}@example.com`, phone: '613 555 0142', practiceArea: 'injury', province: 'ON', city: 'Ottawa', urgency: 'week', consent: 'yes',
+      description: 'My name is Zed Quokka and a van rear-ended my car on Bank Street last Tuesday. I need advice about an insurance claim and my injuries.' };
+    const sleepMs = (ms) => new Promise((r) => setTimeout(r, ms));
+    const tick = () => fetch(BASE + '/__scheduled?cron=*/5+*+*+*+*', { signal: AbortSignal.timeout(60000) });
+    const mails = async (subjectStart, to) => { as(adminJar); return (await call('GET', '/api/admin/audit?limit=300')).data.entries.filter((e) => e.action === 'mail.dev' && (!to || e.entity_id === to) && (e.detail?.subject || '').startsWith(subjectStart)); };
+
+    // closed: nothing reachable
+    ok((await call('GET', '/api/marketplace/status')).data.open === false, 'the Lead Marketplace is closed until the admin opens it');
+    ok((await call('POST', '/api/marketplace/inquiries', person, mkIp())).status === 503, 'while it is closed the request form is refused');
+    const o3 = await signUp(`owner3-${run}@example.com`), o4 = await signUp(`owner4-${run}@example.com`);
+    for (const [o, slug, n] of [[o3, MA, 'Third Owner'], [o4, MB, 'Fourth Owner']]) {
+      as(o.jar); await call('POST', '/api/account/claims', { slug, contactName: n, acceptTerms: true });
+      as(adminJar);
+      const pend = (await call('GET', '/api/admin/members')).data.members.find((m) => m.email === `owner${slug === MA ? 3 : 4}-${run}@example.com` && m.status === 'pending');
+      await call('PATCH', `/api/admin/members/${pend.id}`, { status: 'approved' });
+    }
+    as(o3.jar);
+    ok((await call('GET', A)).data.open === false && (await call('GET', `${A}/board`)).status === 404, 'while it is closed a firm sees no previews and no tab');
+
+    // the admin opens it (settings are checked), with a head start short enough to test
+    as(adminJar);
+    ok((await call('PUT', '/api/admin/marketplace/config', { open: 'yes' })).status === 422 && (await call('PUT', '/api/admin/marketplace/config', { nope: 1 })).status === 422 && (await call('PUT', '/api/admin/marketplace/config', { prices: { family: 0 } })).status === 422, 'settings are checked: a bad switch, an unknown setting and a zero price are refused');
+    const origA = (await call('GET', `/api/admin/firms/${MA}`)).data, origB = (await call('GET', `/api/admin/firms/${MB}`)).data;
+    ok((await call('PUT', '/api/admin/marketplace/config', { open: true, headStartMinutes: 0.2 })).status === 200, 'the admin opens the Lead Marketplace');
+    await call('PATCH', `/api/admin/firms/${MA}`, { featured: true }); await call('PATCH', `/api/admin/firms/${MB}`, { featured: false });
+    cookie = '';
+    ok((await call('GET', '/api/marketplace/status')).data.open === true, 'anyone can see that it is open (and nothing else)');
+
+    // unverified firms and visitors see nothing
+    as(o3.jar);
+    const g0 = await call('GET', A);
+    ok(g0.data.open === true && g0.data.eligible === false && /verified/i.test(g0.data.reason) && (await call('GET', `${A}/board`)).status === 403 && (await call('POST', `${A}/leads/1/unlock`)).status === 403, 'a firm that is not verified is told so and cannot see or unlock anything');
+    cookie = '';
+    ok((await call('GET', `${A}/board`)).status === 401 && (await call('GET', '/api/admin/marketplace/leads')).status === 401, 'a logged-out visitor cannot see a preview or the admin queue');
+    as(o4.jar);
+    ok((await call('GET', `${A}/board`)).status === 403, 'another firm\'s owner cannot use this firm\'s marketplace');
+
+    // the admin verifies both firms, the owners choose what they want, and credits are added
+    as(adminJar);
+    for (const [slug, who] of [[MA, 'Pat Torkin'], [MB, 'Dan Brown']]) ok((await call('PUT', `/api/admin/firms/${slug}/verification`, { registrant: who, lawSociety: 'ON', checks: { registration: true, identity: true } })).status === 200, `the admin verifies ${slug}`);
+    for (const [o, base] of [[o3, A], [o4, B]]) {
+      as(o.jar);
+      ok((await call('GET', base)).data.eligible === true && (await call('PATCH', base, { practiceAreas: ['injury'], provinces: ['ON'], alerts: 'instant' })).status === 200, 'a verified firm opens the marketplace and sets what it wants to see');
+      ok((await call('PATCH', base, { practiceAreas: ['nonsense'] })).status === 422 && (await call('PATCH', base, { alerts: 'sometimes' })).status === 422, 'preferences are checked');
+    }
+    as(adminJar);
+    ok((await call('POST', `/api/admin/marketplace/firms/${MA}/credits`, { amount: 200, note: 'smoke' })).data.balance === 200 && (await call('POST', `/api/admin/marketplace/firms/${MB}/credits`, { amount: 100, note: 'smoke' })).data.balance === 100, 'the admin adds credits');
+    ok((await call('POST', `/api/admin/marketplace/firms/${MB}/credits`, { amount: -500, type: 'adjust' })).status === 409 && (await call('POST', `/api/admin/marketplace/firms/${MB}/credits`, { amount: -5, type: 'promo' })).status === 422, 'a balance can never go below zero, and only an adjustment takes credits away');
+
+    // a Stripe top-up (a payment link opened with client_reference_id "mp:<slug>"): one ledger row per payment
+    const topSess = 'cs_mk_' + run;
+    const topEv = () => stripePost(mkEvent('checkout.session.completed', { id: topSess, mode: 'payment', payment_status: 'paid', amount_total: 5000, currency: 'cad', client_reference_id: `mp:${MB}` }));
+    ok((await topEv()).status === 200 && (await topEv()).status === 200, 'a Stripe top-up is accepted, also when Stripe sends it twice');
+    as(o4.jar);
+    ok((await call('GET', B)).data.balance === 150 && (await call('GET', `${B}/ledger`)).data.ledger.filter((r) => r.type === 'topup').length === 1, 'the top-up added 50 credits, once');
+    as(adminJar); await call('POST', `/api/admin/marketplace/firms/${MB}/credits`, { amount: -50, type: 'adjust' }); // back to 100 for the tests below
+
+    // intake: consent is required, junk is not listed, sensitive requests wait, a good one is listed once
+    cookie = '';
+    ok((await call('POST', '/api/marketplace/inquiries', { ...person, consent: '' }, mkIp())).status === 422, 'a request without the consent box ticked is refused');
+    ok((await call('POST', '/api/marketplace/inquiries', { ...person, email: 'nope' }, mkIp())).status === 422 && (await call('POST', '/api/marketplace/inquiries', { ...person, practiceArea: 'x' }, mkIp())).status === 422 && (await call('POST', '/api/marketplace/inquiries', { ...person, description: 'help' }, mkIp())).status === 422, 'missing or unusable fields are refused with a reason');
+    ok((await call('POST', '/api/marketplace/inquiries', { ...person, botcheck: '1' }, mkIp())).status === 201, 'a robot is told it worked');
+    ok((await call('POST', '/api/marketplace/inquiries', { ...person, email: `mk-junk-${run}@example.com`, description: 'Buy cheap viagra and crypto casino now, click here for a loan offer please' }, mkIp())).status === 201, 'spam gets the same answer as a real request');
+    ok((await call('POST', '/api/marketplace/inquiries', { ...person, email: `mk-held-${run}@example.com`, practiceArea: 'family', description: 'I am afraid for my safety and my husband hit me last night, I need a lawyer to help me leave the house.' }, mkIp())).status === 201, 'a sensitive request is accepted');
+    // the optional box on a firm's own form: the enquiry still goes to that firm, and an inquiry is added for ONE OTHER firm
+    const fpEmail = `mk-fp-${run}@example.com`;
+    ok((await call('POST', '/api/leads', { name: 'Firm Page Person', email: fpEmail, message: 'A van hit me in a parking lot last week and I need advice about an insurance claim for my injuries.', form: 'firm-profile', firm: MA, firmName: 'Torkin Manes LLP', shareWider: 'yes' }, mkIp())).status === 201
+      && (await call('POST', '/api/leads', { name: 'No Box Person', email: `mk-nobox-${run}@example.com`, message: 'A van hit me in a parking lot last week and I need advice about an insurance claim for my injuries.', form: 'firm-profile', firm: MA, firmName: 'Torkin Manes LLP' }, mkIp())).status === 201, 'enquiries are sent through a firm\'s form, with and without the optional box');
+    const t0 = Date.now();
+    ok((await call('POST', '/api/marketplace/inquiries', person, mkIp())).status === 201 && (await call('POST', '/api/marketplace/inquiries', person, mkIp())).status === 201, 'a good request is accepted (and the same request twice is one)');
+    as(adminJar);
+    const approved = (await call('GET', '/api/admin/marketplace/leads?status=approved')).data.leads.filter((l) => l.details?.email === person.email);
+    ok(approved.length === 1 && approved[0].summary_public.startsWith('Personal Injury inquiry in Ottawa, ON:') && approved[0].summary_public.includes('a car accident'), 'it is listed once, with a summary made from topics only');
+    ok(!/Quokka|Bank Street|mk-person|613|Tuesday/.test(approved[0].summary_public), 'the public summary has no name, street, email, phone or date');
+    ok((await call('GET', '/api/admin/marketplace/leads?status=rejected')).data.leads.some((l) => l.summary_public.startsWith('Personal Injury') && l.details === null), 'the spam is kept as rejected, with its details cleared');
+    const held = (await call('GET', '/api/admin/marketplace/leads?status=held')).data.leads.find((l) => l.details?.email === `mk-held-${run}@example.com`);
+    ok(held && /sensitive/.test(held.hold_reason) && (await mails('Inquiry waiting for review')).length >= 1, 'a sensitive request waits for the admin, who is emailed');
+    ok((await mails('We have your request', person.email)).length === 1 && (await mails('We have your request', `mk-junk-${run}@example.com`)).length === 0, 'the person gets one confirmation email (not for junk)');
+    const stored = JSON.parse(JSON.stringify(approved[0]));
+    ok(stored.practice_area === 'injury' && stored.status === 'approved' && !!stored.expires_at, 'the inquiry has its practice area, province and expiry');
+
+    // the board: a preview only (never the person's details), Featured first, Basic after the head start
+    as(o3.jar);
+    const bA = await call('GET', `${A}/board`);
+    const leadA = bA.data.leads.find((l) => l.summary.includes('Ottawa'));
+    ok(leadA && leadA.price === 150 && leadA.priceTier === 'full' && leadA.headStart === true && leadA.urgencyLabel === 'This week', 'a Featured firm sees the inquiry at once, at full price');
+    ok(!/Quokka|Bank Street|mk-person|613 555|rear-ended|Tuesday/.test(JSON.stringify(bA.data)), 'the preview carries no name, email, phone or words of the description');
+    as(o4.jar);
+    ok((await call('GET', `${B}/board`)).data.leads.length === 0 && (await call('POST', `${B}/leads/${leadA.id}/unlock`)).status === 409 && (await call('GET', B)).data.balance === 100, 'a Basic firm does not see it until the head start is over, cannot unlock it early, and is not charged');
+    await tick();
+    ok((await mails('New inquiry: Personal Injury in Ottawa', `owner3-${run}@example.com`)).length === 1 && (await mails('New inquiry: Personal Injury in Ottawa', `owner4-${run}@example.com`)).length === 0, 'the first wave of alerts goes to the matching Featured firm only');
+    await sleepMs(Math.max(0, 13500 - (Date.now() - t0)));
+    await tick();
+    ok((await mails('New inquiry: Personal Injury in Ottawa', `owner4-${run}@example.com`)).length === 1 && (await mails('New inquiry: Personal Injury in Ottawa', `owner3-${run}@example.com`)).length === 1, 'when the head start is over the Basic firm is told, and nobody is told twice');
+    ok((await mails('New inquiry', `owner1-${run}@example.com`)).length === 0 && (await mails('New inquiry: Family')).length === 0, 'a firm the inquiry does not match, and an inquiry still on hold, send no alerts');
+    as(o4.jar);
+    const bB = await call('GET', `${B}/board`);
+    ok(bB.data.leads.some((l) => l.id === leadA.id && l.headStart === false), 'now the Basic firm sees it too');
+    as(adminJar);
+    const fpLeads = (await call('GET', '/api/admin/marketplace/leads?status=approved')).data.leads;
+    const fp = fpLeads.find((l) => l.details?.email === fpEmail);
+    ok(fp && fp.source === 'firm-page' && fp.source_firm === MA && !fpLeads.some((l) => l.details?.email === `mk-nobox-${run}@example.com`), 'the box adds the enquiry to the marketplace (and only when ticked), remembering which firm it was sent to');
+    as(o3.jar);
+    ok((await call('GET', `${A}/board?widen=1`)).data.leads.every((l) => l.id !== (fp || {}).id) && (await call('GET', `/api/account/firms/${MA}/leads`)).status === 200, 'the firm it was sent to is never offered it again (it has the enquiry already)');
+    as(o4.jar);
+    ok((await call('GET', `${B}/board?widen=1`)).data.leads.some((l) => l.id === (fp || {}).id), 'another firm is offered it');
+
+    // one buyer, one charge
+    ok((await call('POST', `${B}/leads/${leadA.id}/unlock`)).status === 402 && (await call('GET', B)).data.balance === 100, 'not enough credits: refused, nothing charged');
+    as(adminJar); await call('POST', `/api/admin/marketplace/firms/${MB}/credits`, { amount: 100, note: 'top up for the race' });
+    const race = await Promise.all([call('POST', `${A}/leads/${leadA.id}/unlock`, null, { cookie: o3.jar, 'cf-connecting-ip': RUN_IP }), call('POST', `${B}/leads/${leadA.id}/unlock`, null, { cookie: o4.jar, 'cf-connecting-ip': RUN_IP })]);
+    const wins = race.filter((r) => r.status === 200), losses = race.filter((r) => r.status === 409);
+    ok(wins.length === 1 && losses.length === 1, 'two firms unlock the same inquiry at the same moment: exactly one succeeds');
+    const winnerIsA = race[0].status === 200, win = wins[0].data;
+    ok(win.lead.name === 'Zed Quokka' && win.lead.email === person.email && win.lead.phone === '613 555 0142' && /rear-ended/.test(win.lead.description) && win.lead.pricePaid === 150, 'the winner gets the name, email, phone and description');
+    as(o3.jar); const balA = (await call('GET', A)).data.balance; const ledA = (await call('GET', `${A}/ledger`)).data.ledger;
+    as(o4.jar); const balB = (await call('GET', B)).data.balance; const ledB = (await call('GET', `${B}/ledger`)).data.ledger;
+    ok((winnerIsA ? balA === 50 && balB === 200 : balA === 200 && balB === 50) && ledA.filter((r) => r.type === 'unlock').length + ledB.filter((r) => r.type === 'unlock').length === 1, 'one charge of 150 credits, one unlock row, and the other firm paid nothing');
+    const winJar = winnerIsA ? o3.jar : o4.jar, loseJar = winnerIsA ? o4.jar : o3.jar, winBase = winnerIsA ? A : B, loseBase = winnerIsA ? B : A;
+    as(winJar);
+    ok((await call('POST', `${winBase}/leads/${leadA.id}/unlock`)).status === 409 && (await call('GET', winBase)).data.balance === (winnerIsA ? 50 : 50), 'a second click by the winner does not charge again');
+    ok((await call('GET', `${winBase}/unlocked`)).data.leads.length === 1 && (await call('GET', `${winBase}/board`)).data.leads.every((l) => l.id !== leadA.id), 'the inquiry is in the winner\'s unlocked list and gone from its board');
+    as(loseJar);
+    ok((await call('GET', `${loseBase}/board`)).data.leads.every((l) => l.id !== leadA.id) && (await call('GET', `${loseBase}/unlocked`)).data.leads.length === 0, 'it disappears for the other firm, which never gets the details');
+
+    // bad leads: reported within the window, decided by the admin, refunded as credit once
+    as(winJar);
+    ok((await call('POST', `${winBase}/unlocked/${leadA.id}/report`, { reason: 'because' })).status === 422, 'a report needs one of the listed reasons');
+    ok((await call('POST', `${winBase}/unlocked/${leadA.id}/report`, { reason: 'disconnected', note: 'rings out' })).status === 200 && (await call('POST', `${winBase}/unlocked/${leadA.id}/report`, { reason: 'fake' })).status === 409, 'a firm reports a bad inquiry, once');
+    as(loseJar);
+    ok((await call('POST', `${loseBase}/unlocked/${leadA.id}/report`, { reason: 'fake' })).status === 404, 'a firm cannot report an inquiry it did not unlock');
+    as(adminJar);
+    const reps = (await call('GET', '/api/admin/marketplace/reports')).data.reports;
+    const rep = reps.find((r) => r.leadId === leadA.id);
+    ok(rep && rep.reason === 'disconnected' && rep.pricePaid === 150 && (await mails('Bad inquiry reported')).length >= 1, 'the admin sees the report and is emailed');
+    ok((await call('POST', `/api/admin/marketplace/reports/${rep.id}/decision`, { action: 'maybe' })).status === 422, 'a decision is approve or deny');
+    ok((await call('POST', `/api/admin/marketplace/reports/${rep.id}/decision`, { action: 'approve', note: 'Number is disconnected' })).status === 200 && (await call('POST', `/api/admin/marketplace/reports/${rep.id}/decision`, { action: 'approve' })).status === 404, 'the admin refunds it, and a second decision does nothing');
+    as(winJar);
+    ok((await call('GET', winBase)).data.balance === 200 && (await call('GET', `${winBase}/ledger`)).data.ledger.filter((r) => r.type === 'refund').length === 1 && (await mails('Credits returned for inquiry')).length === 1, 'the 150 credits came back as credit, once, and the firm was emailed');
+    as(winJar);
+    ok((await call('GET', `${winBase}/unlocked`)).data.leads[0].report.status === 'approved', 'the firm sees the report was approved');
+
+    // held inquiries: approve lists it (and starts its alerts), reject clears the details
+    as(adminJar);
+    ok((await call('POST', `/api/admin/marketplace/leads/${held.id}/decision`, { action: 'approve' })).status === 200 && (await call('POST', `/api/admin/marketplace/leads/${held.id}/decision`, { action: 'reject' })).status === 409, 'the admin approves a held inquiry, and it is no longer on hold');
+    ok((await call('GET', '/api/admin/marketplace/leads?status=approved')).data.leads.some((l) => l.id === held.id), 'it is listed from then on');
+    cookie = '';
+    await call('POST', '/api/marketplace/inquiries', { ...person, email: `mk-held2-${run}@example.com`, practiceArea: 'family', description: 'My ex threatened to kill me last week and I need a lawyer about a protection order.' }, mkIp());
+    as(adminJar);
+    const held2 = (await call('GET', '/api/admin/marketplace/leads?status=held')).data.leads.find((l) => l.details?.email === `mk-held2-${run}@example.com`);
+    ok((await call('POST', `/api/admin/marketplace/leads/${held2.id}/decision`, { action: 'reject' })).status === 200 && (await call('GET', '/api/admin/marketplace/leads?status=rejected')).data.leads.find((l) => l.id === held2.id).details === null, 'the admin rejects one: its details are cleared');
+
+    // price drops after the full-price hours, and an inquiry expires (fractions of a day make this testable)
+    ok((await call('PUT', '/api/admin/marketplace/config', { fullHours: 0.0005, expiryDays: 0.00025 })).status === 200, 'the admin sets a short price schedule for the test');
+    cookie = '';
+    await call('POST', '/api/marketplace/inquiries', { ...person, email: `mk-decay-${run}@example.com`, description: 'A dog bit my leg at the park yesterday and I would like advice about what I can claim.' }, mkIp());
+    as(winJar);
+    const early = (await call('GET', `${winBase}/board`)).data.leads.find((l) => l.summary.includes('a dog bite'));
+    await sleepMs(3000);
+    const later = (await call('GET', `${winBase}/board`)).data.leads.find((l) => l.summary.includes('a dog bite'));
+    ok(early && later && later.priceTier === 'discount' && later.price === 90, 'after the full-price hours the price drops (150 becomes 90)');
+    await sleepMs(20000);
+    await tick();
+    ok(!(await call('GET', `${winBase}/board`)).data.leads.some((l) => l.summary.includes('a dog bite')) && (await call('POST', `${winBase}/leads/${later.id}/unlock`)).status === 409, 'an expired inquiry is never shown and cannot be unlocked');
+    as(adminJar);
+    ok((await call('GET', '/api/admin/marketplace/leads?status=expired')).data.leads.some((l) => l.id === later.id && l.details === null), 'an expired inquiry is marked expired and its details are cleared');
+    await call('PUT', '/api/admin/marketplace/config', { fullHours: 48, expiryDays: 7, headStartMinutes: 20 });
+
+    // the admin's view: money adds up, the ledger is complete, and a firm can only see its own
+    const ov = (await call('GET', '/api/admin/marketplace')).data;
+    ok(ov.stats.unlocks === 1 && ov.stats.creditsSold === 150 && ov.stats.creditsRefunded === 150 && ov.stats.netRevenue === 0 && ov.stats.topUps === 50, 'the overview adds up: 150 sold, 150 refunded, 50 topped up');
+    const led = (await call('GET', '/api/admin/marketplace/ledger')).data.ledger;
+    const sum = (slug) => led.filter((r) => r.firmSlug === slug).reduce((n, r) => n + r.amount, 0);
+    as(o3.jar); const finalA = (await call('GET', A)).data.balance; as(o4.jar); const finalB = (await call('GET', B)).data.balance;
+    ok(sum(MA) === finalA && sum(MB) === finalB, 'each firm\'s balance is exactly the sum of its ledger rows');
+    ok((await call('GET', `${A}/ledger`)).status === 403, 'a firm cannot read another firm\'s ledger');
+
+    // put everything back
+    as(adminJar);
+    for (const slug of [MA, MB]) await call('DELETE', `/api/admin/firms/${slug}/verification?reason=smoke`);
+    await call('PATCH', `/api/admin/firms/${MA}`, { featured: !!origA.featured }); await call('PATCH', `/api/admin/firms/${MB}`, { featured: !!origB.featured });
+    await call('PUT', '/api/admin/marketplace/config', { open: false });
+    cookie = '';
+    ok((await call('GET', '/api/marketplace/status')).data.open === false, 'the admin closes it again');
+  }
+
   // enquiry flood limit per requester address (the 16th within an hour is refused)
   cookie = '';
   const floodIp = { 'cf-connecting-ip': `198.18.0.${1 + Math.floor(Math.random() * 250)}` };

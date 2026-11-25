@@ -12,7 +12,8 @@ const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 // Every table that stores a firm's slug in a column called firm_slug. scripts/test-firm-slug.mjs reads the migrations and fails if a table with such a
 // column is missing here, so a table added later cannot be forgotten.
 export const SLUG_TABLES = ['firm_members', 'firm_images', 'firm_feeds', 'firm_posts', 'firm_subscriptions', 'follows', 'firm_ratings', 'firm_invites',
-  'firm_stats_daily', 'firm_trials', 'firm_verifications', 'leads', 'outreach', 'lawyer_photos'];
+  'firm_stats_daily', 'firm_trials', 'firm_verifications', 'leads', 'outreach', 'lawyer_photos',
+  'marketplace_firms', 'marketplace_leads', 'marketplace_ledger', 'marketplace_reports', 'marketplace_alerts'];
 
 export function cleanSlug(v) {
   const s = typeof v === 'string' ? v.trim().toLowerCase() : '';
@@ -44,6 +45,7 @@ export async function renameFirmSlug(env, admin, oldSlug, rawNew) {
     env.DB.prepare("UPDATE firms SET slug = ?, data = json_set(data, '$.slug', ?), updated_at = datetime('now') WHERE slug = ?").bind(next, next, oldSlug),
     env.DB.prepare('UPDATE firm_locations SET location_slug = ? WHERE location_slug = ?').bind(next, oldSlug),   // office-page links (not firm_slug columns, so not in SLUG_TABLES)
     env.DB.prepare('UPDATE firm_locations SET main_slug = ? WHERE main_slug = ?').bind(next, oldSlug),
+    env.DB.prepare('UPDATE marketplace_leads SET source_firm = ? WHERE source_firm = ?').bind(next, oldSlug),   // the firm a firm-page inquiry was sent to (not a firm_slug column)
     env.DB.prepare('DELETE FROM firm_redirects WHERE old_slug = ?').bind(next),                            // an address taken back is live again, not a redirect
     env.DB.prepare('UPDATE firm_redirects SET new_slug = ? WHERE new_slug = ?').bind(next, oldSlug),       // earlier old addresses follow the firm to the new one (no chains)
     env.DB.prepare('INSERT INTO firm_redirects (old_slug, new_slug, created_by) VALUES (?, ?, ?)').bind(oldSlug, next, admin?.id ?? null),

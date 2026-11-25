@@ -185,3 +185,15 @@
   if (window.LawdbLocation || document.querySelector('script[src*="locate.js"]')) return;
   var sc = document.createElement('script'); sc.src = '/locate.js?v=1'; sc.defer = true; document.head.appendChild(sc);
 })();
+
+/* ===== Lead Marketplace: anything marked data-market-open stays hidden until the admin has opened the marketplace (and what is marked data-market-closed is hidden then) (GET /api/marketplace/status, cached for a minute).
+   The value is how to show it ("flex", "block", or empty). Nothing is sent: it only asks whether it is open. */
+(function(){
+  var els = document.querySelectorAll('[data-market-open]'), gone = document.querySelectorAll('[data-market-closed]');
+  if (!(els.length + gone.length) || !window.fetch) return;
+  fetch('/api/marketplace/status').then(function(r){ return r.json(); }).then(function(s){
+    if (!s || !s.open) return;
+    for (var i = 0; i < els.length; i++) { els[i].hidden = false; var d = els[i].getAttribute('data-market-open'); if (d) els[i].style.display = d; }
+    for (var j = 0; j < gone.length; j++) gone[j].hidden = true;
+  }).catch(function(){});
+})();

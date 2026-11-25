@@ -3,11 +3,27 @@ import { audit } from './audit.js';
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
 // Transactional email through Brevo (sender info@lawdb.ca is verified there).
-export async function sendMail(env, { to, subject, text, html }) {
+// Resend (https://resend.com): used for the Lead Marketplace alert emails when the RESEND_API_KEY secret is set and the sending domain is verified there (SPF, DKIM and DMARC
+// in the DNS); until then those emails go through Brevo like every other email. ALERTS_FROM ("Name <address>") overrides the sender.
+async function sendViaResend(env, { recipients, subject, text, html }) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { authorization: `Bearer ${(env.RESEND_API_KEY || '').trim()}`, 'content-type': 'application/json' },
+    body: JSON.stringify({ from: (env.ALERTS_FROM || '').trim() || `${env.MAIL_FROM_NAME || 'LawDB'} <${env.MAIL_FROM_EMAIL || 'info@lawdb.ca'}>`, to: recipients, subject, html, text }),
+  });
+  if (!res.ok) {
+    let why = '';
+    try { const body = await res.json(); why = body.message || body.name || ''; } catch {}
+    throw new Error(`Resend ${res.status}: ${String(why).slice(0, 200)}`);
+  }
+}
+
+export async function sendMail(env, { to, subject, text, html, transport }) {
   const recipients = [].concat(to).filter(Boolean);
   if (!recipients.length) return;
   // Local development: do not send, leave a trace the tests (and a developer) can read.
   if (env.DEV_ECHO_LINK === '1') return audit(env, null, 'mail.dev', 'email', recipients.join(','), { subject });
+  if (transport === 'alerts' && (env.RESEND_API_KEY || '').trim()) return sendViaResend(env, { recipients, subject, text, html });
   const apiKey = (env.BREVO_API_KEY || '').trim(); // tolerate a stray space or newline from pasting
   if (!apiKey) throw new Error('BREVO_API_KEY secret is missing or empty');
   const res = await fetch('https://api.brevo.com/v3/smtp/email', {
@@ -159,6 +175,63 @@ export function lawyerClaimEmail(origin, { firm, firmName, firmFeatured, lawyer,
     subject: `Lawyer listing claim: ${name}${firmName ? ' at ' + firmName : ''}`,
     text: `A lawyer asked to claim their listing.\n\n${lines.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\n${firmFeatured || !firm ? '' : 'The firm is not Featured yet; a Featured lawyer listing needs a Featured firm first.\n\n'}Check them against their law society, then reply to set up their profile: ${link}`,
     html: `<p>A lawyer asked to claim their listing.</p><table cellpadding="4">${lines.map(([k, v]) => `<tr><td style="color:#5f5f5f;vertical-align:top">${esc(k)}</td><td>${esc(v).replace(/\n/g, '<br>')}</td></tr>`).join('')}</table>${firmFeatured || !firm ? '' : '<p>The firm is not Featured yet; a Featured lawyer listing needs a Featured firm first.</p>'}${button(link, 'Open the admin')}`,
+  };
+}
+
+// ---------------------------------------------------------------- Lead Marketplace
+const where = (l) => [l.city, l.province].filter(Boolean).join(', ');
+
+// To a firm: one new inquiry, or a daily digest of several. Only the preview (no name, email or phone: those are for the firm that unlocks it).
+export function marketplaceAlertEmail(origin, { firmName, slug, leads, headStart = false, digest = false }) {
+  const link = `${origin}/account/#market/${slug}`;
+  const one = leads[0];
+  const line = (l) => `${l.practiceAreaLabel}, ${where(l)} (${l.urgencyLabel}), ${l.price} credits to unlock\n${l.summary}`;
+  return {
+    subject: digest ? `${leads.length} new inquiries on the Lead Marketplace` : `New inquiry: ${one.practiceAreaLabel} in ${where(one)}`,
+    text: `${digest ? 'Inquiries from the last day that match your practice areas and provinces:' : 'A new inquiry matches your practice areas and provinces:'}\n\n${leads.map(line).join('\n\n')}\n\n${headStart ? `You see it first because ${firmName} is Featured.\n\n` : ''}Each inquiry goes to one firm: the first to unlock it. The person's name and contact details are shown after you unlock it.\n\nOpen the Lead Marketplace: ${link}\n\nYou get these emails because ${firmName} is on the Lead Marketplace. To get a daily digest instead, or none, change the alerts setting on that page.`,
+    html: `<p>${digest ? 'Inquiries from the last day that match your practice areas and provinces:' : 'A new inquiry matches your practice areas and provinces:'}</p>` +
+      leads.map((l) => `<div style="border-left:4px solid #c9a050;background:#f4ecd8;padding:12px 16px;margin:12px 0"><b>${esc(l.practiceAreaLabel)}</b> &middot; ${esc(where(l))} &middot; ${esc(l.urgencyLabel)}<br>${esc(l.summary)}<br><span style="color:#5f5f5f">${esc(String(l.price))} credits to unlock</span></div>`).join('') +
+      `${headStart ? small(`You see it first because ${firmName} is Featured.`) : ''}<p>Each inquiry goes to one firm: the first to unlock it. The person's name and contact details are shown after you unlock it.</p>${button(link, 'Open the Lead Marketplace')}` +
+      small(`You get these emails because ${firmName} is on the Lead Marketplace. To get a daily digest instead, or none, change the alerts setting on that page.`),
+  };
+}
+
+// To the person who sent a general "find me a lawyer" request or ticked the box on a firm's form. Says only what is true: it may be offered to one paying firm.
+export function marketplaceReceivedEmail(origin, { name, practiceAreaLabel }) {
+  const hi = name ? `Hi ${name.split(/\s+/)[0]},` : 'Hi,';
+  return {
+    subject: 'We have your request',
+    text: `${hi}\n\nWe received your ${practiceAreaLabel.toLowerCase()} request. As you agreed, LawDB may offer it to one law firm that pays to receive it. If a firm takes it, that firm will contact you using the details you gave. We cannot promise that a firm will, or by when.\n\nLawDB is a directory, not a law firm, and this is not legal advice. If you no longer want your request shared, reply to this email and we will remove it.\n\nThe LawDB team\n${origin}`,
+    html: `<p>${esc(hi)}</p><p>We received your ${esc(practiceAreaLabel.toLowerCase())} request. As you agreed, LawDB may offer it to one law firm that pays to receive it. If a firm takes it, that firm will contact you using the details you gave. We cannot promise that a firm will, or by when.</p>` +
+      small('LawDB is a directory, not a law firm, and this is not legal advice. If you no longer want your request shared, reply to this email and we will remove it.'),
+  };
+}
+
+// To the admin: an inquiry is waiting for review, or a firm reported one as junk.
+export function marketplaceHeldEmail(origin, { id, reason, practiceAreaLabel, province }) {
+  const link = `${origin}/admin/#marketplace`;
+  return {
+    subject: `Inquiry waiting for review: ${practiceAreaLabel}, ${province}`,
+    text: `Inquiry #${id} (${practiceAreaLabel}, ${province}) is on hold: ${reason}.\n\nNothing is listed until you approve it.\n\nReview it: ${link}`,
+    html: `<p>Inquiry #${id} (${esc(practiceAreaLabel)}, ${esc(province)}) is on hold: ${esc(reason)}.</p><p>Nothing is listed until you approve it.</p>${button(link, 'Review it')}`,
+  };
+}
+export function marketplaceReportEmail(origin, { firmName, leadId, reason, note }) {
+  const link = `${origin}/admin/#marketplace`;
+  return {
+    subject: `Bad inquiry reported: ${firmName}`,
+    text: `${firmName} reported inquiry #${leadId} as junk (${reason}).${note ? `\n\nTheir note: ${note}` : ''}\n\nA refund is credit only, only for clear junk, and never because the person did not hire the firm.\n\nDecide: ${link}`,
+    html: `<p>${esc(firmName)} reported inquiry #${leadId} as junk (${esc(reason)}).</p>${note ? `<p>Their note: ${esc(note)}</p>` : ''}${small('A refund is credit only, only for clear junk, and never because the person did not hire the firm.')}${button(link, 'Decide')}`,
+  };
+}
+// To the firm: what the admin decided about its report.
+export function marketplaceReportDecisionEmail(origin, { firmName, slug, leadId, approved, credits, note }) {
+  const link = `${origin}/account/#market/${slug}`;
+  return {
+    subject: approved ? `Credits returned for inquiry #${leadId}` : `Your report about inquiry #${leadId}`,
+    text: approved ? `We checked your report about inquiry #${leadId} and returned ${credits} credits to ${firmName}.${note ? `\n\n${note}` : ''}\n\n${link}` : `We checked your report about inquiry #${leadId} and did not refund it.${note ? `\n\n${note}` : ''}\n\nA refund is only for clear junk, such as a disconnected number, spam or a fake request.\n\n${link}`,
+    html: approved ? `<p>We checked your report about inquiry #${leadId} and returned <b>${credits} credits</b> to ${esc(firmName)}.</p>${note ? `<p>${esc(note)}</p>` : ''}${button(link, 'Open the Lead Marketplace')}`
+      : `<p>We checked your report about inquiry #${leadId} and did not refund it.</p>${note ? `<p>${esc(note)}</p>` : ''}${small('A refund is only for clear junk, such as a disconnected number, spam or a fake request.')}${button(link, 'Open the Lead Marketplace')}`,
   };
 }
 

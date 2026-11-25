@@ -105,3 +105,10 @@ html.aic-lock .to-top{ opacity:0 !important; pointer-events:none !important; }
   body.pg-firm.lw-has-tabs .aic-nudge{ bottom:calc(222px + env(safe-area-inset-bottom,0px)); }
   body.pg-firm.lw-has-tabs.aic-ready .to-top{ bottom:calc(226px + env(safe-area-inset-bottom,0px)); }
 }
+
+/* The home page's sign-in sheet sits along the bottom of a phone: the AI button, its nudge and the scroll-to-top button stack above it instead of covering its Sign in button. */
+@media (max-width:760px){
+  body.has-sheet .aic-launch{ bottom:calc(106px + env(safe-area-inset-bottom,0px)); }
+  body.has-sheet.aic-ready .to-top{ bottom:calc(172px + env(safe-area-inset-bottom,0px)); }
+  body.has-sheet .aic-nudge{ bottom:calc(224px + env(safe-area-inset-bottom,0px)); }
+}

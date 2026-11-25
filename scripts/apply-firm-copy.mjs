@@ -69,14 +69,20 @@ for (const file of readdirSync('data').filter((f) => /^firms-batch-\d+\.json$/.t
   write(`data/${file}`, JSON.stringify(batch, null, 1) + '\n');
 }
 
-// Remember the copy that is about to be replaced (the committed version), so databases that already hold it still get updated.
-if (!CHECK) {
-  try {
-    const committed = JSON.parse(execFileSync('git', ['show', 'HEAD:data/firm-copy.json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }));
+// Remember every earlier version of the copy that was ever committed, so a database that holds any of them still gets updated. (Reading only the
+// last commit was not enough: once data/firm-copy.json passed 1 MB, git's output overflowed the default buffer of execFileSync, the error was
+// swallowed, and the version live at the time was left out of the guard, so 1,613 firms kept their old text.) Only "no git history here" is ignored.
+{ // also in --check, so a text that is committed but missing from the guard is reported
+  const git = (...args) => execFileSync('git', args, { encoding: 'utf8', maxBuffer: 512 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] });
+  let commits = [];
+  try { commits = git('log', '--format=%H', '--', 'data/firm-copy.json').split('\n').filter(Boolean).reverse(); } catch (e) { if (e.code === 'ENOBUFS') throw e; /* no git history here: keep the file as it is */ }
+  for (const sha of commits) { // oldest first
+    let committed;
+    try { committed = JSON.parse(git('show', `${sha}:data/firm-copy.json`)); } catch (e) { if (e.code === 'ENOBUFS') throw e; continue; }
     for (const [slug, text] of Object.entries(committed)) {
       if (copy[slug] && text !== copy[slug] && text !== previous[slug] && !(history[slug] || []).includes(text)) (history[slug] ||= []).push(text);
     }
-  } catch { /* no git history here: keep the file as it is */ }
+  }
 }
 const sortedHistory = Object.fromEntries(Object.entries(history).filter(([slug]) => copy[slug]).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
 write(histFile, JSON.stringify(sortedHistory, null, 1) + '\n');

@@ -349,6 +349,15 @@
   .hero5::before{ content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
     background:linear-gradient(180deg, rgba(42,42,42,0.82) 0%, rgba(42,42,42,0.66) 40%, rgba(42,42,42,0.78) 78%, rgba(42,42,42,0.92) 100%); }
   .h5-inner{ position:relative; max-width:600px; margin:0 auto; }
+  /* Phones and tablets: the photo is a band of its own at the top, in its own colours, fading into the charcoal where the words begin, so the CN Tower is not
+     behind the headline and the night blue and the lit windows show. (Wide screens keep the photo on the right, below.) */
+  @media(max-width:899px){
+    .hero5{ --h5-band:clamp(280px,76vw,440px); padding-top:calc(var(--h5-band) - 100px); }
+    .h5-bg{ bottom:auto; height:var(--h5-band); -webkit-mask-image:linear-gradient(180deg,#2a2a2a 0,#2a2a2a 56%,rgba(42,42,42,.5) 80%,transparent 100%); mask-image:linear-gradient(180deg,#2a2a2a 0,#2a2a2a 56%,rgba(42,42,42,.5) 80%,transparent 100%); }
+    .h5-photo{ object-position:50% 14%; filter:saturate(1.06) contrast(1.04); }
+    .hero5::before{ bottom:auto; height:var(--h5-band); background:linear-gradient(180deg, rgba(42,42,42,0.4) 0%, rgba(42,42,42,0) 24%, rgba(42,42,42,0) 50%, rgba(42,42,42,0.5) 78%, rgba(42,42,42,0.9) 100%); }
+    .h5-eyebrow, .hero5 h1, .h5-sub{ text-shadow:0 1px 14px rgba(42,42,42,0.7); }
+  }
   .h5-eyebrow{ margin:0 0 12px; font:600 12px/1.65 Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#e2bd6a; }
   .h5-rule{ display:block; width:56px; height:2px; margin:0 0 20px; background:#c9a050; }
   .hero5 h1{ margin:0 0 14px; font:700 clamp(32px,8.6vw,44px)/1.08 'Source Serif 4',serif; letter-spacing:-.01em; color:#fff; max-width:9.6em; text-wrap:balance; }

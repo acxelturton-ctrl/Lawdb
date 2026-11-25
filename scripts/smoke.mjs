@@ -1642,7 +1642,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     cookie = '';
     // Booking is a Featured benefit: the link is saved, but the button stays locked (and the link is not in the page) until the firm is Featured
     const bkLocked = (await getRaw('/firms/torys-llp')).text;
-    ok(bkLocked.includes('class="li-btn li-book li-book-off"') && bkLocked.includes('li-book-tag') && bkLocked.includes('Online booking is a Featured feature') && !bkLocked.includes('calendly.com/torys'), 'with a booking link saved, the button stays locked (with a Featured tag) on a firm that is not Featured, and the link is not in the page');
+    ok(bkLocked.includes('class="li-btn li-book li-book-off"') && !bkLocked.includes('li-book-tag') && bkLocked.includes('Online booking is a Featured feature') && !bkLocked.includes('calendly.com/torys'), 'with a booking link saved, the button stays greyed out (no padlock, no Featured tag) on a firm that is not Featured, and the link is not in the page');
     as(adminJar);
     await call('PATCH', '/api/admin/firms/torys-llp', { featured: true });
     cookie = '';

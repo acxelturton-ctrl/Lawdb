@@ -1,24 +1,24 @@
 // The "Book a call" button on a firm's page, under the Call / Website / Directions buttons. Booking is a Featured benefit: a Featured firm that has given an
-// online booking link gets an active, light-gold button that opens it; every other firm gets the same button greyed out with a padlock and a "Featured" tag, and
-// tapping it explains how the firm can unlock it. (A link a firm has saved stays saved: it goes live again the moment the firm is Featured.)
+// online booking link gets an active, light-gold button that opens it; every other firm gets the same button greyed out, as on lawdb.ai (a plain tan button with
+// muted text and a soft shine: no padlock and no "Featured" tag), and tapping it explains how the firm can unlock it. (A link a firm has saved stays saved: it goes live again the moment the firm is Featured.)
 // Like the Profiles box, the snippet carries its own style so it looks the same on database pages and on the hand-built pages the Worker adds it to.
 import { cleanBookingUrl } from '../lib/booking.js';
 
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
 
 const CAL = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M9 14.5l2 2 4-4"/></svg>';
-const LOCK = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>';
 
 const CSS = '<style>.li-book-row{margin:10px 0 0;max-width:470px}' +
   '.li-book-row .li-btn{width:100%;flex:none;gap:8px;cursor:pointer;font-family:inherit}' +
   '.li-book-row .ic{width:19px;height:19px;flex:none}' +
   '.li-book{background:#f4ecd8;border:1.5px solid #c9a050;color:#3a3a3a}' +
   '.li-book .ic{color:#c9a050}' +
-  '.li-book-off .ic{color:#8c8c8c}' +
   '.li-book:hover{background:#e6d4a4;color:#3a3a3a}' +
-  '.li-book-off{background:#f7f1e0;border:1.5px dashed #ece6d3;color:#8c8c8c}' +
-  '.li-book-off:hover{background:#f7f1e0;color:#5f5f5f;transform:none;box-shadow:none;filter:none}' +
-  '.li-book-tag{margin-left:2px;padding:1px 8px;border-radius:999px;background:#f4ecd8;border:1px solid #c9a050;color:#3a3a3a;font:700 11px/1.5 Inter,system-ui,sans-serif;font-style:normal;letter-spacing:.02em}' +
+  '.li-book-off{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 58%),#e6d4a4;border:1.5px solid #e6d4a4;color:#8c8c8c;box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 1px 3px rgba(201,160,80,.28)}' +
+  '.li-book-off:hover{background:linear-gradient(180deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 58%),#e6d4a4;color:#8c8c8c;transform:none;filter:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 1px 3px rgba(201,160,80,.28)}' +
+  '.li-book-off::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;pointer-events:none;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.7),rgba(255,255,255,0));transform:skewX(-18deg);animation:lw-book-shine 5s ease-in-out infinite}' +
+  '@keyframes lw-book-shine{0%,62%{left:-60%}100%{left:130%}}' +
+  '@media (prefers-reduced-motion:reduce){.li-book-off::after{animation:none;display:none}}' +
   '.lw-book-note{margin:8px 0 0;max-width:470px;font:500 13.5px/1.5 Inter,system-ui,sans-serif;color:#5f5f5f}' +
   '</style>';
 
@@ -36,6 +36,6 @@ export function bookingRow({ url, name, managed = false, featured = false }) {
     : (managed
       ? `${esc(name)} hasn&#x27;t added an online booking link yet.`
       : `${esc(name)} hasn&#x27;t added an online booking link yet. If you run this firm, use &ldquo;Claim this listing&rdquo; below to add one.`);
-  return `${CSS}<div class="li-book-row"><button type="button" class="li-btn li-book li-book-off" aria-disabled="true" aria-expanded="false" aria-controls="lw-book-note">${LOCK}<span>Book a call</span>${featured ? '' : '<em class="li-book-tag">Featured</em>'}</button>` +
+  return `${CSS}<div class="li-book-row"><button type="button" class="li-btn li-book li-book-off" aria-disabled="true" aria-expanded="false" aria-controls="lw-book-note"><span>Book a call</span></button>` +
     `<p class="lw-book-note" id="lw-book-note" hidden>${note}</p></div>`;
 }

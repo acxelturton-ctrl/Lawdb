@@ -199,7 +199,8 @@ const js = readFileSync('ai-search.js', 'utf8'), css = readFileSync('ai-search.c
 ok(/\/api\/ai\/match/.test(js) && !/innerHTML/.test(js), 'the chat talks to the matcher and never writes server text as HTML');
 ok(/lang === 'fr'/.test(js) && /Passer au fran/.test(js) && !/espa/i.test(js), 'the chat has English and French, no Spanish left over');
 ok(/aic-launch/.test(css) && /body\.lw-has-tabs \.aic-launch/.test(css), 'the round button and its place above the member tab bar');
-ok(/ai-search\.js\?v=\d+/.test(site) && /ai-search\.css\?v=\d+/.test(site) && /data-open-ai/.test(site) && /nav-sep/.test(site), 'every page loads the chat through site.js, and the menus get a LawDB AI item');
+ok(/ai-search\.js\?v=\d+/.test(site) && /ai-search\.css\?v=\d+/.test(site) && /data-open-ai/.test(site) && /nav-sep/.test(site), 'every page loads the chat through site.js, and the desktop header gets a LawDB AI button');
+ok(/drawer\.querySelector\('a\[href="\/marketplace"\]'\)/.test(site) && /a\.href = '\/marketplace'; a\.textContent = 'Lead Marketplace'/.test(site) && !/a\.setAttribute\('data-open-ai'/.test(site) && /m\.href = '\/marketplace'; m\.textContent = 'Lead Marketplace'/.test(site), 'the hamburger menu gets "Lead Marketplace" and no LawDB AI item; the desktop header gets "Lead Marketplace" beside the AI button');
 ok(/\/api\/ai\/match/.test(readFileSync('src/worker.js', 'utf8')) && /"ai": \{ "binding": "AI" \}/.test(readFileSync('wrangler.jsonc', 'utf8')), 'the route and the Workers AI binding are in place');
 ok(/q\.get\('ask'\)/.test(readFileSync('src/render/firm-page.js', 'utf8')), 'a profile opened from the chat puts the short note in the message box');
 

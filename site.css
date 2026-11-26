@@ -284,6 +284,27 @@ img.lz{ opacity:0; transition:opacity .45s ease; } img.lz.lz-in{ opacity:1; }
   .to-top:hover{ background:#e2bd6a; }
   .menu-drawer a{ transition:padding-left .15s ease, color .15s ease; } .menu-drawer a:hover{ padding-left:10px; }
 }
+/* The desktop header has one more link now (Lead Marketplace). On narrower desktop screens the items sit closer together and the Request a Consultation button is a little
+   smaller; where there is still not room, the AI text button gives way (the round AI button at the bottom right stays), so the logo is never squeezed and the page never
+   scrolls sideways. Pages whose header also holds Sign in and the consultation button need the room sooner than the home page. */
+@media (min-width:900px) and (max-width:1499px){
+  .site-header .desktop-nav a:not(.nav-cta), .site-header .desktop-nav .nav-ai{ margin-right:18px; font-size:14.5px; }
+}
+@media (min-width:900px) and (max-width:1199px){
+  .site-header .desktop-nav a:not(.nav-cta){ margin-right:15px; }
+  .site-header .back-link{ display:none; }
+}
+@media (min-width:900px) and (max-width:1149px){ .site-header .desktop-nav .nav-cta{ padding:10px 16px; font-size:14px; } }
+@media (min-width:900px) and (max-width:1049px){
+  .site-header .desktop-nav a:not(.nav-cta){ margin-right:12px; font-size:14px; }
+  .site-header .desktop-nav .nav-cta{ padding:9px 12px; font-size:13.5px; }
+  .site-header .desktop-nav .nav-ai{ display:none; }
+}
+@media (min-width:900px) and (max-width:949px){
+  .site-header .desktop-nav a:not(.nav-cta){ margin-right:9px; }
+  .site-header .desktop-nav .nav-cta{ padding:9px 9px; font-size:13px; }
+}
+@media (min-width:900px) and (max-width:1399px){ .site-header .desktop-nav:has(.nav-cta) .nav-ai{ display:none; } }
 @media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } body{ animation:none; } .rv{ opacity:1; transform:none; transition:none; } img.lz{ opacity:1; transition:none; } .lc-feat::after{ animation:none; } }
 
 /* hero live animation */

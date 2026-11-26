@@ -148,21 +148,31 @@
   }, true);
 })();
 
-// LawDB AI help bot: the round button at the bottom right of every public page, and its item in the menus. The chat itself (ai-search.js, ai-search.css) is
-// loaded on every public page. A click on the menu item before the chat has loaded opens it as soon as it has.
+// The menus and LawDB AI. The desktop header gets a "Lead Marketplace" link and the LawDB AI button; the hamburger menu gets "Lead Marketplace" (no AI item there).
+// The help bot is the round button at the bottom right of every public page; its chat (ai-search.js, ai-search.css) is loaded on every public page. A click on
+// the desktop AI button before the chat has loaded opens it as soon as it has.
 (function(){
   if (/^\/(admin|account)(\/|$)/.test(location.pathname)) return;
   var SPARK = 'M12 2l2.2 6.3L20.5 10l-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-1.7zM19 15l.9 2.4 2.4.9-2.4.9L19 21.6l-.9-2.4-2.4-.9 2.4-.9z';
+  var onMarket = /^\/marketplace\/?$/.test(location.pathname);
   var nav = document.querySelector('.desktop-nav');
-  if (nav && !nav.querySelector('[data-open-ai]')) {
-    var b = document.createElement('button'); b.type = 'button'; b.className = 'nav-ai'; b.setAttribute('data-open-ai', '');
-    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + SPARK + '"/></svg><span>LawDB AI</span>';
-    var sep = nav.querySelector('.nav-sep'); // a top bar with the sign-in button inside the menu: the item goes before the divider
-    if (sep) nav.insertBefore(b, sep); else nav.appendChild(b);
+  if (nav) {
+    // They go right after "For Law Firms", before Sign in and the Request a Consultation button (or, on a page without that link, before the divider or at the end).
+    var after = nav.querySelector('a[href="/for-firms"]'), sep = nav.querySelector('.nav-sep'), last = after;
+    var put = function(el){ if (last) { last.insertAdjacentElement('afterend', el); last = el; } else if (sep) nav.insertBefore(el, sep); else nav.appendChild(el); };
+    if (!nav.querySelector('a[href="/marketplace"]')) {
+      var m = document.createElement('a'); m.href = '/marketplace'; m.textContent = 'Lead Marketplace'; if (onMarket) m.setAttribute('aria-current', 'page');
+      put(m);
+    }
+    if (!nav.querySelector('[data-open-ai]')) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'nav-ai'; b.setAttribute('data-open-ai', '');
+      b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + SPARK + '"/></svg><span>LawDB AI</span>';
+      put(b);
+    }
   }
   var drawer = document.getElementById('menuDrawer');
-  if (drawer && !drawer.querySelector('[data-open-ai]')) {
-    var a = document.createElement('a'); a.href = '#'; a.setAttribute('data-open-ai', ''); a.textContent = 'LawDB AI';
+  if (drawer && !drawer.querySelector('a[href="/marketplace"]')) {
+    var a = document.createElement('a'); a.href = '/marketplace'; a.textContent = 'Lead Marketplace'; if (onMarket) a.setAttribute('aria-current', 'page');
     var news = drawer.querySelector('a[href="/news"]');
     if (news) news.insertAdjacentElement('afterend', a); else { var first = drawer.querySelector('a'); if (first) first.insertAdjacentElement('afterend', a); }
   }

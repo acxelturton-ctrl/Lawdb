@@ -8,6 +8,7 @@ import zlib from 'node:zlib';
 import { isDeepStrictEqual } from 'node:util';
 import { emailMatch } from '../src/routes/admin.js';
 import { loadHandles } from './lib/firm-handles.mjs';
+import { LAWDB_RATINGS } from '../src/lib/features.js';
 import { checkOwnerText } from '../src/lib/content-rules.js';
 import { postalOf } from '../src/lib/geocode.js';
 import { provinceAt } from '../src/lib/map-land.js';
@@ -316,10 +317,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   // the profile header card is laid out like lawdb.ai's: Request a consultation first (it replaced Message), then the phone number, Book a call and Follow, and a Call / Request a consultation bar for phones
   ok(sw.text.includes('class="pf-btn pf-primary" href="#contact" data-open-contact') && sw.text.includes('<span>Request a consultation</span>') && !sw.text.includes('<span>Message</span>') && at(sw.text, 'pf-primary') < at(sw.text, 'class="pf-btn" href="tel:') && at(sw.text, 'class="pf-btn" href="tel:') < at(sw.text, 'data-follow="achkar-law"'), 'the header card has a Request a consultation button first (not Message), then the phone number and Follow');
   ok(/<div class="pf-sticky"><a class="sk-call" href="tel:[^"]+"[^>]*>[\s\S]*?Call<\/a><a class="sk-msg" href="#contact" data-open-contact>Request a consultation<\/a><\/div>/.test(sw.text) && at(sw.text, 'class="pf-sticky"') > at(sw.text, '</aside>') - 1, 'a phone bar at the bottom of the firm page has Call and Request a consultation');
-  ok(at(sw.text, 'class="pf-loc"') > at(sw.text, 'class="lead-slim') && at(sw.text, 'class="pf-loc"') < at(sw.text, 'class="lw-rate"') && at(sw.text, 'class="article"') < at(sw.text, 'class="lead-slim') && sw.text.includes('class="pf-addr"') && !sw.text.includes('Shaded:'), 'the location card (map and address) sits right under the contact card, then the member ratings; the description is above the contact card');
+  ok(at(sw.text, 'class="pf-loc"') > at(sw.text, 'class="lead-slim') && (LAWDB_RATINGS ? at(sw.text, 'class="pf-loc"') < at(sw.text, 'class="lw-rate"') : !sw.text.includes('lw-rate')) && at(sw.text, 'class="article"') < at(sw.text, 'class="lead-slim') && sw.text.includes('class="pf-addr"') && !sw.text.includes('Shaded:'), 'the location card (map and address) sits right under the contact card, then the member ratings; the description is above the contact card');
   ok(!sw.text.includes('class="map-embed"') && !/Law firm serving [A-Za-z ]+, Canada\./.test(sw.text), 'the old map block and its caption line are gone from the database page');
   ok((sw.text.match(/<aside class="pf-aside"/g) || []).length <= 1 && /<h1 class="li-name">Achkar Law<\/h1>/.test(sw.text), 'the "Firms you may like" column is there at most once, and the page has one h1 with the firm name');
-  ok(sw.text.includes('data-lawdb-rating="achkar-law"') && sw.text.includes('class="pf-mi pf-lrate"') && sw.text.indexOf('data-lawdb-rating') < sw.text.indexOf('class="li-actions pf-actions"') && sw.text.includes('class="lw-rate"'), 'a database page carries a LawDB rating link in its header, beside the Google rating, and the member-ratings box');
+  ok(LAWDB_RATINGS ? (sw.text.includes('data-lawdb-rating="achkar-law"') && sw.text.includes('class="pf-mi pf-lrate"') && sw.text.indexOf('data-lawdb-rating') < sw.text.indexOf('class="li-actions pf-actions"') && sw.text.includes('class="lw-rate"')) : (!sw.text.includes('data-lawdb-rating') && !sw.text.includes('pf-lrate') && !sw.text.includes('Rate this firm') && !sw.text.includes('class="lw-rate"') && !sw.text.includes('data-rate=') && sw.text.includes('Google reviews')), LAWDB_RATINGS ? 'a database page carries a LawDB rating link in its header, beside the Google rating, and the member-ratings box' : 'a database page has no LawDB rating link and no member-ratings box (hidden for now), and keeps the Google rating');
   ok(at(sw.text, 'class="article"') < at(sw.text, 'class="pa-wrap"') && at(sw.text, 'class="pa-wrap"') < at(sw.text, 'class="lead-slim') && sw.text.includes('<h2>Practice areas</h2>') && !sw.text.includes('<h2>Services</h2>'), 'a database page shows its practice areas right under the description, above the contact card');
   ok((await call('PATCH', '/api/admin/firms/achkar-law', { pageMode: 'static' })).status === 422, 'there is no page style to choose any more: the setting is refused');
 
@@ -2141,7 +2142,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const lwa = (await getRaw('/lw-app.js')).text;
     ok(lwa.includes('lw-tabbar') && lwa.includes('/api/account/feed') && lwa.includes('/lw-app.css') && (await getRaw('/lw-app.css')).text.includes('.lw-panel') && (await getRaw('/site.js')).text.includes('/lw-app.js'), 'signed-in visitors get the avatar, account panel, phone tab bar and home feed on every page');
     const rp = (await getRaw(await firmAt(R))).text;
-    ok(rp.includes(`data-rate="${R}"`) && rp.includes('id="rate"') && rp.includes('/follow.js'), 'firm pages carry the member-ratings box');
+    ok(LAWDB_RATINGS ? (rp.includes(`data-rate="${R}"`) && rp.includes('id="rate"') && rp.includes('/follow.js')) : (!rp.includes('data-rate=') && !rp.includes('id="rate"') && rp.includes('/follow.js')), LAWDB_RATINGS ? 'firm pages carry the member-ratings box' : 'firm pages do not carry the member-ratings box (hidden for now)');
     // the rating dialog must not share class names with the signed-in app (lw-app.css hides .lw-ov and makes it click-through, which made the dialog invisible for signed-in members)
     const fjs = (await getRaw('/follow.js')).text; const lwcss = (await getRaw('/lw-app.css')).text;
     const dialogClasses = ['lwr-ov', 'lwr-x'];

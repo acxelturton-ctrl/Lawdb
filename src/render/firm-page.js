@@ -488,6 +488,7 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
   // The search result shows about 155 characters: as many names as fit, then "and N more".
   const lawyersDesc = () => {
     const where = `${f.name} in ${f.city}, ${PROVINCES[f.province] || f.province}`;
+    if (lw.length === 1) return `${lw[0].name}${lw[0].title ? `, ${lw[0].title}` : ''}, at ${where}. Role and years in practice on LawDB.`.slice(0, 160);
     const build = (k) => `${lw.length} lawyers at ${where}: ${joinAnd(lw.slice(0, k).map((l) => l.name))}${lw.length > k ? ` and ${lw.length - k} more` : ''}. Titles and details on LawDB.`;
     let k = Math.min(4, lw.length);
     while (k > 1 && build(k).length > 158) k--;

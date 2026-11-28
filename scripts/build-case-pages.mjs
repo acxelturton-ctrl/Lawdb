@@ -143,7 +143,7 @@ function pageHtml([id, t]) {
     `<link rel="canonical" href="${url}">`,
     `<meta property="og:type" content="website"><meta property="og:url" content="${url}"><meta property="og:site_name" content="LawDB.ca"><meta property="og:locale" content="en_CA">`,
     `<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(t.description)}">`,
-    `<meta property="og:image" content="${SITE}/images/og-default.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">`,
+    `<meta property="og:image" content="${SITE}/images/og-lawdb.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="${SITE}/images/og-lawdb.jpg">`,
     ld, EXTRA_CSS].join('\n');
 
   const list = (items, tag = 'ul') => `<${tag} class="cg-list">${items.map((i) => `<li>${esc(i)}</li>`).join('')}</${tag}>`;

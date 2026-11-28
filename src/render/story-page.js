@@ -94,7 +94,7 @@ export function renderStoryPage({ post, firm, more, nearby, origin = 'https://la
     `<meta name="description" content="${esc(desc)}">`,
     `<link rel="canonical" href="${esc(url)}">` + (indexable ? '' : '<meta name="robots" content="noindex,follow">'),
     `<meta property="og:title" content="${esc(post.title)}"><meta property="og:type" content="article"><meta property="og:url" content="${esc(url)}"><meta property="og:description" content="${esc(desc)}">` +
-      (post.image && safePostUrl(post.image) ? `<meta property="og:image" content="${esc(post.image)}">` : '') +
+      (post.image && safePostUrl(post.image) ? `<meta property="og:image" content="${esc(post.image)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="${esc(post.image)}">` : '<meta property="og:image" content="https://lawdb.ca/images/og-lawdb.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://lawdb.ca/images/og-lawdb.jpg">') +
       (isoDay(post.publishedAt) ? `<meta property="article:published_time" content="${isoDay(post.publishedAt)}">` : ''),
     `<script type="application/ld+json">${ld}</script>`,
     C.STYLE + BLOG_CSS + CSS + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n</head>',

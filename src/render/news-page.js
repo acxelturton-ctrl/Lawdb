@@ -277,7 +277,7 @@ export function renderNewsPage({ posts, firms, people: strip = null, selected = 
     '<title>LawDB News | Articles from Canadian Law Firms | LawDB.ca</title>',
     `<meta name="description" content="${esc(desc)}">`,
     '<link rel="canonical" href="https://lawdb.ca/news">',
-    '<meta property="og:title" content="LawDB News"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/news">' + `<meta property="og:description" content="${esc(desc)}">`,
+    '<meta property="og:title" content="LawDB News"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/news">' + `<meta property="og:description" content="${esc(desc)}">`+ '<meta property="og:image" content="https://lawdb.ca/images/og-lawdb.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://lawdb.ca/images/og-lawdb.jpg">',
     '<script type="application/ld+json">' + JSON.stringify(ld).replace(/</g, '\\u003c') + '</script>',
     C.STYLE + BLOG_CSS + CSS + DIALOG_CSS + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n</head>',
     '<body>\n  ' + C.HEADER.replace(/<a[^>]*>Back to results<\/a>/, ''),

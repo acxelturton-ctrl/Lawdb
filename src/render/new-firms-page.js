@@ -58,7 +58,7 @@ export function renderNewFirmsPage({ firms }) {
     '<title>New listed firms | LawDB.ca</title>',
     `<meta name="description" content="${esc(desc)}">`,
     '<link rel="canonical" href="https://lawdb.ca/new-firms">',
-    '<meta property="og:title" content="New listed firms | LawDB.ca"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/new-firms">' + `<meta property="og:description" content="${esc(desc)}">`,
+    '<meta property="og:title" content="New listed firms | LawDB.ca"><meta property="og:type" content="website"><meta property="og:url" content="https://lawdb.ca/new-firms">' + `<meta property="og:description" content="${esc(desc)}">`+ '<meta property="og:image" content="https://lawdb.ca/images/og-lawdb.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://lawdb.ca/images/og-lawdb.jpg">',
     C.STYLE + CSS + '\n<link rel="stylesheet" href="/desktop.css">\n<link rel="stylesheet" href="/site.css">\n</head>',
     '<body>\n  ' + C.HEADER.replace(/<a[^>]*>Back to results<\/a>/, ''),
     '  <header class="nf-band"><p class="nf-eyebrow">Newest on LawDB</p><h1>New listed firms</h1>' +

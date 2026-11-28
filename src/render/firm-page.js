@@ -475,7 +475,7 @@ function lawyerPageHtml(f, lw, l, prov) {
 export function renderFirmPage({ firm: f, hours, images = [], articles = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null, view = null }) {
   const prov = PROVINCES[f.province] || f.province;
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
-  const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-default.jpg`;
+  const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-lawdb.jpg`;
   // Which page of the profile: the Overview, the Lawyers page, or one lawyer's page. null when that page has nothing to show (the route answers 404, never an empty page).
   const lw = lawyersOf(f);
   const tabs = profileTabs(f, lw, articles);
@@ -604,7 +604,7 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
     `<meta name="description" content="${esc(desc)}">`,
     `<meta property="og:title" content="${esc(f.name)}, ${esc(f.city)}, ${esc(f.province)}">`,
     `<meta property="og:description" content="${esc(desc)}">`,
-    `<meta property="og:type" content="${tab === 'lawyer' ? 'profile' : 'business.business'}">`,
+    '<meta property="og:type" content="website">',
     `<link rel="canonical" href="${esc(url)}">`,
     `<meta property="og:url" content="${esc(url)}">`,
     '<meta property="og:site_name" content="LawDB.ca">\n<meta property="og:locale" content="en_CA">',

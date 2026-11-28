@@ -5,7 +5,7 @@
 // description and canonical for every page, valid breadcrumb and person markup, and every address in the sitemap.
 import { readFileSync, readdirSync } from 'node:fs';
 import { renderFirmPage } from '../src/render/firm-page.js';
-import { cleanLawyers, cleanTitle, normalizeEducation, lawyersOf, lawyerHasPage, lawyerSlug, strongLawyerProfile, MIN_FIRM_LAWYERS } from '../src/lib/lawyers.js';
+import { cleanLawyers, cleanTitle, normalizeEducation, lawyersOf, lawyerHasPage, lawyerSlug, strongLawyerProfile, MIN_FIRM_LAWYERS, minLawyers } from '../src/lib/lawyers.js';
 import { firmSitemap } from '../src/routes/firm-sitemap.js';
 import { firmPage } from '../src/routes/firm-page.js';
 
@@ -206,6 +206,27 @@ ok(lw.filter(lawyerHasPage).every((l) => locs.includes(`https://lawdb.ca/firms/a
 ok(!locs.some((u) => /f-firm\/lawyers\//.test(u)) && locs.includes('https://lawdb.ca/firms/f-firm/lawyers'), 'a firm that is not Featured has its Lawyers page in the sitemap but no page for a lawyer (none has one)');
 ok(!locs.some((u) => /b-firm\/|c-firm\/|d-firm\/|e-firm/.test(u)) && locs.includes('https://lawdb.ca/firms/b-firm') && locs.includes('https://lawdb.ca/firms/d-firm'), 'no Lawyers page in the sitemap for a firm with one lawyer, none, switched off, or held back');
 ok(new Set(locs).size === locs.length, 'no address twice');
+
+// ---- one lawyer, when the admin allows it (lawyersSolo on the firm record) ----
+// A firm with one lawyer gets no Lawyers page (no thin pages), unless the admin has confirmed that lawyer and set lawyersSolo. Her own page still needs a Featured plan.
+const tatiana = { name: 'Tatiana Gulyaeva', title: 'Immigration Lawyer', callYear: 2008, confirmed: true, photo: '/images/lawyers/tatiana-gulyaeva.jpg', photoConfirmed: true };
+const solo = { ...pilot, about: copy[PILOT], lawyers: [tatiana] };
+const soloOn = { ...solo, lawyersSolo: true };
+ok(minLawyers(solo) === MIN_FIRM_LAWYERS && minLawyers(soloOn) === 1 && minLawyers({ lawyersSolo: 'yes' }) === MIN_FIRM_LAWYERS, 'a firm needs two lawyers for a Lawyers page, or one when lawyersSolo is exactly true');
+ok(lawyersOf(solo).length === 0 && render(solo, { tab: 'lawyers' }) === null, 'one lawyer without lawyersSolo: no Lawyers page (404)');
+const soloHtml = render(soloOn, { tab: 'lawyers' });
+const soloP = soloHtml ? parts(soloHtml) : null;
+ok(lawyersOf(soloOn).length === 1 && !!soloHtml && /Tatiana Gulyaeva/.test(soloHtml) && /Immigration Lawyer/.test(soloHtml) && /in practice/.test(soloHtml), 'one lawyer with lawyersSolo: the Lawyers page shows her name, role and years in practice');
+ok(!!soloHtml && soloHtml.includes('src="/images/lawyers/tatiana-gulyaeva.jpg"'), 'her confirmed picture (kept with the site) is shown');
+ok(!!soloP && soloP.h1 === 1 && soloP.canon === `https://lawdb.ca/firms/${solo.slug}/lawyers` && soloP.desc.length <= 160 && /Tatiana Gulyaeva/.test(soloP.desc) && !/1 lawyers/.test(soloP.desc), 'with one h1, its own canonical, and a description in the singular that names her');
+ok(render(soloOn, { tab: 'lawyer', lawyer: 'tatiana-gulyaeva' }) === null && lawyersOf(soloOn).every((l) => !lawyerHasPage(l)), 'a page of her own still needs a Featured firm and a Featured lawyer');
+const soloTop = render(soloOn);
+ok(!!soloTop && />Lawyers <span class="n">1<\/span>/.test(soloTop), 'the firm page has the Lawyers tab (with the count 1)');
+ok(lawyersOf({ ...soloOn, lawyersOff: true }).length === 0 && lawyersOf({ ...soloOn, lawyers: [{ ...tatiana, hidden: true }] }).length === 0, 'switched off, or the one lawyer hidden: no page');
+const bad1 = cleanLawyers([{ ...tatiana, photo: '/images/lawyers/../secret.jpg' }, { ...tatiana, name: 'Ann Lee', photo: '/images/other/x.jpg' }], undefined, null, { stored: true });
+ok(bad1.every((l) => !l.photo), 'a picture path outside images/lawyers/ is refused');
+const soloXml = await (await firmSitemap({ request: new Request('https://lawdb.ca/sitemap-firms.xml'), env: { SITE_ORIGIN: 'https://lawdb.ca', DB: { prepare: () => ({ all: async () => ({ results: [row('g-firm', [stored[PILOT][0]], { lawyersSolo: 1 }), row('h-firm', [stored[PILOT][0]], { lawyersSolo: null })] }) }) } } })).text();
+ok(soloXml.includes('https://lawdb.ca/firms/g-firm/lawyers<') && !soloXml.includes('h-firm/lawyers'), 'the sitemap lists the Lawyers page of a lawyersSolo firm, and not that of a firm with one lawyer without it');
 
 // ---- the address ----
 const env = { ASSETS: { fetch: async () => new Response('', { status: 404 }) }, DB: {}, PUBLIC_CACHE_TTL: '0' };

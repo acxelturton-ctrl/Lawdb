@@ -22,6 +22,11 @@ import { LANGUAGES } from './details.js';
 // than in the list of lawyers, so loading the list again (scripts/apply-firm-lawyers.mjs) never undoes them.
 export const HOSTED_PHOTO = /^\/img\/lawyer\/[0-9a-f]{24}$/;
 export const MIN_FIRM_LAWYERS = 2;
+// A picture kept with the site itself (images/lawyers/<name>.jpg or .webp), for a lawyer whose picture an admin put there by hand. It is shown once photoConfirmed is true.
+export const STATIC_PHOTO = /^\/images\/lawyers\/[a-z0-9-]+\.(?:jpg|webp)$/;
+// How many lawyers a firm needs before its Lawyers page exists: two, unless an admin has set `lawyersSolo` on the firm record (a firm whose one lawyer the admin has
+// confirmed, for example the lawyer whose licence LawDB checked). The rule against thin pages stays for every other firm.
+export const minLawyers = (firm) => (firm && firm.lawyersSolo === true ? 1 : MIN_FIRM_LAWYERS);
 export const MAX_LAWYERS = 120;
 
 const NAME = /^[\p{Lu}][\p{L}'’.\-]*(?: (?:[\p{Lu}]\.?|[\p{Ll}]{1,3}|[\p{Lu}][\p{L}'’.\-]*)){1,4}$/u;
@@ -124,7 +129,7 @@ export function inPractice(callYear, thisYear = new Date().getFullYear()) {
   const years = thisYear - y;
   return { years, since: y, text: years >= 2 ? `${years} years` : `since ${y}` };
 }
-const stored_photo = (v) => (typeof v === 'string' && /^https:\/\/[^\s"'<>]+$/.test(v) ? v : typeof v === 'string' && /^\/?img\/[0-9a-f]{24}$/.test(v) ? '/' + v.replace(/^\//, '') : '');
+const stored_photo = (v) => (typeof v === 'string' && /^https:\/\/[^\s"'<>]+$/.test(v) ? v : typeof v === 'string' && /^\/?img\/[0-9a-f]{24}$/.test(v) ? '/' + v.replace(/^\//, '') : typeof v === 'string' && STATIC_PHOTO.test(v) ? v : '');
 
 // A person's name as it may appear: letters, initials and the usual marks (degrees after it are removed); '' when it is not one.
 export function cleanName(raw) {
@@ -217,7 +222,7 @@ export function photoStateOf(l, d) {
   return /^https:\/\//.test(photo) ? { state: 'found', url: photo } : { state: 'none' };
 }
 
-// The lawyers a firm's pages may show: none when the firm has switched them off or has fewer than MIN_FIRM_LAWYERS.
+// The lawyers a firm's pages may show: none when the firm has switched them off or has fewer than minLawyers(firm) (two, or one when the admin set lawyersSolo).
 // What a visitor sees of a lawyer depends on the plan. Every lawyer a firm lists shows the same: name, role, years in practice and their picture (only a picture that has been
 // confirmed: one the firm added, or one the admin accepted in the Lawyer photos tab; a picture found on a website and not yet decided on is never shown). A Featured lawyer
 // (`featured: true` on the lawyer, which only billing or an admin sets) at a Featured firm also gets a page of their own and shows everything we hold: education, languages,
@@ -227,7 +232,7 @@ const basicOf = ({ name, slug, title, callYear, confirmed, photo }) => ({ name, 
 export function lawyersOf(firm) {
   if (!firm || firm.lawyersOff) return [];
   const l = cleanLawyers(firm.lawyers, undefined, firm.lawyerPhotos).filter((x) => !x.hidden).map((x) => (firm.featured && x.featured ? x : basicOf(x)));
-  return l.length >= MIN_FIRM_LAWYERS ? l : [];
+  return l.length >= minLawyers(firm) ? l : [];
 }
 
 // The address found on the firm's own website for a lawyer (stored form), '' when there is none. A firm's own picture, once added, keeps the found address aside.

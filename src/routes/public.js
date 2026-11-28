@@ -38,7 +38,7 @@ export async function getFirm({ params, env }) {
   const row = await env.DB.prepare("SELECT data, hours, about FROM firms WHERE slug = ? AND status = 'live'").bind(params.slug).first();
   if (!row) throw new HttpError(404, 'Firm not found');
   // the lawyers are kept out: the stored list holds what the firm has not confirmed yet (unconfirmed pictures, hidden lawyers) and the admin's picture decisions; the pages show the cleaned list
-  const { lawyers, lawyersOff, lawyersLocked, lawyerPhotos, ...firm } = JSON.parse(row.data);
+  const { lawyers, lawyersOff, lawyersLocked, lawyersSolo, lawyerPhotos, ...firm } = JSON.parse(row.data);
   return cached({ ...firm, about: row.about || '', hours: row.hours ? JSON.parse(row.hours) : null });
 }
 

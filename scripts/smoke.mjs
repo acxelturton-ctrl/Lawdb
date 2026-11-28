@@ -7,6 +7,7 @@ import { createPublicKey, createVerify, createHash } from 'node:crypto';
 import zlib from 'node:zlib';
 import { isDeepStrictEqual } from 'node:util';
 import { emailMatch } from '../src/routes/admin.js';
+import { loadHandles } from './lib/firm-handles.mjs';
 import { checkOwnerText } from '../src/lib/content-rules.js';
 import { postalOf } from '../src/lib/geocode.js';
 import { provinceAt } from '../src/lib/map-land.js';
@@ -69,6 +70,8 @@ const getRaw = async (path) => {
   const res = await fetch(BASE + path, { redirect: 'manual', signal: AbortSignal.timeout(15000) });
   return { status: res.status, headers: res.headers, text: await res.text() };
 };
+// A firm's page is /firm/<handle>, and the old /firms/<slug> redirects there: the address of a firm's page, asked of the public API (a firm with no handle yet is at /firm/<slug>)
+const firmAt = async (slug) => { const r = await call('GET', '/api/firms/' + slug); return '/firm/' + ((r.data && r.data.handle) || slug); };
 const inlineFirms = (html) => {
   const m = html.match(/^const firms = (\[.*\]);$/m);
   return m ? JSON.parse(m[1]) : null;
@@ -234,7 +237,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const noPinFirm = (await call('GET', '/api/firms/' + noPin.data.slug)).data;
   ok(noPinFirm.lat >= 43 && noPinFirm.lat <= 44 && noPinFirm.lng >= -80 && noPinFirm.lng <= -79 && noPinFirm.approxCoords === true, 'create: without coordinates the pin goes to the middle of the city and is marked approximate');
   ok(postalOf('103 Church St #400, Toronto, ON M5C 2G3')?.full === 'M5C 2G3' && postalOf('50 Main St, Ottawa ON k1p6l2')?.area === 'K1P' && postalOf('no code here') === null && postalOf('PO Box D1D 1D1') === null, 'a postal code written in an address is picked out, so it can place the pin');
-  const noPinPage = await getRaw('/firms/' + noPin.data.slug);
+  const noPinPage = await getRaw(await firmAt(noPin.data.slug));
   ok(noPinPage.status === 200 && !noPinPage.text.includes('maps?q='), 'an approximate pin hides the exact-location map on the firm page');
   ok((await call('POST', '/api/admin/firms', { ...body, caseTypes: ['nonsense'] })).status === 422, 'create: unknown category refused');
   ok((await call('POST', '/api/admin/firms', { ...body, hours: { 1: [['17:00', '08:00']] } })).status === 422, 'create: backwards hours refused');
@@ -243,7 +246,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const slug2 = made.data.slug;
   ok(/^[a-z0-9-]+$/.test(slug2), `create: safe address (${slug2.slice(0, 40)}...)`);
 
-  const pg = await getRaw('/firms/' + slug2);
+  const pg = await getRaw(await firmAt(slug2));
   ok(pg.status === 200 && pg.headers.get('x-lawdb-source') === 'database', 'new firm has a page rendered from the database');
   ok(!pg.text.includes('<script>alert(1)</script>') && pg.text.includes('Smoke &lt;script&gt;alert(1)&lt;/script&gt; &amp; Associates'), 'firm name is escaped in the page');
   ok(!pg.text.includes('About <b>us</b>') && pg.text.includes('About &lt;b&gt;us&lt;/b&gt;') && pg.text.includes('<br><br>Second paragraph'), 'about text is escaped and keeps paragraphs');
@@ -256,44 +259,44 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(!pg.text.includes('class="guide"') && pg.text.includes('class="lw-car"') && pg.text.includes('id="leadForm-' + slug2 + '"'), 'a Basic firm has nearby firms and a contact form, but not the shared "Before you call" guide');
   // the guide is a Featured benefit
   // Who is Featured in the real data: only Barbarian Law and Blottman Legal Services (they have a commission arrangement with LawDB)
-  const dbPage = (await getRaw('/firms/daniel-brown-law-llp')).text;
+  const dbPage = (await getRaw(await firmAt('daniel-brown-law-llp'))).text;
   ok(!dbPage.includes('class="guide"') && !dbPage.includes('Featured on LawDB') && !dbPage.includes('Verified LawDB Featured firm') && dbPage.includes('Basic listing'), 'a firm taken off Featured (Daniel Brown Law LLP) now reads and behaves as a Basic listing');
-  ok((await getRaw('/firms/blottman-legal-services')).text.includes('Featured on LawDB') && (await getRaw('/firms/barbarian-law')).text.includes('Featured on LawDB'), 'Blottman Legal Services and Barbarian Law are still Featured');
+  ok((await getRaw(await firmAt('blottman-legal-services'))).text.includes('Featured on LawDB') && (await getRaw(await firmAt('barbarian-law'))).text.includes('Featured on LawDB'), 'Blottman Legal Services and Barbarian Law are still Featured');
   // Many tests below need one Featured firm that is in Toronto (the guide, the News badge, Featured-only News, a firm Featured by hand before it paid,
   // the follow suggestions). Daniel Brown Law LLP is that fixture: it is switched on here, as an admin would, and the tests below rely on it.
   ok((await call('PATCH', '/api/admin/firms/daniel-brown-law-llp', { featured: true })).status === 200, 'test setup: Daniel Brown Law LLP is made Featured for the tests below');
-  ok((await getRaw('/firms/achkar-law')).text.includes('class="guide"') === false && (await getRaw('/firms/daniel-brown-law-llp')).text.includes('class="guide"'), 'every firm page: Basic firms drop the shared guide, Featured firms keep it');
+  ok((await getRaw(await firmAt('achkar-law'))).text.includes('class="guide"') === false && (await getRaw(await firmAt('daniel-brown-law-llp'))).text.includes('class="guide"'), 'every firm page: Basic firms drop the shared guide, Featured firms keep it');
   await call('PATCH', '/api/admin/firms/' + slug2, { featured: true });
   let featuredGuide = false;
-  for (let i = 0; i < 10 && !featuredGuide; i++) { featuredGuide = (await getRaw('/firms/' + slug2)).text.includes('class="guide"'); if (!featuredGuide) await new Promise((r) => setTimeout(r, 500)); }
+  for (let i = 0; i < 10 && !featuredGuide; i++) { featuredGuide = (await getRaw(await firmAt(slug2))).text.includes('class="guide"'); if (!featuredGuide) await new Promise((r) => setTimeout(r, 500)); }
   ok(featuredGuide, 'a firm that becomes Featured gets the guide');
   await call('PATCH', '/api/admin/firms/' + slug2, { featured: false });
   ok(!/from \d+ Google reviews/.test(pg.text), 'no review line for a firm without Google data');
   const redir = await getRaw(`/firms/${slug2}.html`);
   ok(redir.status === 301 && redir.headers.get('location').endsWith('/firms/' + slug2), '.html address redirects to the clean address');
-  ok((await getRaw('/firms/no-such-firm-xyz')).status === 404, 'unknown firm is a 404');
+  ok((await getRaw(await firmAt('no-such-firm-xyz'))).status === 404, 'unknown firm is a 404');
 
   const list = JSON.parse((await getRaw('/firms_data.json')).text);
   ok(list.some((f) => f.slug === slug2 && f.rating === 0), 'new firm appears in the directory data');
   ok((await getRaw('/')).text.includes(`data-live="firms">${list.length.toLocaleString('en-CA')}<`), 'a new listing moves the home page total at once');
   // a profile with no real description is a thin page: noindex and out of the sitemap until it has one
-  const thin = await getRaw('/firms/' + slug2);
+  const thin = await getRaw(await firmAt(slug2));
   ok(/x-robots-tag/i.test([...thin.headers.keys()].join(' ')) && thin.headers.get('x-robots-tag').startsWith('noindex') && /<meta name="robots" content="noindex,follow">/.test(thin.text), 'a firm with a two-line description is marked noindex');
-  ok(!(await getRaw('/sitemap-firms.xml')).text.includes(`/firms/${slug2}</loc>`), 'and it is left out of the firms sitemap');
+  ok(!(await getRaw('/sitemap-firms.xml')).text.includes((await firmAt(slug2)) + '</loc>'), 'and it is left out of the firms sitemap');
   const longAbout = 'The firm acts for owners and managers of growing companies in Toronto and the surrounding region, from incorporation and shareholder agreements through to sales of the business. Its lawyers draft and negotiate commercial contracts, advise on financing and leases, and handle disputes between partners or with suppliers. ' +
     'The office is open on weekdays and meets clients in person, by phone or by video. Matters are staffed by one lawyer who stays with the file from the first meeting to the closing, and fees are agreed in writing before work starts.';
   ok((await call('PATCH', '/api/admin/firms/' + slug2, { about: longAbout })).status === 200, 'admin adds a full description');
-  const full = await getRaw('/firms/' + slug2);
+  const full = await getRaw(await firmAt(slug2));
   ok(!full.headers.get('x-robots-tag') && !/name="robots"/.test(full.text), 'with a full description the page is open to Google');
   const fsm = await getRaw('/sitemap-firms.xml');
-  ok(fsm.status === 200 && fsm.text.includes(`/firms/${slug2}</loc>`) && fsm.text.includes('/firms/achkar-law</loc>'), 'a new firm with a description is in the firms sitemap');
+  ok(fsm.status === 200 && fsm.text.includes((await firmAt(slug2)) + '</loc>') && fsm.text.includes((await firmAt('achkar-law')) + '</loc>'), 'a new firm with a description is in the firms sitemap');
   const held = (await call('GET', '/api/admin/search')).data.heldBack;
   ok(held && held.minWords === 40 && typeof held.count === 'number', 'the admin Search tab knows how many profiles are held back');
   await call('PATCH', '/api/admin/firms/' + slug2, { about: body.about });
   ok(/Sitemap: https:\/\/lawdb.ca\/sitemap-firms.xml/.test(readFileSync(new URL('../robots.txt', import.meta.url), 'utf8')), 'robots.txt announces the firms sitemap');
 
   // every firm, new or old, has the same page: drawn from the database, whenever it was listed
-  const sw = await getRaw('/firms/achkar-law');
+  const sw = await getRaw(await firmAt('achkar-law'));
   ok(sw.headers.get('x-lawdb-source') === 'database' && sw.text.includes('Achkar Law') && sw.text.includes('North York employment law firm acting for employees and employers'), 'an existing firm renders from the database and keeps its written description');
   // the Google rating is shown (named as Google's) but never marked up as the page's own rating
   let swLd = null;
@@ -301,12 +304,12 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(swLd && swLd['@type'] === 'LegalService' && !('aggregateRating' in swLd) && !('review' in swLd), 'a rated firm\'s structured data carries no rating (the Google rating is not LawDB\'s to mark up)');
   ok(/from \d+ Google reviews/.test(sw.text), 'the Google rating is still shown on the page, named as Google\'s');
   ok(/<a class="pa-card" href="\/ontario\/employment-lawyers">/.test(sw.text) && !/rank-panel|ranks in /.test(sw.text), 'the page links to the practice-area page, and has no "How this firm ranks" panel');
-  const amlea = await getRaw('/firms/amlea-avocats');
+  const amlea = await getRaw(await firmAt('amlea-avocats'));
   ok(amlea.headers.get('x-lawdb-source') === 'database' && amlea.text.includes('Amlea Avocats') && !/rank-panel|rank-grid|ranks in Montreal/.test(amlea.text), 'a firm that used to carry the ranking panel does not any more, and its page is built the same way as every other');
   // the database page is laid out like MSPdatabase: breadcrumb, round-logo header with @handle and tagline, one Follow button (the Worker adds no second Follow line), the booking button in the pill row,
   // the map and address card right under the header, and a "Firms you may like" column
   const swc = (sw.text.match(/data-follow="achkar-law"/g) || []).length;
-  ok(sw.text.includes('<body class="pg-firm pg-msp">') && sw.text.includes('<nav class="pf-crumb"') && sw.text.includes('<a href="/ontario/">Ontario</a>') && sw.text.includes('class="pf-handle">@achkar-law</p>'), 'the firm page has the breadcrumb, and the name is followed by the @handle');
+  ok(sw.text.includes('<body class="pg-firm pg-msp" data-firm="achkar-law">') && sw.text.includes('<nav class="pf-crumb"') && sw.text.includes('<a href="/ontario/">Ontario</a>') && sw.text.includes('class="pf-handle">@achkar-law</p>'), 'the firm page has the breadcrumb, and the name is followed by the @handle');
   ok(swc === 1 && !sw.text.includes('lw-fline') && !sw.text.includes('data-slot="book"') && sw.text.indexOf('li-book-row') > sw.text.indexOf('li-actions pf-actions') && sw.text.indexOf('li-book-row') < sw.text.indexOf('lw-claim'), 'the database page has one Follow button, the booking button inside the button row, and the claim line under the row');
   const at = (t, k) => t.indexOf(k);
   // the profile header card is laid out like lawdb.ai's: Request a consultation first (it replaced Message), then the phone number, Book a call and Follow, and a Call / Request a consultation bar for phones
@@ -322,7 +325,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   // owner-style edits show on the rendered page
   const patch = await call('PATCH', `/api/admin/firms/${slug2}`, { about: 'Updated about text', tags: ['Tax'], hours: null });
   ok(patch.status === 200, 'edit about, practice areas and clear hours');
-  const pg2 = await getRaw('/firms/' + slug2);
+  const pg2 = await getRaw(await firmAt(slug2));
   ok(pg2.text.includes('Updated about text') && pg2.text.includes('<li>Tax</li>') && !pg2.text.includes('class="hours-card"'), 'edits and cleared hours show on the page');
 
   // ---- the admin's Edit Profile page: the firms table with filters, more editable fields, hiding a firm, importing many
@@ -338,13 +341,13 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     { name: 'No Province Law', city: 'Ottawa' }] });
   ok(imp.status === 200 && imp.data.created === 2 && imp.data.results[0].ok && imp.data.results[1].ok && !imp.data.results[2].ok && /province/i.test(imp.data.results[2].error), 'an import adds the good rows and reports the bad one, without stopping');
   const alpha = imp.data.results[0].slug;
-  ok((await getRaw('/firms/' + alpha)).status === 404 && !(await getRaw('/sitemap-firms.xml')).text.includes(`/firms/${alpha}<`), 'a hidden firm is shown nowhere: its page is a 404 and it is not in the sitemap');
+  ok((await getRaw(await firmAt(alpha))).status === 404 && !(await getRaw('/sitemap-firms.xml')).text.includes((await firmAt(alpha)) + '<'), 'a hidden firm is shown nowhere: its page is a 404 and it is not in the sitemap');
   ok((await call('GET', '/api/admin/firms?status=hidden&limit=100')).data.firms.some((f) => f.slug === alpha), 'the table finds hidden firms');
   const again = await call('POST', '/api/admin/firms/import', { rows: [{ name: `Import Alpha ${tag} Law`, city: 'Ottawa', province: 'ON' }] });
   ok(again.data.created === 0 && again.data.results[0].skipped === true, 'importing a firm that is already listed skips it instead of doubling it');
   ok((await call('POST', '/api/admin/firms/import', { rows: Array.from({ length: 16 }, (_, i) => ({ name: `Too Many ${i}`, city: 'Ottawa', province: 'ON' })) })).status === 422 && (await call('POST', '/api/admin/firms/import', { rows: [] })).status === 422, 'an import takes 1 to 15 firms at a time');
   const ed = (body) => call('PATCH', `/api/admin/firms/${alpha}`, body);
-  ok((await ed({ status: 'live' })).status === 200 && (await getRaw('/firms/' + alpha)).status === 200, 'switching a firm on shows its page');
+  ok((await ed({ status: 'live' })).status === 200 && (await getRaw(await firmAt(alpha))).status === 200, 'switching a firm on shows its page');
   ok((await ed({ status: 'weird' })).status === 422, 'an unknown status is refused');
   ok((await ed({ city: 'Toronto', province: 'ON' })).status === 200 && (await call('GET', `/api/admin/firms/${alpha}`)).data.firm.city === 'Toronto', 'an admin can move a firm to another city');
   ok((await ed({ lat: 10, lng: 10 })).status === 422 && (await ed({ lat: 45.4215 })).status === 422, 'a map position needs both numbers, inside Canada');
@@ -353,7 +356,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(pos.status === 200 && got.lat === 45.4215 && got.lng === -75.6972, 'an admin can set the map position');
   ok((await ed({ social: { facebook: 'https://evil.example.com/x' } })).status === 422 && (await ed({ social: { myspace: 'https://myspace.com/x' } })).status === 422, 'a social profile must be a real profile address on that network');
   ok((await ed({ social: { facebook: 'https://www.facebook.com/alphalaw?utm_source=x', instagram: '' }, offices: [{ name: 'Branch', address: '5 Rideau St, Ottawa, ON' }, { address: '' }], appointmentOnly: true })).status === 200, 'social profiles, other offices and appointment-only can be saved');
-  const alphaPg = (await getRaw('/firms/' + alpha)).text;
+  const alphaPg = (await getRaw(await firmAt(alpha))).text;
   ok(alphaPg.includes('data-profiles') && alphaPg.includes('https://www.facebook.com/alphalaw"') && !alphaPg.includes('utm_source') && alphaPg.includes('class="offices"') && alphaPg.includes('5 Rideau St') && alphaPg.includes('by appointment only'), 'the page shows the profiles box and the other offices');
   ok((await ed({ offices: Array.from({ length: 9 }, (_, i) => ({ address: `${i} Main St` })) })).status === 422 && (await ed({ appointmentOnly: 'yes' })).status === 422, 'at most 8 other offices, and appointment-only is a yes or no');
   const audit1 = (await call('GET', '/api/admin/audit?limit=20')).data.entries.find((e) => e.action === 'firm.update' && e.entity_id === alpha && e.detail && e.detail.social);
@@ -524,7 +527,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   // approve (and show the owner's edits on the page)
   ok((await call('PATCH', `/api/admin/members/${pc.id}`, { status: 'maybe' })).status === 422, 'approval status is validated');
   ok((await call('PATCH', `/api/admin/members/${pc.id}`, { status: 'approved' })).status === 200, 'admin approves the owner');
-  ok((await getRaw('/firms/achkar-law')).headers.get('x-lawdb-source') === 'database', 'the firm\'s page is built from the database after approval, as it was before');
+  ok((await getRaw(await firmAt('achkar-law'))).headers.get('x-lawdb-source') === 'database', 'the firm\'s page is built from the database after approval, as it was before');
   const audit2 = (await call('GET', '/api/admin/audit?limit=200')).data.entries;
   ok(audit2.some((e) => e.action === 'mail.dev' && e.detail?.subject === 'You can now manage Achkar Law on LawDB'), 'the owner is emailed when approved');
 
@@ -556,10 +559,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     && ['languages', 'founded', 'availability'].every((k) => detGet.strength.items.find((i) => i.key === k).done), 'the owner gets the profile strength: a score out of 100 and a checklist, with the new details counted');
   const mineList = (await call('GET', '/api/account/me')).data.memberships.find((m) => m.slug === 'achkar-law');
   ok(mineList && mineList.strength && mineList.strength.score === detGet.strength.score && Array.isArray(mineList.strength.todo) && mineList.strength.todo.length <= 3, "the dashboard's firm card has the strength and at most three things to do next");
-  const detPage = await getRaw('/firms/achkar-law');
+  const detPage = await getRaw(await firmAt('achkar-law'));
   let detLd = null; try { detLd = JSON.parse(detPage.text.match(/<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/)[1]); } catch {}
   ok(detPage.text.includes('class="pf-chip is-accepting"') && detPage.text.includes('Accepting new clients') && detPage.text.includes('Virtual consultations available') && /Languages<\/dt><dd>Somali, Amharic, English/.test(detPage.text) && detLd && detLd.knowsLanguage && detLd.knowsLanguage.includes('Somali') && detLd.foundingDate === '1987', 'the page shows whether the firm takes new clients and offers virtual consultations, its languages and founding year, in the page and its structured data');
-  ok((await call('PATCH', '/api/account/firms/achkar-law', { availability: '', virtual: false, languages: [], founded: null })).status === 200 && !(await getRaw('/firms/achkar-law')).text.includes('pf-chip'), 'the details can be cleared again, and the chips go');
+  ok((await call('PATCH', '/api/account/firms/achkar-law', { availability: '', virtual: false, languages: [], founded: null })).status === 200 && !(await getRaw(await firmAt('achkar-law'))).text.includes('pf-chip'), 'the details can be cleared again, and the chips go');
 
   // Verified by LawDB: a Basic owner asks (free), the admin checks, the public page shows it without the name or number
   const vNone = await call('GET', '/api/account/firms/achkar-law/verification');
@@ -569,7 +572,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const vAsk = await call('POST', '/api/account/firms/achkar-law/verification', { registrant: 'Marie Achkar', registrationRef: 'P12345' });
   ok(vAsk.status === 201 && vAsk.data.status === 'requested' && vAsk.data.lawSociety.code === 'ON' && vAsk.data.registrant === 'Marie Achkar' && vAsk.data.registrationRef === 'P12345', 'a Basic owner asks to be verified');
   ok((await call('POST', '/api/account/firms/achkar-law/verification', { registrant: 'Marie Achkar', registrationRef: 'P99999' })).data.registrationRef === 'P99999', 'the owner can change the request before it is checked');
-  const vPageAsked = await getRaw('/firms/achkar-law');
+  const vPageAsked = await getRaw(await firmAt('achkar-law'));
   ok(!vPageAsked.text.includes('is-verified') && !vPageAsked.text.includes('id="verified"'), 'asking shows nothing on the page until the admin has checked');
   const vAskAudit = (await call('GET', '/api/account/me')).status === 200;
   ok(vAskAudit && (await call('GET', '/api/account/firms/achkar-law')).data.strength.items.find((i) => i.key === 'verified').done === false, 'a firm that only asked does not have the points yet');
@@ -603,7 +606,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     && (await call('PUT', '/api/admin/firms/achkar-law/verification', { registrant: 'Marie Achkar', checks: { registration: true, bogus: true } })).status === 422, 'the admin cannot verify without ticking that the lawyer was found in the directory');
   const vDo = await call('PUT', '/api/admin/firms/achkar-law/verification', { registrant: 'Marie Achkar', checks: { identity: true, registration: true, office: false }, note: 'found in the directory' });
   ok(vDo.status === 200 && vDo.data.status === 'verified' && vDo.data.checked.registration === true && vDo.data.checked.office === false && vDo.data.verifiedAt, 'the admin records the checks and verifies the firm');
-  const vPage = await getRaw('/firms/achkar-law');
+  const vPage = await getRaw(await firmAt('achkar-law'));
   ok(vPage.text.includes('class="pf-chip is-verified"') && vPage.text.includes('id="verified"') && vPage.text.includes('Verified by LawDB') && vPage.text.includes('Law Society of Ontario') && vPage.text.includes('https://lso.ca/public-resources/finding-a-lawyer-or-paralegal/lawyer-and-paralegal-directory')
     && vPage.text.includes('The person who manages this profile is who they say they are') && !vPage.text.includes('The office address and phone number match') && vPage.text.includes('It is not an endorsement'), 'the page shows the badge, what was checked, the law society link and that it is not an endorsement');
   ok(!vPage.text.includes('Marie Achkar') && !vPage.text.includes('P99999') && !vPage.text.includes('found in the directory') && !(await getRaw('/api/firms/achkar-law')).text.includes('P99999') && !(await getRaw('/firms_data.json')).text.includes('P99999'), 'the name, the number and the admin\'s note are nowhere on the public page or in the public data');
@@ -616,13 +619,13 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('POST', '/api/account/firms/achkar-law/verification', { registrant: 'Marie Achkar' })).status === 409, 'a verified firm cannot ask again');
   ok((await call('GET', '/api/account/firms/achkar-law')).data.strength.items.find((i) => i.key === 'verified').done === true, 'being verified counts in the profile strength');
   as(adminJar);
-  ok((await call('DELETE', '/api/admin/firms/achkar-law/verification?reason=test')).status === 200 && !(await getRaw('/firms/achkar-law')).text.includes('is-verified'), 'the admin can remove the verification, and the badge goes');
+  ok((await call('DELETE', '/api/admin/firms/achkar-law/verification?reason=test')).status === 200 && !(await getRaw(await firmAt('achkar-law'))).text.includes('is-verified'), 'the admin can remove the verification, and the badge goes');
   ok((await call('GET', '/api/admin/firms/achkar-law/verification')).data.status === 'none' && (await call('DELETE', '/api/admin/firms/achkar-law/verification')).status === 404, 'a removed verification is gone (removing it again says so)');
   ok((await call('GET', '/api/admin/audit?limit=200')).data.entries.some((e) => e.action === 'firm.unverify' && e.entity_id === 'achkar-law'), 'the removal is in the activity log');
   as(o1.jar);
   const edit = await call('PATCH', '/api/account/firms/achkar-law', { about: 'Owner wrote this & that "quoted" text', phone: '613-555-0100' });
   ok(edit.status === 200 && edit.data.changed.includes('about'), 'a Featured owner edits their own firm');
-  const opage = await getRaw('/firms/achkar-law');
+  const opage = await getRaw(await firmAt('achkar-law'));
   ok(opage.text.includes('Owner wrote this &amp; that &quot;quoted&quot; text') && opage.text.includes('613-555-0100'), 'the owner\'s text is on the page and escaped');
   as(adminJar);
   await call('PATCH', '/api/admin/firms/achkar-law', { featured: false });
@@ -707,7 +710,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok((await call('GET', '/api/firms/' + nslug)).status === 404, 'a pending firm is not in the public API');
   ok(!(await call('GET', '/api/firms?limit=500')).data.some((f) => f.slug === nslug), 'a pending firm is not in the public list');
   ok(!(await getRaw('/firms_data.json')).text.includes(nslug), 'a pending firm is not in the data file');
-  ok((await getRaw('/firms/' + nslug)).status === 404, 'a pending firm\'s page is not public');
+  ok((await getRaw(await firmAt(nslug))).status === 404, 'a pending firm\'s page is not public');
   ok((await call('POST', '/api/account/firms', newBody)).status === 401, 'creating a listing needs sign-in');
   as(o2.jar);
   ok((await call('POST', '/api/account/firms', { ...newBody, name: 'Other Firm ' + run })).status === 201, 'a second pending request is allowed');
@@ -719,7 +722,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(nm && nm.isNewListing && nm.hasCoordinates === false, 'admin sees the new listing, flagged as new, without map coordinates');
   ok((await call('PATCH', `/api/admin/members/${nm.id}`, { status: 'approved', lat: 0, lng: 0 })).status === 422, 'coordinates outside Canada are refused');
   ok((await call('PATCH', `/api/admin/members/${nm.id}`, { status: 'approved' })).status === 200, 'admin approves and publishes the new listing without typing any coordinates');
-  const live = await getRaw('/firms/' + nslug);
+  const live = await getRaw(await firmAt(nslug));
   ok(live.status === 200 && live.headers.get('x-lawdb-source') === 'database' && live.text.includes('Birchwood &amp; &quot;Legal&quot;'), 'the approved firm has a public page, name escaped');
   const pubNew = (await call('GET', '/api/firms/' + nslug)).data;
   ok(pubNew.lat >= 41 && pubNew.lat <= 84 && pubNew.lng >= -142 && pubNew.lng <= -52 && pubNew.approxCoords === true, 'the approved firm is in the public API with a pin in the middle of its city');
@@ -809,18 +812,18 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const setFeed = await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: origin + '/feed.xml' });
   ok(setFeed.status === 200 && setFeed.data.feed.status === 'ok' && setFeed.data.posts.length === 6, 'the admin sets a firm\'s feed and it is read at once');
   // every firm's articles are on an Articles page of their own, never at the bottom of the Overview
-  const featPage = (await getRaw('/firms/' + featSlug)).text; // the Overview
-  const artRes = await getRaw(`/firms/${featSlug}/articles`);
+  const featPage = (await getRaw(await firmAt(featSlug))).text; // the Overview
+  const artRes = await getRaw((await firmAt(featSlug)) + '/articles');
   const artPage = artRes.text;
   const cardCount = (artPage.match(/<article class="fa-row">/g) || []).length;
   ok(!featPage.includes('class="fa"') && !featPage.includes('class="fa-row"') && !featPage.includes('Charged With Impaired Driving'), 'the Overview has no articles at the bottom: they are on their own page');
-  ok(artRes.status === 200 && cardCount === 3 && /href="\/firms\/daniel-brown-law-llp\/articles" aria-current="page">Articles <span class="n">3<\/span>/.test(artPage) && /<a href="\/firms\/daniel-brown-law-llp">Overview<\/a>/.test(artPage) && /href="\/firms\/daniel-brown-law-llp\/articles">Articles <span class="n">3<\/span>/.test(featPage), 'the firm\'s articles are on an Articles page of their own, with an Articles tab next to Overview');
-  ok(!artRes.headers.get('x-robots-tag') && /<link rel="canonical" href="https:\/\/lawdb.ca\/firms\/daniel-brown-law-llp\/articles">/.test(artPage), 'a Featured firm\'s Articles page is offered to search engines, with its own canonical');
+  ok(artRes.status === 200 && cardCount === 3 && /href="\/firm\/daniel-brown-law-llp\/articles" aria-current="page">Articles <span class="n">3<\/span>/.test(artPage) && /<a href="\/firm\/daniel-brown-law-llp">Overview<\/a>/.test(artPage) && /href="\/firm\/daniel-brown-law-llp\/articles">Articles <span class="n">3<\/span>/.test(featPage), 'the firm\'s articles are on an Articles page of their own, with an Articles tab next to Overview');
+  ok(!artRes.headers.get('x-robots-tag') && /<link rel="canonical" href="https:\/\/lawdb.ca\/firm\/daniel-brown-law-llp\/articles">/.test(artPage), 'a Featured firm\'s Articles page is offered to search engines, with its own canonical');
   ok(artPage.includes('Charged With Impaired Driving') && artPage.includes('Tom &amp; Jerry&#x27;s Guide') && !artPage.includes('evil.example') && !artPage.includes('<script>alert') && !artPage.includes('onerror=alert'), 'card text is escaped and off-site links never appear');
   const storyHref = (/href="(\/news\/daniel-brown-law-llp\/charged-with-impaired-driving-what-happens-next-\d+)"/.exec(artPage) || [])[1];
   ok(!!storyHref && !artPage.includes(`href="${origin}/blog/impaired"`), 'each article opens the story\'s own LawDB page');
   const story = await getRaw(storyHref || '/news/none/x-1');
-  ok(story.status === 200 && story.text.includes('<h1>Charged With Impaired Driving: What Happens Next</h1>') && story.text.includes(`href="${origin}/blog/impaired"`) && story.text.includes('Read the full article on 127.0.0.1') && story.text.includes(`rel="canonical" href="https://lawdb.ca${storyHref}"`) && story.text.includes('"@type":"BreadcrumbList"') && story.text.includes('href="/firms/daniel-brown-law-llp"') && !story.text.includes('<script>alert') && !story.text.includes('onerror=alert'), 'the story page shows the headline, the firm, the preview, a link to the full article, and a canonical address');
+  ok(story.status === 200 && story.text.includes('<h1>Charged With Impaired Driving: What Happens Next</h1>') && story.text.includes(`href="${origin}/blog/impaired"`) && story.text.includes('Read the full article on 127.0.0.1') && story.text.includes(`rel="canonical" href="https://lawdb.ca${storyHref}"`) && story.text.includes('"@type":"BreadcrumbList"') && story.text.includes('href="/firm/daniel-brown-law-llp"') && !story.text.includes('<script>alert') && !story.text.includes('onerror=alert'), 'the story page shows the headline, the firm, the preview, a link to the full article, and a canonical address');
   ok(story.text.includes('This is a short preview') && !story.text.includes(longText.repeat(2)), 'the page carries only the short preview, never the full article');
   const part = await getRaw(storyHref + '?partial=1');
   ok(part.status === 200 && !/<html|<head/i.test(part.text) && part.text.includes('class="st"') && part.headers.get('x-robots-tag') === 'noindex', 'the expanded view is just the story (and is not indexed on its own)');
@@ -833,17 +836,17 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(smap.status === 200 && /xml/.test(smap.headers.get('content-type')) && smap.text.includes(`<loc>https://lawdb.ca${storyHref}</loc>`) && (smap.text.match(/<loc>/g) || []).length >= 5 && !smap.text.includes('evil.example'), 'the story sitemap lists every story page');
   ok(/Sitemap: https:\/\/lawdb.ca\/sitemap-news.xml/.test(readFileSync(new URL('../robots.txt', import.meta.url), 'utf8')), 'robots.txt announces the story sitemap');
   ok(artPage.includes(`<img src="${origin}/img/a.jpg"`) && artPage.includes('class="fa-pic"') && /referrerpolicy="no-referrer"/.test(artPage) && /loading="lazy"/.test(artPage) && !artPage.includes('javascript:alert') && !artPage.includes('data:image'), 'articles show the picture (lazy, no referrer) and never an unsafe address');
-  ok(!(await getRaw('/firms/torkin-manes-llp')).text.includes('class="fa-row"') && (await getRaw('/firms/torkin-manes-llp/articles')).status === 404, 'other firms are not affected: a firm with no articles has no Articles page');
-  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: false })).status === 200 && (await getRaw('/firms/' + featSlug + '/articles')).status === 404 && !/>Articles <span class="n">/.test((await getRaw('/firms/' + featSlug)).text), 'switching a firm\'s articles off removes them, the page and the tab');
+  ok(!(await getRaw(await firmAt('torkin-manes-llp'))).text.includes('class="fa-row"') && (await getRaw((await firmAt('torkin-manes-llp')) + '/articles')).status === 404, 'other firms are not affected: a firm with no articles has no Articles page');
+  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: false })).status === 200 && (await getRaw((await firmAt(featSlug)) + '/articles')).status === 404 && !/>Articles <span class="n">/.test((await getRaw(await firmAt(featSlug))).text), 'switching a firm\'s articles off removes them, the page and the tab');
   ok((await getRaw(storyHref)).status === 404 && !(await getRaw('/sitemap-news.xml')).text.includes(storyHref), 'a switched-off firm\'s story pages disappear too');
-  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: true })).status === 200 && (await getRaw('/firms/' + featSlug + '/articles')).text.includes('class="fa-row"'), 'and back on');
+  ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { enabled: true })).status === 200 && (await getRaw((await firmAt(featSlug)) + '/articles')).text.includes('class="fa-row"'), 'and back on');
 
   // bad feeds
   feedBroken = true; // the same feed starts failing, as a real site sometimes does
   const brokenFeed = await call('POST', `/api/admin/firms/${featSlug}/feed/refresh`);
   feedBroken = false;
   ok(brokenFeed.data.result.status === 'error' && brokenFeed.data.feed.status === 'error' && brokenFeed.data.posts.length === 6, 'a broken feed is reported and the earlier posts are kept');
-  ok((await getRaw('/firms/' + featSlug + '/articles')).text.includes('class="fa-row"'), 'the Articles page keeps showing the earlier articles');
+  ok((await getRaw((await firmAt(featSlug)) + '/articles')).text.includes('class="fa-row"'), 'the Articles page keeps showing the earlier articles');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: origin + '/html' })).data.feed.status === 'error', 'a page that is not a feed is reported');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: 'https://10.0.0.1/feed' })).status === 422 && (await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { feedUrl: 'http://example.com/feed' })).status === 422, 'unsafe addresses are refused when saving');
   ok((await call('PATCH', `/api/admin/firms/${featSlug}/feed`, { colour: 'red' })).status === 422, 'unknown settings are refused');
@@ -867,15 +870,15 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   as(o2.jar);
   ok((await call('GET', '/api/account/firms/achkar-law/feed')).status === 403 && (await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 403, 'another owner cannot touch this firm\'s cards');
   as(o1.jar);
-  const achArt = await getRaw('/firms/achkar-law/articles');
-  ok(achArt.status === 200 && achArt.text.includes('class="fa-row"') && !(await getRaw('/firms/achkar-law')).text.includes('class="fa-row"'), 'every firm\'s articles are on its Articles page (a Basic firm\'s too), not on its Overview');
+  const achArt = await getRaw((await firmAt('achkar-law')) + '/articles');
+  ok(achArt.status === 200 && achArt.text.includes('class="fa-row"') && !(await getRaw(await firmAt('achkar-law'))).text.includes('class="fa-row"'), 'every firm\'s articles are on its Articles page (a Basic firm\'s too), not on its Overview');
   ok(achArt.headers.get('x-robots-tag') === 'noindex, follow' && /<meta name="robots" content="noindex,follow">/.test(achArt.text), 'a Basic firm\'s Articles page is for visitors only: noindex, follow (its story pages are not offered to search engines either)');
   {
     const sm = (await getRaw('/sitemap-firms.xml')).text;
-    ok(sm.includes('<loc>https://lawdb.ca/firms/daniel-brown-law-llp/articles</loc>') && !sm.includes('/firms/achkar-law/articles'), 'the firm sitemap lists a Featured firm\'s Articles page and not a Basic firm\'s');
+    ok(sm.includes('<loc>https://lawdb.ca' + (await firmAt('daniel-brown-law-llp')) + '/articles</loc>') && !sm.includes((await firmAt('achkar-law')) + '/articles'), 'the firm sitemap lists a Featured firm\'s Articles page and not a Basic firm\'s');
   }
   ok((await call('GET', '/api/account/firms/achkar-law/feed')).data.posts.length >= 2, 'the owner sees their feed status');
-  ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 200 && (await getRaw('/firms/achkar-law/articles')).status === 404, 'an owner switches their cards off');
+  ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: false })).status === 200 && (await getRaw((await firmAt('achkar-law')) + '/articles')).status === 404, 'an owner switches their cards off');
   ok((await call('PATCH', '/api/account/firms/achkar-law/feed', { enabled: true })).status === 200, 'and on again');
   ok((await call('POST', '/api/account/firms/achkar-law/feed/refresh')).status === 429, 'an owner cannot re-check within minutes of the last check');
   as(adminJar);
@@ -922,14 +925,15 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const poolText = readFileSync(new URL('../src/render/home-pool.generated.js', import.meta.url), 'utf8');
   const dailyOf = (html) => (html.match(/<!--more-firms-->([\s\S]*)<!--\/more-firms-->/) || [, ''])[1];
   const dailyA = dailyOf((await getRaw('/')).text), dailyB = dailyOf((await getRaw('/')).text);
-  const dailySlugs = [...dailyA.matchAll(/<h3><a href="\/firms\/([^"]+)"/g)].map((m) => m[1]);
+  const handleToSlug = Object.fromEntries(Object.entries(loadHandles()).map(([slug, h]) => [h, slug])); // the cards link to /firm/<handle>; the pool and the saved list are slugs
+  const dailySlugs = [...dailyA.matchAll(/<h3><a href="\/firm\/([^"]+)"/g)].map((m) => handleToSlug[m[1]] || m[1]);
   ok(dailySlugs.length === 12 && new Set(dailySlugs).size === 12 && dailySlugs.every((s) => poolText.includes(`"${s}"`)) && dailyA === dailyB, "the home page shows 12 top-rated firms, all from the daily pool, the same on every visit");
   // This test database only has the original 377 firms, which have no cover pictures stored, so there are too few eligible firms and the page rightly keeps its saved cards
   // (no header). The daily pick itself is proven by scripts/test-home-daily.mjs and, on a database like the real one, by the header: x-lawdb-home-strip: daily.
   const savedList = JSON.parse(readFileSync(new URL('../data/home-firms.json', import.meta.url), 'utf8')).firms;
   const stripHeader = (await getRaw('/')).headers.get('x-lawdb-home-strip');
   ok(stripHeader === 'daily' ? JSON.stringify(dailySlugs) !== JSON.stringify(savedList) : (stripHeader === null && JSON.stringify(dailySlugs) === JSON.stringify(savedList)), "the strip says which it is: today's pick (header, and not the saved list) or the saved cards (no header)");
-  ok(!dailyA.includes('/firms/blottman') && !dailyA.includes('/firms/barbarian-law') && dailyA.includes('class="lc-rate"') && dailyA.includes('class="lc-call"'), 'no Featured firm is in the rotation, and the cards carry the rating and the Call button');
+  ok(!dailyA.includes('/firm/blottman') && !dailyA.includes('/firm/barbarian-law') && dailyA.includes('class="lc-rate"') && dailyA.includes('class="lc-call"'), 'no Featured firm is in the rotation, and the cards carry the rating and the Call button');
   const home = await getRaw('/');
   ok(/<section class="hn" id="homeNews"(?! hidden)/.test(home.text) && /<div class="lw-bc-grid lw-feed hn-track" id="homeNewsGrid"[^>]*>\s*<article class="lw-bc/.test(home.text), 'the home page shows a short news row under the search bar (the section is un-hidden once there are articles)');
   ok(/<a class="hn-seeall" href="\/news">See all LawDB News/.test(home.text) && !home.text.includes('homeNewsMore') && (home.text.match(/<article[^>]* class="lw-bc[ "]/g) || []).length <= 6, 'the row is short and ends with a link to the full LawDB News page (no long feed on the home page)');
@@ -968,7 +972,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   cookie = '';
   const poNews = (await getRaw('/news')).text;
   ok(!poNews.includes('>Achkar Law<') && poNews.includes('Daniel Brown Law LLP'), 'a page-only firm is not on LawDB News');
-  const poPage = (await getRaw('/firms/achkar-law/articles')).text;
+  const poPage = (await getRaw((await firmAt('achkar-law')) + '/articles')).text;
   ok(poPage.includes('class="fa-row"') && !poPage.includes('data-story') && !poPage.includes('data-save=') && poPage.includes(`href="${origin}/blog/`), 'its Articles page still shows the cards, linking straight to the firm\'s articles');
   ok(!!achHref && (await getRaw(achHref)).status === 404 && !(await getRaw('/sitemap-news.xml')).text.includes('/news/achkar-law/'), 'a page-only firm has no LawDB story pages and none in the story sitemap');
   as(adminJar);
@@ -1055,7 +1059,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(Buffer.from(await got.arrayBuffer()).equals(makePng(100, 100, 120)), 'the picture comes back byte for byte');
   const afterLogo = (await call('GET', '/api/firms/achkar-law')).data;
   ok(afterLogo.type === 'logo' && afterLogo.src === `img/${logo1.data.image.id}`, 'the logo is in the firm\'s public record');
-  ok((await getRaw('/firms/achkar-law')).text.includes(`img/${logo1.data.image.id}`), 'the logo is on the firm\'s page');
+  ok((await getRaw(await firmAt('achkar-law'))).text.includes(`img/${logo1.data.image.id}`), 'the logo is on the firm\'s page');
   const logo2 = await rawCall('POST', base + '?kind=logo', makePng(120, 120, 80), 'image/png');
   ok(logo2.status === 201 && (await fetch(BASE + logo1.data.image.url)).status === 404, 'a new logo replaces the old one');
   ok((await call('GET', '/api/firms/achkar-law')).data.src === `img/${logo2.data.image.id}`, 'the public record points at the new logo');
@@ -1080,13 +1084,13 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   // cover and photos
   const cover = await rawCall('POST', base + '?kind=cover', makeJpeg(1200, 400), 'image/jpeg');
   ok(cover.status === 201, 'an owner uploads a cover picture (JPEG)');
-  const coverPage = (await getRaw('/firms/achkar-law')).text;
+  const coverPage = (await getRaw(await firmAt('achkar-law'))).text;
   ok(coverPage.includes(`img/${cover.data.image.id}`) && coverPage.includes(`og:image" content="https://lawdb.ca/img/${cover.data.image.id}"`), 'the cover shows on the page and in its share preview');
   const photoIds = [];
   for (let i = 0; i < 6; i++) { const r = await rawCall('POST', `${base}?kind=photo&alt=${encodeURIComponent('Our office ' + i)}`, i % 2 ? makeWebp(800, 600) : makePng(200 + i, 150), i % 2 ? 'image/webp' : 'image/png'); if (r.status === 201) photoIds.push(r.data.image.id); }
   ok(photoIds.length === 6, 'an owner uploads six photos (PNG and WebP)');
   ok((await badUpload(makePng(100, 100), 'image/png')) === 409, 'a seventh photo is refused');
-  const photoPage = (await getRaw('/firms/achkar-law')).text;
+  const photoPage = (await getRaw(await firmAt('achkar-law'))).text;
   ok(photoIds.every((id) => photoPage.includes(`/img/${id}`)) && photoPage.includes('alt="Our office 3"') && photoPage.includes('class="photo-grid"'), 'the photos show on the page with their descriptions');
   ok((await call('GET', base)).data.images.length === 7, 'the owner sees all their pictures');
   as(o2.jar);
@@ -1248,8 +1252,8 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     { t: 'pv', p: `/firms/${SLUG}`, m: 1, s: 1, v: 1, r: 'www.google.com', u: 'Spring' },
     { t: 'pv', p: `/firms/${SLUG}`, m: 0, s: 1, v: 1, r: '' },
     { t: 'pv', p: `/firms/${SLUG}`, m: 1, s: 0, v: 1 },
-    { t: 'pv', p: `/firms/${SLUG}`, m: 1, s: 0, v: 0 },
-    { t: 'ev', e: 'call', p: `/firms/${SLUG}` }, { t: 'ev', e: 'call', p: `/firms/${SLUG}` }, { t: 'ev', e: 'website', p: `/firms/${SLUG}` },
+    { t: 'pv', p: `/firm/${SLUG}`, m: 1, s: 0, v: 0 }, // the page's own address, /firm/<handle>: counted for the firm all the same
+    { t: 'ev', e: 'call', p: `/firms/${SLUG}` }, { t: 'ev', e: 'call', p: `/firm/${SLUG}` }, { t: 'ev', e: 'website', p: `/firms/${SLUG}` },
     { t: 'ev', e: 'message', p: `/firms/${SLUG}` }, { t: 'ev', e: 'social-linkedin', p: `/firms/${SLUG}` },
     { t: 'pv', p: '/firms/no-such-firm-xyz', v: 1 }, // not a firm: counted for nobody
   ];
@@ -1293,7 +1297,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(setIntake.status === 200 && setIntake.data.changed.includes('enquiryEmail') && (await call('GET', `/api/account/firms/${SLUG}`)).data.enquiryEmail === INTAKE, 'a Featured firm can add a second address for enquiries (kept in lower case)');
   const toBoth = await leadTo('both');
   ok(toBoth.status === 201 && toBoth.to.includes(INTAKE) && toBoth.to.includes(ownerEmail1.toLowerCase()), 'the next enquiry is emailed to the owner and to that address');
-  const pub = [await getRaw('/api/firms/' + SLUG), await getRaw('/firms_data.json'), await getRaw('/firms/' + SLUG), await getRaw('/api/firms?limit=500')];
+  const pub = [await getRaw('/api/firms/' + SLUG), await getRaw('/firms_data.json'), await getRaw(await firmAt(SLUG)), await getRaw('/api/firms?limit=500')];
   ok(pub.every((r) => !r.text.includes(INTAKE) && !r.text.includes('intake-')) && !JSON.stringify((await call('GET', `/api/account/firms/${SLUG}/plan`)).data).includes(INTAKE), 'the address is never in the public firm data, the page or the plan card');
 
   // the full dashboard
@@ -1429,7 +1433,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   ok(rp.status === 200 && rp.text.includes('Report: Achkar Law') && rp.text.includes('value="achkar-law"'), 'the report page names the firm');
   ok(rp.text.indexOf('id="rp-out"') > rp.text.indexOf('</form>'), 'the report page\'s thank-you message is outside the form it hides');
   ok((await getRaw('/report-listing?firm=nope')).text.includes('Report a listing'), 'the report page works for an unknown firm');
-  const profileText = (await getRaw('/firms/achkar-law')).text;
+  const profileText = (await getRaw(await firmAt('achkar-law'))).text;
   ok(!profileText.includes('Report this listing') && !profileText.includes('Shaded:') && (profileText.includes('Law firm serving Ontario, Canada.') || /class="li-tag">[^<]*serving [^<]*, Ontario\./.test(profileText)), 'profile: no disclaimer or map caption; the page names the province (the line under a hand-built page\'s map, or the tagline under the name on a database page)');
   const rep = await call('POST', '/api/leads', { name: 'Reporter', email: `reporter-${run}@example.com`, form: 'report-listing', reportedFirm: 'achkar-law', reason: 'inaccurate', message: 'The phone number is wrong' });
   ok(rep.status === 201, 'a visitor reports a listing');
@@ -1829,7 +1833,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok((await call('DELETE', `/api/account/follow/${F}`)).data.followers === 1 && (await call('GET', '/api/account/feed')).data.stories.length === 0, 'unfollowing lowers the count and empties the feed');
     ok((await call('POST', '/api/account/follow', { slug: F }, { origin: 'https://evil.example' })).status === 403, 'follow actions from other sites are refused');
     cookie = '';
-    const fp = await getRaw('/firms/torys-llp');
+    const fp = await getRaw(await firmAt('torys-llp'));
     ok(fp.headers.get('x-lawdb-source') === 'database' && fp.text.includes('data-follow="torys-llp"') && fp.text.includes('<script src="/follow.js" defer></script>'), 'a firm page carries the Follow button');
     // Book a call: locked until a firm is Featured and has a booking link
     ok(fp.text.includes('class="li-btn li-book li-book-off"') && fp.text.includes('Book a call'), 'every firm page has a greyed-out Book a call button until the firm is Featured and has a booking link');
@@ -1838,21 +1842,21 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok((await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: 'https://calendly.com/torys/30min?month=2020-01&utm_source=x' })).status === 200, 'an admin can add a booking link');
     cookie = '';
     // Booking is a Featured benefit: the link is saved, but the button stays locked (and the link is not in the page) until the firm is Featured
-    const bkLocked = (await getRaw('/firms/torys-llp')).text;
+    const bkLocked = (await getRaw(await firmAt('torys-llp'))).text;
     ok(bkLocked.includes('class="li-btn li-book li-book-off"') && !bkLocked.includes('li-book-tag') && bkLocked.includes('Online booking is a Featured feature') && !bkLocked.includes('calendly.com/torys'), 'with a booking link saved, the button stays greyed out (no padlock, no Featured tag) on a firm that is not Featured, and the link is not in the page');
     as(adminJar);
     await call('PATCH', '/api/admin/firms/torys-llp', { featured: true });
     cookie = '';
-    const bk = (await getRaw('/firms/torys-llp')).text;
+    const bk = (await getRaw(await firmAt('torys-llp'))).text;
     ok(bk.includes('class="li-btn li-book" href="https://calendly.com/torys/30min"') && !bk.includes('class="li-btn li-book li-book-off"') && bk.includes('rel="noopener nofollow"'), 'once the firm is Featured the saved link goes live: the button is active and opens it in a new tab, with the month and tracking parts dropped');
     as(adminJar);
     await call('PATCH', '/api/admin/firms/torys-llp', { featured: false });
     cookie = '';
-    ok((await getRaw('/firms/torys-llp')).text.includes('class="li-btn li-book li-book-off"'), 'and it locks again when the firm stops being Featured');
+    ok((await getRaw(await firmAt('torys-llp'))).text.includes('class="li-btn li-book li-book-off"'), 'and it locks again when the firm stops being Featured');
     as(adminJar);
     ok((await call('PATCH', '/api/admin/firms/torys-llp', { bookingUrl: '' })).status === 200, 'the booking link can be removed');
     cookie = '';
-    ok((await getRaw('/firms/torys-llp')).text.includes('class="li-btn li-book li-book-off"'), 'removing it leaves the button locked');
+    ok((await getRaw(await firmAt('torys-llp'))).text.includes('class="li-btn li-book li-book-off"'), 'removing it leaves the button locked');
     const jsf = await getRaw('/follow.js');
     ok(jsf.status === 200 && /javascript/.test(jsf.headers.get('content-type') || '') && !/eval\(|document\.write|innerHTML/.test(jsf.text), 'the Follow script is plain and never builds markup from data');
     const nw = (await getRaw('/news')).text;
@@ -2135,7 +2139,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok(acct.includes('class="site-header lw-light"') && acct.includes('/lw-app.js') && acct.includes('/account/shell.css'), 'the account page uses the same header as the rest of the site and loads the member shell');
     const lwa = (await getRaw('/lw-app.js')).text;
     ok(lwa.includes('lw-tabbar') && lwa.includes('/api/account/feed') && lwa.includes('/lw-app.css') && (await getRaw('/lw-app.css')).text.includes('.lw-panel') && (await getRaw('/site.js')).text.includes('/lw-app.js'), 'signed-in visitors get the avatar, account panel, phone tab bar and home feed on every page');
-    const rp = (await getRaw(`/firms/${R}`)).text;
+    const rp = (await getRaw(await firmAt(R))).text;
     ok(rp.includes(`data-rate="${R}"`) && rp.includes('id="rate"') && rp.includes('/follow.js'), 'firm pages carry the member-ratings box');
     // the rating dialog must not share class names with the signed-in app (lw-app.css hides .lw-ov and makes it click-through, which made the dialog invisible for signed-in members)
     const fjs = (await getRaw('/follow.js')).text; const lwcss = (await getRaw('/lw-app.css')).text;
@@ -2173,7 +2177,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const brief = await call('GET', '/api/account/search?slug=achkar-law');
     ok(brief.data.firms.length === 1 && brief.data.firms[0].slug === 'achkar-law', 'a claim button can open one exact firm');
     ok((await call('GET', '/api/account/search?slug=nope-xyz')).data.firms.length === 0, 'an unknown firm slug finds nothing');
-    const page = (await getRaw('/firms/achkar-law')).text;
+    const page = (await getRaw(await firmAt('achkar-law'))).text;
     ok(page.includes('data-claim="achkar-law"') || page.includes('Managed by the firm'), 'firm pages show Claim this listing (or Managed by the firm)');
     const fjs = (await getRaw('/follow.js')).text;
     ok(fjs.includes("type: 'claim'") && fjs.includes('data-claim'), 'the claim button opens the sign-in popup when signed out');
@@ -2203,17 +2207,17 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const nowAt = (await call('GET', `/api/admin/firms/${addrB}`)).data;
   ok(nowAt.slug === addrB && nowAt.firm.slug === addrB && nowAt.firm.name === `Address Test Firm ${run}` && (await call('GET', `/api/admin/firms/${addrA}`)).status === 404, 'the firm is found at the new address only, and its record carries the new address too');
   ok((await call('GET', `/api/admin/firms/${addrB}/verification`)).data.status === 'verified' && (await call('GET', `/api/admin/firms/${addrB}/analytics`)).data.plan?.trial?.status === 'active', 'its verification and free month came with it');
-  const pgNew = await hopTo('/firms/' + addrB), pgOld = await hopTo('/firms/' + addrA);
-  ok(pgNew.status === 200 && pgNew.text.includes(`/firms/${addrB}`) && !pgNew.text.includes(`/firms/${addrA}"`), 'the new address shows the page, naming only the new address');
-  ok(pgOld.status === 301 && pgOld.location === `/firms/${addrB}`, 'the old address redirects to it for good (301)');
-  ok((await hopTo(`/firms/${addrA}?utm=x`)).location === `/firms/${addrB}?utm=x`, 'a redirect keeps what follows the address');
+  const pgNew = await hopTo('/firm/' + addrB), pgOld = await hopTo('/firms/' + addrA);
+  ok(pgNew.status === 200 && pgNew.text.includes(`/firm/${addrB}`) && !pgNew.text.includes(`/firm/${addrA}"`), 'the new address shows the page, naming only the new address');
+  ok(pgOld.status === 301 && pgOld.location === `/firm/${addrB}`, 'the old address redirects to it for good (301)');
+  ok((await hopTo(`/firms/${addrA}?utm=x`)).location === `/firm/${addrB}?utm=x`, 'a redirect keeps what follows the address');
   const addrMap = (await getRaw('/sitemap-firms.xml')).text;
-  ok(addrMap.includes(`/firms/${addrB}<`) && !addrMap.includes(`/firms/${addrA}<`), 'the firms sitemap lists the new address and not the old one');
+  ok(addrMap.includes((await firmAt(addrB)) + '<') && !addrMap.includes((await firmAt(addrA)) + '<'), 'the firms sitemap lists the new address and not the old one');
   ok((await call('GET', '/api/admin/audit?limit=100')).data.entries.some((e) => e.action === 'firm.rename_slug' && e.entity_id === addrB), 'the change is in the activity log');
   // again: the first old address follows the firm, there are no chains
-  ok((await call('PUT', `/api/admin/firms/${addrB}/slug`, { slug: addrC })).status === 200 && (await hopTo('/firms/' + addrA)).location === `/firms/${addrC}` && (await hopTo('/firms/' + addrB)).location === `/firms/${addrC}` && (await hopTo('/firms/' + addrC)).status === 200, 'a second change: both old addresses go straight to the newest one');
+  ok((await call('PUT', `/api/admin/firms/${addrB}/slug`, { slug: addrC })).status === 200 && (await hopTo('/firms/' + addrA)).location === `/firm/${addrC}` && (await hopTo('/firms/' + addrB)).location === `/firm/${addrC}` && (await hopTo('/firm/' + addrA)).location === `/firm/${addrC}` && (await hopTo('/firm/' + addrC)).status === 200, 'a second change: both old addresses (/firms/ and /firm/) go straight to the newest one');
   // and back to an old address: it is live again, the others still redirect
-  ok((await call('PUT', `/api/admin/firms/${addrC}/slug`, { slug: addrA })).status === 200 && (await hopTo('/firms/' + addrA)).status === 200 && (await hopTo('/firms/' + addrB)).location === `/firms/${addrA}` && (await hopTo('/firms/' + addrC)).location === `/firms/${addrA}`, 'changing back to a former address makes it live again; the others redirect to it');
+  ok((await call('PUT', `/api/admin/firms/${addrC}/slug`, { slug: addrA })).status === 200 && (await hopTo('/firm/' + addrA)).status === 200 && (await hopTo('/firms/' + addrB)).location === `/firm/${addrA}` && (await hopTo('/firms/' + addrC)).location === `/firm/${addrA}`, 'changing back to a former address makes it live again; the others redirect to it');
   // refusals
   const refuseAddr = async (path, body) => (await call('PUT', path, body)).status;
   ok(await refuseAddr(`/api/admin/firms/${addrA}/slug`, { slug: 'achkar-law' }) === 409 && await refuseAddr(`/api/admin/firms/${addrA}/slug`, { slug: addrA }) === 422 && await refuseAddr('/api/admin/firms/no-such-firm-xyz/slug', { slug: 'fine-address' }) === 404, 'an address another firm has, the same address, and an unknown firm are refused');
@@ -2264,10 +2268,10 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     ok((await call('GET', `/api/account/firms/${keepSlug}/leads`)).data.summary.total >= 1, "the duplicate's enquiry is now on the kept listing");
     as(adminJar);
     const hopM = async (path) => { const r = await fetch(BASE + path, { redirect: 'manual' }); return { status: r.status, location: r.headers.get('location') }; };
-    ok((await hopM('/firms/' + dup)).status === 301 && (await hopM('/firms/' + dup)).location === `/firms/${keepSlug}`, "the duplicate's old address redirects to the kept page for good");
-    ok((await hopM('/firms/' + keepSlug)).status === 200, 'the kept page is live');
+    ok((await hopM('/firms/' + dup)).status === 301 && (await hopM('/firms/' + dup)).location === await firmAt(keepSlug), "the duplicate's old address redirects to the kept page for good");
+    ok((await hopM(await firmAt(keepSlug))).status === 200, 'the kept page is live');
     const mapM = await (await fetch(BASE + '/sitemap-firms.xml')).text();
-    ok(mapM.includes(`/firms/${keepSlug}<`) && !mapM.includes(`/firms/${dup}<`), 'the firms sitemap lists the kept listing and not the duplicate');
+    ok(mapM.includes((await firmAt(keepSlug)) + '<') && !mapM.includes((await firmAt(dup)) + '<'), 'the firms sitemap lists the kept listing and not the duplicate');
     const logM = (await call('GET', '/api/admin/audit?limit=200')).data.entries;
     ok(logM.some((e) => e.action === 'firm.merge' && e.entity_id === keepSlug && e.detail?.from === dup), 'the merge is in the activity log');
     ok(logM.some((e) => e.action === 'mail.dev' && e.detail?.subject === `You can now manage Merge Keeper ${run} on LawDB`), 'the owner is emailed that they now manage the kept listing');
@@ -2275,7 +2279,7 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     // a duplicate that was itself reached through an older address: that older address follows to the kept listing
     const dup2 = (await call('POST', '/api/admin/firms', { ...body, name: `Merge Second ${run}` })).data.slug;
     const dup2New = `merge-second-new-${run}`;
-    ok((await call('PUT', `/api/admin/firms/${dup2}/slug`, { slug: dup2New })).status === 200 && await mergeStatus(dup2New, keepSlug) === 200 && (await hopM('/firms/' + dup2)).location === `/firms/${keepSlug}` && (await hopM('/firms/' + dup2New)).location === `/firms/${keepSlug}`, "an older address of a merged listing also goes straight to the kept one");
+    ok((await call('PUT', `/api/admin/firms/${dup2}/slug`, { slug: dup2New })).status === 200 && await mergeStatus(dup2New, keepSlug) === 200 && (await hopM('/firms/' + dup2)).location === await firmAt(keepSlug) && (await hopM('/firms/' + dup2New)).location === await firmAt(keepSlug), "an older address of a merged listing also goes straight to the kept one");
   }
 
   // office pages: a page for every office, one Featured plan. The pages follow the main listing's plan; only a Featured firm can add one; the links survive a rename.
@@ -2309,12 +2313,12 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     await call('PATCH', `/api/admin/firms/${mainS}`, { featured: true });
 
     // the pages link to each other, and the links survive a change of address
-    const pageOf = async (slug) => (await getRaw(`/firms/${slug}`)).text;
+    const pageOf = async (slug) => (await getRaw(await firmAt(slug))).text;
     const mainPage = await pageOf(mainS), offPage = await pageOf(offS);
-    ok(mainPage.includes('Other locations') && mainPage.includes(`href="/firms/${offS}"`) && offPage.includes(`href="/firms/${mainS}"`), "each page links to the firm's other pages");
+    ok(mainPage.includes('Other locations') && mainPage.includes(`href="${await firmAt(offS)}"`) && offPage.includes(`href="${await firmAt(mainS)}"`), "each page links to the firm's other pages");
     const mainNew = `office-main-new-${run}`;
     ok((await call('PUT', `/api/admin/firms/${mainS}/slug`, { slug: mainNew })).status === 200 && (await call('GET', `/api/admin/firms/${offS}`)).data.location?.slug === mainNew && (await call('GET', `/api/admin/firms/${mainNew}`)).data.locations.length === 1, 'changing the main address keeps its office pages linked');
-    ok((await pageOf(offS)).includes(`href="/firms/${mainNew}"`), 'and the office page links to the new address');
+    ok((await pageOf(offS)).includes(`href="${await firmAt(mainNew)}"`), 'and the office page links to the new address');
     ok(await mergeStatus(mainNew, basicS) === 409, 'a firm with office pages cannot be merged away');
 
     // an owner adds an office page: Featured only, hidden until approved, Featured like the main listing
@@ -2332,12 +2336,12 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     const added = await call('POST', `/api/account/firms/${mainNew}/locations`, { city: 'Vancouver', province: 'BC', address: '1 Granville St, Vancouver, BC V6C 1T2', phone: '604 555 0100' });
     const newOff = added.data.slug;
     ok(added.status === 201 && added.data.status === 'pending' && !!newOff, 'a Featured firm adds an office page; it waits for approval' + (added.status === 201 ? '' : ` (got ${added.status} ${JSON.stringify(added.data)})`));
-    ok((await getRaw(`/firms/${newOff}`)).status !== 200 || !(await pageOf(newOff)).includes('Vancouver'), 'the new office page is not public yet');
+    ok((await getRaw(await firmAt(newOff))).status !== 200 || !(await pageOf(newOff)).includes('Vancouver'), 'the new office page is not public yet');
     ok((await call('GET', '/api/account/me')).data.memberships.find((m) => m.slug === newOff)?.mainSlug === mainNew, 'the dashboard knows it is an office page');
     as(adminJar);
     const pend = (await call('GET', '/api/admin/members')).data.members.find((m) => m.slug === newOff);
     ok(pend && pend.mainSlug === mainNew && pend.isNewListing, "the admin's Approvals shows which firm it is an office of");
-    ok((await call('PATCH', `/api/admin/members/${pend.id}`, { status: 'approved', lat: 49.28, lng: -123.12 })).status === 200 && (await getRaw(`/firms/${newOff}`)).status === 200, 'approving publishes the office page');
+    ok((await call('PATCH', `/api/admin/members/${pend.id}`, { status: 'approved', lat: 49.28, lng: -123.12 })).status === 200 && (await getRaw(await firmAt(newOff))).status === 200, 'approving publishes the office page');
     ok(await feat(newOff), 'the new office page is Featured like the main listing');
     as(ownerO.jar);
     const plan = (await call('GET', `/api/account/firms/${newOff}/plan`)).data;

@@ -41,8 +41,8 @@ export async function firmByToken(env, token) {
   return env.DB.prepare('SELECT slug, handle, data, hours, about, status, featured FROM firms WHERE handle = ?1 OR (handle IS NULL AND slug = ?1) ORDER BY handle IS NULL LIMIT 1').bind(token).first();
 }
 
-// Where the old address /firms/<token> now lives: { slug, handle } of the firm with that slug, or of the firm a renamed slug moved to (firm_redirects); null when nothing is listed there.
+// Where the old address /firms/<token> now lives: { slug, handle, status } of the firm with that slug, or of the firm a renamed slug moved to (firm_redirects); null when nothing is listed there.
 export async function currentAddress(env, token) {
-  const row = await env.DB.prepare('SELECT slug, handle FROM firms WHERE slug = ?1 UNION ALL SELECT f.slug, f.handle FROM firm_redirects r JOIN firms f ON f.slug = r.new_slug WHERE r.old_slug = ?1 LIMIT 1').bind(token).first();
+  const row = await env.DB.prepare('SELECT slug, handle, status FROM firms WHERE slug = ?1 UNION ALL SELECT f.slug, f.handle, f.status FROM firm_redirects r JOIN firms f ON f.slug = r.new_slug WHERE r.old_slug = ?1 LIMIT 1').bind(token).first();
   return row || null;
 }

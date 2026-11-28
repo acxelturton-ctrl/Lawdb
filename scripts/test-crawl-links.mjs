@@ -3,6 +3,7 @@
 // is in a city that has no hub page (so nothing would link to it).
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { loadSiteFirms } from './lib/site-firms.mjs';
+import { firmPath } from '../src/lib/firm-handle.js';
 
 let bad = 0;
 const ok = (c, label) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${label}`); if (!c) bad++; };
@@ -29,12 +30,12 @@ const NO_HUBS_YET = new Set(['SK', 'NS', 'NB', 'NL', 'PE']);
 const noHub = firms.filter((f) => !hubOf.has(`${f.province}|${f.city}`) && !NO_HUBS_YET.has(f.province));
 ok(noHub.length === 0, `every firm is in a city that has a hub page${noHub.length ? ` (missing: ${[...new Set(noHub.map((f) => `${f.city}, ${f.province}`))].slice(0, 5).join('; ')})` : ''}`);
 
-const unlinked = firms.filter((f) => hubOf.has(`${f.province}|${f.city}`) && !hubOf.get(`${f.province}|${f.city}`).includes(`href="/firms/${f.slug}"`));
+const unlinked = firms.filter((f) => hubOf.has(`${f.province}|${f.city}`) && !hubOf.get(`${f.province}|${f.city}`).includes(`href="${firmPath(f)}"`));
 ok(unlinked.length === 0, `every firm page is linked from its city hub (${firms.length - noHub.length} checked${unlinked.length ? `; missing: ${unlinked.slice(0, 5).map((f) => f.slug).join(', ')}` : ''})`);
 
 for (const [key, html] of hubOf) {
   const m = html.match(/<h3>All (\d+) law firms in [^<]+<\/h3><ul class="seo-all">([\s\S]*?)<\/ul>/);
-  const n = m ? (m[2].match(/<li><a href="\/firms\//g) || []).length : -1;
+  const n = m ? (m[2].match(/<li><a href="\/firm\//g) || []).length : -1;
   if (!m || Number(m[1]) !== n) { ok(false, `${key}: the A to Z list matches its heading`); break; }
 }
 ok(true, 'each hub\'s A to Z list matches its heading');

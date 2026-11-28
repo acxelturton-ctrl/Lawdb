@@ -32,9 +32,10 @@ for (const file of files) {
     if (!f.caseTypes.every((c) => CASES.includes(c))) bad('caseTypes');
     if (!about || about.length > 2000) bad('about');
     out.push(
-      'INSERT OR IGNORE INTO firms (slug,name,city,province,region,featured,rating,review_count,lat,lng,data,hours,about,page_mode,status,created_by) VALUES (' +
+      // SELECT ... WHERE NOT EXISTS: a firm whose address an admin has changed (firm_redirects keeps the old one) is not added again under its old slug, which would be a second listing of the same firm
+      'INSERT OR IGNORE INTO firms (slug,name,city,province,region,featured,rating,review_count,lat,lng,data,hours,about,page_mode,status,created_by) SELECT ' +
         [q(f.slug), q(f.name), q(f.city), q(f.province), q(f.region || ''), 0, q(f.rating), q(f.count), q(f.lat), q(f.lng), q(JSON.stringify(f)), hours ? q(JSON.stringify(normalizeHours(hours))) : 'NULL', q(about), "'dynamic'", "'live'", 'NULL'].join(',') +
-        ');'
+        ` WHERE NOT EXISTS (SELECT 1 FROM firm_redirects WHERE old_slug = ${q(f.slug)});`
     );
   }
 }

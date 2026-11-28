@@ -577,7 +577,7 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
 
   const card =
     `<section class="li-card pf-card" aria-label="${esc(f.name)} profile">\n      ${coverDiv(f)}\n      <div class="li-body">\n        ${f.featured ? '<span class="pf-feat li-feat">Featured on LawDB</span>\n        ' : ''}${logoSpan(f)}\n` +
-    `        <${tab === 'overview' ? 'h1' : 'p'} class="li-name">${esc(f.name)}${f.featured ? ' ' + C.TICK : ''}</${tab === 'overview' ? 'h1' : 'p'}>\n        <p class="pf-handle">@${esc(f.slug)}</p>\n        <p class="li-tag">${tagline(f)}</p>\n${chipsHtml(f, verified)}` +
+    `        <${tab === 'overview' ? 'h1' : 'p'} class="li-name">${esc(f.name)}${f.featured ? ' ' + C.TICK : ''}</${tab === 'overview' ? 'h1' : 'p'}>\n        <p class="pf-handle">@${esc(f.handle || f.slug)}</p>\n        <p class="li-tag">${tagline(f)}</p>\n${chipsHtml(f, verified)}` +
     `        ${meta}\n        ${actions}${planLine ? '\n        ' + planLine : ''}\n      </div>\n    </section>`;
 
   const aboutHtml = about ? `\n    <div class="article">${esc(about).replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>')}</div>` : '';

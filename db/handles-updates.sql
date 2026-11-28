@@ -925,7 +925,6 @@ UPDATE firms SET handle = 'law-office-of-justin-s-bhangu-refugee', data = json_s
 UPDATE firms SET handle = 'lawden-kunal-kapoor-law', data = json_set(data, '$.handle', 'lawden-kunal-kapoor-law') WHERE slug = 'lawden-kunal-kapoor-law' AND handle IS NULL;
 UPDATE firms SET handle = 'lawgical-law-corporation', data = json_set(data, '$.handle', 'lawgical-law-corporation') WHERE slug = 'lawgical-law-corporation-abbotsford' AND handle IS NULL;
 UPDATE firms SET handle = 'lawpoint', data = json_set(data, '$.handle', 'lawpoint') WHERE slug = 'lawpoint' AND handle IS NULL;
-UPDATE firms SET handle = 'lawpoint-2', data = json_set(data, '$.handle', 'lawpoint-2') WHERE slug = 'lawpoint-north-york' AND handle IS NULL;
 UPDATE firms SET handle = 'lawrence-al-kabain', data = json_set(data, '$.handle', 'lawrence-al-kabain') WHERE slug = 'lawrence-al-kabain-laval' AND handle IS NULL;
 UPDATE firms SET handle = 'laws-and-beyond', data = json_set(data, '$.handle', 'laws-and-beyond') WHERE slug = 'laws-and-beyond-calgary' AND handle IS NULL;
 UPDATE firms SET handle = 'lawstop-criminal-lawyers', data = json_set(data, '$.handle', 'lawstop-criminal-lawyers') WHERE slug = 'lawstop-criminal-lawyers-brampton' AND handle IS NULL;

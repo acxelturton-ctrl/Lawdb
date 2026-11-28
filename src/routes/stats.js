@@ -9,7 +9,7 @@ const done = () => new Response(null, { status: 204, headers: NO_STORE });
 
 // A page of a firm is /firm/<handle>; the firm's own counts are kept under its slug, so the handle is turned into the slug first (looked up once, then remembered by this isolate).
 const slugOfHandle = new Map();
-async function withFirmSlug(env, body) {
+export async function withFirmSlug(env, body) {
   const m = body && typeof body.p === 'string' ? /^\/firm\/([a-z0-9][a-z0-9-]{0,80})\/?(?:[?#].*)?$/i.exec(body.p) : null;
   if (!m) return body;
   const handle = m[1].toLowerCase();

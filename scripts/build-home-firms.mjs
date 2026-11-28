@@ -13,6 +13,7 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { PROVINCES } from '../src/render/firm-page.js';
 import { homeFirmCard } from '../src/render/home-cards.js';
+import { loadHandles } from './lib/firm-handles.mjs';
 import { strongLawyerProfile } from '../src/lib/lawyers.js';
 
 const CHECK = process.argv.includes('--check');
@@ -24,6 +25,7 @@ export const MIN_RATING = 4.8, MIN_REVIEWS = 50, SHOWN = 12;
 const firms = new Map();
 for (const f of JSON.parse(readFileSync('firms_data.json', 'utf8'))) firms.set(f.slug, f);
 for (const file of readdirSync('data').filter((x) => /^firms-batch-\d+\.json$/.test(x)).sort()) for (const f of JSON.parse(readFileSync(`data/${file}`, 'utf8'))) firms.set(f.slug, f);
+{ const handles = loadHandles(); for (const [slug, f] of firms) if (handles[slug]) firms.set(slug, { ...f, handle: handles[slug] }); } // the cards link to /firm/<handle>
 
 // the lawyers each firm's Lawyers tab shows come from data/firm-lawyers.json (scripts/apply-firm-lawyers.mjs puts them in the database)
 const lawyersBySlug = existsSync('data/firm-lawyers.json') ? JSON.parse(readFileSync('data/firm-lawyers.json', 'utf8')) : {};

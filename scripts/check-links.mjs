@@ -2,24 +2,30 @@
 // points straight at an existing page (no old addresses that would need a redirect).   node scripts/check-links.mjs
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { join, posix, relative } from 'node:path';
+import { loadHandles } from './lib/firm-handles.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const ORIGIN = 'https://lawdb.ca';
 const SKIP = new Set(['node_modules', '.git', '.wrangler', 'admin', 'account', 'docs', 'migrations', 'scripts', 'src', 'db']);
 
-// Firms added in batches have no hand-built page: /firms/<slug> is rendered from the database, so a released batch firm counts as an existing page.
+// A firm page is /firm/<handle> (src/lib/firm-handle.js); the saved copy in firms/<slug>.html is the emergency copy of that same page and counts as it.
+const handles = loadHandles();
+const slugOfHandle = Object.fromEntries(Object.entries(handles).map(([slug, h]) => [h, slug]));
+const firmAddr = (slug) => `/firm/${handles[slug] || slug}`;
+
+// Firms added in batches have no hand-built page: /firm/<handle> is rendered from the database, so a released batch firm counts as an existing page.
 const batchFirms = new Set();
 {
   const released = new Set(JSON.parse(readFileSync(join(ROOT, 'data/release.json'), 'utf8')).released);
   for (const f of readdirSync(join(ROOT, 'data')).filter((x) => /^firms-batch-\d+\.json$/.test(x) && released.has(Number(x.match(/\d+/)[0])))) {
-    for (const firm of JSON.parse(readFileSync(join(ROOT, 'data', f), 'utf8'))) batchFirms.add(`/firms/${firm.slug}`);
+    for (const firm of JSON.parse(readFileSync(join(ROOT, 'data', f), 'utf8'))) batchFirms.add(firmAddr(firm.slug));
   }
 }
 
 // Firms that listed themselves (data/owner-firms.json) are database pages too.
-if (existsSync(join(ROOT, 'data/owner-firms.json'))) for (const firm of JSON.parse(readFileSync(join(ROOT, 'data/owner-firms.json'), 'utf8'))) batchFirms.add(`/firms/${firm.slug}`);
+if (existsSync(join(ROOT, 'data/owner-firms.json'))) for (const firm of JSON.parse(readFileSync(join(ROOT, 'data/owner-firms.json'), 'utf8'))) batchFirms.add(firmAddr(firm.slug));
 
-// The lawyers tab of a firm (/firms/<slug>/lawyers) is rendered from the database like the firm page; it exists for a firm that has a page and at
+// The lawyers tab of a firm (/firm/<handle>/lawyers) is rendered from the database like the firm page; it exists for a firm that has a page and at
 // least two lawyers listed in data/firm-lawyers.json (see lawyersOf in src/lib/lawyers.js).
 const firmLawyers = existsSync(join(ROOT, 'data/firm-lawyers.json')) ? JSON.parse(readFileSync(join(ROOT, 'data/firm-lawyers.json'), 'utf8')) : {};
 
@@ -34,6 +40,8 @@ const pages = [];
 })(ROOT);
 
 const servedOf = (rel) => {
+  const firm = /^firms\/([a-z0-9-]+)\.html$/.exec(rel);
+  if (firm && handles[firm[1]]) return firmAddr(firm[1]); // the saved copy of a firm page is that page
   let p = '/' + rel.replace(/\.html$/, '');
   if (p.endsWith('/index')) p = p.slice(0, -5);
   if (p === '/index') p = '/';
@@ -72,12 +80,13 @@ for (const rel of pages) {
     if (existsSync(join(ROOT, path.slice(1))) && statSync(join(ROOT, path.slice(1))).isFile()) continue; // an asset: css, js, image, pdf...
     if (path === '/') continue;
     if (batchFirms.has(path)) continue;
-    const lt = /^\/firms\/([a-z0-9-]+)\/lawyers$/.exec(path);
+    const lt = /^\/firm\/([a-z0-9-]+)\/lawyers$/.exec(path);
     if (lt) {
-      if ((served.has(`/firms/${lt[1]}`) || batchFirms.has(`/firms/${lt[1]}`)) && (firmLawyers[lt[1]] || []).length >= 2) continue;
+      const slug = slugOfHandle[lt[1]] || lt[1];
+      if ((served.has(`/firm/${lt[1]}`) || batchFirms.has(`/firm/${lt[1]}`)) && (firmLawyers[slug] || []).length >= 2) continue;
       bad(rel, `link to a lawyers tab that does not exist: ${m[1]}`); continue;
     }
-    if (/^\/firms\/[a-z0-9-]+$/.test(path)) { bad(rel, `link to a firm page that does not exist: ${m[1]}`); continue; }
+    if (/^\/firm\/[a-z0-9-]+$/.test(path)) { bad(rel, `link to a firm page that does not exist: ${m[1]}`); continue; }
     bad(rel, `broken link ${m[1]} (-> ${path})`);
   }
 }

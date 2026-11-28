@@ -25,7 +25,7 @@ ok(extra.length === 0 && new Set(SLUG_TABLES).size === SLUG_TABLES.length, `the 
 // the wiring
 const read = (p) => readFileSync(p, 'utf8');
 ok(/route\('PUT', '\/api\/admin\/firms\/:slug\/slug', admin\.firmRename\)/.test(read('src/worker.js')) && /export async function firmRename[\s\S]*?requireAdmin/.test(read('src/routes/admin.js')), 'the route is registered and admin only');
-ok(/redirectTarget\(env, m\[1\]\)[\s\S]*?status: 301/.test(read('src/routes/firm-page.js')) && /redirectTarget\(env, ref\.firmSlug\)/.test(read('src/routes/story-page.js')), "an old address redirects, for the firm's page and for its stories (a 301, before the saved copy is served)");
+ok(/currentAddress\(env, m\[1\]\)[\s\S]*?status: 301/.test(read('src/routes/firm-page.js')) && /redirectTarget\(env, ref\.firmSlug\)/.test(read('src/routes/story-page.js')), "an old address redirects, for the firm's page and for its stories (a 301, before the saved copy is served)");
 ok(/firm_redirects: 'SELECT/.test(read('src/lib/backup.js')) && /PRAGMA defer_foreign_keys = on/.test(read('src/lib/firm-slug.js')) && /json_set\(data, '\$\.slug'/.test(read('src/lib/firm-slug.js')), 'the redirects are backed up, the move is one batch with foreign keys checked at the end, and the address inside the firm record is updated');
 ok(/'\/api\/admin\/firms\/\$\{slug\}\/slug'|\/slug`/.test(read('admin/profile-editor.js')) && /Change the page address/.test(read('admin/profile-editor.js')), 'the admin Edit Profile page has the control');
 

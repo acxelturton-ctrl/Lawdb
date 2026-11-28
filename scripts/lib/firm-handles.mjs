@@ -6,6 +6,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { HANDLE_RE, slugify, candidateHandle } from '../../src/lib/firm-handle.js';
 
 export const HANDLES_FILE = new URL('../../data/firm-handles.json', import.meta.url);
+export const RENAMES_FILE = new URL('../../data/firm-renames.json', import.meta.url);
 export { HANDLE_RE, slugify, candidateHandle };
 
 export function loadHandles() {

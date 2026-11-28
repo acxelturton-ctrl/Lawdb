@@ -61,7 +61,7 @@ const nameOf = (row) => { try { return JSON.parse(row.data).name || 'This firm';
 // page, or, for a lawyer who has a page of their own, /lawyer/<name>.
 async function oldAddress(env, url, m) {
   const cur = await currentAddress(env, m[1]);
-  if (!cur) return null;
+  if (!cur || cur.status !== 'live') return null; // a firm switched off or not yet approved has no page, so its old address is not sent anywhere
   let to = firmPath(cur, m[2] || '');
   if (m[2] === 'lawyers' && m[3]) {
     const dir = await lawyerDirectory(env);
@@ -104,6 +104,11 @@ export async function firmPage({ request, env, ctx }) {
     } else {
       row = await firmByToken(env, m[1]);
       slug = row ? row.slug : '';
+      // an address the firm used to have (its old slug or handle) or its slug, when it has a handle: one permanent redirect to the handle
+      if (!row) {
+        const cur = await currentAddress(env, m[1]);
+        if (cur && cur.status === 'live' && firmPath(cur) !== `/firm/${m[1]}`) return new Response(null, { status: 301, headers: { location: firmPath(cur, m[2] || '') + url.search, 'cache-control': 'public, max-age=3600' } });
+      }
       view = m[2] === 'articles' ? { tab: 'articles' } : m[2] === 'lawyers' ? { tab: 'lawyers' } : null;
       // a Featured firm's lawyers who have a page of their own are linked on its pages (the Overview teaser, the Lawyers page)
       if (row && row.featured) lawyerAddr = (await lawyerDirectory(env)).byFirm.get(slug) || null;
@@ -111,7 +116,8 @@ export async function firmPage({ request, env, ctx }) {
     }
   } catch (err) {
     console.error('firm lookup failed, serving the saved copy', lawyerAt ? lawyerAt[1] : m[1], err);
-    return env.ASSETS.fetch(request);
+    // the saved copy of a firm page is kept at its old address, /firms/<slug> (only reachable by slug, and only for the firms that have one)
+    return env.ASSETS.fetch(m ? new Request(`${url.origin}/firms/${m[1]}`, request) : request);
   }
 
   // A firm switched off in the admin is shown nowhere. A firm that is not live (waiting for approval) or not listed at all has no page.

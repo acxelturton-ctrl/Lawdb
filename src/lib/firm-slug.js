@@ -1,4 +1,4 @@
-// Changing a firm's page address (its slug): lawdb.ca/firms/<slug>. Admin only.
+// Changing a firm's page address (its slug, and with it its handle): lawdb.ca/firm/<handle>. Admin only.
 //
 // The slug is the firm's key in many tables, so a change has to move every one of them in one step, and the old address must keep working:
 // it becomes a permanent redirect (firm_redirects), for the page and for the firm's story pages, so no link or search result breaks.
@@ -18,7 +18,7 @@ export const SLUG_TABLES = ['firm_members', 'firm_images', 'firm_feeds', 'firm_p
 export function cleanSlug(v) {
   const s = typeof v === 'string' ? v.trim().toLowerCase() : '';
   if (s.length < SLUG_MIN || s.length > SLUG_MAX || !SLUG_RE.test(s)) {
-    throw new HttpError(422, `The address can have lowercase letters, digits and single dashes, ${SLUG_MIN} to ${SLUG_MAX} characters (for example preszler-injury-lawyers-toronto).`);
+    throw new HttpError(422, `The address can have lowercase letters, digits and single dashes, ${SLUG_MIN} to ${SLUG_MAX} characters (for example preszler-injury-lawyers).`);
   }
   return s;
 }
@@ -35,6 +35,10 @@ export async function renameFirmSlug(env, admin, oldSlug, rawNew) {
   const firm = await env.DB.prepare('SELECT slug, name FROM firms WHERE slug = ?').bind(oldSlug).first();
   if (!firm) throw new HttpError(404, 'Firm not found');
   if (await env.DB.prepare('SELECT 1 FROM firms WHERE slug = ?').bind(next).first()) throw new HttpError(409, 'Another firm already has that address.');
+  // the public address is the firm's handle (src/lib/firm-handle.js): changing the address changes the handle too, so the page really moves; the old handle redirects
+  const clash = await env.DB.prepare('SELECT 1 FROM firms WHERE handle = ? AND slug != ?').bind(next, oldSlug).first();
+  if (clash) throw new HttpError(409, 'Another firm already has that address.');
+  const oldHandle = (await env.DB.prepare('SELECT handle FROM firms WHERE slug = ?').bind(oldSlug).first()).handle || '';
   const formerly = await env.DB.prepare('SELECT new_slug FROM firm_redirects WHERE old_slug = ?').bind(next).first();
   if (formerly && formerly.new_slug !== oldSlug) throw new HttpError(409, 'That address used to belong to another firm, whose old links still point to it.');
 
@@ -42,13 +46,14 @@ export async function renameFirmSlug(env, admin, oldSlug, rawNew) {
   await env.DB.batch([
     env.DB.prepare('PRAGMA defer_foreign_keys = on'),
     ...move,
-    env.DB.prepare("UPDATE firms SET slug = ?, data = json_set(data, '$.slug', ?), updated_at = datetime('now') WHERE slug = ?").bind(next, next, oldSlug),
+    env.DB.prepare("UPDATE firms SET slug = ?, handle = ?, data = json_set(data, '$.slug', ?, '$.handle', ?), updated_at = datetime('now') WHERE slug = ?").bind(next, next, next, next, oldSlug),
     env.DB.prepare('UPDATE firm_locations SET location_slug = ? WHERE location_slug = ?').bind(next, oldSlug),   // office-page links (not firm_slug columns, so not in SLUG_TABLES)
     env.DB.prepare('UPDATE firm_locations SET main_slug = ? WHERE main_slug = ?').bind(next, oldSlug),
     env.DB.prepare('UPDATE marketplace_leads SET source_firm = ? WHERE source_firm = ?').bind(next, oldSlug),   // the firm a firm-page inquiry was sent to (not a firm_slug column)
     env.DB.prepare('DELETE FROM firm_redirects WHERE old_slug = ?').bind(next),                            // an address taken back is live again, not a redirect
     env.DB.prepare('UPDATE firm_redirects SET new_slug = ? WHERE new_slug = ?').bind(next, oldSlug),       // earlier old addresses follow the firm to the new one (no chains)
     env.DB.prepare('INSERT INTO firm_redirects (old_slug, new_slug, created_by) VALUES (?, ?, ?)').bind(oldSlug, next, admin?.id ?? null),
+    ...(oldHandle && oldHandle !== oldSlug ? [env.DB.prepare('INSERT OR IGNORE INTO firm_redirects (old_slug, new_slug, created_by) VALUES (?, ?, ?)').bind(oldHandle, next, admin?.id ?? null)] : []), // the old handle's address
   ]);
   await audit(env, admin, 'firm.rename_slug', 'firm', next, { from: oldSlug, to: next, name: firm.name });
   return { slug: next, oldSlug };

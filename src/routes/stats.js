@@ -1,25 +1,28 @@
 // POST /api/a: the page's tiny traffic message (see src/lib/stats.js). Always answers 204 and never sets a cookie; counting must never get in the way of a page.
 // GET /api/admin/traffic: the owner's report for the admin Traffic tab.
 import { json, readJson, clampInt, NO_STORE } from '../lib/http.js';
+import { couldBeFirm } from '../lib/firm-handle.js';
 import { requireAdmin } from '../lib/auth.js';
 import { isBot, throttled, eventIncs, firmIncs, torontoDay, trafficReport } from '../lib/stats.js';
 import { countInBackground } from '../lib/stats-buffer.js';
 
 const done = () => new Response(null, { status: 204, headers: NO_STORE });
 
-// A page of a firm is /firm/<handle>; the firm's own counts are kept under its slug, so the handle is turned into the slug first (looked up once, then remembered by this isolate).
+// A page of a firm is /<handle>; the firm's own counts are kept under its slug, so the handle is turned into the slug first (looked up once, then remembered by this isolate).
+// Anything that is one of the site's own words (/news, /contact...) is not looked up.
 const slugOfHandle = new Map();
 export async function withFirmSlug(env, body) {
-  const m = body && typeof body.p === 'string' ? /^\/firm\/([a-z0-9][a-z0-9-]{0,80})\/?(?:[?#].*)?$/i.exec(body.p) : null;
+  const m = body && typeof body.p === 'string' ? /^\/([a-z0-9][a-z0-9-]{1,79})\/?(?:[?#].*)?$/i.exec(body.p) : null;
   if (!m) return body;
   const handle = m[1].toLowerCase();
+  if (!couldBeFirm(handle)) return body;
   if (!slugOfHandle.has(handle)) {
     if (slugOfHandle.size > 3000) slugOfHandle.clear();
     const row = await env.DB.prepare('SELECT slug FROM firms WHERE handle = ?1 OR (handle IS NULL AND slug = ?1) LIMIT 1').bind(handle).first();
     slugOfHandle.set(handle, row ? row.slug : '');
   }
   const slug = slugOfHandle.get(handle);
-  return slug ? { ...body, p: `/firms/${slug}` } : { ...body, p: '/firm' };
+  return slug ? { ...body, p: `/firms/${slug}` } : body; // not a firm (a lawyer's page, or nothing): counted as it is, for the site only
 }
 
 export async function collect({ request, env, exec }) {

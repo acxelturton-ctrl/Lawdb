@@ -143,7 +143,7 @@
   function itemHtml(f, detail){
     var oi = openInfo(f), dist = userPos ? ' · ' + fmtKm(km(userPos.lat, userPos.lng, f.lat, f.lng)) : '';
     var pct = Math.max(0, Math.min(100, (f.rating || 0) / 5 * 100));
-    var prof = ROOT + 'firm/' + (f.handle || f.slug);
+    var prof = ROOT + (f.handle || f.slug);
     return '<article class="gm-item' + (f.featured ? ' is-feat' : '') + (sel && sel.slug === f.slug && !detail ? ' is-sel' : '') + '" data-slug="' + esc(f.slug) + '">' +
       thumb(f) +
       '<div class="gm-i-main">' +
@@ -163,7 +163,7 @@
   /* the firm's Featured lawyers (f.fl, from /firms_data.json): each has a pin of their own and a page of their own */
   function lawyersHtml(f){
     if(!f.fl || !f.fl.length) return '';
-    return '<div class="gm-sel-lawyers"><b>Featured lawyers</b>' + f.fl.map(function(l){ return '<a href="' + esc(ROOT + 'lawyer/' + (l.a || l.s)) + '">' + esc(l.n) + '</a>'; }).join('') + '</div>';
+    return '<div class="gm-sel-lawyers"><b>Featured lawyers</b>' + f.fl.map(function(l){ return '<a href="' + esc(ROOT + (l.a || l.s.replace(/-/g, ''))) + '">' + esc(l.n) + '</a>'; }).join('') + '</div>';
   }
   function detailHtml(f){
     var tags = (f.caseTypes || []).slice(0, 6).map(function(c){ return '<span>' + esc(areaName(c, f.province)) + '</span>'; }).join('');

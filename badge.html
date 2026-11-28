@@ -196,8 +196,8 @@
 
     <div class="bd-link">
       <label for="bdFirm">Your LawDB page (optional)</label>
-      <small>Paste your LawDB address (for example lawdb.ca/firm/your-firm-name) and the badge will link to your own profile instead of the LawDB home page.</small>
-      <input id="bdFirm" type="text" inputmode="url" autocomplete="off" placeholder="lawdb.ca/firm/your-firm-name">
+      <small>Paste your LawDB address (for example lawdb.ca/yourfirmname) and the badge will link to your own profile instead of the LawDB home page.</small>
+      <input id="bdFirm" type="text" inputmode="url" autocomplete="off" placeholder="lawdb.ca/yourfirmname">
       <span class="bd-msg" id="bdMsg">Not sure of your address? Search for your firm on LawDB and copy the address from your profile page.</span>
     </div>
 
@@ -256,18 +256,18 @@
   function slugOf(v){
     v=String(v||'').trim().toLowerCase();
     if(!v)return '';
-    var m=v.match(/lawdb\.ca\/firms?\/([a-z0-9-]+)/);
+    var m=v.match(/lawdb\.ca\/(?:firms?\/)?([a-z0-9-]+)/);
     if(m)return m[1];
     return /^[a-z0-9-]{2,120}$/.test(v)?v:null;
   }
   function code(c,slug){
-    var href=slug?BASE+'/firm/'+slug:BASE+'/';
+    var href=slug?BASE+'/'+slug:BASE+'/';
     return '<a href="'+href+'" target="_blank" rel="noopener" title="Listed on LawDB.ca"><img src="'+BASE+'/images/badges/'+c.getAttribute('data-badge')+'.svg" alt="Listed on LawDB.ca" width="'+c.getAttribute('data-w')+'" height="'+c.getAttribute('data-h')+'"></a>';
   }
   function render(){
     var slug=slugOf(input.value);
-    if(slug===null){msg.textContent='That does not look like a LawDB address. It should look like lawdb.ca/firm/your-firm-name.';slug='';}
-    else msg.textContent=slug?'The badge will link to lawdb.ca/firm/'+slug:def;
+    if(slug===null){msg.textContent='That does not look like a LawDB address. It should look like lawdb.ca/yourfirmname.';slug='';}
+    else msg.textContent=slug?'The badge will link to lawdb.ca/'+slug:def;
     cards.forEach(function(c){c.querySelector('textarea').value=code(c,slug);});
   }
   input.addEventListener('input',render);

@@ -148,7 +148,7 @@
       if (!s.length) fetch('/api/account/network', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (n) {
         var box = $('#lwSug', sec); if (!n || !box) return;
         box.innerHTML = (n.suggestions || []).slice(0, 3).map(function (f) {
-          return '<div class="r"><a href="/firm/' + esc(f.handle || f.slug) + '">' + esc(f.name) + '<small>' + esc(f.city) + ', ' + esc(f.province) + '</small></a><button type="button" class="lw-fbtn" data-follow="' + esc(f.slug) + '">+ Follow</button></div>';
+          return '<div class="r"><a href="/' + esc(f.handle || f.slug) + '">' + esc(f.name) + '<small>' + esc(f.city) + ', ' + esc(f.province) + '</small></a><button type="button" class="lw-fbtn" data-follow="' + esc(f.slug) + '">+ Follow</button></div>';
         }).join('');
         if (window.lawdbSocial) window.lawdbSocial.init(sec);
       }).catch(function () {});

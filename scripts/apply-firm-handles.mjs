@@ -1,4 +1,4 @@
-// The addresses of firm pages in the pages saved in the site files: /firm/<handle> (the old /firms/<slug> redirects, but a page should link straight to the address it is at).
+// The addresses of firm pages in the pages saved in the site files: /<handle> (the old /firms/<slug> redirects, but a page should link straight to the address it is at).
 //   node scripts/apply-firm-handles.mjs            rewrites the pages
 //   node scripts/apply-firm-handles.mjs --check    fails if a page still links to /firms/<slug> for a firm that has a handle (npm run check runs this)
 // Also the saved sitemap.xml (its <loc> addresses).
@@ -24,7 +24,7 @@ const RE = /(["'(>])((?:https:\/\/lawdb\.ca)?)\/firms\/([a-z0-9][a-z0-9-]*)((?:\
 let changed = 0, left = [];
 for (const file of walk('.')) {
   const html = readFileSync(file, 'utf8');
-  const out = html.replace(RE, (all, q, origin, slug, tab) => (handles[slug] ? `${q}${origin}/firm/${handles[slug]}${tab}` : all));
+  const out = html.replace(RE, (all, q, origin, slug, tab) => (handles[slug] ? `${q}${origin}/${handles[slug]}${tab}` : all));
   if (/\/firms\/[a-z0-9-]+\/lawyers\/[a-z0-9]/.test(out)) left.push(file);
   if (out === html) continue;
   changed++;
@@ -32,4 +32,4 @@ for (const file of walk('.')) {
   writeFileSync(file, out);
 }
 if (left.length) console.warn(`${left.length} page(s) still link to a lawyer's page at /firms/<slug>/lawyers/<lawyer>: ${left.slice(0, 3).join(', ')}`);
-console.log(CHECK ? 'firm addresses: every saved page links to /firm/<handle>' : `firm addresses: ${changed} page(s) updated`);
+console.log(CHECK ? 'firm addresses: every saved page links to /<handle>' : `firm addresses: ${changed} page(s) updated`);

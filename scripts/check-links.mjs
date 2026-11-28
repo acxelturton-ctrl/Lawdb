@@ -8,12 +8,12 @@ const ROOT = new URL('..', import.meta.url).pathname;
 const ORIGIN = 'https://lawdb.ca';
 const SKIP = new Set(['node_modules', '.git', '.wrangler', 'admin', 'account', 'docs', 'migrations', 'scripts', 'src', 'db']);
 
-// A firm page is /firm/<handle> (src/lib/firm-handle.js); the saved copy in firms/<slug>.html is the emergency copy of that same page and counts as it.
+// A firm page is /<handle> (src/lib/firm-handle.js); the saved copy in firms/<slug>.html is the emergency copy of that same page and counts as it.
 const handles = loadHandles();
 const slugOfHandle = Object.fromEntries(Object.entries(handles).map(([slug, h]) => [h, slug]));
-const firmAddr = (slug) => `/firm/${handles[slug] || slug}`;
+const firmAddr = (slug) => `/${handles[slug] || slug}`;
 
-// Firms added in batches have no hand-built page: /firm/<handle> is rendered from the database, so a released batch firm counts as an existing page.
+// Firms added in batches have no hand-built page: /<handle> is rendered from the database, so a released batch firm counts as an existing page.
 const batchFirms = new Set();
 {
   const released = new Set(JSON.parse(readFileSync(join(ROOT, 'data/release.json'), 'utf8')).released);
@@ -25,7 +25,7 @@ const batchFirms = new Set();
 // Firms that listed themselves (data/owner-firms.json) are database pages too.
 if (existsSync(join(ROOT, 'data/owner-firms.json'))) for (const firm of JSON.parse(readFileSync(join(ROOT, 'data/owner-firms.json'), 'utf8'))) batchFirms.add(firmAddr(firm.slug));
 
-// The lawyers tab of a firm (/firm/<handle>/lawyers) is rendered from the database like the firm page; it exists for a firm that has a page and at
+// The lawyers tab of a firm (/<handle>/lawyers) is rendered from the database like the firm page; it exists for a firm that has a page and at
 // least two lawyers listed in data/firm-lawyers.json (see lawyersOf in src/lib/lawyers.js).
 const firmLawyers = existsSync(join(ROOT, 'data/firm-lawyers.json')) ? JSON.parse(readFileSync(join(ROOT, 'data/firm-lawyers.json'), 'utf8')) : {};
 
@@ -80,13 +80,13 @@ for (const rel of pages) {
     if (existsSync(join(ROOT, path.slice(1))) && statSync(join(ROOT, path.slice(1))).isFile()) continue; // an asset: css, js, image, pdf...
     if (path === '/') continue;
     if (batchFirms.has(path)) continue;
-    const lt = /^\/firm\/([a-z0-9-]+)\/lawyers$/.exec(path);
-    if (lt) {
-      const slug = slugOfHandle[lt[1]] || lt[1];
-      if ((served.has(`/firm/${lt[1]}`) || batchFirms.has(`/firm/${lt[1]}`)) && (firmLawyers[slug] || []).length >= 2) continue;
+    const lt = /^\/([a-z0-9]+)\/lawyers$/.exec(path);
+    if (lt && slugOfHandle[lt[1]]) {
+      const slug = slugOfHandle[lt[1]];
+      if ((served.has(`/${lt[1]}`) || batchFirms.has(`/${lt[1]}`)) && (firmLawyers[slug] || []).length >= 2) continue;
       bad(rel, `link to a lawyers tab that does not exist: ${m[1]}`); continue;
     }
-    if (/^\/firm\/[a-z0-9-]+$/.test(path)) { bad(rel, `link to a firm page that does not exist: ${m[1]}`); continue; }
+    if (/^\/[a-z0-9]+$/.test(path) && slugOfHandle[path.slice(1)]) { bad(rel, `link to a firm page that does not exist: ${m[1]}`); continue; }
     bad(rel, `broken link ${m[1]} (-> ${path})`);
   }
 }

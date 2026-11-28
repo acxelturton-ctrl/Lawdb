@@ -44,7 +44,7 @@ const home = readFileSync('index.html', 'utf8');
 const strip = home.slice(home.indexOf('<!--more-firms-->'), home.indexOf('<!--/more-firms-->'));
 const cards = strip.match(/<article class="lc">[\s\S]*?<\/article>/g) || [];
 const handles = loadHandles();
-const handleOf = (c) => (c.match(/<h3><a href="\/firm\/([^"]+)">/) || [])[1]; // the cards link to /firm/<handle>
+const handleOf = (c) => (c.match(/<h3><a href="\/([^"]+)">/) || [])[1]; // the cards link to /<handle>
 const slugOfHandle = Object.fromEntries(Object.entries(handles).map(([slug, h]) => [h, slug]));
 const slugOf = (c) => slugOfHandle[handleOf(c)] || handleOf(c);
 const slugs = cards.map(slugOf);

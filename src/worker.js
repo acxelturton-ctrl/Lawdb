@@ -13,6 +13,7 @@ import * as account from './routes/account.js';
 import * as stripe from './routes/stripe.js';
 import * as dyn from './routes/dynamic.js';
 import { firmPage } from './routes/firm-page.js';
+import { couldBeFirm } from './lib/firm-handle.js';
 import { reportPage } from './routes/report-page.js';
 import { serveImage } from './routes/images.js';
 import { newsPage } from './routes/news-page.js';
@@ -260,7 +261,7 @@ export default {
         if (request.method !== 'GET' && request.method !== 'HEAD') return env.ASSETS.fetch(request);
         const moved = legacyRedirect(url); // old addresses go to the clean one, permanently
         if (moved) return moved;
-        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path === '/news' ? newsPage : path === '/new-firms' ? newFirmsPage : path === '/sitemap-news.xml' ? storySitemap : path === '/sitemap-firms.xml' ? firmSitemap : path.startsWith('/news/') ? storyPage : path.startsWith('/img/') ? serveImage : path.startsWith('/firms/') || path.startsWith('/firm/') || path.startsWith('/lawyer/') ? firmPage : dyn.page);
+        const handler = DATA_FILES[path] || (path === '/report-listing' ? reportPage : path === '/news' ? newsPage : path === '/new-firms' ? newFirmsPage : path === '/sitemap-news.xml' ? storySitemap : path === '/sitemap-firms.xml' ? firmSitemap : path.startsWith('/news/') ? storyPage : path.startsWith('/img/') ? serveImage : path.startsWith('/firms/') || couldBeFirm(path.split('/')[1] || '') && path.split('/').length <= 3 ? firmPage : dyn.page);
         return await handler({ request, env, ctx });
       }
       const method = request.method === 'HEAD' ? 'GET' : request.method;

@@ -421,7 +421,7 @@ function tabsHtml(f, tabs, tab) {
 // On the Overview: the lawyers by name, linking to the Lawyers page and to each lawyer's own page.
 function lawyersTeaser(f, lw) {
   if (!lw.length) return '';
-  const shown = lw.slice(0, 8).map((l) => `<li>${lawyerHasPage(l) ? `<a href="/lawyer/${esc(l.addr || l.slug)}">${esc(l.name)}</a>` : `<span>${esc(l.name)}</span>`}</li>`).join('');
+  const shown = lw.slice(0, 8).map((l) => `<li>${lawyerHasPage(l) ? `<a href="/${esc(l.addr)}">${esc(l.name)}</a>` : `<span>${esc(l.name)}</span>`}</li>`).join('');
   return `\n    <section class="pf-lawyers" aria-label="Lawyers at ${esc(f.name)}"><h2>Lawyers at ${esc(f.name)}</h2><ul>${shown}</ul><a class="all" href="${esc(firmPath(f, 'lawyers'))}">${lw.length > 8 ? `See all ${lw.length} lawyers` : 'See the lawyers page'} &rarr;</a></section>`;
 }
 
@@ -447,7 +447,7 @@ function lawyersTabHtml(f, lw, prov) {
     const has = lawyerHasPage(l);
     const p = inPractice(l.callYear);
     const facts = [p ? (p.years >= 2 ? `${p.years} years in practice` : `In practice ${p.text}`) : '', l.languages ? joinAnd(l.languages) : ''].filter(Boolean).join(' · ');
-    return `<li class="lw-person">${lawyerAvatar(l)}<div>${l.featured ? '<span class="lw-feat">Featured</span>' : ''}<b>${has ? `<a href="/lawyer/${esc(l.addr || l.slug)}">${esc(l.name)}</a>` : esc(l.name)}</b>${l.title ? `<span class="t">${esc(l.title)}</span>` : ''}${facts ? `<span class="f">${esc(facts)}</span>` : ''}${callLink(l, 'call')}${has ? `<a class="go" href="/lawyer/${esc(l.addr || l.slug)}">View profile &rarr;</a>` : ''}</div></li>`;
+    return `<li class="lw-person">${lawyerAvatar(l)}<div>${l.featured ? '<span class="lw-feat">Featured</span>' : ''}<b>${has ? `<a href="/${esc(l.addr)}">${esc(l.name)}</a>` : esc(l.name)}</b>${l.title ? `<span class="t">${esc(l.title)}</span>` : ''}${facts ? `<span class="f">${esc(facts)}</span>` : ''}${callLink(l, 'call')}${has ? `<a class="go" href="/${esc(l.addr)}">View profile &rarr;</a>` : ''}</div></li>`;
   }).join('');
   // no lead sentence: the heading, the tab's count and the firm's own page already say who the lawyers are and what the firm does
   return `\n    <h1 class="pf-h1">Lawyers at ${esc(f.name)}</h1>\n    <ul class="lw-grid" style="list-style:none;padding:0">${cards}</ul>${claimHtml(f, lw)}\n    <p class="pf-note">${lawyerNote(lw)}</p>`;
@@ -467,7 +467,7 @@ function articlesPageHtml(f, articles, prov) {
 }
 
 function lawyerPageHtml(f, lw, l, prov) {
-  const others = lw.filter((x) => x.slug !== l.slug).slice(0, 6).map((x) => `<li>${lawyerHasPage(x) ? `<a href="/lawyer/${esc(x.addr || x.slug)}">${esc(x.name)}</a>` : `<span>${esc(x.name)}</span>`}</li>`).join('');
+  const others = lw.filter((x) => x.slug !== l.slug).slice(0, 6).map((x) => `<li>${lawyerHasPage(x) ? `<a href="/${esc(x.addr)}">${esc(x.name)}</a>` : `<span>${esc(x.name)}</span>`}</li>`).join('');
   const links = callLink(l, 'pf-btn') + (l.linkedin ? `<a class="pf-btn" href="${esc(l.linkedin)}" target="_blank" rel="noopener nofollow">LinkedIn</a>` : '') + (l.site ? `<a class="pf-btn" href="${esc(l.site)}" target="_blank" rel="noopener nofollow">On the firm's website</a>` : '') + `<a class="pf-btn pf-primary" href="/firms/${esc(f.slug)}#contact">Request a consultation</a>`;
   // The heading already says who the lawyer is and where they work, so the page does not say it again: what follows is only what is not already on the page.
   return `\n    <p class="lp-back"><a href="${esc(firmPath(f, 'lawyers'))}">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="${esc(firmPath(f))}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>${considerHtml(l)}\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="${esc(firmPath(f, 'lawyers'))}">See all lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">${lawyerNote([l])}</p>`;
@@ -478,13 +478,13 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
   const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-lawdb.jpg`;
   // Which page of the profile: the Overview, the Lawyers page, or one lawyer's page. null when that page has nothing to show (the route answers 404, never an empty page).
-  const lw = lawyersOf(f).map((l) => ({ ...l, addr: (view && view.lawyerAddr && view.lawyerAddr[l.slug]) || l.slug })); // addr: the lawyer's own page is /lawyer/<addr>
+  const lw = lawyersOf(f).map((l) => ({ ...l, addr: (view && view.lawyerAddr && view.lawyerAddr[l.slug]) || l.slug.replace(/-/g, '') })); // addr: the lawyer's own page is /<addr>
   const tabs = profileTabs(f, lw, articles);
   const tab = view && view.tab === 'lawyers' ? 'lawyers' : view && view.tab === 'lawyer' ? 'lawyer' : view && view.tab === 'articles' ? 'articles' : 'overview';
   const lawyer = tab === 'lawyer' ? lw.find((x) => x.slug === view.lawyer) : null;
   if ((tab === 'lawyers' && !lw.length) || (tab === 'lawyer' && !(lawyer && lawyerHasPage(lawyer))) || (tab === 'articles' && !articlesTabOn(articles))) return null;
   const base = `${origin}${firmPath(f)}`;
-  const url = tab === 'overview' ? base : tab === 'lawyers' ? `${base}/lawyers` : tab === 'articles' ? `${base}/articles` : `${origin}/lawyer/${lawyer.addr || lawyer.slug}`;
+  const url = tab === 'overview' ? base : tab === 'lawyers' ? `${base}/lawyers` : tab === 'articles' ? `${base}/articles` : `${origin}/${lawyer.addr}`;
   const about = typeof f.about === 'string' ? f.about.trim() : '';
   // The search result shows about 155 characters: as many names as fit, then "and N more".
   const lawyersDesc = () => {
@@ -534,7 +534,7 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
     ...(num(f.lat) && num(f.lng) && !f.approxCoords ? { geo: { '@type': 'GeoCoordinates', latitude: f.lat, longitude: f.lng } } : {}),
     url: base,
     ...(customCover ? { image: ogImage } : {}),
-    ...(tab === 'lawyers' ? { employee: lw.map((l) => ({ '@type': 'Person', name: l.name, ...(l.title ? { jobTitle: l.title } : {}), ...(lawyerHasPage(l) ? { url: `${origin}/lawyer/${l.addr || l.slug}` } : {}) })) } : {}),
+    ...(tab === 'lawyers' ? { employee: lw.map((l) => ({ '@type': 'Person', name: l.name, ...(l.title ? { jobTitle: l.title } : {}), ...(lawyerHasPage(l) ? { url: `${origin}/${l.addr}` } : {}) })) } : {}),
     ...(website ? { sameAs: [website] } : {}),
     ...(glance ? { ...(glance.founded ? { foundingDate: String(glance.founded) } : {}), ...(glance.languages ? { knowsLanguage: glance.languages } : {}), ...(glance.serving ? { areaServed: glance.serving } : {}) } : {}),
   };

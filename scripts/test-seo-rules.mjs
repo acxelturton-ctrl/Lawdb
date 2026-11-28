@@ -37,7 +37,7 @@ ok(/f\.featured \? 'noopener sponsored' : 'noopener nofollow'/.test(mapJs), 'the
 const blocks = (html) => [...html.matchAll(/<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/g)].map((m) => JSON.parse(m[1]));
 const [svc, crumbs] = blocks(basic);
 ok(svc['@type'] === 'LegalService' && !('aggregateRating' in svc) && !('review' in svc), 'the firm page still has no rating of its own in its structured data');
-ok(crumbs && crumbs['@type'] === 'BreadcrumbList' && crumbs.itemListElement.map((i) => i.position).join() === '1,2,3,4,5' && crumbs.itemListElement.at(-1).item === 'https://lawdb.ca/firm/zubic-law'
+ok(crumbs && crumbs['@type'] === 'BreadcrumbList' && crumbs.itemListElement.map((i) => i.position).join() === '1,2,3,4,5' && crumbs.itemListElement.at(-1).item === 'https://lawdb.ca/zubic-law'
   && crumbs.itemListElement.map((i) => i.name).join('|') === 'LawDB|Canada|Ontario|Niagara Falls|Zubic Law', 'the firm page has a breadcrumb in its structured data: home, Canada, province, city, the firm, numbered in order');
 const noHub = blocks(renderFirmPage({ firm: { ...firm, city: 'Smallville' } }))[1];
 ok(noHub.itemListElement.length === 4 && noHub.itemListElement.every((i) => i.name !== 'Smallville'), 'a city with no page of its own is left out of the breadcrumb, as in the visible one');
@@ -56,7 +56,7 @@ const rows = (n) => Array.from({ length: n }, (_, i) => ({ slug: `firm-${i}`, up
 ok(FIRM_SITEMAP_LIMIT >= 10000 && FIRM_SITEMAP_LIMIT <= 45000 && STORY_SITEMAP_LIMIT >= 20000 && STORY_SITEMAP_LIMIT <= 45000, 'the sitemap limits have room to grow and stay under the 50,000 addresses one file may hold');
 const small = await firmSitemap({ request: new Request('https://lawdb.ca/sitemap-firms.xml'), env: fakeEnv([...rows(3), { slug: 'thin', updatedAt: '2026-10-01 10:00:00', about: 'too short' }]) });
 const smallXml = await small.text();
-ok(small.status === 200 && (smallXml.match(/<url>/g) || []).length === 3 && !smallXml.includes('/firm/thin<') && !small.headers.has('x-sitemap-truncated') && /<lastmod>2026-10-01<\/lastmod>/.test(smallXml), 'the firms sitemap lists indexable firms with their dates, leaves out a thin one, and does not claim to be cut off');
+ok(small.status === 200 && (smallXml.match(/<url>/g) || []).length === 3 && !smallXml.includes('/thin<') && !small.headers.has('x-sitemap-truncated') && /<lastmod>2026-10-01<\/lastmod>/.test(smallXml), 'the firms sitemap lists indexable firms with their dates, leaves out a thin one, and does not claim to be cut off');
 const origError = console.error; let logged = ''; console.error = (...a) => { logged += a.join(' '); };
 const big = await firmSitemap({ request: new Request('https://lawdb.ca/sitemap-firms.xml'), env: fakeEnv(rows(FIRM_SITEMAP_LIMIT)) });
 console.error = origError;

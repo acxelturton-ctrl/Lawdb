@@ -24,7 +24,7 @@ export async function firmSitemap({ request, env }) {
     const withArticles = await indexableArticleSlugs(env).catch((err) => { console.error('article tabs for the sitemap failed', err); return new Set(); });
     const day = (d) => { const t = d ? new Date(String(d).replace(' ', 'T') + 'Z') : null; return t && !Number.isNaN(t.getTime()) ? t.toISOString().slice(0, 10) : ''; };
     // The Lawyers page of a firm that has two or more lawyers to show (one when the admin set lawyersSolo), and a page for each Featured lawyer (src/lib/lawyers.js: only a Featured lawyer at a
-    // Featured firm has a page of their own, at /lawyer/<name>, src/lib/lawyer-address.js).
+    // Featured firm has a page of their own, at /<name>, src/lib/lawyer-address.js).
     const lawyerPages = await lawyerDirectory(env).catch((err) => { console.error('lawyer pages for the sitemap failed', err); return { byFirm: new Map() }; });
     const urls = [];
     for (const r of listed) {
@@ -36,7 +36,7 @@ export async function firmSitemap({ request, env }) {
       try { lw = lawyersOf({ lawyers: r.lawyers ? JSON.parse(r.lawyers) : null, lawyersOff: r.lawyersOff, lawyersSolo: Number(r.lawyersSolo) === 1, featured: !!r.featured }); } catch { /* no lawyers */ }
       if (withArticles.has(r.slug)) urls.push(loc(firmPath(f, 'articles')));
       if (lw.length) urls.push(loc(firmPath(f, 'lawyers')));
-      for (const addr of Object.values((lawyerPages.byFirm.get(r.slug)) || {})) urls.push(loc(`/lawyer/${encodeURIComponent(addr)}`));
+      for (const addr of Object.values((lawyerPages.byFirm.get(r.slug)) || {})) urls.push(loc(`/${addr}`));
     }
     const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls.join('\n') + '\n</urlset>\n';
     return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=600', ...(truncated ? { 'x-sitemap-truncated': '1' } : {}) } });

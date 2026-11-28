@@ -70,8 +70,9 @@ const getRaw = async (path) => {
   const res = await fetch(BASE + path, { redirect: 'manual', signal: AbortSignal.timeout(15000) });
   return { status: res.status, headers: res.headers, text: await res.text() };
 };
-// A firm's page is /firm/<handle>, and the old /firms/<slug> redirects there: the address of a firm's page, asked of the public API (a firm with no handle yet is at /firm/<slug>)
-const firmAt = async (slug) => { const r = await call('GET', '/api/firms/' + slug); return '/firm/' + ((r.data && r.data.handle) || slug); };
+// A firm's page is lawdb.ca/<handle> (no dashes), and the old /firms/<slug> redirects there: the address of a firm's page, asked of the public API (a firm with no handle yet is at /<slug>)
+const firmAt = async (slug) => { const r = await call('GET', '/api/firms/' + slug); return '/' + ((r.data && r.data.handle) || slug); };
+const hdl = (slug) => '/' + slug.replace(/-/g, ''); // the address an admin's new slug gets: the slug without its dashes
 const inlineFirms = (html) => {
   const m = html.match(/^const firms = (\[.*\]);$/m);
   return m ? JSON.parse(m[1]) : null;
@@ -817,13 +818,13 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const artPage = artRes.text;
   const cardCount = (artPage.match(/<article class="fa-row">/g) || []).length;
   ok(!featPage.includes('class="fa"') && !featPage.includes('class="fa-row"') && !featPage.includes('Charged With Impaired Driving'), 'the Overview has no articles at the bottom: they are on their own page');
-  ok(artRes.status === 200 && cardCount === 3 && /href="\/firm\/daniel-brown-law-llp\/articles" aria-current="page">Articles <span class="n">3<\/span>/.test(artPage) && /<a href="\/firm\/daniel-brown-law-llp">Overview<\/a>/.test(artPage) && /href="\/firm\/daniel-brown-law-llp\/articles">Articles <span class="n">3<\/span>/.test(featPage), 'the firm\'s articles are on an Articles page of their own, with an Articles tab next to Overview');
-  ok(!artRes.headers.get('x-robots-tag') && /<link rel="canonical" href="https:\/\/lawdb.ca\/firm\/daniel-brown-law-llp\/articles">/.test(artPage), 'a Featured firm\'s Articles page is offered to search engines, with its own canonical');
+  ok(artRes.status === 200 && cardCount === 3 && /href="\/daniel-brown-law-llp\/articles" aria-current="page">Articles <span class="n">3<\/span>/.test(artPage) && /<a href="\/daniel-brown-law-llp">Overview<\/a>/.test(artPage) && /href="\/daniel-brown-law-llp\/articles">Articles <span class="n">3<\/span>/.test(featPage), 'the firm\'s articles are on an Articles page of their own, with an Articles tab next to Overview');
+  ok(!artRes.headers.get('x-robots-tag') && /<link rel="canonical" href="https:\/\/lawdb.ca\/daniel-brown-law-llp\/articles">/.test(artPage), 'a Featured firm\'s Articles page is offered to search engines, with its own canonical');
   ok(artPage.includes('Charged With Impaired Driving') && artPage.includes('Tom &amp; Jerry&#x27;s Guide') && !artPage.includes('evil.example') && !artPage.includes('<script>alert') && !artPage.includes('onerror=alert'), 'card text is escaped and off-site links never appear');
   const storyHref = (/href="(\/news\/daniel-brown-law-llp\/charged-with-impaired-driving-what-happens-next-\d+)"/.exec(artPage) || [])[1];
   ok(!!storyHref && !artPage.includes(`href="${origin}/blog/impaired"`), 'each article opens the story\'s own LawDB page');
   const story = await getRaw(storyHref || '/news/none/x-1');
-  ok(story.status === 200 && story.text.includes('<h1>Charged With Impaired Driving: What Happens Next</h1>') && story.text.includes(`href="${origin}/blog/impaired"`) && story.text.includes('Read the full article on 127.0.0.1') && story.text.includes(`rel="canonical" href="https://lawdb.ca${storyHref}"`) && story.text.includes('"@type":"BreadcrumbList"') && story.text.includes('href="/firm/daniel-brown-law-llp"') && !story.text.includes('<script>alert') && !story.text.includes('onerror=alert'), 'the story page shows the headline, the firm, the preview, a link to the full article, and a canonical address');
+  ok(story.status === 200 && story.text.includes('<h1>Charged With Impaired Driving: What Happens Next</h1>') && story.text.includes(`href="${origin}/blog/impaired"`) && story.text.includes('Read the full article on 127.0.0.1') && story.text.includes(`rel="canonical" href="https://lawdb.ca${storyHref}"`) && story.text.includes('"@type":"BreadcrumbList"') && story.text.includes('href="/daniel-brown-law-llp"') && !story.text.includes('<script>alert') && !story.text.includes('onerror=alert'), 'the story page shows the headline, the firm, the preview, a link to the full article, and a canonical address');
   ok(story.text.includes('This is a short preview') && !story.text.includes(longText.repeat(2)), 'the page carries only the short preview, never the full article');
   const part = await getRaw(storyHref + '?partial=1');
   ok(part.status === 200 && !/<html|<head/i.test(part.text) && part.text.includes('class="st"') && part.headers.get('x-robots-tag') === 'noindex', 'the expanded view is just the story (and is not indexed on its own)');
@@ -925,15 +926,15 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const poolText = readFileSync(new URL('../src/render/home-pool.generated.js', import.meta.url), 'utf8');
   const dailyOf = (html) => (html.match(/<!--more-firms-->([\s\S]*)<!--\/more-firms-->/) || [, ''])[1];
   const dailyA = dailyOf((await getRaw('/')).text), dailyB = dailyOf((await getRaw('/')).text);
-  const handleToSlug = Object.fromEntries(Object.entries(loadHandles()).map(([slug, h]) => [h, slug])); // the cards link to /firm/<handle>; the pool and the saved list are slugs
-  const dailySlugs = [...dailyA.matchAll(/<h3><a href="\/firm\/([^"]+)"/g)].map((m) => handleToSlug[m[1]] || m[1]);
+  const handleToSlug = Object.fromEntries(Object.entries(loadHandles()).map(([slug, h]) => [h, slug])); // the cards link to /<handle>; the pool and the saved list are slugs
+  const dailySlugs = [...dailyA.matchAll(/<h3><a href="\/([^"]+)"/g)].map((m) => handleToSlug[m[1]] || m[1]);
   ok(dailySlugs.length === 12 && new Set(dailySlugs).size === 12 && dailySlugs.every((s) => poolText.includes(`"${s}"`)) && dailyA === dailyB, "the home page shows 12 top-rated firms, all from the daily pool, the same on every visit");
   // This test database only has the original 377 firms, which have no cover pictures stored, so there are too few eligible firms and the page rightly keeps its saved cards
   // (no header). The daily pick itself is proven by scripts/test-home-daily.mjs and, on a database like the real one, by the header: x-lawdb-home-strip: daily.
   const savedList = JSON.parse(readFileSync(new URL('../data/home-firms.json', import.meta.url), 'utf8')).firms;
   const stripHeader = (await getRaw('/')).headers.get('x-lawdb-home-strip');
   ok(stripHeader === 'daily' ? JSON.stringify(dailySlugs) !== JSON.stringify(savedList) : (stripHeader === null && JSON.stringify(dailySlugs) === JSON.stringify(savedList)), "the strip says which it is: today's pick (header, and not the saved list) or the saved cards (no header)");
-  ok(!dailyA.includes('/firm/blottman') && !dailyA.includes('/firm/barbarian-law') && dailyA.includes('class="lc-rate"') && dailyA.includes('class="lc-call"'), 'no Featured firm is in the rotation, and the cards carry the rating and the Call button');
+  ok(!dailyA.includes('href="/blottman') && !dailyA.includes('href="/barbarianlaw') && !dailyA.includes('href="/barbarian-law') && dailyA.includes('class="lc-rate"') && dailyA.includes('class="lc-call"'), 'no Featured firm is in the rotation, and the cards carry the rating and the Call button');
   const home = await getRaw('/');
   ok(/<section class="hn" id="homeNews"(?! hidden)/.test(home.text) && /<div class="lw-bc-grid lw-feed hn-track" id="homeNewsGrid"[^>]*>\s*<article class="lw-bc/.test(home.text), 'the home page shows a short news row under the search bar (the section is un-hidden once there are articles)');
   ok(/<a class="hn-seeall" href="\/news">See all LawDB News/.test(home.text) && !home.text.includes('homeNewsMore') && (home.text.match(/<article[^>]* class="lw-bc[ "]/g) || []).length <= 6, 'the row is short and ends with a link to the full LawDB News page (no long feed on the home page)');
@@ -1252,8 +1253,8 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
     { t: 'pv', p: `/firms/${SLUG}`, m: 1, s: 1, v: 1, r: 'www.google.com', u: 'Spring' },
     { t: 'pv', p: `/firms/${SLUG}`, m: 0, s: 1, v: 1, r: '' },
     { t: 'pv', p: `/firms/${SLUG}`, m: 1, s: 0, v: 1 },
-    { t: 'pv', p: `/firm/${SLUG}`, m: 1, s: 0, v: 0 }, // the page's own address, /firm/<handle>: counted for the firm all the same
-    { t: 'ev', e: 'call', p: `/firms/${SLUG}` }, { t: 'ev', e: 'call', p: `/firm/${SLUG}` }, { t: 'ev', e: 'website', p: `/firms/${SLUG}` },
+    { t: 'pv', p: `/${SLUG}`, m: 1, s: 0, v: 0 }, // the page's own address, /<handle>: counted for the firm all the same
+    { t: 'ev', e: 'call', p: `/firms/${SLUG}` }, { t: 'ev', e: 'call', p: `/${SLUG}` }, { t: 'ev', e: 'website', p: `/firms/${SLUG}` },
     { t: 'ev', e: 'message', p: `/firms/${SLUG}` }, { t: 'ev', e: 'social-linkedin', p: `/firms/${SLUG}` },
     { t: 'pv', p: '/firms/no-such-firm-xyz', v: 1 }, // not a firm: counted for nobody
   ];
@@ -2207,17 +2208,17 @@ ok(actions.includes('login.throttled'), 'throttled sign-in requests are logged')
   const nowAt = (await call('GET', `/api/admin/firms/${addrB}`)).data;
   ok(nowAt.slug === addrB && nowAt.firm.slug === addrB && nowAt.firm.name === `Address Test Firm ${run}` && (await call('GET', `/api/admin/firms/${addrA}`)).status === 404, 'the firm is found at the new address only, and its record carries the new address too');
   ok((await call('GET', `/api/admin/firms/${addrB}/verification`)).data.status === 'verified' && (await call('GET', `/api/admin/firms/${addrB}/analytics`)).data.plan?.trial?.status === 'active', 'its verification and free month came with it');
-  const pgNew = await hopTo('/firm/' + addrB), pgOld = await hopTo('/firms/' + addrA);
-  ok(pgNew.status === 200 && pgNew.text.includes(`/firm/${addrB}`) && !pgNew.text.includes(`/firm/${addrA}"`), 'the new address shows the page, naming only the new address');
-  ok(pgOld.status === 301 && pgOld.location === `/firm/${addrB}`, 'the old address redirects to it for good (301)');
-  ok((await hopTo(`/firms/${addrA}?utm=x`)).location === `/firm/${addrB}?utm=x`, 'a redirect keeps what follows the address');
+  const pgNew = await hopTo(hdl(addrB)), pgOld = await hopTo('/firms/' + addrA);
+  ok(pgNew.status === 200 && pgNew.text.includes(hdl(addrB)) && !pgNew.text.includes(`${hdl(addrA)}"`), 'the new address shows the page, naming only the new address');
+  ok(pgOld.status === 301 && pgOld.location === hdl(addrB), 'the old address redirects to it for good (301)');
+  ok((await hopTo(`/firms/${addrA}?utm=x`)).location === `${hdl(addrB)}?utm=x`, 'a redirect keeps what follows the address');
   const addrMap = (await getRaw('/sitemap-firms.xml')).text;
   ok(addrMap.includes((await firmAt(addrB)) + '<') && !addrMap.includes((await firmAt(addrA)) + '<'), 'the firms sitemap lists the new address and not the old one');
   ok((await call('GET', '/api/admin/audit?limit=100')).data.entries.some((e) => e.action === 'firm.rename_slug' && e.entity_id === addrB), 'the change is in the activity log');
   // again: the first old address follows the firm, there are no chains
-  ok((await call('PUT', `/api/admin/firms/${addrB}/slug`, { slug: addrC })).status === 200 && (await hopTo('/firms/' + addrA)).location === `/firm/${addrC}` && (await hopTo('/firms/' + addrB)).location === `/firm/${addrC}` && (await hopTo('/firm/' + addrA)).location === `/firm/${addrC}` && (await hopTo('/firm/' + addrC)).status === 200, 'a second change: both old addresses (/firms/ and /firm/) go straight to the newest one');
+  ok((await call('PUT', `/api/admin/firms/${addrB}/slug`, { slug: addrC })).status === 200 && (await hopTo('/firms/' + addrA)).location === hdl(addrC) && (await hopTo('/firms/' + addrB)).location === hdl(addrC) && (await hopTo('/' + addrA)).location === hdl(addrC) && (await hopTo(hdl(addrC))).status === 200, 'a second change: both old addresses (/firms/<slug> and /<slug>) go straight to the newest one');
   // and back to an old address: it is live again, the others still redirect
-  ok((await call('PUT', `/api/admin/firms/${addrC}/slug`, { slug: addrA })).status === 200 && (await hopTo('/firm/' + addrA)).status === 200 && (await hopTo('/firms/' + addrB)).location === `/firm/${addrA}` && (await hopTo('/firms/' + addrC)).location === `/firm/${addrA}`, 'changing back to a former address makes it live again; the others redirect to it');
+  ok((await call('PUT', `/api/admin/firms/${addrC}/slug`, { slug: addrA })).status === 200 && (await hopTo(hdl(addrA))).status === 200 && (await hopTo('/firms/' + addrB)).location === hdl(addrA) && (await hopTo('/firms/' + addrC)).location === hdl(addrA), 'changing back to a former address makes it live again; the others redirect to it');
   // refusals
   const refuseAddr = async (path, body) => (await call('PUT', path, body)).status;
   ok(await refuseAddr(`/api/admin/firms/${addrA}/slug`, { slug: 'achkar-law' }) === 409 && await refuseAddr(`/api/admin/firms/${addrA}/slug`, { slug: addrA }) === 422 && await refuseAddr('/api/admin/firms/no-such-firm-xyz/slug', { slug: 'fine-address' }) === 404, 'an address another firm has, the same address, and an unknown firm are refused');

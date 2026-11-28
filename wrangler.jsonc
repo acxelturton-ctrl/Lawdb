@@ -15,7 +15,7 @@
       "/firms_data.json", "/blog_data.json", "/firms_hours.json",
       "/find-lawyers",
       "/", "/for-firms",
-      "/firms/*", "/firm/*", "/lawyer/*",
+      "/firms/*",
       "/report-listing",
       "/news", "/news/*", "/sitemap-news.xml", "/sitemap-firms.xml", "/*.html",
       "/img/*",

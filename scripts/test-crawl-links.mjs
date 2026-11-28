@@ -35,7 +35,7 @@ ok(unlinked.length === 0, `every firm page is linked from its city hub (${firms.
 
 for (const [key, html] of hubOf) {
   const m = html.match(/<h3>All (\d+) law firms in [^<]+<\/h3><ul class="seo-all">([\s\S]*?)<\/ul>/);
-  const n = m ? (m[2].match(/<li><a href="\/firm\//g) || []).length : -1;
+  const n = m ? (m[2].match(/<li><a href="\/(?!firms\/)[a-z0-9]/g) || []).length : -1;
   if (!m || Number(m[1]) !== n) { ok(false, `${key}: the A to Z list matches its heading`); break; }
 }
 ok(true, 'each hub\'s A to Z list matches its heading');

@@ -1,4 +1,4 @@
-// The Lawyers page of a firm (/firm/<handle>/lawyers) and the page of a lawyer who has enough to say (/lawyer/<name>):
+// The Lawyers page of a firm (/<handle>/lawyers) and the page of a lawyer who has enough to say (/<name>, like lawdb.ca/tatianagulyaeva):
 //   node --no-warnings scripts/test-lawyers.mjs
 // Checks the clean-up rules (src/lib/lawyers.js), the pages (src/render/firm-page.js), the sitemap (src/routes/firm-sitemap.js) and the stored data
 // (data/firm-lawyers.json): no thin or empty pages, no billing rates or testimonial text as a title, nothing shown without being checked, a unique title,
@@ -129,8 +129,8 @@ const pageWorthy = lw.find((l) => lawyerHasPage(l));
 ok(lw.length >= 4 && !!pageWorthy, `pilot ${PILOT}: ${lw.length} lawyers, ${lw.filter(lawyerHasPage).length} with a page of their own`);
 const views = { overview: render(withLawyers), lawyers: render(withLawyers, { tab: 'lawyers' }), lawyer: render(withLawyers, { tab: 'lawyer', lawyer: pageWorthy.slug }) };
 const p = Object.fromEntries(Object.entries(views).map(([k, h]) => [k, parts(h)]));
-const root = `https://lawdb.ca/firm/${PILOT}`; // the pilot has no handle in this test, so its address is /firm/<slug>
-ok(p.overview.canon === root && p.lawyers.canon === `${root}/lawyers` && p.lawyer.canon === `https://lawdb.ca/lawyer/${pageWorthy.slug}`, 'every page is its own canonical');
+const root = `https://lawdb.ca/${PILOT}`; // the pilot has no handle in this test, so its address is /<slug>
+ok(p.overview.canon === root && p.lawyers.canon === `${root}/lawyers` && p.lawyer.canon === `https://lawdb.ca/${pageWorthy.slug.replace(/-/g, '')}`, 'every page is its own canonical');
 ok(new Set(Object.values(p).map((x) => x.title)).size === 3 && new Set(Object.values(p).map((x) => x.desc)).size === 3, 'titles and descriptions are all different');
 ok(p.lawyers.title === `${pilot.name} – Lawyers in ${pilot.city} | LawDB` && p.lawyer.title === `${pageWorthy.name} – ${pageWorthy.title} at ${pilot.name} | LawDB`, `titles: "${p.lawyers.title}" and "${p.lawyer.title}"`);
 ok(Object.values(p).every((x) => x.h1 === 1 && x.title.length <= 100 && x.desc.length >= 60 && x.desc.length <= 160), 'one h1 per page; titles and descriptions of a sensible length');
@@ -143,10 +143,10 @@ const crumbs = (x) => (ldOf(x, 'BreadcrumbList')?.itemListElement || []);
 ok(crumbs(p.overview).length === 5 && crumbs(p.lawyers).length === 6 && crumbs(p.lawyer).length === 7 && crumbs(p.lawyer).every((c, i) => c.position === i + 1 && c.name) && crumbs(p.lawyer).at(-1).name === pageWorthy.name && crumbs(p.lawyers).at(-1).name === 'Lawyers', 'breadcrumbs: Home > Country > Province > City > Firm > Lawyers > Lawyer');
 ok(crumbs(p.lawyer).slice(0, -1).every((c) => /^https:\/\/lawdb\.ca\//.test(c.item)), 'every breadcrumb but the last links to a page');
 const tabs = (h) => (h.match(/<nav class="pf-tabs"[\s\S]*?<\/nav>/) || [''])[0];
-ok(Object.values(views).every((h) => /<a href="\/firm\/[^"]+">Overview<\/a>|<a href="\/firm\/[^"]+" aria-current="page">Overview<\/a>/.test(tabs(h)) && /href="\/firm\/[^"]+\/lawyers"/.test(tabs(h))), 'the tab bar is made of plain links on every page');
+ok(Object.values(views).every((h) => /<a href="\/[^"]+">Overview<\/a>|<a href="\/[^"]+" aria-current="page">Overview<\/a>/.test(tabs(h)) && /href="\/[^"]+\/lawyers"/.test(tabs(h))), 'the tab bar is made of plain links on every page');
 ok(/aria-current="page">Overview/.test(tabs(views.overview)) && /aria-current="page">Lawyers/.test(tabs(views.lawyers)) && /aria-current="page">Lawyers/.test(tabs(views.lawyer)), 'the open tab is marked');
-ok(views.overview.includes(`href="/firm/${PILOT}/lawyers"`) && views.lawyer.includes(`href="/firm/${PILOT}/lawyers"`) && views.lawyer.includes(`href="/firm/${PILOT}"`), 'the Overview links to the Lawyers page; a lawyer page links back to the firm and to all lawyers');
-ok(lw.every((l) => views.lawyers.includes(l.name)) && lw.filter(lawyerHasPage).every((l) => views.lawyers.includes(`href="/lawyer/${l.slug}"`)) && lw.filter((l) => !lawyerHasPage(l)).every((l) => !views.lawyers.includes(`/lawyer/${l.slug}"`)), 'the Lawyers page lists everyone and links only the lawyers who have a page');
+ok(views.overview.includes(`href="/${PILOT}/lawyers"`) && views.lawyer.includes(`href="/${PILOT}/lawyers"`) && views.lawyer.includes(`href="/${PILOT}"`), 'the Overview links to the Lawyers page; a lawyer page links back to the firm and to all lawyers');
+ok(lw.every((l) => views.lawyers.includes(l.name)) && lw.filter(lawyerHasPage).every((l) => views.lawyers.includes(`href="/${l.slug.replace(/-/g, '')}"`)) && lw.filter((l) => !lawyerHasPage(l)).every((l) => !views.lawyers.includes(`href="/${l.slug.replace(/-/g, '')}"`)), 'the Lawyers page lists everyone and links only the lawyers who have a page');
 ok(!/(?:href|src)="\.\.\//.test(views.lawyers) && !/(?:href|src)="\.\.\//.test(views.lawyer), 'no relative "../" links on the nested pages');
 ok(!/<img[^>]+class="[^"]*lw-av[^"]*"[^>]*src=/.test(views.lawyers) && !views.lawyers.includes('firm.example') && !/<img[^>]*(?:photo|headshot)/i.test(views.lawyer), 'no lawyer picture on any page until pictures are confirmed');
 const confirmed = render({ ...withLawyers, lawyers: withLawyers.lawyers.map((l) => ({ ...l, photoConfirmed: true })) }, { tab: 'lawyers' });
@@ -184,7 +184,7 @@ ok(render({ ...pilot, about: copy[PILOT] }, { tab: 'lawyers' }) === null && !tab
       if (x.h1 !== 1) flaws.push(`${slug} ${view.lawyer || 'lawyers'}: ${x.h1} h1`);
       if (x.desc.length < 60 || x.desc.length > 160) flaws.push(`${slug} ${view.lawyer || 'lawyers'}: description ${x.desc.length} characters`);
       if (/\$\s?\d|\bretired\b/i.test(x.title + x.desc)) flaws.push(`${slug} ${view.lawyer || 'lawyers'}: figure or "retired" in title or description`);
-      if (!x.canon.endsWith(view.lawyer ? `/lawyer/${view.lawyer}` : '/lawyers')) flaws.push(`${slug}: canonical ${x.canon}`);
+      if (!x.canon.endsWith(view.lawyer ? `/${view.lawyer.replace(/-/g, '')}` : '/lawyers')) flaws.push(`${slug}: canonical ${x.canon}`);
       if (canons.has(x.canon)) flaws.push(`${x.canon}: twice`);
       canons.add(x.canon);
       if (titles.has(x.title)) flaws.push(`title twice: ${x.title}`);
@@ -198,19 +198,19 @@ ok(render({ ...pilot, about: copy[PILOT] }, { tab: 'lawyers' }) === null && !tab
 // ---- the sitemap ----
 const row = (slug, lawyers, extra = {}) => ({ slug, handle: null, updatedAt: '2026-05-01 10:00:00', about: copy[PILOT], lawyers: lawyers ? JSON.stringify(lawyers) : null, lawyersOff: null, featured: 1, ...extra });
 const rows = [row('a-firm', withLawyers.lawyers), row('b-firm', [stored[PILOT][0]]), row('c-firm', null), row('d-firm', stored[PILOT], { lawyersOff: 1 }), row('e-firm', stored[PILOT], { about: 'Short.' }), row('f-firm', withLawyers.lawyers, { featured: 0 })];
-// a database that answers the two questions the sitemap asks: the list of firms, and the Featured firms (for the lawyers' own pages, /lawyer/<name>)
-const fakeDb = (list) => ({ prepare: (sql) => ({ all: async () => ({ results: /featured = 1/.test(sql) ? list.filter((r) => r.featured).map((r) => ({ slug: r.slug, handle: r.handle, data: JSON.stringify({ slug: r.slug, lawyers: r.lawyers ? JSON.parse(r.lawyers) : [], ...(r.lawyersOff ? { lawyersOff: true } : {}), ...(Number(r.lawyersSolo) === 1 ? { lawyersSolo: true } : {}) }) })) : list }) }) });
+// a database that answers the two questions the sitemap asks: the list of firms, and the Featured firms (for the lawyers' own pages, /<name>)
+const fakeDb = (list) => ({ prepare: (sql) => ({ bind: () => ({ all: async () => ({ results: [] }) }), all: async () => ({ results: /featured = 1/.test(sql) ? list.filter((r) => r.featured).map((r) => ({ slug: r.slug, handle: r.handle, data: JSON.stringify({ slug: r.slug, lawyers: r.lawyers ? JSON.parse(r.lawyers) : [], ...(r.lawyersOff ? { lawyersOff: true } : {}), ...(Number(r.lawyersSolo) === 1 ? { lawyersSolo: true } : {}) }) })) : list }) }) });
 const res = await firmSitemap({ request: new Request('https://lawdb.ca/sitemap-firms.xml'), env: { SITE_ORIGIN: 'https://lawdb.ca', DB: fakeDb(rows) } });
 const xml = await res.text();
 const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-ok(locs.includes('https://lawdb.ca/firm/a-firm') && locs.includes('https://lawdb.ca/firm/a-firm/lawyers'), 'the sitemap lists a firm and its Lawyers page');
-const lawyerLocs = locs.filter((u) => u.startsWith('https://lawdb.ca/lawyer/'));
-ok(lw.filter(lawyerHasPage).every((l) => lawyerLocs.includes(`https://lawdb.ca/lawyer/${l.slug}`)) && lawyerLocs.length === lw.filter(lawyerHasPage).length, 'and a page (/lawyer/<name>) for each Featured lawyer of the Featured firm who has one, no more');
-ok(locs.includes('https://lawdb.ca/firm/f-firm/lawyers') && !locs.some((u) => /f-firm\/lawyers\//.test(u)), 'a firm that is not Featured has its Lawyers page in the sitemap, and none of its lawyers has a page of their own');
-ok(!locs.some((u) => /b-firm\/|c-firm\/|d-firm\/|e-firm/.test(u)) && locs.includes('https://lawdb.ca/firm/b-firm') && locs.includes('https://lawdb.ca/firm/d-firm'), 'no Lawyers page in the sitemap for a firm with one lawyer, none, switched off, or held back');
+ok(locs.includes('https://lawdb.ca/a-firm') && locs.includes('https://lawdb.ca/a-firm/lawyers'), 'the sitemap lists a firm and its Lawyers page');
+const lawyerLocs = locs.filter((u) => !/-firm(\/|$)/.test(u)); // the firms in this test are all called x-firm; the other addresses are lawyers' own pages (lawdb.ca/<name>)
+ok(lw.filter(lawyerHasPage).every((l) => lawyerLocs.includes(`https://lawdb.ca/${l.slug.replace(/-/g, '')}`)) && lawyerLocs.length === lw.filter(lawyerHasPage).length, 'and a page (/<name>) for each Featured lawyer of the Featured firm who has one, no more')
+ok(locs.includes('https://lawdb.ca/f-firm/lawyers') && !locs.some((u) => /f-firm\/lawyers\//.test(u)), 'a firm that is not Featured has its Lawyers page in the sitemap, and none of its lawyers has a page of their own');
+ok(!locs.some((u) => /b-firm\/|c-firm\/|d-firm\/|e-firm/.test(u)) && locs.includes('https://lawdb.ca/b-firm') && locs.includes('https://lawdb.ca/d-firm'), 'no Lawyers page in the sitemap for a firm with one lawyer, none, switched off, or held back');
 ok(new Set(locs).size === locs.length, 'no address twice');
-const handled = await (await firmSitemap({ request: new Request('https://lawdb.ca/sitemap-firms.xml'), env: { SITE_ORIGIN: 'https://lawdb.ca', DB: fakeDb([row('old-name-calgary', withLawyers.lawyers, { handle: 'old-name' })]) } })).text();
-ok(handled.includes('https://lawdb.ca/firm/old-name<') && handled.includes('https://lawdb.ca/firm/old-name/lawyers<') && !handled.includes('old-name-calgary'), 'a firm with a handle is listed at /firm/<handle>, never at its slug');
+const handled = await (await firmSitemap({ request: new Request('https://lawdb.ca/sitemap-firms.xml'), env: { SITE_ORIGIN: 'https://lawdb.ca', DB: fakeDb([row('old-name-calgary', withLawyers.lawyers, { handle: 'oldname' })]) } })).text();
+ok(handled.includes('https://lawdb.ca/oldname<') && handled.includes('https://lawdb.ca/oldname/lawyers<') && !handled.includes('old-name-calgary'), 'a firm with a handle is listed at /<handle>, never at its slug');
 
 // ---- one lawyer, when the admin allows it (lawyersSolo on the firm record) ----
 // A firm with one lawyer gets no Lawyers page (no thin pages), unless the admin has confirmed that lawyer and set lawyersSolo. Her own page still needs a Featured plan.
@@ -223,7 +223,7 @@ const soloHtml = render(soloOn, { tab: 'lawyers' });
 const soloP = soloHtml ? parts(soloHtml) : null;
 ok(lawyersOf(soloOn).length === 1 && !!soloHtml && /Tatiana Gulyaeva/.test(soloHtml) && /Immigration Lawyer/.test(soloHtml) && /in practice/.test(soloHtml), 'one lawyer with lawyersSolo: the Lawyers page shows her name, role and years in practice');
 ok(!!soloHtml && soloHtml.includes('src="/images/lawyers/tatiana-gulyaeva.jpg"'), 'her confirmed picture (kept with the site) is shown');
-ok(!!soloP && soloP.h1 === 1 && soloP.canon === `https://lawdb.ca/firm/${solo.slug}/lawyers` && soloP.desc.length <= 160 && /Tatiana Gulyaeva/.test(soloP.desc) && !/1 lawyers/.test(soloP.desc), 'with one h1, its own canonical, and a description in the singular that names her');
+ok(!!soloP && soloP.h1 === 1 && soloP.canon === `https://lawdb.ca/${solo.slug}/lawyers` && soloP.desc.length <= 160 && /Tatiana Gulyaeva/.test(soloP.desc) && !/1 lawyers/.test(soloP.desc), 'with one h1, its own canonical, and a description in the singular that names her');
 ok(render(soloOn, { tab: 'lawyer', lawyer: 'tatiana-gulyaeva' }) === null && lawyersOf(soloOn).every((l) => !lawyerHasPage(l)), 'a page of her own still needs a Featured firm and a Featured lawyer');
 const soloTop = render(soloOn);
 ok(!!soloTop && />Lawyers <span class="n">1<\/span>/.test(soloTop), 'the firm page has the Lawyers tab (with the count 1)');
@@ -231,13 +231,13 @@ ok(lawyersOf({ ...soloOn, lawyersOff: true }).length === 0 && lawyersOf({ ...sol
 const bad1 = cleanLawyers([{ ...tatiana, photo: '/images/lawyers/../secret.jpg' }, { ...tatiana, name: 'Ann Lee', photo: '/images/other/x.jpg' }], undefined, null, { stored: true });
 ok(bad1.every((l) => !l.photo), 'a picture path outside images/lawyers/ is refused');
 const soloXml = await (await firmSitemap({ request: new Request('https://lawdb.ca/sitemap-firms.xml'), env: { SITE_ORIGIN: 'https://lawdb.ca', DB: fakeDb([row('g-firm', [stored[PILOT][0]], { lawyersSolo: 1 }), row('h-firm', [stored[PILOT][0]], { lawyersSolo: null })]) } })).text();
-ok(soloXml.includes('https://lawdb.ca/firm/g-firm/lawyers<') && !soloXml.includes('h-firm/lawyers'), 'the sitemap lists the Lawyers page of a lawyersSolo firm, and not that of a firm with one lawyer without it');
+ok(soloXml.includes('https://lawdb.ca/g-firm/lawyers<') && !soloXml.includes('h-firm/lawyers'), 'the sitemap lists the Lawyers page of a lawyersSolo firm, and not that of a firm with one lawyer without it');
 
 // ---- the address ----
 const env = { ASSETS: { fetch: async () => new Response('', { status: 404 }) }, DB: {}, PUBLIC_CACHE_TTL: '0' };
-const slash = await firmPage({ request: new Request('https://lawdb.ca/firm/a-firm/lawyers/'), env });
-const slash2 = await firmPage({ request: new Request('https://lawdb.ca/lawyer/ann-lee/?x=1'), env });
-ok(slash.status === 301 && slash.headers.get('location') === '/firm/a-firm/lawyers' && slash2.status === 301 && slash2.headers.get('location') === '/lawyer/ann-lee?x=1', 'a trailing slash on the new pages goes to the one address (301)');
+const slash = await firmPage({ request: new Request('https://lawdb.ca/a-firm/lawyers/'), env });
+const slash2 = await firmPage({ request: new Request('https://lawdb.ca/annlee/?x=1'), env });
+ok(slash.status === 301 && slash.headers.get('location') === '/a-firm/lawyers' && slash2.status === 301 && slash2.headers.get('location') === '/annlee?x=1', 'a trailing slash on the new pages goes to the one address (301)');
 
 // ---- an accepted picture (kept on LawDB) is in the person markup as a full address ----
 {

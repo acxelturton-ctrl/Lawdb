@@ -1,4 +1,4 @@
-// /firm/<handle> and /lawyer/<name> (the old /firms/<slug> redirects): every live firm's page is drawn from the database (src/render/firm-page.js), the same way for every firm, whenever it was listed. Each success
+// /<handle> and /<name> (the old /firms/<slug> redirects): every live firm's page is drawn from the database (src/render/firm-page.js), the same way for every firm, whenever it was listed. Each success
 // is cached at the edge for PUBLIC_CACHE_TTL seconds (default 60), so the database is read about once a minute per page, not once per visitor.
 // If the database cannot answer, the saved copy of the page in the site files is served instead (an emergency copy, never a second kind of page).
 import { renderFirmPage } from '../render/firm-page.js';
@@ -10,10 +10,10 @@ import { firmStats } from '../lib/firm-stats.js';
 import { bookingRow } from '../render/booking.js';
 import { listArticles, articlesIndexable } from '../lib/articles.js';
 import { lawyersOf } from '../lib/lawyers.js';
-import { firmPath, firmByToken, currentAddress } from '../lib/firm-handle.js';
+import { firmPath, firmByToken, currentAddress, couldBeFirm } from '../lib/firm-handle.js';
 import { lawyerDirectory } from '../lib/lawyer-address.js';
 
-const CACHE_GENERATION = 13; // 13: the addresses are /firm/<handle> and /lawyer/<name>; 12: the share picture is images/og-lawdb.jpg and og:type is "website"; 11: the footer has a Lead Marketplace link and the firm's form has the optional Lead Marketplace box; 10: the greyed-out Book a call button is a plain tan button (no padlock, no Featured tag); 9: Basic lawyers show name, role and years in practice only, a page of their own is a Featured lawyer's; 8: 8: every firm's articles on the Articles page, none at the bottom of the Overview; 7: the Articles page and a tab bar that can hold more pages; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
+const CACHE_GENERATION = 13; // 13: the addresses are /<handle> and /<name> (no dashes, nothing in front); 12: the share picture is images/og-lawdb.jpg and og:type is "website"; 11: the footer has a Lead Marketplace link and the firm's form has the optional Lead Marketplace box; 10: the greyed-out Book a call button is a plain tan button (no padlock, no Featured tag); 9: Basic lawyers show name, role and years in practice only, a page of their own is a Featured lawyer's; 8: 8: every firm's articles on the Articles page, none at the bottom of the Overview; 7: the Articles page and a tab bar that can hold more pages; // 6: lawyers confirmed by the firm, hidden lawyers and the firm's own lawyer pictures; 5: lawyer initials are first and last name; 4: the Lawyers page and lawyers' own pages; 3: one page for every firm (the hand-built path is gone); 2: Book a call is locked until a firm is Featured
 
 const ttlOf = (env) => {
   const n = Number(env.PUBLIC_CACHE_TTL ?? 60);
@@ -57,8 +57,8 @@ const withFollow = (res, slug, managed, booking = '') => new HTMLRewriter()
 const bookingUrlOf = (row) => { try { return JSON.parse(row.data).bookingUrl || ''; } catch { return ''; } };
 const nameOf = (row) => { try { return JSON.parse(row.data).name || 'This firm'; } catch { return 'This firm'; } };
 
-// Where an old /firms/<slug>... address goes now (a permanent redirect, so no shared link or search result breaks): the firm's /firm/<handle> page, its Lawyers or Articles
-// page, or, for a lawyer who has a page of their own, /lawyer/<name>.
+// Where an old /firms/<slug>... address goes now (a permanent redirect, so no shared link or search result breaks): the firm's /<handle> page, its Lawyers or Articles page, or, for a
+// lawyer who has a page of their own, /<name>.
 async function oldAddress(env, url, m) {
   const cur = await currentAddress(env, m[1]);
   if (!cur || cur.status !== 'live') return null; // a firm switched off or not yet approved has no page, so its old address is not sent anywhere
@@ -66,22 +66,21 @@ async function oldAddress(env, url, m) {
   if (m[2] === 'lawyers' && m[3]) {
     const dir = await lawyerDirectory(env);
     const addr = (dir.byFirm.get(cur.slug) || {})[m[3]];
-    to = addr ? `/lawyer/${addr}` : firmPath(cur, 'lawyers');
+    to = addr ? `/${addr}` : firmPath(cur, 'lawyers');
   }
   return new Response(null, { status: 301, headers: { location: to + url.search, 'cache-control': 'public, max-age=3600' } });
 }
 
 export async function firmPage({ request, env, ctx }) {
   const url = new URL(request.url);
-  // /firm/<handle> (the Overview), /firm/<handle>/lawyers and /firm/<handle>/articles; /lawyer/<name> (a Featured lawyer's own page); and the old /firms/<slug>... addresses, which redirect.
+  // /<handle> (the Overview), /<handle>/lawyers and /<handle>/articles; /<name> (a Featured lawyer's own page); and the old /firms/<slug>... addresses, which redirect.
   const old = url.pathname.match(/^\/firms\/([a-z0-9][a-z0-9-]*?)(?:\/(lawyers|articles)(?:\/([a-z0-9][a-z0-9-]*))?)?\/?$/);
   if (old) {
     try { const moved = await oldAddress(env, url, old); if (moved) return moved; } catch (err) { console.error('old address lookup failed, serving the saved copy', old[1], err); }
     return env.ASSETS.fetch(request); // not in the database: the saved copy in the site files, if there is one (an emergency copy), else the 404 page
   }
-  const lawyerAt = url.pathname.match(/^\/lawyer\/([a-z0-9][a-z0-9-]*)\/?$/);
-  const m = lawyerAt ? null : url.pathname.match(/^\/firm\/([a-z0-9][a-z0-9-]*?)(?:\/(lawyers|articles))?\/?$/);
-  if (!m && !lawyerAt) return env.ASSETS.fetch(request);
+  const m = url.pathname.match(/^\/([a-z0-9][a-z0-9-]*)(?:\/(lawyers|articles))?\/?$/);
+  if (!m || !couldBeFirm(m[1])) return env.ASSETS.fetch(request); // not a firm's address: one of the site's own words, or something that is not an address at all
   if (url.pathname.length > 1 && url.pathname.endsWith('/')) return new Response(null, { status: 301, headers: { location: url.pathname.replace(/\/+$/, '') + url.search, 'cache-control': 'public, max-age=3600' } }); // one address per page
 
   const ttl = ttlOf(env);
@@ -93,31 +92,33 @@ export async function firmPage({ request, env, ctx }) {
 
   let row = null, view = null, slug = '', lawyerAddr = null;
   try {
-    if (lawyerAt) {
-      const dir = await lawyerDirectory(env);
-      const at = dir.byAddr.get(lawyerAt[1]);
-      if (!at) return env.ASSETS.fetch(request);
-      slug = at.firm;
-      lawyerAddr = dir.byFirm.get(slug) || null;
-      view = { tab: 'lawyer', lawyer: at.lawyer, lawyerAddr };
-      row = await env.DB.prepare('SELECT slug, handle, data, hours, about, status, featured FROM firms WHERE slug = ?').bind(slug).first();
-    } else {
-      row = await firmByToken(env, m[1]);
-      slug = row ? row.slug : '';
-      // an address the firm used to have (its old slug or handle) or its slug, when it has a handle: one permanent redirect to the handle
-      if (!row) {
-        const cur = await currentAddress(env, m[1]);
-        if (cur && cur.status === 'live' && firmPath(cur) !== `/firm/${m[1]}`) return new Response(null, { status: 301, headers: { location: firmPath(cur, m[2] || '') + url.search, 'cache-control': 'public, max-age=3600' } });
-      }
+    row = await firmByToken(env, m[1]);
+    if (row) {
+      slug = row.slug;
       view = m[2] === 'articles' ? { tab: 'articles' } : m[2] === 'lawyers' ? { tab: 'lawyers' } : null;
       // a Featured firm's lawyers who have a page of their own are linked on its pages (the Overview teaser, the Lawyers page)
-      if (row && row.featured) lawyerAddr = (await lawyerDirectory(env)).byFirm.get(slug) || null;
+      if (row.featured) lawyerAddr = (await lawyerDirectory(env)).byFirm.get(slug) || null;
       if (lawyerAddr) view = { tab: 'overview', ...view, lawyerAddr };
+    } else if (!m[2]) {
+      // not a firm: a Featured lawyer's own page is at the same kind of address
+      const dir = await lawyerDirectory(env);
+      const at = dir.byAddr.get(m[1]);
+      if (at) {
+        slug = at.firm;
+        lawyerAddr = dir.byFirm.get(slug) || null;
+        view = { tab: 'lawyer', lawyer: at.lawyer, lawyerAddr };
+        row = await env.DB.prepare('SELECT slug, handle, data, hours, about, status, featured FROM firms WHERE slug = ?').bind(slug).first();
+      }
+    }
+    // an address the firm used to have (its old slug or handle), or its slug when it has a handle: one permanent redirect to the handle
+    if (!row) {
+      const cur = await currentAddress(env, m[1]);
+      if (cur && cur.status === 'live' && firmPath(cur) !== `/${m[1]}`) return new Response(null, { status: 301, headers: { location: firmPath(cur, m[2] || '') + url.search, 'cache-control': 'public, max-age=3600' } });
     }
   } catch (err) {
-    console.error('firm lookup failed, serving the saved copy', lawyerAt ? lawyerAt[1] : m[1], err);
+    console.error('firm lookup failed, serving the saved copy', m[1], err);
     // the saved copy of a firm page is kept at its old address, /firms/<slug> (only reachable by slug, and only for the firms that have one)
-    return env.ASSETS.fetch(m ? new Request(`${url.origin}/firms/${m[1]}`, request) : request);
+    return env.ASSETS.fetch(new Request(`${url.origin}/firms/${m[1]}`, request));
   }
 
   // A firm switched off in the admin is shown nowhere. A firm that is not live (waiting for approval) or not listed at all has no page.

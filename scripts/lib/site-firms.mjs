@@ -4,6 +4,7 @@
 //     would ever mention them (scripts/sync-owner-firms.mjs refreshes the file from the live directory).
 // One loader for every script that counts or lists firms, so a page and the number next to it can never disagree.
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { loadHandles } from './firm-handles.mjs';
 
 export const OWNER_FILE = 'data/owner-firms.json';
 
@@ -25,7 +26,9 @@ export function loadSiteFirms() {
   const all = loadRepoFirms();
   const seen = new Set(all.map((f) => f.slug));
   for (const f of loadOwnerFirms()) if (!seen.has(f.slug)) { seen.add(f.slug); all.push(f); }
-  return all;
+  // each firm carries its public address handle (data/firm-handles.json), so a page links to /firm/<handle> (src/lib/firm-handle.js firmPath)
+  const handles = loadHandles();
+  return all.map((f) => (handles[f.slug] ? { ...f, handle: handles[f.slug] } : f));
 }
 
 export const rated = (f) => Number(f.rating) > 0;

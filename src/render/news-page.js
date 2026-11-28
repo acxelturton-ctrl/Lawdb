@@ -2,6 +2,7 @@
 // opens a little wider, and a link to read the full article on the firm's own website. Text only, always escaped.
 import * as C from './firm-chunks.generated.js';
 import { esc, safeUrl } from './firm-page.js';
+import { firmPath } from '../lib/firm-handle.js';
 import { BLOG_CSS, cardHtml, safePostUrl } from './blog-cards.js';
 import { ICON as SOCIAL_ICON } from './story-page.js';
 import { NETWORKS, cleanSocial } from '../lib/social.js';
@@ -153,7 +154,7 @@ const PROVINCE = { AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', NB: 'N
 const headOf = (p) => ({
   avatar: avatarOf(p.logo, p.firmName),
   name: p.firmName,
-  href: `/firms/${p.firmSlug}`,
+  href: firmPath({ slug: p.firmSlug, handle: p.firmHandle }),
   featured: !!p.featured,
   place: [p.city, PROVINCE[p.province] || p.province].filter(Boolean).join(', '),
   follow: `<button class="lw-fbtn" type="button" data-follow="${esc(p.firmSlug)}">Follow</button>`,
@@ -216,7 +217,7 @@ function footHtml(p) {
   const soc = cleanSocial(parseJson(p.social));
   const icons = NETWORKS.filter(({ key }) => soc[key]).map(({ key, label }) =>
     `<a href="${esc(soc[key])}" target="_blank" rel="noopener nofollow" aria-label="${esc(p.firmName)} on ${label}" title="${label}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SOCIAL_ICON[key]}</svg></a>`).join('');
-  return `<div class="cf">${tags.length ? `<span class="cf-tags">${tags.map((t) => `<span>${esc(t)}</span>`).join('')}</span>` : ''}<span class="cf-end">${icons ? `<span class="cf-soc">${icons}</span>` : ''}<a class="cf-go" href="/firms/${esc(p.firmSlug)}">View profile &rarr;</a></span></div>`;
+  return `<div class="cf">${tags.length ? `<span class="cf-tags">${tags.map((t) => `<span>${esc(t)}</span>`).join('')}</span>` : ''}<span class="cf-end">${icons ? `<span class="cf-soc">${icons}</span>` : ''}<a class="cf-go" href="${esc(firmPath({ slug: p.firmSlug, handle: p.firmHandle }))}">View profile &rarr;</a></span></div>`;
 }
 
 const fmtDay = (d) => {

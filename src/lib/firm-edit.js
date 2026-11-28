@@ -12,6 +12,7 @@ import { NETWORKS, cleanSocialUrl } from './social.js';
 import { placeFor } from './geocode.js';
 import { trialAdminChanged } from './trial.js';
 import { mainOf, syncLocationFeatured } from './locations.js';
+import { uniqueHandleFor } from './firm-handle.js';
 
 export function str(v, min, max) {
   if (typeof v !== 'string') throw new HttpError(422, 'Expected text');
@@ -311,9 +312,11 @@ export async function prepareNewFirm(env, body, { requireCoords, coords, checkTe
 }
 
 export async function insertFirm(env, { firm, hours, about }, { status, createdBy }) {
+  // the public address (/firm/<handle>): the slug without the city on the end, made unique (src/lib/firm-handle.js)
+  const handle = await uniqueHandleFor(env, firm.slug, firm.city);
   await env.DB.prepare(
-    "INSERT INTO firms (slug,name,city,province,region,featured,rating,review_count,lat,lng,data,hours,about,page_mode,status,created_by) VALUES (?,?,?,?,?,0,0,0,?,?,?,?,?,'dynamic',?,?)"
+    "INSERT INTO firms (slug,name,city,province,region,featured,rating,review_count,lat,lng,data,hours,about,page_mode,status,created_by,handle) VALUES (?,?,?,?,?,0,0,0,?,?,?,?,?,'dynamic',?,?,?)"
   )
-    .bind(firm.slug, firm.name, firm.city, firm.province, firm.region, firm.lat, firm.lng, JSON.stringify(firm), hours ? JSON.stringify(hours) : null, about, status, createdBy ?? null)
+    .bind(firm.slug, firm.name, firm.city, firm.province, firm.region, firm.lat, firm.lng, JSON.stringify({ ...firm, handle }), hours ? JSON.stringify(hours) : null, about, status, createdBy ?? null, handle)
     .run();
 }

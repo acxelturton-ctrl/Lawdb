@@ -41,10 +41,10 @@ export async function storyPage({ request, env, ctx }) {
     }
     const right = storyPath(ref.firmSlug, post.id, post.title);
     if (url.pathname.replace(/\/$/, '') !== right) return Response.redirect(url.origin + right + url.search, 301); // wrong or old wording
-    firmRow = await env.DB.prepare('SELECT data, featured FROM firms WHERE slug = ?').bind(ref.firmSlug).first();
-    const firm = { ...JSON.parse(firmRow.data), slug: ref.firmSlug, featured: !!firmRow.featured };
+    firmRow = await env.DB.prepare('SELECT data, featured, handle FROM firms WHERE slug = ?').bind(ref.firmSlug).first();
+    const firm = { ...JSON.parse(firmRow.data), slug: ref.firmSlug, featured: !!firmRow.featured, ...(firmRow.handle ? { handle: firmRow.handle } : {}) };
     const more = (await env.DB.prepare('SELECT id, title FROM firm_posts WHERE firm_slug = ? AND id != ? ORDER BY published_at DESC, id DESC LIMIT 5').bind(ref.firmSlug, post.id).all()).results;
-    const nearby = (await env.DB.prepare("SELECT slug, json_extract(data, '$.name') AS name FROM firms WHERE status = 'live' AND city = ? AND province = ? AND slug != ? ORDER BY featured DESC, rating DESC, review_count DESC LIMIT 5").bind(firm.city, firm.province, ref.firmSlug).all()).results;
+    const nearby = (await env.DB.prepare("SELECT slug, handle, json_extract(data, '$.name') AS name FROM firms WHERE status = 'live' AND city = ? AND province = ? AND slug != ? ORDER BY featured DESC, rating DESC, review_count DESC LIMIT 5").bind(firm.city, firm.province, ref.firmSlug).all()).results;
     // Every firm's stories can be opened and shared, but only Featured firms' (and hand-added blogs') are offered to search engines.
     const indexable = isIndexableStory(post);
     const data = { post, firm, more, nearby, origin: env.SITE_ORIGIN || url.origin, indexable };

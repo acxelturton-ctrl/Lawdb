@@ -147,7 +147,7 @@
     return '<article class="cp-card' + (f.featured ? ' cp-feat' : '') + '" data-slug="' + esc(f.slug) + '">'
       + logoTile(f)
       + '<div class="cp-body">' + (f._street ? '<div class="cp-street">' + esc(f._street) + '</div>' : '')
-      + '<h3><a class="cp-link" href="/firms/' + esc(f.slug) + '">' + esc(f.name) + '</a>' + (f.featured ? '<span class="seo-feat">Featured</span>' : (!rated(f) ? '<span class="cp-new">New</span>' : '')) + '</h3>'
+      + '<h3><a class="cp-link" href="/' + esc(f.handle || f.slug) + '">' + esc(f.name) + '</a>' + (f.featured ? '<span class="seo-feat">Featured</span>' : (!rated(f) ? '<span class="cp-new">New</span>' : '')) + '</h3>'
       + rate + (f.address ? '<p class="cp-addr">' + esc(f.address) + '</p>' : '')
       + (tags.length ? '<div class="cp-tags">' + tags.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') + '</div>' : '') + '</div>'
       + (ph ? '<a class="cp-call" href="tel:+1' + digits(f.phone).slice(-10) + '">Call ' + esc(ph) + '</a>' : '')

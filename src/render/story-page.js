@@ -3,6 +3,7 @@
 // The same markup is used as a full page and, with ?partial=1, as the expanded view that opens over the News page.
 import * as C from './firm-chunks.generated.js';
 import { esc, safeUrl } from './firm-page.js';
+import { firmPath } from '../lib/firm-handle.js';
 import { BLOG_CSS, safePostUrl } from './blog-cards.js';
 import { storyPath } from '../lib/stories.js';
 import { NETWORKS, cleanSocial } from '../lib/social.js';
@@ -68,14 +69,14 @@ export function storyBody({ post, firm, more, nearby }) {
   const call = firm.phone ? `<a href="tel:${esc(String(firm.phone).replace(/[^+\d]/g, ''))}">Call ${esc(firm.name)}</a>` : '';
   return `<article class="st">` +
     (post.image && safePostUrl(post.image) ? `<span class="st-img"><img src="${esc(post.image)}" alt="" decoding="async" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"></span>` : '') +
-    `<div class="st-firm"><span class="st-av">${avatarOf(firm)}</span><span><a class="n" href="/firms/${esc(firm.slug)}">${esc(firm.name)}</a>${firm.featured ? '<span class="ft">Featured</span>' : ''}<small>${esc(firm.city)}, ${esc(firm.province)}${date ? ' &middot; ' + esc(date) : ''}</small></span><button class="lw-fbtn" type="button" data-follow="${esc(firm.slug)}" style="margin-left:auto">Follow</button></div>` +
+    `<div class="st-firm"><span class="st-av">${avatarOf(firm)}</span><span><a class="n" href="${esc(firmPath(firm))}">${esc(firm.name)}</a>${firm.featured ? '<span class="ft">Featured</span>' : ''}<small>${esc(firm.city)}, ${esc(firm.province)}${date ? ' &middot; ' + esc(date) : ''}</small></span><button class="lw-fbtn" type="button" data-follow="${esc(firm.slug)}" style="margin-left:auto">Follow</button></div>` +
     `<h1>${esc(post.title)}</h1>` +
     (post.excerpt ? `<p class="pre">${esc(post.excerpt)}</p>` : '') +
     `<div class="st-cta"><a class="st-go" href="${esc(post.url)}" target="_blank" rel="${firm.featured ? 'noopener sponsored' : 'noopener nofollow'}">Read the full article on ${esc(host)} &rarr;</a><button class="lw-sbtn" type="button" data-save="${Number(post.id)}">Save</button></div>` +
     `<p class="st-note">This is a short preview. The article was written by ${esc(firm.name)} and the full text is on their website.</p>` +
-    `<div class="st-box"><h2>About ${esc(firm.name)}</h2>${tags ? `<div class="st-chips">${tags}</div>` : ''}<div class="st-row"><a href="/firms/${esc(firm.slug)}">See their LawDB profile</a>${call}</div>${socialRow(firm)}</div>` +
+    `<div class="st-box"><h2>About ${esc(firm.name)}</h2>${tags ? `<div class="st-chips">${tags}</div>` : ''}<div class="st-row"><a href="${esc(firmPath(firm))}">See their LawDB profile</a>${call}</div>${socialRow(firm)}</div>` +
     (more.length ? `<div class="st-box"><h2>More from ${esc(firm.name)}</h2><ul>${more.map((m) => `<li><a href="${esc(storyPath(firm.slug, m.id, m.title))}" data-story>${esc(m.title)}</a></li>`).join('')}</ul></div>` : '') +
-    (nearby.length ? `<div class="st-box"><h2>More law firms in ${esc(firm.city)}</h2><ul>${nearby.map((n) => `<li><a href="/firms/${esc(n.slug)}">${esc(n.name)}</a></li>`).join('')}</ul></div>` : '') +
+    (nearby.length ? `<div class="st-box"><h2>More law firms in ${esc(firm.city)}</h2><ul>${nearby.map((n) => `<li><a href="${esc(firmPath(n))}">${esc(n.name)}</a></li>`).join('')}</ul></div>` : '') +
     `</article>`;
 }
 
@@ -86,7 +87,7 @@ export function renderStoryPage({ post, firm, more, nearby, origin = 'https://la
   const desc = (base.length >= 70 ? base : `${base.replace(/[.\s]+$/, '')}. A story from ${firm.name} in ${firm.city}, ${firm.province}, on LawDB News.`).slice(0, 155);
   const ld = JSON.stringify({
     '@context': 'https://schema.org', '@type': 'BreadcrumbList',
-    itemListElement: [{ '@type': 'ListItem', position: 1, name: 'LawDB News', item: origin + '/news' }, { '@type': 'ListItem', position: 2, name: firm.name, item: origin + '/firms/' + firm.slug }, { '@type': 'ListItem', position: 3, name: post.title, item: url }],
+    itemListElement: [{ '@type': 'ListItem', position: 1, name: 'LawDB News', item: origin + '/news' }, { '@type': 'ListItem', position: 2, name: firm.name, item: origin + firmPath(firm) }, { '@type': 'ListItem', position: 3, name: post.title, item: url }],
   }).replace(/</g, '\\u003c');
   return [
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n' + C.FAVICONS + '\n<meta name="viewport" content="width=device-width, initial-scale=1.0">',

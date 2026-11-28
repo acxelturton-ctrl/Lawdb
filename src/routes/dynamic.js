@@ -7,6 +7,7 @@
 // file is served unchanged, so these pages can never go down because of the database.
 import { withHomeNews } from './home-news.js';
 import { lawyersOf, lawyerHasPage } from '../lib/lawyers.js';
+import { lawyerDirectory } from '../lib/lawyer-address.js';
 import { withDailyFirms } from './home-firms.js';
 
 const cacheSeconds = (env) => {
@@ -17,11 +18,11 @@ const cacheSeconds = (env) => {
 // What the browser needs to list and map a firm. These stay in the database (and on the firm's own page) but are not sent with the
 // directory list: a Maps link nobody reads, a one-line blurb, the picture files of the firm's own page, the Directions link, which the
 // page rebuilds from the address (see SHIM), and the social links, which only the firm's own page shows (about a sixth of the list).
-export const DROPPED_FIELDS = ['mapsUrl', 'blurb', 'dirUrl', 'heroImage', 'bioImage', 'details', 'bookingUrl', 'social', 'comments', 'commentsOff', 'lawyers', 'lawyersOff', 'lawyersLocked', 'lawyerPhotos'];
-const slimRow = (json) => {
+export const DROPPED_FIELDS = ['mapsUrl', 'blurb', 'dirUrl', 'heroImage', 'bioImage', 'details', 'bookingUrl', 'social', 'comments', 'commentsOff', 'lawyers', 'lawyersOff', 'lawyersLocked', 'lawyersSolo', 'lawyerPhotos'];
+const slimRow = (json, dir = null) => {
   const o = JSON.parse(json);
-  // The Featured lawyers of a Featured firm (each has a page of their own) travel as `fl`, a name and a page address each: the map gives each one a pin of their own.
-  const fl = o.featured && Array.isArray(o.lawyers) && o.lawyers.some((l) => l && l.featured === true) ? lawyersOf(o).filter(lawyerHasPage).slice(0, 12).map((l) => ({ n: l.name, s: l.slug })) : [];
+  // The Featured lawyers of a Featured firm (each has a page of their own) travel as `fl`, a name, the lawyer's slug (s) and the address of the page (a, /<a>) each: the map gives each one a pin of their own.
+  const fl = o.featured && Array.isArray(o.lawyers) && o.lawyers.some((l) => l && l.featured === true) ? lawyersOf(o).filter(lawyerHasPage).slice(0, 12).map((l) => ({ n: l.name, s: l.slug, a: ((dir && dir.byFirm.get(o.slug)) || {})[l.slug] || l.slug })) : [];
   for (const k of DROPPED_FIELDS) delete o[k];
   if (fl.length) o.fl = fl;
   return JSON.stringify(o);
@@ -30,9 +31,10 @@ const slimRow = (json) => {
 // The firm list as JSON. With a province, only that province's firms (a city page lists one province; lawdb-map.js fetches the rest
 // the first time someone uses the search box).
 async function firmsBody(env, province = null) {
+  const dir = await lawyerDirectory(env).catch((err) => { console.error('lawyer pages for the firm list failed', err); return null; });
   const st = env.DB.prepare("SELECT data FROM firms WHERE status = 'live'" + (province ? ' AND province = ?' : '') + ' ORDER BY rowid');
   const { results } = await (province ? st.bind(province) : st).all();
-  return '[' + results.map((r) => slimRow(r.data)).join(',') + ']';
+  return '[' + results.map((r) => slimRow(r.data, dir)).join(',') + ']';
 }
 
 // A city page or province hub lists one province; anything else gets everything.

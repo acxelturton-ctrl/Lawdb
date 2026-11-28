@@ -2,6 +2,7 @@
 // the firm's logo on it, the name, the place and its practice areas, and opens the firm's profile. Text is always escaped.
 import * as C from './firm-chunks.generated.js';
 import { esc, PROVINCES } from './firm-page.js';
+import { firmPath } from '../lib/firm-handle.js';
 
 const CSS = `<style>
 .nf-band{max-width:1120px;margin:0 auto;padding:clamp(28px,5vw,56px) clamp(16px,4vw,40px) 10px;box-sizing:border-box;color:#2a2a2a}
@@ -36,7 +37,7 @@ const ARROW = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" strok
 
 const card = (f) => {
   const tags = f.tags.slice(0, 2).map((t) => `<i>${esc(t)}</i>`).join('');
-  return `<a class="nf-card" href="/firms/${esc(f.slug)}">` +
+  return `<a class="nf-card" href="${esc(firmPath(f))}">` +
     `<span class="nf-cover"><img src="${esc(picUrl(f.cover))}" alt="" loading="lazy" decoding="async" style="object-position:${POS.test(f.coverPos || '') ? f.coverPos : 'center'}"></span>` +
     (f.featured ? '<span class="nf-feat">Featured</span>' : '') +
     '<span class="nf-body">' +

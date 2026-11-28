@@ -285,7 +285,7 @@ export async function findFirms(env, { caseType, city, province, languages = [],
     firms: top.map(({ f, about, featured, verified, d, inCity, langHit }) => ({
       // the plain reasons this firm is on the list, so the visitor sees why and not only who
       why: [W.handles(caseName(caseType, lang, province)), inCity ? W.inCity(f.city) : d != null ? W.away(Math.max(1, Math.round(d)), city) : '', langHit ? W.lang(languages[0]) : '', verified ? W.verified : ''].filter(Boolean).join(', '),
-      slug: f.slug, name: f.name, city: f.city, province: f.province, address: f.address || '', phone: f.phone || '',
+      slug: f.slug, handle: f.handle || '', name: f.name, city: f.city, province: f.province, address: f.address || '', phone: f.phone || '',
       tags: (f.tags || []).slice(0, 3), logo: logoOf(f), featured, verified,
       blurb: firstSentence(about), km: d != null ? Math.round(d) : null,
       languages: ((f.details && f.details.languages) || []).slice(0, 3),

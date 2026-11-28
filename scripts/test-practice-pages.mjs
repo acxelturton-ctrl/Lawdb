@@ -32,10 +32,10 @@ for (const [dirName, code] of Object.entries(PROV)) {
       const title = (html.match(/<title>[^<]*\| (\d+) Firms? \| LawDB\.ca<\/title>/) || [])[1];
       if (Number(title) !== n) problems.count.push(`${file}: title says ${title}, data has ${n}`);
       const table = (html.match(/<tbody>[\s\S]*?<\/tbody>/) || [''])[0];
-      const rows = [...table.matchAll(/<tr><td><a href="\/firms\/([a-z0-9-]+)"/g)].map((m) => m[1]);
+      const rows = [...table.matchAll(/<tr><td><a href="\/([a-z0-9-]+)"/g)].map((m) => m[1]);
       if (rows.length !== n) problems.rows.push(`${file}: table has ${rows.length}, data has ${n}`);
       if (new Set(rows).size !== rows.length) problems.dup.push(file);
-      const missing = want.filter((x) => !rows.includes(x.slug));
+      const missing = want.filter((x) => !rows.includes(x.handle || x.slug));
       if (missing.length) problems.missing.push(`${file}: ${missing[0].slug}`);
       const ld = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
       const items = (ld.find((x) => x['@type'] === 'ItemList') || { itemListElement: [] }).itemListElement.length;
@@ -45,8 +45,8 @@ for (const [dirName, code] of Object.entries(PROV)) {
       const stat = (html.match(/<div class="seo-stats"><div><b>(\d+)<\/b>/) || [])[1];
       if (Number(stat) !== n) problems.stat.push(`${file}: stats say ${stat}, data has ${n}`);
       // a Featured badge only where the data says Featured
-      const badges = [...table.matchAll(/<a href="\/firms\/([a-z0-9-]+)">[^<]*<\/a> <span class="seo-feat">/g)].map((m) => m[1]);
-      for (const slug of badges) if (!want.find((x) => x.slug === slug)?.featured) problems.feat.push(`${file}: ${slug}`);
+      const badges = [...table.matchAll(/<a href="\/([a-z0-9-]+)">[^<]*<\/a> <span class="seo-feat">/g)].map((m) => m[1]);
+      for (const slug of badges) if (!want.find((x) => (x.handle || x.slug) === slug)?.featured) problems.feat.push(`${file}: ${slug}`);
       if (/\blaw law firms\b/.test(html)) problems.lawlaw.push(file);
     }
   }

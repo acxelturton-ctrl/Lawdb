@@ -1,4 +1,4 @@
-// A firm's Articles page (/firms/<slug>/articles; src/lib/articles.js, src/render/firm-page.js, src/routes/firm-page.js, src/routes/firm-sitemap.js):
+// A firm's Articles page (/<slug>/articles; src/lib/articles.js, src/render/firm-page.js, src/routes/firm-page.js, src/routes/firm-sitemap.js):
 //   node --no-warnings scripts/test-articles-tab.mjs
 // Every firm with enough articles has the tab and none at the bottom of its Overview; it lists what LawDB News lists, is its own page (title, description, h1, canonical,
 // markup, sitemap), only a Featured firm's page is offered to search engines, and a firm without enough articles has no tab, no link and a 404, never an empty page.
@@ -37,7 +37,7 @@ ok(MIN_ARTICLES === 3 && MAX_ARTICLES === 20, 'three articles make a page; at mo
 
 // ---- the queries, on a real database
 const db = new DatabaseSync(':memory:');
-db.exec("CREATE TABLE firms (slug TEXT PRIMARY KEY, data TEXT, status TEXT, about TEXT, updated_at TEXT, featured INTEGER DEFAULT 0)");
+db.exec("CREATE TABLE firms (slug TEXT PRIMARY KEY, handle TEXT, data TEXT, status TEXT, about TEXT, updated_at TEXT, featured INTEGER DEFAULT 0)");
 db.exec('CREATE TABLE firm_feeds (firm_slug TEXT PRIMARY KEY, enabled INTEGER DEFAULT 1, page_only INTEGER DEFAULT 0, source TEXT DEFAULT \'auto\')');
 db.exec('CREATE TABLE firm_posts (id INTEGER PRIMARY KEY, firm_slug TEXT, title TEXT, url TEXT, published_at TEXT, excerpt TEXT, image_url TEXT)');
 const d1 = { prepare(sql) { const st = db.prepare(sql); let a = []; const o = { bind(...x) { a = x; return o; }, async first() { return st.get(...a) ?? null; }, async all() { return { results: st.all(...a) }; } }; return o; } };
@@ -92,10 +92,10 @@ const parts = (html) => ({
 const tabs = (h) => (h.match(/<nav class="pf-tabs"[\s\S]*?<\/nav>/) || [''])[0];
 const ov = render(featured, null), pg = render(featured, { tab: 'articles' });
 const P = parts(pg), O = parts(ov);
-ok(/<a href="\/firms\/[^"]+">Overview<\/a>/.test(tabs(pg)) && /href="\/firms\/[^"]+\/articles" aria-current="page">Articles <span class="n">6<\/span>/.test(tabs(pg)), 'the tab bar has Overview and Articles with their count, and Articles is the open one (plain links)');
-ok(/href="\/firms\/[^"]+\/articles">Articles <span class="n">6<\/span>/.test(tabs(ov)) && /aria-current="page">Overview/.test(tabs(ov)), 'the Overview has the same bar with Overview open');
+ok(/<a href="\/[^"]+">Overview<\/a>/.test(tabs(pg)) && /href="\/[^"]+\/articles" aria-current="page">Articles <span class="n">6<\/span>/.test(tabs(pg)), 'the tab bar has Overview and Articles with their count, and Articles is the open one (plain links)');
+ok(/href="\/[^"]+\/articles">Articles <span class="n">6<\/span>/.test(tabs(ov)) && /aria-current="page">Overview/.test(tabs(ov)), 'the Overview has the same bar with Overview open');
 ok(!ov.includes('class="fa"') && !ov.includes('class="fa-row"') && !ov.includes('Recent articles') && !ov.includes('Article number'), 'the Overview has no articles on it: they are all on the Articles page');
-ok(P.canon === `https://lawdb.ca/firms/${slug}/articles` && O.canon === `https://lawdb.ca/firms/${slug}`, 'the page is its own canonical');
+ok(P.canon === `https://lawdb.ca/${slug}/articles` && O.canon === `https://lawdb.ca/${slug}`, 'the page is its own canonical');
 ok(P.title === `${base.name} – Articles from ${base.city} | LawDB` && P.title !== O.title && P.desc !== O.desc, `its own title: "${P.title}", and its own description`);
 ok(P.h1.length === 1 && P.h1[0] === `Articles by ${base.name}`, 'one h1: "Articles by <firm>"');
 ok(P.desc.length >= 60 && P.desc.length <= 160 && /6 recent articles/.test(P.desc), `the description fits a search result (${P.desc.length} characters)`);
@@ -113,19 +113,19 @@ ok(articlesHrefs(pg).length === 6 && articlesHrefs(pg).every((h) => /^\/news\/[a
 function articlesHrefs(h) { return [...h.matchAll(/<a class="fa-main" href="([^"]+)"/g)].map((m) => m[1]); }
 ok(!pg.includes('<b>you</b>') && !pg.includes('&lt;b&gt;') && pg.includes('Why you need &quot;a will&quot; &amp; a plan'), 'markup in a headline is removed and the rest is shown as text');
 ok(!/(?:href|src)="\.\.\//.test(pg), 'no relative "../" links on the nested page');
-ok(pg.includes(`href="/firms/${slug}#contact"`) && !pg.includes('data-open-contact'), 'the Request a consultation buttons (card and phone bar) go to the firm\'s contact form on the Overview');
+ok(pg.includes(`href="/${slug}#contact"`) && !pg.includes('data-open-contact'), 'the Request a consultation buttons (card and phone bar) go to the firm\'s contact form on the Overview');
 ok(/<p class="li-name">/.test(pg) && !/<h1[^>]*class="li-name"/.test(pg), 'the firm card does not add a second h1');
 
 // pages that must not exist, and tabs that must not show
 {
   const b = render(basic, { tab: 'articles' }), P2 = parts(b);
-  ok(b !== null && /href="\/firms\/[^"]+\/articles" aria-current="page">Articles <span class="n">6<\/span>/.test(tabs(b)) && articlesHrefs(b).length === 6, 'a Basic firm with six articles has the Articles page and tab too, with its articles on it');
+  ok(b !== null && /href="\/[^"]+\/articles" aria-current="page">Articles <span class="n">6<\/span>/.test(tabs(b)) && articlesHrefs(b).length === 6, 'a Basic firm with six articles has the Articles page and tab too, with its articles on it');
   const bo = render(basic, null);
-  ok(/href="\/firms\/[^"]+\/articles">Articles <span class="n">6<\/span>/.test(tabs(bo)) && !bo.includes('class="fa-row"'), 'and its Overview shows the tab but no articles');
-  ok(P2.canon === `https://lawdb.ca/firms/${slug}/articles` && P2.h1.length === 1, 'with its own canonical and one h1');
+  ok(/href="\/[^"]+\/articles">Articles <span class="n">6<\/span>/.test(tabs(bo)) && !bo.includes('class="fa-row"'), 'and its Overview shows the tab but no articles');
+  ok(P2.canon === `https://lawdb.ca/${slug}/articles` && P2.h1.length === 1, 'with its own canonical and one h1');
 }
 for (const [label, firm] of [['Featured', featured], ['Basic', basic]]) {
-  ok(render(firm, { tab: 'articles' }, arts.slice(0, 2)) === null && !render(firm, null, arts.slice(0, 2)).includes(`/firms/${slug}/articles`), `a ${label} firm with two articles: no page, no tab, no link`);
+  ok(render(firm, { tab: 'articles' }, arts.slice(0, 2)) === null && !render(firm, null, arts.slice(0, 2)).includes(`/${slug}/articles`), `a ${label} firm with two articles: no page, no tab, no link`);
   ok(render(firm, { tab: 'articles' }, []) === null && !tabs(render(firm, null, [])), `a ${label} firm with none: no page, and with only an Overview there is no tab bar at all`);
   ok(renderFirmPage({ firm, view: { tab: 'articles' } }) === null, `${label}: with no articles passed at all, no page`);
   ok(!render(firm, null, arts.slice(0, 2)).includes('class="fa-row"'), `${label}: the two articles it has are not dumped on the Overview either`);
@@ -156,11 +156,11 @@ const withLawyers = { ...featured, lawyers: lawyersData[slug] };
 {
   const res = await firmSitemap({ request: new Request('https://lawdb.ca/sitemap-firms.xml'), env });
   const locs = [...(await res.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-  ok(locs.includes('https://lawdb.ca/firms/feat-many') && locs.includes('https://lawdb.ca/firms/feat-many/articles'), 'the sitemap lists a Featured firm with enough articles and its Articles page');
-  ok(!locs.some((u) => /\/(feat-two|feat-off|basic-many|feat-closed)\/articles$/.test(u)) && locs.includes('https://lawdb.ca/firms/basic-many'), 'and no Articles page for a firm with two articles, a switched-off blog, a closed firm or the Basic plan (a Basic firm\'s Articles page is for visitors, noindex; the firm\'s own page stays)');
+  ok(locs.includes('https://lawdb.ca/feat-many') && locs.includes('https://lawdb.ca/feat-many/articles'), 'the sitemap lists a Featured firm with enough articles and its Articles page');
+  ok(!locs.some((u) => /\/(feat-two|feat-off|basic-many|feat-closed)\/articles$/.test(u)) && locs.includes('https://lawdb.ca/basic-many'), 'and no Articles page for a firm with two articles, a switched-off blog, a closed firm or the Basic plan (a Basic firm\'s Articles page is for visitors, noindex; the firm\'s own page stays)');
   ok(new Set(locs).size === locs.length, 'no address twice');
   const broken = await firmSitemap({ request: new Request('https://lawdb.ca/sitemap-firms.xml'), env: { ...env, DB: { prepare(sql) { if (/firm_posts/.test(sql)) throw new Error('boom'); return d1.prepare(sql); } } } });
-  ok(broken.status === 200 && (await broken.text()).includes('/firms/feat-many</loc>'), 'if the article lookup fails the sitemap is still served, without Articles pages');
+  ok(broken.status === 200 && (await broken.text()).includes('/feat-many</loc>'), 'if the article lookup fails the sitemap is still served, without Articles pages');
 }
 
 // ---- the address
@@ -168,17 +168,17 @@ const withLawyers = { ...featured, lawyers: lawyersData[slug] };
   const calls = [];
   const assets = { fetch: async (r) => { calls.push(new URL(r.url).pathname); return new Response('', { status: 404 }); } };
   const envR = { ASSETS: assets, PUBLIC_CACHE_TTL: '0', DB: { prepare: () => ({ bind: () => ({ first: async () => null, all: async () => ({ results: [] }) }), first: async () => null, all: async () => ({ results: [] }) }) } };
-  const slash = await firmPage({ request: new Request('https://lawdb.ca/firms/a-firm/articles/?x=1'), env: envR });
-  ok(slash.status === 301 && slash.headers.get('location') === '/firms/a-firm/articles?x=1', 'a trailing slash goes to the one address (301)');
-  await firmPage({ request: new Request('https://lawdb.ca/firms/a-firm/articles/second'), env: envR });
-  ok(calls.includes('/firms/a-firm/articles/second'), 'there is nothing under /articles: a longer address is not a page');
-  await firmPage({ request: new Request('https://lawdb.ca/firms/no-such-firm/articles'), env: envR });
-  ok(calls.includes('/firms/no-such-firm/articles'), 'an unknown firm\'s Articles address is a 404');
+  const slash = await firmPage({ request: new Request('https://lawdb.ca/a-firm/articles/?x=1'), env: envR });
+  ok(slash.status === 301 && slash.headers.get('location') === '/a-firm/articles?x=1', 'a trailing slash goes to the one address (301)');
+  await firmPage({ request: new Request('https://lawdb.ca/a-firm/articles/second'), env: envR });
+  ok(calls.includes('/a-firm/articles/second'), 'there is nothing under /articles: a longer address is not a page');
+  await firmPage({ request: new Request('https://lawdb.ca/no-such-firm/articles'), env: envR });
+  ok(calls.includes('/no-such-firm/articles'), 'an unknown firm\'s Articles address is a 404');
 }
 
 // ---- the wiring and the product copy
 const route = readFileSync('src/routes/firm-page.js', 'utf8');
-ok(/\(lawyers\|articles\)/.test(route) && /await listArticles\(env, m\[1\]\)/.test(route) && !/row\.featured \? await listArticles/.test(route) && !/feedPosts/.test(route), 'the route knows the address and asks for every firm\'s articles (no separate list for the Overview)');
+ok(/\(lawyers\|articles\)/.test(route) && /await listArticles\(env, slug\)/.test(route) && !/row\.featured \? await listArticles/.test(route) && !/feedPosts/.test(route), 'the route knows the address and asks for every firm\'s articles (no separate list for the Overview)');
 ok(/view\?\.tab === 'articles' && !articlesIndexable\(row\)/.test(route), 'a Basic firm\'s Articles page gets the noindex tag and header');
 ok(/CACHE_GENERATION = (?:[89]|\d\d)\b/.test(route), 'pages drawn with articles on the Overview are not served from the cache');
 {

@@ -85,9 +85,9 @@
       if (f.why) c.appendChild(el('small', 'aic-why', t('why') + f.why));
       if (f.blurb) c.appendChild(el('p', null, f.blurb));
       var btns = el('div', 'aic-btns');
-      var v = el('a', 'go', t('view')); v.href = '/firms/' + encodeURIComponent(f.slug); btns.appendChild(v);
+      var v = el('a', 'go', t('view')); v.href = '/' + encodeURIComponent(f.handle || f.slug); btns.appendChild(v);
       if (f.phone) { var p = el('a', 'call', t('call')); p.href = 'tel:' + f.phone; btns.appendChild(p); }
-      var q = el('a', 'ask', t('ask')); q.href = '/firms/' + encodeURIComponent(f.slug) + (ev.summary ? '?ask=' + encodeURIComponent(ev.summary) + (lang === 'fr' ? '&lang=fr' : '') : '') + '#contact'; btns.appendChild(q);
+      var q = el('a', 'ask', t('ask')); q.href = '/' + encodeURIComponent(f.handle || f.slug) + (ev.summary ? '?ask=' + encodeURIComponent(ev.summary) + (lang === 'fr' ? '&lang=fr' : '') : '') + '#contact'; btns.appendChild(q);
       c.appendChild(btns); wrap.appendChild(c);
     });
     log.appendChild(wrap);

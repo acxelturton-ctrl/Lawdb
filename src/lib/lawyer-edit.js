@@ -18,7 +18,7 @@ import { checkOwnerText } from './content-rules.js';
 import { cleanLanguages, LANGUAGES } from './details.js';
 import { FEATURED_LOCK } from './firm-edit.js';
 import { imageInfo, IMAGE_RULES, imageCacheKey } from './images.js';
-import { cleanLawyers, photoStateOf, HOSTED_PHOTO, cleanName, cleanLinkedIn, cleanPhone, lawyerSlug, lawyerHasPage, OWNER_TITLE, OWNER_EDUCATION, OWNER_ACHIEVEMENT, MAX_ACHIEVEMENTS, MAX_LAWYERS, MIN_FIRM_LAWYERS, MIN_PAGE_FACTS } from './lawyers.js';
+import { minLawyers, cleanLawyers, photoStateOf, HOSTED_PHOTO, cleanName, cleanLinkedIn, cleanPhone, lawyerSlug, lawyerHasPage, OWNER_TITLE, OWNER_EDUCATION, OWNER_ACHIEVEMENT, MAX_ACHIEVEMENTS, MAX_LAWYERS, MIN_FIRM_LAWYERS, MIN_PAGE_FACTS } from './lawyers.js';
 
 export const LAWYER_PHOTOS_FEATURED = true;
 export const LAWYER_PHOTO_RULES = { minSide: 120, minRatio: 0.5, maxRatio: 1.6, maxBytes: IMAGE_RULES.maxBytes, perUserPerHour: 20, fetchMs: 8000 };
@@ -148,7 +148,7 @@ export function lawyersView(firm) {
   const list = listOf(firm);
   const decided = decisionsOf(firm);
   const shown = list.filter((l) => !l.hidden);
-  const pageExists = shown.length >= MIN_FIRM_LAWYERS && !firm.lawyersOff;
+  const pageExists = shown.length >= minLawyers(firm) && !firm.lawyersOff;
   return {
     lawyers: list.map((l) => {
       const p = photoStateOf(l, decided[l.slug]);
@@ -164,7 +164,7 @@ export function lawyersView(firm) {
     locked: !!firm.lawyersLocked,
     shown: shown.length,
     pageExists,
-    limits: { max: MAX_LAWYERS, minForPage: MIN_FIRM_LAWYERS, minFacts: MIN_PAGE_FACTS },
+    limits: { max: MAX_LAWYERS, minForPage: minLawyers(firm), minFacts: MIN_PAGE_FACTS },
     languages: LANGUAGES,
   };
 }

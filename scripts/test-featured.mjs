@@ -1,6 +1,7 @@
 // Who is marked Featured, and the firm strip on the home page. Only Blottman Legal Services and Barbarian Law have a commission arrangement with
 // LawDB, so only they carry the Featured badge, tick and line. The strip lists the best-rated firms that have a cover photo and their own logo.
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { loadHandles } from './lib/firm-handles.mjs';
 
 let bad = 0;
 const ok = (c, label) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${label}`); if (!c) bad++; };
@@ -42,7 +43,10 @@ ok(JSON.stringify(named) === JSON.stringify([...DROPPED].sort()) && /featured = 
 const home = readFileSync('index.html', 'utf8');
 const strip = home.slice(home.indexOf('<!--more-firms-->'), home.indexOf('<!--/more-firms-->'));
 const cards = strip.match(/<article class="lc">[\s\S]*?<\/article>/g) || [];
-const slugOf = (c) => (c.match(/<h3><a href="\/firms\/([^"]+)">/) || [])[1];
+const handles = loadHandles();
+const handleOf = (c) => (c.match(/<h3><a href="\/([^"]+)">/) || [])[1]; // the cards link to /<handle>
+const slugOfHandle = Object.fromEntries(Object.entries(handles).map(([slug, h]) => [h, slug]));
+const slugOf = (c) => slugOfHandle[handleOf(c)] || handleOf(c);
 const slugs = cards.map(slugOf);
 const added = JSON.parse(readFileSync('data/home-firms.json', 'utf8')).firms;
 ok(JSON.stringify(slugs) === JSON.stringify(added) && added.length === 12, `the home page strip lists the ${added.length} firms in data/home-firms.json, in order`);

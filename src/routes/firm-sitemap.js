@@ -15,7 +15,7 @@ export async function firmSitemap({ request, env }) {
   const origin = (env.SITE_ORIGIN || new URL(request.url).origin).replace(/\/+$/, '');
   try {
     const { results } = await env.DB.prepare(
-      `SELECT slug, handle, updated_at AS updatedAt, about, json_extract(data, '$.lawyers') AS lawyers, json_extract(data, '$.lawyersOff') AS lawyersOff, featured FROM firms WHERE status = 'live' ORDER BY slug LIMIT ${FIRM_SITEMAP_LIMIT}`
+      `SELECT slug, handle, updated_at AS updatedAt, about, json_extract(data, '$.lawyers') AS lawyers, json_extract(data, '$.lawyersOff') AS lawyersOff, json_extract(data, '$.lawyersSolo') AS lawyersSolo, featured FROM firms WHERE status = 'live' ORDER BY slug LIMIT ${FIRM_SITEMAP_LIMIT}`
     ).all();
     const truncated = results.length >= FIRM_SITEMAP_LIMIT;
     if (truncated) console.error(`firm sitemap reached its limit of ${FIRM_SITEMAP_LIMIT} firms: some firms are missing from it; split it into a sitemap index`);

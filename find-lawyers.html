@@ -1265,7 +1265,7 @@ function showResults(skipScroll){
         <div class="frate">${f.rating.toFixed(1)} stars (${f.count})</div>
         <div class="fcard-actions">
           ${f.phone ? `<a class="fa-call" href="tel:${f.phone}" onclick="event.stopPropagation()">Call</a>` : ''}
-          <a class="fa-profile" href="/firms/${f.slug}" onclick="event.stopPropagation()">Profile</a>
+          <a class="fa-profile" href="/firm/${f.handle || f.slug}" onclick="event.stopPropagation()">Profile</a>
         </div>
       </div>`).join('');
   } else {
@@ -1292,7 +1292,7 @@ function showResults(skipScroll){
         </div>
         <div class="ractions">
           ${f.phone ? `<a class="ra-call" href="tel:${f.phone}" onclick="event.stopPropagation()">Call</a>` : ''}
-          <a class="ra-profile" href="/firms/${f.slug}" onclick="event.stopPropagation()">Profile</a>
+          <a class="ra-profile" href="/firm/${f.handle || f.slug}" onclick="event.stopPropagation()">Profile</a>
         </div>
       </div>`).join('');
   }
@@ -1358,13 +1358,13 @@ function popupHtml(f){
     const areaLink = areaSlug && CASE_LABEL[area]
       ? `<a href="/${PROV[0]}/${areaSlug}">${caseLabel(area, f.province)} in ${provName}</a>` : '';
     extra = `<div class="popup-links">
-      <a href="/firms/${f.slug}">Full profile and reviews</a>
+      <a href="/firm/${f.handle || f.slug}">Full profile and reviews</a>
       ${areaLink}
       <a href="${f.dirUrl}" target="_blank" rel="noopener">Directions</a>
     </div>`;
   }
   return `<div class="popup-card">${ptag}<div class="pc-head">${avatarHtml(f, 36)}<h3>${f.name}</h3></div><div class="addr">${f.blurb || f.address}</div>
-    <div class="popup-actions">${callBtn}<a class="pa-profile" href="/firms/${f.slug}">Profile</a></div>${extra}</div>`;
+    <div class="popup-actions">${callBtn}<a class="pa-profile" href="/firm/${f.handle || f.slug}">Profile</a></div>${extra}</div>`;
 }
 
 // --- Swipeable Featured Partner profile card -------------------------------
@@ -1396,7 +1396,7 @@ function featuredCardHtml(f, idx, total){
         <a class="fp-dir" href="${f.dirUrl}" target="_blank" rel="noopener">Directions</a>
         ${f.website ? `<a class="fp-web" href="${f.website}" target="_blank" rel="noopener">Website</a>` : ''}
       </div>
-      <a class="fp-profile" href="/firms/${f.slug}">View Full Profile &rarr;</a>
+      <a class="fp-profile" href="/firm/${f.handle || f.slug}">View Full Profile &rarr;</a>
       ${total > 1 ? `<div class="fp-dots">${dots}</div>` : ''}
     </div>`;
 }

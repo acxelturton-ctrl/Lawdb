@@ -117,7 +117,7 @@
   function nameOf(slug, btn) {
     var t = '', card = btn.closest && btn.closest('.lc, .frow, .fcard, .rcard');
     if (card) { var n = card.querySelector('h3 a, .rname, .fname'); t = n ? (n.firstChild && n.firstChild.nodeType === 3 ? n.firstChild.textContent : n.textContent) : ''; }
-    if (!t && location.pathname.indexOf('/firms/' + slug) === 0) { var h1 = document.querySelector('h1'); t = h1 ? h1.textContent : ''; }
+    if (!t && (location.pathname.indexOf('/firms/' + slug) === 0 || (document.body && document.body.getAttribute('data-firm') === slug))) { var h1 = document.querySelector('h1'); t = h1 ? h1.textContent : ''; }
     if (!t) { all(document, 'a[href$="/firms/' + slug + '"]').some(function (a) { var x = a.textContent.replace(/\s+/g, ' ').trim(); if (x && !/^(view |see )?(profile|website|more|call)/i.test(x)) { t = x; return true; } return false; }); }
     return (t || '').replace(/\s+/g, ' ').trim();
   }

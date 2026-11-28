@@ -1,6 +1,7 @@
 // The firm-dependent parts of a city practice page, rebuilt from the firm data. Used by refresh-practice-pages.mjs (existing pages) and
 // build-city-practice-pages.mjs (new ones). Pure functions: they take page text and return page text.
 import { loadSiteFirms, rated } from './lib/site-firms.mjs';
+import { firmPath } from '../src/lib/firm-handle.js';
 
 // Every firm the site lists: the repository's own plus the ones that listed themselves (data/owner-firms.json).
 export const loadFirms = loadSiteFirms;
@@ -46,7 +47,7 @@ function snapshot(f) {
   return `<p>${esc(f.name)} ${lead} ${f.rating.toFixed(1)} stars, based on ${fmt(f.count)} Google reviews. The office is at ${esc(f.address)}.${tags.length ? ` Listed focus areas: ${esc(tags.join(', '))}.` : ''}${f.featured ? ' It is a Featured partner.' : ''}</p>`;
 }
 
-const row = (f) => `<tr><td><a href="/firms/${f.slug}">${esc(f.name)}</a>${f.featured ? ' <span class="seo-feat">Featured</span>' : ''}</td><td>${rated(f) ? f.rating.toFixed(1) : '&ndash;'}</td><td>${rated(f) ? fmt(f.count) : '&ndash;'}</td><td>${esc(f.address)}</td><td>${esc(phone(f.phone))}</td></tr>`;
+const row = (f) => `<tr><td><a href="${firmPath(f)}">${esc(f.name)}</a>${f.featured ? ' <span class="seo-feat">Featured</span>' : ''}</td><td>${rated(f) ? f.rating.toFixed(1) : '&ndash;'}</td><td>${rated(f) ? fmt(f.count) : '&ndash;'}</td><td>${esc(f.address)}</td><td>${esc(phone(f.phone))}</td></tr>`;
 
 export function refreshHtml(old, ctx, firms, pageExists) {
   const { city, provName, code, dir, type, file = '(page)' } = ctx;
@@ -95,7 +96,7 @@ export function refreshHtml(old, ctx, firms, pageExists) {
   if (ld) {
     const arr = JSON.parse(ld[1]);
     const il = arr.find((x) => x['@type'] === 'ItemList');
-    if (il) il.itemListElement = list.map((f, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://lawdb.ca/firms/${f.slug}`, name: f.name }));
+    if (il) il.itemListElement = list.map((f, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://lawdb.ca${firmPath(f)}`, name: f.name }));
     html = html.replace(ld[0], () => `<script type="application/ld+json">\n${JSON.stringify(arr, null, 1)}\n</script>`);
   }
 

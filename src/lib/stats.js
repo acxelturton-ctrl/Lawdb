@@ -90,7 +90,7 @@ export function eventIncs(body, geo = {}) {
   return null;
 }
 
-// ---- the same message, counted for ONE firm (see migration 0038): only a message about a firm's own page (/firms/<slug>) counts here.
+// ---- the same message, counted for ONE firm (see migration 0038): only a message about a firm's own page (/firms/<slug>, or /firm/<handle>, which the route turns into the slug first) counts here.
 // Returns [[slug, metric, label], ...]. "visitor" is one per browser-tab visit that looked at the page (the page script says so with v:1, using a note
 // that lives only in that tab); the source, region and campaign are counted once per such visit, so they add up to visitors, not to page views.
 export const FIRM_PATH = /^\/firms\/([a-z0-9][a-z0-9-]{0,80})$/;
@@ -155,7 +155,7 @@ export async function trafficReport(env, days) {
     env.DB.prepare('SELECT k1, SUM(n) AS n FROM stats_daily WHERE kind = ? AND day >= ? GROUP BY k1 ORDER BY n DESC').bind('ev', from),
     env.DB.prepare("SELECT k2 AS k1, k1 AS k2, SUM(n) AS n FROM stats_daily WHERE kind = 'ev' AND k1 IN ('call', 'website', 'directions', 'book', 'book-locked') AND day >= ? GROUP BY k2, k1 ORDER BY n DESC LIMIT 15").bind(from),
     sum('search', 20), sum('town', 20), sum('noparse', 20),
-    env.DB.prepare("SELECT k1, SUM(n) AS n FROM stats_daily WHERE kind = 'pv' AND k1 LIKE '/firms/%' AND day >= ? GROUP BY k1 ORDER BY n DESC LIMIT 15").bind(from),
+    env.DB.prepare("SELECT k1, SUM(n) AS n FROM stats_daily WHERE kind = 'pv' AND (k1 LIKE '/firms/%' OR k1 LIKE '/firm/%') AND day >= ? GROUP BY k1 ORDER BY n DESC LIMIT 15").bind(from),
     env.DB.prepare('SELECT MIN(day) AS d FROM stats_daily'),
     env.DB.prepare("SELECT day, SUM(n) AS n FROM stats_daily WHERE kind = 'visit' AND day >= ? GROUP BY day ORDER BY day").bind(torontoDay(new Date(Date.now() - 59 * 86400000))),
     env.DB.prepare("SELECT province, COUNT(*) AS firms FROM firms WHERE status = 'live' GROUP BY province ORDER BY firms DESC"),
@@ -171,11 +171,13 @@ export async function trafficReport(env, days) {
   }
   const total = Object.fromEntries(totals.results.map((r) => [r.kind, r.n]));
 
-  // Page addresses of firms come with the firm's name.
-  const slugs = [...new Set([...firmPages.results, ...eventFirms.results].map((r) => r.k1.replace('/firms/', '')))].filter((s) => /^[a-z0-9-]+$/.test(s)).slice(0, 40);
-  const names = slugs.length ? (await env.DB.prepare(`SELECT slug, name FROM firms WHERE slug IN (${slugs.map(() => '?').join(',')})`).bind(...slugs).all()).results : [];
-  const nameOf = Object.fromEntries(names.map((r) => [r.slug, r.name]));
-  const firmLabel = (p) => nameOf[p.replace('/firms/', '')] || p;
+  // Page addresses of firms come with the firm's name: /firm/<handle> by handle, the older /firms/<slug> by slug.
+  const tokenOf = (p) => p.replace(/^\/firms?\//, '');
+  const tokens = [...new Set([...firmPages.results, ...eventFirms.results].map((r) => tokenOf(r.k1)))].filter((s) => /^[a-z0-9-]+$/.test(s)).slice(0, 40);
+  const names = tokens.length ? (await env.DB.prepare(`SELECT slug, handle, name FROM firms WHERE slug IN (${tokens.map(() => '?').join(',')}) OR handle IN (${tokens.map(() => '?').join(',')})`).bind(...tokens, ...tokens).all()).results : [];
+  const bySlug = Object.fromEntries(names.map((r) => [r.slug, r.name]));
+  const byHandle = Object.fromEntries(names.filter((r) => r.handle).map((r) => [r.handle, r.name]));
+  const firmLabel = (p) => (p.startsWith('/firm/') ? byHandle[tokenOf(p)] : bySlug[tokenOf(p)]) || p;
 
   const report = {
     from, to, days, since: first.results[0]?.d || null,

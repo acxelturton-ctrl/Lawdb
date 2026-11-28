@@ -7,6 +7,8 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { loadSiteFirms, loadOwnerFirms, loadRepoFirms } from './lib/site-firms.mjs';
 import { PROV, BY_SLUG } from './practice-pages-core.mjs';
+import { loadHandles } from './lib/firm-handles.mjs';
+import { firmPath } from '../src/lib/firm-handle.js';
 
 let bad = 0;
 const ok = (c, label) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${label}`); if (!c) bad++; };
@@ -19,16 +21,18 @@ ok(loadSiteFirms().length === repo.size + owner.length, 'the shared loader count
 const slugOf = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 const TYPE_PAGE = Object.fromEntries([...BY_SLUG].map(([slug, t]) => [t[0], slug]));
 let tables = 0, missingRow = 0, zero = 0;
+const handles = loadHandles();
+const addr = (f) => firmPath({ slug: f.slug, handle: handles[f.slug] }); // /firm/<handle>
 for (const f of owner) {
   const dir = `${Object.entries(PROV).find(([, c]) => c === f.province)[0]}/${slugOf(f.city)}`;
   const hub = readFileSync(`${dir}/index.html`, 'utf8');
-  if (!hub.includes(`href="/firms/${f.slug}"`)) missingRow++;
+  if (!hub.includes(`href="${addr(f)}"`)) missingRow++;
   for (const key of f.caseTypes || []) {
     const file = `${dir}/${TYPE_PAGE[key]}.html`;
     if (!existsSync(file)) continue; // a city page for that practice area exists only from four firms up
     tables++;
     const html = readFileSync(file, 'utf8');
-    if (!html.includes(`<a href="/firms/${f.slug}">`) || !html.includes(`https://lawdb.ca/firms/${f.slug}`)) missingRow++;
+    if (!html.includes(`<a href="${addr(f)}">`) || !html.includes(`https://lawdb.ca${addr(f)}`)) missingRow++;
     if (f.rating === 0 && /0\.0 stars|\(0\.0 stars/.test(html)) zero++;
   }
 }

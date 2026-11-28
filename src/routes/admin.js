@@ -217,7 +217,7 @@ export async function createFirm({ request, env }) {
   const status = body.status === undefined ? 'live' : body.status;
   if (!FIRM_STATUSES.includes(status)) throw new HttpError(422, `status must be one of: ${FIRM_STATUSES.join(', ')}`);
   const slug = await createOne(env, admin, body, status);
-  return reply({ ok: true, slug, url: `/firms/${slug}` }, 201);
+  return reply({ ok: true, slug, url: `/firms/${slug}` }, 201); // /firms/<slug> redirects to the page's /firm/<handle>
 }
 
 // Add many firms at once (the admin reads a spreadsheet file in the browser and sends it in small batches). Each row is checked like a single

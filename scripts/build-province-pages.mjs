@@ -10,6 +10,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { PROV, TYPES, esc, fmt, ranked, plural, stats, loadFirms } from './practice-pages-core.mjs';
 import { lawyersOf } from '../src/lib/lawyers.js';
+import { firmPath } from '../src/lib/firm-handle.js';
 
 const CHECK = process.argv.includes('--check');
 const firms = loadFirms();
@@ -53,8 +54,8 @@ function logoTile(f) {
   const mono = initialsOf(f.name);
   const real = f.type === 'logo' && /^(?:images\/logos\/[\w.-]+|img\/[\w-]+)$/.test(f.src || '') && (f.src.startsWith('img/') || existsSync(f.src));
   return real
-    ? `<a class="pp-lg" href="/firms/${f.slug}" tabindex="-1" aria-hidden="true"><img src="/${esc(f.src)}" alt="" loading="lazy" decoding="async" data-mono="${esc(mono)}"></a>`
-    : `<a class="pp-lg pp-mono" href="/firms/${f.slug}" tabindex="-1" aria-hidden="true"><b aria-hidden="true">${esc(mono)}</b></a>`;
+    ? `<a class="pp-lg" href="${firmPath(f)}" tabindex="-1" aria-hidden="true"><img src="/${esc(f.src)}" alt="" loading="lazy" decoding="async" data-mono="${esc(mono)}"></a>`
+    : `<a class="pp-lg pp-mono" href="${firmPath(f)}" tabindex="-1" aria-hidden="true"><b aria-hidden="true">${esc(mono)}</b></a>`;
 }
 
 function card(f, feat) {
@@ -67,13 +68,13 @@ function card(f, feat) {
   const b = blurb(f);
   return `<article class="pp-card${feat ? ' pp-feat' : ''}"><div class="pp-top">${logoTile(f)}<div class="pp-id">` +
     (f.featured ? `<span class="pp-ribbon"><span class="pp-tick" aria-hidden="true">&#10003;</span>Featured</span>` : '') +
-    `<h3><a href="/firms/${f.slug}">${esc(f.name)}</a></h3>` +
+    `<h3><a href="${firmPath(f)}">${esc(f.name)}</a></h3>` +
     (rated ? `<p class="pp-rate"><span class="pp-star" aria-hidden="true">${stars}</span><b>${f.rating.toFixed(1)}</b> <span>from ${fmt(f.count)} Google reviews</span></p>` : `<p class="pp-rate"><span>New on LawDB, no Google rating yet</span></p>`) +
     `<p class="pp-where">${esc(f.city)}, ${esc(PROVINCE[f.province].name)}</p></div></div>` +
     (tags.length ? `<ul class="pp-tags">${tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : '') +
     (b ? `<p class="pp-blurb">${esc(b)}</p>` : '') +
-    (lw.length ? `<p class="pp-law"><span class="pp-avs">${people}</span><span>${lw.length} ${plural(lw.length, 'lawyer', 'lawyers')} &middot; <a href="/firms/${f.slug}/lawyers">Meet the lawyers</a></span></p>` : '') +
-    `<div class="pp-btns"><a class="pp-view" href="/firms/${f.slug}">View profile</a>${tel ? `<a class="pp-call" href="tel:${esc(tel)}" aria-label="Call ${esc(f.name)}">Call ${esc(phoneText(f.phone))}</a>` : ''}</div></article>`;
+    (lw.length ? `<p class="pp-law"><span class="pp-avs">${people}</span><span>${lw.length} ${plural(lw.length, 'lawyer', 'lawyers')} &middot; <a href="${firmPath(f, 'lawyers')}">Meet the lawyers</a></span></p>` : '') +
+    `<div class="pp-btns"><a class="pp-view" href="${firmPath(f)}">View profile</a>${tel ? `<a class="pp-call" href="tel:${esc(tel)}" aria-label="Call ${esc(f.name)}">Call ${esc(phoneText(f.phone))}</a>` : ''}</div></article>`;
 }
 
 const between = (html, a, b) => { const i = html.indexOf(a), j = html.indexOf(b); return i >= 0 && j > i ? html.slice(i + a.length, j) : null; };

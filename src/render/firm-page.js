@@ -2,6 +2,7 @@
 // (see scripts/extract-firm-template.mjs), so a rendered page looks like the originals.
 import { cleanDetails } from '../lib/details.js';
 import { lawyersOf, lawyerHasPage, lawyerLead, inPractice } from '../lib/lawyers.js';
+import { firmPath } from '../lib/firm-handle.js';
 import { considerLawyer } from '../lib/why-consider.js';
 import { FIRM_PRICE, LAWYER_PRICE } from '../lib/plans.js';
 import { cleanComments } from '../lib/comments.js';
@@ -298,7 +299,7 @@ function officesHtml(f) {
 function locationsHtml(f, locations) {
   const list = (Array.isArray(locations) ? locations : []).filter((l) => l && l.slug && l.slug !== f.slug).slice(0, 12);
   if (!list.length) return '';
-  const items = list.map((l) => `<li><a href="/firms/${esc(l.slug)}" class="office-name">${esc(l.name)}</a><span>${esc([l.city, PROVINCES[l.province] ? l.province : ''].filter(Boolean).join(', '))}</span></li>`).join('');
+  const items = list.map((l) => `<li><a href="${esc(firmPath(l))}" class="office-name">${esc(l.name)}</a><span>${esc([l.city, PROVINCES[l.province] ? l.province : ''].filter(Boolean).join(', '))}</span></li>`).join('');
   return `\n    <section class="offices other-locations" aria-label="Other ${esc(f.name)} locations"><h2>Other locations</h2><ul>${items}</ul></section>`;
 }
 
@@ -360,7 +361,7 @@ function breadcrumb(f, prov, extra = []) {
     `<a href="/find-lawyers">Canada</a>${sep}` +
     (ps ? `<a href="/${ps}/">${esc(prov)}</a>` : `<span>${esc(prov)}</span>`) + sep +
     (ps && CITY_HUBS.has(`${ps}/${cs}`) ? `<a href="/${ps}/${cs}/">${esc(f.city)}</a>` : `<span>${esc(f.city)}</span>`) +
-    (extra.length ? sep + `<a href="/firms/${esc(f.slug)}">${esc(f.name)}</a>` + extra.map(([label, href]) => sep + (href ? `<a href="${esc(href)}">${esc(label)}</a>` : `<span>${esc(label)}</span>`)).join('') : '') +
+    (extra.length ? sep + `<a href="${esc(firmPath(f))}">${esc(f.name)}</a>` + extra.map(([label, href]) => sep + (href ? `<a href="${esc(href)}">${esc(label)}</a>` : `<span>${esc(label)}</span>`)).join('') : '') +
     '</nav>';
 }
 
@@ -370,7 +371,7 @@ function likeAside(nearby) {
     const src = safeUrl(n.src), remote = safeUrl(n.logoUrl);
     const av = src ? `<img src="${esc(rootImg(src))}" alt="" loading="lazy">` : remote ? `<img src="${esc(remote)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : monogram(n);
     const sub = (n.tags || []).filter(Boolean)[0] || 'Law practice';
-    return `<div class="pf-like-row"><a class="pf-like-av" href="/firms/${esc(n.slug)}" tabindex="-1" aria-hidden="true">${av}</a><div class="pf-like-t"><a href="/firms/${esc(n.slug)}"><b>${esc(n.name)}</b></a><span>${esc(sub)} &middot; ${esc(n.city)}</span><button class="lw-fbtn pf-btn pf-sm" type="button" data-follow="${esc(n.slug)}">+ Follow</button></div></div>`;
+    return `<div class="pf-like-row"><a class="pf-like-av" href="${esc(firmPath(n))}" tabindex="-1" aria-hidden="true">${av}</a><div class="pf-like-t"><a href="${esc(firmPath(n))}"><b>${esc(n.name)}</b></a><span>${esc(sub)} &middot; ${esc(n.city)}</span><button class="lw-fbtn pf-btn pf-sm" type="button" data-follow="${esc(n.slug)}">+ Follow</button></div></div>`;
   }).join('');
   return rows ? `\n   <aside class="pf-aside" aria-label="Firms you may like"><section class="pf-like"><h2>Firms you may like</h2>${rows}</section></aside>` : '';
 }
@@ -383,7 +384,7 @@ const CONTACT_JS = "<script>(function(){var bs=document.querySelectorAll('[data-
 // On a phone a bar stays at the bottom with Call and Request a consultation, as on lawdb.ai. Another tab of the firm sends the button to the contact form on the Overview.
 function stickyBar(f, tab) {
   const call = f.phone ? `<a class="sk-call" href="tel:${esc(f.phone)}" aria-label="Call ${esc(f.name)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call</a>` : '';
-  const ask = tab === 'overview' ? '<a class="sk-msg" href="#contact" data-open-contact>Request a consultation</a>' : `<a class="sk-msg" href="/firms/${esc(f.slug)}#contact">Request a consultation</a>`;
+  const ask = tab === 'overview' ? '<a class="sk-msg" href="#contact" data-open-contact>Request a consultation</a>' : `<a class="sk-msg" href="${esc(firmPath(f))}#contact">Request a consultation</a>`;
   return `<div class="pf-sticky">${call}${ask}</div>\n  `;
 }
 // ---- the tabs of a firm's profile: Overview (the firm's own address) and Lawyers (/lawyers), and a page for each lawyer with enough to say (/lawyers/<lawyer>) ----
@@ -404,7 +405,7 @@ const joinAnd = (a) => a.join(', ').replace(/, ([^,]*)$/, ' and $1');
 // The pages of a firm's profile: the Overview first, then each page the firm has (Lawyers, Articles; a Jobs page will be one more entry here). The bar shows only
 // when there is more than one. Each tab is a plain link to its own page.
 function profileTabs(f, lw, articles) {
-  const base = `/firms/${f.slug}`;
+  const base = firmPath(f);
   return [
     { k: 'overview', label: 'Overview', href: base },
     ...(lw.length ? [{ k: 'lawyers', label: 'Lawyers', n: lw.length, href: `${base}/lawyers` }] : []),
@@ -420,8 +421,8 @@ function tabsHtml(f, tabs, tab) {
 // On the Overview: the lawyers by name, linking to the Lawyers page and to each lawyer's own page.
 function lawyersTeaser(f, lw) {
   if (!lw.length) return '';
-  const shown = lw.slice(0, 8).map((l) => `<li>${lawyerHasPage(l) ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">${esc(l.name)}</a>` : `<span>${esc(l.name)}</span>`}</li>`).join('');
-  return `\n    <section class="pf-lawyers" aria-label="Lawyers at ${esc(f.name)}"><h2>Lawyers at ${esc(f.name)}</h2><ul>${shown}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">${lw.length > 8 ? `See all ${lw.length} lawyers` : 'See the lawyers page'} &rarr;</a></section>`;
+  const shown = lw.slice(0, 8).map((l) => `<li>${lawyerHasPage(l) ? `<a href="/lawyer/${esc(l.addr || l.slug)}">${esc(l.name)}</a>` : `<span>${esc(l.name)}</span>`}</li>`).join('');
+  return `\n    <section class="pf-lawyers" aria-label="Lawyers at ${esc(f.name)}"><h2>Lawyers at ${esc(f.name)}</h2><ul>${shown}</ul><a class="all" href="${esc(firmPath(f, 'lawyers'))}">${lw.length > 8 ? `See all ${lw.length} lawyers` : 'See the lawyers page'} &rarr;</a></section>`;
 }
 
 // What the page says about where the facts come from: the firm confirmed them, or they were read from its own website. Neither is checked with the law society.
@@ -446,7 +447,7 @@ function lawyersTabHtml(f, lw, prov) {
     const has = lawyerHasPage(l);
     const p = inPractice(l.callYear);
     const facts = [p ? (p.years >= 2 ? `${p.years} years in practice` : `In practice ${p.text}`) : '', l.languages ? joinAnd(l.languages) : ''].filter(Boolean).join(' · ');
-    return `<li class="lw-person">${lawyerAvatar(l)}<div>${l.featured ? '<span class="lw-feat">Featured</span>' : ''}<b>${has ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">${esc(l.name)}</a>` : esc(l.name)}</b>${l.title ? `<span class="t">${esc(l.title)}</span>` : ''}${facts ? `<span class="f">${esc(facts)}</span>` : ''}${callLink(l, 'call')}${has ? `<a class="go" href="/firms/${esc(f.slug)}/lawyers/${esc(l.slug)}">View profile &rarr;</a>` : ''}</div></li>`;
+    return `<li class="lw-person">${lawyerAvatar(l)}<div>${l.featured ? '<span class="lw-feat">Featured</span>' : ''}<b>${has ? `<a href="/lawyer/${esc(l.addr || l.slug)}">${esc(l.name)}</a>` : esc(l.name)}</b>${l.title ? `<span class="t">${esc(l.title)}</span>` : ''}${facts ? `<span class="f">${esc(facts)}</span>` : ''}${callLink(l, 'call')}${has ? `<a class="go" href="/lawyer/${esc(l.addr || l.slug)}">View profile &rarr;</a>` : ''}</div></li>`;
   }).join('');
   // no lead sentence: the heading, the tab's count and the firm's own page already say who the lawyers are and what the firm does
   return `\n    <h1 class="pf-h1">Lawyers at ${esc(f.name)}</h1>\n    <ul class="lw-grid" style="list-style:none;padding:0">${cards}</ul>${claimHtml(f, lw)}\n    <p class="pf-note">${lawyerNote(lw)}</p>`;
@@ -466,10 +467,10 @@ function articlesPageHtml(f, articles, prov) {
 }
 
 function lawyerPageHtml(f, lw, l, prov) {
-  const others = lw.filter((x) => x.slug !== l.slug).slice(0, 6).map((x) => `<li>${lawyerHasPage(x) ? `<a href="/firms/${esc(f.slug)}/lawyers/${esc(x.slug)}">${esc(x.name)}</a>` : `<span>${esc(x.name)}</span>`}</li>`).join('');
+  const others = lw.filter((x) => x.slug !== l.slug).slice(0, 6).map((x) => `<li>${lawyerHasPage(x) ? `<a href="/lawyer/${esc(x.addr || x.slug)}">${esc(x.name)}</a>` : `<span>${esc(x.name)}</span>`}</li>`).join('');
   const links = callLink(l, 'pf-btn') + (l.linkedin ? `<a class="pf-btn" href="${esc(l.linkedin)}" target="_blank" rel="noopener nofollow">LinkedIn</a>` : '') + (l.site ? `<a class="pf-btn" href="${esc(l.site)}" target="_blank" rel="noopener nofollow">On the firm's website</a>` : '') + `<a class="pf-btn pf-primary" href="/firms/${esc(f.slug)}#contact">Request a consultation</a>`;
   // The heading already says who the lawyer is and where they work, so the page does not say it again: what follows is only what is not already on the page.
-  return `\n    <p class="lp-back"><a href="/firms/${esc(f.slug)}/lawyers">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="/firms/${esc(f.slug)}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>${considerHtml(l)}\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="/firms/${esc(f.slug)}/lawyers">See all lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">${lawyerNote([l])}</p>`;
+  return `\n    <p class="lp-back"><a href="${esc(firmPath(f, 'lawyers'))}">&larr; All lawyers at ${esc(f.name)}</a></p>\n    <div class="lp-head">${lawyerAvatar(l, true)}<div><h1 class="pf-h1">${esc(l.name)}</h1>${l.title ? `<p class="t">${esc(l.title)} at <a href="${esc(firmPath(f))}" style="color:inherit">${esc(f.name)}</a>, ${esc(f.city)}, ${esc(prov)}</p>` : ''}</div></div>${considerHtml(l)}\n    <div class="lp-links">${links}</div>\n    ${others ? `<section class="pf-lawyers" aria-label="More lawyers at ${esc(f.name)}"><h2>More lawyers at ${esc(f.name)}</h2><ul>${others}</ul><a class="all" href="${esc(firmPath(f, 'lawyers'))}">See all lawyers &rarr;</a></section>` : ''}\n    <p class="pf-note">${lawyerNote([l])}</p>`;
 }
 
 export function renderFirmPage({ firm: f, hours, images = [], articles = [], nearby = [], locations = [], origin = 'https://lawdb.ca', stats = null, verified = null, view = null }) {
@@ -477,13 +478,13 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
   const customCover = /^img\/[0-9a-f]{24}$/.test(f.heroImage || '');
   const ogImage = customCover ? `${origin}/${f.heroImage}` : `${origin}/images/og-lawdb.jpg`;
   // Which page of the profile: the Overview, the Lawyers page, or one lawyer's page. null when that page has nothing to show (the route answers 404, never an empty page).
-  const lw = lawyersOf(f);
+  const lw = lawyersOf(f).map((l) => ({ ...l, addr: (view && view.lawyerAddr && view.lawyerAddr[l.slug]) || l.slug })); // addr: the lawyer's own page is /lawyer/<addr>
   const tabs = profileTabs(f, lw, articles);
   const tab = view && view.tab === 'lawyers' ? 'lawyers' : view && view.tab === 'lawyer' ? 'lawyer' : view && view.tab === 'articles' ? 'articles' : 'overview';
   const lawyer = tab === 'lawyer' ? lw.find((x) => x.slug === view.lawyer) : null;
   if ((tab === 'lawyers' && !lw.length) || (tab === 'lawyer' && !(lawyer && lawyerHasPage(lawyer))) || (tab === 'articles' && !articlesTabOn(articles))) return null;
-  const base = `${origin}/firms/${f.slug}`;
-  const url = tab === 'overview' ? base : tab === 'lawyers' ? `${base}/lawyers` : tab === 'articles' ? `${base}/articles` : `${base}/lawyers/${lawyer.slug}`;
+  const base = `${origin}${firmPath(f)}`;
+  const url = tab === 'overview' ? base : tab === 'lawyers' ? `${base}/lawyers` : tab === 'articles' ? `${base}/articles` : `${origin}/lawyer/${lawyer.addr || lawyer.slug}`;
   const about = typeof f.about === 'string' ? f.about.trim() : '';
   // The search result shows about 155 characters: as many names as fit, then "and N more".
   const lawyersDesc = () => {
@@ -532,7 +533,7 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
     ...(num(f.lat) && num(f.lng) && !f.approxCoords ? { geo: { '@type': 'GeoCoordinates', latitude: f.lat, longitude: f.lng } } : {}),
     url: base,
     ...(customCover ? { image: ogImage } : {}),
-    ...(tab === 'lawyers' ? { employee: lw.map((l) => ({ '@type': 'Person', name: l.name, ...(l.title ? { jobTitle: l.title } : {}), ...(lawyerHasPage(l) ? { url: `${base}/lawyers/${l.slug}` } : {}) })) } : {}),
+    ...(tab === 'lawyers' ? { employee: lw.map((l) => ({ '@type': 'Person', name: l.name, ...(l.title ? { jobTitle: l.title } : {}), ...(lawyerHasPage(l) ? { url: `${origin}/lawyer/${l.addr || l.slug}` } : {}) })) } : {}),
     ...(website ? { sameAs: [website] } : {}),
     ...(glance ? { ...(glance.founded ? { foundingDate: String(glance.founded) } : {}), ...(glance.languages ? { knowsLanguage: glance.languages } : {}), ...(glance.serving ? { areaServed: glance.serving } : {}) } : {}),
   };
@@ -554,7 +555,7 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
   // The website is in the icon row and Directions is on the location card.
   const actions =
     '<div class="li-actions pf-actions">' +
-    `<a class="pf-btn pf-primary" href="${tab === 'overview' ? '#contact' : `/firms/${esc(f.slug)}#contact`}"${tab === 'overview' ? ' data-open-contact' : ''}>${IC.msg}<span>Request a consultation</span></a>` +
+    `<a class="pf-btn pf-primary" href="${tab === 'overview' ? '#contact' : `${esc(firmPath(f))}#contact`}"${tab === 'overview' ? ' data-open-contact' : ''}>${IC.msg}<span>Request a consultation</span></a>` +
     (f.phone ? `<a class="pf-btn" href="tel:${esc(f.phone)}">${C.ICONS.phone}<span>${esc(showPhone(f.phone))}</span></a>` : '') +
     '<span class="pf-slot" data-slot="book"></span>' +
     `<button class="lw-fbtn pf-btn pf-follow" type="button" data-follow="${esc(f.slug)}">+ Follow</button>` +
@@ -614,12 +615,12 @@ export function renderFirmPage({ firm: f, hours, images = [], articles = [], nea
     ...[tab === 'lawyer' ? personLd : ld, ...(collectionLd ? [collectionLd] : []), crumbLd].map((o) => `<script type="application/ld+json">\n${jsonForHtml(o)}\n</script>`),
     C.STYLE + (tab === 'overview' ? PHOTO_CSS + GLANCE_CSS + OFFICES_CSS : '') + (tabs.length > 1 ? TABS_CSS : '') + (tab === 'overview' && commentsHtml(f) ? COMMENTS_CSS : '') + (chipsHtml(f, verified) ? CHIPS_CSS : '') + (verified ? VERIFIED_CSS : '') + (tab === 'overview' && f.block && f.block.image ? BLOCK_CSS : '') + (tab === 'overview' && practiceHtml(f, cards) ? PRACTICE_CSS : '') + '\n<link rel="stylesheet" href="../desktop.css">\n<link rel="stylesheet" href="../site.css">\n</head>',
     '<body class="pg-firm pg-msp">\n  ' + C.HEADER,
-    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov, tab === 'overview' ? [] : tab === 'lawyers' ? [['Lawyers', null]] : tab === 'articles' ? [['Articles', null]] : [['Lawyers', `/firms/${f.slug}/lawyers`], [lawyer.name, null]]) + card + tabsHtml(f, tabs, tab) + (tab === 'lawyers' ? lawyersTabHtml(f, lw, prov) : tab === 'articles' ? articlesPageHtml(f, articles, prov) : tab === 'lawyer' ? lawyerPageHtml(f, lw, lawyer, prov) : aboutHtml + practiceHtml(f, cards) + lawyersTeaser(f, lw) + commentsHtml(f) + overviewRest),
+    '  <div class="wrap pf-wrap">\n   <div class="pf-main">\n    ' + breadcrumb(f, prov, tab === 'overview' ? [] : tab === 'lawyers' ? [['Lawyers', null]] : tab === 'articles' ? [['Articles', null]] : [['Lawyers', firmPath(f, 'lawyers')], [lawyer.name, null]]) + card + tabsHtml(f, tabs, tab) + (tab === 'lawyers' ? lawyersTabHtml(f, lw, prov) : tab === 'articles' ? articlesPageHtml(f, articles, prov) : tab === 'lawyer' ? lawyerPageHtml(f, lw, lawyer, prov) : aboutHtml + practiceHtml(f, cards) + lawyersTeaser(f, lw) + commentsHtml(f) + overviewRest),
     carousel(f, nearby),
     tab === 'overview' ? '\n\n    ' + leadScript : '',
     tab === 'overview' ? '\n    ' + CONTACT_JS : '',
     '\n   </div>' + likeAside(nearby) + '\n  </div>\n  ' + stickyBar(f, tab) + C.FOOTER,
   ].join('\n');
-  // The saved page parts use addresses like ../site.css, written for /firms/<slug>; one level deeper they would point at the wrong folder, so they become absolute.
+  // The saved page parts use addresses like ../site.css, written for /firms/<slug> (and /firm/<handle> is as deep); one level deeper they would point at the wrong folder, so they become absolute.
   return tab === 'overview' ? out : out.replace(/(href|src)="\.\.\//g, '$1="/');
 }

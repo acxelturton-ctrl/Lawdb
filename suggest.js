@@ -136,7 +136,7 @@
     }
     function rowFirm(f,kase){
       var tag=(kase&&hasCase(f,kase))?BYID[kase].label:((f.tags&&f.tags[0])||'Law firm');
-      return '<a class="ls-i ls-firm'+(f.featured?' is-feat':'')+'" role="option" data-k="firm" href="'+root+'firms/'+f.slug+'">'+logo(f)+
+      return '<a class="ls-i ls-firm'+(f.featured?' is-feat':'')+'" role="option" data-k="firm" href="'+root+'firm/'+(f.handle||f.slug)+'">'+logo(f)+
         '<span class="ls-t"><b>'+esc(f.name)+(f.featured?'<em class="ls-feat">Featured</em>':'')+'</b><small>'+esc(f.city)+' &middot; '+esc(tag)+'</small></span>'+
         '<span class="ls-r ls-rate"><b>&#9733; '+Number(f.rating).toFixed(1)+'</b> ('+f.count+')</span></a>';
     }

@@ -4,6 +4,8 @@
 //   node scripts/apply-city-guides.mjs          rewrites the pages
 //   node scripts/apply-city-guides.mjs --check  fails if a page is out of date
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { firmPath } from '../src/lib/firm-handle.js';
+import { loadHandles } from './lib/firm-handles.mjs';
 
 const CHECK = process.argv.includes('--check');
 const GUIDES = JSON.parse(readFileSync('data/city-guides.json', 'utf8'));
@@ -14,7 +16,8 @@ function loadFirms() {
   for (const file of readdirSync('data').filter((f) => /^firms-batch-\d+\.json$/.test(f)).sort()) {
     if (released.has(Number(file.match(/\d+/)[0]))) all.push(...JSON.parse(readFileSync(`data/${file}`, 'utf8')));
   }
-  return all;
+  const handles = loadHandles();
+  return all.map((f) => (handles[f.slug] ? { ...f, handle: handles[f.slug] } : f));
 }
 const firms = loadFirms();
 
@@ -37,7 +40,7 @@ function nearBlock(g, label, list) {
   const withDist = list.filter((f) => Number.isFinite(f.lat) && Number.isFinite(f.lng)).map((f) => ({ f, d: km(c, f) })).sort((a, b) => a.d - b.d);
   const near = withDist.filter((x) => x.d <= 1.5);
   if (!near.length) return '';
-  const top = near.slice(0, 4).map((x) => `<a href="/firms/${x.f.slug}">${esc(x.f.name)}</a> (${x.d.toFixed(1)} km)`).join(', ');
+  const top = near.slice(0, 4).map((x) => `<a href="${firmPath(x.f)}">${esc(x.f.name)}</a> (${x.d.toFixed(1)} km)`).join(', ');
   const lead = near.length === list.length ? `All ${list.length} ${esc(label)} firms listed` : `${near.length} of the ${list.length} ${esc(label)} firms listed`;
   return `<h3>Firms close to the courthouse</h3><p>${lead} in ${esc(g.city)} have an office within 1.5 km of the ${esc(c.name)}, ${esc(c.address)}, measured in a straight line from each firm's position on the LawDB map. Closest: ${top}.</p>`;
 }

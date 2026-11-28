@@ -7,6 +7,7 @@
 //   node scripts/refresh-hub-counts.mjs --check  fails if a page is out of date
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { loadSiteFirms, rated } from './lib/site-firms.mjs';
+import { firmPath } from '../src/lib/firm-handle.js';
 
 const CHECK = process.argv.includes('--check');
 const FIRMS_FILE = process.env.HUB_FIRMS_FILE; // test hook: a JSON array of firms to use instead of the repository's
@@ -47,12 +48,12 @@ const byCount = (arr) => [...arr].sort((a, b) => b.n - a.n);
 function row(f) {
   if (!rated(f)) {
     const tags0 = (f.tags || []).filter(Boolean).slice(0, 3);
-    return `<a class="frow" href="/firms/${f.slug}"><span class="rname">${esc(f.name)}${f.featured ? '<span class="seo-feat">Featured</span>' : ''}</span><span class="rmeta">New on LawDB${tags0.length ? ' &middot; ' + esc(tags0.join(', ')) : ''}${f.address ? ' &middot; ' + esc(f.address) : ''}</span></a>`;
+    return `<a class="frow" href="${firmPath(f)}"><span class="rname">${esc(f.name)}${f.featured ? '<span class="seo-feat">Featured</span>' : ''}</span><span class="rmeta">New on LawDB${tags0.length ? ' &middot; ' + esc(tags0.join(', ')) : ''}${f.address ? ' &middot; ' + esc(f.address) : ''}</span></a>`;
   }
   const stars = '★'.repeat(Math.max(1, Math.ceil(f.rating - 0.5)));
   const tags = (f.tags || []).filter(Boolean).slice(0, 3);
   const meta = `${stars} ${f.rating.toFixed(1)} from ${f.count} Google reviews${tags.length ? ' &middot; ' + esc(tags.join(', ')) : ''}${f.address ? ' &middot; ' + esc(f.address) : ''}`;
-  return `<a class="frow" href="/firms/${f.slug}"><span class="rname">${esc(f.name)}${f.featured ? '<span class="seo-feat">Featured</span>' : ''}</span><span class="rmeta">${meta}</span></a>`;
+  return `<a class="frow" href="${firmPath(f)}"><span class="rname">${esc(f.name)}${f.featured ? '<span class="seo-feat">Featured</span>' : ''}</span><span class="rmeta">${meta}</span></a>`;
 }
 
 // the street that several firms share ("Several firms are located on Carling Ave.")
@@ -112,7 +113,7 @@ function cityPage(file, province) {
 
   // Every firm in the city as a plain link, A to Z. The top-rated list above stops at 20, and a firm page that no other page links to is
   // only known to Google through the sitemap, which is the weakest way for a page to get indexed.
-  const allFirms = `<!--all-firms--><h3>All ${list.length} law firms in ${esc(city)}</h3><ul class="seo-all">${[...list].sort((a, b) => a.name.localeCompare(b.name)).map((f) => `<li><a href="/firms/${f.slug}">${esc(f.name)}</a></li>`).join('')}</ul><!--/all-firms-->`;
+  const allFirms = `<!--all-firms--><h3>All ${list.length} law firms in ${esc(city)}</h3><ul class="seo-all">${[...list].sort((a, b) => a.name.localeCompare(b.name)).map((f) => `<li><a href="${firmPath(f)}">${esc(f.name)}</a></li>`).join('')}</ul><!--/all-firms-->`;
   html = html.includes('<!--all-firms-->')
     ? html.replace(/<!--all-firms-->[\s\S]*?<!--\/all-firms-->/, () => allFirms)
     : html.replace(/(<div class="flist">[\s\S]*?<\/div>)/, (m) => `${m}\n    ${allFirms}`);

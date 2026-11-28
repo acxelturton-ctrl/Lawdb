@@ -18,7 +18,7 @@ export async function mainOf(env, slug) {
 
 export async function locationsOf(env, mainSlug) {
   return (await env.DB.prepare(
-    `SELECT f.slug, f.name, f.city, f.province, f.status, f.featured FROM firm_locations l JOIN firms f ON f.slug = l.location_slug
+    `SELECT f.slug, f.handle, f.name, f.city, f.province, f.status, f.featured FROM firm_locations l JOIN firms f ON f.slug = l.location_slug
      WHERE l.main_slug = ? ORDER BY f.province, f.city, f.name`
   ).bind(mainSlug).all()).results.map((r) => ({ ...r, featured: !!r.featured }));
 }
@@ -28,7 +28,7 @@ export async function siblingsOf(env, slug) {
   const main = await mainOf(env, slug);
   const root = main ? main.slug : slug;
   return (await env.DB.prepare(
-    `SELECT slug, name, city, province FROM firms
+    `SELECT slug, handle, name, city, province FROM firms
      WHERE status = 'live' AND slug != ? AND (slug = ? OR slug IN (SELECT location_slug FROM firm_locations WHERE main_slug = ?))
      ORDER BY (slug = ?) DESC, province, city, name`
   ).bind(slug, root, root, root).all()).results;

@@ -597,8 +597,11 @@ function photoCard() {
   return box;
 }
 
+// LawDB member ratings are hidden for now (src/lib/features.js: LAWDB_RATINGS, the same switch for the pages); set both to true to show them again.
+const RATINGS_VISIBLE = false;
+
 async function viewProfile() {
-  const { ratings } = await api('GET', '/api/account/ratings');
+  const ratings = RATINGS_VISIBLE ? (await api('GET', '/api/account/ratings')).ratings : [];
   const f = (id, label, key, extra = {}) => { const i = h('input', { type: 'text', id, value: user[key] || '', maxlength: 100, ...extra }); return [h('label', { for: id }, label), i, i]; };
   const [l1, name] = f('pname', 'Your name', 'name', { autocomplete: 'name' }); const [l2, city] = f('pcity', 'City', 'city', { autocomplete: 'address-level2' });
   const [l3, title] = f('ptitle', 'Job title', 'jobTitle'); const [l4, emp] = f('pemp', 'Law firm or employer', 'employer');
@@ -617,7 +620,7 @@ async function viewProfile() {
     return h('div', { class: 'audit' }, h('div', null, h('a', { href: `/firms/${r.slug}#rate` }, h('b', null, r.name)), ' ', h('span', { class: 'muted' }, '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars) + (r.commentStatus === 'pending' ? ' · comment waiting for review' : ''))), r.comment && h('div', { class: 'muted' }, r.comment), h('div', { class: 'row' }, del));
   }) : [h('p', { class: 'muted' }, 'You have not rated any firms yet. Open a firm page and use "Rate this firm".')]));
   drawMine();
-  return h('div', null, h('h1', null, 'Your profile'), h('p', { class: 'muted' }, `Signed in as ${user.email}. Your name personalises your dashboard and emails.`), photoCard(), h('div', { class: 'card' }, form), h('h2', null, 'Your ratings'), mine,
+  return h('div', null, h('h1', null, 'Your profile'), h('p', { class: 'muted' }, `Signed in as ${user.email}. Your name personalises your dashboard and emails.`), photoCard(), h('div', { class: 'card' }, form), ...(RATINGS_VISIBLE ? [h('h2', null, 'Your ratings'), mine] : []),
     h('p', { class: 'muted' }, h('a', { href: '#', title: 'Ends every session on every device', onclick: async (e) => { e.preventDefault(); await api('POST', '/api/auth/logout-all').catch(() => {}); try { localStorage.setItem('lawdb_in', '0'); sessionStorage.removeItem('lawdb_me'); } catch (err) {} location.replace('/account/'); } }, 'Sign out of every device')));
 }
 
